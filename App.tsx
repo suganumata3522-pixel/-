@@ -10,19 +10,28 @@ import {
 } from 'react-native';
 
 const { width: SCREEN_W, height: SCREEN_H } = Dimensions.get('window');
-const PLAYER_SIZE = 50;
-const BULLET_W = 4;
-const BULLET_H = 14;
-const ENEMY_SIZE = 40;
-const BULLET_SPEED = 12;
+const PLAYER_W = 44;
+const PLAYER_H = 56;
+const PIKMIN_SIZE = 22;
+const ENEMY_SIZE = 44;
+const PIKMIN_SPEED = 11;
 const ENEMY_MIN_SPEED = 2;
 const ENEMY_SPEED_RANGE = 3;
-const SHOOT_INTERVAL_MS = 220;
-const ENEMY_SPAWN_INTERVAL_MS = 700;
+const THROW_INTERVAL_MS = 260;
+const ENEMY_SPAWN_INTERVAL_MS = 750;
 const FRAME_MS = 16;
 
-type Bullet = { id: number; x: number; y: number };
-type Enemy = { id: number; x: number; y: number; speed: number; hp: number };
+const PIKMIN_COLORS = ['#ff4d4d', '#ffd93d', '#4d8cff'] as const;
+type PikminColor = (typeof PIKMIN_COLORS)[number];
+
+type Pikmin = {
+  id: number;
+  x: number;
+  y: number;
+  color: PikminColor;
+  rot: number;
+};
+type Enemy = { id: number; x: number; y: number; speed: number };
 type Star = { id: number; x: number; y: number; speed: number; size: number };
 
 let nextId = 1;
@@ -38,8 +47,8 @@ const initialStars = (): Star[] =>
   }));
 
 export default function App() {
-  const [playerX, setPlayerX] = useState(SCREEN_W / 2 - PLAYER_SIZE / 2);
-  const [bullets, setBullets] = useState<Bullet[]>([]);
+  const [playerX, setPlayerX] = useState(SCREEN_W / 2 - PLAYER_W / 2);
+  const [pikmins, setPikmins] = useState<Pikmin[]>([]);
   const [enemies, setEnemies] = useState<Enemy[]>([]);
   const [stars, setStars] = useState<Star[]>(initialStars);
   const [score, setScore] = useState(0);
@@ -49,6 +58,7 @@ export default function App() {
 
   const playerXRef = useRef(playerX);
   playerXRef.current = playerX;
+  const throwIdxRef = useRef(0);
 
   const panResponder = useRef(
     PanResponder.create({
@@ -57,7 +67,7 @@ export default function App() {
       onPanResponderMove: (_, gesture) => {
         const next = Math.max(
           0,
-          Math.min(SCREEN_W - PLAYER_SIZE, gesture.moveX - PLAYER_SIZE / 2),
+          Math.min(SCREEN_W - PLAYER_W, gesture.moveX - PLAYER_W / 2),
         );
         setPlayerX(next);
       },
@@ -65,21 +75,21 @@ export default function App() {
   ).current;
 
   const reset = useCallback(() => {
-    setPlayerX(SCREEN_W / 2 - PLAYER_SIZE / 2);
-    setBullets([]);
+    setPlayerX(SCREEN_W / 2 - PLAYER_W / 2);
+    setPikmins([]);
     setEnemies([]);
     setStars(initialStars());
     setScore(0);
     setLives(3);
     setGameOver(false);
     setStarted(true);
+    throwIdxRef.current = 0;
   }, []);
 
-  // Main game loop
+  // Main loop: starfield, pikmin, enemies
   useEffect(() => {
     if (!started || gameOver) return;
     const tick = setInterval(() => {
-      // Move stars (parallax background)
       setStars((prev) =>
         prev.map((s) => {
           const y = s.y + s.speed;
@@ -89,14 +99,12 @@ export default function App() {
         }),
       );
 
-      // Move bullets up, drop off-screen
-      setBullets((prev) =>
+      setPikmins((prev) =>
         prev
-          .map((b) => ({ ...b, y: b.y - BULLET_SPEED }))
-          .filter((b) => b.y + BULLET_H > 0),
+          .map((p) => ({ ...p, y: p.y - PIKMIN_SPEED, rot: p.rot + 25 }))
+          .filter((p) => p.y + PIKMIN_SIZE > 0),
       );
 
-      // Move enemies down
       setEnemies((prev) =>
         prev
           .map((e) => ({ ...e, y: e.y + e.speed }))
@@ -106,20 +114,24 @@ export default function App() {
     return () => clearInterval(tick);
   }, [started, gameOver]);
 
-  // Auto-shoot
+  // Throw pikmin automatically
   useEffect(() => {
     if (!started || gameOver) return;
-    const shoot = setInterval(() => {
-      setBullets((prev) => [
+    const t = setInterval(() => {
+      const color = PIKMIN_COLORS[throwIdxRef.current % PIKMIN_COLORS.length];
+      throwIdxRef.current += 1;
+      setPikmins((prev) => [
         ...prev,
         {
           id: uid(),
-          x: playerXRef.current + PLAYER_SIZE / 2 - BULLET_W / 2,
-          y: SCREEN_H - 120,
+          x: playerXRef.current + PLAYER_W / 2 - PIKMIN_SIZE / 2,
+          y: SCREEN_H - 140,
+          color,
+          rot: 0,
         },
       ]);
-    }, SHOOT_INTERVAL_MS);
-    return () => clearInterval(shoot);
+    }, THROW_INTERVAL_MS);
+    return () => clearInterval(t);
   }, [started, gameOver]);
 
   // Spawn enemies
@@ -133,7 +145,6 @@ export default function App() {
           x: Math.random() * (SCREEN_W - ENEMY_SIZE),
           y: -ENEMY_SIZE,
           speed: ENEMY_MIN_SPEED + Math.random() * ENEMY_SPEED_RANGE,
-          hp: 1,
         },
       ]);
     }, ENEMY_SPAWN_INTERVAL_MS);
@@ -144,20 +155,19 @@ export default function App() {
   useEffect(() => {
     if (!started || gameOver) return;
 
-    // bullets vs enemies
-    const hitBulletIds = new Set<number>();
+    const hitPikminIds = new Set<number>();
     const hitEnemyIds = new Set<number>();
     let gained = 0;
-    for (const b of bullets) {
+    for (const p of pikmins) {
       for (const e of enemies) {
         if (hitEnemyIds.has(e.id)) continue;
         const overlap =
-          b.x < e.x + ENEMY_SIZE &&
-          b.x + BULLET_W > e.x &&
-          b.y < e.y + ENEMY_SIZE &&
-          b.y + BULLET_H > e.y;
+          p.x < e.x + ENEMY_SIZE &&
+          p.x + PIKMIN_SIZE > e.x &&
+          p.y < e.y + ENEMY_SIZE &&
+          p.y + PIKMIN_SIZE > e.y;
         if (overlap) {
-          hitBulletIds.add(b.id);
+          hitPikminIds.add(p.id);
           hitEnemyIds.add(e.id);
           gained += 10;
           break;
@@ -165,12 +175,11 @@ export default function App() {
       }
     }
 
-    // enemies vs player
     const playerRect = {
       x: playerXRef.current,
-      y: SCREEN_H - 110,
-      w: PLAYER_SIZE,
-      h: PLAYER_SIZE,
+      y: SCREEN_H - 130,
+      w: PLAYER_W,
+      h: PLAYER_H,
     };
     let livesLost = 0;
     const crashedEnemyIds = new Set<number>();
@@ -187,8 +196,8 @@ export default function App() {
       }
     }
 
-    if (hitBulletIds.size > 0) {
-      setBullets((prev) => prev.filter((b) => !hitBulletIds.has(b.id)));
+    if (hitPikminIds.size > 0) {
+      setPikmins((prev) => prev.filter((p) => !hitPikminIds.has(p.id)));
     }
     if (hitEnemyIds.size > 0 || crashedEnemyIds.size > 0) {
       setEnemies((prev) =>
@@ -205,13 +214,13 @@ export default function App() {
         return Math.max(0, next);
       });
     }
-  }, [bullets, enemies, started, gameOver]);
+  }, [pikmins, enemies, started, gameOver]);
 
   return (
     <View style={styles.container} {...panResponder.panHandlers}>
       <StatusBar hidden />
 
-      {/* Starfield background */}
+      {/* Starfield */}
       {stars.map((s) => (
         <View
           key={s.id}
@@ -234,46 +243,79 @@ export default function App() {
         <Text style={styles.hudText}>{'♥'.repeat(lives)}</Text>
       </View>
 
-      {/* Bullets */}
-      {bullets.map((b) => (
+      {/* Pikmin in flight */}
+      {pikmins.map((p) => (
         <View
-          key={b.id}
-          style={[styles.bullet, { left: b.x, top: b.y }]}
-        />
-      ))}
-
-      {/* Enemies */}
-      {enemies.map((e) => (
-        <View key={e.id} style={[styles.enemy, { left: e.x, top: e.y }]}>
-          <View style={styles.enemyEyeL} />
-          <View style={styles.enemyEyeR} />
+          key={p.id}
+          style={[
+            styles.pikminWrap,
+            {
+              left: p.x,
+              top: p.y,
+              transform: [{ rotate: `${p.rot}deg` }],
+            },
+          ]}
+        >
+          {/* leaf stem */}
+          <View style={styles.pikminStem} />
+          <View style={styles.pikminLeaf} />
+          {/* body */}
+          <View style={[styles.pikminBody, { backgroundColor: p.color }]}>
+            <View style={styles.pikminEyeL} />
+            <View style={styles.pikminEyeR} />
+          </View>
         </View>
       ))}
 
-      {/* Player */}
+      {/* Enemies (bulborb-ish) */}
+      {enemies.map((e) => (
+        <View key={e.id} style={[styles.enemy, { left: e.x, top: e.y }]}>
+          <View style={styles.enemySpotL} />
+          <View style={styles.enemySpotR} />
+          <View style={styles.enemyMouth}>
+            <View style={styles.enemyEyeL} />
+            <View style={styles.enemyEyeR} />
+          </View>
+        </View>
+      ))}
+
+      {/* Olimar */}
       {started && !gameOver && (
-        <View
-          style={[
-            styles.player,
-            { left: playerX, top: SCREEN_H - 110 },
-          ]}
-        >
-          <View style={styles.playerNose} />
-          <View style={styles.playerThruster} />
+        <View style={[styles.olimar, { left: playerX, top: SCREEN_H - 130 }]}>
+          {/* antenna */}
+          <View style={styles.olimarAntenna} />
+          <View style={styles.olimarAntennaTip} />
+          {/* helmet */}
+          <View style={styles.olimarHelmet}>
+            <View style={styles.olimarFace}>
+              <View style={styles.olimarNose} />
+              <View style={styles.olimarMustache} />
+            </View>
+            <View style={styles.olimarHelmetShine} />
+          </View>
+          {/* body */}
+          <View style={styles.olimarBody}>
+            <View style={styles.olimarBackpack} />
+          </View>
+          {/* legs */}
+          <View style={styles.olimarLegs}>
+            <View style={styles.olimarLeg} />
+            <View style={styles.olimarLeg} />
+          </View>
         </View>
       )}
 
-      {/* Start / Game over overlay */}
+      {/* Overlay */}
       {(!started || gameOver) && (
         <View style={styles.overlay}>
           <Text style={styles.title}>
-            {gameOver ? 'GAME OVER' : 'SPACE SHOOTER'}
+            {gameOver ? 'GAME OVER' : 'PIKMIN THROW'}
           </Text>
-          {gameOver && (
-            <Text style={styles.finalScore}>SCORE: {score}</Text>
-          )}
+          {gameOver && <Text style={styles.finalScore}>SCORE: {score}</Text>}
           <Text style={styles.instructions}>
-            指で左右にドラッグして移動{'\n'}弾は自動発射されます
+            指でドラッグしてオリマーを移動{'\n'}
+            ピクミンは自動で投げられます{'\n'}
+            敵（チャッピー）を倒してスコアを稼ごう
           </Text>
           <TouchableOpacity style={styles.button} onPress={reset}>
             <Text style={styles.buttonText}>
@@ -289,7 +331,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000018',
+    backgroundColor: '#0a1a2a',
     overflow: 'hidden',
   },
   star: {
@@ -312,70 +354,205 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     letterSpacing: 2,
   },
-  player: {
+
+  // --- Pikmin projectile ---
+  pikminWrap: {
     position: 'absolute',
-    width: PLAYER_SIZE,
-    height: PLAYER_SIZE,
-    backgroundColor: '#4af',
-    borderRadius: 8,
+    width: PIKMIN_SIZE,
+    height: PIKMIN_SIZE + 10,
     alignItems: 'center',
-    justifyContent: 'flex-start',
-    shadowColor: '#4af',
-    shadowOpacity: 0.9,
-    shadowRadius: 10,
   },
-  playerNose: {
-    position: 'absolute',
-    top: -10,
-    width: 0,
-    height: 0,
-    borderLeftWidth: 10,
-    borderRightWidth: 10,
-    borderBottomWidth: 14,
-    borderLeftColor: 'transparent',
-    borderRightColor: 'transparent',
-    borderBottomColor: '#9cf',
+  pikminStem: {
+    width: 2,
+    height: 6,
+    backgroundColor: '#4a2a10',
   },
-  playerThruster: {
+  pikminLeaf: {
     position: 'absolute',
-    bottom: -8,
-    width: 18,
-    height: 10,
-    backgroundColor: '#ff6',
-    borderBottomLeftRadius: 9,
-    borderBottomRightRadius: 9,
-    alignSelf: 'center',
+    top: -2,
+    width: 12,
+    height: 8,
+    backgroundColor: '#5cd45c',
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 8,
+    borderBottomLeftRadius: 2,
+    borderBottomRightRadius: 2,
   },
-  bullet: {
-    position: 'absolute',
-    width: BULLET_W,
-    height: BULLET_H,
-    backgroundColor: '#ff4',
+  pikminBody: {
+    width: PIKMIN_SIZE,
+    height: PIKMIN_SIZE,
+    borderRadius: PIKMIN_SIZE / 2,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+  },
+  pikminEyeL: {
+    width: 4,
+    height: 6,
+    backgroundColor: '#fff',
     borderRadius: 2,
+    marginHorizontal: 1,
   },
+  pikminEyeR: {
+    width: 4,
+    height: 6,
+    backgroundColor: '#fff',
+    borderRadius: 2,
+    marginHorizontal: 1,
+  },
+
+  // --- Enemy (bulborb-style) ---
   enemy: {
     position: 'absolute',
     width: ENEMY_SIZE,
     height: ENEMY_SIZE,
-    backgroundColor: '#e44',
-    borderRadius: 6,
+    backgroundColor: '#d23030',
+    borderRadius: ENEMY_SIZE / 2,
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    paddingBottom: 4,
+    overflow: 'hidden',
+  },
+  enemySpotL: {
+    position: 'absolute',
+    top: 6,
+    left: 6,
+    width: 8,
+    height: 8,
+    backgroundColor: '#fff',
+    borderRadius: 4,
+  },
+  enemySpotR: {
+    position: 'absolute',
+    top: 4,
+    right: 8,
+    width: 6,
+    height: 6,
+    backgroundColor: '#fff',
+    borderRadius: 3,
+  },
+  enemyMouth: {
+    width: ENEMY_SIZE - 8,
+    height: 16,
+    backgroundColor: '#2a0a0a',
+    borderRadius: 8,
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    paddingTop: 10,
   },
   enemyEyeL: {
-    width: 8,
-    height: 8,
-    backgroundColor: '#fff',
-    borderRadius: 4,
+    width: 5,
+    height: 5,
+    backgroundColor: '#ffd93d',
+    borderRadius: 2.5,
   },
   enemyEyeR: {
-    width: 8,
+    width: 5,
+    height: 5,
+    backgroundColor: '#ffd93d',
+    borderRadius: 2.5,
+  },
+
+  // --- Olimar ---
+  olimar: {
+    position: 'absolute',
+    width: PLAYER_W,
+    height: PLAYER_H,
+    alignItems: 'center',
+  },
+  olimarAntenna: {
+    position: 'absolute',
+    top: -8,
+    width: 2,
+    height: 10,
+    backgroundColor: '#888',
+  },
+  olimarAntennaTip: {
+    position: 'absolute',
+    top: -12,
+    width: 6,
+    height: 6,
+    backgroundColor: '#ff3030',
+    borderRadius: 3,
+    shadowColor: '#ff3030',
+    shadowOpacity: 1,
+    shadowRadius: 4,
+  },
+  olimarHelmet: {
+    width: 28,
+    height: 26,
+    backgroundColor: 'rgba(200, 230, 255, 0.55)',
+    borderRadius: 14,
+    borderWidth: 2,
+    borderColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  olimarFace: {
+    width: 18,
+    height: 16,
+    backgroundColor: '#f4c896',
+    borderRadius: 9,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  olimarNose: {
+    width: 6,
+    height: 6,
+    backgroundColor: '#d8a070',
+    borderRadius: 3,
+    marginTop: 2,
+  },
+  olimarMustache: {
+    position: 'absolute',
+    bottom: 2,
+    width: 10,
+    height: 2,
+    backgroundColor: '#333',
+    borderRadius: 1,
+  },
+  olimarHelmetShine: {
+    position: 'absolute',
+    top: 4,
+    left: 4,
+    width: 6,
+    height: 4,
+    backgroundColor: 'rgba(255,255,255,0.7)',
+    borderRadius: 3,
+  },
+  olimarBody: {
+    width: 24,
+    height: 18,
+    backgroundColor: '#e84030',
+    borderRadius: 4,
+    marginTop: -2,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  olimarBackpack: {
+    position: 'absolute',
+    top: 2,
+    width: 14,
+    height: 10,
+    backgroundColor: '#fff',
+    borderRadius: 2,
+    borderWidth: 1,
+    borderColor: '#aaa',
+  },
+  olimarLegs: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: 16,
+    marginTop: 1,
+  },
+  olimarLeg: {
+    width: 5,
     height: 8,
     backgroundColor: '#fff',
-    borderRadius: 4,
+    borderRadius: 2,
   },
+
+  // --- Overlay ---
   overlay: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: 'rgba(0,0,30,0.85)',
@@ -384,14 +561,14 @@ const styles = StyleSheet.create({
     zIndex: 20,
   },
   title: {
-    color: '#9ff',
+    color: '#5cd45c',
     fontSize: 36,
     fontWeight: '900',
     letterSpacing: 4,
     marginBottom: 20,
   },
   finalScore: {
-    color: '#ff4',
+    color: '#ffd93d',
     fontSize: 24,
     fontWeight: '700',
     marginBottom: 20,
@@ -404,13 +581,13 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   button: {
-    backgroundColor: '#4af',
+    backgroundColor: '#5cd45c',
     paddingHorizontal: 40,
     paddingVertical: 14,
     borderRadius: 30,
   },
   buttonText: {
-    color: '#001',
+    color: '#003300',
     fontSize: 18,
     fontWeight: '700',
     letterSpacing: 2,
