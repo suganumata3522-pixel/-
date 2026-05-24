@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "Space Shooter",
+    "slug": "space-shooter",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#000022"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.example.spaceshooter"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#000022"
+      },
+      "package": "com.example.spaceshooter"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}
