@@ -1,0 +1,55 @@
+# プロ野球ニュース自動収集の設定
+# 取得元・検索クエリ・台本生成パラメータを調整できます。
+
+sources:
+  google_news:
+    # Google News RSS の検索クエリ。複数指定可。
+    # ja-JP の最新ニュースを引きます。
+    queries:
+      - "プロ野球"
+      - "NPB"
+      - "セ・リーグ"
+      - "パ・リーグ"
+      - "MLB 日本人"
+    hl: ja
+    gl: JP
+    ceid: "JP:ja"
+
+  rss_feeds:
+    # 直接RSSが取れるサイトを足したい場合はここに列挙。
+    # 例: スポーツ系メディアの公式RSSなど (各サイトの利用規約を確認してください)。
+    - name: ""
+      url: ""
+
+  reddit:
+    # 補助的にRedditのスレッドを取得 (英語混じり・シグナル弱め)
+    enabled: true
+    subreddits:
+      - npb
+      - baseball
+
+aggregation:
+  # 過去 何時間 のニュースまでを対象にするか
+  lookback_hours: 36
+  # 文字 bi-gram Jaccard のしきい値 (0-100)。
+  # 同じ記事の再配信など"ほぼ同文"を弾く用途で使用。
+  # 意味的な重複は後段の Claude にまとめさせる。
+  dedupe_threshold: 55
+  # 台本検討用に Claude へ渡す記事数 (Claudeが取捨選択する)
+  top_n: 10
+  # 最終的に動画で扱う本数 (Claude へのプロンプトに渡す)
+  final_n: 5
+
+script:
+  # Claude のモデル
+  model: "claude-sonnet-4-6"
+  # 1動画の目標尺 (分)
+  target_minutes: 8
+  # 動画のターゲット視聴者像
+  audience: "プロ野球が好きな日本の一般ファン (20-50代)"
+  # ナレーターの口調
+  tone: "落ち着いた解説調。客観的で、誇張や煽りは避ける。"
+
+output:
+  # 生成物の出力先 (実行時に日付サブディレクトリが作られる)
+  dir: "out"
