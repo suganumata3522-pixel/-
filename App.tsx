@@ -13,12 +13,15 @@ const { width: SCREEN_W, height: SCREEN_H } = Dimensions.get('window');
 const PLAYER_W = 44;
 const PLAYER_H = 56;
 const PIKMIN_SIZE = 22;
-const ENEMY_SIZE = 44;
+const ATTACHED_SIZE = 16;
+const ENEMY_SIZE = 48;
 const PIKMIN_SPEED = 11;
-const ENEMY_MIN_SPEED = 2;
-const ENEMY_SPEED_RANGE = 3;
+const ENEMY_MIN_SPEED = 1.6;
+const ENEMY_SPEED_RANGE = 2.4;
 const THROW_INTERVAL_MS = 260;
-const ENEMY_SPAWN_INTERVAL_MS = 750;
+const ENEMY_SPAWN_INTERVAL_MS = 800;
+const DAMAGE_INTERVAL_MS = 500;
+const ENEMY_MAX_HP = 5;
 const FRAME_MS = 16;
 
 const PIKMIN_COLORS = ['#ff4d4d', '#ffd93d', '#4d8cff'] as const;
@@ -28,10 +31,26 @@ type Pikmin = {
   id: number;
   x: number;
   y: number;
+  vx: number;
+  vy: number;
   color: PikminColor;
   rot: number;
 };
-type Enemy = { id: number; x: number; y: number; speed: number };
+type AttachedPikmin = {
+  id: number;
+  color: PikminColor;
+  ox: number;
+  oy: number;
+  rot: number;
+};
+type Enemy = {
+  id: number;
+  x: number;
+  y: number;
+  speed: number;
+  hp: number;
+  attached: AttachedPikmin[];
+};
 type Star = { id: number; x: number; y: number; speed: number; size: number };
 
 let nextId = 1;
@@ -55,21 +74,47 @@ export default function App() {
   const [lives, setLives] = useState(3);
   const [gameOver, setGameOver] = useState(false);
   const [started, setStarted] = useState(false);
+  const [aimVisible, setAimVisible] = useState(false);
+  const [aimPos, setAimPos] = useState({ x: 0, y: 0 });
 
   const playerXRef = useRef(playerX);
   playerXRef.current = playerX;
+  const targetXRef = useRef(SCREEN_W / 2);
+  const targetYRef = useRef(SCREEN_H / 2);
+  const touchingRef = useRef(false);
   const throwIdxRef = useRef(0);
 
   const panResponder = useRef(
     PanResponder.create({
       onStartShouldSetPanResponder: () => true,
       onMoveShouldSetPanResponder: () => true,
-      onPanResponderMove: (_, gesture) => {
+      onPanResponderGrant: (e) => {
+        touchingRef.current = true;
+        const { locationX, locationY } = e.nativeEvent;
+        targetXRef.current = locationX;
+        targetYRef.current = locationY;
+        setAimPos({ x: locationX, y: locationY });
+        setAimVisible(true);
+      },
+      onPanResponderMove: (e, gesture) => {
+        const tx = e.nativeEvent.locationX;
+        const ty = e.nativeEvent.locationY;
+        targetXRef.current = tx;
+        targetYRef.current = ty;
+        setAimPos({ x: tx, y: ty });
         const next = Math.max(
           0,
           Math.min(SCREEN_W - PLAYER_W, gesture.moveX - PLAYER_W / 2),
         );
         setPlayerX(next);
+      },
+      onPanResponderRelease: () => {
+        touchingRef.current = false;
+        setAimVisible(false);
+      },
+      onPanResponderTerminate: () => {
+        touchingRef.current = false;
+        setAimVisible(false);
       },
     }),
   ).current;
@@ -84,9 +129,11 @@ export default function App() {
     setGameOver(false);
     setStarted(true);
     throwIdxRef.current = 0;
+    touchingRef.current = false;
+    setAimVisible(false);
   }, []);
 
-  // Main loop: starfield, pikmin, enemies
+  // Main loop
   useEffect(() => {
     if (!started || gameOver) return;
     const tick = setInterval(() => {
@@ -101,8 +148,19 @@ export default function App() {
 
       setPikmins((prev) =>
         prev
-          .map((p) => ({ ...p, y: p.y - PIKMIN_SPEED, rot: p.rot + 25 }))
-          .filter((p) => p.y + PIKMIN_SIZE > 0),
+          .map((p) => ({
+            ...p,
+            x: p.x + p.vx,
+            y: p.y + p.vy,
+            rot: p.rot + 28,
+          }))
+          .filter(
+            (p) =>
+              p.y + PIKMIN_SIZE > 0 &&
+              p.y < SCREEN_H &&
+              p.x + PIKMIN_SIZE > 0 &&
+              p.x < SCREEN_W,
+          ),
       );
 
       setEnemies((prev) =>
@@ -114,18 +172,39 @@ export default function App() {
     return () => clearInterval(tick);
   }, [started, gameOver]);
 
-  // Throw pikmin automatically
+  // Throw pikmin toward target
   useEffect(() => {
     if (!started || gameOver) return;
     const t = setInterval(() => {
       const color = PIKMIN_COLORS[throwIdxRef.current % PIKMIN_COLORS.length];
       throwIdxRef.current += 1;
+      const px = playerXRef.current + PLAYER_W / 2;
+      const py = SCREEN_H - 140;
+      let dx: number;
+      let dy: number;
+      if (touchingRef.current) {
+        dx = targetXRef.current - px;
+        dy = targetYRef.current - py;
+        const mag = Math.hypot(dx, dy);
+        if (mag < 8) {
+          dx = 0;
+          dy = -1;
+        } else {
+          dx /= mag;
+          dy /= mag;
+        }
+      } else {
+        dx = 0;
+        dy = -1;
+      }
       setPikmins((prev) => [
         ...prev,
         {
           id: uid(),
-          x: playerXRef.current + PLAYER_W / 2 - PIKMIN_SIZE / 2,
-          y: SCREEN_H - 140,
+          x: px - PIKMIN_SIZE / 2,
+          y: py - PIKMIN_SIZE / 2,
+          vx: dx * PIKMIN_SPEED,
+          vy: dy * PIKMIN_SPEED,
           color,
           rot: 0,
         },
@@ -145,36 +224,83 @@ export default function App() {
           x: Math.random() * (SCREEN_W - ENEMY_SIZE),
           y: -ENEMY_SIZE,
           speed: ENEMY_MIN_SPEED + Math.random() * ENEMY_SPEED_RANGE,
+          hp: ENEMY_MAX_HP,
+          attached: [],
         },
       ]);
     }, ENEMY_SPAWN_INTERVAL_MS);
     return () => clearInterval(spawn);
   }, [started, gameOver]);
 
-  // Collision detection
+  // Damage tick: attached pikmin deal damage over time
+  useEffect(() => {
+    if (!started || gameOver) return;
+    const dmg = setInterval(() => {
+      setEnemies((prev) => {
+        let gained = 0;
+        const survived: Enemy[] = [];
+        for (const e of prev) {
+          if (e.attached.length === 0) {
+            survived.push(e);
+            continue;
+          }
+          const newHp = e.hp - e.attached.length;
+          if (newHp <= 0) {
+            gained += 30 + e.attached.length * 10;
+          } else {
+            survived.push({ ...e, hp: newHp });
+          }
+        }
+        if (gained > 0) setScore((s) => s + gained);
+        return survived;
+      });
+    }, DAMAGE_INTERVAL_MS);
+    return () => clearInterval(dmg);
+  }, [started, gameOver]);
+
+  // Collisions
   useEffect(() => {
     if (!started || gameOver) return;
 
-    const hitPikminIds = new Set<number>();
-    const hitEnemyIds = new Set<number>();
-    let gained = 0;
+    // pikmin attach to enemies
+    const attachedPikminIds = new Set<number>();
+    const attachMap = new Map<number, AttachedPikmin[]>();
     for (const p of pikmins) {
       for (const e of enemies) {
-        if (hitEnemyIds.has(e.id)) continue;
         const overlap =
           p.x < e.x + ENEMY_SIZE &&
           p.x + PIKMIN_SIZE > e.x &&
           p.y < e.y + ENEMY_SIZE &&
           p.y + PIKMIN_SIZE > e.y;
         if (overlap) {
-          hitPikminIds.add(p.id);
-          hitEnemyIds.add(e.id);
-          gained += 10;
+          attachedPikminIds.add(p.id);
+          const list = attachMap.get(e.id) ?? [];
+          list.push({
+            id: p.id,
+            color: p.color,
+            ox: Math.max(
+              2,
+              Math.min(
+                ENEMY_SIZE - ATTACHED_SIZE - 2,
+                p.x + PIKMIN_SIZE / 2 - e.x - ATTACHED_SIZE / 2,
+              ),
+            ),
+            oy: Math.max(
+              -ATTACHED_SIZE / 2,
+              Math.min(
+                ENEMY_SIZE - ATTACHED_SIZE,
+                p.y + PIKMIN_SIZE / 2 - e.y - ATTACHED_SIZE / 2,
+              ),
+            ),
+            rot: Math.random() * 30 - 15,
+          });
+          attachMap.set(e.id, list);
           break;
         }
       }
     }
 
+    // enemy vs player collision
     const playerRect = {
       x: playerXRef.current,
       y: SCREEN_H - 130,
@@ -184,7 +310,6 @@ export default function App() {
     let livesLost = 0;
     const crashedEnemyIds = new Set<number>();
     for (const e of enemies) {
-      if (hitEnemyIds.has(e.id)) continue;
       const overlap =
         e.x < playerRect.x + playerRect.w &&
         e.x + ENEMY_SIZE > playerRect.x &&
@@ -196,17 +321,19 @@ export default function App() {
       }
     }
 
-    if (hitPikminIds.size > 0) {
-      setPikmins((prev) => prev.filter((p) => !hitPikminIds.has(p.id)));
+    if (attachedPikminIds.size > 0) {
+      setPikmins((prev) => prev.filter((p) => !attachedPikminIds.has(p.id)));
     }
-    if (hitEnemyIds.size > 0 || crashedEnemyIds.size > 0) {
+    if (attachMap.size > 0 || crashedEnemyIds.size > 0) {
       setEnemies((prev) =>
-        prev.filter(
-          (e) => !hitEnemyIds.has(e.id) && !crashedEnemyIds.has(e.id),
-        ),
+        prev
+          .filter((e) => !crashedEnemyIds.has(e.id))
+          .map((e) => {
+            const adds = attachMap.get(e.id);
+            return adds ? { ...e, attached: [...e.attached, ...adds] } : e;
+          }),
       );
     }
-    if (gained > 0) setScore((s) => s + gained);
     if (livesLost > 0) {
       setLives((l) => {
         const next = l - livesLost;
@@ -243,7 +370,20 @@ export default function App() {
         <Text style={styles.hudText}>{'♥'.repeat(lives)}</Text>
       </View>
 
-      {/* Pikmin in flight */}
+      {/* Aim reticle */}
+      {aimVisible && started && !gameOver && (
+        <View
+          style={[
+            styles.reticle,
+            { left: aimPos.x - 18, top: aimPos.y - 18 },
+          ]}
+          pointerEvents="none"
+        >
+          <View style={styles.reticleRing} />
+        </View>
+      )}
+
+      {/* Flying pikmin */}
       {pikmins.map((p) => (
         <View
           key={p.id}
@@ -256,36 +396,86 @@ export default function App() {
             },
           ]}
         >
-          {/* leaf stem */}
           <View style={styles.pikminStem} />
           <View style={styles.pikminLeaf} />
-          {/* body */}
           <View style={[styles.pikminBody, { backgroundColor: p.color }]}>
-            <View style={styles.pikminEyeL} />
-            <View style={styles.pikminEyeR} />
+            <View style={styles.pikminEye} />
+            <View style={styles.pikminEye} />
           </View>
         </View>
       ))}
 
-      {/* Enemies (bulborb-ish) */}
-      {enemies.map((e) => (
-        <View key={e.id} style={[styles.enemy, { left: e.x, top: e.y }]}>
-          <View style={styles.enemySpotL} />
-          <View style={styles.enemySpotR} />
-          <View style={styles.enemyMouth}>
-            <View style={styles.enemyEyeL} />
-            <View style={styles.enemyEyeR} />
+      {/* Enemies with attached pikmin */}
+      {enemies.map((e) => {
+        const hpRatio = e.hp / ENEMY_MAX_HP;
+        return (
+          <View
+            key={e.id}
+            style={[styles.enemyWrap, { left: e.x, top: e.y }]}
+          >
+            <View
+              style={[
+                styles.enemy,
+                e.attached.length > 0 && styles.enemyHurt,
+              ]}
+            >
+              <View style={styles.enemySpotL} />
+              <View style={styles.enemySpotR} />
+              <View style={styles.enemyMouth}>
+                <View style={styles.enemyEye} />
+                <View style={styles.enemyEye} />
+              </View>
+            </View>
+            {/* HP bar */}
+            {e.hp < ENEMY_MAX_HP && (
+              <View style={styles.hpBarBg}>
+                <View
+                  style={[
+                    styles.hpBarFg,
+                    {
+                      width: `${hpRatio * 100}%`,
+                      backgroundColor:
+                        hpRatio > 0.5
+                          ? '#5cd45c'
+                          : hpRatio > 0.25
+                          ? '#ffd93d'
+                          : '#ff4d4d',
+                    },
+                  ]}
+                />
+              </View>
+            )}
+            {/* Attached pikmin */}
+            {e.attached.map((ap) => (
+              <View
+                key={ap.id}
+                style={[
+                  styles.attachedWrap,
+                  {
+                    left: ap.ox,
+                    top: ap.oy,
+                    transform: [{ rotate: `${ap.rot}deg` }],
+                  },
+                ]}
+              >
+                <View style={styles.attachedLeaf} />
+                <View
+                  style={[
+                    styles.attachedBody,
+                    { backgroundColor: ap.color },
+                  ]}
+                />
+              </View>
+            ))}
           </View>
-        </View>
-      ))}
+        );
+      })}
 
       {/* Olimar */}
       {started && !gameOver && (
         <View style={[styles.olimar, { left: playerX, top: SCREEN_H - 130 }]}>
-          {/* antenna */}
           <View style={styles.olimarAntenna} />
           <View style={styles.olimarAntennaTip} />
-          {/* helmet */}
           <View style={styles.olimarHelmet}>
             <View style={styles.olimarFace}>
               <View style={styles.olimarNose} />
@@ -293,11 +483,9 @@ export default function App() {
             </View>
             <View style={styles.olimarHelmetShine} />
           </View>
-          {/* body */}
           <View style={styles.olimarBody}>
             <View style={styles.olimarBackpack} />
           </View>
-          {/* legs */}
           <View style={styles.olimarLegs}>
             <View style={styles.olimarLeg} />
             <View style={styles.olimarLeg} />
@@ -313,9 +501,10 @@ export default function App() {
           </Text>
           {gameOver && <Text style={styles.finalScore}>SCORE: {score}</Text>}
           <Text style={styles.instructions}>
-            指でドラッグしてオリマーを移動{'\n'}
-            ピクミンは自動で投げられます{'\n'}
-            敵（チャッピー）を倒してスコアを稼ごう
+            画面を指でなぞった方向にピクミンを投げる{'\n'}
+            ピクミンは敵に張り付いてダメージを与える{'\n'}
+            たくさん群がるほど早く倒せる！{'\n'}
+            触れていない時はまっすぐ上に投げる
           </Text>
           <TouchableOpacity style={styles.button} onPress={reset}>
             <Text style={styles.buttonText}>
@@ -355,18 +544,32 @@ const styles = StyleSheet.create({
     letterSpacing: 2,
   },
 
-  // --- Pikmin projectile ---
+  // Aim reticle
+  reticle: {
+    position: 'absolute',
+    width: 36,
+    height: 36,
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 15,
+  },
+  reticleRing: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    borderWidth: 2,
+    borderColor: 'rgba(92, 212, 92, 0.7)',
+    borderStyle: 'dashed',
+  },
+
+  // Pikmin projectile
   pikminWrap: {
     position: 'absolute',
     width: PIKMIN_SIZE,
     height: PIKMIN_SIZE + 10,
     alignItems: 'center',
   },
-  pikminStem: {
-    width: 2,
-    height: 6,
-    backgroundColor: '#4a2a10',
-  },
+  pikminStem: { width: 2, height: 6, backgroundColor: '#4a2a10' },
   pikminLeaf: {
     position: 'absolute',
     top: -2,
@@ -386,14 +589,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'row',
   },
-  pikminEyeL: {
-    width: 4,
-    height: 6,
-    backgroundColor: '#fff',
-    borderRadius: 2,
-    marginHorizontal: 1,
-  },
-  pikminEyeR: {
+  pikminEye: {
     width: 4,
     height: 6,
     backgroundColor: '#fff',
@@ -401,17 +597,47 @@ const styles = StyleSheet.create({
     marginHorizontal: 1,
   },
 
-  // --- Enemy (bulborb-style) ---
-  enemy: {
+  // Attached pikmin (smaller, clinging)
+  attachedWrap: {
     position: 'absolute',
+    width: ATTACHED_SIZE,
+    height: ATTACHED_SIZE + 4,
+    alignItems: 'center',
+    zIndex: 5,
+  },
+  attachedLeaf: {
+    width: 8,
+    height: 5,
+    backgroundColor: '#5cd45c',
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
+  },
+  attachedBody: {
+    width: ATTACHED_SIZE,
+    height: ATTACHED_SIZE,
+    borderRadius: ATTACHED_SIZE / 2,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.5)',
+  },
+
+  // Enemy
+  enemyWrap: {
+    position: 'absolute',
+    width: ENEMY_SIZE,
+    height: ENEMY_SIZE,
+  },
+  enemy: {
     width: ENEMY_SIZE,
     height: ENEMY_SIZE,
     backgroundColor: '#d23030',
     borderRadius: ENEMY_SIZE / 2,
     alignItems: 'center',
     justifyContent: 'flex-end',
-    paddingBottom: 4,
+    paddingBottom: 6,
     overflow: 'hidden',
+  },
+  enemyHurt: {
+    backgroundColor: '#a82020',
   },
   enemySpotL: {
     position: 'absolute',
@@ -432,7 +658,7 @@ const styles = StyleSheet.create({
     borderRadius: 3,
   },
   enemyMouth: {
-    width: ENEMY_SIZE - 8,
+    width: ENEMY_SIZE - 10,
     height: 16,
     backgroundColor: '#2a0a0a',
     borderRadius: 8,
@@ -440,20 +666,28 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
   },
-  enemyEyeL: {
+  enemyEye: {
     width: 5,
     height: 5,
     backgroundColor: '#ffd93d',
     borderRadius: 2.5,
   },
-  enemyEyeR: {
-    width: 5,
-    height: 5,
-    backgroundColor: '#ffd93d',
-    borderRadius: 2.5,
+  hpBarBg: {
+    position: 'absolute',
+    top: -8,
+    left: 2,
+    right: 2,
+    height: 4,
+    backgroundColor: 'rgba(0,0,0,0.6)',
+    borderRadius: 2,
+    overflow: 'hidden',
+  },
+  hpBarFg: {
+    height: '100%',
+    borderRadius: 2,
   },
 
-  // --- Olimar ---
+  // Olimar
   olimar: {
     position: 'absolute',
     width: PLAYER_W,
@@ -552,13 +786,14 @@ const styles = StyleSheet.create({
     borderRadius: 2,
   },
 
-  // --- Overlay ---
+  // Overlay
   overlay: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: 'rgba(0,0,30,0.85)',
     alignItems: 'center',
     justifyContent: 'center',
     zIndex: 20,
+    paddingHorizontal: 20,
   },
   title: {
     color: '#5cd45c',
