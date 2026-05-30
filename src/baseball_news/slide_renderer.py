@@ -89,6 +89,21 @@ def load_fonts(font_path: str) -> Fonts:
 _TOKEN_RE = re.compile(r"\[([^\[\]|]+)\|([^\[\]]+)\]")
 
 
+# 一部の絵文字/装飾文字は標準 CJK フォントに無いので、よく出るものは ASCII 代替に置換する。
+_GLYPH_SUBS = {
+    "➡": "→",
+    "⇒": "→",
+    "⇨": "→",
+    "▶": "▶",
+}
+
+
+def safe_glyphs(s: str) -> str:
+    for k, v in _GLYPH_SUBS.items():
+        s = s.replace(k, v)
+    return s
+
+
 def parse_markup(text: str) -> list[tuple[str, str]]:
     """`[文字列|色]` を [(部分文字列, 色キー), ...] に。"""
     out: list[tuple[str, str]] = []
@@ -364,6 +379,80 @@ def _draw_right_box(
         ry += row_h
 
 
+def _draw_ranking_panel(
+    canvas: Image.Image,
+    rows: list[dict],
+    palette: TeamPalette,
+    fonts: Fonts,
+    *,
+    W: int, y0: int, y1: int,
+) -> None:
+    """球団非依存ランキング (各行: 選手名(球団略称) ➡ stat1 stat2 ...) を中央パネルに描画。"""
+    if not rows:
+        return
+    panel_x0 = 80
+    panel_x1 = W - 80
+    draw_rounded_box(
+        canvas, (panel_x0, y0, panel_x1, y1),
+        fill=(255, 255, 255, 235),
+        outline=palette.primary, outline_w=6, radius=22,
+    )
+    draw = ImageDraw.Draw(canvas)
+
+    n = min(len(rows), 6)
+    rows = rows[:n]
+    inner_pad = 50
+    avail_h = (y1 - y0) - inner_pad * 2
+    # 行は詰めて中央に寄せる
+    row_h = min(110, max(70, avail_h // max(n, 1)))
+    cur_y = y0 + inner_pad + max(0, (avail_h - row_h * n) // 2)
+
+    name_font = fonts.body_bold
+    stat_font = fonts.table_cell
+
+    # 行の左カラム最大幅 (選手名+球団) を計算して縦位置揃え
+    name_strs = []
+    for r in rows:
+        nm = (r.get("name") or "").strip()
+        tm = (r.get("team") or "").strip()
+        name_strs.append(f"{nm}({tm})" if tm else nm)
+    name_col_w = max((_text_w(name_font, s) for s in name_strs), default=0)
+
+    arrow_text = "→"  # ➡ は CJK フォントに無いことが多い
+    arrow_w = _text_w(name_font, arrow_text)
+    stats_x = panel_x0 + inner_pad + name_col_w + 30 + arrow_w + 30
+
+    for s, r in zip(name_strs, rows):
+        # 選手名(球団)
+        draw.text(
+            (panel_x0 + inner_pad, cur_y + (row_h - _line_h(name_font)) // 2),
+            s,
+            font=name_font,
+            fill=palette.text,
+        )
+        # 矢印
+        draw.text(
+            (panel_x0 + inner_pad + name_col_w + 20,
+             cur_y + (row_h - _line_h(name_font)) // 2),
+            arrow_text,
+            font=name_font,
+            fill=palette.accent,
+        )
+        # 統計値 (stats) を等間隔に並べる
+        stats = [str(x) for x in (r.get("stats") or [])]
+        if stats:
+            slots = panel_x1 - inner_pad - stats_x
+            step = slots // max(1, len(stats))
+            for i, val in enumerate(stats):
+                draw.text(
+                    (stats_x + step * i, cur_y + (row_h - _line_h(stat_font)) // 2),
+                    val,
+                    font=stat_font,
+                    fill=palette.text,
+                )
+        cur_y += row_h
+
+
 def _draw_arrow_and_callout(
     canvas: Image.Image,
     callout_text: str,
@@ -482,17 +571,60 @@ def render_slide(
     palette: TeamPalette,
     fonts: Fonts,
     resolution: tuple[int, int] = (1920, 1080),
+    ranking: dict | None = None,
 ) -> Path:
     W, H = resolution
     bg = Image.open(bg_path).convert("RGB")
     bg = fit_cover(bg, W, H)
     canvas = darken(bg, alpha=70).convert("RGBA")
 
+    # 全テキスト入力をフォント安全なグリフに正規化
+    title = safe_glyphs(title or "")
+    if subtitle:
+        subtitle = safe_glyphs(subtitle)
+    if bullets:
+        bullets = [safe_glyphs(b) for b in bullets]
+    if right_box:
+        right_box = {
+            "title": safe_glyphs(right_box.get("title") or ""),
+            "rows": [[safe_glyphs(c) for c in (r or [])] for r in (right_box.get("rows") or [])],
+        }
+    if highlight:
+        highlight = {
+            **highlight,
+            "text": safe_glyphs(highlight.get("text") or ""),
+        }
+    if footer:
+        footer = safe_glyphs(footer)
+    if ranking:
+        ranking = {
+            "rows": [
+                {
+                    "name": safe_glyphs(r.get("name") or ""),
+                    "team": safe_glyphs(r.get("team") or ""),
+                    "stats": [safe_glyphs(s) for s in (r.get("stats") or [])],
+                }
+                for r in (ranking.get("rows") or [])
+            ],
+        }
+
     _draw_title_band(canvas, title, subtitle or "", palette, fonts, W=W)
 
     has_footer = bool(footer)
     footer_top = (H - 100) if has_footer else H
     has_highlight = bool(highlight and (highlight.get("text") or "").strip())
+
+    # ranking スライド (球団非依存ニュースの「○○の比較」型) は中央パネルだけ
+    if ranking and ranking.get("rows"):
+        _draw_ranking_panel(
+            canvas, list(ranking["rows"]), palette, fonts,
+            W=W, y0=180, y1=footer_top - 20,
+        )
+        if has_footer:
+            _draw_footer(canvas, footer, palette, fonts, W=W, H=H)
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        canvas.convert("RGB").save(out_path, "PNG")
+        return out_path
 
     # メイン箇条書きパネル + 右側ボックス
     panel_y0 = 170
@@ -544,11 +676,57 @@ def render_slide(
     return out_path
 
 
-# サムネ共通仕様 (球団に依存しない YouTube 派手定番)
+# サムネ ヘッドラインの黄色ボックスは球団に依存しない YouTube 派手定番
 _THUMB_HEADLINE_BG: RGB = (255, 225, 0)
 _THUMB_HEADLINE_TEXT: RGB = (0, 0, 0)
-_THUMB_MAIN_FILL: RGB = (230, 30, 30)     # 派手赤
-_THUMB_MAIN_OUTLINE: RGB = (0, 0, 0)      # 黒縁
+
+
+def _draw_thumb_caption(
+    draw: ImageDraw.ImageDraw,
+    cx: int,
+    y: int,
+    text: str,
+    *,
+    font: ImageFont.FreeTypeFont,
+    palette: TeamPalette,
+    stroke_w: int,
+) -> None:
+    """サムネのメイン/サブキャッチを palette.thumb_caption_base 色で描画。
+
+    マークアップ [テキスト|赤] / [テキスト|白] などで部分強調可能。
+    強調無し部分は thumb_caption_base、stroke は thumb_caption_outline。
+    """
+    base = palette.thumb_caption_base
+    outline = palette.thumb_caption_outline
+    if "[" not in text:
+        tw = _text_w(font, text)
+        draw.text(
+            (cx - tw // 2, y), text, font=font, fill=base,
+            stroke_width=stroke_w, stroke_fill=outline,
+        )
+        return
+    runs = parse_markup(text)
+    total = sum(_text_w(font, t) for t, _ in runs if t)
+    x = cx - total // 2
+    for tok, color in runs:
+        if not tok:
+            continue
+        c = (color or "").strip().lower()
+        if c in ("default", ""):
+            fill = base
+        elif c in ("赤", "red"):
+            fill = palette.accent
+        elif c in ("白", "white"):
+            fill = (255, 255, 255)
+        elif c in ("黒", "black"):
+            fill = (0, 0, 0)
+        else:
+            fill = palette_color(palette, color)
+        draw.text(
+            (x, y), tok, font=font, fill=fill,
+            stroke_width=stroke_w, stroke_fill=outline,
+        )
+        x += _text_w(font, tok)
 
 
 def render_thumbnail(
@@ -563,37 +741,51 @@ def render_thumbnail(
     fonts: Fonts,
     resolution: tuple[int, int] = (1920, 1080),
 ) -> Path:
-    """サムネ画像。中央上部にロゴ → その下に黄色ヘッドライン → 下半分に派手赤キャッチ。
+    """サムネ画像。上部にロゴ → 黄色ヘッドライン → 下半分にキャッチ。
 
-    ヘッドラインの黄色 + 黒文字、メインキャッチの派手赤 + 黒縁は球団に依存しない共通仕様
-    (YouTube 派手定番)。球団色はロゴ/球団名ボックスに集約する。
+    パレットによってモード分岐:
+      - 通常球団: 背景写真 + キャッチは赤+黒縁 (palette.thumb_caption_base=赤)
+      - Eagles:   背景写真 + キャッチは白+黒縁、強調語のみ赤
+      - default:  背景写真の下半分を黄色帯で塗る (thumb_full_band=True) + 黒+白縁キャッチ
     """
     W, H = resolution
     bg = Image.open(bg_path).convert("RGB")
     bg = fit_cover(bg, W, H)
     canvas = darken(bg, alpha=70).convert("RGBA")
 
-    # 1) ロゴ / 球団名 (上部 1/4 ゾーン中央)
+    headline = safe_glyphs(headline or "")
+    main = safe_glyphs(main or "")
+    sub = safe_glyphs(sub or "")
+
+    # 1) 球団非依存ニュースは下半分を黄色帯で塗る
+    if palette.thumb_full_band:
+        band_y0 = int(H * 0.50)
+        band = Image.new("RGBA", (W, H - band_y0), palette.primary + (245,))
+        canvas.paste(band, (0, band_y0), band)
+        # 上下に黒い縁
+        edge = Image.new("RGBA", (W, 6), (0, 0, 0, 220))
+        canvas.paste(edge, (0, band_y0 - 3), edge)
+
+    # 2) ロゴ / 球団名 (上部 1/4 ゾーン中央)。default パレットはロゴ無し前提でスキップ
     logo_center_y = int(H * 0.16)
-    logo_bottom_y = logo_center_y  # ヘッドラインのアンカー用
-    if logo_path and logo_path.is_file():
-        try:
-            logo = Image.open(logo_path).convert("RGBA")
-            tgt_h = 280
-            r = tgt_h / logo.height
-            tgt_w = int(logo.width * r)
-            # 横長ロゴは画面の 60% までに抑える
-            if tgt_w > int(W * 0.6):
-                r = (W * 0.6) / logo.width
+    logo_bottom_y = logo_center_y
+    if not palette.thumb_full_band:
+        if logo_path and logo_path.is_file():
+            try:
+                logo = Image.open(logo_path).convert("RGBA")
+                tgt_h = 280
+                r = tgt_h / logo.height
                 tgt_w = int(logo.width * r)
-                tgt_h = int(logo.height * r)
-            logo = logo.resize((tgt_w, tgt_h), Image.LANCZOS)
-            canvas.paste(logo, ((W - tgt_w) // 2, logo_center_y - tgt_h // 2), logo)
-            logo_bottom_y = logo_center_y + tgt_h // 2
-        except Exception as e:
-            print(f"  [thumbnail] ロゴ読み込み失敗 {logo_path}: {e}", file=sys.stderr)
-    else:
-        if palette.name:
+                if tgt_w > int(W * 0.6):
+                    r = (W * 0.6) / logo.width
+                    tgt_w = int(logo.width * r)
+                    tgt_h = int(logo.height * r)
+                logo = logo.resize((tgt_w, tgt_h), Image.LANCZOS)
+                canvas.paste(logo, ((W - tgt_w) // 2, logo_center_y - tgt_h // 2), logo)
+                logo_bottom_y = logo_center_y + tgt_h // 2
+            except Exception as e:
+                print(f"  [thumbnail] ロゴ読み込み失敗 {logo_path}: {e}", file=sys.stderr)
+        elif palette.name and palette.key != "default":
             f = fonts.title
             tw = _text_w(f, palette.name)
             pad = 50
@@ -615,8 +807,8 @@ def render_thumbnail(
             )
             logo_bottom_y = y0 + box_h
 
-    # 2) ヘッドライン (固定黄色 + 黒文字, ロゴ直下)
-    if headline:
+    # 3) ヘッドライン (固定黄色 + 黒文字)。default パレットは省略 (下半分黄色帯と重複)
+    if headline and not palette.thumb_full_band:
         hf = fonts.thumb_headline
         max_w = W - 240
         while _text_w(hf, headline) > max_w and hf.size > 40:
@@ -640,42 +832,20 @@ def render_thumbnail(
             fill=_THUMB_HEADLINE_TEXT,
         )
 
-    # 3) 下半分の派手赤キャッチ (固定 赤 + 黒縁)
+    # 4) 下半分のメインキャッチ + サブキャッチ
     draw = ImageDraw.Draw(canvas)
     if main:
         mf = fonts.thumb_main
         while _text_w(mf, main) > W - 80 and mf.size > 60:
             mf = ImageFont.truetype(mf.path, mf.size - 6)
-        my = int(H * 0.62)
-        if "[" not in main:
-            tw = _text_w(mf, main)
-            draw.text(
-                ((W - tw) // 2, my), main, font=mf, fill=_THUMB_MAIN_FILL,
-                stroke_width=10, stroke_fill=_THUMB_MAIN_OUTLINE,
-            )
-        else:
-            draw_centered_markup(
-                draw, W // 2, my, main,
-                font=mf, palette=palette,
-                stroke_w=10, stroke_fill=_THUMB_MAIN_OUTLINE,
-            )
+        my = int(H * 0.62) if not palette.thumb_full_band else int(H * 0.56)
+        _draw_thumb_caption(draw, W // 2, my, main, font=mf, palette=palette, stroke_w=10)
     if sub:
         sf = fonts.thumb_sub
         while _text_w(sf, sub) > W - 80 and sf.size > 50:
             sf = ImageFont.truetype(sf.path, sf.size - 4)
-        sy = int(H * 0.83)
-        if "[" not in sub:
-            tw = _text_w(sf, sub)
-            draw.text(
-                ((W - tw) // 2, sy), sub, font=sf, fill=_THUMB_MAIN_FILL,
-                stroke_width=8, stroke_fill=_THUMB_MAIN_OUTLINE,
-            )
-        else:
-            draw_centered_markup(
-                draw, W // 2, sy, sub,
-                font=sf, palette=palette,
-                stroke_w=8, stroke_fill=_THUMB_MAIN_OUTLINE,
-            )
+        sy = int(H * 0.83) if not palette.thumb_full_band else int(H * 0.80)
+        _draw_thumb_caption(draw, W // 2, sy, sub, font=sf, palette=palette, stroke_w=8)
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
     canvas.convert("RGB").save(out_path, "JPEG", quality=92)

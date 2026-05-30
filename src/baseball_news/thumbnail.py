@@ -133,4 +133,5 @@ def generate_chapter_slide(
         palette=palette,
         fonts=fonts,
         resolution=(width, height),
+        ranking=slide.get("ranking"),
     )
