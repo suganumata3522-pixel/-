@@ -12,3 +12,4 @@ out/
 assets/manual/*/
 !assets/manual/.gitkeep
 !assets/manual/logos/README.md
+!assets/manual/stadiums/README.md

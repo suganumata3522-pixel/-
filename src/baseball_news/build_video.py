@@ -146,6 +146,7 @@ def build_from_script(
                 resolution=resolution,
                 palette=palette,
                 fonts=fonts,
+                assets_dir=assets_dir,
             )
             if not generated:
                 raise RuntimeError(

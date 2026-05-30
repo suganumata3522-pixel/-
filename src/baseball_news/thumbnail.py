@@ -14,6 +14,27 @@ from .slide_renderer import Fonts, render_thumbnail
 from .teams import TeamPalette
 
 
+def _manual_stadium_path(assets_dir: Path, palette: TeamPalette) -> Path | None:
+    """球団テーマに対応する手動配置の球場写真を返す。
+
+    `palette.stadium_filename` の拡張子付きファイル名を優先し、
+    無ければ同名の他拡張子 (.jpg/.jpeg/.png/.webp) も探す。
+    """
+    fname = (palette.stadium_filename or "").strip()
+    if not fname:
+        return None
+    stadium_dir = assets_dir / "manual" / "stadiums"
+    p = stadium_dir / fname
+    if p.is_file():
+        return p
+    stem = p.stem
+    for ext in (".jpg", ".jpeg", ".png", ".webp"):
+        alt = stadium_dir / f"{stem}{ext}"
+        if alt.is_file():
+            return alt
+    return None
+
+
 def generate_thumbnail(
     *,
     script: dict,
@@ -38,27 +59,31 @@ def generate_thumbnail(
     bg_dir = work_dir / "thumbnail_bg"
     bg_dir.mkdir(exist_ok=True)
 
-    saved_min, saved_max = dispatcher.min_per_chapter, dispatcher.max_per_chapter
-    dispatcher.min_per_chapter = 1
-    dispatcher.max_per_chapter = 1
-    try:
-        fetched = dispatcher.collect(
-            ImageRequest(
-                chapter_idx=-1,
-                chapter_title="thumbnail",
-                keywords=keywords,
-                need_count=1,
-            ),
-            out_dir=bg_dir,
-        )
-    finally:
-        dispatcher.min_per_chapter = saved_min
-        dispatcher.max_per_chapter = saved_max
+    bg = _manual_stadium_path(assets_dir, palette)
+    if bg is not None:
+        print(f"  [thumbnail] 球場写真を使用: {bg}", file=sys.stderr)
+    else:
+        saved_min, saved_max = dispatcher.min_per_chapter, dispatcher.max_per_chapter
+        dispatcher.min_per_chapter = 1
+        dispatcher.max_per_chapter = 1
+        try:
+            fetched = dispatcher.collect(
+                ImageRequest(
+                    chapter_idx=-1,
+                    chapter_title="thumbnail",
+                    keywords=keywords,
+                    need_count=1,
+                ),
+                out_dir=bg_dir,
+            )
+        finally:
+            dispatcher.min_per_chapter = saved_min
+            dispatcher.max_per_chapter = saved_max
 
-    if not fetched:
-        print("  [thumbnail] 背景画像が取れませんでした", file=sys.stderr)
-        return None
-    bg = fetched[0].path
+        if not fetched:
+            print("  [thumbnail] 背景画像が取れませんでした", file=sys.stderr)
+            return None
+        bg = fetched[0].path
 
     logo_path = assets_dir / "manual" / "logos" / palette.logo_filename
     if not logo_path.is_file():
@@ -93,33 +118,41 @@ def generate_chapter_slide(
     resolution: str,
     palette: TeamPalette,
     fonts: Fonts,
+    assets_dir: Path,
 ) -> Path | None:
     from .slide_renderer import render_slide
 
-    saved_min, saved_max = dispatcher.min_per_chapter, dispatcher.max_per_chapter
-    dispatcher.min_per_chapter = 1
-    dispatcher.max_per_chapter = 1
-    try:
-        fetched = dispatcher.collect(
-            ImageRequest(
-                chapter_idx=chapter_idx,
-                chapter_title=chapter_title,
-                keywords=image_keywords or [chapter_title, "野球 球場"],
-                need_count=1,
-            ),
-            out_dir=bg_dir,
-        )
-    finally:
-        dispatcher.min_per_chapter = saved_min
-        dispatcher.max_per_chapter = saved_max
-
-    if not fetched:
+    bg = _manual_stadium_path(assets_dir, palette)
+    if bg is not None:
         print(
-            f"  [slide] チャプター {chapter_idx} ({chapter_title}) の背景画像が取れませんでした",
+            f"  [slide ch{chapter_idx:02d}] 球場写真を使用: {bg}",
             file=sys.stderr,
         )
-        return None
-    bg = fetched[0].path
+    else:
+        saved_min, saved_max = dispatcher.min_per_chapter, dispatcher.max_per_chapter
+        dispatcher.min_per_chapter = 1
+        dispatcher.max_per_chapter = 1
+        try:
+            fetched = dispatcher.collect(
+                ImageRequest(
+                    chapter_idx=chapter_idx,
+                    chapter_title=chapter_title,
+                    keywords=image_keywords or [chapter_title, "野球 球場"],
+                    need_count=1,
+                ),
+                out_dir=bg_dir,
+            )
+        finally:
+            dispatcher.min_per_chapter = saved_min
+            dispatcher.max_per_chapter = saved_max
+
+        if not fetched:
+            print(
+                f"  [slide] チャプター {chapter_idx} ({chapter_title}) の背景画像が取れませんでした",
+                file=sys.stderr,
+            )
+            return None
+        bg = fetched[0].path
 
     width, height = (int(x) for x in resolution.split("x"))
     return render_slide(

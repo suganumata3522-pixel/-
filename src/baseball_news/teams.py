@@ -27,6 +27,10 @@ class TeamPalette:
     highlight_red: RGB       # 本文中の重要転換ハイライト (離脱/復帰など)
     text: RGB                # 半透明白ボックス上の本文色
     logo_filename: str       # assets/manual/logos/ 直下のファイル名
+    # 球場 (本拠地) 写真の手動配置ファイル名。assets/manual/stadiums/ 直下。
+    # 拡張子付きで指定 (例: "dragons.jpg")。実ファイルが置かれていれば
+    # 本編スライド・サムネの背景に最優先で使われる。
+    stadium_filename: str = ""
     # サムネのメインキャッチの「ベース文字色」。マークアップで色指定の無い部分に使われる。
     # 通常球団: 赤 (派手定番)、Eagles / 非依存ニュース: 白 (黒太縁で白抜き) または黒
     thumb_caption_base: RGB = (230, 30, 30)
@@ -52,6 +56,7 @@ TEAM_PALETTES: dict[str, TeamPalette] = {
         highlight_red=(220, 0, 0),
         text=(20, 20, 20),
         logo_filename="hanshin.png",
+        stadium_filename="hanshin.jpg",
     ),
     "giants": TeamPalette(
         key="giants",
@@ -65,6 +70,7 @@ TEAM_PALETTES: dict[str, TeamPalette] = {
         highlight_red=(220, 0, 0),
         text=(20, 20, 20),
         logo_filename="giants.png",
+        stadium_filename="giants.jpg",
     ),
     "dragons": TeamPalette(
         key="dragons",
@@ -78,6 +84,7 @@ TEAM_PALETTES: dict[str, TeamPalette] = {
         highlight_red=(220, 0, 0),
         text=(20, 20, 20),
         logo_filename="dragons.png",
+        stadium_filename="dragons.jpg",
     ),
     "baystars": TeamPalette(
         key="baystars",
@@ -92,6 +99,7 @@ TEAM_PALETTES: dict[str, TeamPalette] = {
         highlight_red=(220, 0, 0),
         text=(20, 20, 20),
         logo_filename="baystars.png",
+        stadium_filename="baystars.jpg",
     ),
     "carp": TeamPalette(
         key="carp",
@@ -106,6 +114,7 @@ TEAM_PALETTES: dict[str, TeamPalette] = {
         highlight_red=(180, 0, 0),
         text=(20, 20, 20),
         logo_filename="carp.png",
+        stadium_filename="carp.jpg",
     ),
     "swallows": TeamPalette(
         key="swallows",
@@ -119,6 +128,7 @@ TEAM_PALETTES: dict[str, TeamPalette] = {
         highlight_red=(220, 0, 16),
         text=(20, 20, 20),
         logo_filename="swallows.png",
+        stadium_filename="swallows.jpg",
     ),
     "hawks": TeamPalette(
         key="hawks",
@@ -134,6 +144,7 @@ TEAM_PALETTES: dict[str, TeamPalette] = {
         highlight_red=(220, 0, 0),
         text=(20, 20, 20),
         logo_filename="hawks.png",
+        stadium_filename="hawks.jpg",
     ),
     "marines": TeamPalette(
         key="marines",
@@ -147,6 +158,7 @@ TEAM_PALETTES: dict[str, TeamPalette] = {
         highlight_red=(220, 0, 0),
         text=(20, 20, 20),
         logo_filename="marines.png",
+        stadium_filename="marines.jpg",
     ),
     "fighters": TeamPalette(
         key="fighters",
@@ -160,6 +172,7 @@ TEAM_PALETTES: dict[str, TeamPalette] = {
         highlight_red=(220, 0, 0),
         text=(20, 20, 20),
         logo_filename="fighters.png",
+        stadium_filename="fighters.jpg",
     ),
     "buffaloes": TeamPalette(
         key="buffaloes",
@@ -174,6 +187,7 @@ TEAM_PALETTES: dict[str, TeamPalette] = {
         highlight_red=(220, 0, 0),
         text=(20, 20, 20),
         logo_filename="buffaloes.png",
+        stadium_filename="buffaloes.jpg",
     ),
     "eagles": TeamPalette(
         key="eagles",
@@ -188,6 +202,7 @@ TEAM_PALETTES: dict[str, TeamPalette] = {
         highlight_red=(220, 0, 0),
         text=(20, 20, 20),
         logo_filename="eagles.png",
+        stadium_filename="eagles.jpg",
         # サムネ下部キャッチは白文字+黒縁ベース、強調語のみ赤
         thumb_caption_base=(255, 255, 255),
         thumb_caption_outline=(0, 0, 0),
@@ -204,6 +219,7 @@ TEAM_PALETTES: dict[str, TeamPalette] = {
         highlight_red=(220, 0, 0),
         text=(20, 20, 20),
         logo_filename="lions.png",
+        stadium_filename="lions.jpg",
     ),
 }
 
