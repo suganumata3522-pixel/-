@@ -264,10 +264,11 @@ def _draw_title_band(
     )
 
     if subtitle:
+        # 右上サブバッジは白背景固定 (球団色によらず視認性を保つ)
         draw_rounded_box(
             canvas,
             (sub_box_x0, band_y0, sub_box_x1, band_y1),
-            fill=palette.primary + (255,),
+            fill=(255, 255, 255, 245),
             outline=(0, 0, 0),
             outline_w=4,
             radius=20,
@@ -278,7 +279,7 @@ def _draw_title_band(
             (sub_box_x0 + 30, sy),
             subtitle,
             font=fonts.subtitle,
-            fill=palette.on_primary,
+            fill=(0, 0, 0),
         )
 
 
@@ -399,7 +400,7 @@ def _draw_arrow_and_callout(
             ((W - arrow_w) // 2, cur_y),
             "▼",
             font=fonts.arrow,
-            fill=palette.primary,
+            fill=palette.accent,
             stroke_width=4,
             stroke_fill=(0, 0, 0),
         )
@@ -439,18 +440,31 @@ def _draw_footer(
 ) -> None:
     bar_h = 100
     bar_y0 = H - bar_h
-    # 黒バー
-    bar = Image.new("RGBA", (W, bar_h), (0, 0, 0, 235))
+    # 球団 primary 色のバー
+    bar = Image.new("RGBA", (W, bar_h), palette.primary + (245,))
     canvas.paste(bar, (0, bar_y0), bar)
+    # バーの上下にうっすら影をつけて締める
+    edge = Image.new("RGBA", (W, 4), (0, 0, 0, 180))
+    canvas.paste(edge, (0, bar_y0 - 2), edge)
     draw = ImageDraw.Draw(canvas)
-    draw_centered_markup(
-        draw, W // 2, bar_y0 + (bar_h - _line_h(fonts.footer)) // 2,
-        text,
-        font=fonts.footer,
-        palette=palette,
-        stroke_w=3,
-        stroke_fill=(0, 0, 0),
-    )
+    # フォントが大きすぎてはみ出る場合は縮小
+    ff = fonts.footer
+    while _text_w(ff, text) > W - 60 and ff.size > 32:
+        ff = ImageFont.truetype(ff.path, ff.size - 4)
+    tw = _text_w(ff, text)
+    fy = bar_y0 + (bar_h - _line_h(ff)) // 2
+    # マークアップ無しのときは on_primary 単色で確実に派手に
+    if "[" not in text:
+        draw.text(
+            ((W - tw) // 2, fy), text, font=ff, fill=palette.on_primary,
+            stroke_width=3, stroke_fill=(0, 0, 0),
+        )
+    else:
+        draw_centered_markup(
+            draw, W // 2, fy, text,
+            font=ff, palette=palette,
+            stroke_w=3, stroke_fill=(0, 0, 0),
+        )
 
 
 # --- メイン ------------------------------------------------------------
@@ -530,6 +544,13 @@ def render_slide(
     return out_path
 
 
+# サムネ共通仕様 (球団に依存しない YouTube 派手定番)
+_THUMB_HEADLINE_BG: RGB = (255, 225, 0)
+_THUMB_HEADLINE_TEXT: RGB = (0, 0, 0)
+_THUMB_MAIN_FILL: RGB = (230, 30, 30)     # 派手赤
+_THUMB_MAIN_OUTLINE: RGB = (0, 0, 0)      # 黒縁
+
+
 def render_thumbnail(
     bg_path: Path,
     out_path: Path,
@@ -542,17 +563,61 @@ def render_thumbnail(
     fonts: Fonts,
     resolution: tuple[int, int] = (1920, 1080),
 ) -> Path:
-    """サムネ画像。上部黄色ヘッドライン + 中央ロゴ(任意) + 下部派手キャッチ。"""
+    """サムネ画像。中央上部にロゴ → その下に黄色ヘッドライン → 下半分に派手赤キャッチ。
+
+    ヘッドラインの黄色 + 黒文字、メインキャッチの派手赤 + 黒縁は球団に依存しない共通仕様
+    (YouTube 派手定番)。球団色はロゴ/球団名ボックスに集約する。
+    """
     W, H = resolution
     bg = Image.open(bg_path).convert("RGB")
     bg = fit_cover(bg, W, H)
     canvas = darken(bg, alpha=70).convert("RGBA")
-    draw = ImageDraw.Draw(canvas)
 
-    # ヘッドライン (上部丸角ボックス)
+    # 1) ロゴ / 球団名 (上部 1/4 ゾーン中央)
+    logo_center_y = int(H * 0.16)
+    logo_bottom_y = logo_center_y  # ヘッドラインのアンカー用
+    if logo_path and logo_path.is_file():
+        try:
+            logo = Image.open(logo_path).convert("RGBA")
+            tgt_h = 280
+            r = tgt_h / logo.height
+            tgt_w = int(logo.width * r)
+            # 横長ロゴは画面の 60% までに抑える
+            if tgt_w > int(W * 0.6):
+                r = (W * 0.6) / logo.width
+                tgt_w = int(logo.width * r)
+                tgt_h = int(logo.height * r)
+            logo = logo.resize((tgt_w, tgt_h), Image.LANCZOS)
+            canvas.paste(logo, ((W - tgt_w) // 2, logo_center_y - tgt_h // 2), logo)
+            logo_bottom_y = logo_center_y + tgt_h // 2
+        except Exception as e:
+            print(f"  [thumbnail] ロゴ読み込み失敗 {logo_path}: {e}", file=sys.stderr)
+    else:
+        if palette.name:
+            f = fonts.title
+            tw = _text_w(f, palette.name)
+            pad = 50
+            box_w = tw + pad * 2
+            box_h = _line_h(f) + 30
+            x0 = (W - box_w) // 2
+            y0 = logo_center_y - box_h // 2
+            draw_rounded_box(
+                canvas, (x0, y0, x0 + box_w, y0 + box_h),
+                fill=palette.primary + (255,),
+                outline=(0, 0, 0), outline_w=5, radius=22,
+            )
+            d2 = ImageDraw.Draw(canvas)
+            d2.text(
+                (x0 + pad, y0 + (box_h - _line_h(f)) // 2),
+                palette.name,
+                font=f,
+                fill=palette.on_primary,
+            )
+            logo_bottom_y = y0 + box_h
+
+    # 2) ヘッドライン (固定黄色 + 黒文字, ロゴ直下)
     if headline:
         hf = fonts.thumb_headline
-        # 1行に収まらなければ縮小
         max_w = W - 240
         while _text_w(hf, headline) > max_w and hf.size > 40:
             hf = ImageFont.truetype(hf.path, hf.size - 4)
@@ -561,92 +626,55 @@ def render_thumbnail(
         box_w = hw + pad * 2
         box_h = _line_h(hf) + 36
         x0 = (W - box_w) // 2
-        y0 = 40
+        y0 = max(logo_bottom_y + 20, int(H * 0.30))
         draw_rounded_box(
             canvas, (x0, y0, x0 + box_w, y0 + box_h),
-            fill=palette.primary + (255,),
+            fill=_THUMB_HEADLINE_BG + (255,),
             outline=(0, 0, 0), outline_w=5, radius=26,
         )
-        draw = ImageDraw.Draw(canvas)
-        draw.text(
+        d2 = ImageDraw.Draw(canvas)
+        d2.text(
             (x0 + pad, y0 + (box_h - _line_h(hf)) // 2),
             headline,
             font=hf,
-            fill=palette.on_primary,
+            fill=_THUMB_HEADLINE_TEXT,
         )
 
-    # ロゴ / 球団名 (中央)
-    center_y = int(H * 0.42)
-    if logo_path and logo_path.is_file():
-        try:
-            logo = Image.open(logo_path).convert("RGBA")
-            tgt_h = 360
-            r = tgt_h / logo.height
-            tgt_w = int(logo.width * r)
-            logo = logo.resize((tgt_w, tgt_h), Image.LANCZOS)
-            canvas.paste(logo, ((W - tgt_w) // 2, center_y - tgt_h // 2), logo)
-        except Exception as e:
-            print(f"  [thumbnail] ロゴ読み込み失敗 {logo_path}: {e}", file=sys.stderr)
-    else:
-        # ロゴが無ければ球団名を大きく primary ボックスに
-        if palette.name:
-            f = fonts.title
-            tw = _text_w(f, palette.name)
-            pad = 50
-            box_w = tw + pad * 2
-            box_h = _line_h(f) + 30
-            x0 = (W - box_w) // 2
-            y0 = center_y - box_h // 2
-            draw_rounded_box(
-                canvas, (x0, y0, x0 + box_w, y0 + box_h),
-                fill=palette.primary + (255,),
-                outline=(0, 0, 0), outline_w=5, radius=22,
-            )
-            draw = ImageDraw.Draw(canvas)
-            draw.text(
-                (x0 + pad, y0 + (box_h - _line_h(f)) // 2),
-                palette.name,
-                font=f,
-                fill=palette.on_primary,
-            )
-
-    # 下部派手キャッチ (main / sub)
+    # 3) 下半分の派手赤キャッチ (固定 赤 + 黒縁)
     draw = ImageDraw.Draw(canvas)
-    accent = palette.accent
-    outline = palette.on_accent
     if main:
         mf = fonts.thumb_main
         while _text_w(mf, main) > W - 80 and mf.size > 60:
             mf = ImageFont.truetype(mf.path, mf.size - 6)
-        my = int(H * 0.66)
-        draw_centered_markup(
-            draw, W // 2, my, main,
-            font=mf, palette=palette,
-            stroke_w=10, stroke_fill=outline,
-        )
-        # accent色で再描画 (上書き) — マークアップ無しのときに派手赤を確実に効かせる
+        my = int(H * 0.62)
         if "[" not in main:
             tw = _text_w(mf, main)
             draw.text(
-                ((W - tw) // 2, my), main, font=mf, fill=accent,
-                stroke_width=10, stroke_fill=outline,
+                ((W - tw) // 2, my), main, font=mf, fill=_THUMB_MAIN_FILL,
+                stroke_width=10, stroke_fill=_THUMB_MAIN_OUTLINE,
+            )
+        else:
+            draw_centered_markup(
+                draw, W // 2, my, main,
+                font=mf, palette=palette,
+                stroke_w=10, stroke_fill=_THUMB_MAIN_OUTLINE,
             )
     if sub:
         sf = fonts.thumb_sub
         while _text_w(sf, sub) > W - 80 and sf.size > 50:
             sf = ImageFont.truetype(sf.path, sf.size - 4)
-        sy = int(H * 0.84)
+        sy = int(H * 0.83)
         if "[" not in sub:
             tw = _text_w(sf, sub)
             draw.text(
-                ((W - tw) // 2, sy), sub, font=sf, fill=accent,
-                stroke_width=8, stroke_fill=outline,
+                ((W - tw) // 2, sy), sub, font=sf, fill=_THUMB_MAIN_FILL,
+                stroke_width=8, stroke_fill=_THUMB_MAIN_OUTLINE,
             )
         else:
             draw_centered_markup(
                 draw, W // 2, sy, sub,
                 font=sf, palette=palette,
-                stroke_w=8, stroke_fill=outline,
+                stroke_w=8, stroke_fill=_THUMB_MAIN_OUTLINE,
             )
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
