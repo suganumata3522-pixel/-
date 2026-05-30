@@ -7,3 +7,7 @@ env/
 .env
 out/
 .DS_Store
+
+# 手動アセット本体はリポジトリに含めない (構成のみ管理)
+assets/manual/*/
+!assets/manual/.gitkeep

@@ -1,5 +1,5 @@
 # プロ野球ニュース自動収集の設定
-# 取得元・検索クエリ・台本生成パラメータを調整できます。
+# 取得元・検索クエリ・台本生成・動画生成までの全パラメータを調整できます。
 
 sources:
   google_news:
@@ -49,6 +49,48 @@ script:
   audience: "プロ野球が好きな日本の一般ファン (20-50代)"
   # ナレーターの口調
   tone: "落ち着いた解説調。客観的で、誇張や煽りは避ける。"
+
+# --- 以下、--build-video 時のみ使う設定 -------------------------------
+
+tts:
+  engine: voicevox
+  voicevox:
+    # VOICEVOX Engine をローカル起動しておくこと (Windows 推奨)
+    base_url: "http://127.0.0.1:50021"
+    # 話者ID。例: 2=四国めたん(ノーマル), 3=ずんだもん(ノーマル), 11=玄野武宏
+    speaker: 3
+    speed: 1.0
+    pitch: 0.0
+    intonation: 1.0
+
+images:
+  # 上から優先して取得。必要枚数に達した時点で次の source は使わない。
+  sources:
+    - local       # assets/manual/<チャプタータイトルslug>/ にユーザーが置いた画像
+    - pexels      # 無料ストック写真 (要 PEXELS_API_KEY)
+    - ai_gen      # AI画像生成
+  pexels:
+    enabled: true
+  ai_gen:
+    enabled: true
+    # "nano_banana" (Gemini, 要 GOOGLE_API_KEY) または "openai" (要 OPENAI_API_KEY)
+    provider: nano_banana
+    nano_banana:
+      model: "gemini-2.5-flash-image"
+    openai:
+      model: "gpt-image-1"
+      size: "1536x1024"
+  # 1チャプターあたりの画像枚数
+  per_chapter_min: 3
+  per_chapter_max: 8
+
+video:
+  resolution: "1920x1080"
+  fps: 30
+
+# 手動アセット (球団ロゴや SNS から手動保存した画像など) の置き場所
+# 例: assets/manual/オープニング/, assets/manual/01_話題1_xx選手_移籍/...
+assets_dir: "assets"
 
 output:
   # 生成物の出力先 (実行時に日付サブディレクトリが作られる)
