@@ -43,12 +43,15 @@ aggregation:
 script:
   # Claude のモデル
   model: "claude-sonnet-4-6"
-  # 1動画の目標尺 (分)
-  target_minutes: 8
+  # 1動画の目標尺 (分) — 3〜5分のショート想定
+  target_minutes: 4
   # 動画のターゲット視聴者像
   audience: "プロ野球が好きな日本の一般ファン (20-50代)"
-  # ナレーターの口調
+  # ナレーター (本編) の口調 — 本編は落ち着き
   tone: "落ち着いた解説調。客観的で、誇張や煽りは避ける。"
+  # サムネのキャッチコピーに使う口調 — サムネだけは派手
+  # ※事実に基づき、誤情報・煽動的な断定 (『炎上』『干された』など) は禁止
+  thumbnail_tone: "視聴者の興味を引く短いキャッチコピー調。数字・固有名詞・対比語 (例: 『まさかの』『電撃』『〇〇本目』『独占告白』) を活用。"
 
 # --- 以下、--build-video 時のみ使う設定 -------------------------------
 
@@ -58,7 +61,8 @@ tts:
     # VOICEVOX Engine をローカル起動しておくこと (Windows 推奨)
     base_url: "http://127.0.0.1:50021"
     # 話者ID。例: 2=四国めたん(ノーマル), 3=ずんだもん(ノーマル), 11=玄野武宏
-    speaker: 3
+    # 既定は四国めたん 1人読み (落ち着いた解説調)
+    speaker: 2
     speed: 1.0
     pitch: 0.0
     intonation: 1.0
@@ -87,6 +91,20 @@ images:
 video:
   resolution: "1920x1080"
   fps: 30
+  # 本編スライドに既に情報を焼き込んでいるので、SRT 字幕重ねは既定 OFF。
+  # 読み上げ字幕を上から重ねたい場合は true にする。
+  subtitles: false
+
+thumbnail:
+  # サムネ + 本編スライド共通の Pillow レンダリング設定。
+  # Pillow が日本語太字フォントを開けるパス。
+  # 未指定なら Noto Sans CJK JP Bold / YuGothB.ttc 等を自動探索する。
+  # Windows 例: "C:/Windows/Fonts/YuGothB.ttc"
+  font_file: ""
+  # 球団ロゴ画像はここに手動配置 (assets_dir/manual/logos/<key>.png)。
+  # ファイルが無い球団はロゴの代わりに球団名テキストボックスが表示される。
+  # 例: assets/manual/logos/hanshin.png, assets/manual/logos/giants.png, ...
+  # ※ 球団ロゴは著作物のため、利用可否は各球団の規約を確認のこと
 
 # 手動アセット (球団ロゴや SNS から手動保存した画像など) の置き場所
 # 例: assets/manual/オープニング/, assets/manual/01_話題1_xx選手_移籍/...

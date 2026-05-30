@@ -11,3 +11,4 @@ out/
 # 手動アセット本体はリポジトリに含めない (構成のみ管理)
 assets/manual/*/
 !assets/manual/.gitkeep
+!assets/manual/logos/README.md

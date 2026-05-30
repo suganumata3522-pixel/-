@@ -84,6 +84,10 @@ def run_news_pipeline(cfg: dict, out_root: Path, skip_script: bool) -> Path | No
         target_minutes=s["target_minutes"],
         audience=s["audience"],
         tone=s["tone"],
+        thumbnail_tone=s.get(
+            "thumbnail_tone",
+            "視聴者の興味を引く短いキャッチコピー調。事実に基づくこと。",
+        ),
         final_n=agg.get("final_n", 5),
     )
     script_path = out_root / "script.json"

@@ -72,7 +72,7 @@ def _build_image_concat(parts: list[ChapterVideoPart], list_path: Path) -> None:
 
 def build_video(
     parts: list[ChapterVideoPart],
-    srt_path: Path,
+    srt_path: Path | None,
     out_path: Path,
     work_dir: Path,
     resolution: str = "1920x1080",
@@ -92,18 +92,21 @@ def build_video(
     _build_image_concat(parts, img_list)
 
     width, height = resolution.split("x")
-    # ffmpeg の subtitles フィルタはカンマやコロンを嫌うので、相対パス化する
-    srt_for_filter = srt_path.name
-    work_srt = work_dir / srt_for_filter
-    if srt_path.resolve() != work_srt.resolve():
-        work_srt.write_text(srt_path.read_text(encoding="utf-8"), encoding="utf-8")
-
-    vf = (
-        f"scale={width}:{height}:force_original_aspect_ratio=decrease,"
-        f"pad={width}:{height}:(ow-iw)/2:(oh-ih)/2:black,"
-        f"setsar=1,"
-        f"subtitles={srt_for_filter}:force_style='FontName=Noto Sans CJK JP,FontSize=24,OutlineColour=&H80000000,BorderStyle=3'"
-    )
+    vf_parts = [
+        f"scale={width}:{height}:force_original_aspect_ratio=decrease",
+        f"pad={width}:{height}:(ow-iw)/2:(oh-ih)/2:black",
+        "setsar=1",
+    ]
+    if srt_path is not None:
+        # ffmpeg の subtitles フィルタはカンマやコロンを嫌うので、相対パス化する
+        srt_for_filter = srt_path.name
+        work_srt = work_dir / srt_for_filter
+        if srt_path.resolve() != work_srt.resolve():
+            work_srt.write_text(srt_path.read_text(encoding="utf-8"), encoding="utf-8")
+        vf_parts.append(
+            f"subtitles={srt_for_filter}:force_style='FontName=Noto Sans CJK JP,FontSize=24,OutlineColour=&H80000000,BorderStyle=3'"
+        )
+    vf = ",".join(vf_parts)
 
     cmd = [
         _ffmpeg_bin(), "-y",
