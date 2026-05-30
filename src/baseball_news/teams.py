@@ -118,8 +118,10 @@ TEAM_PALETTES: dict[str, TeamPalette] = {
         aliases=("ソフトバンク", "ホークス", "Hawks", "PayPayドーム", "福岡"),
         primary=(252, 200, 0),
         on_primary=(0, 0, 0),
-        accent=(220, 30, 30),
-        on_accent=(255, 255, 255),
+        # primary 黄が強烈なので、矢印・アクセントも黄色で揃える (リファレンス参照)
+        # 矢印は stroke (黒縁) があるので黄でも視認できる
+        accent=(252, 200, 0),
+        on_accent=(0, 0, 0),
         highlight_blue=(20, 80, 200),
         highlight_red=(220, 0, 0),
         text=(20, 20, 20),
@@ -171,8 +173,9 @@ TEAM_PALETTES: dict[str, TeamPalette] = {
         aliases=("楽天", "イーグルス", "Eagles", "仙台", "楽天モバイル"),
         primary=(135, 0, 16),
         on_primary=(255, 255, 255),
-        accent=(196, 152, 71),
-        on_accent=(0, 0, 0),
+        # primary 暗赤に対し、矢印・アクセントは明るい赤で目立たせる (リファレンス参照)
+        accent=(220, 30, 30),
+        on_accent=(255, 255, 255),
         highlight_blue=(20, 80, 200),
         highlight_red=(220, 0, 0),
         text=(20, 20, 20),
