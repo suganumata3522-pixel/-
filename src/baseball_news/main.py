@@ -7,10 +7,13 @@
 from __future__ import annotations
 
 import argparse
+import html
 import json
 import sys
+import textwrap
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from urllib.parse import urlparse
 
 import yaml
 from dateutil import parser as dt_parser
@@ -58,21 +61,79 @@ def cmd_collect(cfg: dict, out_dir: Path) -> int:
         print(f"[collect] 収集ソース別件数: {by_src}")
 
     out_dir.mkdir(parents=True, exist_ok=True)
-    ts = datetime.now(JST).strftime("%Y%m%d_%H%M%S")
+    now = datetime.now(JST)
+    ts = now.strftime("%Y%m%d_%H%M%S")
     path = out_dir / f"topics_{ts}.json"
     serialized = json.dumps(
         [t.to_dict() for t in topics], ensure_ascii=False, indent=2
     )
     path.write_text(serialized, encoding="utf-8")
     (out_dir / "topics_latest.json").write_text(serialized, encoding="utf-8")
+
+    readable = _format_topics_readable(topics, now)
+    txt_path = out_dir / f"topics_{ts}.txt"
+    txt_path.write_text(readable, encoding="utf-8")
+    (out_dir / "topics_latest.txt").write_text(readable, encoding="utf-8")
+
     print(f"[collect] 保存: {path}")
-    print(f"[collect] 最新へのリンク: {out_dir / 'topics_latest.json'}")
+    print(f"[collect] 読みやすい版: {txt_path}")
+    print(f"[collect] 最新へのリンク: {out_dir / 'topics_latest.json'} / {out_dir / 'topics_latest.txt'}")
 
     if topics:
         print("\n[collect] 上位 10 件:")
         for t in topics[:10]:
             print(f"  {t.id}  score={t.score:>6.2f}  [{t.source}] {t.title[:60]}")
     return 0
+
+
+def _display_source(item: TopicItem) -> str:
+    host = ""
+    try:
+        host = urlparse(item.url).netloc
+    except Exception:
+        host = ""
+    if host.startswith("www."):
+        host = host[4:]
+    return host or item.source
+
+
+def _format_topics_readable(topics: list[TopicItem], generated_at: datetime) -> str:
+    bar = "=" * 70
+    sep = "-" * 70
+    lines: list[str] = [
+        bar,
+        "野球ニュース 話題一覧",
+        f"収集日時 : {generated_at.strftime('%Y-%m-%d %H:%M:%S')} JST",
+        f"件数     : {len(topics)} 件",
+        "  ※ スコアが高いほど注目度・拡散度が高い話題です",
+        bar,
+        "",
+    ]
+    for i, t in enumerate(topics, 1):
+        source = _display_source(t)
+        published = ""
+        if t.published_at:
+            try:
+                published = t.published_at.astimezone(JST).strftime("%Y-%m-%d %H:%M")
+            except Exception:
+                published = str(t.published_at)
+
+        lines.append(f"【{i:>2}】 score {t.score:>6.2f}   出典: {source}")
+        lines.append(f"  タイトル: {html.unescape(t.title)}")
+        if t.summary:
+            cleaned = html.unescape(t.summary).replace("[…]", "…").strip()
+            wrapped = textwrap.wrap(cleaned, width=58)
+            if wrapped:
+                lines.append(f"  要約    : {wrapped[0]}")
+                for cont in wrapped[1:]:
+                    lines.append(f"            {cont}")
+        if published:
+            lines.append(f"  公開    : {published}")
+        lines.append(f"  URL     : {t.url}")
+        lines.append(f"  ID      : {t.id}  ← 台本生成で使う ID")
+        lines.append(sep)
+        lines.append("")
+    return "\n".join(lines)
 
 
 # --- script -----------------------------------------------------------------
