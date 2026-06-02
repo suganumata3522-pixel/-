@@ -1,11 +1,24 @@
+# 台本生成 (Claude API)
 anthropic>=0.40.0
-feedparser>=6.0.11
-trafilatura>=1.12.0
-httpx>=0.27.0
+
+# 設定ファイル / 共通
 pyyaml>=6.0.2
 python-dateutil>=2.9.0
+httpx>=0.27.0
 
-# --build-video 用 (動画生成しない場合は不要)
-Pillow>=10.0.0            # サムネ / 本編スライドのレンダリング
-google-genai>=0.3.0       # Nano Banana (Gemini) で画像生成する場合
-openai>=1.40.0            # gpt-image-1 を使う場合
+# RSS / HTML パース (collectors 全般)
+feedparser>=6.0.11
+beautifulsoup4>=4.12.0
+lxml>=5.2.0
+
+# 記事本文抽出 (NPB 公式・選手プロフィール等)
+trafilatura>=1.12.0
+
+# Google Trends
+pytrends>=4.9.2
+
+# YouTube Data API v3
+google-api-python-client>=2.140.0
+
+# Bluesky (AT Protocol)
+atproto>=0.0.55

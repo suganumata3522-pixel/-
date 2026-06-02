@@ -1,115 +1,159 @@
-# プロ野球ニュース自動収集の設定
-# 取得元・検索クエリ・台本生成・動画生成までの全パラメータを調整できます。
+# プロ野球 話題収集 + 台本生成の設定
+# 12 ソースから話題を集めて Claude で台本 (テキスト) にするまでが守備範囲。
+# 音声収録・動画編集は手動。
 
-sources:
-  google_news:
-    # Google News RSS の検索クエリ。複数指定可。
-    # ja-JP の最新ニュースを引きます。
+# ----------------------------------------------------------------------
+# 話題収集 (Phase 3-5 で実装)
+# ----------------------------------------------------------------------
+collectors:
+
+  # ① Yahoo!ニュース (野球カテゴリ) RSS
+  rss_yahoo:
+    enabled: true
+    feeds:
+      - "https://news.yahoo.co.jp/rss/categories/baseball.xml"
+
+  # ② Google News RSS
+  rss_google_news:
+    enabled: true
     queries:
       - "プロ野球"
       - "NPB"
       - "セ・リーグ"
       - "パ・リーグ"
       - "MLB 日本人"
-    hl: ja
-    gl: JP
+    hl: "ja"
+    gl: "JP"
     ceid: "JP:ja"
 
-  rss_feeds:
-    # 直接RSSが取れるサイトを足したい場合はここに列挙。
-    # 例: スポーツ系メディアの公式RSSなど (各サイトの利用規約を確認してください)。
-    - name: ""
-      url: ""
-
-  reddit:
-    # 補助的にRedditのスレッドを取得 (英語混じり・シグナル弱め)
+  # ③ スポーツ紙 RSS
+  rss_sports_papers:
     enabled: true
-    subreddits:
-      - npb
-      - baseball
+    feeds:
+      - name: "日刊スポーツ 野球"
+        url: "https://www.nikkansports.com/baseball/atom.xml"
+      - name: "スポニチ 野球"
+        url: "https://www.sponichi.co.jp/baseball/feed.rss"
+      - name: "サンスポ 野球"
+        url: "https://www.sanspo.com/baseball/feed/"
+      - name: "デイリースポーツ 野球"
+        url: "https://www.daily.co.jp/baseball/feed.rss"
+      - name: "スポーツ報知 野球"
+        url: "https://hochi.news/articles/baseball/feed"
 
+  # ④ 野球専門メディア RSS
+  rss_specialty:
+    enabled: true
+    feeds:
+      - name: "フルカウント"
+        url: "https://full-count.jp/feed/"
+      - name: "ベースボールキング"
+        url: "https://baseballking.jp/feed"
+      - name: "Number Web 野球"
+        url: "https://number.bunshun.jp/list/feed/category/baseball"
+
+  # ⑤ はてなブックマーク (野球タグの人気)
+  rss_hatena:
+    enabled: true
+    feeds:
+      - "https://b.hatena.ne.jp/q/%E3%83%97%E3%83%AD%E9%87%8E%E7%90%83?target=text&sort=popular&mode=rss"
+      - "https://b.hatena.ne.jp/q/NPB?target=text&sort=popular&mode=rss"
+
+  # ⑥ なんJ系まとめサイト RSS
+  rss_5ch_matome:
+    enabled: true
+    feeds:
+      - name: "なんJ PRIDE"
+        url: "http://blog.livedoor.jp/nanjpride/index.rdf"
+      - name: "なんJ 野球データ"
+        url: "http://blog.livedoor.jp/nanjstu/index.rdf"
+      - name: "ぐう速"
+        url: "http://blog.livedoor.jp/guusoku/index.rdf"
+
+  # ⑦ Google Trends (野球関連の急上昇)
+  google_trends:
+    enabled: true
+    keywords:
+      - "プロ野球"
+      - "NPB"
+    geo: "JP"
+    timeframe: "now 1-d"
+
+  # ⑧ YouTube Data API v3 (要 YOUTUBE_API_KEY)
+  youtube_data:
+    enabled: true
+    region_code: "JP"
+    # search.list で使うクエリ。日付フィルタは自動 (直近 48h)
+    queries:
+      - "プロ野球"
+      - "NPB ハイライト"
+    max_results: 20
+
+  # ⑨ NPB 公式 (試合速報・順位表をスクレイプ)
+  npb_official:
+    enabled: true
+    base_url: "https://npb.jp"
+
+  # ⑩ X (旧 Twitter) — 要 X_BEARER_TOKEN (Basic プラン課金)
+  # トークンが未設定なら自動 skip。
+  x_twitter:
+    enabled: true
+    queries:
+      - "プロ野球 lang:ja"
+      - "NPB lang:ja"
+    max_results: 30
+
+  # ⑪ Yahoo!リアルタイム検索 (スクレイプ)
+  yahoo_realtime:
+    enabled: true
+    queries:
+      - "プロ野球"
+      - "NPB"
+
+  # ⑫ Bluesky (AT Protocol、無料)
+  bluesky:
+    enabled: true
+    queries:
+      - "プロ野球"
+      - "NPB"
+    max_results: 30
+
+# ----------------------------------------------------------------------
+# 集約・スコアリング (Phase 2 で実装)
+# ----------------------------------------------------------------------
 aggregation:
-  # 過去 何時間 のニュースまでを対象にするか
+  # 過去 何時間 の話題までを対象にするか
   lookback_hours: 36
-  # 文字 bi-gram Jaccard のしきい値 (0-100)。
-  # 同じ記事の再配信など"ほぼ同文"を弾く用途で使用。
-  # 意味的な重複は後段の Claude にまとめさせる。
+  # bi-gram Jaccard のしきい値 (0-100)。これ以上似ているタイトルは1つに統合。
   dedupe_threshold: 55
-  # 台本検討用に Claude へ渡す記事数 (Claudeが取捨選択する)
-  top_n: 10
-  # 最終的に動画で扱う本数 (Claude へのプロンプトに渡す)
-  final_n: 5
+  # 出力する上位件数
+  top_n: 30
 
+# ----------------------------------------------------------------------
+# 選手プロフィール取得 (Phase 6 で実装)
+# ----------------------------------------------------------------------
+players:
+  # 選手名検出の対象球団 (teams.py のキー)
+  # 空ならすべての NPB 球団を対象
+  teams: []
+  # 通算成績のソース優先順
+  stats_sources:
+    - npb_official
+    - wikipedia
+
+# ----------------------------------------------------------------------
+# 台本生成 (Phase 7 で実装)
+# ----------------------------------------------------------------------
 script:
-  # Claude のモデル
   model: "claude-sonnet-4-6"
-  # 1動画の目標尺 (分) — 3〜5分のショート想定
-  target_minutes: 4
-  # 動画のターゲット視聴者像
+  target_minutes: 5
   audience: "プロ野球が好きな日本の一般ファン (20-50代)"
-  # ナレーター (本編) の口調 — 本編は落ち着き
   tone: "落ち着いた解説調。客観的で、誇張や煽りは避ける。"
-  # サムネのキャッチコピーに使う口調 — サムネだけは派手
-  # ※事実に基づき、誤情報・煽動的な断定 (『炎上』『干された』など) は禁止
-  thumbnail_tone: "視聴者の興味を引く短いキャッチコピー調。数字・固有名詞・対比語 (例: 『まさかの』『電撃』『〇〇本目』『独占告白』) を活用。"
+  # サムネ用のキャッチコピー口調 (動画自体は手動で作るが、台本に候補は出す)
+  thumbnail_tone: "視聴者の興味を引く短いキャッチコピー調。事実に基づくこと。"
 
-# --- 以下、--build-video 時のみ使う設定 -------------------------------
-
-tts:
-  engine: voicevox
-  voicevox:
-    # VOICEVOX Engine をローカル起動しておくこと (Windows 推奨)
-    base_url: "http://127.0.0.1:50021"
-    # 話者ID。例: 2=四国めたん(ノーマル), 3=ずんだもん(ノーマル), 11=玄野武宏
-    # 既定は四国めたん 1人読み (落ち着いた解説調)
-    speaker: 2
-    speed: 1.0
-    pitch: 0.0
-    intonation: 1.0
-
-images:
-  # 上から優先して取得。必要枚数に達した時点で次の source は使わない。
-  sources:
-    - local       # assets/manual/<チャプタータイトルslug>/ にユーザーが置いた画像
-    - pexels      # 無料ストック写真 (要 PEXELS_API_KEY)
-    - ai_gen      # AI画像生成
-  pexels:
-    enabled: true
-  ai_gen:
-    enabled: true
-    # "nano_banana" (Gemini, 要 GOOGLE_API_KEY) または "openai" (要 OPENAI_API_KEY)
-    provider: nano_banana
-    nano_banana:
-      model: "gemini-2.5-flash-image"
-    openai:
-      model: "gpt-image-1"
-      size: "1536x1024"
-  # 1チャプターあたりの画像枚数
-  per_chapter_min: 3
-  per_chapter_max: 8
-
-video:
-  resolution: "1920x1080"
-  fps: 30
-  # 本編スライドに既に情報を焼き込んでいるので、SRT 字幕重ねは既定 OFF。
-  # 読み上げ字幕を上から重ねたい場合は true にする。
-  subtitles: false
-
-thumbnail:
-  # サムネ + 本編スライド共通の Pillow レンダリング設定。
-  # Pillow が日本語太字フォントを開けるパス。
-  # 未指定なら Noto Sans CJK JP Bold / YuGothB.ttc 等を自動探索する。
-  # Windows 例: "C:/Windows/Fonts/YuGothB.ttc"
-  font_file: ""
-  # 球団ロゴ画像はここに手動配置 (assets_dir/manual/logos/<key>.png)。
-  # ファイルが無い球団はロゴの代わりに球団名テキストボックスが表示される。
-  # 例: assets/manual/logos/hanshin.png, assets/manual/logos/giants.png, ...
-  # ※ 球団ロゴは著作物のため、利用可否は各球団の規約を確認のこと
-
-# 手動アセット (球団ロゴや SNS から手動保存した画像など) の置き場所
-# 例: assets/manual/オープニング/, assets/manual/01_話題1_xx選手_移籍/...
-assets_dir: "assets"
-
+# ----------------------------------------------------------------------
+# 出力
+# ----------------------------------------------------------------------
 output:
-  # 生成物の出力先 (実行時に日付サブディレクトリが作られる)
   dir: "out"
