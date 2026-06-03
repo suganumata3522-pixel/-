@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 920" font-family="Helvetica, Arial, 'Noto Sans CJK JP', sans-serif">
+  <style>
+    .ttl { font-size: 22px; font-weight: bold; fill:#111; }
+    .sub { font-size: 17px; font-weight: bold; fill:#0d47a1; }
+    .lbl { font-size: 14px; fill:#111; }
+    .sml { font-size: 12px; fill:#333; }
+    .tiny{ font-size: 11px; fill:#555; }
+    .axis { stroke:#222; stroke-width:1.6; fill:none; }
+    .wall { fill:#cfd8dc; stroke:#37474f; stroke-width:1.8; }
+    .soil { fill:#d7ccc8; }
+    .ground { stroke:#5d4037; stroke-width:1; fill:none; }
+    .arrow { stroke:#1565c0; stroke-width:1.4; fill:none; marker-end:url(#ab); }
+    .arrowR{ stroke:#2e7d32; stroke-width:1.4; fill:none; marker-end:url(#ag); }
+    .arrowD{ stroke:#6d4c41; stroke-width:1.4; fill:none; marker-end:url(#ad); }
+    .mToe { fill:#ffcc80; opacity:0.85; stroke:#e65100; stroke-width:1.6; }
+    .mHeel{ fill:#a5d6a7; opacity:0.85; stroke:#1b5e20; stroke-width:1.6; }
+    .mWall{ fill:#ef9a9a; opacity:0.75; stroke:#b71c1c; stroke-width:1.4; }
+    .dash { stroke:#777; stroke-dasharray:5 4; stroke-width:1; fill:none; }
+    .box  { fill:#fafafa; stroke:#bdbdbd; }
+    .crit { fill:#000; }
+  </style>
+  <defs>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1565c0"/></marker>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2e7d32"/></marker>
+    <marker id="ad" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d4c41"/></marker>
+  </defs>
+
+  <text x="550" y="34" text-anchor="middle" class="ttl">逆T式RC擁壁の底版(フーチング)に着目した応力図</text>
+
+  <!-- =========================================== -->
+  <!-- ① 構造と作用荷重(底版に何が乗っているか)   -->
+  <!-- =========================================== -->
+  <g transform="translate(80,70)">
+    <text x="430" y="0" text-anchor="middle" class="sub">① 底版に作用する荷重</text>
+
+    <!-- 背面盛土 -->
+    <polygon class="soil" points="430,40 720,40 720,300 430,300"/>
+    <line class="ground" x1="430" y1="40" x2="720" y2="40"/>
+    <text x="575" y="32" text-anchor="middle" class="sml">背面盛土</text>
+
+    <!-- 竪壁 -->
+    <polygon class="wall" points="400,40 430,40 430,300 400,300"/>
+    <text x="415" y="180" text-anchor="middle" class="sml" fill="#fff" stroke="#000" stroke-width="0.3">竪壁</text>
+
+    <!-- 底版 -->
+    <polygon class="wall" points="150,300 720,300 720,345 150,345"/>
+
+    <!-- つま先/かかと ラベル -->
+    <line class="dash" x1="400" y1="300" x2="400" y2="395"/>
+    <line class="dash" x1="430" y1="300" x2="430" y2="395"/>
+    <text x="275" y="330" text-anchor="middle" class="lbl">つま先版(toe)</text>
+    <text x="575" y="330" text-anchor="middle" class="lbl">かかと版(heel)</text>
+
+    <!-- 上向き = 地盤反力(台形) -->
+    <line class="arrowR" x1="170" y1="430" x2="170" y2="348"/>
+    <line class="arrowR" x1="220" y1="425" x2="220" y2="348"/>
+    <line class="arrowR" x1="280" y1="418" x2="280" y2="348"/>
+    <line class="arrowR" x1="340" y1="410" x2="340" y2="348"/>
+    <line class="arrowR" x1="400" y1="402" x2="400" y2="348"/>
+    <line class="arrowR" x1="460" y1="395" x2="460" y2="348"/>
+    <line class="arrowR" x1="530" y1="388" x2="530" y2="348"/>
+    <line class="arrowR" x1="600" y1="382" x2="600" y2="348"/>
+    <line class="arrowR" x1="670" y1="378" x2="670" y2="348"/>
+    <line class="arrowR" x1="715" y1="375" x2="715" y2="348"/>
+    <!-- 反力の包絡線(台形:つま先側が大) -->
+    <path d="M150,430 L720,378" stroke="#2e7d32" stroke-width="1.2" fill="none" stroke-dasharray="3 3"/>
+    <text x="170" y="455" class="sml" fill="#1b5e20">q_max</text>
+    <text x="690" y="400" class="sml" fill="#1b5e20">q_min</text>
+    <text x="430" y="475" text-anchor="middle" class="sml" fill="#1b5e20">↑ 地盤反力 q (台形分布) — つま先側が大きい</text>
+
+    <!-- 下向き = かかと上の土+自重 -->
+    <line class="arrowD" x1="470" y1="55" x2="470" y2="295"/>
+    <line class="arrowD" x1="530" y1="55" x2="530" y2="295"/>
+    <line class="arrowD" x1="590" y1="55" x2="590" y2="295"/>
+    <line class="arrowD" x1="650" y1="55" x2="650" y2="295"/>
+    <line class="arrowD" x1="700" y1="55" x2="700" y2="295"/>
+    <text x="585" y="160" class="sml" fill="#6d4c41">↓ 上載土の重量 W_s</text>
+    <text x="585" y="178" class="sml" fill="#6d4c41">(かかと版上)</text>
+
+    <!-- 土圧矢印(参考) -->
+    <line class="arrow" x1="460" y1="100" x2="432" y2="100"/>
+    <line class="arrow" x1="470" y1="180" x2="432" y2="180"/>
+    <line class="arrow" x1="480" y1="260" x2="432" y2="260"/>
+    <text x="490" y="180" class="sml" fill="#0d47a1">主働土圧</text>
+  </g>
+
+  <!-- =========================================== -->
+  <!-- ② 底版のモーメント図(大きく描く)         -->
+  <!-- =========================================== -->
+  <g transform="translate(80,560)">
+    <text x="430" y="0" text-anchor="middle" class="sub">② 底版の曲げモーメント M図</text>
+
+    <!-- 底版の輪郭(参考に薄く) -->
+    <rect x="150" y="50" width="570" height="40" fill="#eceff1" stroke="#90a4ae"/>
+    <line class="dash" x1="400" y1="40" x2="400" y2="290"/>
+    <line class="dash" x1="430" y1="40" x2="430" y2="290"/>
+    <text x="415" y="64" text-anchor="middle" class="tiny">竪壁</text>
+
+    <!-- 中心線(M=0軸) -->
+    <line class="axis" x1="150" y1="170" x2="720" y2="170"/>
+    <text x="725" y="174" class="sml">M=0</text>
+
+    <!-- ----- つま先版のM(上側=上面引張を上に膨らませる) ----- -->
+    <!-- 危険断面=竪壁前面(x=400) でM最大、つま先端(x=150)でM=0 -->
+    <path class="mToe" d="
+      M 400,170
+      C 340,170 240,100 150,170
+      Z"/>
+    <text x="265" y="115" class="lbl" fill="#e65100">M(つま先) — 上面引張</text>
+    <text x="265" y="135" class="sml" fill="#e65100">(地盤反力が上向き → 上に凸)</text>
+
+    <!-- ----- かかと版のM(下側=下面引張を下に膨らませる) ----- -->
+    <!-- 危険断面=竪壁背面(x=430) でM最大、かかと端(x=720)でM=0 -->
+    <path class="mHeel" d="
+      M 430,170
+      C 510,170 640,260 720,170
+      Z"/>
+    <text x="525" y="245" class="lbl" fill="#1b5e20">M(かかと) — 下面引張</text>
+    <text x="525" y="265" class="sml" fill="#1b5e20">(上載土+自重が下向き → 下に凸)</text>
+
+    <!-- 危険断面の点 -->
+    <circle cx="400" cy="170" r="5" class="crit"/>
+    <circle cx="430" cy="170" r="5" class="crit"/>
+    <text x="358" y="195" class="sml">竪壁前面</text>
+    <text x="358" y="210" class="sml">(危険断面)</text>
+    <text x="436" y="195" class="sml">竪壁背面</text>
+    <text x="436" y="210" class="sml">(危険断面)</text>
+
+    <!-- M最大値の指示線 -->
+    <line class="dash" x1="200" y1="138" x2="200" y2="170"/>
+    <text x="155" y="105" class="tiny" fill="#e65100">放物線状</text>
+    <line class="dash" x1="600" y1="225" x2="600" y2="170"/>
+    <text x="600" y="285" class="tiny" fill="#1b5e20">放物線状</text>
+
+    <!-- 端部 M=0 -->
+    <text x="125" y="174" class="sml">M=0</text>
+
+  </g>
+
+  <!-- =========================================== -->
+  <!-- ③ 鉄筋配置と継手位置                       -->
+  <!-- =========================================== -->
+  <g transform="translate(80,790)">
+    <rect x="0" y="0" width="940" height="110" class="box"/>
+    <text x="14" y="22" class="sub">③ 底版の鉄筋配置と継手位置の原則</text>
+    <text x="14" y="46" class="sml">
+      ・<tspan fill="#e65100" font-weight="bold">つま先版</tspan>: 上面引張 → 主鉄筋を<tspan font-weight="bold">上面側</tspan>に配置。
+      危険断面=<tspan font-weight="bold">竪壁前面</tspan>。継手はM=0となる<tspan font-weight="bold">つま先端部寄り</tspan>に千鳥で。
+    </text>
+    <text x="14" y="68" class="sml">
+      ・<tspan fill="#1b5e20" font-weight="bold">かかと版</tspan>: 下面引張 → 主鉄筋を<tspan font-weight="bold">下面側</tspan>に配置。
+      危険断面=<tspan font-weight="bold">竪壁背面</tspan>。継手はM=0となる<tspan font-weight="bold">かかと端部寄り</tspan>に千鳥で。
+    </text>
+    <text x="14" y="92" class="sml">
+      ・<tspan font-weight="bold">竪壁直下(付け根)はM_max</tspan> → ここに継手を設けない。
+      引張側に継手が必要な場合は<tspan font-weight="bold">重ね長さを割増</tspan>、または<tspan font-weight="bold">機械式・ガス圧接継手</tspan>を採用。
+    </text>
+  </g>
+</svg>
