@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 720" font-family="Helvetica, Arial, 'Noto Sans CJK JP', sans-serif">
+  <style>
+    .ttl { font-size: 22px; font-weight: bold; fill:#111; }
+    .lbl { font-size: 16px; fill:#111; }
+    .sml { font-size: 13px; fill:#333; }
+    .axis { stroke:#333; stroke-width:1.5; fill:none; }
+    .wall { fill:#cfd8dc; stroke:#37474f; stroke-width:2; }
+    .soil { fill:#d7ccc8; }
+    .ground { stroke:#5d4037; stroke-width:1.2; fill:none; }
+    .pressure { fill:#90caf9; opacity:0.55; stroke:#1565c0; stroke-width:1.2; }
+    .moment { fill:#ef9a9a; opacity:0.7; stroke:#b71c1c; stroke-width:1.5; }
+    .moment2 { fill:#a5d6a7; opacity:0.7; stroke:#1b5e20; stroke-width:1.5; }
+    .moment3 { fill:#ffe082; opacity:0.7; stroke:#ff6f00; stroke-width:1.5; }
+    .arrow { stroke:#1565c0; stroke-width:1.5; fill:none; marker-end:url(#ah); }
+    .arrowR { stroke:#2e7d32; stroke-width:1.5; fill:none; marker-end:url(#ahg); }
+    .dash { stroke:#666; stroke-dasharray:5 4; stroke-width:1; fill:none; }
+  </style>
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1565c0"/>
+    </marker>
+    <marker id="ahg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2e7d32"/>
+    </marker>
+  </defs>
+
+  <text x="500" y="34" text-anchor="middle" class="ttl">逆T式RC擁壁 — 曲げモーメント分布(概念図)</text>
+
+  <!-- ========================= LEFT: 構造と土圧 ========================= -->
+  <g transform="translate(40,70)">
+    <text x="180" y="0" text-anchor="middle" class="lbl">① 構造と作用荷重</text>
+
+    <!-- 背面地盤 -->
+    <polygon class="soil" points="190,40 420,40 420,360 190,360"/>
+    <line class="ground" x1="190" y1="40" x2="420" y2="40"/>
+    <text x="305" y="32" text-anchor="middle" class="sml">背面盛土</text>
+
+    <!-- 擁壁本体(竪壁+底版) 逆T -->
+    <!-- 竪壁 -->
+    <polygon class="wall" points="160,40 190,40 190,360 160,360"/>
+    <!-- 底版 -->
+    <polygon class="wall" points="60,360 350,360 350,400 60,400"/>
+
+    <!-- ラベル -->
+    <text x="120" y="200" text-anchor="middle" class="lbl">竪壁</text>
+    <text x="120" y="218" text-anchor="middle" class="sml">(stem)</text>
+    <text x="110" y="385" text-anchor="middle" class="sml">つま先版</text>
+    <text x="270" y="385" text-anchor="middle" class="sml">かかと版</text>
+
+    <!-- 土圧(三角形分布) -->
+    <polygon class="pressure" points="190,40 190,360 280,360"/>
+    <line class="arrow" x1="230" y1="120" x2="195" y2="120"/>
+    <line class="arrow" x1="245" y1="200" x2="195" y2="200"/>
+    <line class="arrow" x1="260" y1="280" x2="195" y2="280"/>
+    <line class="arrow" x1="275" y1="350" x2="195" y2="350"/>
+    <text x="300" y="200" class="sml" fill="#0d47a1">主働土圧 P</text>
+    <text x="300" y="218" class="sml" fill="#0d47a1">(三角形分布)</text>
+
+    <!-- 地盤反力 -->
+    <line class="arrowR" x1="80" y1="450" x2="80" y2="405"/>
+    <line class="arrowR" x1="140" y1="445" x2="140" y2="405"/>
+    <line class="arrowR" x1="200" y1="440" x2="200" y2="405"/>
+    <line class="arrowR" x1="260" y1="432" x2="260" y2="405"/>
+    <line class="arrowR" x1="320" y1="425" x2="320" y2="405"/>
+    <text x="200" y="470" text-anchor="middle" class="sml" fill="#1b5e20">地盤反力(台形分布)</text>
+
+    <!-- 寸法線 -->
+    <line class="dash" x1="60" y1="510" x2="350" y2="510"/>
+    <text x="205" y="525" text-anchor="middle" class="sml">底版幅 B</text>
+    <line class="dash" x1="430" y1="40" x2="430" y2="360"/>
+    <text x="445" y="200" class="sml">壁高 H</text>
+  </g>
+
+  <!-- ========================= RIGHT: 曲げモーメント図 ========================= -->
+  <g transform="translate(530,70)">
+    <text x="200" y="0" text-anchor="middle" class="lbl">② 曲げモーメント M図</text>
+
+    <!-- 竪壁の中心線 -->
+    <line class="axis" x1="200" y1="40" x2="200" y2="360"/>
+    <!-- 底版の中心線 -->
+    <line class="axis" x1="60" y1="380" x2="350" y2="380"/>
+
+    <!-- 竪壁モーメント(土圧側に凸: 3次曲線、付け根が最大) -->
+    <!-- 引張側=背面側(右)に膨らむように描画 -->
+    <path class="moment" d="
+      M200,40
+      C 215,150 260,260 300,360
+      L200,360 Z"/>
+    <text x="320" y="230" class="sml" fill="#b71c1c">M(竪壁)</text>
+    <text x="320" y="248" class="sml" fill="#b71c1c">∝ y³</text>
+    <text x="345" y="358" class="sml" fill="#b71c1c">M_max(付け根)</text>
+
+    <!-- 付け根を強調 -->
+    <circle cx="300" cy="360" r="4" fill="#b71c1c"/>
+    <line class="dash" x1="200" y1="360" x2="300" y2="360"/>
+
+    <!-- かかと版モーメント(下面引張、上に凸の放物線) -->
+    <path class="moment2" d="
+      M200,380
+      C 230,420 290,430 350,380
+      L350,380 L200,380 Z"/>
+    <text x="290" y="445" class="sml" fill="#1b5e20">M(かかと)</text>
+    <text x="290" y="462" class="sml" fill="#1b5e20">下面引張</text>
+
+    <!-- つま先版モーメント(上面引張、下に凸) -->
+    <path class="moment3" d="
+      M200,380
+      C 170,355 110,350 60,380
+      L60,380 L200,380 Z"/>
+    <text x="70" y="345" class="sml" fill="#e65100">M(つま先)</text>
+    <text x="70" y="362" class="sml" fill="#e65100">上面引張</text>
+
+    <!-- 危険断面表示 -->
+    <circle cx="200" cy="380" r="5" fill="#000"/>
+    <text x="155" y="395" class="sml">付け根(危険断面)</text>
+
+    <!-- 引張側を示す矢印 -->
+    <text x="60" y="30" class="sml" fill="#b71c1c">←引張側(背面)</text>
+    <text x="290" y="30" class="sml" fill="#1565c0">圧縮側(前面)→</text>
+  </g>
+
+  <!-- ========================= 下部: 解説 ========================= -->
+  <g transform="translate(40,560)">
+    <rect x="0" y="0" width="920" height="140" fill="#fafafa" stroke="#bdbdbd"/>
+    <text x="14" y="22" class="lbl">■ 各部のモーメントの特徴</text>
+
+    <text x="14" y="48" class="sml">
+      ・<tspan font-weight="bold" fill="#b71c1c">竪壁</tspan>: 三角形分布の主働土圧 → Mは深さyの<tspan font-weight="bold">3次関数</tspan>で増大。
+      <tspan font-weight="bold">付け根で M_max</tspan>(背面側=引張)。 主鉄筋は背面側に配置。
+    </text>
+    <text x="14" y="72" class="sml">
+      ・<tspan font-weight="bold" fill="#e65100">つま先版</tspan>: 地盤反力(上向き)が支配 → <tspan font-weight="bold">上面引張</tspan>のモーメント。
+      竪壁前面の付け根が危険断面。 主鉄筋は上面側。
+    </text>
+    <text x="14" y="96" class="sml">
+      ・<tspan font-weight="bold" fill="#1b5e20">かかと版</tspan>: 上載土+自重(下向き) &gt; 地盤反力 → <tspan font-weight="bold">下面引張</tspan>のモーメント。
+      竪壁背面の付け根が危険断面。 主鉄筋は下面側。
+    </text>
+    <text x="14" y="120" class="sml">
+      ・<tspan font-weight="bold">継手位置の原則</tspan>: M_maxとなる<tspan font-weight="bold">竪壁付け根および底版の竪壁直下では継手を設けない</tspan>。
+      竪壁では応力が小さくなる上部側、底版では端部寄りに千鳥配置する。
+    </text>
+  </g>
+</svg>
