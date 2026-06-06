@@ -20,5 +20,8 @@ pytrends>=4.9.2
 # YouTube Data API v3
 google-api-python-client>=2.140.0
 
+# YouTube 字幕 (transcript コマンド用、APIキー不要)
+youtube-transcript-api>=1.0.0
+
 # Bluesky (AT Protocol)
 atproto>=0.0.55

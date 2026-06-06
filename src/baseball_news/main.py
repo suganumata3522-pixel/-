@@ -1,8 +1,9 @@
 """CLI エントリポイント。
 
 サブコマンド:
-  collect  — 12 ソースから話題を集めて out/topics_<date>.json
-  script   — 指定 topic_id から台本を作って out/script_<id>.json
+  collect     — 12 ソースから話題を集めて out/topics_<date>.{json,txt}
+  script      — 指定 topic_id から台本を作って out/script_<id>.json
+  transcript  — YouTube動画の字幕を out/transcript_<vid>.{json,txt} に保存
 """
 from __future__ import annotations
 
@@ -23,6 +24,7 @@ from .collectors.base import TopicItem
 from .players import PlayerLookup
 from .script_generator import generate_script
 from .topics import aggregate, summarize_by_source
+from .transcript import fetch_transcript, format_transcript_readable
 
 JST = timezone(timedelta(hours=9))
 
@@ -192,6 +194,44 @@ def cmd_script(
     return 0
 
 
+# --- transcript -------------------------------------------------------------
+
+
+def cmd_transcript(out_dir: Path, url_or_id: str) -> int:
+    try:
+        result = fetch_transcript(url_or_id)
+    except Exception as e:  # noqa: BLE001
+        print(f"[transcript] 取得失敗: {type(e).__name__}: {e}", file=sys.stderr)
+        return 2
+
+    out_dir.mkdir(parents=True, exist_ok=True)
+    txt_path = out_dir / f"transcript_{result.video_id}.txt"
+    txt_path.write_text(format_transcript_readable(result), encoding="utf-8")
+
+    json_path = out_dir / f"transcript_{result.video_id}.json"
+    json_path.write_text(
+        json.dumps(
+            {
+                "video_id": result.video_id,
+                "language": result.language,
+                "is_generated": result.is_generated,
+                "full_text": result.full_text,
+                "segments": result.segments,
+            },
+            ensure_ascii=False,
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
+    kind = "自動字幕" if result.is_generated else "手動字幕"
+    print(f"[transcript] 保存: {txt_path}")
+    print(f"[transcript] JSON: {json_path}")
+    print(f"[transcript] 言語: {result.language} ({kind})  /  {len(result.segments)} セグメント")
+    preview = result.full_text[:120].replace("\n", " ")
+    print(f"[transcript] 冒頭: {preview}…")
+    return 0
+
+
 # --- entry ------------------------------------------------------------------
 
 
@@ -208,6 +248,10 @@ def main(argv: list[str] | None = None) -> int:
     p_script.add_argument("--topics", type=Path, default=None, help="topics JSON の明示指定")
     p_script.add_argument("--out", type=Path, default=None)
 
+    p_trans = sub.add_parser("transcript", help="YouTube 動画の字幕を取得")
+    p_trans.add_argument("url", help="YouTube URL または 11 桁の video ID")
+    p_trans.add_argument("--out", type=Path, default=None)
+
     args = parser.parse_args(argv)
     cfg = load_config(args.config)
     default_out = Path((cfg.get("output") or {}).get("dir") or "out")
@@ -217,6 +261,8 @@ def main(argv: list[str] | None = None) -> int:
         return cmd_collect(cfg, out_dir)
     if args.cmd == "script":
         return cmd_script(cfg, out_dir, args.topic_id, args.topics)
+    if args.cmd == "transcript":
+        return cmd_transcript(out_dir, args.url)
     parser.error(f"unknown command: {args.cmd}")
     return 2  # unreachable
 
