@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+.env
+out/
+.DS_Store
+
+# 手動アセット本体はリポジトリに含めない (構成のみ管理)
+assets/manual/*/
+!assets/manual/.gitkeep
+!assets/manual/logos/README.md
+!assets/manual/stadiums/README.md

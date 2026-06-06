@@ -1,0 +1,159 @@
+# プロ野球 話題収集 + 台本生成の設定
+# 12 ソースから話題を集めて Claude で台本 (テキスト) にするまでが守備範囲。
+# 音声収録・動画編集は手動。
+
+# ----------------------------------------------------------------------
+# 話題収集 (Phase 3-5 で実装)
+# ----------------------------------------------------------------------
+collectors:
+
+  # ① Yahoo!ニュース (野球カテゴリ) RSS
+  rss_yahoo:
+    enabled: true
+    feeds:
+      - "https://news.yahoo.co.jp/rss/categories/baseball.xml"
+
+  # ② Google News RSS
+  rss_google_news:
+    enabled: true
+    queries:
+      - "プロ野球"
+      - "NPB"
+      - "セ・リーグ"
+      - "パ・リーグ"
+      - "MLB 日本人"
+    hl: "ja"
+    gl: "JP"
+    ceid: "JP:ja"
+
+  # ③ スポーツ紙 RSS
+  rss_sports_papers:
+    enabled: true
+    feeds:
+      - name: "日刊スポーツ 野球"
+        url: "https://www.nikkansports.com/baseball/atom.xml"
+      - name: "スポニチ 野球"
+        url: "https://www.sponichi.co.jp/baseball/feed.rss"
+      - name: "サンスポ 野球"
+        url: "https://www.sanspo.com/baseball/feed/"
+      - name: "デイリースポーツ 野球"
+        url: "https://www.daily.co.jp/baseball/feed.rss"
+      - name: "スポーツ報知 野球"
+        url: "https://hochi.news/articles/baseball/feed"
+
+  # ④ 野球専門メディア RSS
+  rss_specialty:
+    enabled: true
+    feeds:
+      - name: "フルカウント"
+        url: "https://full-count.jp/feed/"
+      - name: "ベースボールキング"
+        url: "https://baseballking.jp/feed"
+      - name: "Number Web 野球"
+        url: "https://number.bunshun.jp/list/feed/category/baseball"
+
+  # ⑤ はてなブックマーク (野球タグの人気)
+  rss_hatena:
+    enabled: true
+    feeds:
+      - "https://b.hatena.ne.jp/q/%E3%83%97%E3%83%AD%E9%87%8E%E7%90%83?target=text&sort=popular&mode=rss"
+      - "https://b.hatena.ne.jp/q/NPB?target=text&sort=popular&mode=rss"
+
+  # ⑥ なんJ系まとめサイト RSS
+  rss_5ch_matome:
+    enabled: true
+    feeds:
+      - name: "なんJ PRIDE"
+        url: "http://blog.livedoor.jp/nanjpride/index.rdf"
+      - name: "なんJ 野球データ"
+        url: "http://blog.livedoor.jp/nanjstu/index.rdf"
+      - name: "ぐう速"
+        url: "http://blog.livedoor.jp/guusoku/index.rdf"
+
+  # ⑦ Google Trends (野球関連の急上昇)
+  google_trends:
+    enabled: true
+    keywords:
+      - "プロ野球"
+      - "NPB"
+    geo: "JP"
+    timeframe: "now 1-d"
+
+  # ⑧ YouTube Data API v3 (要 YOUTUBE_API_KEY)
+  youtube_data:
+    enabled: true
+    region_code: "JP"
+    # search.list で使うクエリ。日付フィルタは自動 (直近 48h)
+    queries:
+      - "プロ野球"
+      - "NPB ハイライト"
+    max_results: 20
+
+  # ⑨ NPB 公式 (試合速報・順位表をスクレイプ)
+  npb_official:
+    enabled: true
+    base_url: "https://npb.jp"
+
+  # ⑩ X (旧 Twitter) — 要 X_BEARER_TOKEN (Basic プラン課金)
+  # トークンが未設定なら自動 skip。
+  x_twitter:
+    enabled: true
+    queries:
+      - "プロ野球 lang:ja"
+      - "NPB lang:ja"
+    max_results: 30
+
+  # ⑪ Yahoo!リアルタイム検索 (スクレイプ)
+  yahoo_realtime:
+    enabled: true
+    queries:
+      - "プロ野球"
+      - "NPB"
+
+  # ⑫ Bluesky (AT Protocol、無料)
+  bluesky:
+    enabled: true
+    queries:
+      - "プロ野球"
+      - "NPB"
+    max_results: 30
+
+# ----------------------------------------------------------------------
+# 集約・スコアリング (Phase 2 で実装)
+# ----------------------------------------------------------------------
+aggregation:
+  # 過去 何時間 の話題までを対象にするか
+  lookback_hours: 36
+  # bi-gram Jaccard のしきい値 (0-100)。これ以上似ているタイトルは1つに統合。
+  dedupe_threshold: 55
+  # 出力する上位件数
+  top_n: 30
+
+# ----------------------------------------------------------------------
+# 選手プロフィール取得 (Phase 6 で実装)
+# ----------------------------------------------------------------------
+players:
+  # 選手名検出の対象球団 (teams.py のキー)
+  # 空ならすべての NPB 球団を対象
+  teams: []
+  # 通算成績のソース優先順
+  stats_sources:
+    - npb_official
+    - wikipedia
+
+# ----------------------------------------------------------------------
+# 台本生成 (Phase 7 で実装)
+# ----------------------------------------------------------------------
+script:
+  model: "claude-sonnet-4-6"
+  target_minutes: 5
+  audience: "プロ野球が好きな日本の一般ファン (20-50代)"
+  tone: "落ち着いた解説調。客観的で、誇張や煽りは避ける。"
+  # サムネ用のキャッチコピー口調 (動画自体は手動で作るが、台本に候補は出す)
+  thumbnail_tone: "視聴者の興味を引く短いキャッチコピー調。事実に基づくこと。"
+
+# ----------------------------------------------------------------------
+# 出力
+# ----------------------------------------------------------------------
+output:
+  dir: "out"
