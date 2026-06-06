@@ -1,86 +1,58 @@
-# ポケモン ABC の歌 🎵
+# ポケモン ABC の歌（日本語名ローマ字版）🎵
 
-英語のアルファベット A〜Z を、それぞれの頭文字から始まる**英語名のポケモン3匹ずつ**で歌う動画の素材です。
-（英語の「ABCの歌」＝きらきら星のメロディーに乗せて歌えます）
+A〜Z を、**日本語名をローマ字にしたときの頭文字**で並べたバージョンです。各3匹。
+日本語のローマ字に無い **L・Q・V・X は「当て字ローマ字」**で当てはめています（下のルール参照）。
+
+## 当て字ルール
+- **L** … ラ行（R）を **L** で表記（日本語のR音は英語のLに近い）
+- **Q** … 「キュ」を **Qu** で表記
+- **V** … バ行（ば・び・ぶ・べ・ぼ）を **V** で表記
+- **X** … 「ックス／クス」を **X** で表記（※頭文字でなく**名前の途中**でOK）
 
 ---
 
-## A〜Z ポケモン一覧（英語名＋日本語名・各3匹）
+## A〜Z ポケモン一覧（ローマ字 / 日本語名・各3匹）
 
 | 文字 | ① | ② | ③ |
 |:-:|:-|:-|:-|
-| **A** | Abra（ケーシィ） | Arcanine（ウインディ） | Articuno（フリーザー） |
-| **B** | Bulbasaur（フシギダネ） | Blastoise（カメックス） | Butterfree（バタフリー） |
-| **C** | Charmander（ヒトカゲ） | Charizard（リザードン） | Clefairy（ピッピ） |
-| **D** | Ditto（メタモン） | Dragonite（カイリュー） | Diglett（ディグダ） |
-| **E** | Eevee（イーブイ） | Ekans（アーボ） | Electrode（マルマイン） |
-| **F** | Flareon（ブースター） | Farfetch'd（カモネギ） | Fearow（オニドリル） |
-| **G** | Gengar（ゲンガー） | Gyarados（ギャラドス） | Geodude（イシツブテ） |
-| **H** | Haunter（ゴースト） | Horsea（タッツー） | Hitmonlee（サワムラー） |
-| **I** | Ivysaur（フシギソウ） | Igglybuff（ププリン） | Illumise（イルミーゼ） |
-| **J** | Jigglypuff（プリン） | Jolteon（サンダース） | Jynx（ルージュラ） |
-| **K** | Kakuna（コクーン） | Kangaskhan（ガルーラ） | Koffing（ドガース） |
-| **L** | Lapras（ラプラス） | Lickitung（ベロリンガ） | Ledyba（レディバ） |
-| **M** | Magikarp（コイキング） | Meowth（ニャース） | Mewtwo（ミュウツー） |
-| **N** | Nidoking（ニドキング） | Ninetales（キュウコン） | Nidoran（ニドラン） |
-| **O** | Onix（イワーク） | Oddish（ナゾノクサ） | Omanyte（オムナイト） |
-| **P** | Pikachu（ピカチュウ） | Psyduck（コダック） | Pidgey（ポッポ） |
-| **Q** | Quagsire（ヌオー） | Quilava（マグマラシ） | Qwilfish（ハリーセン） |
-| **R** | Rattata（コラッタ） | Raichu（ライチュウ） | Rapidash（ギャロップ） |
-| **S** | Squirtle（ゼニガメ） | Snorlax（カビゴン） | Slowpoke（ヤドン） |
-| **T** | Tauros（ケンタロス） | Togepi（トゲピー） | Tangela（モンジャラ） |
-| **U** | Umbreon（ブラッキー） | Unown（アンノーン） | Ursaring（リングマ） |
-| **V** | Vulpix（ロコン） | Venusaur（フシギバナ） | Vaporeon（シャワーズ） |
-| **W** | Wartortle（カメール） | Weezing（マタドガス） | Wigglytuff（プクリン） |
-| **X** | Xatu（ネイティオ） | Xerneas（ゼルネアス） | Xurkitree（デンジュモク） |
-| **Y** | Yanma（ヤンヤンマ） | Yamper（ワンパチ） | Yveltal（イベルタル） |
-| **Z** | Zubat（ズバット） | Zapdos（サンダー） | Zigzagoon（ジグザグマ） |
+| **A** | Aabo（アーボ） | Aabokku（アーボック） | Achamo（アチャモ） |
+| **B** | Batafurii（バタフリー） | Bangirasu（バンギラス） | Bosugodora（ボスゴドラ） |
+| **C** | Chikoriita（チコリータ） | Chaaremu（チャーレム） | Chonchii（チョンチー） |
+| **D** | Dagutorio（ダグトリオ） | Dogaasu（ドガース） | Doodoo（ドードー） |
+| **E** | Ebiwaraa（エビワラー） | Eipamu（エイパム） | Eneko（エネコ） |
+| **F** | Fushigidane（フシギダネ） | Fuudin（フーディン） | Furiizaa（フリーザー） |
+| **G** | Gaadi（ガーディ） | Gyaradosu（ギャラドス） | Gengaa（ゲンガー） |
+| **H** | Hitokage（ヒトカゲ） | Hinoarashi（ヒノアラシ） | Hakuryuu（ハクリュー） |
+| **I** | Iibui（イーブイ） | Ishitsubute（イシツブテ） | Iwaaku（イワーク） |
+| **J** | Jiguzaguma（ジグザグマ） | Jugon（ジュゴン） | Jibakoiru（ジバコイル） |
+| **K** | Kabigon（カビゴン） | Kairyuu（カイリュー） | Koikingu（コイキング） |
+| **L** ★ | **L**okon（ロコン） | **L**apulas（ラプラス） | **L**aichuu（ライチュウ） |
+| **M** | Metamon（メタモン） | Myuu（ミュウ） | Marumain（マルマイン） |
+| **N** | Nyaasu（ニャース） | Nidokingu（ニドキング） | Namakero（ナマケロ） |
+| **O** | Onisuzume（オニスズメ） | Omunaito（オムナイト） | Otachi（オタチ） |
+| **P** | Pikachuu（ピカチュウ） | Pippi（ピッピ） | Purin（プリン） |
+| **Q** ★ | **Qu**ukon（キュウコン） | **Qu**remu（キュレム） | **Qu**wawaa（キュワワー） |
+| **R** | Rizaadon（リザードン） | Rakkii（ラッキー） | Rentoraa（レントラー） |
+| **S** | Sandaa（サンダー） | Sawamuraa（サワムラー） | Sutaamii（スターミー） |
+| **T** | Togepii（トゲピー） | Tattsuu（タッツー） | Tosakinto（トサキント） |
+| **U** | Uindi（ウインディ） | Upaa（ウパー） | Usokkii（ウソッキー） |
+| **V** ★ | **V**uusutaa（ブースター） | **V**uubaa（ブーバー） | **V**etobetaa（ベトベター） |
+| **W** | Waninoko（ワニノコ） | Wanrikii（ワンリキー） | Warubiru（ワルビル） |
+| **X** ★ | Kame**x**（カメックス） | Pi**x**ii（ピクシー） | Na**x**laa（ナックラー） |
+| **Y** | Yadon（ヤドン） | Yamikarasu（ヤミカラス） | Yungeraa（ユンゲラー） |
+| **Z** | Zenigame（ゼニガメ） | Zoroa（ゾロア） | Zubatto（ズバット） |
 
-> 💡 Q・X・Y は英語名で始まるポケモンが少ないため、第2世代以降からも選んでいます。
-
----
-
-## 歌詞（きらきら星 / ABCソングのメロディー）
-
-各文字1匹を歌に乗せたショート版です（動画では残り2匹をテロップ＆イラストで紹介すると◎）。
-
-```
-A is for Abra, B is for Bulbasaur,
-C is Charmander, D is Ditto — roar!
-E is Eevee, F is Flareon,
-G is Gengar, H is Haunter — go!
-
-I is Ivysaur, J is Jigglypuff,
-K is Kakuna, L is Lapras tough!
-M is Magikarp, N is Ninetales,
-O is for Onix, P Pikachu trails!
-
-Q is Quagsire, R is Raichu,
-S is Squirtle, T is Togepi too!
-U is Umbreon, V is Vulpix,
-W Wartortle, X is Xatu's tricks!
-
-Y is for Yamper, Z is Zubat,
-Now we sang them — imagine that!
-Pokémon ABC, sing with me,
-A to Z, our family!
-```
+> ★ = 当て字ローマ字の文字。X は頭文字ではなく**名前の途中**に X が隠れています（例: カメッ**クス** → Kame**x**）。
 
 ---
 
-## 動画の絵コンテ案（1文字あたり 約4〜5秒）
-
-1. **タイトル画面**（5秒）: 「ポケモン ABC のうた」＋BGMイントロ
-2. **各文字シーン**（A〜Z）:
-   - 画面中央に大きなアルファベット（例: **A**）
-   - 周りにポケモン3匹のイラスト/3Dモデルがポンッと登場
-   - 下部に英語名＋日本語名のテロップ
-   - そのポケモンの鳴き声 or 効果音
-3. **エンディング**（10秒）: 全26文字をぎゅっと一覧表示 → 「またね！」
+## 動画での見せ方アイデア
+- **L・Q・V** … 当て字ローマ字をそのまま大きく表示（Lokon, Quukon, Vuusutaa など）
+- **X** … 「**X** はどこかな？ → カメッ**クス**！」と名前の中から探すクイズ演出にすると盛り上がる
+- 各文字シーンは「大きなアルファベット＋ポケモン3匹のイラスト＋ローマ字＆日本語名のテロップ」
 
 ### 制作のヒント
 - **尺の目安**: 26文字 × 4.5秒 ＋ 前後15秒 ≒ 2分
-- **BGM**: 「きらきら星」はパブリックドメインなので商用利用もしやすいです
-- **画像素材**: 著作権に注意（ポケモン公式画像は二次利用ルールを確認）。
-  自作イラストや配布素材を使うと安全です
-- **無料ツール例**: CapCut / iMovie / Canva（動画機能）/ DaVinci Resolve
+- **BGM**: 「きらきら星」はパブリックドメイン
+- **画像素材**: ポケモン公式画像は二次利用ルールを確認。自作イラストや配布素材が安全
+- **無料ツール例**: CapCut / iMovie / Canva / DaVinci Resolve
