@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>プールにあそびにいこう！</title>
+<style>
+  :root{
+    --poke-red:#ee1515;
+    --poke-dark:#222224;
+    --poke-yellow:#ffd23f;
+    --poke-yellow-d:#f5b800;
+    --water:#19b6e8;
+    --water-d:#0a7fb8;
+    --water-l:#bff0ff;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{font-family:"Noto Sans CJK JP","Noto Sans JP",sans-serif;}
+  .page{
+    position:relative;
+    width:794px;height:1123px;
+    background:
+      radial-gradient(circle at 18% 8%, #ffe98a 0 60px, transparent 61px),
+      radial-gradient(circle at 88% 4%, #ffe98a 0 50px, transparent 51px),
+      linear-gradient(180deg,#dffaff 0%,#bff0ff 38%,#8fe4ff 100%);
+    overflow:hidden;
+  }
+  /* wavy water bands */
+  .wave{position:absolute;left:-40px;right:-40px;height:90px;
+    background:repeating-linear-gradient(90deg,var(--water-l) 0 22px,#a9ecff 22px 44px);
+    opacity:.5;border-radius:50%;}
+
+  /* ---- Header ---- */
+  .header{position:relative;padding:26px 34px 14px;text-align:center;}
+  .ribbon{
+    display:inline-block;background:var(--poke-red);color:#fff;
+    font-weight:900;font-size:22px;letter-spacing:2px;
+    padding:7px 26px;border-radius:30px;border:4px solid #fff;
+    box-shadow:0 4px 0 #b40d0d,0 8px 14px rgba(0,0,0,.18);
+  }
+  .title{
+    margin-top:14px;font-size:74px;font-weight:900;line-height:.98;
+    color:#fff;
+    -webkit-text-stroke:9px var(--poke-dark);
+    paint-order:stroke fill;
+    text-shadow:0 7px 0 rgba(0,0,0,.18);
+  }
+  .title .y{color:var(--poke-yellow);}
+  .subtitle{
+    margin-top:12px;display:inline-block;
+    background:var(--poke-dark);color:#fff;font-weight:800;
+    font-size:25px;padding:9px 22px;border-radius:14px;letter-spacing:1px;
+  }
+  .subtitle b{color:var(--poke-yellow);}
+
+  /* ---- Pokeballs ---- */
+  .pokeball{position:absolute;border-radius:50%;
+    background:
+      radial-gradient(circle at 50% 50%, #fff 0 var(--btn), var(--poke-dark) var(--btn) calc(var(--btn) + 5px), transparent calc(var(--btn) + 5px)),
+      linear-gradient(180deg, var(--poke-red) 0 calc(50% - 6px), var(--poke-dark) calc(50% - 6px) calc(50% + 6px), #fff calc(50% + 6px) 100%);
+    border:4px solid var(--poke-dark);
+    box-shadow:0 6px 12px rgba(0,0,0,.2);
+  }
+
+  /* ---- Lead message ---- */
+  .lead{
+    margin:6px 34px 0;background:#fff;border:5px solid var(--poke-yellow);
+    border-radius:22px;padding:16px 22px;position:relative;
+    box-shadow:0 6px 0 var(--poke-yellow-d);
+  }
+  .lead p{font-size:22px;font-weight:800;color:#243;line-height:1.5;}
+  .lead .big{color:var(--water-d);font-size:26px;}
+  .lead .tag{position:absolute;top:-18px;left:24px;background:var(--water);color:#fff;
+    font-weight:900;font-size:18px;padding:4px 16px;border-radius:20px;border:3px solid #fff;}
+
+  /* ---- Date picker (main) ---- */
+  .datebox{margin:20px 30px 0;background:#fff;border:6px solid var(--water);
+    border-radius:24px;padding:16px 20px 20px;box-shadow:0 8px 0 var(--water-d);}
+  .datebox h2{font-size:27px;font-weight:900;color:var(--water-d);text-align:center;
+    margin-bottom:4px;}
+  .datebox .hint{text-align:center;font-size:17px;font-weight:800;color:#e8730b;margin-bottom:12px;}
+  .grid{display:grid;grid-template-columns:repeat(6,1fr);gap:9px;}
+  .cell{border:3px solid #cfe9f5;border-radius:14px;padding:7px 2px 9px;text-align:center;background:#f4fcff;}
+  .cell .md{font-size:21px;font-weight:900;color:#234;line-height:1;}
+  .cell .wd{display:inline-block;font-size:13px;font-weight:800;color:#fff;background:#7fbed6;
+    border-radius:8px;padding:1px 8px;margin-top:3px;}
+  .cell.sat .wd{background:#2f8fd6;}
+  .cell.sun .wd{background:#e64a4a;}
+  .cell .circle{margin:8px auto 0;width:30px;height:30px;border-radius:50%;border:3px dashed #9bd4e8;}
+  .datebox .foot{text-align:center;font-size:15px;font-weight:700;color:#567;margin-top:12px;}
+
+  /* ---- Info row ---- */
+  .info{display:flex;gap:14px;margin:18px 30px 0;}
+  .card{flex:1;background:#fff;border:4px solid var(--poke-yellow);border-radius:18px;
+    padding:12px 14px;box-shadow:0 5px 0 var(--poke-yellow-d);}
+  .card h3{font-size:18px;font-weight:900;color:var(--poke-red);margin-bottom:6px;
+    display:flex;align-items:center;gap:6px;}
+  .card .dot{width:14px;height:14px;border-radius:50%;background:var(--poke-red);display:inline-block;
+    box-shadow:inset 0 -5px 0 rgba(0,0,0,.15);}
+  .card p{font-size:16px;font-weight:700;color:#234;line-height:1.55;}
+
+  /* ---- Reply slip ---- */
+  .reply{margin:18px 30px 0;background:var(--poke-yellow);border-radius:20px;padding:14px 20px;
+    display:flex;align-items:center;gap:18px;box-shadow:0 6px 0 var(--poke-yellow-d);}
+  .reply .lbl{font-size:20px;font-weight:900;color:var(--poke-dark);white-space:nowrap;}
+  .reply .line{flex:1;border-bottom:3px solid var(--poke-dark);height:30px;}
+
+  .footnote{text-align:center;font-size:14px;color:#3a6;font-weight:700;margin-top:14px;}
+
+  /* lightning */
+  .bolt{position:absolute;width:0;height:0;}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- decorative pokeballs -->
+  <div class="pokeball" style="--btn:13px;width:72px;height:72px;top:30px;left:18px;transform:rotate(-15deg);"></div>
+  <div class="pokeball" style="--btn:9px;width:50px;height:50px;top:120px;right:24px;transform:rotate(20deg);"></div>
+  <div class="pokeball" style="--btn:8px;width:44px;height:44px;bottom:36px;left:28px;transform:rotate(12deg);"></div>
+  <div class="pokeball" style="--btn:11px;width:60px;height:60px;bottom:24px;right:26px;transform:rotate(-18deg);"></div>
+
+  <div class="wave" style="top:250px;transform:rotate(-2deg);"></div>
+
+  <!-- header -->
+  <div class="header">
+    <span class="ribbon">⚡ なつだ！ プールだ！ ⚡</span>
+    <div class="title"><span class="y">プール</span>に<br>あそびに いこう！</div>
+    <div class="subtitle">ナガシマスパーランド <b>ジャンボ海水プール</b></div>
+  </div>
+
+  <!-- lead -->
+  <div class="lead">
+    <span class="tag">いっしょに あそぼう！</span>
+    <p>この なつ、みんなで <span class="big">ナガシマスパーランドの 大きな プール</span> に
+    あそびに いきませんか？ ながーい ウォータースライダーや、なみの プールが あるよ！</p>
+  </div>
+
+  <!-- DATE PICKER (main) -->
+  <div class="datebox">
+    <h2>📅 まずは 日にちを きめよう！</h2>
+    <p class="hint">★ あそびに いける日 ぜんぶに ○を つけてね！ ★</p>
+    <div class="grid" id="grid"></div>
+    <p class="foot">いちばん たくさん ○が ついた日に、みんなで いく よていだよ！</p>
+  </div>
+
+  <!-- info -->
+  <div class="info">
+    <div class="card">
+      <h3><span class="dot"></span>もちもの</h3>
+      <p>みずぎ／タオル／うきわ<br>ぼうし／日やけどめ<br>おかね（すこし）</p>
+    </div>
+    <div class="card">
+      <h3><span class="dot"></span>あつまる ばしょ</h3>
+      <p>ナガシマスパーランド<br>ジャンボ海水プール<br>（時間は あとで れんらく）</p>
+    </div>
+  </div>
+
+  <!-- reply -->
+  <div class="reply">
+    <span class="lbl">なまえ ▶</span><span class="line"></span>
+  </div>
+
+  <p class="footnote">⚡ きみの へんじ、まってるよ！ いっしょに さいこうの なつに しよう！ ⚡</p>
+
+  <div class="wave" style="bottom:90px;transform:rotate(2deg);opacity:.35;"></div>
+</div>
+
+<script>
+  const dates = [
+    ["7/21","火",""],["7/22","水",""],["7/23","木",""],["7/24","金",""],["7/25","土","sat"],["7/26","日","sun"],
+    ["7/27","月",""],["7/28","火",""],["7/29","水",""],["7/30","木",""],["7/31","金",""],["8/1","土","sat"],
+    ["8/2","日","sun"],["8/3","月",""],["8/4","火",""],["8/5","水",""],["8/6","木",""],["8/7","金",""]
+  ];
+  const g = document.getElementById("grid");
+  for(const [md,wd,cls] of dates){
+    g.insertAdjacentHTML("beforeend",
+      `<div class="cell ${cls}"><div class="md">${md}</div><span class="wd">${wd}</span><div class="circle"></div></div>`);
+  }
+</script>
+</body>
+</html>
