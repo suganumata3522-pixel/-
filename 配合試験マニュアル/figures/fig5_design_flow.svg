@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="430" viewBox="0 0 760 430" font-family="'Noto Sans JP','Hiragino Kaku Gothic ProN',sans-serif">
+  <style>
+    .tb{fill:#1a2b3c;font-size:20px;font-weight:bold;}
+    .box{stroke-width:2;rx:8;}
+    .t{fill:#1a2b3c;font-size:15px;}
+    .tb2{fill:#1a2b3c;font-size:15px;font-weight:bold;}
+    .f{fill:#7a3b9c;font-size:15px;font-weight:bold;}
+    .arr{stroke:#444;stroke-width:2.5;fill:none;marker-end:url(#a5);}
+    .note{fill:#5a6b7b;font-size:13px;}
+  </style>
+  <defs>
+    <marker id="a5" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#444"/>
+    </marker>
+  </defs>
+  <text x="380" y="30" text-anchor="middle" class="tb">図5　室内目標強度から現場添加量を決める流れ</text>
+
+  <rect class="box" x="60" y="60" width="280" height="70" fill="#eef4fb" stroke="#2f6db5"/>
+  <text x="200" y="88" text-anchor="middle" class="tb2">① 設計基準強度 quf</text>
+  <text x="200" y="112" text-anchor="middle" class="note">構造計算で必要な現場強度</text>
+
+  <rect class="box" x="60" y="175" width="280" height="80" fill="#f3eefb" stroke="#7a3b9c"/>
+  <text x="200" y="202" text-anchor="middle" class="tb2">② 室内目標強度 quL</text>
+  <text x="200" y="226" text-anchor="middle" class="f">quL = quf ÷ (現場/室内強さ比)</text>
+  <text x="200" y="246" text-anchor="middle" class="note">強さ比 = 0.3〜0.8（条件で選定）</text>
+
+  <rect class="box" x="60" y="300" width="280" height="80" fill="#eef9f0" stroke="#2f9c5a"/>
+  <text x="200" y="327" text-anchor="middle" class="tb2">③ 室内必要添加量 CL</text>
+  <text x="200" y="351" text-anchor="middle" class="note">図4の曲線から quL に対応する</text>
+  <text x="200" y="369" text-anchor="middle" class="note">添加量を読み取る</text>
+
+  <rect class="box" x="420" y="300" width="290" height="80" fill="#fbf3e6" stroke="#c98a23"/>
+  <text x="565" y="327" text-anchor="middle" class="tb2">④ 現場添加量 Cf</text>
+  <text x="565" y="351" text-anchor="middle" class="f">Cf = CL × 割増係数</text>
+  <text x="565" y="369" text-anchor="middle" class="note">最小添加量（例 50kg/m³）も確認</text>
+
+  <path class="arr" d="M200,130 L200,173"/>
+  <path class="arr" d="M200,255 L200,298"/>
+  <path class="arr" d="M340,340 L418,340"/>
+
+  <rect x="420" y="60" width="290" height="195" rx="8" fill="#fafbfc" stroke="#d0d7de"/>
+  <text x="438" y="86" class="tb2">現場/室内強さ比の目安</text>
+  <text x="438" y="112" class="note">（セメント協会マニュアルより）</text>
+  <text x="438" y="140" class="t">スラリー・機械撹拌 … 0.5〜0.8</text>
+  <text x="438" y="166" class="t">スラリー・バックホウ … 0.4〜0.7</text>
+  <text x="438" y="192" class="t">粉体・機械撹拌 … 0.3〜0.7</text>
+  <text x="438" y="218" class="t">粉体・バックホウ … 0.5〜0.8</text>
+  <text x="438" y="244" class="note">※対象土・施工機械で選定。安全側は小さい値。</text>
+</svg>

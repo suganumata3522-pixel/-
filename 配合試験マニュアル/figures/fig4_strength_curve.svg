@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="500" viewBox="0 0 760 500" font-family="'Noto Sans JP','Hiragino Kaku Gothic ProN',sans-serif">
+  <style>
+    .tb{fill:#1a2b3c;font-size:20px;font-weight:bold;}
+    .ax{stroke:#333;stroke-width:2;}
+    .grid{stroke:#e2e6ea;stroke-width:1;}
+    .lbl{fill:#1a2b3c;font-size:15px;}
+    .note{fill:#5a6b7b;font-size:13px;}
+    .pt{fill:#2f6db5;}
+    .tgt{stroke:#c0392b;stroke-width:1.8;stroke-dasharray:7 5;fill:none;}
+    .tgtt{fill:#c0392b;font-size:14px;font-weight:bold;}
+  </style>
+  <text x="380" y="32" text-anchor="middle" class="tb">図4　固化材添加量と一軸圧縮強度の関係（例）</text>
+
+  <!-- plot area: x 90..690 (600), y 80..420 (340) -->
+  <!-- grid -->
+  <g class="grid">
+    <line x1="90" y1="420" x2="690" y2="420"/>
+    <line x1="90" y1="80" x2="90" y2="420"/>
+    <line x1="210" y1="80" x2="210" y2="420"/>
+    <line x1="330" y1="80" x2="330" y2="420"/>
+    <line x1="450" y1="80" x2="450" y2="420"/>
+    <line x1="570" y1="80" x2="570" y2="420"/>
+    <line x1="690" y1="80" x2="690" y2="420"/>
+    <line x1="90" y1="335" x2="690" y2="335"/>
+    <line x1="90" y1="250" x2="690" y2="250"/>
+    <line x1="90" y1="165" x2="690" y2="165"/>
+  </g>
+  <!-- axes -->
+  <line class="ax" x1="90" y1="420" x2="700" y2="420"/>
+  <line class="ax" x1="90" y1="70" x2="90" y2="420"/>
+
+  <!-- x ticks (addition kg/m3) -->
+  <text x="90"  y="442" text-anchor="middle" class="note">50</text>
+  <text x="210" y="442" text-anchor="middle" class="note">80</text>
+  <text x="330" y="442" text-anchor="middle" class="note">110</text>
+  <text x="450" y="442" text-anchor="middle" class="note">140</text>
+  <text x="570" y="442" text-anchor="middle" class="note">170</text>
+  <text x="690" y="442" text-anchor="middle" class="note">200</text>
+  <text x="390" y="470" text-anchor="middle" class="lbl">固化材添加量　C（kg/m³）</text>
+
+  <!-- y ticks (qu kN/m2) -->
+  <text x="80" y="424" text-anchor="end" class="note">0</text>
+  <text x="80" y="339" text-anchor="end" class="note">200</text>
+  <text x="80" y="254" text-anchor="end" class="note">400</text>
+  <text x="80" y="169" text-anchor="end" class="note">600</text>
+  <text x="80" y="84" text-anchor="end" class="note">800</text>
+  <text x="34" y="250" text-anchor="middle" class="lbl" transform="rotate(-90 34 250)">材齢28日 一軸圧縮強度 qu（kN/m²）</text>
+
+  <!-- data curve: points (x addition -> px) ; qu -->
+  <!-- 50->100, 80->230, 110->380, 140->520, 170->640 ; convert qu to y: y=420-qu*0.425 -->
+  <polyline points="90,377 210,322 330,259 450,199 570,148" fill="none" stroke="#2f6db5" stroke-width="3"/>
+  <circle class="pt" cx="90"  cy="377" r="6"/>
+  <circle class="pt" cx="210" cy="322" r="6"/>
+  <circle class="pt" cx="330" cy="259" r="6"/>
+  <circle class="pt" cx="450" cy="199" r="6"/>
+  <circle class="pt" cx="570" cy="148" r="6"/>
+
+  <text x="90"  y="368" text-anchor="middle" class="note">100</text>
+  <text x="210" y="313" text-anchor="middle" class="note">230</text>
+  <text x="330" y="250" text-anchor="middle" class="note">380</text>
+  <text x="450" y="190" text-anchor="middle" class="note">520</text>
+  <text x="570" y="139" text-anchor="middle" class="note">640</text>
+
+  <!-- target line qu=400 -> y=250 -->
+  <line class="tgt" x1="90" y1="250" x2="690" y2="250"/>
+  <text x="688" y="240" text-anchor="end" class="tgtt">室内目標強度 quL = 400 kN/m²</text>
+  <!-- drop to x -->
+  <line class="tgt" x1="330" y1="250" x2="330" y2="420"/>
+  <text x="338" y="410" class="tgtt">必要添加量 ≒ 110 kg/m³</text>
+
+  <text x="120" y="495" class="note">※数値は例示。実際は試験結果から回帰曲線を描き、室内目標強度に対応する添加量を読み取る。</text>
+</svg>

@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="360" viewBox="0 0 760 360" font-family="'Noto Sans JP','Hiragino Kaku Gothic ProN',sans-serif">
+  <style>
+    .tb{fill:#1a2b3c;font-size:20px;font-weight:bold;}
+    .cap{fill:#2f6db5;font-size:14px;font-weight:bold;}
+    .note{fill:#5a6b7b;font-size:12px;}
+    .obj{stroke:#7a6a52;stroke-width:2;}
+  </style>
+  <text x="380" y="30" text-anchor="middle" class="tb">図3　混合〜供試体作製の手順イメージ</text>
+
+  <!-- 1 weigh -->
+  <g transform="translate(40,70)">
+    <rect x="0" y="60" width="120" height="40" fill="#d9dde2" stroke="#888" stroke-width="2"/>
+    <rect x="25" y="25" width="70" height="40" rx="4" fill="#cdb89a" class="obj"/>
+    <text x="60" y="52" text-anchor="middle" class="note">土・固化材</text>
+    <line x1="60" y1="100" x2="60" y2="115" stroke="#888" stroke-width="2"/>
+    <text x="60" y="135" text-anchor="middle" class="cap">①計量</text>
+    <text x="60" y="153" text-anchor="middle" class="note">湿潤土 約500g/本</text>
+  </g>
+
+  <!-- 2 slurry -->
+  <g transform="translate(195,70)">
+    <path d="M20,30 L100,30 L90,100 L30,100 Z" fill="#afc6e0" class="obj"/>
+    <ellipse cx="60" cy="30" rx="40" ry="8" fill="#cddcee" stroke="#7a6a52" stroke-width="2"/>
+    <text x="60" y="70" text-anchor="middle" class="note" fill="#1a3b5c">スラリー</text>
+    <text x="60" y="135" text-anchor="middle" class="cap">②スラリー作製</text>
+    <text x="60" y="153" text-anchor="middle" class="note">水/固化材比を設定</text>
+  </g>
+
+  <!-- 3 mix -->
+  <g transform="translate(350,70)">
+    <rect x="20" y="35" width="80" height="65" rx="6" fill="#e7d8bf" class="obj"/>
+    <line x1="60" y1="20" x2="60" y2="70" stroke="#555" stroke-width="3"/>
+    <path d="M45,70 L75,70 L70,88 L50,88 Z" fill="#888" stroke="#555" stroke-width="1.5"/>
+    <circle cx="60" cy="15" r="7" fill="#555"/>
+    <text x="60" y="135" text-anchor="middle" class="cap">③混合</text>
+    <text x="60" y="153" text-anchor="middle" class="note">ミキサー 5〜10分</text>
+  </g>
+
+  <!-- 4 mold -->
+  <g transform="translate(505,70)">
+    <rect x="35" y="25" width="50" height="80" fill="#cdb89a" class="obj"/>
+    <line x1="35" y1="52" x2="85" y2="52" stroke="#7a6a52" stroke-dasharray="4 3"/>
+    <line x1="35" y1="78" x2="85" y2="78" stroke="#7a6a52" stroke-dasharray="4 3"/>
+    <text x="60" y="135" text-anchor="middle" class="cap">④充填（3層）</text>
+    <text x="60" y="153" text-anchor="middle" class="note">気泡除去</text>
+  </g>
+
+  <!-- 5 cure -->
+  <g transform="translate(640,70)">
+    <rect x="10" y="20" width="95" height="90" rx="6" fill="#eef4fb" stroke="#2f6db5" stroke-width="2"/>
+    <rect x="30" y="55" width="14" height="45" fill="#cdb89a" class="obj"/>
+    <rect x="52" y="55" width="14" height="45" fill="#cdb89a" class="obj"/>
+    <rect x="74" y="55" width="14" height="45" fill="#cdb89a" class="obj"/>
+    <text x="57" y="42" text-anchor="middle" class="note">20±3℃</text>
+    <text x="57" y="135" text-anchor="middle" class="cap">⑤養生</text>
+    <text x="57" y="153" text-anchor="middle" class="note">湿空・水中</text>
+  </g>
+
+  <!-- arrows -->
+  <g stroke="#2f6db5" stroke-width="2.5" fill="none">
+    <path d="M165,135 L185,135" marker-end="url(#a3)"/>
+    <path d="M320,135 L340,135" marker-end="url(#a3)"/>
+    <path d="M475,135 L495,135" marker-end="url(#a3)"/>
+    <path d="M630,135 L645,135" marker-end="url(#a3)"/>
+  </g>
+  <defs>
+    <marker id="a3" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#2f6db5"/>
+    </marker>
+  </defs>
+
+  <rect x="40" y="225" width="685" height="110" rx="8" fill="#fafbfc" stroke="#d0d7de"/>
+  <text x="58" y="252" class="cap">作製のポイント</text>
+  <text x="58" y="278" class="note">・対象土は最大粒径 9.5mm 以下にふるい分け、礫・木片・夾雑物を除く。</text>
+  <text x="58" y="300" class="note">・モールド内壁に試料が付着して撹拌できない場合は混合を止め、ヘラでかき落として再混合する。</text>
+  <text x="58" y="322" class="note">・同一条件で3本以上作製し、平均値を採用する（試験本数を確保）。</text>
+</svg>

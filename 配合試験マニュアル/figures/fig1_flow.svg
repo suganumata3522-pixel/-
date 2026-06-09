@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="720" viewBox="0 0 760 720" font-family="'Noto Sans JP','Hiragino Kaku Gothic ProN',sans-serif">
+  <style>
+    .box{fill:#eef4fb;stroke:#2f6db5;stroke-width:2;rx:8;}
+    .t{fill:#1a2b3c;font-size:16px;}
+    .tb{fill:#1a2b3c;font-size:16px;font-weight:bold;}
+    .n{fill:#2f6db5;font-size:14px;font-weight:bold;}
+    .arr{stroke:#2f6db5;stroke-width:2.5;fill:none;marker-end:url(#a);}
+    .note{fill:#5a6b7b;font-size:13px;}
+  </style>
+  <defs>
+    <marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#2f6db5"/>
+    </marker>
+  </defs>
+  <text x="380" y="30" text-anchor="middle" class="tb" font-size="20">図1　事前配合試験のフロー</text>
+
+  <rect class="box" x="230" y="55" width="300" height="50" rx="8"/>
+  <text x="245" y="78" class="n">STEP 1</text>
+  <text x="245" y="96" class="t">試料採取（改良対象層の土）</text>
+
+  <rect class="box" x="230" y="130" width="300" height="50" rx="8"/>
+  <text x="245" y="153" class="n">STEP 2</text>
+  <text x="245" y="171" class="t">設計条件の整理・目標強度の設定</text>
+
+  <rect class="box" x="230" y="205" width="300" height="50" rx="8"/>
+  <text x="245" y="228" class="n">STEP 3</text>
+  <text x="245" y="246" class="t">添加量水準の設定（3〜5水準）</text>
+
+  <rect class="box" x="230" y="280" width="300" height="50" rx="8"/>
+  <text x="245" y="303" class="n">STEP 4</text>
+  <text x="245" y="321" class="t">固化材スラリーの作製</text>
+
+  <rect class="box" x="230" y="355" width="300" height="50" rx="8"/>
+  <text x="245" y="378" class="n">STEP 5</text>
+  <text x="245" y="396" class="t">混合・撹拌（ミキサー）</text>
+
+  <rect class="box" x="230" y="430" width="300" height="50" rx="8"/>
+  <text x="245" y="453" class="n">STEP 6</text>
+  <text x="245" y="471" class="t">供試体の作製（φ50×h100mm）</text>
+
+  <rect class="box" x="230" y="505" width="300" height="50" rx="8"/>
+  <text x="245" y="528" class="n">STEP 7</text>
+  <text x="245" y="546" class="t">養生（20±3℃・湿空養生）</text>
+
+  <rect class="box" x="230" y="580" width="300" height="50" rx="8"/>
+  <text x="245" y="603" class="n">STEP 8</text>
+  <text x="245" y="621" class="t">一軸圧縮試験（JIS A 1216）</text>
+
+  <rect class="box" x="230" y="655" width="300" height="50" rx="8" fill="#fbf3e6" stroke="#c98a23"/>
+  <text x="245" y="678" class="n" fill="#c98a23">STEP 9</text>
+  <text x="245" y="696" class="t">添加量の決定・現場添加量へ換算</text>
+
+  <path class="arr" d="M380,105 L380,128"/>
+  <path class="arr" d="M380,180 L380,203"/>
+  <path class="arr" d="M380,255 L380,278"/>
+  <path class="arr" d="M380,330 L380,353"/>
+  <path class="arr" d="M380,405 L380,428"/>
+  <path class="arr" d="M380,480 L380,503"/>
+  <path class="arr" d="M380,555 L380,578"/>
+  <path class="arr" d="M380,630 L380,653"/>
+
+  <text x="545" y="328" class="note">5〜10分</text>
+  <text x="545" y="546" class="note">材齢7日／28日</text>
+</svg>
