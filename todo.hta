@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>ToDoリスト</title>
+<HTA:APPLICATION
+  ID="todoApp"
+  APPLICATIONNAME="ToDoリスト"
+  BORDER="thin"
+  CAPTION="yes"
+  MAXIMIZEBUTTON="no"
+  MINIMIZEBUTTON="yes"
+  SHOWINTASKBAR="yes"
+  SINGLEINSTANCE="yes"
+  SCROLL="auto"
+  CONTEXTMENU="no"
+  INNERBORDER="no"
+  SELECTION="no"
+  SYSMENU="yes"
+/>
+<style>
+  :root {
+    --bg: #f4f6f9;
+    --card: #ffffff;
+    --line: #e2e8f0;
+    --text: #1f2933;
+    --muted: #7b8794;
+    --accent: #2f80ed;
+    --accent-dark: #1c63c4;
+    --high: #e74c3c;
+    --mid: #f39c12;
+    --low: #27ae60;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: "Segoe UI", "Meiryo", "Yu Gothic", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding: 14px;
+  }
+  h1 { font-size: 18px; margin: 0 0 2px; }
+  .sub { color: var(--muted); font-size: 11px; margin: 0 0 12px; }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+
+  .form label { display: block; font-size: 11px; color: var(--muted); margin: 0 0 3px; }
+  .form .row { margin-bottom: 8px; }
+  .form .row2 { display: flex; gap: 8px; }
+  .form .row2 > div { flex: 1; }
+  input, select, button {
+    font-family: inherit;
+    font-size: 13px;
+    padding: 8px 9px;
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    background: #fff;
+    color: var(--text);
+    width: 100%;
+  }
+  input:focus, select:focus { outline: 2px solid var(--accent); border-color: var(--accent); }
+  button.add {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    padding: 9px 14px;
+    margin-top: 4px;
+  }
+  button.add:hover { background: var(--accent-dark); }
+
+  .toolbar {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+  }
+  .toolbar .spacer { flex: 1; }
+  .chip {
+    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: 16px;
+    border: 1px solid var(--line);
+    background: #fff;
+    cursor: pointer;
+    color: var(--muted);
+    width: auto;
+  }
+  .chip.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .count { font-size: 11px; color: var(--muted); }
+
+  table { width: 100%; border-collapse: collapse; }
+  th, td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--line); font-size: 13px; }
+  th { font-size: 11px; color: var(--muted); font-weight: 600; }
+  th.sortable { cursor: pointer; }
+  th.sortable:hover { color: var(--accent); }
+  td.center, th.center { text-align: center; }
+  tr.done td.task { text-decoration: line-through; color: var(--muted); }
+
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    color: #fff;
+    font-weight: 600;
+  }
+  .badge.high { background: var(--high); }
+  .badge.mid  { background: var(--mid); }
+  .badge.low  { background: var(--low); }
+
+  .due.over { color: var(--high); font-weight: 600; }
+  .due.soon { color: var(--mid); font-weight: 600; }
+
+  .icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    width: auto;
+    padding: 3px 5px;
+    color: var(--muted);
+    border-radius: 5px;
+  }
+  .icon-btn:hover { background: var(--bg); color: var(--high); }
+
+  .empty { text-align: center; color: var(--muted); padding: 24px 0; font-size: 13px; }
+</style>
+</head>
+<body>
+  <h1>📋 ToDoリスト</h1>
+  <p class="sub">タスクは同じフォルダの todo-data.json に自動保存されます。</p>
+
+  <div class="card">
+    <form class="form" id="addForm">
+      <div class="row">
+        <label for="task">タスク名</label>
+        <input type="text" id="task" placeholder="やることを入力" autocomplete="off">
+      </div>
+      <div class="row row2">
+        <div>
+          <label for="due">期限 (例: 2026-06-15)</label>
+          <input type="text" id="due" placeholder="YYYY-MM-DD" maxlength="10" autocomplete="off">
+        </div>
+        <div>
+          <label for="priority">優先度</label>
+          <select id="priority">
+            <option value="high">高</option>
+            <option value="mid" selected>中</option>
+            <option value="low">低</option>
+          </select>
+        </div>
+      </div>
+      <button type="submit" class="add">追加</button>
+    </form>
+  </div>
+
+  <div class="card">
+    <div class="toolbar">
+      <button class="chip active" data-filter="all">すべて</button>
+      <button class="chip" data-filter="active">未完了</button>
+      <button class="chip" data-filter="done">完了</button>
+      <span class="spacer"></span>
+      <span class="count" id="count"></span>
+      <button class="chip" id="clearDone">完了を削除</button>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th class="center" style="width:38px;">完了</th>
+          <th class="sortable" data-sort="task">タスク名</th>
+          <th class="sortable" data-sort="due" style="width:84px;">期限</th>
+          <th class="sortable center" data-sort="priority" style="width:54px;">優先</th>
+          <th class="center" style="width:36px;"></th>
+        </tr>
+      </thead>
+      <tbody id="list"></tbody>
+    </table>
+    <div class="empty" id="empty" style="display:none;">タスクはありません。上のフォームから追加してください。</div>
+  </div>
+
+<script type="text/javascript">
+  // ===== HTA版 ToDoリスト（ES5 / mshta.exe 対応・インストール不要） =====
+  var PRIORITY = {
+    high: { label: "高", cls: "high", rank: 0 },
+    mid:  { label: "中", cls: "mid",  rank: 1 },
+    low:  { label: "低", cls: "low",  rank: 2 }
+  };
+
+  var items = [];
+  var filter = "all";
+  var sort = { key: "priority", dir: 1 };
+
+  function $(id) { return document.getElementById(id); }
+
+  // --- 保存ファイルのパス（このHTAと同じフォルダの todo-data.json） ---
+  function dataFile() {
+    var p = decodeURIComponent(location.pathname); // 例: /C:/dir/todo.hta
+    p = p.replace(/^\//, "").replace(/\//g, "\\");  // 例: C:\dir\todo.hta
+    var dir = p.substring(0, p.lastIndexOf("\\"));
+    return dir + "\\todo-data.json";
+  }
+
+  function load() {
+    try {
+      var fso = new ActiveXObject("Scripting.FileSystemObject");
+      var f = dataFile();
+      if (!fso.FileExists(f)) return [];
+      var s = fso.OpenTextFile(f, 1, false, -1); // 1=読込, -1=Unicode
+      var txt = s.AtEndOfStream ? "" : s.ReadAll();
+      s.Close();
+      if (!txt) return [];
+      return JSON.parse(txt) || [];
+    } catch (e) { return []; }
+  }
+
+  function save() {
+    try {
+      var fso = new ActiveXObject("Scripting.FileSystemObject");
+      var s = fso.CreateTextFile(dataFile(), true, true); // 上書き可, Unicode
+      s.Write(JSON.stringify(items));
+      s.Close();
+    } catch (e) {
+      alert("保存に失敗しました。\n" + (e && e.message ? e.message : e));
+    }
+  }
+
+  // --- 配列ヘルパー（IE互換） ---
+  function findItem(id) {
+    for (var i = 0; i < items.length; i++) {
+      if (items[i].id === id) return items[i];
+    }
+    return null;
+  }
+  function each(nodeList, fn) {
+    for (var i = 0; i < nodeList.length; i++) fn(nodeList[i], i);
+  }
+
+  function addItem(task, due, priority) {
+    items.push({ id: "" + (new Date().getTime()) + "-" + Math.floor(Math.random() * 100000),
+                 task: task, due: due, priority: priority, done: false });
+    save();
+    render();
+  }
+
+  function toggleDone(id) {
+    var it = findItem(id);
+    if (it) { it.done = !it.done; save(); render(); }
+  }
+
+  function removeItem(id) {
+    var next = [];
+    for (var i = 0; i < items.length; i++) {
+      if (items[i].id !== id) next.push(items[i]);
+    }
+    items = next;
+    save();
+    render();
+  }
+
+  function isValidDate(s) {
+    return /^\d{4}-\d{1,2}-\d{1,2}$/.test(s);
+  }
+  function parseDate(due) {
+    var a = due.split("-");
+    return new Date(parseInt(a[0], 10), parseInt(a[1], 10) - 1, parseInt(a[2], 10));
+  }
+
+  function dueClass(due, done) {
+    if (!due || done || !isValidDate(due)) return "";
+    var today = new Date(); today.setHours(0, 0, 0, 0);
+    var d = parseDate(due);
+    var diff = Math.round((d - today) / 86400000);
+    if (diff < 0) return "over";
+    if (diff <= 2) return "soon";
+    return "";
+  }
+
+  function formatDue(due) {
+    if (!due) return "—";
+    if (!isValidDate(due)) return due;
+    var d = parseDate(due);
+    var w = ["日", "月", "火", "水", "木", "金", "土"][d.getDay()];
+    return (d.getMonth() + 1) + "/" + d.getDate() + "(" + w + ")";
+  }
+
+  function sortedFiltered() {
+    var list = [];
+    for (var i = 0; i < items.length; i++) {
+      var it = items[i];
+      var keep = (filter === "all") ? true : (filter === "active" ? !it.done : it.done);
+      if (keep) list.push(it);
+    }
+    list.sort(function (a, b) {
+      var va, vb;
+      if (sort.key === "priority") { va = PRIORITY[a.priority].rank; vb = PRIORITY[b.priority].rank; }
+      else if (sort.key === "due") { va = a.due || "9999-99-99"; vb = b.due || "9999-99-99"; }
+      else { va = a.task; vb = b.task; }
+      if (va < vb) return -1 * sort.dir;
+      if (va > vb) return  1 * sort.dir;
+      return 0;
+    });
+    return list;
+  }
+
+  function escapeHtml(s) {
+    return s.replace(/[&<>"']/g, function (c) {
+      return ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c];
+    });
+  }
+
+  function render() {
+    var list = sortedFiltered();
+    var tbody = $("list");
+    tbody.innerHTML = "";
+
+    for (var i = 0; i < list.length; i++) {
+      (function (it) {
+        var tr = document.createElement("tr");
+        if (it.done) tr.className = "done";
+        var p = PRIORITY[it.priority];
+        var dc = dueClass(it.due, it.done);
+
+        tr.innerHTML =
+          '<td class="center"><input type="checkbox" ' + (it.done ? "checked" : "") +
+          ' style="width:auto;cursor:pointer;"></td>' +
+          '<td class="task">' + escapeHtml(it.task) + '</td>' +
+          '<td class="due ' + dc + '">' + formatDue(it.due) + '</td>' +
+          '<td class="center"><span class="badge ' + p.cls + '">' + p.label + '</span></td>' +
+          '<td class="center"><button class="icon-btn" title="削除">🗑</button></td>';
+
+        tr.getElementsByTagName("input")[0].onchange = function () { toggleDone(it.id); };
+        tr.getElementsByTagName("button")[0].onclick = function () { removeItem(it.id); };
+        tbody.appendChild(tr);
+      })(list[i]);
+    }
+
+    $("empty").style.display = list.length ? "none" : "block";
+    var remaining = 0;
+    for (var j = 0; j < items.length; j++) { if (!items[j].done) remaining++; }
+    $("count").innerHTML = "未完了 " + remaining + " / 全 " + items.length + " 件";
+  }
+
+  // --- イベント登録 ---
+  function init() {
+    try { window.resizeTo(440, 660); } catch (e) {}
+
+    items = load();
+
+    $("addForm").onsubmit = function () {
+      var task = $("task").value;
+      if (task) task = task.replace(/^\s+|\s+$/g, "");
+      if (!task) return false;
+      var due = $("due").value ? $("due").value.replace(/^\s+|\s+$/g, "") : "";
+      addItem(task, due, $("priority").value);
+      $("task").value = "";
+      $("due").value = "";
+      $("priority").value = "mid";
+      $("task").focus();
+      return false;
+    };
+
+    each(document.querySelectorAll(".chip[data-filter]"), function (btn) {
+      btn.onclick = function () {
+        each(document.querySelectorAll(".chip[data-filter]"), function (b) {
+          b.className = b.className.replace(/\s*active/, "");
+        });
+        btn.className += " active";
+        filter = btn.getAttribute("data-filter");
+        render();
+      };
+    });
+
+    each(document.querySelectorAll("th.sortable"), function (th) {
+      th.onclick = function () {
+        var key = th.getAttribute("data-sort");
+        if (sort.key === key) sort.dir *= -1;
+        else { sort.key = key; sort.dir = 1; }
+        render();
+      };
+    });
+
+    $("clearDone").onclick = function () {
+      var has = false;
+      for (var i = 0; i < items.length; i++) { if (items[i].done) { has = true; break; } }
+      if (!has) return;
+      if (confirm("完了したタスクをすべて削除しますか？")) {
+        var next = [];
+        for (var k = 0; k < items.length; k++) { if (!items[k].done) next.push(items[k]); }
+        items = next;
+        save();
+        render();
+      }
+    };
+
+    render();
+    $("task").focus();
+  }
+
+  window.onload = init;
+</script>
+</body>
+</html>
