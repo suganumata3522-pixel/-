@@ -32,6 +32,7 @@
       <td><span class="badge {{ r.status }}">{{ r.status }}</span></td>
       <td class="actions">
         {% if r.status != '売却済' %}
+        <a class="btn small" href="{{ url_for('main.listing_new', purchase_id=r.id) }}">出品文作成</a>
         <a class="btn small success" href="{{ url_for('main.sale_new', purchase_id=r.id) }}">売却登録</a>
         {% if r.status == '在庫' %}
         <form class="inline" method="post" action="{{ url_for('main.purchase_status', pid=r.id) }}">

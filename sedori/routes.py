@@ -8,7 +8,7 @@ from flask import (
 
 from . import amazon
 from . import db as dbm
-from . import profit, research, timing
+from . import images, listing, profit, research, timing
 
 bp = Blueprint("main", __name__)
 
@@ -409,6 +409,171 @@ def sale_delete(sid):
         )
     db.commit()
     return redirect(url_for("main.sales"))
+
+
+# ---------------- 出品作成 ----------------
+
+@bp.route("/listings")
+def listings():
+    rows = dbm.get_db().execute(
+        "SELECT l.*, ch.name AS channel_name FROM listings l "
+        "LEFT JOIN channels ch ON ch.id=l.channel_id "
+        "ORDER BY l.id DESC"
+    ).fetchall()
+    return render_template("listings.html", rows=rows)
+
+
+@bp.route("/listings/new")
+def listing_new():
+    db = dbm.get_db()
+    purchase = None
+    pid = request.args.get("purchase_id")
+    if pid:
+        purchase = db.execute("SELECT * FROM purchases WHERE id=?", (pid,)).fetchone()
+    return render_template(
+        "listing_form.html", purchase=purchase,
+        channels=_channels(active_only=True), conditions=listing.CONDITIONS,
+    )
+
+
+@bp.route("/listings/generate", methods=["POST"])
+def listing_generate():
+    db = dbm.get_db()
+    settings = dbm.get_settings()
+    f = request.form
+    name = f.get("name", "").strip()
+    if not name:
+        flash("商品名を入力してください", "error")
+        return redirect(url_for("main.listing_new"))
+    channel_ids = request.form.getlist("channel_ids")
+    if not channel_ids:
+        flash("出品する販路を1つ以上選択してください", "error")
+        return redirect(url_for("main.listing_new"))
+
+    purchase_id = _int(f.get("purchase_id")) or None
+    cost = _int(f.get("cost"))
+    points = _int(f.get("points"))
+    condition = f.get("condition", listing.CONDITIONS[0])
+
+    # Amazon相場があれば価格アンカーに使う(候補経由のJAN→キャッシュ参照)
+    amazon_price = 0
+    if purchase_id:
+        row = db.execute(
+            "SELECT ap.price FROM purchases p "
+            "JOIN candidates cd ON cd.id=p.candidate_id "
+            "JOIN amazon_prices ap ON ap.jan=cd.jan AND ap.price>0 "
+            "WHERE p.id=?", (purchase_id,)
+        ).fetchone()
+        amazon_price = row["price"] if row else 0
+
+    created = 0
+    for cid in channel_ids:
+        channel = _channel(cid)
+        if not channel:
+            continue
+        price, floor, _ = listing.recommend_price(
+            cost, points, channel, amazon_price=amazon_price,
+            min_profit=_int(settings.get("min_profit"), 500),
+            min_rate=_float(settings.get("min_profit_rate"), 10.0),
+        )
+        draft = listing.generate(
+            name, condition, channel, price, floor,
+            accessories=f.get("accessories", ""), notes=f.get("notes", ""),
+            signature=settings.get("listing_signature", ""),
+        )
+        db.execute(
+            """INSERT INTO listings
+               (purchase_id, channel_id, name, title, description, tags,
+                price, price_floor, condition)
+               VALUES (?,?,?,?,?,?,?,?,?)""",
+            (purchase_id, channel["id"], name, draft["title"], draft["description"],
+             draft["tags"], draft["price"], draft["price_floor"], condition),
+        )
+        created += 1
+    db.commit()
+    flash(f"{created}販路分の出品ドラフトを作成しました(編集・コピーして出品してください)", "success")
+    return redirect(url_for("main.listings"))
+
+
+@bp.route("/listings/<int:lid>/update", methods=["POST"])
+def listing_update(lid):
+    f = request.form
+    dbm.get_db().execute(
+        "UPDATE listings SET title=?, description=?, tags=?, price=? WHERE id=?",
+        (f.get("title", ""), f.get("description", ""), f.get("tags", ""),
+         _int(f.get("price")), lid),
+    )
+    dbm.get_db().commit()
+    flash("出品ドラフトを保存しました", "success")
+    return redirect(url_for("main.listings"))
+
+
+@bp.route("/listings/<int:lid>/ai", methods=["POST"])
+def listing_ai(lid):
+    db = dbm.get_db()
+    row = db.execute(
+        "SELECT l.*, ch.name AS channel_name FROM listings l "
+        "LEFT JOIN channels ch ON ch.id=l.channel_id WHERE l.id=?", (lid,)
+    ).fetchone()
+    if not row:
+        return redirect(url_for("main.listings"))
+    try:
+        improved = listing.ai_polish(dict(row), row["channel_name"] or "", dbm.get_settings())
+    except listing.ListingAIError as e:
+        flash(str(e), "error")
+        return redirect(url_for("main.listings"))
+    db.execute(
+        "UPDATE listings SET title=?, description=?, tags=? WHERE id=?",
+        (improved["title"], improved["description"], improved["tags"], lid),
+    )
+    db.commit()
+    flash("AIで出品文を磨き上げました", "success")
+    return redirect(url_for("main.listings"))
+
+
+@bp.route("/listings/<int:lid>/status", methods=["POST"])
+def listing_status(lid):
+    db = dbm.get_db()
+    status = request.form.get("status", "下書き")
+    if status in ("下書き", "出品済"):
+        db.execute("UPDATE listings SET status=? WHERE id=?", (status, lid))
+        if status == "出品済":
+            row = db.execute("SELECT purchase_id FROM listings WHERE id=?", (lid,)).fetchone()
+            if row and row["purchase_id"]:
+                db.execute(
+                    "UPDATE purchases SET status='出品中' WHERE id=? AND status='在庫'",
+                    (row["purchase_id"],),
+                )
+        db.commit()
+    return redirect(url_for("main.listings"))
+
+
+@bp.route("/listings/<int:lid>/delete", methods=["POST"])
+def listing_delete(lid):
+    dbm.get_db().execute("DELETE FROM listings WHERE id=?", (lid,))
+    dbm.get_db().commit()
+    return redirect(url_for("main.listings"))
+
+
+# ---------------- 出品画像の整形 ----------------
+
+@bp.route("/images", methods=["GET", "POST"])
+def images_view():
+    results = []
+    if request.method == "POST":
+        file = request.files.get("photo")
+        presets = request.form.getlist("presets") or list(images.PRESETS.keys())
+        if not file or not file.filename:
+            flash("画像ファイルを選択してください", "error")
+        else:
+            try:
+                results = images.process(file, presets)
+                flash(f"{len(results)}サイズの画像を作成しました", "success")
+            except ValueError as e:
+                flash(str(e), "error")
+            except OSError:
+                flash("画像を読み込めませんでした(ファイルが壊れている可能性があります)", "error")
+    return render_template("images.html", results=results, presets=images.PRESETS)
 
 
 # ---------------- 月次レポート ----------------

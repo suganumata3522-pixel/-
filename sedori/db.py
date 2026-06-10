@@ -85,6 +85,23 @@ CREATE TABLE IF NOT EXISTS settings (
     value TEXT NOT NULL DEFAULT ''
 );
 
+CREATE TABLE IF NOT EXISTS listings (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    purchase_id INTEGER,
+    channel_id INTEGER,
+    name TEXT NOT NULL DEFAULT '',
+    title TEXT NOT NULL DEFAULT '',
+    description TEXT NOT NULL DEFAULT '',
+    tags TEXT NOT NULL DEFAULT '',
+    price INTEGER NOT NULL DEFAULT 0,        -- 推奨出品価格
+    price_floor INTEGER NOT NULL DEFAULT 0,  -- 損益分岐価格(これ未満は赤字)
+    condition TEXT NOT NULL DEFAULT '',
+    status TEXT NOT NULL DEFAULT '下書き',    -- 下書き / 出品済
+    created_at TEXT NOT NULL DEFAULT (datetime('now', 'localtime')),
+    FOREIGN KEY (purchase_id) REFERENCES purchases(id),
+    FOREIGN KEY (channel_id) REFERENCES channels(id)
+);
+
 CREATE TABLE IF NOT EXISTS amazon_prices (
     jan TEXT PRIMARY KEY,
     asin TEXT NOT NULL DEFAULT '',
@@ -119,6 +136,9 @@ DEFAULT_SETTINGS = {
     "spapi_client_secret": "",      # Amazon SP-API LWAクライアントシークレット
     "spapi_refresh_token": "",      # Amazon SP-API リフレッシュトークン
     "amazon_cache_hours": "24",     # Amazon売価キャッシュ有効時間
+    "anthropic_api_key": "",        # Claude API(出品文のAI磨き上げ)
+    "listing_model": "claude-opus-4-8",  # AI磨き上げに使うモデル
+    "listing_signature": "",        # 出品文の末尾に入れる定型文(任意)
 }
 
 

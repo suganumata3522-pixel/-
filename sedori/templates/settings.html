@@ -42,6 +42,28 @@
     </div>
   </div>
 
+  <h2>出品文のAI磨き上げ(任意)</h2>
+  <div class="card">
+    <p class="muted">
+      <a class="plain" href="https://console.anthropic.com/" target="_blank" rel="noopener">Anthropic Console</a>でAPIキーを取得して登録すると、
+      「出品作成」画面の「✨AIで磨き上げ」ボタンでClaudeが出品文を改善します。
+      未設定でもテンプレートによる自動生成は使えます。
+    </p>
+    <div class="form-grid">
+      <div><label>Anthropic APIキー</label>
+        <input name="anthropic_api_key" type="password" value="{{ settings.anthropic_api_key }}" style="width:100%"></div>
+      <div><label>使用モデル</label>
+        <select name="listing_model">
+          {% for m in ["claude-opus-4-8", "claude-sonnet-4-6", "claude-haiku-4-5"] %}
+          <option value="{{ m }}" {% if settings.listing_model == m %}selected{% endif %}>{{ m }}</option>
+          {% endfor %}
+        </select></div>
+      <div style="grid-column:1/-1"><label>出品文の末尾定型文(任意)</label>
+        <input name="listing_signature" value="{{ settings.listing_signature }}" style="width:100%"
+               placeholder="例: 他にも多数出品しています。まとめ買い歓迎です!"></div>
+    </div>
+  </div>
+
   <h2>利益商品の判定条件(自動リサーチ)</h2>
   <div class="card">
     <div class="form-grid">

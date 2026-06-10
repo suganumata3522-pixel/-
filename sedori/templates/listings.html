@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}出品作成{% endblock %}
+{% block content %}
+<h1>出品作成</h1>
+
+<div class="card actions">
+  <a class="btn" href="{{ url_for('main.listing_new') }}">+ 出品ドラフトを作成</a>
+  <a class="btn secondary" href="{{ url_for('main.images_view') }}">📷 出品画像の整形</a>
+</div>
+
+{% if not rows %}
+<div class="card"><p class="muted">出品ドラフトがありません。「仕入管理」の各商品の「出品文作成」、または上のボタンから作成できます。</p></div>
+{% endif %}
+
+{% for r in rows %}
+<div class="card">
+  <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px">
+    <div>
+      <strong>{{ r.name }}</strong>
+      <span class="badge">{{ r.channel_name or '販路未設定' }}</span>
+      <span class="badge {{ '売却済' if r.status == '出品済' else '候補' }}">{{ r.status }}</span>
+      <div class="muted">推奨価格 {{ r.price|yen }} / 損益分岐 {{ r.price_floor|yen }}(これ未満は赤字) / 状態: {{ r.condition }}</div>
+    </div>
+    <div class="actions">
+      <form class="inline" method="post" action="{{ url_for('main.listing_ai', lid=r.id) }}">
+        <button class="small" type="submit" title="Claude APIで文面を改善(設定でAPIキー登録)">✨ AIで磨き上げ</button>
+      </form>
+      {% if r.status == '下書き' %}
+      <form class="inline" method="post" action="{{ url_for('main.listing_status', lid=r.id) }}">
+        <input type="hidden" name="status" value="出品済"><button class="small success">出品済みにする</button>
+      </form>
+      {% endif %}
+      <form class="inline" method="post" action="{{ url_for('main.listing_delete', lid=r.id) }}"
+            onsubmit="return confirm('このドラフトを削除しますか?')">
+        <button class="small danger">削除</button>
+      </form>
+    </div>
+  </div>
+
+  <form method="post" action="{{ url_for('main.listing_update', lid=r.id) }}" style="margin-top:10px">
+    <div class="form-row" style="margin-bottom:8px">
+      <div style="flex:1; min-width:300px">
+        <label>タイトル
+          <button type="button" class="small secondary" onclick="copyVal('title-{{ r.id }}', this)">コピー</button></label>
+        <input id="title-{{ r.id }}" name="title" value="{{ r.title }}" style="width:100%">
+      </div>
+      <div><label>出品価格(円)
+          <button type="button" class="small secondary" onclick="copyVal('price-{{ r.id }}', this)">コピー</button></label>
+        <input id="price-{{ r.id }}" name="price" value="{{ r.price }}" size="8"></div>
+    </div>
+    <label>説明文
+      <button type="button" class="small secondary" onclick="copyVal('desc-{{ r.id }}', this)">コピー</button></label>
+    <textarea id="desc-{{ r.id }}" name="description" rows="9" style="width:100%">{{ r.description }}</textarea>
+    <label style="margin-top:8px">タグ / 検索キーワード
+      <button type="button" class="small secondary" onclick="copyVal('tags-{{ r.id }}', this)">コピー</button></label>
+    <input id="tags-{{ r.id }}" name="tags" value="{{ r.tags }}" style="width:100%">
+    <p style="margin-top:10px"><button class="small" type="submit">編集内容を保存</button></p>
+  </form>
+</div>
+{% endfor %}
+{% endblock %}

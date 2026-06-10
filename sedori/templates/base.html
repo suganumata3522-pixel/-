@@ -15,6 +15,7 @@
     <a href="{{ url_for('main.candidates') }}">候補商品</a>
     <a href="{{ url_for('main.timing_view') }}">購入日判断</a>
     <a href="{{ url_for('main.purchases') }}">仕入管理</a>
+    <a href="{{ url_for('main.listings') }}">出品作成</a>
     <a href="{{ url_for('main.sales') }}">売上管理</a>
     <a href="{{ url_for('main.report') }}">レポート</a>
     <a href="{{ url_for('main.channels') }}">販路設定</a>
@@ -29,6 +30,16 @@
   {% endwith %}
   {% block content %}{% endblock %}
 </main>
-<footer>電脳せどり管理ツール — リサーチ / 販路 / 購入日判断 / 仕入・売上を一元管理</footer>
+<footer>電脳せどり管理ツール — リサーチ / 販路 / 購入日判断 / 仕入・出品・売上を一元管理</footer>
+<script>
+function copyVal(id, btn) {
+  const el = document.getElementById(id);
+  navigator.clipboard.writeText(el.value !== undefined ? el.value : el.textContent).then(() => {
+    const old = btn.textContent;
+    btn.textContent = "✓ コピー済";
+    setTimeout(() => { btn.textContent = old; }, 1500);
+  });
+}
+</script>
 </body>
 </html>
