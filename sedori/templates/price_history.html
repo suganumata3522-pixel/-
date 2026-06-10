@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}価格履歴{% endblock %}
+{% block content %}
+<h1>価格履歴</h1>
+
+<div class="card">
+  <p><strong>{{ candidate.name }}</strong>
+    {% if candidate.jan %}<span class="muted">JAN: {{ candidate.jan }}</span>{% endif %}
+    {% if candidate.asin %}<a class="plain" target="_blank" rel="noopener"
+       href="https://www.amazon.co.jp/dp/{{ candidate.asin }}">Amazonで見る</a>{% endif %}</p>
+  <p class="muted">仕入価格 {{ candidate.cost|yen }} / 想定売価 {{ candidate.sell_price|yen }}</p>
+</div>
+
+{% if error %}
+<div class="card"><p class="neg">{{ error }}</p></div>
+{% elif chart %}
+<div class="card">
+  <p>
+    現在 <strong>{{ chart.current|yen }}</strong> /
+    90日平均 <strong>{{ chart.avg|yen }}</strong> /
+    最安 {{ chart.min|yen }} 〜 最高 {{ chart.max|yen }}
+    {% if chart.current > chart.avg * 1.15 %}
+    <span class="badge 出品中">⚠ 平均より15%以上高値 — 一時的な高騰の可能性。飛びつき注意</span>
+    {% elif chart.current < chart.avg * 0.9 %}
+    <span class="badge 見送り">現在は平均より安値圏</span>
+    {% else %}
+    <span class="badge confirmed">平均水準で安定</span>
+    {% endif %}
+  </p>
+  <svg viewBox="0 0 {{ chart.w }} {{ chart.h }}" style="width:100%; background:#fff; border:1px solid #e5e7eb; border-radius:8px">
+    <text x="{{ chart.pad }}" y="{{ chart.pad - 14 }}" font-size="12" fill="#6b7280">¥{{ "{:,}".format(chart.max) }}</text>
+    <text x="{{ chart.pad }}" y="{{ chart.h - chart.pad + 24 }}" font-size="12" fill="#6b7280">¥{{ "{:,}".format(chart.min) }}</text>
+    <text x="{{ chart.pad }}" y="{{ chart.h - 8 }}" font-size="12" fill="#9ca3af">{{ chart.first_date }}</text>
+    <text x="{{ chart.w - chart.pad }}" y="{{ chart.h - 8 }}" font-size="12" fill="#9ca3af" text-anchor="end">{{ chart.last_date }}</text>
+    <line x1="{{ chart.pad }}" y1="{{ chart.pad }}" x2="{{ chart.pad }}" y2="{{ chart.h - chart.pad }}" stroke="#e5e7eb"/>
+    <line x1="{{ chart.pad }}" y1="{{ chart.h - chart.pad }}" x2="{{ chart.w - chart.pad }}" y2="{{ chart.h - chart.pad }}" stroke="#e5e7eb"/>
+    <polyline points="{{ chart.polyline }}" fill="none" stroke="#2563eb" stroke-width="2.5"
+              stroke-linejoin="round" stroke-linecap="round"/>
+  </svg>
+  <p class="muted">直近90日の新品最安値の推移(Keepa未設定時はデモデータ)。「相場が安定して高い」商品が狙い目で、直近だけ跳ね上がっている商品は元の価格に戻りやすいので注意してください。</p>
+</div>
+{% endif %}
+
+<p><a class="btn secondary" href="{{ url_for('main.candidates') }}">候補商品へ戻る</a></p>
+{% endblock %}

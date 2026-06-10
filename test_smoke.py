@@ -57,6 +57,17 @@ def test_amazon_parsers():
     d = DemoAmazonPricer()
     assert d.price_by_jan("4901234567894") == d.price_by_jan("4901234567894")
     print("  OK デモ相場: 決定的生成")
+    # デモ価格履歴: 終点が現在価格と一致
+    hist = d.history_by_jan("4901234567894")
+    assert len(hist) > 10
+    assert hist[-1][1] == d.price_by_jan("4901234567894")["price"]
+    assert hist == d.history_by_jan("4901234567894")
+    print(f"  OK デモ価格履歴: {len(hist)}点(終点=現在価格)")
+    # SP-API出品の状態マッピング
+    from sedori.amazon import SPAPI_CONDITIONS
+    assert SPAPI_CONDITIONS["新品・未開封"] == "new_new"
+    assert SPAPI_CONDITIONS["中古"] == "used_good"
+    print("  OK SP-API condition_typeマッピング")
 
 
 def run():
@@ -72,7 +83,8 @@ def run():
 
     print("ページ表示:")
     for path in ["/", "/research", "/candidates", "/timing", "/purchases",
-                 "/sales", "/report", "/channels", "/settings"]:
+                 "/sales", "/report", "/channels", "/settings",
+                 "/scan", "/finance", "/expenses", "/listings"]:
         ok(c.get(path), f"GET {path}")
 
     print("リサーチ(デモ検索 + Amazon相場):")
@@ -143,6 +155,66 @@ def run():
     assert "売却済" in res.get_data(as_text=True)
     print("  -> 仕入が自動で「売却済」に更新")
 
+    print("バーコード仕入れAPI:")
+    res = c.get("/api/amazon/4901234567894")
+    data = res.get_json()
+    assert data["found"] and data["price"] > 0 and data["channel_name"]
+    print(f"  OK JAN→相場JSON: ¥{data['price']:,} ({data['channel_name']}手数料込みで利益計算可)")
+    res = c.get("/api/amazon/0000000000000")
+    assert res.get_json()["found"] in (True, False)  # デモは必ず生成されるが応答形式を確認
+    print("  OK API応答形式")
+
+    print("価格改定アラート:")
+    # 自動リサーチ由来の候補(JANあり)から在庫を作り、キャッシュ価格を吊り上げて下落を演出
+    res = c.post("/purchases/new", data={
+        "candidate_id": "2", "name": "アラートテスト商品", "source": "demo",
+        "qty": "1", "unit_cost": "3000", "points": "0",
+        "purchase_date": "2026-06-10", "channel_id": "1", "status": "在庫",
+    }, follow_redirects=True)
+    ok(res, "JAN付き在庫を作成")
+    with app.app_context():
+        from sedori import db as dbm2
+        db2 = dbm2.get_db()
+        jan = db2.execute("SELECT jan FROM candidates WHERE id=2").fetchone()["jan"]
+        db2.execute("UPDATE amazon_prices SET price=price*2 WHERE jan=?", (jan,))
+        db2.commit()
+    res = c.post("/alerts/check", follow_redirects=True)
+    ok(res, "価格チェック実行")
+    body = res.get_data(as_text=True)
+    assert "値下がりアラート 1件" in body, body[:300]
+    assert "価格改定アラート" in body and "-50.0%" in body
+    print("  -> 50%下落を検知してダッシュボードに表示")
+    ok(c.post("/alerts/1/dismiss", follow_redirects=True), "アラートを確認済みに")
+
+    print("価格履歴グラフ:")
+    res = c.get("/candidates/2/history")
+    ok(res, "GET /candidates/2/history")
+    body = res.get_data(as_text=True)
+    assert "polyline" in body and "90日平均" in body
+    print("  -> SVGチャートと平均比較バッジを確認")
+
+    print("資金繰り:")
+    ok(c.post("/finance", data={"monthly_budget": "200000",
+                                "monthly_profit_goal": "50000"}, follow_redirects=True),
+       "予算・目標の保存")
+    res = c.get("/finance")
+    body = res.get_data(as_text=True)
+    assert "¥200,000" in body and "営業利益" in body and "達成率" in body
+    print("  -> 予算消化・利益目標達成率を表示")
+
+    print("経費管理:")
+    ok(c.post("/expenses", data={"expense_date": "2026-06-10", "category": "梱包材",
+                                 "amount": "1500", "notes": "ダンボール"}, follow_redirects=True),
+       "経費登録")
+    res = c.get("/expenses")
+    assert "¥1,500" in res.get_data(as_text=True)
+    res = c.get("/report")
+    body = res.get_data(as_text=True)
+    assert "経費" in body and "営業利益" in body
+    print("  -> レポートに経費・営業利益列を表示")
+    res = c.get("/export/expenses.csv")
+    ok(res, "経費CSV")
+
     print("出品作成:")
     ok(c.get("/listings"), "GET /listings")
     ok(c.get("/listings/new?purchase_id=1"), "出品フォーム(仕入から)")
@@ -163,6 +235,9 @@ def run():
     res = c.post("/listings/1/ai", follow_redirects=True)
     assert "Anthropic APIキーが未設定" in res.get_data(as_text=True)
     print("  OK AI磨き上げ: キー未設定時は案内を表示")
+    res = c.post("/listings/1/publish_amazon", follow_redirects=True)
+    assert "SP-API認証情報と出品者ID" in res.get_data(as_text=True)
+    print("  OK SP-API自動出品: 認証未設定時は案内を表示")
     ok(c.post("/listings/1/status", data={"status": "出品済"}, follow_redirects=True), "出品済みへ")
     assert "出品済" in c.get("/listings").get_data(as_text=True)
 

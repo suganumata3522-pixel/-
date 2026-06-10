@@ -102,6 +102,27 @@ CREATE TABLE IF NOT EXISTS listings (
     FOREIGN KEY (channel_id) REFERENCES channels(id)
 );
 
+CREATE TABLE IF NOT EXISTS expenses (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    expense_date TEXT NOT NULL,
+    category TEXT NOT NULL DEFAULT 'その他',
+    amount INTEGER NOT NULL DEFAULT 0,
+    notes TEXT NOT NULL DEFAULT ''
+);
+
+CREATE TABLE IF NOT EXISTS price_alerts (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    purchase_id INTEGER,
+    name TEXT NOT NULL DEFAULT '',
+    jan TEXT NOT NULL DEFAULT '',
+    old_price INTEGER NOT NULL DEFAULT 0,
+    new_price INTEGER NOT NULL DEFAULT 0,
+    drop_rate REAL NOT NULL DEFAULT 0,      -- 下落率(%)
+    created_at TEXT NOT NULL DEFAULT (datetime('now', 'localtime')),
+    dismissed INTEGER NOT NULL DEFAULT 0,
+    FOREIGN KEY (purchase_id) REFERENCES purchases(id)
+);
+
 CREATE TABLE IF NOT EXISTS amazon_prices (
     jan TEXT PRIMARY KEY,
     asin TEXT NOT NULL DEFAULT '',
@@ -139,6 +160,10 @@ DEFAULT_SETTINGS = {
     "anthropic_api_key": "",        # Claude API(出品文のAI磨き上げ)
     "listing_model": "claude-opus-4-8",  # AI磨き上げに使うモデル
     "listing_signature": "",        # 出品文の末尾に入れる定型文(任意)
+    "monthly_budget": "100000",     # 月間仕入予算(円)
+    "monthly_profit_goal": "30000", # 月間利益目標(円)
+    "price_drop_threshold": "10",   # 価格下落アラートのしきい値(%)
+    "spapi_seller_id": "",          # Amazon出品者ID(SP-API自動出品)
 }
 
 

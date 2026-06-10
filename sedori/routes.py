@@ -3,7 +3,8 @@ import datetime
 import io
 
 from flask import (
-    Blueprint, Response, flash, redirect, render_template, request, url_for,
+    Blueprint, Response, flash, jsonify, redirect, render_template, request,
+    url_for,
 )
 
 from . import amazon
@@ -80,9 +81,12 @@ def dashboard():
     ).fetchall()
     best_rakuten = timing.best_buy_date("rakuten")
     best_yahoo = timing.best_buy_date("yahoo")
+    alerts = db.execute(
+        "SELECT * FROM price_alerts WHERE dismissed=0 ORDER BY id DESC LIMIT 10"
+    ).fetchall()
     return render_template(
         "dashboard.html", kpi=kpi, monthly=monthly, recent_sales=recent_sales,
-        best_rakuten=best_rakuten, best_yahoo=best_yahoo,
+        best_rakuten=best_rakuten, best_yahoo=best_yahoo, alerts=alerts,
     )
 
 
@@ -411,6 +415,250 @@ def sale_delete(sid):
     return redirect(url_for("main.sales"))
 
 
+# ---------------- 価格改定アラート ----------------
+
+def _demo_mode(settings):
+    return not settings.get("rakuten_app_id") and not settings.get("yahoo_app_id")
+
+
+@bp.route("/alerts/check", methods=["POST"])
+def alerts_check():
+    """在庫商品のAmazon相場を再取得し、しきい値以上下落していたらアラートを作成する。"""
+    db = dbm.get_db()
+    settings = dbm.get_settings()
+    threshold = _float(settings.get("price_drop_threshold"), 10.0)
+    rows = db.execute(
+        "SELECT p.id, p.name, cd.jan FROM purchases p "
+        "JOIN candidates cd ON cd.id=p.candidate_id AND cd.jan<>'' "
+        "WHERE p.status<>'売却済'"
+    ).fetchall()
+    if not rows:
+        flash("チェック対象がありません(JAN付きの候補から仕入れた在庫が対象です)", "error")
+        return redirect(url_for("main.dashboard"))
+
+    checked, alerts, errors = 0, 0, []
+    for r in rows:
+        old = db.execute(
+            "SELECT price FROM amazon_prices WHERE jan=? AND price>0", (r["jan"],)
+        ).fetchone()
+        try:
+            new = amazon.get_price(r["jan"], settings, allow_demo=_demo_mode(settings), force=True)
+        except amazon.AmazonPriceError as e:
+            if str(e) not in errors:
+                errors.append(str(e))
+            continue
+        checked += 1
+        if not old or not new or new.get("price", 0) <= 0:
+            continue
+        drop = (old["price"] - new["price"]) / old["price"] * 100
+        if drop >= threshold:
+            db.execute(
+                """INSERT INTO price_alerts (purchase_id, name, jan, old_price, new_price, drop_rate)
+                   VALUES (?,?,?,?,?,?)""",
+                (r["id"], r["name"], r["jan"], old["price"], new["price"], round(drop, 1)),
+            )
+            alerts += 1
+    db.commit()
+    for e in errors:
+        flash(e, "error")
+    flash(f"価格チェック完了: {checked}件確認 / 値下がりアラート {alerts}件", "success")
+    return redirect(url_for("main.dashboard"))
+
+
+@bp.route("/alerts/<int:aid>/dismiss", methods=["POST"])
+def alert_dismiss(aid):
+    dbm.get_db().execute("UPDATE price_alerts SET dismissed=1 WHERE id=?", (aid,))
+    dbm.get_db().commit()
+    return redirect(request.referrer or url_for("main.dashboard"))
+
+
+# ---------------- バーコード仕入れ ----------------
+
+@bp.route("/scan")
+def scan():
+    settings = dbm.get_settings()
+    channel = dbm.default_channel(settings)
+    return render_template("scan.html", channel=channel,
+                           demo_mode=_demo_mode(settings))
+
+
+@bp.route("/api/amazon/<jan>")
+def api_amazon(jan):
+    """JAN→Amazon相場のJSON API(バーコードスキャン用)。"""
+    settings = dbm.get_settings()
+    channel = dbm.default_channel(settings)
+    try:
+        az = amazon.get_price(jan.strip(), settings, allow_demo=_demo_mode(settings))
+    except amazon.AmazonPriceError as e:
+        return jsonify({"found": False, "error": str(e)})
+    if not az or az.get("price", 0) <= 0:
+        if not amazon.build_pricer(settings) and not _demo_mode(settings):
+            return jsonify({"found": False,
+                            "error": "Keepa APIキーまたはSP-API認証情報を設定してください"})
+        return jsonify({"found": False, "error": "Amazonで商品が見つかりませんでした"})
+    return jsonify({
+        "found": True,
+        "jan": jan.strip(),
+        "price": az["price"],
+        "rank": az.get("rank", 0),
+        "asin": az.get("asin", ""),
+        "title": az.get("title", ""),
+        "fee_rate": channel["fee_rate"] if channel else 10,
+        "fixed_fee": channel["fixed_fee"] if channel else 0,
+        "shipping": channel["shipping_cost"] if channel else 0,
+        "channel_id": channel["id"] if channel else "",
+        "channel_name": channel["name"] if channel else "",
+    })
+
+
+# ---------------- 資金繰り ----------------
+
+@bp.route("/finance", methods=["GET", "POST"])
+def finance():
+    if request.method == "POST":
+        dbm.save_settings(request.form)
+        flash("予算・目標を保存しました", "success")
+        return redirect(url_for("main.finance"))
+
+    db = dbm.get_db()
+    settings = dbm.get_settings()
+    month = _today()[:7]
+    budget = _int(settings.get("monthly_budget"), 0)
+    goal = _int(settings.get("monthly_profit_goal"), 0)
+
+    spend = db.execute(
+        "SELECT COALESCE(SUM(total_cost),0) FROM purchases WHERE substr(purchase_date,1,7)=?",
+        (month,)).fetchone()[0]
+    profit = db.execute(
+        "SELECT COALESCE(SUM(net_profit),0) FROM sales WHERE substr(sale_date,1,7)=?",
+        (month,)).fetchone()[0]
+    expenses = db.execute(
+        "SELECT COALESCE(SUM(amount),0) FROM expenses WHERE substr(expense_date,1,7)=?",
+        (month,)).fetchone()[0]
+    revenue = db.execute(
+        "SELECT COALESCE(SUM(sale_price*qty),0) FROM sales WHERE substr(sale_date,1,7)=?",
+        (month,)).fetchone()[0]
+    stock_cost = db.execute(
+        "SELECT COALESCE(SUM(total_cost),0) FROM purchases WHERE status<>'売却済'"
+    ).fetchone()[0]
+    planned = db.execute(
+        "SELECT COALESCE(SUM(cost),0) FROM candidates WHERE status='仕入予定'"
+    ).fetchone()[0]
+
+    data = {
+        "month": month,
+        "budget": budget,
+        "spend": spend,
+        "remaining": budget - spend,
+        "planned": planned,
+        "stock_cost": stock_cost,
+        "revenue": revenue,
+        "profit": profit,
+        "expenses": expenses,
+        "operating": profit - expenses,
+        "goal": goal,
+        "goal_pct": round((profit - expenses) / goal * 100, 1) if goal else 0,
+        "budget_pct": round(spend / budget * 100, 1) if budget else 0,
+    }
+    return render_template("finance.html", d=data, settings=settings)
+
+
+# ---------------- 経費管理 ----------------
+
+EXPENSE_CATEGORIES = ["梱包材", "送料", "交通費", "工具・備品", "月額利用料", "手数料", "その他"]
+
+
+@bp.route("/expenses", methods=["GET", "POST"])
+def expenses():
+    db = dbm.get_db()
+    if request.method == "POST":
+        f = request.form
+        amount = _int(f.get("amount"))
+        if amount > 0:
+            db.execute(
+                "INSERT INTO expenses (expense_date, category, amount, notes) VALUES (?,?,?,?)",
+                (f.get("expense_date") or _today(), f.get("category", "その他"),
+                 amount, f.get("notes", "")),
+            )
+            db.commit()
+            flash("経費を登録しました", "success")
+        else:
+            flash("金額を入力してください", "error")
+        return redirect(url_for("main.expenses"))
+
+    rows = db.execute("SELECT * FROM expenses ORDER BY expense_date DESC, id DESC").fetchall()
+    monthly = db.execute(
+        "SELECT substr(expense_date,1,7) AS ym, SUM(amount) AS total "
+        "FROM expenses GROUP BY ym ORDER BY ym DESC LIMIT 6"
+    ).fetchall()
+    return render_template("expenses.html", rows=rows, monthly=monthly,
+                           categories=EXPENSE_CATEGORIES, today=_today())
+
+
+@bp.route("/expenses/<int:eid>/delete", methods=["POST"])
+def expense_delete(eid):
+    dbm.get_db().execute("DELETE FROM expenses WHERE id=?", (eid,))
+    dbm.get_db().commit()
+    return redirect(url_for("main.expenses"))
+
+
+@bp.route("/export/expenses.csv")
+def export_expenses():
+    rows = dbm.get_db().execute(
+        "SELECT id, expense_date, category, amount, notes FROM expenses ORDER BY expense_date"
+    ).fetchall()
+    return _csv_response(
+        "expenses.csv",
+        ["ID", "日付", "カテゴリ", "金額", "メモ"],
+        [tuple(r) for r in rows],
+    )
+
+
+# ---------------- 価格履歴グラフ ----------------
+
+@bp.route("/candidates/<int:cid>/history")
+def candidate_history(cid):
+    db = dbm.get_db()
+    candidate = db.execute("SELECT * FROM candidates WHERE id=?", (cid,)).fetchone()
+    if not candidate:
+        return redirect(url_for("main.candidates"))
+    settings = dbm.get_settings()
+    points, error = [], ""
+    if not candidate["jan"]:
+        error = "この商品にはJANコードがないため履歴を取得できません"
+    else:
+        try:
+            points = amazon.get_history(candidate["jan"], settings,
+                                        allow_demo=_demo_mode(settings))
+        except amazon.AmazonPriceError as e:
+            error = str(e)
+        if points is None:
+            points, error = [], "価格履歴の取得にはKeepa APIキーが必要です(設定画面で登録)"
+
+    chart = None
+    if points:
+        prices = [p for _, p in points]
+        lo, hi = min(prices), max(prices)
+        span = max(1, hi - lo)
+        w, h, pad = 860, 280, 40
+        step = (w - pad * 2) / max(1, len(points) - 1)
+        coords = [
+            (round(pad + i * step, 1),
+             round(h - pad - (p - lo) / span * (h - pad * 2), 1))
+            for i, (_, p) in enumerate(points)
+        ]
+        chart = {
+            "w": w, "h": h, "pad": pad,
+            "polyline": " ".join(f"{x},{y}" for x, y in coords),
+            "min": lo, "max": hi,
+            "first_date": points[0][0], "last_date": points[-1][0],
+            "current": prices[-1],
+            "avg": int(sum(prices) / len(prices)),
+        }
+    return render_template("price_history.html", candidate=candidate,
+                           chart=chart, error=error, points=points)
+
+
 # ---------------- 出品作成 ----------------
 
 @bp.route("/listings")
@@ -548,6 +796,56 @@ def listing_status(lid):
     return redirect(url_for("main.listings"))
 
 
+@bp.route("/listings/<int:lid>/publish_amazon", methods=["POST"])
+def listing_publish_amazon(lid):
+    """SP-API Listings APIで既存ASINへの相乗り出品を登録する。"""
+    db = dbm.get_db()
+    settings = dbm.get_settings()
+    row = db.execute(
+        "SELECT l.*, cd.asin AS cand_asin FROM listings l "
+        "LEFT JOIN purchases p ON p.id=l.purchase_id "
+        "LEFT JOIN candidates cd ON cd.id=p.candidate_id WHERE l.id=?", (lid,)
+    ).fetchone()
+    if not row:
+        return redirect(url_for("main.listings"))
+
+    seller_id = settings.get("spapi_seller_id", "").strip()
+    creds_ok = all(settings.get(k) for k in
+                   ("spapi_client_id", "spapi_client_secret", "spapi_refresh_token"))
+    if not seller_id or not creds_ok:
+        flash("SP-API自動出品には、設定画面でSP-API認証情報と出品者IDの登録が必要です", "error")
+        return redirect(url_for("main.listings"))
+    asin = (row["cand_asin"] or "").strip()
+    if not asin:
+        flash("この商品にASINが紐付いていないため自動出品できません(リサーチ経由でASIN取得が必要)", "error")
+        return redirect(url_for("main.listings"))
+
+    client = amazon.SPAPIClient(
+        settings["spapi_client_id"], settings["spapi_client_secret"],
+        settings["spapi_refresh_token"],
+    )
+    sku = f"SEDORI-{row['purchase_id'] or 'L'}-{row['id']}"
+    condition = amazon.SPAPI_CONDITIONS.get(row["condition"], "used_good")
+    try:
+        result = client.submit_listing(seller_id, sku, asin, row["price"],
+                                       quantity=1, condition=condition)
+    except amazon.AmazonPriceError as e:
+        flash(f"自動出品に失敗しました: {e}", "error")
+        return redirect(url_for("main.listings"))
+
+    if result["status"] in ("ACCEPTED", "SUBMITTED", "VALID"):
+        db.execute("UPDATE listings SET status='出品済' WHERE id=?", (lid,))
+        if row["purchase_id"]:
+            db.execute("UPDATE purchases SET status='出品中' WHERE id=? AND status='在庫'",
+                       (row["purchase_id"],))
+        db.commit()
+        flash(f"Amazonへ出品を送信しました(SKU: {sku} / 状態: {result['status']})", "success")
+    else:
+        msgs = " / ".join(result["issues"]) or result["status"]
+        flash(f"Amazonが出品を受理しませんでした: {msgs}", "error")
+    return redirect(url_for("main.listings"))
+
+
 @bp.route("/listings/<int:lid>/delete", methods=["POST"])
 def listing_delete(lid):
     dbm.get_db().execute("DELETE FROM listings WHERE id=?", (lid,))
@@ -583,12 +881,16 @@ def report():
     db = dbm.get_db()
     months = db.execute(
         """SELECT ym, SUM(revenue) AS revenue, SUM(profit) AS profit,
-                  SUM(spend) AS spend, SUM(sales_count) AS sales_count
+                  SUM(spend) AS spend, SUM(sales_count) AS sales_count,
+                  SUM(expense) AS expense,
+                  SUM(profit) - SUM(expense) AS operating
            FROM (
              SELECT substr(sale_date,1,7) AS ym, sale_price*qty AS revenue,
-                    net_profit AS profit, 0 AS spend, 1 AS sales_count FROM sales
+                    net_profit AS profit, 0 AS spend, 1 AS sales_count, 0 AS expense FROM sales
              UNION ALL
-             SELECT substr(purchase_date,1,7) AS ym, 0, 0, total_cost, 0 FROM purchases
+             SELECT substr(purchase_date,1,7) AS ym, 0, 0, total_cost, 0, 0 FROM purchases
+             UNION ALL
+             SELECT substr(expense_date,1,7) AS ym, 0, 0, 0, 0, amount FROM expenses
            ) GROUP BY ym ORDER BY ym DESC"""
     ).fetchall()
     by_channel = db.execute(

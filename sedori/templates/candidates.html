@@ -48,6 +48,9 @@
       </td>
       <td><span class="badge {{ r.status }}">{{ r.status }}</span></td>
       <td class="actions">
+        {% if r.jan %}
+        <a class="btn small secondary" href="{{ url_for('main.candidate_history', cid=r.id) }}">📈 価格履歴</a>
+        {% endif %}
         {% if r.status in ['候補','仕入予定'] %}
         <a class="btn small success" href="{{ url_for('main.purchase_new', candidate_id=r.id) }}">仕入登録</a>
         {% endif %}

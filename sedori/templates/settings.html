@@ -39,6 +39,11 @@
         <input name="spapi_client_secret" type="password" value="{{ settings.spapi_client_secret }}" style="width:100%"></div>
       <div><label>SP-API リフレッシュトークン</label>
         <input name="spapi_refresh_token" type="password" value="{{ settings.spapi_refresh_token }}" style="width:100%"></div>
+      <div><label>出品者ID(セラーID) — SP-API自動出品に必要</label>
+        <input name="spapi_seller_id" value="{{ settings.spapi_seller_id }}" style="width:100%"
+               placeholder="セラーセントラル→設定→出品用アカウント情報で確認"></div>
+      <div><label>価格下落アラートのしきい値(%)</label>
+        <input name="price_drop_threshold" value="{{ settings.price_drop_threshold }}"></div>
     </div>
   </div>
 

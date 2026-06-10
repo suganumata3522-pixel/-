@@ -25,6 +25,12 @@
       <form class="inline" method="post" action="{{ url_for('main.listing_ai', lid=r.id) }}">
         <button class="small" type="submit" title="Claude APIで文面を改善(設定でAPIキー登録)">✨ AIで磨き上げ</button>
       </form>
+      {% if r.channel_name and 'amazon' in r.channel_name.lower() and r.status == '下書き' %}
+      <form class="inline" method="post" action="{{ url_for('main.listing_publish_amazon', lid=r.id) }}"
+            onsubmit="return confirm('Amazonへこの価格で出品を送信します。よろしいですか?')">
+        <button class="small success" type="submit" title="SP-APIで既存ASINに相乗り出品(設定で認証情報の登録が必要)">🚀 Amazonへ出品</button>
+      </form>
+      {% endif %}
       {% if r.status == '下書き' %}
       <form class="inline" method="post" action="{{ url_for('main.listing_status', lid=r.id) }}">
         <input type="hidden" name="status" value="出品済"><button class="small success">出品済みにする</button>

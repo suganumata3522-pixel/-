@@ -11,6 +11,36 @@
   <div class="kpi"><div class="label">仕入候補</div><div class="value">{{ kpi.candidates }}件</div></div>
 </div>
 
+<h2>価格改定アラート
+  <form class="inline" method="post" action="{{ url_for('main.alerts_check') }}">
+    <button class="small secondary" type="submit" title="在庫商品のAmazon相場を再取得して値下がりを検知">▶ 在庫の価格をチェック</button>
+  </form>
+</h2>
+<div class="card">
+  {% if alerts %}
+  <table>
+    <tr><th>検知日</th><th>商品</th><th class="num">前回価格</th><th class="num">現在価格</th><th class="num">下落率</th><th></th></tr>
+    {% for a in alerts %}
+    <tr>
+      <td>{{ a.created_at[:10] }}</td>
+      <td>{{ a.name }}</td>
+      <td class="num">{{ a.old_price|yen }}</td>
+      <td class="num neg">{{ a.new_price|yen }}</td>
+      <td class="num neg">-{{ a.drop_rate }}%</td>
+      <td>
+        <form class="inline" method="post" action="{{ url_for('main.alert_dismiss', aid=a.id) }}">
+          <button class="small secondary">確認済み</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  <p class="muted">相場が下がった在庫は、早めの値下げ・販路変更を検討しましょう。しきい値は設定画面で変更できます。</p>
+  {% else %}
+  <p class="muted">値下がりアラートはありません。「▶ 在庫の価格をチェック」で在庫商品のAmazon相場を再取得して確認できます。</p>
+  {% endif %}
+</div>
+
 <h2>次のおすすめ購入日</h2>
 <div class="card">
   {% if best_rakuten %}
