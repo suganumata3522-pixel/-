@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}設定{% endblock %}
+{% block content %}
+<h1>設定</h1>
+
+<form method="post" action="{{ url_for('main.settings_view') }}">
+  <h2>仕入元API</h2>
+  <div class="card">
+    <p class="muted">
+      楽天: <a class="plain" href="https://webservice.rakuten.co.jp/" target="_blank" rel="noopener">楽天ウェブサービス</a>でアプリIDを取得 /
+      Yahoo!: <a class="plain" href="https://developer.yahoo.co.jp/" target="_blank" rel="noopener">Yahoo!デベロッパーネットワーク</a>でClient IDを取得。
+      未設定の間はデモデータで動作します。
+    </p>
+    <div class="form-grid">
+      <div><label>楽天アプリID</label>
+        <input name="rakuten_app_id" value="{{ settings.rakuten_app_id }}" style="width:100%"></div>
+      <div><label>Yahoo! Client ID (appid)</label>
+        <input name="yahoo_app_id" value="{{ settings.yahoo_app_id }}" style="width:100%"></div>
+    </div>
+  </div>
+
+  <h2>利益商品の判定条件(自動リサーチ)</h2>
+  <div class="card">
+    <div class="form-grid">
+      <div><label>最低利益額(円)</label><input name="min_profit" value="{{ settings.min_profit }}"></div>
+      <div><label>最低利益率(%)</label><input name="min_profit_rate" value="{{ settings.min_profit_rate }}"></div>
+      <div><label>最低ROI(%)</label><input name="min_roi" value="{{ settings.min_roi }}"></div>
+      <div><label>想定売価係数(仕入価格×係数)</label><input name="sell_multiplier" value="{{ settings.sell_multiplier }}"></div>
+      <div><label>通常ポイント還元率(%)</label><input name="base_point_rate" value="{{ settings.base_point_rate }}"></div>
+      <div><label>既定の販路</label>
+        <select name="default_channel_id">
+          <option value="">(最初の有効販路)</option>
+          {% for ch in channels %}
+          <option value="{{ ch.id }}" {% if settings.default_channel_id == ch.id|string %}selected{% endif %}>{{ ch.name }}</option>
+          {% endfor %}
+        </select></div>
+    </div>
+  </div>
+
+  <p><button type="submit">設定を保存</button></p>
+</form>
+{% endblock %}

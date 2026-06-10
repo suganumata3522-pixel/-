@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}レポート{% endblock %}
+{% block content %}
+<h1>月次レポート</h1>
+
+<div class="card">
+  {% if months %}
+  <table>
+    <tr><th>月</th><th class="num">売上件数</th><th class="num">売上高</th><th class="num">仕入額</th><th class="num">純利益</th><th class="num">利益率</th></tr>
+    {% for m in months %}
+    <tr>
+      <td>{{ m.ym }}</td>
+      <td class="num">{{ m.sales_count }}</td>
+      <td class="num">{{ m.revenue|yen }}</td>
+      <td class="num">{{ m.spend|yen }}</td>
+      <td class="num {{ 'pos' if m.profit >= 0 else 'neg' }}">{{ m.profit|yen }}</td>
+      <td class="num">{{ ((m.profit / m.revenue * 100) if m.revenue else 0)|pct }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}<p class="muted">データがありません。</p>{% endif %}
+</div>
+
+<h2>販路別実績</h2>
+<div class="card">
+  {% if by_channel %}
+  <table>
+    <tr><th>販路</th><th class="num">売上件数</th><th class="num">売上高</th><th class="num">純利益</th></tr>
+    {% for c in by_channel %}
+    <tr>
+      <td>{{ c.channel_name }}</td>
+      <td class="num">{{ c.cnt }}</td>
+      <td class="num">{{ c.revenue|yen }}</td>
+      <td class="num {{ 'pos' if c.profit >= 0 else 'neg' }}">{{ c.profit|yen }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}<p class="muted">データがありません。</p>{% endif %}
+</div>
+
+<div class="card actions">
+  <a class="btn secondary" href="{{ url_for('main.export_purchases') }}">仕入CSV</a>
+  <a class="btn secondary" href="{{ url_for('main.export_sales') }}">売上CSV</a>
+</div>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}ダッシュボード{% endblock %}
+{% block content %}
+<h1>ダッシュボード <span class="muted">({{ kpi.month }})</span></h1>
+
+<div class="kpis">
+  <div class="kpi"><div class="label">今月の売上高</div><div class="value">{{ kpi.revenue|yen }}</div></div>
+  <div class="kpi"><div class="label">今月の純利益</div><div class="value profit">{{ kpi.profit|yen }}</div></div>
+  <div class="kpi"><div class="label">今月の仕入額</div><div class="value">{{ kpi.spend|yen }}</div></div>
+  <div class="kpi"><div class="label">在庫(件 / 原価)</div><div class="value">{{ kpi.stock_count }}件 <span class="muted">{{ kpi.stock_cost|yen }}</span></div></div>
+  <div class="kpi"><div class="label">仕入候補</div><div class="value">{{ kpi.candidates }}件</div></div>
+</div>
+
+<h2>次のおすすめ購入日</h2>
+<div class="card">
+  {% if best_rakuten %}
+  <p>🛒 <strong>楽天市場:</strong> {{ best_rakuten.date_str }} — {{ best_rakuten.reasons|join(' / ') }}</p>
+  {% endif %}
+  {% if best_yahoo %}
+  <p>🛍️ <strong>Yahoo!ショッピング:</strong> {{ best_yahoo.date_str }} — {{ best_yahoo.reasons|join(' / ') }}</p>
+  {% endif %}
+  <p class="muted">詳細は <a class="plain" href="{{ url_for('main.timing_view') }}">購入日判断カレンダー</a> へ</p>
+</div>
+
+<h2>月次推移(直近6ヶ月)</h2>
+<div class="card">
+  {% if monthly %}
+  <table>
+    <tr><th>月</th><th class="num">売上高</th><th class="num">純利益</th></tr>
+    {% for m in monthly %}
+    <tr>
+      <td>{{ m.ym }}</td>
+      <td class="num">{{ m.revenue|yen }}</td>
+      <td class="num {{ 'pos' if m.profit >= 0 else 'neg' }}">{{ m.profit|yen }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}<p class="muted">まだ売上データがありません。</p>{% endif %}
+</div>
+
+<h2>最近の売上</h2>
+<div class="card">
+  {% if recent_sales %}
+  <table>
+    <tr><th>日付</th><th>商品</th><th>販路</th><th class="num">売価</th><th class="num">純利益</th></tr>
+    {% for s in recent_sales %}
+    <tr>
+      <td>{{ s.sale_date }}</td><td>{{ s.name }}</td><td>{{ s.channel_name or '-' }}</td>
+      <td class="num">{{ (s.sale_price * s.qty)|yen }}</td>
+      <td class="num {{ 'pos' if s.net_profit >= 0 else 'neg' }}">{{ s.net_profit|yen }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}<p class="muted">まだ売上がありません。<a class="plain" href="{{ url_for('main.research_view') }}">商品リサーチ</a>から始めましょう。</p>{% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}販路設定{% endblock %}
+{% block content %}
+<h1>販路設定</h1>
+
+<div class="card">
+  <p class="muted">販路ごとの手数料体系を設定します。リサーチの利益試算と売上登録時の手数料計算に使われます。</p>
+  <table>
+    <tr><th>販路名</th><th class="num">手数料率(%)</th><th class="num">固定手数料(円)</th><th class="num">標準送料(円)</th><th>メモ</th><th>有効</th><th></th></tr>
+    {% for ch in rows %}
+    <tr>
+      <form method="post" action="{{ url_for('main.channel_update', cid=ch.id) }}">
+      <td><input name="name" value="{{ ch.name }}" size="18" required></td>
+      <td class="num"><input name="fee_rate" value="{{ ch.fee_rate }}" size="5"></td>
+      <td class="num"><input name="fixed_fee" value="{{ ch.fixed_fee }}" size="6"></td>
+      <td class="num"><input name="shipping_cost" value="{{ ch.shipping_cost }}" size="6"></td>
+      <td><input name="notes" value="{{ ch.notes }}" size="30"></td>
+      <td><input type="checkbox" name="active" value="1" {% if ch.active %}checked{% endif %} style="width:auto"></td>
+      <td class="actions">
+        <button class="small" type="submit">保存</button>
+      </form>
+        <form class="inline" method="post" action="{{ url_for('main.channel_delete', cid=ch.id) }}"
+              onsubmit="return confirm('この販路を削除しますか?')">
+          <button class="small danger">削除</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+
+<h2>販路を追加</h2>
+<div class="card">
+  <form method="post" action="{{ url_for('main.channels') }}" class="form-row">
+    <div><label>販路名 *</label><input name="name" required></div>
+    <div><label>手数料率(%)</label><input name="fee_rate" value="10" size="5"></div>
+    <div><label>固定手数料(円)</label><input name="fixed_fee" value="0" size="6"></div>
+    <div><label>標準送料(円)</label><input name="shipping_cost" value="0" size="6"></div>
+    <div><label>メモ</label><input name="notes" size="24"></div>
+    <button type="submit">追加</button>
+  </form>
+</div>
+{% endblock %}

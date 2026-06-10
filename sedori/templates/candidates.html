@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}候補商品{% endblock %}
+{% block content %}
+<h1>候補商品</h1>
+
+<div class="card">
+  <div class="actions">
+    <a class="btn small {{ 'secondary' if status }}" href="{{ url_for('main.candidates') }}">すべて</a>
+    {% for st in ['候補','仕入予定','仕入済','見送り'] %}
+    <a class="btn small {{ 'secondary' if status != st }}" href="{{ url_for('main.candidates', status=st) }}">{{ st }}</a>
+    {% endfor %}
+  </div>
+</div>
+
+<div class="card">
+  {% if rows %}
+  <table>
+    <tr>
+      <th>商品名</th><th>仕入元</th><th class="num">仕入価格</th><th class="num">想定売価</th>
+      <th class="num">利益</th><th class="num">利益率</th><th class="num">ROI</th>
+      <th>販路</th><th>推奨購入日</th><th>状態</th><th></th>
+    </tr>
+    {% for r in rows %}
+    <tr>
+      <td>
+        {% if r.url %}<a class="plain" href="{{ r.url }}" target="_blank" rel="noopener">{{ r.name }}</a>{% else %}{{ r.name }}{% endif %}
+        <div class="muted">{{ r.shop }}{% if r.jan %} / JAN: {{ r.jan }}{% endif %}</div>
+      </td>
+      <td>{{ r.source }}</td>
+      <td class="num">{{ r.cost|yen }}</td>
+      <td class="num">{{ r.sell_price|yen }}</td>
+      <td class="num {{ 'pos' if r.profit >= 0 else 'neg' }}">{{ r.profit|yen }}</td>
+      <td class="num">{{ r.profit_rate|pct }}</td>
+      <td class="num">{{ r.roi|pct }}</td>
+      <td>{{ r.channel_name or '-' }}</td>
+      <td>
+        {{ r.buy_date or '-' }}
+        {% if r.buy_reason %}<div class="muted">{{ r.buy_reason }}</div>{% endif %}
+      </td>
+      <td><span class="badge {{ r.status }}">{{ r.status }}</span></td>
+      <td class="actions">
+        {% if r.status in ['候補','仕入予定'] %}
+        <a class="btn small success" href="{{ url_for('main.purchase_new', candidate_id=r.id) }}">仕入登録</a>
+        {% endif %}
+        {% if r.status == '候補' %}
+        <form class="inline" method="post" action="{{ url_for('main.candidate_status', cid=r.id) }}">
+          <input type="hidden" name="status" value="仕入予定"><button class="small">仕入予定</button>
+        </form>
+        <form class="inline" method="post" action="{{ url_for('main.candidate_status', cid=r.id) }}">
+          <input type="hidden" name="status" value="見送り"><button class="small secondary">見送り</button>
+        </form>
+        {% endif %}
+        <form class="inline" method="post" action="{{ url_for('main.candidate_delete', cid=r.id) }}">
+          <button class="small danger">削除</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+  <p class="muted">候補商品がありません。<a class="plain" href="{{ url_for('main.research_view') }}">商品リサーチ</a>から登録してください。</p>
+  {% endif %}
+</div>
+{% endblock %}

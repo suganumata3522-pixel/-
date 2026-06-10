@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}仕入管理{% endblock %}
+{% block content %}
+<h1>仕入管理</h1>
+
+<div class="card actions">
+  <a class="btn" href="{{ url_for('main.purchase_new') }}">+ 仕入を登録</a>
+  <a class="btn secondary" href="{{ url_for('main.export_purchases') }}">CSVエクスポート</a>
+</div>
+
+<div class="card">
+  {% if rows %}
+  <table>
+    <tr>
+      <th>仕入日</th><th>商品名</th><th>仕入元</th><th class="num">数量</th>
+      <th class="num">単価</th><th class="num">合計</th><th class="num">獲得pt</th>
+      <th>予定販路</th><th>状態</th><th></th>
+    </tr>
+    {% for r in rows %}
+    <tr>
+      <td>{{ r.purchase_date }}</td>
+      <td>
+        {% if r.url %}<a class="plain" href="{{ r.url }}" target="_blank" rel="noopener">{{ r.name }}</a>{% else %}{{ r.name }}{% endif %}
+        {% if r.notes %}<div class="muted">{{ r.notes }}</div>{% endif %}
+      </td>
+      <td>{{ r.source or '-' }}</td>
+      <td class="num">{{ r.sold_qty }}/{{ r.qty }} 売却</td>
+      <td class="num">{{ r.unit_cost|yen }}</td>
+      <td class="num">{{ r.total_cost|yen }}</td>
+      <td class="num">{{ r.points }}pt</td>
+      <td>{{ r.channel_name or '-' }}</td>
+      <td><span class="badge {{ r.status }}">{{ r.status }}</span></td>
+      <td class="actions">
+        {% if r.status != '売却済' %}
+        <a class="btn small success" href="{{ url_for('main.sale_new', purchase_id=r.id) }}">売却登録</a>
+        {% if r.status == '在庫' %}
+        <form class="inline" method="post" action="{{ url_for('main.purchase_status', pid=r.id) }}">
+          <input type="hidden" name="status" value="出品中"><button class="small">出品中に</button>
+        </form>
+        {% endif %}
+        {% endif %}
+        <form class="inline" method="post" action="{{ url_for('main.purchase_delete', pid=r.id) }}"
+              onsubmit="return confirm('この仕入を削除しますか?')">
+          <button class="small danger">削除</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}<p class="muted">仕入データがありません。</p>{% endif %}
+</div>
+{% endblock %}
