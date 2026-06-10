@@ -6,6 +6,7 @@ from flask import (
     Blueprint, Response, flash, redirect, render_template, request, url_for,
 )
 
+from . import amazon
 from . import db as dbm
 from . import profit, research, timing
 
@@ -131,19 +132,46 @@ def add_candidate():
     dbm.get_db().execute(
         """INSERT INTO candidates
            (name, jan, source, url, shop, cost, sell_price, channel_id, point_rate,
-            profit, profit_rate, roi, buy_date, buy_reason)
-           VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+            profit, profit_rate, roi, buy_date, buy_reason, asin, sell_basis, amazon_rank)
+           VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
         (
             f.get("name", ""), f.get("jan", ""), f.get("source", "manual"),
             f.get("url", ""), f.get("shop", ""), cost, sell, channel["id"], point_rate,
             p["profit"], p["profit_rate"], p["roi"],
             best["date_str"] if best else "",
             " / ".join(best["reasons"]) if best else "",
+            f.get("asin", ""), f.get("sell_basis", ""), _int(f.get("amazon_rank")),
         ),
     )
     dbm.get_db().commit()
     flash(f"候補に登録しました: {f.get('name','')}", "success")
     return redirect(request.referrer or url_for("main.candidates"))
+
+
+@bp.route("/amazon/lookup", methods=["POST"])
+def amazon_lookup():
+    """JANコード単体でAmazon相場を調べる(楽天商品などJANが取れない時の手動確認用)。"""
+    jan = request.form.get("jan", "").strip()
+    if not jan:
+        flash("JANコードを入力してください", "error")
+        return redirect(url_for("main.research_view"))
+    settings = dbm.get_settings()
+    demo_mode = not settings.get("rakuten_app_id") and not settings.get("yahoo_app_id")
+    try:
+        az = amazon.get_price(jan, settings, allow_demo=demo_mode)
+    except amazon.AmazonPriceError as e:
+        flash(str(e), "error")
+        return redirect(url_for("main.research_view"))
+    if not az:
+        if not amazon.build_pricer(settings) and not demo_mode:
+            flash("Keepa APIキーまたはSP-API認証情報を設定してください(設定画面)", "error")
+        else:
+            flash(f"JAN {jan} のAmazon商品が見つかりませんでした", "error")
+    else:
+        rank = f" / ランキング {az['rank']:,}位" if az.get("rank") else ""
+        title = f" / {az['title']}" if az.get("title") else ""
+        flash(f"Amazon相場: ¥{az['price']:,}(ASIN: {az['asin']}{rank}{title})", "success")
+    return redirect(url_for("main.research_view"))
 
 
 @bp.route("/searches/add", methods=["POST"])

@@ -1,8 +1,10 @@
 """利益商品リサーチエンジン。
 
-各仕入元を横断検索し、想定売価と販路手数料から利益を試算。しきい値
-(最低利益額・利益率・ROI)を超える商品を利益商品として抽出する。
+各仕入元を横断検索し、想定売価(Amazon相場があればそれを優先、なければ係数推定)と
+販路手数料から利益を試算。しきい値(最低利益額・利益率・ROI)を超える商品を
+利益商品として抽出する。
 """
+from . import amazon
 from . import db as dbm
 from . import profit, timing
 from .sources import SourceError, build_sources
@@ -14,9 +16,38 @@ def estimate_sell_price(cost, settings):
     return int(round(cost * multiplier / 100)) * 100
 
 
+def attach_sell_price(item, settings, pricer, errors):
+    """商品にAmazon相場ベースの想定売価を付与する。取れなければ係数推定。"""
+    az = None
+    if item.get("jan"):
+        try:
+            az = amazon.get_price(
+                item["jan"], settings, pricer=pricer,
+                allow_demo=(item["source"] == "demo"),
+            )
+        except amazon.AmazonPriceError as e:
+            if str(e) not in errors:
+                errors.append(str(e))
+    if az and az.get("price", 0) > 0:
+        item.update({
+            "sell_price": az["price"],
+            "sell_basis": "amazon",
+            "asin": az.get("asin", ""),
+            "amazon_rank": az.get("rank", 0),
+        })
+    else:
+        item.update({
+            "sell_price": estimate_sell_price(item["price"], settings),
+            "sell_basis": "係数",
+            "asin": "",
+            "amazon_rank": 0,
+        })
+
+
 def search(keyword, settings, channel, limit=20, max_price=0):
     """キーワード検索 → 利益試算付きの結果リストと、ソースごとのエラーを返す。"""
     results, errors = [], []
+    pricer = amazon.build_pricer(settings)
     for src in build_sources(settings):
         try:
             items = src.search(keyword, limit=limit, max_price=max_price)
@@ -24,11 +55,11 @@ def search(keyword, settings, channel, limit=20, max_price=0):
             errors.append(str(e))
             continue
         for it in items:
-            sell = estimate_sell_price(it["price"], settings)
-            p = profit.calc_with_channel(sell, it["price"], channel, point_rate=it["point_rate"])
+            attach_sell_price(it, settings, pricer, errors)
+            p = profit.calc_with_channel(it["sell_price"], it["price"], channel,
+                                         point_rate=it["point_rate"])
             it.update({
                 "source_label": src.label,
-                "sell_price": sell,
                 "profit": p["profit"],
                 "profit_rate": p["profit_rate"],
                 "roi": p["roi"],
@@ -72,14 +103,16 @@ def run_auto(settings, channel):
             db.execute(
                 """INSERT INTO candidates
                    (name, jan, source, url, shop, cost, sell_price, channel_id,
-                    point_rate, profit, profit_rate, roi, buy_date, buy_reason)
-                   VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+                    point_rate, profit, profit_rate, roi, buy_date, buy_reason,
+                    asin, sell_basis, amazon_rank)
+                   VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
                 (
                     it["name"], it["jan"], it["source"], it["url"], it["shop"],
                     it["price"], it["sell_price"], channel["id"],
                     it["point_rate"], it["profit"], it["profit_rate"], it["roi"],
                     best["date_str"] if best else "",
                     " / ".join(best["reasons"]) if best else "",
+                    it.get("asin", ""), it.get("sell_basis", ""), it.get("amazon_rank", 0),
                 ),
             )
             added += 1

@@ -28,7 +28,16 @@
       </td>
       <td>{{ r.source }}</td>
       <td class="num">{{ r.cost|yen }}</td>
-      <td class="num">{{ r.sell_price|yen }}</td>
+      <td class="num">
+        {{ r.sell_price|yen }}
+        {% if r.sell_basis == 'amazon' %}
+        <div><span class="badge confirmed">Amazon相場</span></div>
+        {% if r.asin %}<div class="muted"><a class="plain" href="https://www.amazon.co.jp/dp/{{ r.asin }}" target="_blank" rel="noopener">{{ r.asin }}</a></div>{% endif %}
+        {% if r.amazon_rank %}<div class="muted">ランク {{ "{:,}".format(r.amazon_rank) }}位</div>{% endif %}
+        {% elif r.sell_basis %}
+        <div><span class="badge">係数推定</span></div>
+        {% endif %}
+      </td>
       <td class="num {{ 'pos' if r.profit >= 0 else 'neg' }}">{{ r.profit|yen }}</td>
       <td class="num">{{ r.profit_rate|pct }}</td>
       <td class="num">{{ r.roi|pct }}</td>

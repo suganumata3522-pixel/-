@@ -26,7 +26,12 @@
       <div><label><input type="checkbox" name="only_hit" value="1" {% if only_hit %}checked{% endif %} style="width:auto"> 利益条件クリアのみ</label></div>
       <button type="submit">検索</button>
     </div>
-    <p class="muted">利益条件: 利益 {{ settings.min_profit }}円以上 / 利益率 {{ settings.min_profit_rate }}%以上 / ROI {{ settings.min_roi }}%以上(設定で変更可)。想定売価は「仕入価格 × {{ settings.sell_multiplier }}」で自動試算され、候補登録時に上書きできます。</p>
+    <p class="muted">利益条件: 利益 {{ settings.min_profit }}円以上 / 利益率 {{ settings.min_profit_rate }}%以上 / ROI {{ settings.min_roi }}%以上(設定で変更可)。
+      想定売価はJANコードがあれば<strong>Amazon相場(Keepa / SP-API)</strong>を自動取得し、取れない場合は「仕入価格 × {{ settings.sell_multiplier }}」で推定します。候補登録時に上書き可能です。</p>
+  </form>
+  <form method="post" action="{{ url_for('main.amazon_lookup') }}" class="form-row" style="margin-top:8px">
+    <div><label>JANコードからAmazon相場を単体検索</label><input name="jan" size="16" placeholder="例: 4902370542912"></div>
+    <button type="submit" class="secondary">Amazon相場を調べる</button>
   </form>
 </div>
 
@@ -48,7 +53,13 @@
       <td>{{ it.source_label }}</td>
       <td class="num">{{ it.price|yen }}</td>
       <td class="num">{{ it.point_rate }}%</td>
-      <td class="num">{{ it.sell_price|yen }}</td>
+      <td class="num">
+        {{ it.sell_price|yen }}
+        <div>
+          <span class="badge {{ 'confirmed' if it.sell_basis == 'amazon' else '' }}">{{ 'Amazon相場' if it.sell_basis == 'amazon' else '係数推定' }}</span>
+          {% if it.amazon_rank %}<div class="muted">ランク {{ "{:,}".format(it.amazon_rank) }}位</div>{% endif %}
+        </div>
+      </td>
       <td class="num {{ 'pos' if it.profit >= 0 else 'neg' }}">{{ it.profit|yen }}</td>
       <td class="num">{{ it.profit_rate|pct }}</td>
       <td class="num">{{ it.roi|pct }}</td>
@@ -62,6 +73,9 @@
           <input type="hidden" name="cost" value="{{ it.price }}">
           <input type="hidden" name="point_rate" value="{{ it.point_rate }}">
           <input type="hidden" name="channel_id" value="{{ channel.id }}">
+          <input type="hidden" name="asin" value="{{ it.asin }}">
+          <input type="hidden" name="sell_basis" value="{{ it.sell_basis }}">
+          <input type="hidden" name="amazon_rank" value="{{ it.amazon_rank }}">
           <input name="sell_price" value="{{ it.sell_price }}" size="7" title="想定売価(上書き可)">
           <button class="small success" type="submit">候補登録</button>
         </form>

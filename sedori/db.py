@@ -38,6 +38,9 @@ CREATE TABLE IF NOT EXISTS candidates (
     status TEXT NOT NULL DEFAULT '候補',     -- 候補 / 仕入予定 / 仕入済 / 見送り
     buy_date TEXT NOT NULL DEFAULT '',      -- 推奨購入日
     buy_reason TEXT NOT NULL DEFAULT '',
+    asin TEXT NOT NULL DEFAULT '',          -- Amazon ASIN(相場取得時)
+    sell_basis TEXT NOT NULL DEFAULT '',    -- 想定売価の根拠(amazon / 係数 など)
+    amazon_rank INTEGER NOT NULL DEFAULT 0, -- Amazon売れ筋ランキング
     created_at TEXT NOT NULL DEFAULT (datetime('now', 'localtime')),
     FOREIGN KEY (channel_id) REFERENCES channels(id)
 );
@@ -81,6 +84,16 @@ CREATE TABLE IF NOT EXISTS settings (
     key TEXT PRIMARY KEY,
     value TEXT NOT NULL DEFAULT ''
 );
+
+CREATE TABLE IF NOT EXISTS amazon_prices (
+    jan TEXT PRIMARY KEY,
+    asin TEXT NOT NULL DEFAULT '',
+    title TEXT NOT NULL DEFAULT '',
+    price INTEGER NOT NULL DEFAULT 0,       -- 0 = 見つからなかった
+    rank INTEGER NOT NULL DEFAULT 0,
+    source TEXT NOT NULL DEFAULT '',        -- keepa / sp-api / demo
+    fetched_at TEXT NOT NULL
+);
 """
 
 DEFAULT_CHANNELS = [
@@ -101,6 +114,11 @@ DEFAULT_SETTINGS = {
     "sell_multiplier": "1.35",      # 想定売価係数(仕入価格×係数)
     "default_channel_id": "",       # 既定販路(空=最初のアクティブ販路)
     "base_point_rate": "1",         # 通常ポイント還元率(%)
+    "keepa_api_key": "",            # Keepa APIキー(Amazon売価の自動取得)
+    "spapi_client_id": "",          # Amazon SP-API LWAクライアントID
+    "spapi_client_secret": "",      # Amazon SP-API LWAクライアントシークレット
+    "spapi_refresh_token": "",      # Amazon SP-API リフレッシュトークン
+    "amazon_cache_hours": "24",     # Amazon売価キャッシュ有効時間
 }
 
 
@@ -118,9 +136,19 @@ def close_db():
         db.close()
 
 
+def _ensure_column(db, table, column, decl):
+    cols = [r[1] for r in db.execute(f"PRAGMA table_info({table})").fetchall()]
+    if column not in cols:
+        db.execute(f"ALTER TABLE {table} ADD COLUMN {column} {decl}")
+
+
 def init_db():
     db = get_db()
     db.executescript(SCHEMA)
+    # 既存DBへのマイグレーション
+    _ensure_column(db, "candidates", "asin", "TEXT NOT NULL DEFAULT ''")
+    _ensure_column(db, "candidates", "sell_basis", "TEXT NOT NULL DEFAULT ''")
+    _ensure_column(db, "candidates", "amazon_rank", "INTEGER NOT NULL DEFAULT 0")
     if db.execute("SELECT COUNT(*) FROM channels").fetchone()[0] == 0:
         db.executemany(
             "INSERT INTO channels (name, fee_rate, fixed_fee, shipping_cost, notes) VALUES (?,?,?,?,?)",

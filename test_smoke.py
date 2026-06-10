@@ -4,6 +4,33 @@ import re
 import tempfile
 
 from sedori import create_app
+from sedori.amazon import DemoAmazonPricer, _spapi_price, parse_keepa_product
+
+
+def test_amazon_parsers():
+    print("Amazon応答パース:")
+    # Keepa: current[18]=カート価格 が優先される
+    p = parse_keepa_product({
+        "asin": "B000TEST01", "title": "テスト商品",
+        "stats": {"current": [3000, 2800, -1, 1234] + [-1] * 14 + [2980]},
+    })
+    assert p == {"price": 2980, "rank": 1234, "asin": "B000TEST01",
+                 "title": "テスト商品", "source": "keepa"}, p
+    print("  OK Keepa: カート価格 2,980円 / ランク 1,234位")
+    # Keepa: カートなし→新品最安にフォールバック、価格なし→None
+    p = parse_keepa_product({"asin": "A", "stats": {"current": [-1, 2800, -1, 50]}})
+    assert p["price"] == 2800
+    assert parse_keepa_product({"asin": "A", "stats": {"current": [-1, -1]}}) is None
+    print("  OK Keepa: フォールバックと欠損処理")
+    # SP-API: BuyBoxPrices優先、なければLowestPrices
+    assert _spapi_price({"BuyBoxPrices": [{"LandedPrice": {"Amount": 4980.0}}]}) == 4980
+    assert _spapi_price({"LowestPrices": [{"LandedPrice": {"Amount": 4500.0}}]}) == 4500
+    assert _spapi_price({}) == 0
+    print("  OK SP-API: LandedPrice抽出")
+    # デモ相場は決定的
+    d = DemoAmazonPricer()
+    assert d.price_by_jan("4901234567894") == d.price_by_jan("4901234567894")
+    print("  OK デモ相場: 決定的生成")
 
 
 def run():
@@ -22,10 +49,25 @@ def run():
                  "/sales", "/report", "/channels", "/settings"]:
         ok(c.get(path), f"GET {path}")
 
-    print("リサーチ(デモ検索):")
+    print("リサーチ(デモ検索 + Amazon相場):")
     res = c.post("/research", data={"keyword": "ゲームソフト", "channel_id": "3"})
     ok(res, "POST /research")
-    assert "候補登録" in res.get_data(as_text=True)
+    body = res.get_data(as_text=True)
+    assert "候補登録" in body
+    assert "Amazon相場" in body, "デモ商品(JANあり)にAmazon相場が付与されていない"
+    assert "ランク" in body
+    print("  -> 想定売価にAmazon相場(デモ)とランキングを表示")
+
+    print("Amazon相場の単体検索とキャッシュ:")
+    res = c.post("/amazon/lookup", data={"jan": "4901234567894"}, follow_redirects=True)
+    ok(res, "JAN単体検索")
+    assert "Amazon相場: ¥" in res.get_data(as_text=True)
+    with app.app_context():
+        from sedori import amazon as az_mod
+        from sedori import db as dbm
+        cached = az_mod.get_price("4901234567894", dbm.get_settings(), allow_demo=True)
+        assert cached and cached.get("cached"), "2回目の取得がキャッシュから返っていない"
+    print("  -> 2回目はキャッシュから取得")
 
     print("自動リサーチ:")
     ok(c.post("/searches/add", data={"keyword": "フィギュア", "max_price": "0"}), "キーワード追加")
@@ -108,4 +150,6 @@ def run():
 
 
 if __name__ == "__main__":
+    test_amazon_parsers()
+    print()
     run()

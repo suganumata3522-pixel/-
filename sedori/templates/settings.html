@@ -19,6 +19,29 @@
     </div>
   </div>
 
+  <h2>Amazon売価の自動取得(Keepa / SP-API)</h2>
+  <div class="card">
+    <p class="muted">
+      JANコードが取れた商品はAmazon.co.jpの相場(カート価格)を自動取得し、想定売価として使います。
+      <strong>Keepaを優先</strong>し、未設定ならSP-APIを使用、どちらも未設定なら係数推定にフォールバックします。
+      取得結果はキャッシュされ、トークン消費を抑えます。<br>
+      Keepa: <a class="plain" href="https://keepa.com/#!api" target="_blank" rel="noopener">keepa.com/#!api</a> でAPIキーを取得(有料サブスクリプション) /
+      SP-API: <a class="plain" href="https://developer-docs.amazon.com/sp-api/" target="_blank" rel="noopener">出品者アカウントでLWA認証情報</a>を取得。
+    </p>
+    <div class="form-grid">
+      <div><label>Keepa APIキー</label>
+        <input name="keepa_api_key" value="{{ settings.keepa_api_key }}" style="width:100%"></div>
+      <div><label>キャッシュ有効時間(時間)</label>
+        <input name="amazon_cache_hours" value="{{ settings.amazon_cache_hours }}"></div>
+      <div><label>SP-API クライアントID</label>
+        <input name="spapi_client_id" value="{{ settings.spapi_client_id }}" style="width:100%"></div>
+      <div><label>SP-API クライアントシークレット</label>
+        <input name="spapi_client_secret" type="password" value="{{ settings.spapi_client_secret }}" style="width:100%"></div>
+      <div><label>SP-API リフレッシュトークン</label>
+        <input name="spapi_refresh_token" type="password" value="{{ settings.spapi_refresh_token }}" style="width:100%"></div>
+    </div>
+  </div>
+
   <h2>利益商品の判定条件(自動リサーチ)</h2>
   <div class="card">
     <div class="form-grid">
