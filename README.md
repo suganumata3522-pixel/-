@@ -21,6 +21,15 @@
 
 ## セットアップ
 
+**かんたん起動(おすすめ)** — Pythonをインストール済みなら、ダブルクリックするだけ:
+
+- Windows: `start_windows.bat`
+- Mac: `start_mac.command`
+
+初回は自動で必要な部品(.venv)をインストールし、ブラウザが自動で開きます。
+
+**コマンドで起動する場合:**
+
 ```bash
 pip install -r requirements.txt
 python app.py
