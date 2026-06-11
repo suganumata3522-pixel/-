@@ -12,8 +12,15 @@
       未設定の間はデモデータで動作します。
     </p>
     <div class="form-grid">
-      <div><label>楽天アプリID</label>
-        <input name="rakuten_app_id" value="{{ settings.rakuten_app_id }}" style="width:100%"></div>
+      <div><label>楽天アプリID(アプリケーションID)</label>
+        <input name="rakuten_app_id" value="{{ settings.rakuten_app_id }}" style="width:100%"
+               placeholder="例: 10013719-5b44-4bc7-…(ハイフン入り英数字)"></div>
+      <div><label>楽天アクセスキー(pk_ で始まる)</label>
+        <input name="rakuten_access_key" value="{{ settings.rakuten_access_key }}" style="width:100%"
+               placeholder="例: pk_xxxxxxxx…(2026年の新APIで必須)"></div>
+      <div><label>楽天 許可ウェブサイト(楽天に登録したドメイン)</label>
+        <input name="rakuten_allowed_site" value="{{ settings.rakuten_allowed_site }}" style="width:100%"
+               placeholder="例: https://example.com"></div>
       <div><label>Yahoo! Client ID (appid)</label>
         <input name="yahoo_app_id" value="{{ settings.yahoo_app_id }}" style="width:100%"></div>
     </div>

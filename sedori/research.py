@@ -4,6 +4,8 @@
 販路手数料から利益を試算。しきい値(最低利益額・利益率・ROI)を超える商品を
 利益商品として抽出する。
 """
+import time
+
 from . import amazon
 from . import db as dbm
 from . import profit, timing
@@ -87,7 +89,10 @@ def run_auto(settings, channel):
         "SELECT * FROM saved_searches WHERE enabled=1 ORDER BY id"
     ).fetchall()
     added, scanned, all_errors = 0, 0, []
-    for s in searches:
+    real_api = bool(settings.get("rakuten_app_id") or settings.get("yahoo_app_id"))
+    for i, s in enumerate(searches):
+        if real_api and i > 0:
+            time.sleep(1.5)  # 連続リクエストによる429(レート制限)を防ぐ
         items, errors = search(s["keyword"], settings, channel, limit=20, max_price=s["max_price"])
         all_errors.extend(errors)
         scanned += len(items)

@@ -32,6 +32,15 @@ def test_listing_logic():
     assert "Nintendo" in kw and "新品" in kw
     print("  OK キーワード抽出:", kw)
 
+    # 楽天 新API(2026年刷新)のクライアント構成
+    from sedori.sources import RakutenSource
+    r = RakutenSource("uuid-app-id", "pk_testkey", "example.com")
+    assert r.origin == "https://example.com" and r.referer == "https://example.com/"
+    assert r.URLS[0].startswith("https://openapi.rakuten.co.jp/ichibams/api/")
+    r2 = RakutenSource("uuid-app-id")  # 許可サイト未設定時の既定値
+    assert r2.origin == "https://example.com"
+    print("  OK 楽天新API: Origin/Refererと新エンドポイント構成")
+
 
 def test_amazon_parsers():
     print("Amazon応答パース:")

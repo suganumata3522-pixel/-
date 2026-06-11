@@ -19,10 +19,22 @@ class SourceError(Exception):
 class RakutenSource:
     name = "rakuten"
     label = "楽天市場"
-    URL = "https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601"
+    # 2026年2月のAPI刷新後のエンドポイント(新バージョン→旧バージョンの順に試行)
+    URLS = [
+        "https://openapi.rakuten.co.jp/ichibams/api/IchibaItem/Search/20260401",
+        "https://openapi.rakuten.co.jp/ichibams/api/IchibaItem/Search/20220601",
+    ]
 
-    def __init__(self, app_id):
+    def __init__(self, app_id, access_key="", allowed_site=""):
         self.app_id = app_id
+        self.access_key = (access_key or "").strip()
+        site = (allowed_site or "https://example.com").strip().rstrip("/")
+        if not site.startswith("http"):
+            site = "https://" + site
+        # 新APIは「許可されたウェブサイト」に登録したドメインを
+        # Origin/Refererヘッダーで名乗る必要がある
+        self.origin = site
+        self.referer = site + "/"
 
     def search(self, keyword, limit=20, max_price=0):
         params = {
@@ -32,27 +44,54 @@ class RakutenSource:
             "sort": "+itemPrice",
             "availability": 1,
         }
+        if self.access_key:
+            params["accessKey"] = self.access_key
         if max_price:
             params["maxPrice"] = max_price
-        try:
-            res = requests.get(self.URL, params=params, timeout=TIMEOUT)
-            res.raise_for_status()
-            data = res.json()
-        except (requests.RequestException, ValueError) as e:
-            raise SourceError(f"楽天API エラー: {e}")
-        items = []
-        for wrap in data.get("Items", []):
-            it = wrap.get("Item", wrap)
-            items.append({
-                "name": it.get("itemName", ""),
-                "price": int(it.get("itemPrice", 0)),
-                "url": it.get("itemUrl", ""),
-                "shop": it.get("shopName", ""),
-                "jan": "",
-                "source": self.name,
-                "point_rate": float(it.get("pointRate", 1)),
-            })
-        return items
+        headers = {
+            "Referer": self.referer,
+            "Origin": self.origin,
+            "User-Agent": "Mozilla/5.0 (sedori-tool)",
+        }
+        last_err = ""
+        for url in self.URLS:
+            try:
+                res = requests.get(url, params=params, headers=headers, timeout=TIMEOUT)
+            except requests.RequestException as e:
+                raise SourceError(f"楽天API エラー: {e}")
+            if res.status_code == 404:
+                last_err = "エンドポイントが見つかりません"
+                continue  # 旧バージョンのパスを試す
+            try:
+                data = res.json()
+            except ValueError:
+                raise SourceError(f"楽天API エラー: 応答を解析できません({res.status_code})")
+            if res.status_code != 200:
+                detail = (data.get("error_description") or data.get("error")
+                          or f"HTTP {res.status_code}")
+                if res.status_code in (401, 403):
+                    hint = "(設定の「楽天アクセスキー(pk_...)」と「楽天 許可ウェブサイト」が、楽天に登録した内容と一致しているか確認してください)"
+                elif res.status_code == 400:
+                    hint = "(楽天アプリIDとアクセスキーの貼り間違い・空白混入がないか確認してください)"
+                elif res.status_code == 429:
+                    hint = "(リクエストが多すぎます。少し待ってから再実行してください)"
+                else:
+                    hint = ""
+                raise SourceError(f"楽天API エラー: {detail} {hint}")
+            items = []
+            for wrap in data.get("Items", []):
+                it = wrap.get("Item", wrap) if isinstance(wrap, dict) else wrap
+                items.append({
+                    "name": it.get("itemName", ""),
+                    "price": int(it.get("itemPrice", 0)),
+                    "url": it.get("itemUrl", ""),
+                    "shop": it.get("shopName", ""),
+                    "jan": "",
+                    "source": self.name,
+                    "point_rate": float(it.get("pointRate", 1) or 1),
+                })
+            return items
+        raise SourceError(f"楽天API エラー: {last_err}")
 
 
 class YahooSource:
@@ -129,7 +168,11 @@ def build_sources(settings):
     """設定からアクティブなソース一覧を構築する。APIキーが1つもなければデモのみ。"""
     sources = []
     if settings.get("rakuten_app_id"):
-        sources.append(RakutenSource(settings["rakuten_app_id"]))
+        sources.append(RakutenSource(
+            settings["rakuten_app_id"],
+            settings.get("rakuten_access_key", ""),
+            settings.get("rakuten_allowed_site", ""),
+        ))
     if settings.get("yahoo_app_id"):
         sources.append(YahooSource(settings["yahoo_app_id"]))
     if not sources:

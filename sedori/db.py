@@ -146,6 +146,8 @@ DEFAULT_CHANNELS = [
 
 DEFAULT_SETTINGS = {
     "rakuten_app_id": "",
+    "rakuten_access_key": "",       # 新楽天API(2026年〜)のアクセスキー(pk_...)
+    "rakuten_allowed_site": "https://example.com",  # 楽天に登録した「許可されたウェブサイト」
     "yahoo_app_id": "",
     "min_profit": "500",            # 自動リサーチ: 最低利益額(円)
     "min_profit_rate": "10",        # 最低利益率(%)
