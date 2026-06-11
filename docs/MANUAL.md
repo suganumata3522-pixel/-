@@ -134,6 +134,7 @@ python app.py
 **① 仕入元API(無料)**
 - 楽天アプリID … [楽天ウェブサービス](https://webservice.rakuten.co.jp/)で無料発行
 - Yahoo! Client ID … [Yahoo!デベロッパーネットワーク](https://developer.yahoo.co.jp/)で無料発行
+- **取得手順の詳しい解説は別冊「[APIキー無料発行ガイド](API_GUIDE.md)」(API_GUIDE.pdf)をご覧ください**
 
 > ⚠️ 未設定でも「デモデータ」で全機能を試せます。まず触ってみて、慣れたらAPIキーを入れましょう。
 

@@ -3,8 +3,8 @@ rem 電脳せどり管理ツール 起動スクリプト(日本語Windows向け Shift-JIS版)
 cd /d "%~dp0"
 
 set "PY=python"
-where py >/dev/null 2>/dev/null && set "PY=py"
-%PY% --version >/dev/null 2>/dev/null
+where /q py && set "PY=py"
+%PY% --version
 if errorlevel 1 (
     echo.
     echo  Python がインストールされていません。
