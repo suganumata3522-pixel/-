@@ -60,6 +60,7 @@ APIキーを登録してください。
 
 - **Keepa**: [keepa.com/#!api](https://keepa.com/#!api) でAPIキーを取得(有料サブスクリプション)。
   JANから1リクエストで価格・ランキングが取れるため推奨。
+  📖 **[Keepa APIキー取得ガイド(画面付き)](docs/KEEPA_API_GUIDE.md)**
 - **Amazon SP-API**: Amazon出品者アカウントで
   [SP-APIアプリを登録](https://developer-docs.amazon.com/sp-api/)し、
   LWAクライアントID / クライアントシークレット / リフレッシュトークンを設定。
