@@ -10,6 +10,7 @@ from flask import (
 from . import amazon
 from . import db as dbm
 from . import images, listing, profit, research, timing
+from .sources import DEFAULT_SORT, SORT_OPTIONS
 
 bp = Blueprint("main", __name__)
 
@@ -105,16 +106,21 @@ def research_view():
     channels = _channels(active_only=True)
     results, errors, keyword = [], [], ""
     channel = dbm.default_channel(settings)
-    only_hit = False
+    only_hit, min_price = False, 0
+    sort = settings.get("search_sort", DEFAULT_SORT) or DEFAULT_SORT
     if request.method == "POST":
         keyword = request.form.get("keyword", "").strip()
         max_price = _int(request.form.get("max_price"))
+        min_price = _int(request.form.get("min_price"))
+        sort = request.form.get("sort") or sort
         only_hit = request.form.get("only_hit") == "1"
         cid = request.form.get("channel_id")
         if cid and _channel(cid):
             channel = _channel(cid)
         if keyword:
-            results, errors = research.search(keyword, settings, channel, limit=20, max_price=max_price)
+            results, errors = research.search(keyword, settings, channel,
+                                              max_price=max_price,
+                                              min_price=min_price, sort=sort)
             for it in results:
                 it["hit"] = research.passes_thresholds(it, settings)
             if only_hit:
@@ -127,6 +133,7 @@ def research_view():
         "research.html", results=results, errors=errors, keyword=keyword,
         channels=channels, channel=channel, searches=searches,
         settings=settings, demo_mode=demo_mode, only_hit=only_hit,
+        min_price=min_price, sort=sort, sort_options=SORT_OPTIONS,
     )
 
 
@@ -189,8 +196,9 @@ def add_search():
     keyword = request.form.get("keyword", "").strip()
     if keyword:
         dbm.get_db().execute(
-            "INSERT INTO saved_searches (keyword, max_price) VALUES (?,?)",
-            (keyword, _int(request.form.get("max_price"))),
+            "INSERT INTO saved_searches (keyword, max_price, min_price) VALUES (?,?,?)",
+            (keyword, _int(request.form.get("max_price")),
+             _int(request.form.get("min_price"))),
         )
         dbm.get_db().commit()
         flash(f"自動検索キーワードを追加しました: {keyword}", "success")
@@ -1046,6 +1054,7 @@ def settings_view():
         return redirect(url_for("main.settings_view"))
     return render_template(
         "settings.html", settings=dbm.get_settings(), channels=_channels(active_only=True),
+        sort_options=SORT_OPTIONS,
     )
 
 

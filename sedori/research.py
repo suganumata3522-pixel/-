@@ -9,7 +9,12 @@ import time
 from . import amazon
 from . import db as dbm
 from . import profit, timing
-from .sources import SourceError, build_sources
+from .sources import DEFAULT_SORT, SourceError, build_sources
+
+
+def search_limit(settings):
+    """1キーワードあたりの取得件数(設定で変更可)。"""
+    return int(float(settings.get("search_limit", "50") or 50))
 
 
 def estimate_sell_price(cost, settings):
@@ -46,13 +51,16 @@ def attach_sell_price(item, settings, pricer, errors):
         })
 
 
-def search(keyword, settings, channel, limit=20, max_price=0):
+def search(keyword, settings, channel, limit=0, max_price=0, min_price=0, sort=""):
     """キーワード検索 → 利益試算付きの結果リストと、ソースごとのエラーを返す。"""
+    limit = limit or search_limit(settings)
+    sort = sort or settings.get("search_sort", DEFAULT_SORT) or DEFAULT_SORT
     results, errors = [], []
     pricer = amazon.build_pricer(settings)
     for src in build_sources(settings):
         try:
-            items = src.search(keyword, limit=limit, max_price=max_price)
+            items = src.search(keyword, limit=limit, max_price=max_price,
+                               min_price=min_price, sort=sort)
         except SourceError as e:
             errors.append(str(e))
             continue
@@ -72,6 +80,15 @@ def search(keyword, settings, channel, limit=20, max_price=0):
 
 
 def passes_thresholds(item, settings):
+    # 係数推定の売価は実際に売れる価格の保証がないため、
+    # 「Amazon相場必須」が有効なら相場確認済みの商品だけを合格にする
+    if str(settings.get("require_amazon_basis", "1")) == "1" \
+            and item.get("sell_basis") != "amazon":
+        return False
+    # 売れ筋ランキング上限(0=無効、ランク不明=0は許容)
+    max_rank = int(float(settings.get("max_amazon_rank", "0") or 0))
+    if max_rank and item.get("amazon_rank", 0) > max_rank:
+        return False
     return (
         item["profit"] >= int(settings.get("min_profit", "500") or 0)
         and item["profit_rate"] >= float(settings.get("min_profit_rate", "10") or 0)
@@ -93,7 +110,8 @@ def run_auto(settings, channel):
     for i, s in enumerate(searches):
         if real_api and i > 0:
             time.sleep(1.5)  # 連続リクエストによる429(レート制限)を防ぐ
-        items, errors = search(s["keyword"], settings, channel, limit=20, max_price=s["max_price"])
+        items, errors = search(s["keyword"], settings, channel,
+                               max_price=s["max_price"], min_price=s["min_price"])
         all_errors.extend(errors)
         scanned += len(items)
         for it in items:

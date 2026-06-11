@@ -78,10 +78,29 @@
 
   <h2>利益商品の判定条件(自動リサーチ)</h2>
   <div class="card">
+    <p class="muted">
+      「Amazon相場の確認を必須にする」が<strong>はい</strong>の間は、係数推定(売価の裏付けなし)の商品は
+      利益条件を満たした扱いになりません。相場が確認できた商品だけが候補登録されるため、
+      仕入れてから売価が想定と違った…という事故を防げます。
+      売れ筋ランキング上限を設定すると、相場はあっても売れていない商品(回転が悪い商品)を除外できます。
+    </p>
     <div class="form-grid">
       <div><label>最低利益額(円)</label><input name="min_profit" value="{{ settings.min_profit }}"></div>
       <div><label>最低利益率(%)</label><input name="min_profit_rate" value="{{ settings.min_profit_rate }}"></div>
       <div><label>最低ROI(%)</label><input name="min_roi" value="{{ settings.min_roi }}"></div>
+      <div><label>Amazon相場の確認を必須にする</label>
+        <select name="require_amazon_basis">
+          <option value="1" {% if settings.require_amazon_basis == '1' %}selected{% endif %}>はい(係数推定は候補にしない)</option>
+          <option value="0" {% if settings.require_amazon_basis != '1' %}selected{% endif %}>いいえ(係数推定でも候補にする)</option>
+        </select></div>
+      <div><label>売れ筋ランキング上限(位、0=無効)</label><input name="max_amazon_rank" value="{{ settings.max_amazon_rank }}"></div>
+      <div><label>検索の並び順</label>
+        <select name="search_sort">
+          {% for key, label in sort_options %}
+          <option value="{{ key }}" {% if settings.search_sort == key %}selected{% endif %}>{{ label }}</option>
+          {% endfor %}
+        </select></div>
+      <div><label>検索件数(1キーワードあたり)</label><input name="search_limit" value="{{ settings.search_limit }}"></div>
       <div><label>想定売価係数(仕入価格×係数)</label><input name="sell_multiplier" value="{{ settings.sell_multiplier }}"></div>
       <div><label>通常ポイント還元率(%)</label><input name="base_point_rate" value="{{ settings.base_point_rate }}"></div>
       <div><label>再出品リマインダー(出品からの日数)</label><input name="relist_days" value="{{ settings.relist_days }}"></div>

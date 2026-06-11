@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS saved_searches (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     keyword TEXT NOT NULL,
     max_price INTEGER NOT NULL DEFAULT 0,   -- 仕入上限(0=無制限)
+    min_price INTEGER NOT NULL DEFAULT 0,   -- 仕入下限(0=指定なし) — 安値ジャンク除外用
     enabled INTEGER NOT NULL DEFAULT 1,
     created_at TEXT NOT NULL DEFAULT (datetime('now', 'localtime'))
 );
@@ -152,6 +153,10 @@ DEFAULT_SETTINGS = {
     "min_profit": "500",            # 自動リサーチ: 最低利益額(円)
     "min_profit_rate": "10",        # 最低利益率(%)
     "min_roi": "15",                # 最低ROI(%)
+    "search_sort": "review",        # 検索の並び順(review/standard/price_desc/price_asc)
+    "search_limit": "50",           # 1キーワードあたりの取得件数
+    "require_amazon_basis": "1",    # 1=Amazon相場が確認できた商品だけ利益条件クリアにする
+    "max_amazon_rank": "50000",     # 売れ筋ランキング上限(これより下位は除外、0=無効)
     "sell_multiplier": "1.35",      # 想定売価係数(仕入価格×係数)
     "default_channel_id": "",       # 既定販路(空=最初のアクティブ販路)
     "base_point_rate": "1",         # 通常ポイント還元率(%)
@@ -199,6 +204,7 @@ def init_db():
     _ensure_column(db, "candidates", "sell_basis", "TEXT NOT NULL DEFAULT ''")
     _ensure_column(db, "candidates", "amazon_rank", "INTEGER NOT NULL DEFAULT 0")
     _ensure_column(db, "listings", "sku", "TEXT NOT NULL DEFAULT ''")
+    _ensure_column(db, "saved_searches", "min_price", "INTEGER NOT NULL DEFAULT 0")
     if db.execute("SELECT COUNT(*) FROM channels").fetchone()[0] == 0:
         db.executemany(
             "INSERT INTO channels (name, fee_rate, fixed_fee, shipping_cost, notes) VALUES (?,?,?,?,?)",

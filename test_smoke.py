@@ -42,6 +42,38 @@ def test_listing_logic():
     print("  OK 楽天新API: Origin/Refererと新エンドポイント構成")
 
 
+def test_research_logic():
+    print("リサーチロジック:")
+    from sedori.research import passes_thresholds
+    from sedori.sources import DEFAULT_SORT, DemoSource, RakutenSource, YahooSource
+
+    settings = {"min_profit": "500", "min_profit_rate": "10", "min_roi": "15",
+                "require_amazon_basis": "1", "max_amazon_rank": "50000"}
+    base = {"profit": 1000, "profit_rate": 20.0, "roi": 30.0,
+            "sell_basis": "amazon", "amazon_rank": 1200}
+    assert passes_thresholds(dict(base), settings)
+    assert not passes_thresholds(dict(base, sell_basis="係数"), settings), \
+        "係数推定はAmazon相場必須モードで除外されるべき"
+    assert not passes_thresholds(dict(base, amazon_rank=99999), settings), \
+        "ランキング上限超えは除外されるべき"
+    assert passes_thresholds(dict(base, amazon_rank=0), settings)  # ランク不明は許容
+    assert passes_thresholds(dict(base, sell_basis="係数"),
+                             dict(settings, require_amazon_basis="0"))
+    print("  OK Amazon相場必須モードとランキング上限")
+
+    # 並び順: 既定は売れ筋(レビュー件数順)— 安い順固定だと最安ジャンクしか拾えない
+    assert DEFAULT_SORT == "review"
+    assert RakutenSource.SORTS[DEFAULT_SORT] == "-reviewCount"
+    assert YahooSource.SORTS[DEFAULT_SORT] == "-review_count"
+    print("  OK 既定の並び順は売れ筋(レビュー件数順)")
+
+    items = DemoSource().search("テスト", limit=50, min_price=3000)
+    assert items and all(it["price"] >= 3000 for it in items)
+    items = DemoSource().search("テスト", limit=50, sort="price_desc")
+    assert items == sorted(items, key=lambda x: x["price"], reverse=True)
+    print("  OK 仕入下限フィルタと並び順(デモソース)")
+
+
 def test_amazon_parsers():
     print("Amazon応答パース:")
     # Keepa: current[18]=カート価格 が優先される
@@ -97,7 +129,8 @@ def run():
         ok(c.get(path), f"GET {path}")
 
     print("リサーチ(デモ検索 + Amazon相場):")
-    res = c.post("/research", data={"keyword": "ゲームソフト", "channel_id": "3"})
+    res = c.post("/research", data={"keyword": "ゲームソフト", "channel_id": "3",
+                                    "min_price": "1000", "sort": "review"})
     ok(res, "POST /research")
     body = res.get_data(as_text=True)
     assert "候補登録" in body
@@ -366,5 +399,7 @@ if __name__ == "__main__":
     test_amazon_parsers()
     print()
     test_listing_logic()
+    print()
+    test_research_logic()
     print()
     run()

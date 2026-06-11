@@ -6,10 +6,22 @@
 """
 import hashlib
 import random
+import time
 
 import requests
 
 TIMEOUT = 10
+PAGE_INTERVAL = 1.0  # ページング時のリクエスト間隔(秒) — 429対策
+
+# 検索の並び順。「安い順」だと最安のジャンク・小物ばかりが返り
+# 利益商品を取り逃すため、既定は売れ筋(レビュー件数順)にする。
+SORT_OPTIONS = [
+    ("review", "レビュー件数順(売れ筋)"),
+    ("standard", "おすすめ順(キーワード適合)"),
+    ("price_desc", "価格が高い順"),
+    ("price_asc", "価格が安い順"),
+]
+DEFAULT_SORT = "review"
 
 
 class SourceError(Exception):
@@ -36,18 +48,51 @@ class RakutenSource:
         self.origin = site
         self.referer = site + "/"
 
-    def search(self, keyword, limit=20, max_price=0):
-        params = {
-            "applicationId": self.app_id,
-            "keyword": keyword,
-            "hits": min(limit, 30),
-            "sort": "+itemPrice",
-            "availability": 1,
-        }
-        if self.access_key:
-            params["accessKey"] = self.access_key
-        if max_price:
-            params["maxPrice"] = max_price
+    SORTS = {
+        "review": "-reviewCount",
+        "standard": "standard",
+        "price_desc": "-itemPrice",
+        "price_asc": "+itemPrice",
+    }
+    MAX_HITS = 30  # 1リクエストの上限(API仕様)
+
+    def search(self, keyword, limit=20, max_price=0, min_price=0, sort=DEFAULT_SORT):
+        items, page = [], 1
+        while len(items) < limit:
+            params = {
+                "applicationId": self.app_id,
+                "keyword": keyword,
+                "hits": min(limit - len(items), self.MAX_HITS),
+                "page": page,
+                "sort": self.SORTS.get(sort, self.SORTS[DEFAULT_SORT]),
+                "availability": 1,
+            }
+            if self.access_key:
+                params["accessKey"] = self.access_key
+            if max_price:
+                params["maxPrice"] = max_price
+            if min_price:
+                params["minPrice"] = min_price
+            data = self._request(params)
+            batch = data.get("Items", [])
+            for wrap in batch:
+                it = wrap.get("Item", wrap) if isinstance(wrap, dict) else wrap
+                items.append({
+                    "name": it.get("itemName", ""),
+                    "price": int(it.get("itemPrice", 0)),
+                    "url": it.get("itemUrl", ""),
+                    "shop": it.get("shopName", ""),
+                    "jan": "",
+                    "source": self.name,
+                    "point_rate": float(it.get("pointRate", 1) or 1),
+                })
+            if not batch or page >= int(data.get("pageCount", 1) or 1):
+                break
+            page += 1
+            time.sleep(PAGE_INTERVAL)
+        return items[:limit]
+
+    def _request(self, params):
         headers = {
             "Referer": self.referer,
             "Origin": self.origin,
@@ -78,19 +123,7 @@ class RakutenSource:
                 else:
                     hint = ""
                 raise SourceError(f"楽天API エラー: {detail} {hint}")
-            items = []
-            for wrap in data.get("Items", []):
-                it = wrap.get("Item", wrap) if isinstance(wrap, dict) else wrap
-                items.append({
-                    "name": it.get("itemName", ""),
-                    "price": int(it.get("itemPrice", 0)),
-                    "url": it.get("itemUrl", ""),
-                    "shop": it.get("shopName", ""),
-                    "jan": "",
-                    "source": self.name,
-                    "point_rate": float(it.get("pointRate", 1) or 1),
-                })
-            return items
+            return data
         raise SourceError(f"楽天API エラー: {last_err}")
 
 
@@ -99,37 +132,53 @@ class YahooSource:
     label = "Yahoo!ショッピング"
     URL = "https://shopping.yahooapis.jp/ShoppingWebService/V3/itemSearch"
 
+    SORTS = {
+        "review": "-review_count",
+        "standard": "-score",
+        "price_desc": "-price",
+        "price_asc": "+price",
+    }
+    MAX_RESULTS = 50  # 1リクエストの上限(API仕様)
+
     def __init__(self, app_id):
         self.app_id = app_id
 
-    def search(self, keyword, limit=20, max_price=0):
-        params = {
-            "appid": self.app_id,
-            "query": keyword,
-            "results": min(limit, 50),
-            "sort": "+price",
-            "in_stock": "true",
-        }
-        if max_price:
-            params["price_to"] = max_price
-        try:
-            res = requests.get(self.URL, params=params, timeout=TIMEOUT)
-            res.raise_for_status()
-            data = res.json()
-        except (requests.RequestException, ValueError) as e:
-            raise SourceError(f"Yahoo!ショッピングAPI エラー: {e}")
+    def search(self, keyword, limit=20, max_price=0, min_price=0, sort=DEFAULT_SORT):
         items = []
-        for it in data.get("hits", []):
-            items.append({
-                "name": it.get("name", ""),
-                "price": int(it.get("price", 0)),
-                "url": it.get("url", ""),
-                "shop": (it.get("seller") or {}).get("name", ""),
-                "jan": it.get("janCode", "") or "",
-                "source": self.name,
-                "point_rate": 1.0,
-            })
-        return items
+        while len(items) < limit:
+            params = {
+                "appid": self.app_id,
+                "query": keyword,
+                "results": min(limit - len(items), self.MAX_RESULTS),
+                "start": len(items) + 1,
+                "sort": self.SORTS.get(sort, self.SORTS[DEFAULT_SORT]),
+                "in_stock": "true",
+            }
+            if max_price:
+                params["price_to"] = max_price
+            if min_price:
+                params["price_from"] = min_price
+            try:
+                res = requests.get(self.URL, params=params, timeout=TIMEOUT)
+                res.raise_for_status()
+                data = res.json()
+            except (requests.RequestException, ValueError) as e:
+                raise SourceError(f"Yahoo!ショッピングAPI エラー: {e}")
+            batch = data.get("hits", [])
+            for it in batch:
+                items.append({
+                    "name": it.get("name", ""),
+                    "price": int(it.get("price", 0)),
+                    "url": it.get("url", ""),
+                    "shop": (it.get("seller") or {}).get("name", ""),
+                    "jan": it.get("janCode", "") or "",
+                    "source": self.name,
+                    "point_rate": 1.0,
+                })
+            if len(batch) < params["results"]:
+                break  # 在庫がもうない
+            time.sleep(PAGE_INTERVAL)
+        return items[:limit]
 
 
 class DemoSource:
@@ -143,14 +192,14 @@ class DemoSource:
     CATEGORIES = ["限定版", "新品未開封", "中古美品", "セット品", "訳あり特価"]
     SHOPS = ["デモ商店A", "デモ商店B", "アウトレットC", "ホビーショップD"]
 
-    def search(self, keyword, limit=20, max_price=0):
+    def search(self, keyword, limit=20, max_price=0, min_price=0, sort=DEFAULT_SORT):
         seed = int(hashlib.md5(keyword.encode("utf-8")).hexdigest(), 16) % (2 ** 32)
         rng = random.Random(seed)
         items = []
         for i in range(limit):
             base = rng.randint(800, 18000)
             price = int(base / 100) * 100 + rng.choice([0, 80, 99])
-            if max_price and price > max_price:
+            if (max_price and price > max_price) or (min_price and price < min_price):
                 continue
             items.append({
                 "name": f"{keyword} {rng.choice(self.CATEGORIES)} #{i + 1}",
@@ -161,6 +210,10 @@ class DemoSource:
                 "source": self.name,
                 "point_rate": float(rng.choice([1, 1, 2, 5, 10])),
             })
+        if sort == "price_asc":
+            items.sort(key=lambda x: x["price"])
+        elif sort == "price_desc":
+            items.sort(key=lambda x: x["price"], reverse=True)
         return items
 
 
