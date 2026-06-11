@@ -36,12 +36,13 @@ class RakutenSource:
         self.origin = site
         self.referer = site + "/"
 
-    def search(self, keyword, limit=20, max_price=0):
+    def search(self, keyword, limit=20, max_price=0, sort="standard"):
         params = {
             "applicationId": self.app_id,
             "keyword": keyword,
             "hits": min(limit, 30),
-            "sort": "+itemPrice",
+            # standard=おすすめ順(売れ筋・関連度) / +itemPrice=安い順
+            "sort": "standard" if sort == "standard" else "+itemPrice",
             "availability": 1,
         }
         if self.access_key:
@@ -102,12 +103,13 @@ class YahooSource:
     def __init__(self, app_id):
         self.app_id = app_id
 
-    def search(self, keyword, limit=20, max_price=0):
+    def search(self, keyword, limit=20, max_price=0, sort="standard"):
         params = {
             "appid": self.app_id,
             "query": keyword,
             "results": min(limit, 50),
-            "sort": "+price",
+            # -score=おすすめ順(関連度) / +price=安い順
+            "sort": "-score" if sort == "standard" else "+price",
             "in_stock": "true",
         }
         if max_price:
@@ -143,7 +145,7 @@ class DemoSource:
     CATEGORIES = ["限定版", "新品未開封", "中古美品", "セット品", "訳あり特価"]
     SHOPS = ["デモ商店A", "デモ商店B", "アウトレットC", "ホビーショップD"]
 
-    def search(self, keyword, limit=20, max_price=0):
+    def search(self, keyword, limit=20, max_price=0, sort="standard"):
         seed = int(hashlib.md5(keyword.encode("utf-8")).hexdigest(), 16) % (2 ** 32)
         rng = random.Random(seed)
         items = []

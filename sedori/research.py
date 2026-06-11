@@ -46,13 +46,13 @@ def attach_sell_price(item, settings, pricer, errors):
         })
 
 
-def search(keyword, settings, channel, limit=20, max_price=0):
+def search(keyword, settings, channel, limit=20, max_price=0, sort="standard"):
     """キーワード検索 → 利益試算付きの結果リストと、ソースごとのエラーを返す。"""
     results, errors = [], []
     pricer = amazon.build_pricer(settings)
     for src in build_sources(settings):
         try:
-            items = src.search(keyword, limit=limit, max_price=max_price)
+            items = src.search(keyword, limit=limit, max_price=max_price, sort=sort)
         except SourceError as e:
             errors.append(str(e))
             continue

@@ -106,15 +106,18 @@ def research_view():
     results, errors, keyword = [], [], ""
     channel = dbm.default_channel(settings)
     only_hit = False
+    sort = "standard"
     if request.method == "POST":
         keyword = request.form.get("keyword", "").strip()
         max_price = _int(request.form.get("max_price"))
         only_hit = request.form.get("only_hit") == "1"
+        sort = request.form.get("sort", "standard")
         cid = request.form.get("channel_id")
         if cid and _channel(cid):
             channel = _channel(cid)
         if keyword:
-            results, errors = research.search(keyword, settings, channel, limit=20, max_price=max_price)
+            results, errors = research.search(keyword, settings, channel, limit=20,
+                                              max_price=max_price, sort=sort)
             for it in results:
                 it["hit"] = research.passes_thresholds(it, settings)
             if only_hit:
@@ -126,7 +129,7 @@ def research_view():
     return render_template(
         "research.html", results=results, errors=errors, keyword=keyword,
         channels=channels, channel=channel, searches=searches,
-        settings=settings, demo_mode=demo_mode, only_hit=only_hit,
+        settings=settings, demo_mode=demo_mode, only_hit=only_hit, sort=sort,
     )
 
 

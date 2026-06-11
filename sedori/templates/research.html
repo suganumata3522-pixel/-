@@ -16,6 +16,11 @@
     <div class="form-row">
       <div><label>キーワード</label><input name="keyword" value="{{ keyword }}" size="30" required placeholder="例: 任天堂 amiibo"></div>
       <div><label>仕入上限(円)</label><input name="max_price" size="8" placeholder="0=無制限"></div>
+      <div><label>検索順</label>
+        <select name="sort">
+          <option value="standard" {% if sort != 'price' %}selected{% endif %}>おすすめ順(売れ筋)</option>
+          <option value="price" {% if sort == 'price' %}selected{% endif %}>価格が安い順</option>
+        </select></div>
       <div><label>想定販路</label>
         <select name="channel_id">
           {% for ch in channels %}
@@ -28,6 +33,8 @@
     </div>
     <p class="muted">利益条件: 利益 {{ settings.min_profit }}円以上 / 利益率 {{ settings.min_profit_rate }}%以上 / ROI {{ settings.min_roi }}%以上(設定で変更可)。
       想定売価はJANコードがあれば<strong>Amazon相場(Keepa / SP-API)</strong>を自動取得し、取れない場合は「仕入価格 × {{ settings.sell_multiplier }}」で推定します。候補登録時に上書き可能です。</p>
+    <p class="muted">💡 <strong>キーワードのコツ:</strong> 「ゲームソフト」のような広い言葉では利益商品はほぼ見つかりません。
+      「<strong>商品名+限定版</strong>」「<strong>型番+新品</strong>」「<strong>シリーズ名+セット</strong>」など、価格差が生まれやすい具体的な言葉で検索してください。</p>
   </form>
   <form method="post" action="{{ url_for('main.amazon_lookup') }}" class="form-row" style="margin-top:8px">
     <div><label>JANコードからAmazon相場を単体検索</label><input name="jan" size="16" placeholder="例: 4902370542912"></div>
