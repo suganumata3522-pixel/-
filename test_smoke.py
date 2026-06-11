@@ -241,6 +241,65 @@ def run():
     ok(c.post("/listings/1/status", data={"status": "出品済"}, follow_redirects=True), "出品済みへ")
     assert "出品済" in c.get("/listings").get_data(as_text=True)
 
+    print("在庫連動(売り切れ時の取り下げ):")
+    # 在庫1個の仕入(purchase 2)をAmazon+メルカリに出品済みにする
+    c.post("/listings/generate", data={
+        "purchase_id": "2", "name": "アラートテスト商品", "condition": "新品",
+        "cost": "4500", "points": "0", "channel_ids": ["1", "3"],
+    })
+    c.post("/listings/3/status", data={"status": "出品済"})
+    c.post("/listings/4/status", data={"status": "出品済"})
+    res = c.post("/sales/new", data={
+        "purchase_id": "2", "name": "アラートテスト商品", "qty": "1",
+        "sale_price": "8000", "channel_id": "1", "shipping": "0",
+        "other_cost": "0", "sale_date": "2026-06-11",
+    }, follow_redirects=True)
+    ok(res, "売り切れになる売上を登録")
+    body = res.get_data(as_text=True)
+    assert "出品を取り下げてください" in body, body[:500]
+    res = c.get("/")
+    body = res.get_data(as_text=True)
+    assert "取り下げが必要な出品" in body and "要取下げ" in body
+    print("  -> 他販路の出品が「要取下げ」になりダッシュボードに警告")
+    ok(c.post("/listings/3/status", data={"status": "取下げ済"}, follow_redirects=True),
+       "取り下げ完了を記録")
+    ok(c.post("/listings/4/status", data={"status": "取下げ済"}, follow_redirects=True),
+       "取り下げ完了を記録(2件目)")
+    assert "取り下げが必要な出品" not in c.get("/").get_data(as_text=True)
+    print("  -> 全件対応で警告が消えることを確認")
+
+    print("再出品リマインダー:")
+    c.post("/listings/generate", data={
+        "name": "再出品テスト商品", "condition": "新品", "cost": "2000",
+        "points": "0", "channel_ids": ["3"],
+    })
+    with app.app_context():
+        from sedori import db as dbm3
+        db3 = dbm3.get_db()
+        lid = db3.execute("SELECT MAX(id) FROM listings").fetchone()[0]
+        db3.execute("UPDATE listings SET status='出品済', "
+                    "created_at=datetime('now','-20 days') WHERE id=?", (lid,))
+        db3.commit()
+    res = c.get("/listings")
+    body = res.get_data(as_text=True)
+    assert "再出品のおすすめ" in body and "20日" in body
+    print("  -> 14日経過した出品を再出品候補として表示")
+    before = None
+    with app.app_context():
+        from sedori import db as dbm4
+        before = dbm4.get_db().execute("SELECT COUNT(*) FROM listings").fetchone()[0]
+    res = c.post(f"/listings/{lid}/relist", follow_redirects=True)
+    ok(res, "再出品用に複製")
+    with app.app_context():
+        from sedori import db as dbm5
+        db5 = dbm5.get_db()
+        assert db5.execute("SELECT COUNT(*) FROM listings").fetchone()[0] == before + 1
+        assert db5.execute("SELECT status FROM listings WHERE id=?", (lid,)).fetchone()[0] == "要取下げ"
+        new_status = db5.execute("SELECT status FROM listings ORDER BY id DESC LIMIT 1").fetchone()[0]
+        assert new_status == "下書き"
+    print("  -> 新ドラフト複製+旧出品を「要取下げ」化を確認")
+    c.post(f"/listings/{lid}/status", data={"status": "取下げ済"})
+
     print("出品画像の整形:")
     import io as _io
     from PIL import Image as _Image

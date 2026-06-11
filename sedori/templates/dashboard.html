@@ -11,6 +11,29 @@
   <div class="kpi"><div class="label">仕入候補</div><div class="value">{{ kpi.candidates }}件</div></div>
 </div>
 
+{% if takedowns %}
+<h2>🚨 取り下げが必要な出品(売り切れ済み)</h2>
+<div class="card" style="border-color:#fca5a5">
+  <p class="neg">在庫が売り切れた商品が、他の販路でまだ出品中です。<strong>二重販売(売れたのに在庫がない)を防ぐため、すぐに取り下げてください。</strong></p>
+  <table>
+    <tr><th>商品</th><th>販路</th><th class="num">出品価格</th><th></th></tr>
+    {% for t in takedowns %}
+    <tr>
+      <td>{{ t.name }}</td>
+      <td><span class="badge 要取下げ">{{ t.channel_name or '-' }}</span></td>
+      <td class="num">{{ t.price|yen }}</td>
+      <td>
+        <form class="inline" method="post" action="{{ url_for('main.listing_status', lid=t.id) }}">
+          <input type="hidden" name="status" value="取下げ済">
+          <button class="small success">取り下げました</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+{% endif %}
+
 <h2>価格改定アラート
   <form class="inline" method="post" action="{{ url_for('main.alerts_check') }}">
     <button class="small secondary" type="submit" title="在庫商品のAmazon相場を再取得して値下がりを検知">▶ 在庫の価格をチェック</button>

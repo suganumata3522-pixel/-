@@ -12,14 +12,40 @@
 <div class="card"><p class="muted">出品ドラフトがありません。「仕入管理」の各商品の「出品文作成」、または上のボタンから作成できます。</p></div>
 {% endif %}
 
+{% if relist %}
+<div class="card" style="border-color:#fcd34d">
+  <h2 style="margin-top:0">🔄 再出品のおすすめ(出品から{{ relist_days }}日以上経過)</h2>
+  <p class="muted">フリマ・オークションは新着順で埋もれると見られなくなります。出し直す(再出品する)と新着上位に戻ります。
+    「再出品用に複製」を押すと同じ内容のドラフトができるので、販路側で<strong>①古い出品を削除 → ②新ドラフトをコピーして出品</strong>してください。
+    ※外部ツールによる自動再出品は各販路の規約違反(アカウント停止リスク)のため行いません。</p>
+  <table>
+    <tr><th>商品</th><th>販路</th><th class="num">経過日数</th><th class="num">出品価格</th><th></th></tr>
+    {% for r in relist %}
+    <tr>
+      <td>{{ r.name }}</td>
+      <td>{{ r.channel_name or '-' }}</td>
+      <td class="num">{{ r.days }}日</td>
+      <td class="num">{{ r.price|yen }}</td>
+      <td>
+        <form class="inline" method="post" action="{{ url_for('main.listing_relist', lid=r.id) }}">
+          <button class="small">🔄 再出品用に複製</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+{% endif %}
+
 {% for r in rows %}
 <div class="card">
   <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px">
     <div>
       <strong>{{ r.name }}</strong>
       <span class="badge">{{ r.channel_name or '販路未設定' }}</span>
-      <span class="badge {{ '売却済' if r.status == '出品済' else '候補' }}">{{ r.status }}</span>
-      <div class="muted">推奨価格 {{ r.price|yen }} / 損益分岐 {{ r.price_floor|yen }}(これ未満は赤字) / 状態: {{ r.condition }}</div>
+      <span class="badge {{ r.status }}">{{ r.status }}</span>
+      {% if r.status == '要取下げ' %}<strong class="neg">← 売り切れ/出し直しです。販路側で出品を取り下げてください</strong>{% endif %}
+      <div class="muted">推奨価格 {{ r.price|yen }} / 損益分岐 {{ r.price_floor|yen }}(これ未満は赤字) / 状態: {{ r.condition }}{% if r.sku %} / SKU: {{ r.sku }}{% endif %}</div>
     </div>
     <div class="actions">
       <form class="inline" method="post" action="{{ url_for('main.listing_ai', lid=r.id) }}">
@@ -34,6 +60,10 @@
       {% if r.status == '下書き' %}
       <form class="inline" method="post" action="{{ url_for('main.listing_status', lid=r.id) }}">
         <input type="hidden" name="status" value="出品済"><button class="small success">出品済みにする</button>
+      </form>
+      {% elif r.status == '要取下げ' %}
+      <form class="inline" method="post" action="{{ url_for('main.listing_status', lid=r.id) }}">
+        <input type="hidden" name="status" value="取下げ済"><button class="small success">取り下げました</button>
       </form>
       {% endif %}
       <form class="inline" method="post" action="{{ url_for('main.listing_delete', lid=r.id) }}"

@@ -71,6 +71,10 @@ button.success, .btn.success { background: #059669; }
 .badge.売却済 { background: #d1fae5; color: #065f46; }
 .badge.predicted { background: #f3e8ff; color: #6b21a8; }
 .badge.confirmed { background: #d1fae5; color: #065f46; }
+.badge.下書き { background: #dbeafe; color: #1e40af; }
+.badge.出品済 { background: #d1fae5; color: #065f46; }
+.badge.要取下げ { background: #fee2e2; color: #991b1b; }
+.badge.取下げ済 { background: #f3f4f6; color: #6b7280; }
 
 .muted { color: #6b7280; font-size: 12px; }
 .pos { color: #047857; font-weight: 600; }

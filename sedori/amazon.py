@@ -232,6 +232,27 @@ class SPAPIClient:
             "issues": [i.get("message", "") for i in data.get("issues", [])],
         }
 
+    def update_quantity(self, seller_id, sku, quantity):
+        """出品中SKUの在庫数を更新する(0で実質的な出品停止)。"""
+        path = f"/listings/2021-08-01/items/{seller_id}/{sku}"
+        params = {"marketplaceIds": JP_MARKETPLACE_ID, "issueLocale": "ja_JP"}
+        body = {
+            "productType": "PRODUCT",
+            "patches": [{
+                "op": "replace",
+                "path": "/attributes/fulfillment_availability",
+                "value": [{
+                    "fulfillment_channel_code": "DEFAULT",
+                    "quantity": int(quantity),
+                }],
+            }],
+        }
+        data = self._request("PATCH", path, params, body)
+        return {
+            "status": data.get("status", ""),
+            "issues": [i.get("message", "") for i in data.get("issues", [])],
+        }
+
 
 # 出品時の状態 → SP-API condition_type
 SPAPI_CONDITIONS = {

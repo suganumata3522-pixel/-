@@ -84,9 +84,15 @@ def dashboard():
     alerts = db.execute(
         "SELECT * FROM price_alerts WHERE dismissed=0 ORDER BY id DESC LIMIT 10"
     ).fetchall()
+    takedowns = db.execute(
+        "SELECT l.*, ch.name AS channel_name FROM listings l "
+        "LEFT JOIN channels ch ON ch.id=l.channel_id "
+        "WHERE l.status='要取下げ' ORDER BY l.id DESC"
+    ).fetchall()
     return render_template(
         "dashboard.html", kpi=kpi, monthly=monthly, recent_sales=recent_sales,
         best_rakuten=best_rakuten, best_yahoo=best_yahoo, alerts=alerts,
+        takedowns=takedowns,
     )
 
 
@@ -332,6 +338,46 @@ def purchase_delete(pid):
     return redirect(url_for("main.purchases"))
 
 
+# ---------------- 在庫連動(売り切れ時の他販路取り下げ) ----------------
+
+def _sync_listings_on_soldout(db, purchase_id):
+    """在庫が売り切れた仕入に紐づく「出品済」の出品を処理する。
+
+    Amazon(SP-API設定済み・SKUあり)は在庫0を自動送信して「取下げ済」に、
+    それ以外(メルカリ等はAPIがないため)は「要取下げ」にして警告する。
+    戻り値: (自動取下げ数, 手動対応が必要な販路名リスト, エラーリスト)
+    """
+    settings = dbm.get_settings()
+    rows = db.execute(
+        "SELECT l.*, ch.name AS channel_name FROM listings l "
+        "LEFT JOIN channels ch ON ch.id=l.channel_id "
+        "WHERE l.purchase_id=? AND l.status='出品済'", (purchase_id,)
+    ).fetchall()
+    creds_ok = (settings.get("spapi_seller_id", "").strip()
+                and all(settings.get(k) for k in
+                        ("spapi_client_id", "spapi_client_secret", "spapi_refresh_token")))
+    auto, manual, errors = 0, [], []
+    client = None
+    for li in rows:
+        is_amazon = "amazon" in (li["channel_name"] or "").lower()
+        if is_amazon and creds_ok and li["sku"]:
+            try:
+                if client is None:
+                    client = amazon.SPAPIClient(
+                        settings["spapi_client_id"], settings["spapi_client_secret"],
+                        settings["spapi_refresh_token"],
+                    )
+                client.update_quantity(settings["spapi_seller_id"], li["sku"], 0)
+                db.execute("UPDATE listings SET status='取下げ済' WHERE id=?", (li["id"],))
+                auto += 1
+                continue
+            except amazon.AmazonPriceError as e:
+                errors.append(f"Amazon在庫0の送信に失敗: {e}")
+        db.execute("UPDATE listings SET status='要取下げ' WHERE id=?", (li["id"],))
+        manual.append(li["channel_name"] or "販路未設定")
+    return auto, manual, errors
+
+
 # ---------------- 売上管理 ----------------
 
 @bp.route("/sales")
@@ -387,6 +433,16 @@ def sale_new():
             ).fetchone()[0]
             if sold >= purchase["qty"]:
                 db.execute("UPDATE purchases SET status='売却済' WHERE id=?", (purchase_id,))
+                # 在庫切れ → 他販路の出品を連動処理
+                auto, manual, errors = _sync_listings_on_soldout(db, purchase_id)
+                if auto:
+                    flash(f"Amazonの出品 {auto}件を在庫0にして自動取り下げしました", "success")
+                if manual:
+                    flash("⚠️ 在庫切れです。次の販路の出品を取り下げてください: "
+                          + " / ".join(manual)
+                          + "(出品作成画面に「要取下げ」として表示しています)", "error")
+                for e in errors:
+                    flash(e, "error")
         db.commit()
         flash(f"売上を登録しました(純利益 {net:,}円)", "success")
         return redirect(url_for("main.sales"))
@@ -663,12 +719,50 @@ def candidate_history(cid):
 
 @bp.route("/listings")
 def listings():
-    rows = dbm.get_db().execute(
+    db = dbm.get_db()
+    settings = dbm.get_settings()
+    rows = db.execute(
         "SELECT l.*, ch.name AS channel_name FROM listings l "
         "LEFT JOIN channels ch ON ch.id=l.channel_id "
-        "ORDER BY l.id DESC"
+        "ORDER BY CASE l.status WHEN '要取下げ' THEN 0 ELSE 1 END, l.id DESC"
     ).fetchall()
-    return render_template("listings.html", rows=rows)
+    relist_days = _int(settings.get("relist_days"), 14) or 14
+    # 再出品リマインダー: 出品からN日経過し、在庫がまだある出品
+    relist = db.execute(
+        "SELECT l.*, ch.name AS channel_name, "
+        "  CAST(julianday('now') - julianday(l.created_at) AS INTEGER) AS days "
+        "FROM listings l LEFT JOIN channels ch ON ch.id=l.channel_id "
+        "WHERE l.status='出品済' "
+        "  AND julianday('now') - julianday(l.created_at) >= ? "
+        "  AND (l.purchase_id IS NULL OR "
+        "       (SELECT status FROM purchases WHERE id=l.purchase_id) <> '売却済') "
+        "ORDER BY l.created_at", (relist_days,)
+    ).fetchall()
+    return render_template("listings.html", rows=rows, relist=relist,
+                           relist_days=relist_days)
+
+
+@bp.route("/listings/<int:lid>/relist", methods=["POST"])
+def listing_relist(lid):
+    """再出品用にドラフトを複製する(検索上位表示のための出し直し用)。"""
+    db = dbm.get_db()
+    row = db.execute("SELECT * FROM listings WHERE id=?", (lid,)).fetchone()
+    if not row:
+        return redirect(url_for("main.listings"))
+    db.execute(
+        """INSERT INTO listings
+           (purchase_id, channel_id, name, title, description, tags,
+            price, price_floor, condition, status)
+           VALUES (?,?,?,?,?,?,?,?,?,'下書き')""",
+        (row["purchase_id"], row["channel_id"], row["name"], row["title"],
+         row["description"], row["tags"], row["price"], row["price_floor"],
+         row["condition"]),
+    )
+    db.execute("UPDATE listings SET status='要取下げ' WHERE id=?", (lid,))
+    db.commit()
+    flash("再出品用ドラフトを複製しました。販路側で①古い出品を削除 → ②新しいドラフトで出品し直してください"
+          "(古い方は「要取下げ」にしてあります)", "success")
+    return redirect(url_for("main.listings"))
 
 
 @bp.route("/listings/new")
@@ -783,7 +877,7 @@ def listing_ai(lid):
 def listing_status(lid):
     db = dbm.get_db()
     status = request.form.get("status", "下書き")
-    if status in ("下書き", "出品済"):
+    if status in ("下書き", "出品済", "要取下げ", "取下げ済"):
         db.execute("UPDATE listings SET status=? WHERE id=?", (status, lid))
         if status == "出品済":
             row = db.execute("SELECT purchase_id FROM listings WHERE id=?", (lid,)).fetchone()
@@ -834,7 +928,7 @@ def listing_publish_amazon(lid):
         return redirect(url_for("main.listings"))
 
     if result["status"] in ("ACCEPTED", "SUBMITTED", "VALID"):
-        db.execute("UPDATE listings SET status='出品済' WHERE id=?", (lid,))
+        db.execute("UPDATE listings SET status='出品済', sku=? WHERE id=?", (sku, lid))
         if row["purchase_id"]:
             db.execute("UPDATE purchases SET status='出品中' WHERE id=? AND status='在庫'",
                        (row["purchase_id"],))

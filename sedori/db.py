@@ -96,7 +96,8 @@ CREATE TABLE IF NOT EXISTS listings (
     price INTEGER NOT NULL DEFAULT 0,        -- 推奨出品価格
     price_floor INTEGER NOT NULL DEFAULT 0,  -- 損益分岐価格(これ未満は赤字)
     condition TEXT NOT NULL DEFAULT '',
-    status TEXT NOT NULL DEFAULT '下書き',    -- 下書き / 出品済
+    sku TEXT NOT NULL DEFAULT '',            -- SP-API出品時のSKU(在庫連動に使用)
+    status TEXT NOT NULL DEFAULT '下書き',    -- 下書き / 出品済 / 要取下げ / 取下げ済
     created_at TEXT NOT NULL DEFAULT (datetime('now', 'localtime')),
     FOREIGN KEY (purchase_id) REFERENCES purchases(id),
     FOREIGN KEY (channel_id) REFERENCES channels(id)
@@ -164,6 +165,7 @@ DEFAULT_SETTINGS = {
     "monthly_profit_goal": "30000", # 月間利益目標(円)
     "price_drop_threshold": "10",   # 価格下落アラートのしきい値(%)
     "spapi_seller_id": "",          # Amazon出品者ID(SP-API自動出品)
+    "relist_days": "14",            # 再出品リマインダー(出品からの経過日数)
 }
 
 
@@ -194,6 +196,7 @@ def init_db():
     _ensure_column(db, "candidates", "asin", "TEXT NOT NULL DEFAULT ''")
     _ensure_column(db, "candidates", "sell_basis", "TEXT NOT NULL DEFAULT ''")
     _ensure_column(db, "candidates", "amazon_rank", "INTEGER NOT NULL DEFAULT 0")
+    _ensure_column(db, "listings", "sku", "TEXT NOT NULL DEFAULT ''")
     if db.execute("SELECT COUNT(*) FROM channels").fetchone()[0] == 0:
         db.executemany(
             "INSERT INTO channels (name, fee_rate, fixed_fee, shipping_cost, notes) VALUES (?,?,?,?,?)",
