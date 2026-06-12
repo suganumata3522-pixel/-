@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>せん断力図（Q図）と曲げモーメント図（M図）の描き方｜構造設計ナビ</title>
+<meta name="description" content="Q図・M図の描き方を手順つきで解説。単純梁の集中荷重・等分布荷重の描き方、PL/4やwL²/8などの代表値、「Q=0の位置でMが最大」などの試験で使えるルールを図解でわかりやすくまとめました。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="ouryoku.html">構造力学の基礎</a></li>
+        <li><a href="rahmen-brace.html">構造設計</a></li>
+        <li><a href="../tools/section-calculator.html">計算ツール</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › 構造力学の基礎 › Q図・M図の描き方</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">構造力学の基礎</span>
+        <span>更新日：2026年6月12日</span>
+      </div>
+      <h1>せん断力図（Q図）と曲げモーメント図（M図）の描き方</h1>
+
+      <p>Q図・M図は、梁の<strong>どこに・どれだけの応力が生じているか</strong>をひと目で示すグラフです。最大曲げモーメントの位置と大きさがわかれば断面検定ができるため、構造計算の出発点であり、建築士試験でも毎年のように出題される最重要テーマです。</p>
+      <p><a href="ouryoku.html">せん断力Q・曲げモーメントM</a>の意味を押さえたうえで、この記事では「描き方の手順」と「代表パターン」を身につけましょう。</p>
+
+      <h2>描き方の基本手順（5ステップ）</h2>
+      <ol>
+        <li><strong>反力を求める</strong>：力のつり合い（ΣX=0、ΣY=0、ΣM=0）から支点反力を計算する。</li>
+        <li><strong>左端から順に切断して考える</strong>：着目点の左側にある力を合計すると、その点のQとMが求まる。</li>
+        <li><strong>Q図を描く</strong>：集中荷重の位置で段差、等分布荷重の区間では直線勾配になる。</li>
+        <li><strong>M図を描く</strong>：Q図の面積を積み上げる。集中荷重なら折れ線、等分布なら2次曲線。</li>
+        <li><strong>検算する</strong>：ピンやローラーの端部で M=0 に戻るか、<strong>Q=0 の位置で M が最大</strong>になっているかを確認。</li>
+      </ol>
+
+      <h2>例1：単純梁＋中央集中荷重 P</h2>
+      <p>最も基本のパターンです。反力は左右対称なので各 P/2。左から切断していくと、Qは左支点でP/2に跳ね上がり、中央の荷重点で −P/2 へ段差、右支点でゼロに戻ります。Mは左端ゼロから直線的に増え、中央で最大 PL/4 になります。</p>
+
+      <div class="diagram">
+        <svg viewBox="0 0 560 430" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="単純梁中央集中荷重のQ図とM図">
+          <defs>
+            <marker id="qm" markerWidth="7" markerHeight="7" refX="5" refY="2.5" orient="auto"><path d="M0,0 L6,2.5 L0,5 Z" fill="#e8843c"/></marker>
+          </defs>
+          <!-- 梁 -->
+          <line x1="280" y1="22" x2="280" y2="56" stroke="#e8843c" stroke-width="4" marker-end="url(#qm)"/>
+          <text x="292" y="38" font-size="15" font-weight="bold" fill="#b35309">P</text>
+          <line x1="80" y1="64" x2="480" y2="64" stroke="#1a3a5c" stroke-width="7" stroke-linecap="round"/>
+          <polygon points="88,70 72,96 104,96" fill="none" stroke="#1a3a5c" stroke-width="3"/>
+          <circle cx="472" cy="82" r="10" fill="none" stroke="#1a3a5c" stroke-width="3"/>
+          <line x1="452" y1="96" x2="492" y2="96" stroke="#1a3a5c" stroke-width="3"/>
+          <text x="60" y="120" font-size="12" fill="#6b7785">反力 P/2</text>
+          <text x="448" y="120" font-size="12" fill="#6b7785">反力 P/2</text>
+          <!-- Q図 -->
+          <text x="46" y="178" font-size="14" font-weight="bold" fill="#1a3a5c">Q図</text>
+          <line x1="80" y1="200" x2="480" y2="200" stroke="#6b7785" stroke-width="1.5"/>
+          <path d="M88,200 L88,162 L280,162 L280,238 L472,238 L472,200" fill="none" stroke="#1a3a5c" stroke-width="3"/>
+          <rect x="88" y="162" width="192" height="38" fill="#e3ecf5" opacity="0.7"/>
+          <rect x="280" y="200" width="192" height="38" fill="#fdf1e7" opacity="0.8"/>
+          <text x="178" y="186" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a3a5c">＋P/2</text>
+          <text x="382" y="226" text-anchor="middle" font-size="13" font-weight="bold" fill="#b35309">−P/2</text>
+          <text x="292" y="258" font-size="11.5" fill="#6b7785">荷重点で P の段差</text>
+          <!-- M図 -->
+          <text x="46" y="308" font-size="14" font-weight="bold" fill="#1a3a5c">M図</text>
+          <line x1="80" y1="320" x2="480" y2="320" stroke="#6b7785" stroke-width="1.5"/>
+          <path d="M88,320 L280,402 L472,320" fill="#e3ecf5" stroke="#1a3a5c" stroke-width="3" opacity="0.9"/>
+          <line x1="280" y1="320" x2="280" y2="402" stroke="#6b7785" stroke-width="1.5" stroke-dasharray="5 4"/>
+          <text x="292" y="398" font-size="13.5" font-weight="bold" fill="#b35309">最大 M = PL/4</text>
+          <text x="88" y="424" font-size="11.5" fill="#6b7785">※建築ではM図は引張側（下側）に描くのが慣例</text>
+        </svg>
+        <p class="cap">図：単純梁＋中央集中荷重のQ図・M図。Qが0をよぎる中央でMが最大になる</p>
+      </div>
+
+      <h2>例2：単純梁＋等分布荷重 w</h2>
+      <p>反力は各 wL/2。Qは左端の +wL/2 から<strong>一定の勾配（−w）の直線</strong>で減っていき、中央でゼロ、右端で −wL/2 になります。Mは<strong>2次曲線（放物線）</strong>を描き、Q=0となる中央で最大 wL²/8 です。</p>
+
+      <h2>覚えておくべき代表値</h2>
+      <table class="data">
+        <tr><th>梁と荷重</th><th>最大曲げモーメント</th><th>位置</th></tr>
+        <tr><td>単純梁＋中央集中荷重 P</td><td>PL / 4</td><td>中央</td></tr>
+        <tr><td>単純梁＋等分布荷重 w</td><td>wL² / 8</td><td>中央</td></tr>
+        <tr><td>片持ち梁＋先端集中荷重 P</td><td>PL</td><td>固定端</td></tr>
+        <tr><td>片持ち梁＋等分布荷重 w</td><td>wL² / 2</td><td>固定端</td></tr>
+      </table>
+      <p>片持ち梁は固定端で最大となる点が単純梁との大きな違いです。また片持ち梁のM図は上側引張（上に凸の変形）なので、梁の上側に描かれます。</p>
+
+      <h2>w・Q・M の関係：微分と積分でつながっている</h2>
+      <p>3つの量には次の関係があります。</p>
+      <div class="formula">
+        荷重 w ＝ Qの勾配（dQ/dx = −w）　／　せん断力 Q ＝ Mの勾配（dM/dx = Q）
+        <span class="note">Q図の面積を足し合わせるとM図になる。逆にM図の傾きがQ。</span>
+      </div>
+      <ul>
+        <li>等分布荷重の区間：Qは1次（直線）、Mは2次（放物線）。</li>
+        <li>荷重のない区間：Qは一定、Mは直線。</li>
+        <li><strong>Q=0 の位置で M は最大（または最小）</strong>：Mの傾きがゼロになる点だから。</li>
+      </ul>
+
+      <div class="point-box">
+        <span class="label">試験で使えるチェックルール</span>
+        <ul>
+          <li>ピン・ローラーの端部では必ず <strong>M=0</strong>。</li>
+          <li>集中荷重の位置：Q図は<strong>段差</strong>、M図は<strong>折れ点</strong>。</li>
+          <li>モーメント荷重の位置：M図だけが<strong>段差</strong>になる（Q図は変化なし）。</li>
+          <li>Q図が0をよぎる位置に、M図の<strong>山（最大値）</strong>がくる。</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="label">あわせて確認</span>
+        <p>求めた最大Mから縁応力度を出すのが「<a href="danmen-keisu.html">断面係数とは？曲げ応力度の計算方法</a>」、Q・Mそのものの意味は「<a href="ouryoku.html">応力とは？</a>」で解説しています。</p>
+      </div>
+
+      <h2>まとめ</h2>
+      <ul>
+        <li>手順は「反力 → 左から切断 → Q図 → M図 → 検算」の5ステップ。</li>
+        <li>集中荷重はQ図に段差・M図に折れ点、等分布荷重はQ図が直線・M図が放物線。</li>
+        <li>Q=0の位置でMが最大。単純梁の代表値は PL/4 と wL²/8、片持ち梁は PL と wL²/2。</li>
+      </ul>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>関連記事</h4>
+        <ul>
+          <li><a href="ouryoku.html">応力とは？軸力・せん断力・曲げモーメントの違い</a></li>
+          <li><a href="danmen-keisu.html">断面係数とは？曲げ応力度の計算方法</a></li>
+          <li><a href="tawami.html">梁のたわみの計算方法｜公式一覧と覚え方</a></li>
+          <li><a href="kyoyo-oryokudo.html">許容応力度計算とは？構造計算ルートの全体像</a></li>
+        </ul>
+      </div>
+      <div class="tool-banner">
+        <div class="tb-ic">🧮</div>
+        <h4>断面性能 計算ツール</h4>
+        <p>b×hを入れるだけで A・I・Z・i を自動計算</p>
+        <a href="../tools/section-calculator.html">無料で使ってみる</a>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
