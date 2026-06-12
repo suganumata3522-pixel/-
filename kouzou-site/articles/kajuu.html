@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>固定荷重・積載荷重の拾い方｜荷重の種類と組み合わせをわかりやすく解説｜構造設計ナビ</title>
+<meta name="description" content="構造計算の出発点となる荷重の拾い方を解説。固定荷重と積載荷重の違い、用途別の積載荷重が「床用・架構用・地震用」の3段階になっている理由、長期・短期の荷重の組み合わせまで整理します。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="../articles.html#kiso">構造力学の基礎</a></li>
+        <li><a href="../articles.html#keishiki">構造設計</a></li>
+        <li><a href="../tools/section-calculator.html">計算ツール</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › 構造計算の実務 › 荷重の拾い方</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">構造計算の実務</span>
+        <span>更新日：2026年6月12日</span>
+      </div>
+      <h1>固定荷重・積載荷重の拾い方｜荷重の種類と組み合わせをわかりやすく解説</h1>
+
+      <p>構造計算は「建物にどんな力が作用するか」を数え上げる<strong>荷重の拾い（荷重拾い）</strong>から始まります。地味な作業ですが、ここを間違えると後の計算がすべて狂う、実務で最も大切な工程のひとつです。</p>
+
+      <h2>建築の荷重の全体像</h2>
+      <table class="data">
+        <tr><th>記号</th><th>荷重</th><th>性質</th></tr>
+        <tr><td>G</td><td>固定荷重（自重）</td><td>常時・鉛直</td></tr>
+        <tr><td>P</td><td>積載荷重</td><td>常時・鉛直（人・家具など）</td></tr>
+        <tr><td>S</td><td>積雪荷重</td><td>短期（多雪区域では長期も）</td></tr>
+        <tr><td>W</td><td>風圧力</td><td>短期・水平</td></tr>
+        <tr><td>K</td><td>地震力</td><td>短期・水平</td></tr>
+      </table>
+
+      <h2>固定荷重 G：建物そのものの重さ</h2>
+      <p>構造体（柱・梁・床・壁）の自重に、仕上げ材・設備などの重さを加えたものです。<strong>単位体積重量 × 体積</strong>、または<strong>単位面積重量 × 面積</strong>で拾います。</p>
+      <table class="data">
+        <tr><th>材料・部位</th><th>重さの目安</th></tr>
+        <tr><td>鉄筋コンクリート</td><td>24 kN/m³</td></tr>
+        <tr><td>コンクリート（無筋）</td><td>23 kN/m³</td></tr>
+        <tr><td>鋼材</td><td>78.5 kN/m³（カタログの単位重量 kg/m を使用）</td></tr>
+        <tr><td>RCスラブ（t=150＋仕上げ）</td><td>約 4.5〜5.5 kN/m²</td></tr>
+      </table>
+      <div class="formula">
+        例：300×600のRC大梁の自重　0.3 × 0.6 × 24 ≒ 4.3 kN/m
+      </div>
+
+      <h2>積載荷重 P：人や物の重さ（用途で決まる）</h2>
+      <p>人・家具・書類・機器などの重さで、室の用途ごとに建築基準法施行令第85条に最低値が定められています。重要なのは、同じ室でも<strong>検討対象によって3段階の値を使い分ける</strong>ことです。</p>
+
+      <table class="data">
+        <tr><th>室の用途</th><th>①床用（N/m²）</th><th>②大梁・柱・基礎用</th><th>③地震力用</th></tr>
+        <tr><td>住宅の居室</td><td>1,800</td><td>1,300</td><td>600</td></tr>
+        <tr><td>事務室</td><td>2,900</td><td>1,800</td><td>800</td></tr>
+        <tr><td>教室</td><td>2,300</td><td>2,100</td><td>1,100</td></tr>
+        <tr><td>百貨店・店舗の売場</td><td>2,900</td><td>2,400</td><td>1,300</td></tr>
+      </table>
+
+      <h3>なぜ3段階に分かれているのか</h3>
+      <ul>
+        <li><strong>①床用が最大</strong>：床スラブは狭い範囲で見るため、人や物が一か所に集中する場合を考える。</li>
+        <li><strong>②架構用は平均化</strong>：大梁や柱は広い面積を支えるため、全面に最大荷重が同時に載る確率は低い。</li>
+        <li><strong>③地震用が最小</strong>：地震力の計算（<a href="jishin-ryoku.html">Qi=Ci×Wi</a>）に使う建物全体の平均的な重さ。建物全体で見ればさらに平均化される。</li>
+      </ul>
+
+      <div class="point-box">
+        <span class="label">POINT（試験頻出）</span>
+        <ul>
+          <li>大小関係は必ず <strong>床用 ＞ 架構用 ＞ 地震用</strong>。</li>
+          <li>「事務室の床用2,900」など代表値は暗記対象。<strong>百貨店・店舗 ≧ 事務室 ＞ 教室 ＞ 住宅</strong>の順も覚える。</li>
+          <li>倉庫業の倉庫の床は実況に応じて計算し、3,900 N/m²を下回ってはならない。</li>
+        </ul>
+      </div>
+
+      <h2>荷重の組み合わせ</h2>
+      <p>拾った荷重は、検討する状況に応じて組み合わせます（一般区域の場合）。</p>
+      <table class="data">
+        <tr><th>状態</th><th>組み合わせ</th><th>使う許容応力度</th></tr>
+        <tr><td>長期（常時）</td><td>G + P</td><td>長期許容応力度</td></tr>
+        <tr><td>短期（積雪時）</td><td>G + P + S</td><td rowspan="3">短期許容応力度</td></tr>
+        <tr><td>短期（暴風時）</td><td>G + P + W</td></tr>
+        <tr><td>短期（地震時）</td><td>G + P + K</td></tr>
+      </table>
+      <p>多雪区域では「G+P+0.7S+K（地震時）」のように積雪を組み合わせるなど、地域によって扱いが変わります。組み合わせた応力で部材を検定する流れは「<a href="kyoyo-oryokudo.html">許容応力度計算とは？</a>」で解説しています。</p>
+
+      <div class="note-box">
+        <span class="label">あわせて確認</span>
+        <p>拾った重量から地震力を求める方法は「<a href="jishin-ryoku.html">地震力の計算方法</a>」へ。荷重を受けた梁の応力の求め方は「<a href="qm-zu.html">Q図・M図の描き方</a>」をどうぞ。</p>
+      </div>
+
+      <h2>まとめ</h2>
+      <ul>
+        <li>荷重はG（固定）・P（積載）・S（積雪）・W（風）・K（地震）の5種類が基本。</li>
+        <li>積載荷重は用途ごとに「床用＞架構用＞地震用」の3段階を使い分ける。</li>
+        <li>長期はG+P、短期はそれにS・W・Kのいずれかを加えて検討する。</li>
+      </ul>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>関連記事</h4>
+        <ul>
+          <li><a href="jishin-ryoku.html">地震力の計算方法｜Ai分布・Z・Rt・Co</a></li>
+          <li><a href="kyoyo-oryokudo.html">許容応力度計算とは？構造計算ルートの全体像</a></li>
+          <li><a href="qm-zu.html">せん断力図（Q図）と曲げモーメント図（M図）の描き方</a></li>
+        </ul>
+      </div>
+      <div class="tool-banner">
+        <div class="tb-ic">🧮</div>
+        <h4>断面性能 計算ツール</h4>
+        <p>b×hを入れるだけで A・I・Z・i を自動計算</p>
+        <a href="../tools/section-calculator.html">無料で使ってみる</a>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

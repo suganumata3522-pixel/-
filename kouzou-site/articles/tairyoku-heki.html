@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>耐力壁とは？役割と配置のポイントをわかりやすく解説｜構造設計ナビ</title>
+<meta name="description" content="耐力壁（耐震壁）は地震や風の水平力に抵抗する壁。RC造の耐震壁と木造の耐力壁（壁倍率・壁量計算）の違い、バランスの良い配置（偏心・直下率）のポイントをわかりやすく解説します。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="../articles.html#kiso">構造力学の基礎</a></li>
+        <li><a href="../articles.html#keishiki">構造設計</a></li>
+        <li><a href="../tools/section-calculator.html">計算ツール</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › 構造形式・材料 › 耐力壁</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">構造形式・材料</span>
+        <span>更新日：2026年6月12日</span>
+      </div>
+      <h1>耐力壁とは？役割と配置のポイントをわかりやすく解説</h1>
+
+      <p>耐力壁とは、建物に作用する<strong>地震や風の水平力に抵抗する壁</strong>のことです（RC造では耐震壁とも呼びます）。同じ「壁」でも、間仕切りのための壁（非耐力壁・雑壁）とは構造上の役割がまったく違います。</p>
+
+      <h2>耐力壁と非耐力壁の違い</h2>
+      <table class="data">
+        <tr><th>項目</th><th>耐力壁</th><th>非耐力壁（雑壁・帳壁）</th></tr>
+        <tr><td>役割</td><td>水平力に抵抗する構造部材</td><td>空間の仕切り・外装</td></tr>
+        <tr><td>撤去・開口</td><td>勝手に撤去・開口できない</td><td>比較的自由</td></tr>
+        <tr><td>例</td><td>RC耐震壁、木造の筋かい入り壁・構造用合板壁</td><td>ALCパネル、石膏ボード間仕切り</td></tr>
+      </table>
+      <p>リフォームで「この壁は抜けません」と言われるのが耐力壁です。<a href="rahmen-brace.html">ブレース</a>が斜材で水平力に抵抗するのに対し、耐力壁は<strong>壁全体がせん断力で抵抗</strong>します。薄い壁でも面としての剛性は非常に高く、少ない枚数で大きな水平力を負担できます。</p>
+
+      <h2>RC造の耐震壁</h2>
+      <ul>
+        <li>柱・梁に囲まれた壁（付帯ラーメンつきの壁）が代表的。厚さ12cm以上などの規定がある。</li>
+        <li>剛性が非常に高いため、<strong>地震力の大半を耐震壁が負担</strong>する。壁の量が多いほど建物は揺れにくい。</li>
+        <li>開口がある場合は、開口の大きさ（開口周比）に応じて剛性・耐力を低減して評価する。</li>
+        <li>壁式構造（壁式RC造）は柱・梁を使わず耐力壁と床だけで構成する形式で、低層マンションの定番。</li>
+      </ul>
+
+      <h2>木造の耐力壁：壁倍率と壁量計算</h2>
+      <p>木造在来軸組工法では、耐力壁の強さを<strong>壁倍率</strong>（0.5〜5.0）で表します。倍率1.0は「壁長1mあたり1.96kNの水平力に抵抗できる」壁です。</p>
+      <table class="data">
+        <tr><th>耐力壁の仕様</th><th>壁倍率の例</th></tr>
+        <tr><td>筋かい 30×90（片側）</td><td>1.5</td></tr>
+        <tr><td>筋かい 45×90（片側）</td><td>2.0</td></tr>
+        <tr><td>構造用合板 大壁仕様</td><td>2.5</td></tr>
+        <tr><td>筋かい45×90たすき掛け</td><td>4.0</td></tr>
+      </table>
+      <p>4号建築物（小規模木造）では、<strong>壁量計算</strong>で「必要壁量（床面積×係数、見付面積×係数）≦ 存在壁量（壁長×壁倍率の合計）」を確認します。これは簡易化された<a href="kyoyo-oryokudo.html">構造計算ルート</a>の一種と考えられます。</p>
+
+      <h2>配置のポイント：量だけでなくバランス</h2>
+      <ul>
+        <li><strong>平面バランス</strong>：耐力壁が片側に偏ると重心と剛心がずれ、地震時に建物がねじれる（<a href="sokan-henkei.html">偏心率</a>）。南面に開口を集めがちな住宅で起きやすい。四隅・外周にバランスよく配置するのが基本。</li>
+        <li><strong>上下の連続性（直下率）</strong>：上階の耐力壁の直下に壁がないと、力の流れが床で寸断される。壁直下率は60%以上が目安とされる。</li>
+        <li><strong>量の確保</strong>：必要量ぎりぎりではなく、余裕（1.25〜1.5倍）を持たせるのが耐震等級2・3の考え方。</li>
+      </ul>
+
+      <div class="point-box">
+        <span class="label">POINT</span>
+        <ul>
+          <li>耐力壁は<strong>「量」と「配置バランス」と「上下の連続性」</strong>の3点セットで考える。</li>
+          <li>1階だけ壁が少ない建物（ピロティ）は<a href="sokan-henkei.html">剛性率</a>の問題で大地震に弱い。</li>
+          <li>壁倍率5.0が上限なのは、壁が強すぎると柱の引抜きや基礎が先に壊れるため。接合部（ホールダウン金物）とセットで考える。</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="label">あわせて確認</span>
+        <p>水平力に抵抗する仕組みの比較は「<a href="rahmen-brace.html">ラーメン構造とブレース構造</a>」、バランスの定量評価は「<a href="sokan-henkei.html">層間変形角・剛性率・偏心率</a>」をどうぞ。</p>
+      </div>
+
+      <h2>まとめ</h2>
+      <ul>
+        <li>耐力壁は水平力に抵抗する構造上の壁。非耐力壁とは役割が違い、勝手に撤去できない。</li>
+        <li>RC造では耐震壁が地震力の大半を負担。木造は壁倍率×壁長の壁量計算で確認する。</li>
+        <li>量・平面バランス（偏心）・上下の連続性（直下率）の3点で計画する。</li>
+      </ul>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>関連記事</h4>
+        <ul>
+          <li><a href="rahmen-brace.html">ラーメン構造とブレース構造の違いとは？</a></li>
+          <li><a href="sokan-henkei.html">層間変形角・剛性率・偏心率とは？</a></li>
+          <li><a href="kouzou-shurui.html">RC造・S造・SRC造・木造の違いとは？</a></li>
+        </ul>
+      </div>
+      <div class="tool-banner">
+        <div class="tb-ic">🧮</div>
+        <h4>断面性能 計算ツール</h4>
+        <p>b×hを入れるだけで A・I・Z・i を自動計算</p>
+        <a href="../tools/section-calculator.html">無料で使ってみる</a>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
