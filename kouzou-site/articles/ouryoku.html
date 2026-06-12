@@ -56,6 +56,34 @@
         <tr><td>曲げモーメント</td><td>M</td><td>断面を回転させる偶力</td><td>湾曲させる（反らせる）</td></tr>
       </table>
 
+      <div class="diagram">
+        <svg viewBox="0 0 660 175" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="軸力・せん断力・曲げモーメントのイメージ">
+          <defs>
+            <marker id="ar" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#e8843c"/></marker>
+          </defs>
+          <!-- 軸力 N -->
+          <rect x="45" y="76" width="115" height="26" fill="#e3ecf5" stroke="#1a3a5c" stroke-width="2"/>
+          <line x1="42" y1="89" x2="12" y2="89" stroke="#e8843c" stroke-width="3" marker-end="url(#ar)"/>
+          <line x1="163" y1="89" x2="193" y2="89" stroke="#e8843c" stroke-width="3" marker-end="url(#ar)"/>
+          <text x="102" y="132" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a3a5c">軸力 N</text>
+          <text x="102" y="152" text-anchor="middle" font-size="11" fill="#6b7785">材軸方向に伸縮させる</text>
+          <!-- せん断力 Q -->
+          <rect x="272" y="62" width="85" height="25" fill="#e3ecf5" stroke="#1a3a5c" stroke-width="2"/>
+          <rect x="296" y="91" width="85" height="25" fill="#e3ecf5" stroke="#1a3a5c" stroke-width="2"/>
+          <line x1="360" y1="74" x2="396" y2="74" stroke="#e8843c" stroke-width="3" marker-end="url(#ar)"/>
+          <line x1="293" y1="104" x2="257" y2="104" stroke="#e8843c" stroke-width="3" marker-end="url(#ar)"/>
+          <text x="328" y="132" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a3a5c">せん断力 Q</text>
+          <text x="328" y="152" text-anchor="middle" font-size="11" fill="#6b7785">断面を互い違いにずらす</text>
+          <!-- 曲げモーメント M -->
+          <path d="M480,70 Q555,112 630,70" fill="none" stroke="#1a3a5c" stroke-width="9" stroke-linecap="round"/>
+          <path d="M472,96 A24,24 0 0 1 470,52" fill="none" stroke="#e8843c" stroke-width="3" marker-end="url(#ar)"/>
+          <path d="M638,52 A24,24 0 0 1 640,96" fill="none" stroke="#e8843c" stroke-width="3" marker-end="url(#ar)"/>
+          <text x="555" y="132" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a3a5c">曲げモーメント M</text>
+          <text x="555" y="152" text-anchor="middle" font-size="11" fill="#6b7785">部材を湾曲させる</text>
+        </svg>
+        <p class="cap">図：3つの応力が部材をどう変形させようとするか</p>
+      </div>
+
       <div class="point-box">
         <span class="label">POINT</span>
         <p>どんなに複雑な構造物でも、部材の断面に生じる応力はこの3つ（＋ねじりモーメント）しかありません。構造計算とは突き詰めれば「各断面の N・Q・M を求め、断面がそれに耐えられるか確かめる作業」です。</p>
@@ -123,6 +151,7 @@
       <div class="widget">
         <h4>関連記事</h4>
         <ul>
+          <li><a href="oryokudo-hizumi.html">応力度とひずみ度とは？ヤング係数と応力ひずみ曲線</a></li>
           <li><a href="danmen-niji-moment.html">断面二次モーメントとは？意味と計算方法</a></li>
           <li><a href="tawami.html">梁のたわみの計算方法｜公式一覧と覚え方</a></li>
           <li><a href="kyoyo-oryokudo.html">許容応力度計算とは？構造計算ルートの全体像</a></li>
