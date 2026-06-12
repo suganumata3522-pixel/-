@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>不静定構造とは？静定・不静定の判別式をわかりやすく解説｜構造設計ナビ</title>
+<meta name="description" content="静定・不静定の違いと判別式 m=(n+s+r)−2k の使い方を例題つきで解説。不静定構造が地震に強い理由（力の再配分・冗長性）まで、初学者向けにわかりやすくまとめました。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="ouryoku.html">構造力学の基礎</a></li>
+        <li><a href="rahmen-brace.html">構造設計</a></li>
+        <li><a href="../tools/section-calculator.html">計算ツール</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › 構造力学の基礎 › 静定・不静定</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">構造力学の基礎</span>
+        <span>更新日：2026年6月12日</span>
+      </div>
+      <h1>不静定構造とは？静定・不静定の判別式をわかりやすく解説</h1>
+
+      <p>構造物は「<a href="hanryoku.html">つり合いの3式</a>だけで解けるか」によって、静定構造と不静定構造に分かれます。実際の建物のほとんどは不静定構造です。この記事では、判別式の使い方と、<strong>なぜ実務では不静定が好まれるのか</strong>を解説します。</p>
+
+      <h2>静定と不静定の違い</h2>
+      <ul>
+        <li><strong>静定構造</strong>：未知数（反力・応力）の数が、つり合い式の数とちょうど同じ。つり合い式だけですべて解ける。例：単純梁、片持ち梁、3ヒンジラーメン。</li>
+        <li><strong>不静定構造</strong>：未知数がつり合い式より多い。解くには<strong>変形の条件</strong>を追加で使う必要がある。例：両端固定梁、連続梁、一般的なラーメン。</li>
+        <li><strong>不安定構造</strong>：未知数が足りず、形を保てない。構造物として成立しない。</li>
+      </ul>
+
+      <h2>判別式：m = ( n + s + r ) − 2k</h2>
+      <p>骨組が静定か不静定かは、次の式で判別できます。</p>
+
+      <div class="formula">
+        m = ( n + s + r ) − 2k
+        <span class="note">m：不静定次数 ／ n：反力数の合計 ／ s：部材数 ／ r：剛接合された部材数（各節点で「集まる部材数−1」を合計）／ k：節点数（支点・自由端も含む）</span>
+      </div>
+
+      <table class="data">
+        <tr><th>判定</th><th>意味</th></tr>
+        <tr><td>m ＜ 0</td><td>不安定（構造物として成立しない）</td></tr>
+        <tr><td>m ＝ 0</td><td>静定（つり合い式だけで解ける）</td></tr>
+        <tr><td>m ＞ 0</td><td>m次の不静定（mが大きいほど「余分な拘束」が多い）</td></tr>
+      </table>
+
+      <h3>例題で確認</h3>
+      <table class="data">
+        <tr><th>構造</th><th>n（反力）</th><th>s／r／k</th><th>m</th><th>判定</th></tr>
+        <tr><td>単純梁（ピン＋ローラー）</td><td>2+1=3</td><td>1／0／2</td><td>(3+1+0)−4＝0</td><td>静定</td></tr>
+        <tr><td>片持ち梁（固定端）</td><td>3</td><td>1／0／2</td><td>(3+1+0)−4＝0</td><td>静定</td></tr>
+        <tr><td>両端固定梁</td><td>3+3=6</td><td>1／0／2</td><td>(6+1+0)−4＝3</td><td>3次不静定</td></tr>
+        <tr><td>2スパン連続梁（ピン+ローラー×2）</td><td>2+1+1=4</td><td>2／1／3</td><td>(4+2+1)−6＝1</td><td>1次不静定</td></tr>
+      </table>
+
+      <div class="point-box">
+        <span class="label">POINT</span>
+        <ul>
+          <li>m は「<strong>壊れてもよい拘束の余裕</strong>」と読める。3次不静定なら、拘束が3つ失われてようやく静定になる。</li>
+          <li>判別式は機械的に使えるが、<strong>m≧0でも形が悪ければ不安定</strong>な場合がある（例：3つのヒンジが一直線に並ぶ）。式と図の両方で確認するのが鉄則。</li>
+        </ul>
+      </div>
+
+      <h2>なぜ実際の建物は不静定なのか</h2>
+      <p>不静定構造は計算が面倒な代わりに、構造物として大きな利点があります。</p>
+      <ul>
+        <li><strong>力の再配分ができる</strong>：ある部分が降伏しても、余った拘束が荷重を肩代わりする。静定構造は1か所壊れた瞬間に崩壊機構になる。</li>
+        <li><strong>変形が小さい</strong>：拘束が多いぶん剛性が高く、たわみ・層間変形を抑えやすい。</li>
+        <li><strong>応力が分散する</strong>：両端固定梁の中央モーメントは単純梁の1/2以下になるなど、部材を効率よく使える。</li>
+      </ul>
+      <p>耐震設計で「粘り強い建物」と言うとき、その粘りを支えているのが不静定次数の高さ（冗長性・リダンダンシー）です。一方、静定構造は温度変化や不同沈下で余計な応力が生じないという利点があり、橋梁などで好んで使われます。</p>
+
+      <div class="note-box">
+        <span class="label">あわせて確認</span>
+        <p>不静定構造を解く実用手法は固定モーメント法など（記事準備中）。まずは静定の基本「<a href="hanryoku.html">反力の求め方</a>」と「<a href="qm-zu.html">Q図・M図の描き方</a>」を完璧にしておきましょう。</p>
+      </div>
+
+      <h2>まとめ</h2>
+      <ul>
+        <li>つり合い式だけで解ければ静定、解けなければ不静定。</li>
+        <li>判別式は m = (n+s+r) − 2k。m=0で静定、m&gt;0で不静定、m&lt;0で不安定。</li>
+        <li>不静定構造は力の再配分ができるため地震に強い。実建物のほとんどは不静定。</li>
+      </ul>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>関連記事</h4>
+        <ul>
+          <li><a href="hanryoku.html">反力の求め方｜つり合い式の立て方</a></li>
+          <li><a href="qm-zu.html">せん断力図（Q図）と曲げモーメント図（M図）の描き方</a></li>
+          <li><a href="rahmen-brace.html">ラーメン構造とブレース構造の違いとは？</a></li>
+        </ul>
+      </div>
+      <div class="tool-banner">
+        <div class="tb-ic">🧮</div>
+        <h4>断面性能 計算ツール</h4>
+        <p>b×hを入れるだけで A・I・Z・i を自動計算</p>
+        <a href="../tools/section-calculator.html">無料で使ってみる</a>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
