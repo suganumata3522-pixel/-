@@ -666,6 +666,38 @@ table.data tr:nth-child(even) td { background: var(--bg-soft); }
 .step a { color: inherit; }
 .step a:hover { text-decoration: none; color: var(--accent-dark); }
 
+/* ---------- 記事一覧(カテゴリページ) ---------- */
+.article-list {
+  list-style: none;
+  counter-reset: al;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 8px 24px;
+  margin-bottom: 40px;
+}
+.article-list li { counter-increment: al; border-bottom: 1px dashed var(--line); }
+.article-list li:last-child { border-bottom: none; }
+.article-list a {
+  display: flex;
+  gap: 16px;
+  padding: 15px 2px;
+  align-items: flex-start;
+  color: var(--ink);
+}
+.article-list a::before {
+  content: counter(al, decimal-leading-zero);
+  font-weight: 800;
+  color: var(--accent);
+  font-size: 0.85rem;
+  margin-top: 2px;
+  flex: 0 0 auto;
+}
+.article-list a:hover { text-decoration: none; }
+.article-list a:hover h3 { color: var(--accent-dark); }
+.article-list h3 { font-size: 0.97rem; font-weight: 700; line-height: 1.6; color: var(--navy); }
+.article-list p { font-size: 0.78rem; color: var(--sub); margin-top: 2px; }
+
 /* ---------- 計算ツール ---------- */
 .tool-panel {
   background: #fff;

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>層間変形角・剛性率・偏心率とは？ルート2の検討項目をわかりやすく解説｜構造設計ナビ</title>
+<meta name="description" content="層間変形角1/200・剛性率6/10・偏心率15/100の意味と制限値を初学者向けに解説。ピロティ階が危ない理由、建物がねじれる仕組みなど、二次設計のバランス検討をわかりやすく整理します。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="../articles.html#kiso">構造力学の基礎</a></li>
+        <li><a href="../articles.html#keishiki">構造設計</a></li>
+        <li><a href="../tools/section-calculator.html">計算ツール</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › 構造計算の実務 › 層間変形角・剛性率・偏心率</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">構造計算の実務</span>
+        <span>更新日：2026年6月12日</span>
+      </div>
+      <h1>層間変形角・剛性率・偏心率とは？ルート2の検討項目をわかりやすく解説</h1>
+
+      <p>地震に強い建物の条件は、強さだけではありません。<strong>「変形しすぎない」「上下方向に偏らない」「平面的にねじれない」</strong>こと。これを数値で確かめるのが層間変形角・剛性率・偏心率で、<a href="kyoyo-oryokudo.html">構造計算ルート2</a>の中心的な検討項目です。</p>
+
+      <h2>層間変形角：各階がどれだけ傾くか</h2>
+      <p>地震時に、ある階の床と上の階の床がどれだけ水平にずれるか（層間変位 δ）を、階高 h で割った値です。</p>
+
+      <div class="formula">
+        層間変形角 = δ / h ≦ 1/200
+        <span class="note">δ：層間変位（一次設計用地震力による弾性変形）／ h：階高。帳壁・内外装材に著しい損傷のおそれがない場合は 1/120 まで緩和可。</span>
+      </div>
+
+      <div class="diagram">
+        <svg viewBox="0 0 480 210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="層間変形角の定義">
+          <defs>
+            <marker id="sh" markerWidth="7" markerHeight="7" refX="5" refY="2.5" orient="auto"><path d="M0,0 L6,2.5 L0,5 Z" fill="#e8843c"/></marker>
+          </defs>
+          <line x1="40" y1="178" x2="440" y2="178" stroke="#6b7785" stroke-width="3"/>
+          <!-- 変形前(点線) -->
+          <path d="M150,178 L150,58 M290,178 L290,58 M150,58 L290,58" fill="none" stroke="#c3ccd6" stroke-width="2.5" stroke-dasharray="7 6"/>
+          <!-- 変形後 -->
+          <path d="M150,178 C152,130 186,90 194,58" fill="none" stroke="#1a3a5c" stroke-width="5" stroke-linecap="round"/>
+          <path d="M290,178 C292,130 326,90 334,58" fill="none" stroke="#1a3a5c" stroke-width="5" stroke-linecap="round"/>
+          <line x1="194" y1="56" x2="334" y2="56" stroke="#1a3a5c" stroke-width="6" stroke-linecap="round"/>
+          <!-- δとh -->
+          <line x1="150" y1="40" x2="194" y2="40" stroke="#e8843c" stroke-width="3" marker-end="url(#sh)"/>
+          <text x="160" y="30" font-size="14" font-weight="bold" fill="#b35309">δ（層間変位）</text>
+          <line x1="108" y1="58" x2="108" y2="178" stroke="#6b7785" stroke-width="1.5"/>
+          <text x="96" y="122" text-anchor="end" font-size="13" fill="#1f2933" font-weight="bold">h（階高）</text>
+          <text x="370" y="125" font-size="13.5" font-weight="bold" fill="#1a3a5c">δ/h ≦ 1/200</text>
+        </svg>
+        <p class="cap">図：層間変形角は「階の傾き」。大きいと仕上げ材の損傷や帳壁の脱落につながる</p>
+      </div>
+
+      <p>変形を制限する目的は、骨組みより先に<strong>外壁・サッシ・間仕切りなどの二次部材が壊れるのを防ぐ</strong>ことです。階高3mなら、許される層間変位は 3000/200 = 15mm。意外と小さいことがわかります。</p>
+
+      <h2>剛性率：高さ方向のバランス（6/10以上）</h2>
+      <p>各階の硬さ（層間変形角の逆数）が、全階の平均に対してどの程度かを表す指標です。</p>
+      <div class="formula">
+        剛性率 Rs = 各階の剛性 ／ 全階の平均剛性 ≧ 6/10
+      </div>
+      <p>特定の階だけ柔らかいと、地震のエネルギーが<strong>その階に集中して層崩壊</strong>を起こします。典型例が、1階だけ壁のない<strong>ピロティ形式</strong>（駐車場マンションなど）。1995年阪神・淡路大震災では1階が潰れる被害が多発しました。剛性率6/10を下回る場合は、ルート3（保有水平耐力計算）で安全性を直接確認する必要があります。</p>
+
+      <h2>偏心率：平面のバランス（15/100以下）</h2>
+      <p>建物の<strong>重心（重さの中心）</strong>と<strong>剛心（硬さの中心）</strong>のずれを表す指標です。</p>
+      <div class="formula">
+        偏心率 Re = 偏心距離 e ／ 弾力半径 ≦ 15/100
+        <span class="note">e：重心と剛心の距離。剛心＝水平力に抵抗する要素（壁・ブレース）の配置の中心。</span>
+      </div>
+      <p>地震力は重心に作用し、建物は剛心を中心に回転しようとします。両者がずれていると建物は<strong>ねじれて</strong>、剛心から遠い側の柱・壁に変形が集中します。<a href="rahmen-brace.html">ブレースや耐震壁を片側に寄せて配置</a>すると偏心が大きくなるため、平面的にバランスよく配置することが大切です。</p>
+
+      <div class="point-box">
+        <span class="label">POINT（試験頻出）</span>
+        <ul>
+          <li>数値の暗記：層間変形角 <strong>1/200（緩和1/120）</strong>、剛性率 <strong>6/10以上</strong>、偏心率 <strong>15/100以下</strong>。</li>
+          <li>剛性率は「<strong>上下方向</strong>のバランス」、偏心率は「<strong>平面方向</strong>のバランス」。</li>
+          <li>剛性率・偏心率を満たせない場合は、ルート3で保有水平耐力を確認すればよい（Fes係数で割増）。</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="label">あわせて確認</span>
+        <p>これらの検討がどのルートで必要になるかは「<a href="kyoyo-oryokudo.html">許容応力度計算とは？構造計算ルートの全体像</a>」、地震力の求め方は「<a href="jishin-ryoku.html">地震力の計算方法</a>」をどうぞ。</p>
+      </div>
+
+      <h2>まとめ</h2>
+      <ul>
+        <li>層間変形角（δ/h≦1/200）は二次部材を守るための変形制限。</li>
+        <li>剛性率（≧6/10）は「柔らかい階」を作らないための高さ方向のバランス指標。ピロティに注意。</li>
+        <li>偏心率（≦15/100）は「ねじれ」を防ぐための平面バランス指標。壁・ブレースは偏りなく配置する。</li>
+      </ul>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>関連記事</h4>
+        <ul>
+          <li><a href="kyoyo-oryokudo.html">許容応力度計算とは？構造計算ルートの全体像</a></li>
+          <li><a href="jishin-ryoku.html">地震力の計算方法｜Ai分布・Z・Rt・Co</a></li>
+          <li><a href="rahmen-brace.html">ラーメン構造とブレース構造の違いとは？</a></li>
+          <li><a href="koyu-shuki.html">固有周期と共振とは？建物の揺れの基礎</a></li>
+        </ul>
+      </div>
+      <div class="tool-banner">
+        <div class="tb-ic">🧮</div>
+        <h4>断面性能 計算ツール</h4>
+        <p>b×hを入れるだけで A・I・Z・i を自動計算</p>
+        <a href="../tools/section-calculator.html">無料で使ってみる</a>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
