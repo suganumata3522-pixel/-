@@ -9,6 +9,8 @@ HTML/CSS/JavaScript のみの静的サイトで、ビルド不要・そのまま
 kouzou-site/
 ├── index.html                      # トップページ
 ├── about.html                      # サイト概要・免責事項
+├── privacy.html                    # プライバシーポリシー（AdSense対応）
+├── 運営マニュアル.md                # 開き方・編集・記事追加・収益化の手引き
 ├── css/style.css                   # 共通スタイル
 ├── js/main.js                      # モバイルメニューなど共通JS
 ├── articles/
