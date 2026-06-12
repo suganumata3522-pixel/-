@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>地震力の計算方法｜Ai分布・Z・Rt・Coをわかりやすく解説｜構造設計ナビ</title>
+<meta name="description" content="建築の地震力（地震層せん断力）の計算式 Qi=Ci×Wi、Ci=Z・Rt・Ai・Co の各係数の意味を初学者向けに解説。なぜ上階ほど地震力が大きいのか、Ai分布の考え方も図解します。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="../articles.html#kiso">構造力学の基礎</a></li>
+        <li><a href="../articles.html#keishiki">構造設計</a></li>
+        <li><a href="../tools/section-calculator.html">計算ツール</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › 構造計算の実務 › 地震力の計算</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">構造計算の実務</span>
+        <span>更新日：2026年6月12日</span>
+      </div>
+      <h1>地震力の計算方法｜Ai分布・Z・Rt・Coをわかりやすく解説</h1>
+
+      <p>建築基準法の地震力は、各階に作用する<strong>地震層せん断力 Qi</strong>として計算します。式は一見係数だらけですが、ひとつずつ意味を知れば「建物の重さに、場所・地盤・高さの補正を掛けているだけ」だとわかります。</p>
+
+      <h2>基本式：Qi = Ci × Wi</h2>
+      <div class="formula">
+        Qi = Ci × Wi　／　Ci = Z × Rt × Ai × Co
+        <span class="note">Qi：i階の地震層せん断力（kN）／ Ci：i階の地震層せん断力係数 ／ Wi：i階より上の建物重量（固定荷重＋積載荷重の合計）</span>
+      </div>
+      <p><strong>地震力は建物の重さに比例</strong>します。Wi が「その階が支えている上の重さ全部」である点がポイントで、1階は建物全重量、最上階は屋根まわりだけを支えます。</p>
+
+      <h2>4つの係数の意味</h2>
+      <table class="data">
+        <tr><th>係数</th><th>名称</th><th>意味と値の目安</th></tr>
+        <tr><td>Z</td><td>地震地域係数</td><td>地域ごとの地震の起きやすさ。1.0〜0.7（東京・静岡など1.0、沖縄0.7）</td></tr>
+        <tr><td>Rt</td><td>振動特性係数</td><td>建物の<a href="koyu-shuki.html">固有周期</a>と地盤種別による低減。周期が長いほど小さい（≦1.0）</td></tr>
+        <tr><td>Ai</td><td>高さ方向の分布係数</td><td>上階ほど大きい（1階で1.0、上にいくほど増える）</td></tr>
+        <tr><td>Co</td><td>標準せん断力係数</td><td>一次設計：0.2以上 ／ 保有水平耐力計算（大地震）：1.0以上</td></tr>
+      </table>
+
+      <h2>なぜ上階ほど地震力が大きいのか（Ai分布）</h2>
+      <p>地震時の建物は、むちをしならせたときのように<strong>上にいくほど大きく振られます</strong>。この応答の増幅を表すのが Ai 分布です。</p>
+
+      <div class="diagram">
+        <svg viewBox="0 0 520 230" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ai分布のイメージ">
+          <defs>
+            <marker id="js" markerWidth="7" markerHeight="7" refX="5" refY="2.5" orient="auto"><path d="M0,0 L6,2.5 L0,5 Z" fill="#e8843c"/></marker>
+          </defs>
+          <line x1="40" y1="196" x2="480" y2="196" stroke="#6b7785" stroke-width="3"/>
+          <!-- 建物 -->
+          <rect x="150" y="40" width="130" height="156" fill="#e3ecf5" stroke="#1a3a5c" stroke-width="3"/>
+          <line x1="150" y1="92" x2="280" y2="92" stroke="#1a3a5c" stroke-width="2"/>
+          <line x1="150" y1="144" x2="280" y2="144" stroke="#1a3a5c" stroke-width="2"/>
+          <text x="215" y="72" text-anchor="middle" font-size="12" fill="#6b7785">3F</text>
+          <text x="215" y="124" text-anchor="middle" font-size="12" fill="#6b7785">2F</text>
+          <text x="215" y="176" text-anchor="middle" font-size="12" fill="#6b7785">1F</text>
+          <!-- 地震力の矢印(上ほど長い) -->
+          <line x1="36" y1="66" x2="140" y2="66" stroke="#e8843c" stroke-width="5" marker-end="url(#js)"/>
+          <line x1="68" y1="118" x2="140" y2="118" stroke="#e8843c" stroke-width="5" marker-end="url(#js)"/>
+          <line x1="94" y1="170" x2="140" y2="170" stroke="#e8843c" stroke-width="5" marker-end="url(#js)"/>
+          <text x="330" y="68" font-size="12.5" fill="#b35309" font-weight="bold">Aiが大きい＝強く振られる</text>
+          <text x="330" y="120" font-size="12" fill="#6b7785">中間階</text>
+          <text x="330" y="172" font-size="12" fill="#6b7785">1階：Ai = 1.0（基準）</text>
+          <text x="260" y="222" text-anchor="middle" font-size="12" fill="#6b7785">むちの先端ほど大きく振られるイメージ</text>
+        </svg>
+        <p class="cap">図：地震力の高さ方向分布。上階ほど応答が増幅されるため、Aiは上ほど大きい</p>
+      </div>
+
+      <p>ただし注意したいのは、Ai が大きいのは「係数」であって、<strong>層せん断力 Qi 自体は下の階ほど大きい</strong>ことです。下の階は支える重量 Wi が大きいためです。1階の Qi が最大になります（ベースシア）。</p>
+
+      <h2>計算例：ざっくり感覚をつかむ</h2>
+      <p>東京（Z=1.0）の低層RC造（Rt=1.0）、1階が支える重量 W1 = 10,000 kN のとき、一次設計用の1階の層せん断力は：</p>
+      <div class="formula">
+        C1 = 1.0 × 1.0 × 1.0 × 0.2 = 0.2　→　Q1 = 0.2 × 10,000 = 2,000 kN
+        <span class="note">「建物重量の約2割の水平力」が一次設計の地震力の基本イメージ。大地震（Co=1.0）ではその5倍＝重量と同等の水平力を想定する。</span>
+      </div>
+
+      <div class="point-box">
+        <span class="label">POINT（試験頻出）</span>
+        <ul>
+          <li>地震力は<strong>重量に比例</strong>。建物を軽くすることが最大の耐震対策（<a href="kouzou-shurui.html">構造種別の選択</a>にも直結）。</li>
+          <li>Rt は周期が長い（高層・軟弱地盤でない）ほど小さくなる＝地震力を低減できる。</li>
+          <li><strong>Ai は上ほど大、Qi は下ほど大</strong>。混同しやすいので注意。</li>
+          <li>地下部分は層せん断力でなく水平震度 k（≧0.1Z）で計算する。</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="label">あわせて確認</span>
+        <p>求めた地震力で部材を検定する流れは「<a href="kyoyo-oryokudo.html">許容応力度計算とは？</a>」、重量 Wi のもとになる荷重は「<a href="kajuu.html">固定荷重・積載荷重の拾い方</a>」で解説しています。</p>
+      </div>
+
+      <h2>まとめ</h2>
+      <ul>
+        <li>地震層せん断力は Qi = Ci × Wi、Ci = Z・Rt・Ai・Co。</li>
+        <li>Z＝地域、Rt＝周期と地盤、Ai＝高さ方向の増幅、Co＝0.2（中地震）/1.0（大地震）。</li>
+        <li>地震力は建物重量に比例し、層せん断力は1階で最大になる。</li>
+      </ul>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>関連記事</h4>
+        <ul>
+          <li><a href="kajuu.html">固定荷重・積載荷重の拾い方</a></li>
+          <li><a href="kyoyo-oryokudo.html">許容応力度計算とは？構造計算ルートの全体像</a></li>
+          <li><a href="koyu-shuki.html">固有周期と共振とは？建物の揺れの基礎</a></li>
+          <li><a href="sokan-henkei.html">層間変形角・剛性率・偏心率とは？</a></li>
+        </ul>
+      </div>
+      <div class="tool-banner">
+        <div class="tb-ic">🧮</div>
+        <h4>断面性能 計算ツール</h4>
+        <p>b×hを入れるだけで A・I・Z・i を自動計算</p>
+        <a href="../tools/section-calculator.html">無料で使ってみる</a>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
