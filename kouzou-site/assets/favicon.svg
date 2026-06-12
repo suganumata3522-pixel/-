@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="14" fill="#1a3a5c"/>
+  <text x="32" y="43" text-anchor="middle" font-size="32" font-weight="bold" fill="#ffffff" font-family="'Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif">構</text>
+  <rect x="14" y="51" width="36" height="5" rx="2.5" fill="#e8843c"/>
+</svg>

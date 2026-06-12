@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>断面係数とは？曲げ応力度の計算方法をわかりやすく解説｜構造設計ナビ</title>
+<meta name="description" content="断面係数Zは曲げに対する「壊れにくさ」を表す断面性能。Z=I/yの意味、長方形断面のZ=bh²/6、曲げ応力度σ=M/Zの計算例、断面二次モーメントIとの使い分けを図解でわかりやすく解説します。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="ouryoku.html">構造力学の基礎</a></li>
+        <li><a href="rahmen-brace.html">構造設計</a></li>
+        <li><a href="../tools/section-calculator.html">計算ツール</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › 構造力学の基礎 › 断面係数</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">構造力学の基礎</span>
+        <span>更新日：2026年6月12日</span>
+      </div>
+      <h1>断面係数とは？曲げ応力度の計算方法をわかりやすく解説</h1>
+
+      <p>断面係数 <em>Z</em> は、断面の<strong>「曲げに対する壊れにくさ」</strong>を表す断面性能です。<a href="danmen-niji-moment.html">断面二次モーメント I</a> が「たわみにくさ」の指標だとすれば、Z は「応力度の小ささ＝強さ」の指標。曲げ応力度の検定 σ = M / Z に使う、断面検定の主役です。</p>
+
+      <h2>曲げを受けた断面の中で何が起きているか</h2>
+      <p>梁が曲げモーメント M を受けると、断面の内部には<strong>位置によって大きさの違う応力度</strong>が生じます。下に凸に曲がる梁では、上側（凹側）が圧縮、下側（凸側）が引張となり、その大きさは中立軸からの距離に比例して直線的に分布します。</p>
+
+      <div class="diagram">
+        <svg viewBox="0 0 600 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="曲げ応力度の分布">
+          <defs>
+            <marker id="zs" markerWidth="7" markerHeight="7" refX="5" refY="2.5" orient="auto"><path d="M0,0 L6,2.5 L0,5 Z" fill="#e8843c"/></marker>
+          </defs>
+          <!-- 断面 -->
+          <rect x="80" y="35" width="110" height="170" fill="#e3ecf5" stroke="#1a3a5c" stroke-width="2.5"/>
+          <text x="135" y="232" text-anchor="middle" font-size="12.5" fill="#6b7785">断面（b × h）</text>
+          <!-- 中立軸 -->
+          <line x1="56" y1="120" x2="490" y2="120" stroke="#6b7785" stroke-width="1.5" stroke-dasharray="8 5"/>
+          <text x="498" y="124" font-size="12" fill="#6b7785">中立軸（σ＝0）</text>
+          <!-- 応力度分布 -->
+          <line x1="330" y1="35" x2="330" y2="205" stroke="#1a3a5c" stroke-width="2.5"/>
+          <line x1="330" y1="35" x2="250" y2="35" stroke="#1a3a5c" stroke-width="2.5"/>
+          <line x1="330" y1="205" x2="410" y2="205" stroke="#1a3a5c" stroke-width="2.5"/>
+          <line x1="250" y1="35" x2="410" y2="205" stroke="#1a3a5c" stroke-width="2"/>
+          <!-- 圧縮側の矢印(左向き) -->
+          <g stroke="#e8843c" stroke-width="2.5">
+            <line x1="330" y1="48" x2="263" y2="48" marker-end="url(#zs)"/>
+            <line x1="330" y1="72" x2="287" y2="72" marker-end="url(#zs)"/>
+            <line x1="330" y1="96" x2="310" y2="96" marker-end="url(#zs)"/>
+          </g>
+          <!-- 引張側の矢印(右向き) -->
+          <g stroke="#e8843c" stroke-width="2.5">
+            <line x1="330" y1="144" x2="350" y2="144" marker-end="url(#zs)"/>
+            <line x1="330" y1="168" x2="373" y2="168" marker-end="url(#zs)"/>
+            <line x1="330" y1="192" x2="397" y2="192" marker-end="url(#zs)"/>
+          </g>
+          <text x="245" y="24" font-size="13" font-weight="bold" fill="#b35309">圧縮側　縁で最大 σ = M/Z</text>
+          <text x="338" y="226" font-size="13" font-weight="bold" fill="#b35309">引張側　縁で最大 σ = M/Z</text>
+        </svg>
+        <p class="cap">図：曲げ応力度は中立軸でゼロ、断面の縁（最も遠い位置）で最大になる</p>
+      </div>
+
+      <p>つまり、断面が曲げに耐えられるかどうかは<strong>最も応力度が大きい「縁」</strong>で決まります。この縁の応力度を一発で求められるようにした係数が、断面係数 Z です。</p>
+
+      <h2>断面係数の定義と公式</h2>
+      <p>断面係数は、断面二次モーメント I を「中立軸から縁までの距離 y」で割った値として定義されます。</p>
+
+      <div class="formula">
+        Z = I / y　→　縁の曲げ応力度　σ = M / Z
+        <span class="note">Z：断面係数（mm³）／ I：断面二次モーメント（mm⁴）／ y：中立軸から断面の縁までの距離（mm）／ M：曲げモーメント（N·mm）</span>
+      </div>
+
+      <h3>長方形断面の場合</h3>
+      <p>幅 b × 成 h の長方形断面では、I = bh³/12、縁までの距離 y = h/2 なので：</p>
+      <div class="formula">
+        Z = (bh³/12) ÷ (h/2) = bh² / 6
+      </div>
+
+      <h3>主な断面の公式一覧</h3>
+      <table class="data">
+        <tr><th>断面の形状</th><th>断面係数 Z</th><th>備考</th></tr>
+        <tr><td>長方形（幅b × 成h）</td><td>bh² / 6</td><td>成 h は2乗で効く</td></tr>
+        <tr><td>円形（直径D）</td><td>πD³ / 32</td><td>方向によらず一定</td></tr>
+        <tr><td>中空長方形</td><td>(BH³ − bh³) / 6H</td><td>外形から内空を差し引いた I を H/2 で割る</td></tr>
+        <tr><td>H形鋼・溝形鋼など</td><td>カタログ値を使用</td><td>メーカー・JISの断面性能表に記載</td></tr>
+      </table>
+
+      <h2>計算例：RC梁の曲げ応力度</h2>
+      <p>幅300mm × 成600mmの梁に、曲げモーメント M = 100 kN·m が作用するときの縁応力度を求めます。</p>
+      <div class="formula">
+        Z = 300 × 600² / 6 = 1.8 × 10⁷ mm³<br>
+        σ = M / Z = 100 × 10⁶ / 1.8 × 10⁷ ≒ 5.6 N/mm²
+        <span class="note">M = 100 kN·m = 100×10⁶ N·mm に単位換算してから割る。</span>
+      </div>
+      <p>求めた σ を材料の許容曲げ応力度と比較するのが、<a href="kyoyo-oryokudo.html">許容応力度計算</a>における曲げの断面検定です。</p>
+
+      <div class="point-box">
+        <span class="label">POINT（試験頻出）</span>
+        <ul>
+          <li>成 h を2倍にすると、<strong>Z は4倍（2乗）、I は8倍（3乗）</strong>になる。ZとIで効き方が違う点に注意。</li>
+          <li>単位の違いで見分ける：<strong>Z は mm³、I は mm⁴</strong>。</li>
+          <li>保有水平耐力計算など終局時の検討では、全断面が降伏したと考える<strong>塑性断面係数 Zp</strong>（長方形では bh²/4）を使う。</li>
+        </ul>
+      </div>
+
+      <h2>I と Z の使い分けまとめ</h2>
+      <table class="data">
+        <tr><th>断面性能</th><th>表すもの</th><th>使う場面</th><th>長方形の公式</th></tr>
+        <tr><td>断面二次モーメント I</td><td>たわみにくさ（剛性）</td><td>たわみ・変形の計算</td><td>bh³ / 12</td></tr>
+        <tr><td>断面係数 Z</td><td>壊れにくさ（強度）</td><td>曲げ応力度の検定 σ=M/Z</td><td>bh² / 6</td></tr>
+      </table>
+      <p>「<strong>変形を調べたいなら I、強さを調べたいなら Z</strong>」。この一文だけ覚えておけば、どちらを使うかで迷うことはありません。</p>
+
+      <div class="note-box">
+        <span class="label">あわせて確認</span>
+        <p>I の意味と求め方は「<a href="danmen-niji-moment.html">断面二次モーメントとは？</a>」、応力度の基礎は「<a href="oryokudo-hizumi.html">応力度とひずみ度とは？</a>」をどうぞ。Z の計算は<a href="../tools/section-calculator.html">無料計算ツール</a>で検算できます。</p>
+      </div>
+
+      <h2>まとめ</h2>
+      <ul>
+        <li>曲げ応力度は中立軸でゼロ、縁で最大。縁の応力度を求める係数が断面係数 Z（= I / y）。</li>
+        <li>長方形断面では Z = bh²/6。縁応力度は σ = M / Z で求める。</li>
+        <li>I はたわみ（剛性）、Z は応力度（強度）。検討の目的で使い分ける。</li>
+      </ul>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>関連記事</h4>
+        <ul>
+          <li><a href="danmen-niji-moment.html">断面二次モーメントとは？意味と計算方法</a></li>
+          <li><a href="oryokudo-hizumi.html">応力度とひずみ度とは？ヤング係数と応力ひずみ曲線</a></li>
+          <li><a href="ouryoku.html">応力とは？軸力・せん断力・曲げモーメントの違い</a></li>
+          <li><a href="kyoyo-oryokudo.html">許容応力度計算とは？構造計算ルートの全体像</a></li>
+        </ul>
+      </div>
+      <div class="tool-banner">
+        <div class="tb-ic">🧮</div>
+        <h4>断面性能 計算ツール</h4>
+        <p>b×hを入れるだけで A・I・Z・i を自動計算</p>
+        <a href="../tools/section-calculator.html">無料で使ってみる</a>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
