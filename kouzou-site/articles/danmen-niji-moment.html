@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>断面二次モーメントとは？意味と計算方法を図解でわかりやすく解説｜構造設計ナビ</title>
+<meta name="description" content="断面二次モーメントは部材の「曲げにくさ」を表す断面性能です。長方形断面の公式 I=bh³/12 の意味、単位、計算例、断面係数との違いまでわかりやすく解説します。">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="danmen-niji-moment.html">構造力学の基礎</a></li>
+        <li><a href="rahmen-brace.html">構造設計</a></li>
+        <li><a href="../tools/section-calculator.html">計算ツール</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › 構造力学の基礎 › 断面二次モーメント</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">構造力学の基礎</span>
+        <span>更新日：2026年6月12日</span>
+      </div>
+      <h1>断面二次モーメントとは？意味と計算方法を図解でわかりやすく解説</h1>
+
+      <p>断面二次モーメントは、部材の<strong>「曲げにくさ」を表す断面性能</strong>です。構造力学・構造設計のあらゆる場面に登場する、最も重要な値のひとつです。</p>
+      <p>この記事では、断面二次モーメントの意味、公式、計算例、そして混同しやすい断面係数との違いまでを順に解説します。</p>
+
+      <h2>断面二次モーメントの意味</h2>
+      <p>同じ材料・同じ長さの梁でも、断面の形によって曲げに対する強さ（変形しにくさ）は大きく変わります。たとえば定規を曲げるとき、平らに寝かせた状態では簡単に曲がりますが、縦に立てるとほとんど曲がりません。</p>
+      <p>この「断面の形による曲げにくさの違い」を数値で表したものが断面二次モーメント <em>I</em> です。値が大きいほど曲げにくい（曲げ剛性が高い）断面ということになります。</p>
+
+      <div class="point-box">
+        <span class="label">POINT</span>
+        <p>断面二次モーメントは「中立軸から遠い位置にどれだけ断面積が分布しているか」で決まります。同じ断面積でも、中立軸から遠くに材を配置するほど <em>I</em> は大きくなります。H形鋼のフランジが上下に離れているのはこのためです。</p>
+      </div>
+
+      <h2>長方形断面の公式</h2>
+      <p>幅 <em>b</em>、成（高さ）<em>h</em> の長方形断面の、強軸まわりの断面二次モーメントは次式で求められます。</p>
+
+      <div class="formula">
+        I = bh³ / 12
+        <span class="note">I：断面二次モーメント（mm⁴）／ b：断面の幅（mm）／ h：断面の成・高さ（mm）</span>
+      </div>
+
+      <p>注目すべきは、<strong>成 h が3乗で効く</strong>という点です。幅を2倍にしても <em>I</em> は2倍にしかなりませんが、成を2倍にすると <em>I</em> は8倍になります。梁を曲げに強くしたいなら、幅を広げるより成を大きくするほうが圧倒的に効率的です。</p>
+
+      <h3>計算例：幅300mm × 成600mmのRC梁</h3>
+      <div class="formula">
+        I = 300 × 600³ / 12 = 5.4 × 10⁹ mm⁴
+      </div>
+      <p>仮にこの梁を横に寝かせる（幅600mm × 成300mm）と、I = 600 × 300³ / 12 = 1.35 × 10⁹ mm⁴ となり、<strong>同じ断面なのに曲げにくさは1/4</strong>になってしまいます。</p>
+
+      <h2>主な断面の公式一覧</h2>
+      <table class="data">
+        <tr><th>断面の形状</th><th>断面二次モーメント I</th><th>備考</th></tr>
+        <tr><td>長方形（幅b × 成h）</td><td>bh³ / 12</td><td>中立軸＝図心を通る水平軸</td></tr>
+        <tr><td>正方形（一辺a）</td><td>a⁴ / 12</td><td>どの図心軸まわりでも同じ</td></tr>
+        <tr><td>円形（直径D）</td><td>πD⁴ / 64</td><td>方向によらず一定</td></tr>
+        <tr><td>中空長方形</td><td>(BH³ − bh³) / 12</td><td>外形から内空を差し引く</td></tr>
+      </table>
+
+      <h2>断面係数との違い</h2>
+      <p>断面二次モーメント <em>I</em> とよく混同されるのが断面係数 <em>Z</em> です。役割の違いを押さえましょう。</p>
+      <ul>
+        <li><strong>断面二次モーメント I</strong>：たわみ（変形）の計算に使う。「曲げにくさ」の指標。</li>
+        <li><strong>断面係数 Z</strong>：曲げ応力度の計算（σ = M / Z）に使う。「壊れにくさ」の指標。</li>
+      </ul>
+      <p>長方形断面では Z = bh² / 6 で、I を縁までの距離 h/2 で割った値（Z = I / (h/2)）に一致します。</p>
+
+      <div class="note-box">
+        <span class="label">あわせて確認</span>
+        <p>断面性能の計算は<a href="../tools/section-calculator.html">無料の断面性能計算ツール</a>で検算できます。数値を入れるだけで I・Z・断面積・断面二次半径が求められます。</p>
+      </div>
+
+      <h2>まとめ</h2>
+      <ul>
+        <li>断面二次モーメントは断面の「曲げにくさ」を表す値（単位：mm⁴）。</li>
+        <li>長方形断面では I = bh³/12。成 h が3乗で効くため、梁は成を大きくするのが効率的。</li>
+        <li>たわみの検討には I、応力度の検討には断面係数 Z を使う。</li>
+      </ul>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>関連記事</h4>
+        <ul>
+          <li><a href="ouryoku.html">応力とは？軸力・せん断力・曲げモーメントの違い</a></li>
+          <li><a href="tawami.html">梁のたわみの計算方法｜公式一覧と覚え方のコツ</a></li>
+          <li><a href="rahmen-brace.html">ラーメン構造とブレース構造の違いとは？</a></li>
+          <li><a href="kyoyo-oryokudo.html">許容応力度計算とは？構造計算ルートの全体像</a></li>
+        </ul>
+      </div>
+      <div class="widget">
+        <h4>計算ツール</h4>
+        <ul>
+          <li><a href="../tools/section-calculator.html">断面性能計算ツール（無料）</a></li>
+        </ul>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

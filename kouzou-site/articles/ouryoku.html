@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>応力とは？軸力・せん断力・曲げモーメントの違いをわかりやすく解説｜構造設計ナビ</title>
+<meta name="description" content="構造力学の「応力」とは部材の内部に生じる力（軸力N・せん断力Q・曲げモーメントM）のこと。3つの応力の意味と違い、応力度との関係、部材ごとにどの応力が支配的になるかをわかりやすく解説します。">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="danmen-niji-moment.html">構造力学の基礎</a></li>
+        <li><a href="rahmen-brace.html">構造設計</a></li>
+        <li><a href="../tools/section-calculator.html">計算ツール</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › 構造力学の基礎 › 応力（軸力・せん断力・曲げモーメント）</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">構造力学の基礎</span>
+        <span>更新日：2026年6月12日</span>
+      </div>
+      <h1>応力とは？軸力・せん断力・曲げモーメントの違いをわかりやすく解説</h1>
+
+      <p>構造力学で最初に出てくる、そして最後まで付き合うことになるのが<strong>「応力」</strong>です。応力とは、荷重を受けた部材の<strong>内部に生じる力</strong>のことで、<strong>軸力 N・せん断力 Q・曲げモーメント M</strong> の3種類があります。</p>
+      <p>この記事では、3つの応力それぞれの意味とイメージ、混同しやすい「応力度」との違い、そして柱・梁・ブレースでどの応力が重要になるかを解説します。</p>
+
+      <h2>応力＝部材の中に生じる「内力」</h2>
+      <p>梁の上に人が乗ると、梁はたわみます。このとき梁の内部では、外からの荷重に抵抗してつり合いを保とうとする力が生じています。これが応力（内力）です。</p>
+      <p>応力をイメージする一番のコツは、<strong>「部材をスパッと仮想的に切断してみる」</strong>ことです。切断した断面で、切り離した片側がつり合いを保つために必要な力を考えると、それがその断面の応力です。切断面に生じうる力は、向きによって次の3種類に整理できます。</p>
+
+      <table class="data">
+        <tr><th>応力</th><th>記号</th><th>力の向き</th><th>部材をどうしようとするか</th></tr>
+        <tr><td>軸力</td><td>N</td><td>材軸方向（断面に垂直）</td><td>引き伸ばす／押し縮める</td></tr>
+        <tr><td>せん断力</td><td>Q</td><td>材軸と直交（断面に平行）</td><td>断面をずらす（ハサミで切るように）</td></tr>
+        <tr><td>曲げモーメント</td><td>M</td><td>断面を回転させる偶力</td><td>湾曲させる（反らせる）</td></tr>
+      </table>
+
+      <div class="point-box">
+        <span class="label">POINT</span>
+        <p>どんなに複雑な構造物でも、部材の断面に生じる応力はこの3つ（＋ねじりモーメント）しかありません。構造計算とは突き詰めれば「各断面の N・Q・M を求め、断面がそれに耐えられるか確かめる作業」です。</p>
+      </div>
+
+      <h2>① 軸力 N：引っ張る・押し縮める力</h2>
+      <p>軸力は、部材の<strong>材軸方向（長手方向）</strong>に作用する応力です。綱引きのロープに生じているのが引張軸力、積み重ねた本の一番下の本が受けているのが圧縮軸力のイメージです。</p>
+      <ul>
+        <li><strong>引張力（＋）</strong>：部材を引き伸ばそうとする。材料の強度をフルに使える効率のよい抵抗形式。</li>
+        <li><strong>圧縮力（−）</strong>：部材を押し縮めようとする。細長い部材では<strong>座屈</strong>（横にはらんで折れる現象）に注意が必要。</li>
+      </ul>
+      <p>軸力が支配的な部材の代表は、<strong>柱（圧縮）・ブレース・トラスの各部材・吊り材（引張）</strong>です。トラス構造の部材に曲げが生じない（軸力のみ）のは、両端がピン接合で、荷重が節点にだけ作用すると仮定しているためです。</p>
+
+      <h2>② せん断力 Q：断面をずらす力</h2>
+      <p>せん断力は、断面に<strong>平行な方向</strong>に作用し、断面を互い違いにずらそうとする応力です。ハサミで紙を切るとき、紙には上下逆向きの力が同時に作用して断面が「ずれて」切れます。これがせん断のイメージです。</p>
+      <p>梁では、荷重を支点まで「縦方向に受け流す」役割をせん断力が担っています。せん断破壊は<strong>粘りのない急激な破壊（脆性破壊）</strong>になりやすいため、耐震設計では特に警戒される応力です。RC梁にあばら筋（スターラップ）、柱に帯筋（フープ）を入れるのは、せん断破壊を防ぐためです。</p>
+
+      <h2>③ 曲げモーメント M：湾曲させる力</h2>
+      <p>曲げモーメントは、部材を<strong>湾曲させようとする</strong>応力です。定規の両端を持って曲げたときの状態がまさに曲げモーメントを受けた状態です。</p>
+      <p>曲げを受けた断面の内部では、<strong>凸側に引張、凹側に圧縮</strong>の応力度が同時に生じています。単純梁の中央下面にひび割れが入りやすいのは、下面（凸側）に引張が生じるためです。RC梁の主筋が下端に多く配置されるのもこの理由です。</p>
+      <p>曲げモーメントが支配的な部材の代表は<strong>梁</strong>と<strong>ラーメン構造の柱</strong>です。曲げに対する断面の強さ・剛性は断面の形で大きく変わります（詳しくは「<a href="danmen-niji-moment.html">断面二次モーメントとは？</a>」へ）。</p>
+
+      <div class="formula">
+        曲げ応力度　σ = M / Z
+        <span class="note">σ：曲げ応力度（N/mm²）／ M：曲げモーメント（N·mm）／ Z：断面係数（mm³）。応力 M を断面性能 Z で割ると応力度 σ になる。</span>
+      </div>
+
+      <h2>「応力」と「応力度」の違いに注意</h2>
+      <p>初学者が最もつまずきやすいのがこの用語です。建築の構造分野では、次のように使い分けます。</p>
+      <ul>
+        <li><strong>応力（N・Q・M）</strong>：断面全体に生じる力そのもの。単位は kN や kN·m。</li>
+        <li><strong>応力度（σ・τ）</strong>：応力を断面性能で割った、<strong>単位面積あたり</strong>の力。単位は N/mm²。</li>
+      </ul>
+      <p>材料が耐えられるかどうかは「単位面積あたり」で決まるため、断面検定は応力度で行います。<a href="kyoyo-oryokudo.html">許容応力度計算</a>の「生じる応力度 ≦ 許容応力度」という式は、まさにこの応力度の比較です。</p>
+
+      <div class="point-box">
+        <span class="label">覚え方</span>
+        <p>「応力＝力（kN）」「応力度＝密度のように面積で割った値（N/mm²）」。<strong>“度”が付いたら面積で割ってある</strong>、と覚えましょう。なお機械工学系の教科書では stress（＝応力度）を「応力」と呼ぶため、分野によって用語がずれる点にも注意してください。</p>
+      </div>
+
+      <h2>部材ごとの「主役の応力」まとめ</h2>
+      <table class="data">
+        <tr><th>部材</th><th>主に生じる応力</th><th>設計上の主な注意点</th></tr>
+        <tr><td>柱（ラーメン）</td><td>圧縮軸力＋曲げ＋せん断</td><td>軸力と曲げの組み合わせ、座屈</td></tr>
+        <tr><td>大梁</td><td>曲げ＋せん断</td><td>曲げ耐力・たわみ、せん断破壊の防止</td></tr>
+        <tr><td>ブレース・トラス材</td><td>軸力のみ</td><td>圧縮側の座屈、接合部の耐力</td></tr>
+        <tr><td>吊り材・テンション材</td><td>引張軸力のみ</td><td>接合部・定着部の耐力</td></tr>
+      </table>
+
+      <div class="note-box">
+        <span class="label">あわせて確認</span>
+        <p>応力の組み合わせ方と検定の流れは「<a href="kyoyo-oryokudo.html">許容応力度計算とは？</a>」、曲げに対する断面の性能は「<a href="danmen-niji-moment.html">断面二次モーメントとは？</a>」で解説しています。断面性能の計算は<a href="../tools/section-calculator.html">無料計算ツール</a>をどうぞ。</p>
+      </div>
+
+      <h2>まとめ</h2>
+      <ul>
+        <li>応力とは荷重に抵抗して部材内部に生じる力で、軸力 N・せん断力 Q・曲げモーメント M の3種類。</li>
+        <li>N は伸縮、Q はずれ、M は湾曲。仮想的に切断した断面のつり合いで考える。</li>
+        <li>「応力」は力（kN）、「応力度」は単位面積あたりの力（N/mm²）。断面検定は応力度で行う。</li>
+        <li>梁は曲げとせん断、柱は軸力＋曲げ、ブレースは軸力のみ、と部材ごとに主役の応力が異なる。</li>
+      </ul>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>関連記事</h4>
+        <ul>
+          <li><a href="danmen-niji-moment.html">断面二次モーメントとは？意味と計算方法</a></li>
+          <li><a href="tawami.html">梁のたわみの計算方法｜公式一覧と覚え方</a></li>
+          <li><a href="kyoyo-oryokudo.html">許容応力度計算とは？構造計算ルートの全体像</a></li>
+          <li><a href="rahmen-brace.html">ラーメン構造とブレース構造の違いとは？</a></li>
+        </ul>
+      </div>
+      <div class="widget">
+        <h4>計算ツール</h4>
+        <ul>
+          <li><a href="../tools/section-calculator.html">断面性能計算ツール（無料）</a></li>
+        </ul>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

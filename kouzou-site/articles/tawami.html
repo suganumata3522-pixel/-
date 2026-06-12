@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>梁のたわみの計算方法｜公式一覧と覚え方のコツ｜構造設計ナビ</title>
+<meta name="description" content="片持ち梁・単純梁のたわみ公式（PL³/3EI、5wL⁴/384EIなど）を一覧表で整理。公式の構造と覚え方のコツ、たわみ制限（L/250など）の実務上の考え方まで解説します。">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="danmen-niji-moment.html">構造力学の基礎</a></li>
+        <li><a href="rahmen-brace.html">構造設計</a></li>
+        <li><a href="../tools/section-calculator.html">計算ツール</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › 構造力学の基礎 › 梁のたわみ</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">構造力学の基礎</span>
+        <span>更新日：2026年6月12日</span>
+      </div>
+      <h1>梁のたわみの計算方法｜公式一覧と覚え方のコツ</h1>
+
+      <p>たわみは、荷重を受けた梁がどれだけ変形するかを表す量です。構造設計では強度（壊れないこと）だけでなく、<strong>使用上支障のない変形に収めること</strong>も求められます。建築士試験でも頻出のテーマです。</p>
+
+      <h2>たわみ公式の一覧</h2>
+      <p>代表的な支持条件・荷重条件のたわみ（最大値 δ）は次のとおりです。</p>
+
+      <table class="data">
+        <tr><th>支持条件</th><th>荷重条件</th><th>最大たわみ δ</th></tr>
+        <tr><td>片持ち梁</td><td>先端に集中荷重 P</td><td>PL³ / 3EI</td></tr>
+        <tr><td>片持ち梁</td><td>等分布荷重 w</td><td>wL⁴ / 8EI</td></tr>
+        <tr><td>単純梁</td><td>中央に集中荷重 P</td><td>PL³ / 48EI</td></tr>
+        <tr><td>単純梁</td><td>等分布荷重 w</td><td>5wL⁴ / 384EI</td></tr>
+        <tr><td>両端固定梁</td><td>中央に集中荷重 P</td><td>PL³ / 192EI</td></tr>
+        <tr><td>両端固定梁</td><td>等分布荷重 w</td><td>wL⁴ / 384EI</td></tr>
+      </table>
+
+      <div class="formula">
+        例：単純梁・等分布荷重　δ = 5wL⁴ / 384EI
+        <span class="note">δ：最大たわみ（mm）／ w：単位長さあたりの荷重（N/mm）／ L：スパン（mm）／ E：ヤング係数（N/mm²）／ I：断面二次モーメント（mm⁴）</span>
+      </div>
+
+      <h2>公式の構造を理解すれば覚えやすい</h2>
+      <p>6つの公式を丸暗記する必要はありません。すべての公式は次の形をしています。</p>
+      <ul>
+        <li><strong>集中荷重なら PL³、等分布荷重なら wL⁴</strong> が分子（wL が全荷重に相当するため、次数がひとつ上がる）。</li>
+        <li>分母は必ず <strong>EI ×（係数）</strong>。EI は「曲げ剛性」で、大きいほどたわみは小さい。</li>
+        <li>係数は拘束が強いほど大きくなる（＝たわみが小さくなる）：片持ち 3 → 単純 48 → 両端固定 192。</li>
+      </ul>
+
+      <div class="point-box">
+        <span class="label">覚え方のコツ</span>
+        <ul>
+          <li>単純梁・中央集中の「48」を基準に、両端固定はその4倍の「192」。</li>
+          <li>等分布の「5/384」は、両端固定になると分子の5が取れて「1/384」。</li>
+          <li>スパン L の影響が最も大きい（3乗〜4乗）。スパンが2倍になるとたわみは8〜16倍。</li>
+        </ul>
+      </div>
+
+      <h2>計算例：単純梁のたわみ</h2>
+      <p>スパン L = 6m の鉄骨単純梁（H-400×200×8×13、I = 2.37×10⁸ mm⁴、E = 2.05×10⁵ N/mm²）に、等分布荷重 w = 10 kN/m が作用する場合：</p>
+      <div class="formula">
+        δ = 5 × 10 × 6000⁴ / (384 × 2.05×10⁵ × 2.37×10⁸) ≒ 3.5 mm
+        <span class="note">w = 10 kN/m = 10 N/mm として計算</span>
+      </div>
+      <p>スパンに対する比率は δ/L = 3.5/6000 ≒ 1/1700 で、一般的な制限値より十分小さく収まっています。</p>
+
+      <h2>たわみの制限値</h2>
+      <p>建築の構造設計では、たわみそのものの値よりも<strong>スパンに対する比率</strong>で管理します。建築基準法施行令第82条にもとづく告示では、梁のたわみ（変形増大係数を考慮した値）を<strong>スパンの1/250以下</strong>とすることが原則とされています。</p>
+      <ul>
+        <li>たわみが大きいと、仕上げ材のひび割れ、建具の開閉不良、振動・歩行感の悪化につながる。</li>
+        <li>RC造ではクリープによる長期的な変形増大を考慮する（変形増大係数）。</li>
+        <li>片持ち梁は変形が出やすいため、実務ではより厳しめに管理することが多い。</li>
+      </ul>
+
+      <div class="note-box">
+        <span class="label">あわせて確認</span>
+        <p>たわみ計算に必要な断面二次モーメント I の意味と求め方は「<a href="danmen-niji-moment.html">断面二次モーメントとは？</a>」で解説しています。I の計算は<a href="../tools/section-calculator.html">断面性能計算ツール</a>が便利です。</p>
+      </div>
+
+      <h2>まとめ</h2>
+      <ul>
+        <li>たわみ公式は「荷重項（PL³ or wL⁴）÷ EI × 係数」という共通構造で覚える。</li>
+        <li>スパン L の影響が最大（3〜4乗）。スパンが伸びる設計ではたわみ検討が支配的になりやすい。</li>
+        <li>実務ではたわみをスパンの1/250以下などの比率で管理する。</li>
+      </ul>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>関連記事</h4>
+        <ul>
+          <li><a href="ouryoku.html">応力とは？軸力・せん断力・曲げモーメントの違い</a></li>
+          <li><a href="danmen-niji-moment.html">断面二次モーメントとは？意味と計算方法</a></li>
+          <li><a href="rahmen-brace.html">ラーメン構造とブレース構造の違いとは？</a></li>
+          <li><a href="kyoyo-oryokudo.html">許容応力度計算とは？構造計算ルートの全体像</a></li>
+        </ul>
+      </div>
+      <div class="widget">
+        <h4>計算ツール</h4>
+        <ul>
+          <li><a href="../tools/section-calculator.html">断面性能計算ツール（無料）</a></li>
+        </ul>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

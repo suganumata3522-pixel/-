@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ラーメン構造とブレース構造の違いとは？特徴と使い分けを解説｜構造設計ナビ</title>
+<meta name="description" content="ラーメン構造とブレース構造の違いを、水平力への抵抗メカニズムから解説。それぞれのメリット・デメリット、平面計画への影響、実務での使い分けの考え方をわかりやすくまとめました。">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="danmen-niji-moment.html">構造力学の基礎</a></li>
+        <li><a href="rahmen-brace.html">構造設計</a></li>
+        <li><a href="../tools/section-calculator.html">計算ツール</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › 構造形式と架構計画 › ラーメン構造とブレース構造</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">構造形式</span>
+        <span>更新日：2026年6月12日</span>
+      </div>
+      <h1>ラーメン構造とブレース構造の違いとは？特徴と使い分けを解説</h1>
+
+      <p>建物には地震や風による<strong>水平力</strong>が作用します。この水平力にどう抵抗するかで構造形式は大きく分かれ、代表的なのが<strong>ラーメン構造</strong>と<strong>ブレース構造</strong>です。両者の違いを抵抗メカニズムから理解すると、架構計画の考え方が一気にクリアになります。</p>
+
+      <h2>ラーメン構造：剛接合の「フレーム」で抵抗する</h2>
+      <p>ラーメン（Rahmen）はドイツ語で「額縁・枠」の意味。柱と梁を<strong>剛接合</strong>（回転しないよう一体化した接合）でつないだ骨組みです。</p>
+      <p>水平力を受けると、柱と梁が<strong>曲げ変形</strong>することで抵抗します。接合部が回転しないため、フレーム全体が平行四辺形に変形しようとするのを柱・梁の曲げ剛性で押し返すイメージです。</p>
+      <ul>
+        <li><strong>メリット</strong>：壁や斜材が不要で、開口・間取りの自由度が高い。将来の間仕切り変更にも対応しやすい。</li>
+        <li><strong>デメリット</strong>：曲げで抵抗するため部材断面が大きくなりがち。接合部の設計・施工がシビア。変形（層間変形）が出やすい。</li>
+      </ul>
+
+      <h2>ブレース構造：斜材の「軸力」で抵抗する</h2>
+      <p>ブレース構造は、柱・梁のフレームに<strong>斜材（ブレース）</strong>を入れた形式です。接合部はピン接合（回転を許す接合）でも成立します。</p>
+      <p>水平力を受けると、ブレースに<strong>軸力（引張・圧縮）</strong>が生じて抵抗します。部材は曲げより軸力で抵抗するほうがはるかに効率的なため、小さな断面で大きな水平力を負担できます。</p>
+      <ul>
+        <li><strong>メリット</strong>：水平剛性が高く、変形を小さく抑えられる。部材効率がよく経済的。</li>
+        <li><strong>デメリット</strong>：ブレースが入る構面には開口を設けにくく、平面計画が制約される。圧縮側ブレースの座屈に注意が必要。</li>
+      </ul>
+
+      <h2>比較表：一目でわかる違い</h2>
+      <table class="data">
+        <tr><th>項目</th><th>ラーメン構造</th><th>ブレース構造</th></tr>
+        <tr><td>水平力への抵抗</td><td>柱・梁の曲げ</td><td>ブレースの軸力</td></tr>
+        <tr><td>接合部</td><td>剛接合</td><td>ピン接合でも可</td></tr>
+        <tr><td>水平剛性</td><td>低め（変形しやすい）</td><td>高い（変形しにくい）</td></tr>
+        <tr><td>平面の自由度</td><td>高い</td><td>ブレース構面に制約</td></tr>
+        <tr><td>部材断面</td><td>大きくなりやすい</td><td>小さくできる</td></tr>
+        <tr><td>主な採用例</td><td>事務所ビル、店舗、RC造マンション</td><td>工場、倉庫、体育館、鉄骨低層</td></tr>
+      </table>
+
+      <div class="point-box">
+        <span class="label">POINT</span>
+        <p>「曲げで抵抗するか、軸力で抵抗するか」が本質的な違いです。軸力抵抗のほうが効率的ですが、その代償として斜材が平面計画を制約します。<strong>自由度を取るならラーメン、剛性と経済性を取るならブレース</strong>と覚えましょう。</p>
+      </div>
+
+      <h2>実務での使い分けと併用</h2>
+      <p>実際の設計では、どちらか一方だけでなく<strong>併用</strong>されることも多くあります。</p>
+      <ul>
+        <li><strong>事務所ビル</strong>：執務空間の自由度を確保するため基本はラーメンとし、コア（階段・EV まわり）にブレースや耐震壁を集約する。</li>
+        <li><strong>工場・倉庫</strong>：大空間と経済性を優先し、桁行方向はブレース構造、スパン方向は山形ラーメンとする構成が定番。</li>
+        <li><strong>戸建て木造</strong>：在来軸組工法は筋かい（＝ブレース）と耐力壁で水平力に抵抗する、ブレース構造の考え方に近い形式。</li>
+      </ul>
+      <p>併用する場合は、剛性の高いブレース側に水平力が集中するため、<strong>各構面の負担割合（剛性に応じた分担）</strong>を適切に評価することが重要です。また、ブレースの配置が偏ると建物がねじれる（偏心が大きくなる）ため、バランスのよい配置が求められます。</p>
+
+      <div class="note-box">
+        <span class="label">あわせて確認</span>
+        <p>水平力に対する検討の流れは「<a href="kyoyo-oryokudo.html">許容応力度計算とは？構造計算ルートの全体像</a>」で解説しています。</p>
+      </div>
+
+      <h2>まとめ</h2>
+      <ul>
+        <li>ラーメン構造は剛接合フレームの「曲げ」、ブレース構造は斜材の「軸力」で水平力に抵抗する。</li>
+        <li>平面の自由度ならラーメン、剛性・経済性ならブレース。</li>
+        <li>実務では併用が多く、剛性バランス（偏心）への配慮が鍵になる。</li>
+      </ul>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>関連記事</h4>
+        <ul>
+          <li><a href="danmen-niji-moment.html">断面二次モーメントとは？意味と計算方法</a></li>
+          <li><a href="tawami.html">梁のたわみの計算方法｜公式一覧と覚え方</a></li>
+          <li><a href="kyoyo-oryokudo.html">許容応力度計算とは？構造計算ルートの全体像</a></li>
+        </ul>
+      </div>
+      <div class="widget">
+        <h4>計算ツール</h4>
+        <ul>
+          <li><a href="../tools/section-calculator.html">断面性能計算ツール（無料）</a></li>
+        </ul>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

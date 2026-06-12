@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>許容応力度計算とは？構造計算ルートの全体像をやさしく解説｜構造設計ナビ</title>
+<meta name="description" content="許容応力度計算の基本的な考え方と、構造計算ルート1・2・3の違いを初学者向けに整理。一次設計と二次設計、保有水平耐力計算との関係までわかりやすく解説します。">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="danmen-niji-moment.html">構造力学の基礎</a></li>
+        <li><a href="rahmen-brace.html">構造設計</a></li>
+        <li><a href="../tools/section-calculator.html">計算ツール</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › 構造計算の実務 › 許容応力度計算</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">構造計算の実務</span>
+        <span>更新日：2026年6月12日</span>
+      </div>
+      <h1>許容応力度計算とは？構造計算ルートの全体像をやさしく解説</h1>
+
+      <p>許容応力度計算は、日本の構造設計の最も基本となる計算方法です。「部材に生じる応力度が、材料の許容応力度以下であることを確かめる」というシンプルな考え方ですが、構造計算ルートとの関係が初学者にはわかりにくいところです。この記事で全体像を整理しましょう。</p>
+
+      <h2>許容応力度計算の基本的な考え方</h2>
+      <p>建物に荷重（固定荷重・積載荷重・積雪・風・地震など）が作用すると、柱や梁の各部材に応力が生じます。許容応力度計算では、部材の各断面について次の関係を確認します。</p>
+
+      <div class="formula">
+        生じる応力度 σ ≦ 許容応力度 f
+        <span class="note">応力度＝応力を断面性能（断面積・断面係数など）で割った単位面積あたりの力。許容応力度＝材料の基準強度に安全率を考慮した値。</span>
+      </div>
+
+      <p>許容応力度には<strong>長期</strong>（常時の荷重に対するもの）と<strong>短期</strong>（地震や台風など稀にしか起きない荷重に対するもの）があり、それぞれの荷重の組み合わせに対して検定します。</p>
+
+      <h2>一次設計と二次設計</h2>
+      <p>現行の耐震設計は、2段階の目標を持っています。</p>
+      <ul>
+        <li><strong>一次設計</strong>：中規模（稀に発生する）の地震に対して、<strong>損傷しない</strong>こと。→ 許容応力度計算で確認。</li>
+        <li><strong>二次設計</strong>：大規模（極めて稀に発生する）の地震に対して、損傷はしても<strong>倒壊・崩壊しない</strong>こと。→ 層間変形角・剛性率・偏心率の確認や保有水平耐力計算で確認。</li>
+      </ul>
+
+      <div class="point-box">
+        <span class="label">POINT</span>
+        <p>「中地震では無傷、大地震では壊れても人命は守る」というのが日本の耐震設計の基本思想です。許容応力度計算は一次設計の中心的な手法にあたります。</p>
+      </div>
+
+      <h2>構造計算ルート1・2・3の違い</h2>
+      <p>建物の規模や形状に応じて、どこまでの計算を行うかが「ルート」として整理されています。</p>
+
+      <table class="data">
+        <tr><th>ルート</th><th>主な対象</th><th>計算内容のイメージ</th></tr>
+        <tr><td>ルート1</td><td>小規模な建物（例：鉄骨造の小規模建築、壁量の多いRC造など）</td><td>許容応力度計算＋壁量・部材規定などの仕様的な確認。二次設計の詳細計算は省略できる。</td></tr>
+        <tr><td>ルート2</td><td>中規模・整形な建物（高さ31m以下が目安）</td><td>許容応力度計算に加え、層間変形角・剛性率・偏心率を確認し、バランスのよさを担保する。</td></tr>
+        <tr><td>ルート3</td><td>大規模・不整形な建物</td><td>許容応力度計算に加え、保有水平耐力計算で大地震時の終局的な耐力を直接確認する。</td></tr>
+      </table>
+
+      <p>ルートの数字が大きいほど高度な計算を行う、という関係です。さらに高さ60mを超える超高層建築物などでは、時刻歴応答解析による検証と大臣認定が必要になります。</p>
+
+      <h3>剛性率・偏心率とは</h3>
+      <ul>
+        <li><strong>剛性率</strong>：高さ方向の剛性のバランス。特定の階だけ柔らかい（例：ピロティ階）と、その階に変形・損傷が集中するため、各階の剛性率が6/10以上であることを確認する。</li>
+        <li><strong>偏心率</strong>：平面的な剛性のバランス。重心と剛心がずれていると地震時に建物がねじれるため、偏心率が15/100以下であることを確認する。</li>
+      </ul>
+
+      <h2>計算の実務的な流れ</h2>
+      <ol>
+        <li><strong>荷重の設定</strong>：固定荷重・積載荷重を拾い、地震力（Ai分布による層せん断力）・風荷重などを算定する。</li>
+        <li><strong>応力解析</strong>：架構モデルに荷重を載荷し、各部材の応力（曲げ・せん断・軸力）を求める。現在は一貫構造計算プログラムを使うのが一般的。</li>
+        <li><strong>断面検定</strong>：各部材の応力度が許容応力度以下であることを確認する。</li>
+        <li><strong>二次設計の確認</strong>：ルートに応じて層間変形角（原則1/200以内）、剛性率、偏心率、保有水平耐力などを確認する。</li>
+      </ol>
+
+      <div class="note-box">
+        <span class="label">あわせて確認</span>
+        <p>断面検定で使う断面性能の基礎は「<a href="danmen-niji-moment.html">断面二次モーメントとは？</a>」、変形の検討は「<a href="tawami.html">梁のたわみの計算方法</a>」で解説しています。</p>
+      </div>
+
+      <h2>まとめ</h2>
+      <ul>
+        <li>許容応力度計算は「生じる応力度 ≦ 許容応力度」を確認する、一次設計の基本手法。</li>
+        <li>耐震設計は「中地震で損傷しない（一次設計）」「大地震で倒壊しない（二次設計）」の2段構え。</li>
+        <li>建物の規模・形状に応じてルート1〜3を選択し、ルート3では保有水平耐力計算まで行う。</li>
+      </ul>
+
+      <p style="font-size:0.82rem;color:var(--text-light);">※本記事は学習用の概説です。実際の設計にあたっては建築基準法・同施行令・告示および最新の技術基準解説書を必ず確認してください。</p>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>関連記事</h4>
+        <ul>
+          <li><a href="ouryoku.html">応力とは？軸力・せん断力・曲げモーメントの違い</a></li>
+          <li><a href="danmen-niji-moment.html">断面二次モーメントとは？意味と計算方法</a></li>
+          <li><a href="tawami.html">梁のたわみの計算方法｜公式一覧と覚え方</a></li>
+          <li><a href="rahmen-brace.html">ラーメン構造とブレース構造の違いとは？</a></li>
+        </ul>
+      </div>
+      <div class="widget">
+        <h4>計算ツール</h4>
+        <ul>
+          <li><a href="../tools/section-calculator.html">断面性能計算ツール（無料）</a></li>
+        </ul>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
