@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>断面性能計算ツール（長方形・円形）｜無料｜構造設計ナビ</title>
+<meta name="description" content="長方形・円形断面の断面積、断面二次モーメント、断面係数、断面二次半径を無料で自動計算。寸法を入力するだけで結果が表示されます。課題の検算や実務の概算に。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="../articles/danmen-niji-moment.html">構造力学の基礎</a></li>
+        <li><a href="../articles/rahmen-brace.html">構造設計</a></li>
+        <li><a href="section-calculator.html">計算ツール</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › 計算ツール › 断面性能計算</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">計算ツール</span>
+        <span>無料・登録不要</span>
+      </div>
+      <h1>断面性能計算ツール（長方形・円形断面）</h1>
+      <p>断面の寸法を入力するだけで、<strong>断面積 A・断面二次モーメント I・断面係数 Z・断面二次半径 i</strong> を自動計算します。課題の検算や実務での概算チェックにご利用ください。</p>
+
+      <div class="tool-panel">
+        <div class="field">
+          <label for="shape">断面の形状</label>
+          <select id="shape">
+            <option value="rect">長方形（幅 b × 成 h）</option>
+            <option value="circle">円形（直径 D）</option>
+          </select>
+        </div>
+        <div class="field" id="field-b">
+          <label for="input-b">幅 b<span class="unit">mm</span></label>
+          <input type="number" id="input-b" value="300" min="0" step="any">
+        </div>
+        <div class="field" id="field-h">
+          <label for="input-h">成（高さ）h<span class="unit">mm</span></label>
+          <input type="number" id="input-h" value="600" min="0" step="any">
+        </div>
+        <div class="field" id="field-d" style="display:none;">
+          <label for="input-d">直径 D<span class="unit">mm</span></label>
+          <input type="number" id="input-d" value="400" min="0" step="any">
+        </div>
+        <button class="btn-calc" id="btn-calc">計算する</button>
+
+        <div class="result-grid" id="results" style="display:none;">
+          <div class="result-item">
+            <div class="name">断面積 A</div>
+            <div class="value" id="res-a">–</div>
+            <div class="unit">mm²</div>
+          </div>
+          <div class="result-item">
+            <div class="name">断面二次モーメント I</div>
+            <div class="value" id="res-i">–</div>
+            <div class="unit">mm⁴</div>
+          </div>
+          <div class="result-item">
+            <div class="name">断面係数 Z</div>
+            <div class="value" id="res-z">–</div>
+            <div class="unit">mm³</div>
+          </div>
+          <div class="result-item">
+            <div class="name">断面二次半径 i</div>
+            <div class="value" id="res-r">–</div>
+            <div class="unit">mm</div>
+          </div>
+        </div>
+      </div>
+
+      <h2>計算式</h2>
+      <table class="data">
+        <tr><th>項目</th><th>長方形（b × h）</th><th>円形（直径 D）</th></tr>
+        <tr><td>断面積 A</td><td>b × h</td><td>πD² / 4</td></tr>
+        <tr><td>断面二次モーメント I</td><td>bh³ / 12</td><td>πD⁴ / 64</td></tr>
+        <tr><td>断面係数 Z</td><td>bh² / 6</td><td>πD³ / 32</td></tr>
+        <tr><td>断面二次半径 i</td><td colspan="2" style="text-align:center;">√(I / A)</td></tr>
+      </table>
+      <p>長方形断面は図心を通る強軸（幅 b に平行な軸）まわりの値です。公式の意味や導出は「<a href="../articles/danmen-niji-moment.html">断面二次モーメントとは？</a>」で詳しく解説しています。</p>
+
+      <div class="point-box">
+        <span class="label">ご注意</span>
+        <p>本ツールの計算結果は学習・検算の参考用です。実際の設計には使用せず、構造計算は法令・基準にもとづき責任ある技術者の判断のもとで行ってください。</p>
+      </div>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>関連記事</h4>
+        <ul>
+          <li><a href="../articles/danmen-niji-moment.html">断面二次モーメントとは？意味と計算方法</a></li>
+          <li><a href="../articles/tawami.html">梁のたわみの計算方法｜公式一覧と覚え方</a></li>
+          <li><a href="../articles/kyoyo-oryokudo.html">許容応力度計算とは？構造計算ルートの全体像</a></li>
+        </ul>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+<script>
+(function () {
+  var shape = document.getElementById('shape');
+  var fieldB = document.getElementById('field-b');
+  var fieldH = document.getElementById('field-h');
+  var fieldD = document.getElementById('field-d');
+
+  shape.addEventListener('change', function () {
+    var isRect = shape.value === 'rect';
+    fieldB.style.display = isRect ? '' : 'none';
+    fieldH.style.display = isRect ? '' : 'none';
+    fieldD.style.display = isRect ? 'none' : '';
+  });
+
+  // 有効数字4桁程度に整形（大きい値は指数表記）
+  function fmt(v) {
+    if (!isFinite(v)) return '–';
+    if (v !== 0 && (Math.abs(v) >= 1e6 || Math.abs(v) < 1e-3)) {
+      return v.toExponential(3).replace('e+', '×10^');
+    }
+    return Number(v.toPrecision(4)).toLocaleString('ja-JP');
+  }
+
+  document.getElementById('btn-calc').addEventListener('click', function () {
+    var A, I, Z;
+    if (shape.value === 'rect') {
+      var b = parseFloat(document.getElementById('input-b').value);
+      var h = parseFloat(document.getElementById('input-h').value);
+      if (!(b > 0) || !(h > 0)) { alert('幅と成には正の数値を入力してください。'); return; }
+      A = b * h;
+      I = b * Math.pow(h, 3) / 12;
+      Z = b * h * h / 6;
+    } else {
+      var D = parseFloat(document.getElementById('input-d').value);
+      if (!(D > 0)) { alert('直径には正の数値を入力してください。'); return; }
+      A = Math.PI * D * D / 4;
+      I = Math.PI * Math.pow(D, 4) / 64;
+      Z = Math.PI * Math.pow(D, 3) / 32;
+    }
+    var r = Math.sqrt(I / A);
+    document.getElementById('res-a').textContent = fmt(A);
+    document.getElementById('res-i').textContent = fmt(I);
+    document.getElementById('res-z').textContent = fmt(Z);
+    document.getElementById('res-r').textContent = fmt(r);
+    document.getElementById('results').style.display = '';
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 88" role="img" aria-label="構造設計ナビ">
+  <!-- マーク -->
+  <rect x="6" y="12" width="64" height="64" rx="14" fill="#1a3a5c"/>
+  <text x="38" y="56" text-anchor="middle" font-size="36" font-weight="bold" fill="#ffffff" font-family="'Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif">構</text>
+  <rect x="20" y="63" width="36" height="5" rx="2.5" fill="#e8843c"/>
+  <!-- ロゴタイプ -->
+  <text x="86" y="50" font-size="30" font-weight="900" fill="#1a3a5c" font-family="'Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif" letter-spacing="2">構造設計<tspan fill="#e8843c">ナビ</tspan></text>
+  <text x="88" y="72" font-size="11" fill="#6b7785" font-family="'Helvetica Neue',Arial,sans-serif" letter-spacing="4">STRUCTURAL DESIGN NAVI</text>
+</svg>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>構造設計ナビ｜建築構造・構造力学をわかりやすく学ぶ</title>
+<meta name="description" content="建築の構造設計・構造力学を、図解と計算ツールでわかりやすく解説。建築学生から若手構造設計者まで、基礎から実務・建築士試験対策までをサポートする学習サイトです。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="index.html">ホーム</a></li>
+        <li><a href="articles/ouryoku.html">構造力学の基礎</a></li>
+        <li><a href="articles/rahmen-brace.html">構造設計</a></li>
+        <li><a href="tools/section-calculator.html">計算ツール</a></li>
+        <li><a href="about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <h1>構造設計の「<span class="marker">わからない</span>」を、図解でなくす。</h1>
+    <p>建築学生・若手構造設計者のための学習メディア。構造力学の基礎から計算実務まで、1記事1テーマで解説します。</p>
+    <div class="search-wrap">
+      <div class="search-box">
+        <input type="text" id="site-search" placeholder="例：断面二次モーメント、たわみ、ルート2…" autocomplete="off">
+        <button type="button">検索</button>
+      </div>
+      <div class="search-results" id="search-results"></div>
+    </div>
+    <div class="hot-words">
+      <span>よく読まれているキーワード：</span>
+      <a href="articles/danmen-niji-moment.html">断面二次モーメント</a>
+      <a href="articles/tawami.html">たわみ</a>
+      <a href="articles/kyoyo-oryokudo.html">許容応力度</a>
+      <a href="articles/rahmen-brace.html">ラーメン構造</a>
+    </div>
+  </div>
+</section>
+
+<div class="section" style="padding-bottom:0;">
+  <div class="container card-grid">
+    <a href="articles/ouryoku.html" class="category-card">
+      <div class="icon">📐</div>
+      <h3>構造力学の基礎</h3>
+      <p>応力・断面性能・たわみ</p>
+    </a>
+    <a href="articles/rahmen-brace.html" class="category-card">
+      <div class="icon">🏗️</div>
+      <h3>構造形式</h3>
+      <p>ラーメン・ブレース・壁式</p>
+    </a>
+    <a href="articles/kyoyo-oryokudo.html" class="category-card">
+      <div class="icon">📊</div>
+      <h3>構造計算の実務</h3>
+      <p>荷重・ルート・検定</p>
+    </a>
+    <a href="tools/section-calculator.html" class="category-card">
+      <div class="icon">🧮</div>
+      <h3>計算ツール</h3>
+      <p>断面性能を自動計算</p>
+    </a>
+  </div>
+</div>
+
+<main class="container section">
+  <div class="page-layout" style="padding-top:0;">
+    <div>
+      <h2 class="section-title"><small>PICK UP</small>新着・人気の記事</h2>
+      <p class="section-lead">まずはここから。よく読まれている記事です。</p>
+      <div class="article-grid">
+        <a href="articles/ouryoku.html" class="article-card">
+          <div class="thumb thumb-blue"><span class="t-cat">構造力学の基礎</span><span class="t-icon">⚖️</span><span class="t-title">応力 N・Q・M</span></div>
+          <div class="body">
+            <h3>応力とは？軸力・せん断力・曲げモーメントの違いをわかりやすく解説</h3>
+            <div class="meta"><span>📅 2026.06.12</span><span>📖 約8分</span></div>
+          </div>
+        </a>
+        <a href="articles/oryokudo-hizumi.html" class="article-card">
+          <div class="thumb thumb-orange"><span class="t-cat">構造力学の基礎</span><span class="t-icon">📈</span><span class="t-title">σ = E・ε</span></div>
+          <div class="body">
+            <h3>応力度とひずみ度とは？ヤング係数と応力ひずみ曲線をわかりやすく解説</h3>
+            <div class="meta"><span>📅 2026.06.12</span><span>📖 約8分</span></div>
+          </div>
+        </a>
+        <a href="articles/danmen-niji-moment.html" class="article-card">
+          <div class="thumb thumb-teal"><span class="t-cat">構造力学の基礎</span><span class="t-icon">📐</span><span class="t-title">I = bh³/12</span></div>
+          <div class="body">
+            <h3>断面二次モーメントとは？意味と計算方法を図解でわかりやすく解説</h3>
+            <div class="meta"><span>📅 2026.06.12</span><span>📖 約7分</span></div>
+          </div>
+        </a>
+        <a href="articles/danmen-keisu.html" class="article-card">
+          <div class="thumb thumb-teal"><span class="t-cat">構造力学の基礎</span><span class="t-icon">📏</span><span class="t-title">σ = M/Z</span></div>
+          <div class="body">
+            <h3>断面係数とは？曲げ応力度の計算方法をわかりやすく解説</h3>
+            <div class="meta"><span>📅 2026.06.12</span><span>📖 約7分</span></div>
+          </div>
+        </a>
+        <a href="articles/tawami.html" class="article-card">
+          <div class="thumb thumb-purple"><span class="t-cat">構造力学の基礎</span><span class="t-icon">🌉</span><span class="t-title">たわみ公式 6選</span></div>
+          <div class="body">
+            <h3>梁のたわみの計算方法｜公式一覧と覚え方のコツ</h3>
+            <div class="meta"><span>📅 2026.06.12</span><span>📖 約8分</span></div>
+          </div>
+        </a>
+        <a href="articles/rahmen-brace.html" class="article-card">
+          <div class="thumb thumb-orange"><span class="t-cat">構造形式</span><span class="t-icon">🏗️</span><span class="t-title">ラーメン vs ブレース</span></div>
+          <div class="body">
+            <h3>ラーメン構造とブレース構造の違いとは？特徴と使い分けを解説</h3>
+            <div class="meta"><span>📅 2026.06.12</span><span>📖 約8分</span></div>
+          </div>
+        </a>
+        <a href="articles/kyoyo-oryokudo.html" class="article-card">
+          <div class="thumb thumb-blue"><span class="t-cat">計算実務</span><span class="t-icon">📊</span><span class="t-title">ルート 1・2・3</span></div>
+          <div class="body">
+            <h3>許容応力度計算とは？構造計算ルートの全体像をやさしく解説</h3>
+            <div class="meta"><span>📅 2026.06.12</span><span>📖 約9分</span></div>
+          </div>
+        </a>
+      </div>
+
+      <div class="roadmap">
+        <h2>🗺️ 学習ロードマップ｜どこから読めばいい？</h2>
+        <div class="steps">
+          <div class="step"><div class="no">STEP 1</div><h5><a href="articles/ouryoku.html">力のつり合いと応力</a></h5><p>応力N・Q・Mの意味を押さえる</p></div>
+          <div class="step"><div class="no">STEP 2</div><h5><a href="articles/danmen-niji-moment.html">断面性能とたわみ</a></h5><p>I・Zと変形の計算を身につける</p></div>
+          <div class="step"><div class="no">STEP 3</div><h5><a href="articles/rahmen-brace.html">構造形式を知る</a></h5><p>架構の選び方・使い分けを学ぶ</p></div>
+          <div class="step"><div class="no">STEP 4</div><h5><a href="articles/kyoyo-oryokudo.html">構造計算の実務へ</a></h5><p>荷重・ルート・断面検定の流れ</p></div>
+        </div>
+      </div>
+    </div>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>🏆 人気記事ランキング</h4>
+        <ol class="rank">
+          <li><a href="articles/danmen-niji-moment.html">断面二次モーメントとは？意味と計算方法を図解で解説</a></li>
+          <li><a href="articles/tawami.html">梁のたわみの計算方法｜公式一覧と覚え方のコツ</a></li>
+          <li><a href="articles/ouryoku.html">応力とは？軸力・せん断力・曲げモーメントの違い</a></li>
+          <li><a href="articles/kyoyo-oryokudo.html">許容応力度計算とは？ルートの全体像</a></li>
+          <li><a href="articles/rahmen-brace.html">ラーメン構造とブレース構造の違い</a></li>
+        </ol>
+      </div>
+      <div class="tool-banner">
+        <div class="tb-ic">🧮</div>
+        <h4>断面性能 計算ツール</h4>
+        <p>b×hを入れるだけで A・I・Z・i を自動計算</p>
+        <a href="tools/section-calculator.html">無料で使ってみる</a>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h5>構造設計ナビ</h5>
+        <p>建築の構造設計・構造力学を、図解と計算ツールでわかりやすく解説する学習サイトです。建築学生から若手構造設計者まで、日々の学習と実務をサポートします。</p>
+      </div>
+      <div>
+        <h5>コンテンツ</h5>
+        <ul>
+          <li><a href="articles/ouryoku.html">構造力学の基礎</a></li>
+          <li><a href="articles/rahmen-brace.html">構造形式と架構計画</a></li>
+          <li><a href="articles/kyoyo-oryokudo.html">構造計算の実務</a></li>
+          <li><a href="tools/section-calculator.html">計算ツール</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>サイト情報</h5>
+        <ul>
+          <li><a href="about.html">このサイトについて</a></li>
+          <li><a href="privacy.html">プライバシーポリシー</a></li>
+          <li><a href="about.html#disclaimer">免責事項</a></li>
+          <li><a href="about.html#contact">お問い合わせ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
