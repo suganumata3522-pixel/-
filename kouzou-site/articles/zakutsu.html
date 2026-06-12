@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>座屈とは？オイラーの公式と座屈長さをわかりやすく解説｜構造設計ナビ</title>
+<meta name="description" content="座屈は細長い圧縮材が急に横へはらんで耐力を失う現象。オイラーの座屈荷重 Pe=π²EI/Lk²、支持条件ごとの座屈長さ（0.5L〜2L）、細長比λの意味を図解と表でわかりやすく解説します。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="ouryoku.html">構造力学の基礎</a></li>
+        <li><a href="rahmen-brace.html">構造設計</a></li>
+        <li><a href="../tools/section-calculator.html">計算ツール</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › 構造力学の基礎 › 座屈</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">構造力学の基礎</span>
+        <span>更新日：2026年6月12日</span>
+      </div>
+      <h1>座屈とは？オイラーの公式と座屈長さをわかりやすく解説</h1>
+
+      <p>細い物差しを両手で押すと、折れる前に<strong>ふっと横にはらみます</strong>。これが座屈です。細長い圧縮材は、材料の強度に達するずっと手前で、横にはらんで耐力を失ってしまいます。柱やブレースの設計で必ず検討する、圧縮材の最重要テーマです。</p>
+
+      <h2>座屈は「強度」ではなく「剛性」の問題</h2>
+      <p>座屈は材料が壊れる現象ではなく、<strong>まっすぐな状態を保てなくなる不安定現象</strong>です。そのため座屈荷重は材料の強度（F値）には関係なく、<strong>曲げにくさ（EI）と長さ</strong>で決まります。</p>
+
+      <div class="formula">
+        オイラーの座屈荷重　Pe = π²EI / Lk²
+        <span class="note">Pe：弾性座屈荷重（N）／ E：ヤング係数（N/mm²）／ I：断面二次モーメント（mm⁴）／ Lk：座屈長さ（mm）</span>
+      </div>
+
+      <p>式から読み取れるポイントは3つです。</p>
+      <ul>
+        <li><strong>長さの2乗で効く</strong>：座屈長さが2倍になると座屈荷重は1/4。</li>
+        <li><strong>I は弱いほうの軸で決まる</strong>：部材は曲げにくい方向ではなく、<strong>曲げやすい方向（弱軸まわり）に座屈</strong>する。</li>
+        <li><strong>強度 F は式に入っていない</strong>：SS400を高強度鋼に変えても座屈荷重は上がらない（<a href="oryokudo-hizumi.html">Eは鋼種によらず一定</a>のため）。</li>
+      </ul>
+
+      <h2>座屈長さ Lk：支持条件で決まる「実質の長さ」</h2>
+      <p>同じ長さの柱でも、端部の固定度によって座屈のしやすさは大きく変わります。これを「座屈長さ」という仮想の長さに換算して扱います。</p>
+
+      <div class="diagram">
+        <svg viewBox="0 0 620 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="支持条件ごとの座屈形と座屈長さ">
+          <defs>
+            <marker id="zk" markerWidth="7" markerHeight="7" refX="5" refY="2.5" orient="auto"><path d="M0,0 L6,2.5 L0,5 Z" fill="#e8843c"/></marker>
+          </defs>
+          <!-- 両端ピン -->
+          <line x1="90" y1="18" x2="90" y2="42" stroke="#e8843c" stroke-width="3.5" marker-end="url(#zk)"/>
+          <line x1="90" y1="48" x2="90" y2="188" stroke="#c3ccd6" stroke-width="2.5" stroke-dasharray="6 5"/>
+          <path d="M90,48 Q122,118 90,188" fill="none" stroke="#1a3a5c" stroke-width="4.5"/>
+          <circle cx="90" cy="48" r="5" fill="#fff" stroke="#1a3a5c" stroke-width="2.5"/>
+          <circle cx="90" cy="188" r="5" fill="#fff" stroke="#1a3a5c" stroke-width="2.5"/>
+          <text x="90" y="214" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a3a5c">両端ピン</text>
+          <text x="90" y="232" text-anchor="middle" font-size="12.5" fill="#b35309" font-weight="bold">Lk = L</text>
+          <!-- 両端固定 -->
+          <line x1="240" y1="18" x2="240" y2="42" stroke="#e8843c" stroke-width="3.5" marker-end="url(#zk)"/>
+          <line x1="240" y1="48" x2="240" y2="188" stroke="#c3ccd6" stroke-width="2.5" stroke-dasharray="6 5"/>
+          <path d="M240,48 C240,78 262,98 262,118 C262,138 240,158 240,188" fill="none" stroke="#1a3a5c" stroke-width="4.5"/>
+          <line x1="224" y1="48" x2="256" y2="48" stroke="#1a3a5c" stroke-width="4"/>
+          <line x1="224" y1="188" x2="256" y2="188" stroke="#1a3a5c" stroke-width="4"/>
+          <text x="240" y="214" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a3a5c">両端固定</text>
+          <text x="240" y="232" text-anchor="middle" font-size="12.5" fill="#b35309" font-weight="bold">Lk = 0.5L</text>
+          <!-- 一端固定・一端ピン -->
+          <line x1="390" y1="18" x2="390" y2="42" stroke="#e8843c" stroke-width="3.5" marker-end="url(#zk)"/>
+          <line x1="390" y1="48" x2="390" y2="188" stroke="#c3ccd6" stroke-width="2.5" stroke-dasharray="6 5"/>
+          <path d="M390,48 Q418,98 404,138 Q396,162 390,188" fill="none" stroke="#1a3a5c" stroke-width="4.5"/>
+          <circle cx="390" cy="48" r="5" fill="#fff" stroke="#1a3a5c" stroke-width="2.5"/>
+          <line x1="374" y1="188" x2="406" y2="188" stroke="#1a3a5c" stroke-width="4"/>
+          <text x="390" y="214" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a3a5c">固定＋ピン</text>
+          <text x="390" y="232" text-anchor="middle" font-size="12.5" fill="#b35309" font-weight="bold">Lk = 0.7L</text>
+          <!-- 一端固定・一端自由 -->
+          <line x1="530" y1="18" x2="530" y2="42" stroke="#e8843c" stroke-width="3.5" marker-end="url(#zk)"/>
+          <line x1="530" y1="48" x2="530" y2="188" stroke="#c3ccd6" stroke-width="2.5" stroke-dasharray="6 5"/>
+          <path d="M530,188 Q534,108 564,52" fill="none" stroke="#1a3a5c" stroke-width="4.5"/>
+          <line x1="514" y1="188" x2="546" y2="188" stroke="#1a3a5c" stroke-width="4"/>
+          <text x="530" y="214" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a3a5c">固定＋自由</text>
+          <text x="530" y="232" text-anchor="middle" font-size="12.5" fill="#b35309" font-weight="bold">Lk = 2L</text>
+        </svg>
+        <p class="cap">図：端部の拘束が強いほど座屈長さは短くなり、座屈しにくくなる</p>
+      </div>
+
+      <table class="data">
+        <tr><th>支持条件</th><th>座屈長さ Lk</th><th>座屈荷重（両端ピン比）</th></tr>
+        <tr><td>両端固定</td><td>0.5L</td><td>4倍</td></tr>
+        <tr><td>一端固定・他端ピン</td><td>0.7L</td><td>約2倍</td></tr>
+        <tr><td>両端ピン</td><td>L</td><td>1（基準）</td></tr>
+        <tr><td>一端固定・他端自由</td><td>2L</td><td>1/4</td></tr>
+      </table>
+
+      <h2>細長比 λ：座屈しやすさの指標</h2>
+      <p>実務では、座屈のしやすさを<strong>細長比 λ</strong>で評価し、λ に応じて許容圧縮応力度を低減します。</p>
+
+      <div class="formula">
+        λ = Lk / i　（ i = √(I/A)：断面二次半径 ）
+        <span class="note">λが大きい＝細長い＝座屈しやすい。鋼構造では柱の細長比を200以下（一般部材は250以下）に制限。</span>
+      </div>
+
+      <p>断面二次半径 i は<a href="../tools/section-calculator.html">断面性能計算ツール</a>で自動計算できます。λ には弱軸まわりの i（小さいほうの値）を使う点に注意してください。</p>
+
+      <div class="point-box">
+        <span class="label">POINT（試験頻出）</span>
+        <ul>
+          <li>座屈荷重は <strong>EI に比例し、Lk² に反比例</strong>する。</li>
+          <li>座屈は<strong>弱軸まわり</strong>に生じる。H形鋼の柱で弱軸方向に胴縁や間柱で拘束するのはこのため。</li>
+          <li><strong>材料強度を上げても座屈荷重は変わらない</strong>。効くのは断面形状（I）と座屈長さ。</li>
+          <li>ブレースの圧縮側が座屈で効かなくなるため、<a href="rahmen-brace.html">ブレース構造</a>では引張側だけを当てにする設計（引張ブレース）も多い。</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="label">あわせて確認</span>
+        <p>座屈荷重を左右する I の意味は「<a href="danmen-niji-moment.html">断面二次モーメントとは？</a>」、E については「<a href="oryokudo-hizumi.html">応力度とひずみ度・ヤング係数</a>」をどうぞ。</p>
+      </div>
+
+      <h2>まとめ</h2>
+      <ul>
+        <li>座屈は細長い圧縮材が横にはらんで耐力を失う不安定現象。強度ではなく剛性（EI）の問題。</li>
+        <li>オイラー式 Pe = π²EI/Lk²。座屈長さは両端固定0.5L〜一端固定他端自由2L。</li>
+        <li>細長比 λ = Lk/i で座屈しやすさを評価し、許容圧縮応力度を低減する。</li>
+      </ul>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>関連記事</h4>
+        <ul>
+          <li><a href="ouryoku.html">応力とは？軸力・せん断力・曲げモーメントの違い</a></li>
+          <li><a href="danmen-niji-moment.html">断面二次モーメントとは？意味と計算方法</a></li>
+          <li><a href="oryokudo-hizumi.html">応力度とひずみ度とは？ヤング係数と応力ひずみ曲線</a></li>
+          <li><a href="rahmen-brace.html">ラーメン構造とブレース構造の違いとは？</a></li>
+        </ul>
+      </div>
+      <div class="tool-banner">
+        <div class="tb-ic">🧮</div>
+        <h4>断面性能 計算ツール</h4>
+        <p>b×hを入れるだけで A・I・Z・i を自動計算</p>
+        <a href="../tools/section-calculator.html">無料で使ってみる</a>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

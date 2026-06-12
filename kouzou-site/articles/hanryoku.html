@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>反力の求め方｜つり合い式の立て方を例題でわかりやすく解説｜構造設計ナビ</title>
+<meta name="description" content="支点反力の求め方を基礎から解説。ローラー・ピン・固定支点の反力の数、つり合い3式（ΣX=0・ΣY=0・ΣM=0）の立て方、モーメントをどの点で取ればよいかのコツを例題つきで説明します。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="ouryoku.html">構造力学の基礎</a></li>
+        <li><a href="rahmen-brace.html">構造設計</a></li>
+        <li><a href="../tools/section-calculator.html">計算ツール</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › 構造力学の基礎 › 反力の求め方</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">構造力学の基礎</span>
+        <span>更新日：2026年6月12日</span>
+      </div>
+      <h1>反力の求め方｜つり合い式の立て方を例題でわかりやすく解説</h1>
+
+      <p>反力とは、荷重を受けた構造物を支点が支え返す力のことです。<a href="qm-zu.html">Q図・M図</a>を描くにも、部材の応力を求めるにも、<strong>すべての計算は反力を求めることから始まります</strong>。手順はワンパターンなので、この記事の流れをそのまま身につけてください。</p>
+
+      <h2>支点の種類と反力の数</h2>
+      <p>支点には3種類あり、それぞれ「動きを拘束する方向」にだけ反力が生じます。</p>
+
+      <table class="data">
+        <tr><th>支点</th><th>記号のイメージ</th><th>反力の数</th><th>生じる反力</th></tr>
+        <tr><td>ローラー（移動端）</td><td>○つきの三角</td><td>1</td><td>鉛直反力 V</td></tr>
+        <tr><td>ピン（回転端）</td><td>三角</td><td>2</td><td>鉛直反力 V＋水平反力 H</td></tr>
+        <tr><td>固定（固定端）</td><td>壁にめり込む形</td><td>3</td><td>V＋H＋モーメント反力 M</td></tr>
+      </table>
+
+      <h2>つり合いの3式</h2>
+      <p>構造物が静止しているなら、外力（荷重＋反力）は必ずつり合っています。使える式はこの3つだけです。</p>
+
+      <div class="formula">
+        ΣX = 0　／　ΣY = 0　／　ΣM = 0
+        <span class="note">水平方向の力の合計＝0、鉛直方向の力の合計＝0、任意の点まわりのモーメントの合計＝0</span>
+      </div>
+
+      <h2>例題：偏った位置に集中荷重を受ける単純梁</h2>
+      <p>スパン L の単純梁（左：ピン支点A、右：ローラー支点B）の、左から a の位置に集中荷重 P が作用する場合を解いてみます。</p>
+
+      <div class="diagram">
+        <svg viewBox="0 0 560 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="偏心集中荷重を受ける単純梁の反力">
+          <defs>
+            <marker id="hr" markerWidth="7" markerHeight="7" refX="5" refY="2.5" orient="auto"><path d="M0,0 L6,2.5 L0,5 Z" fill="#e8843c"/></marker>
+            <marker id="hb" markerWidth="7" markerHeight="7" refX="5" refY="2.5" orient="auto"><path d="M0,0 L6,2.5 L0,5 Z" fill="#1a3a5c"/></marker>
+          </defs>
+          <line x1="200" y1="22" x2="200" y2="56" stroke="#e8843c" stroke-width="4" marker-end="url(#hr)"/>
+          <text x="212" y="38" font-size="15" font-weight="bold" fill="#b35309">P</text>
+          <line x1="80" y1="64" x2="480" y2="64" stroke="#1a3a5c" stroke-width="7" stroke-linecap="round"/>
+          <polygon points="88,70 72,96 104,96" fill="none" stroke="#1a3a5c" stroke-width="3"/>
+          <circle cx="472" cy="82" r="10" fill="none" stroke="#1a3a5c" stroke-width="3"/>
+          <line x1="452" y1="96" x2="492" y2="96" stroke="#1a3a5c" stroke-width="3"/>
+          <line x1="88" y1="140" x2="88" y2="106" stroke="#1a3a5c" stroke-width="3.5" marker-end="url(#hb)"/>
+          <text x="64" y="160" font-size="13" font-weight="bold" fill="#1a3a5c">VA = Pb/L</text>
+          <line x1="472" y1="140" x2="472" y2="106" stroke="#1a3a5c" stroke-width="3.5" marker-end="url(#hb)"/>
+          <text x="446" y="160" font-size="13" font-weight="bold" fill="#1a3a5c">VB = Pa/L</text>
+          <text x="144" y="86" font-size="12" fill="#6b7785">← a →</text>
+          <text x="320" y="86" font-size="12" fill="#6b7785">← b →</text>
+          <text x="280" y="182" text-anchor="middle" font-size="12" fill="#6b7785">スパン L = a + b</text>
+        </svg>
+        <p class="cap">図：反力は荷重に近い側の支点ほど大きい（てこの原理と同じ）</p>
+      </div>
+
+      <h3>手順1：支点を反力に置き換える</h3>
+      <p>A点はピンなので VA・HA、B点はローラーなので VB。未知数は3つで、つり合い式も3つなので解けます（＝静定構造）。</p>
+
+      <h3>手順2：ΣM = 0 を「未知数が消える点」で立てる</h3>
+      <p>モーメントの中心は どこに取ってもよいので、<strong>未知の反力が多く通る点</strong>を選ぶのがコツです。A点まわりで取れば、VA と HA はモーメントを作らないので消えます。</p>
+      <div class="formula">
+        ΣM(A) = 0：　P × a − VB × L = 0　→　VB = Pa / L
+      </div>
+
+      <h3>手順3：残りの式で解く</h3>
+      <div class="formula">
+        ΣY = 0：　VA + VB − P = 0　→　VA = P − Pa/L = Pb / L<br>
+        ΣX = 0：　HA = 0（水平荷重がないため）
+      </div>
+
+      <div class="point-box">
+        <span class="label">POINT</span>
+        <ul>
+          <li>モーメントの中心は<strong>ピン支点に取る</strong>のが定石（未知数が2つ消える）。</li>
+          <li>検算は「逆側の支点まわりの ΣM=0」で。VA = Pb/L が再現できれば正解。</li>
+          <li>荷重に<strong>近い側の支点ほど反力は大きい</strong>。感覚と合うか必ず確認する。</li>
+        </ul>
+      </div>
+
+      <h2>等分布荷重・モーメント荷重の扱い方</h2>
+      <ul>
+        <li><strong>等分布荷重 w</strong>：合力 wL を<strong>分布範囲の中央に置いた集中荷重</strong>に置き換えてからつり合い式を立てる。</li>
+        <li><strong>モーメント荷重 M</strong>：ΣY には現れず、ΣM の式にだけ「±M」として加える。作用位置によらず値は同じ。</li>
+        <li><strong>斜めの荷重</strong>：水平成分と鉛直成分に分解してから扱う。</li>
+      </ul>
+
+      <div class="note-box">
+        <span class="label">あわせて確認</span>
+        <p>反力が求められたら、次は「<a href="qm-zu.html">Q図・M図の描き方</a>」へ。つり合い式だけで解けない構造は「<a href="fuseitei.html">不静定構造とは？</a>」で解説しています。</p>
+      </div>
+
+      <h2>まとめ</h2>
+      <ul>
+        <li>反力の数は支点で決まる：ローラー1・ピン2・固定3。</li>
+        <li>使う式は ΣX=0・ΣY=0・ΣM=0 の3つだけ。</li>
+        <li>ΣM はピン支点まわりで取ると未知数が消えて一発で解ける。</li>
+        <li>等分布荷重は「中央に置いた合力」に置き換える。</li>
+      </ul>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>関連記事</h4>
+        <ul>
+          <li><a href="qm-zu.html">せん断力図（Q図）と曲げモーメント図（M図）の描き方</a></li>
+          <li><a href="ouryoku.html">応力とは？軸力・せん断力・曲げモーメントの違い</a></li>
+          <li><a href="fuseitei.html">不静定構造とは？静定・不静定の判別式</a></li>
+        </ul>
+      </div>
+      <div class="tool-banner">
+        <div class="tb-ic">🧮</div>
+        <h4>断面性能 計算ツール</h4>
+        <p>b×hを入れるだけで A・I・Z・i を自動計算</p>
+        <a href="../tools/section-calculator.html">無料で使ってみる</a>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

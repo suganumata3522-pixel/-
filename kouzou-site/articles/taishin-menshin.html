@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>耐震・制震・免震の違いとは？仕組みとコストを比較してわかりやすく解説｜構造設計ナビ</title>
+<meta name="description" content="耐震＝強さで耐える、制震＝揺れを吸収する、免震＝揺れを伝えない。3つの地震対策の仕組みの違い、効果・コスト・適する建物を図解と比較表でわかりやすく解説します。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="ouryoku.html">構造力学の基礎</a></li>
+        <li><a href="rahmen-brace.html">構造設計</a></li>
+        <li><a href="../tools/section-calculator.html">計算ツール</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › 構造形式・材料 › 耐震・制震・免震</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">構造形式・材料</span>
+        <span>更新日：2026年6月12日</span>
+      </div>
+      <h1>耐震・制震・免震の違いとは？仕組みとコストを比較してわかりやすく解説</h1>
+
+      <p>地震対策の構造方式は、<strong>耐震・制震（制振）・免震</strong>の3つに大別されます。違いはひと言で言えば「<strong>耐える・吸収する・伝えない</strong>」。それぞれの仕組みと使いどころを整理しましょう。</p>
+
+      <div class="diagram">
+        <svg viewBox="0 0 640 230" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="耐震・制震・免震の仕組みの違い">
+          <!-- 地面 -->
+          <line x1="20" y1="186" x2="620" y2="186" stroke="#6b7785" stroke-width="3"/>
+          <!-- 耐震 -->
+          <rect x="60" y="66" width="110" height="120" fill="#e3ecf5" stroke="#1a3a5c" stroke-width="3"/>
+          <line x1="60" y1="66" x2="170" y2="186" stroke="#1a3a5c" stroke-width="3"/>
+          <line x1="170" y1="66" x2="60" y2="186" stroke="#1a3a5c" stroke-width="3"/>
+          <text x="115" y="210" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a3a5c">耐震</text>
+          <text x="115" y="227" text-anchor="middle" font-size="11" fill="#6b7785">強さで耐える</text>
+          <!-- 制震 -->
+          <rect x="265" y="66" width="110" height="120" fill="#e3ecf5" stroke="#1a3a5c" stroke-width="3"/>
+          <rect x="296" y="106" width="48" height="40" rx="6" fill="#e8843c"/>
+          <line x1="265" y1="66" x2="296" y2="118" stroke="#1a3a5c" stroke-width="3"/>
+          <line x1="375" y1="66" x2="344" y2="118" stroke="#1a3a5c" stroke-width="3"/>
+          <line x1="265" y1="186" x2="300" y2="138" stroke="#1a3a5c" stroke-width="3"/>
+          <line x1="375" y1="186" x2="340" y2="138" stroke="#1a3a5c" stroke-width="3"/>
+          <text x="320" y="132" text-anchor="middle" font-size="11" font-weight="bold" fill="#fff">ダンパー</text>
+          <text x="320" y="210" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a3a5c">制震</text>
+          <text x="320" y="227" text-anchor="middle" font-size="11" fill="#6b7785">揺れを吸収する</text>
+          <!-- 免震 -->
+          <rect x="470" y="50" width="110" height="112" fill="#e3ecf5" stroke="#1a3a5c" stroke-width="3"/>
+          <g fill="#e8843c">
+            <rect x="478" y="166" width="22" height="16" rx="4"/>
+            <rect x="514" y="166" width="22" height="16" rx="4"/>
+            <rect x="550" y="166" width="22" height="16" rx="4"/>
+          </g>
+          <text x="525" y="210" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a3a5c">免震</text>
+          <text x="525" y="227" text-anchor="middle" font-size="11" fill="#6b7785">揺れを伝えない</text>
+        </svg>
+        <p class="cap">図：耐震は骨組み自体で耐え、制震はダンパーが揺れのエネルギーを吸収、免震は積層ゴム等で地面と縁を切る</p>
+      </div>
+
+      <h2>耐震構造：強さと粘りで「耐える」</h2>
+      <p>柱・梁・耐力壁・ブレースなど、<strong>骨組み自体の強度とじん性</strong>で地震力に抵抗する、最も基本的な方式です。現行の建築基準法が最低限要求しているのはこの耐震性能です。</p>
+      <ul>
+        <li><strong>長所</strong>:追加コストが不要（通常の構造設計そのもの）。あらゆる建物に適用可能。</li>
+        <li><strong>短所</strong>：建物は揺れるため、家具の転倒や仕上げ材の損傷は防ぎにくい。大地震後に部材の損傷（塑性変形）が残ることを許容する設計思想。</li>
+      </ul>
+
+      <h2>制震構造：ダンパーで揺れを「吸収する」</h2>
+      <p>骨組みの中に<strong>ダンパー（制震部材）</strong>を組み込み、地震エネルギーを熱に変えて吸収する方式です。オイルダンパー、鋼材ダンパー（低降伏点鋼）、粘弾性ダンパーなどがあります。</p>
+      <ul>
+        <li><strong>長所</strong>：揺れ・損傷を2〜3割程度低減できる。コスト増が比較的小さい。既存建物の補強（耐震改修）にも使いやすい。風揺れ対策にも有効。</li>
+        <li><strong>短所</strong>：免震ほどの劇的な低減効果はない。ダンパー配置のバランス設計が必要。</li>
+        <li><strong>採用例</strong>：超高層ビル（長周期地震動対策）、戸建て住宅用の簡易ダンパーも普及。</li>
+      </ul>
+
+      <h2>免震構造：地面と縁を切って「伝えない」</h2>
+      <p>建物と基礎の間に<strong>積層ゴム（アイソレータ）やすべり支承</strong>を入れ、地面の激しい揺れをゆっくりした揺れに変えて建物に伝える方式です。建物の<strong>固有周期を意図的に長く</strong>(3〜5秒程度)することで、地震の主要な周期成分から外します。</p>
+      <ul>
+        <li><strong>長所</strong>：揺れ（加速度）を1/3〜1/5程度まで激減できる。家具・設備・内部機能まで守れる唯一の方式。</li>
+        <li><strong>短所</strong>：コストが高い（免震層・クリアランス・維持管理）。軟弱地盤や長周期地震動との共振に注意。建物外周に変位用の隙間（50cm前後）が必要。</li>
+        <li><strong>採用例</strong>：病院・庁舎・データセンターなど「地震後も機能を止められない建物」、高級マンション。</li>
+      </ul>
+
+      <h2>3方式の比較表</h2>
+      <table class="data">
+        <tr><th>項目</th><th>耐震</th><th>制震</th><th>免震</th></tr>
+        <tr><td>考え方</td><td>強さで耐える</td><td>エネルギーを吸収</td><td>揺れを絶縁する</td></tr>
+        <tr><td>揺れの低減</td><td>—（揺れる）</td><td>2〜3割減</td><td>1/3〜1/5に激減</td></tr>
+        <tr><td>コスト</td><td>基準（追加なし）</td><td>＋数%程度</td><td>＋5〜10%以上</td></tr>
+        <tr><td>家具・設備の保護</td><td>△</td><td>○</td><td>◎</td></tr>
+        <tr><td>既存改修への適用</td><td>◎（補強）</td><td>○</td><td>△（大工事）</td></tr>
+        <tr><td>適する建物</td><td>すべての基本</td><td>高層・改修・住宅</td><td>病院・庁舎・重要施設</td></tr>
+      </table>
+
+      <div class="point-box">
+        <span class="label">POINT</span>
+        <ul>
+          <li>3方式は排他ではなく<strong>併用できる</strong>（例：免震＋制震の超高層）。</li>
+          <li>免震は「周期をずらす」技術。「<a href="koyu-shuki.html">固有周期と共振</a>」の考え方が理解の鍵。</li>
+          <li>どの方式でも、土台となるのは<a href="kyoyo-oryokudo.html">耐震設計の基本（一次設計・二次設計）</a>。免震・制震はその上乗せと考える。</li>
+        </ul>
+      </div>
+
+      <h2>まとめ</h2>
+      <ul>
+        <li>耐震＝骨組みの強さと粘りで耐える（法律上の基本）。</li>
+        <li>制震＝ダンパーで揺れのエネルギーを吸収。コスト控えめで高層や改修に有効。</li>
+        <li>免震＝積層ゴムで地面と絶縁し、揺れそのものを激減。機能継続が必要な建物に。</li>
+      </ul>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>関連記事</h4>
+        <ul>
+          <li><a href="kouzou-shurui.html">RC造・S造・SRC造・木造の違いとは？</a></li>
+          <li><a href="rahmen-brace.html">ラーメン構造とブレース構造の違いとは？</a></li>
+          <li><a href="kyoyo-oryokudo.html">許容応力度計算とは？構造計算ルートの全体像</a></li>
+        </ul>
+      </div>
+      <div class="tool-banner">
+        <div class="tb-ic">🧮</div>
+        <h4>断面性能 計算ツール</h4>
+        <p>b×hを入れるだけで A・I・Z・i を自動計算</p>
+        <a href="../tools/section-calculator.html">無料で使ってみる</a>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
