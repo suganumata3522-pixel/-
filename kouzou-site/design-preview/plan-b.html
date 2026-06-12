@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>案B 学習プラットフォーム型｜構造設計ナビ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --blue: #3b82f6;
+  --blue-deep: #1d4ed8;
+  --yellow: #fbbf24;
+  --ink: #334155;
+  --sub: #64748b;
+  --bg: #f1f6fc;
+  --card: #ffffff;
+  --line: #e2e8f0;
+  --green: #10b981;
+  --pink: #f472b6;
+  --r: 18px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:"Noto Sans JP",sans-serif; background:var(--bg); color:var(--ink); line-height:1.9; font-size:15.5px; }
+h1,h2,h3,h4,.logo { font-family:"M PLUS Rounded 1c","Noto Sans JP",sans-serif; }
+a { text-decoration:none; color:inherit; }
+.container { max-width:1100px; margin:0 auto; padding:0 24px; }
+
+/* header */
+.header { background:#fff; box-shadow:0 1px 0 var(--line); position:sticky; top:0; z-index:50; }
+.header-in { height:66px; display:flex; align-items:center; justify-content:space-between; }
+.logo { display:flex; align-items:center; gap:10px; font-weight:800; font-size:1.25rem; color:var(--blue-deep); }
+.logo .mark { width:38px; height:38px; border-radius:12px; background:linear-gradient(135deg,var(--blue),var(--blue-deep)); color:#fff; display:flex; align-items:center; justify-content:center; font-size:1.1rem; box-shadow:0 3px 8px rgba(59,130,246,.35); }
+.gnav { display:flex; gap:6px; align-items:center; font-size:0.9rem; font-weight:700; }
+.gnav a { padding:9px 16px; border-radius:999px; color:var(--sub); }
+.gnav a:hover { background:var(--bg); color:var(--blue-deep); }
+.gnav .cta { background:var(--yellow); color:#7c4a03; box-shadow:0 3px 0 #d99e06; }
+.gnav .cta:hover { background:#f6b40e; color:#7c4a03; }
+
+/* hero */
+.hero { padding:64px 0 0; overflow:hidden; }
+.hero-in { display:grid; grid-template-columns:1.15fr 1fr; gap:36px; align-items:center; }
+.hero h1 { font-size:clamp(1.6rem,3.6vw,2.4rem); font-weight:800; color:#1e3a5f; line-height:1.5; }
+.hero h1 .y { background:linear-gradient(transparent 60%, #fde68a 60%); }
+.hero p { color:var(--sub); margin:16px 0 26px; }
+.hero .btns { display:flex; gap:14px; flex-wrap:wrap; }
+.btn { display:inline-flex; align-items:center; gap:8px; font-weight:800; border-radius:999px; padding:14px 30px; font-size:0.95rem; transition:.15s; }
+.btn-main { background:var(--blue); color:#fff; box-shadow:0 4px 0 var(--blue-deep); }
+.btn-main:hover { transform:translateY(2px); box-shadow:0 2px 0 var(--blue-deep); }
+.btn-sub { background:#fff; color:var(--blue-deep); border:2px solid var(--blue); }
+.hero .stats { display:flex; gap:26px; margin-top:28px; }
+.hero .stat b { font-size:1.4rem; color:var(--blue-deep); font-family:"M PLUS Rounded 1c"; }
+.hero .stat span { display:block; font-size:0.72rem; color:var(--sub); }
+.hero-art { text-align:center; }
+.hero-art svg { width:100%; max-width:420px; filter:drop-shadow(0 16px 28px rgba(30,64,175,.18)); }
+
+/* course path */
+.section { padding:64px 0 10px; }
+.sec-title { text-align:center; margin-bottom:8px; }
+.sec-title .en { font-size:0.7rem; letter-spacing:.3em; color:var(--blue); font-weight:800; }
+.sec-title h2 { font-size:1.5rem; font-weight:800; color:#1e3a5f; }
+.sec-lead { text-align:center; color:var(--sub); font-size:0.9rem; margin-bottom:36px; }
+.path { display:grid; grid-template-columns:repeat(4,1fr); gap:18px; }
+.course { background:var(--card); border-radius:var(--r); padding:26px 20px 22px; text-align:center; position:relative; box-shadow:0 2px 0 var(--line); border:2px solid transparent; transition:.2s; }
+.course:hover { border-color:var(--blue); transform:translateY(-4px); box-shadow:0 14px 28px rgba(59,130,246,.16); }
+.course .lv { position:absolute; top:-12px; left:50%; transform:translateX(-50%); background:var(--blue); color:#fff; font-size:0.68rem; font-weight:800; padding:3px 14px; border-radius:999px; letter-spacing:.1em; }
+.course:nth-child(2) .lv { background:var(--green); }
+.course:nth-child(3) .lv { background:var(--yellow); color:#7c4a03; }
+.course:nth-child(4) .lv { background:var(--pink); }
+.course .ic { font-size:2.4rem; margin:8px 0 6px; }
+.course h3 { font-size:1.02rem; color:#1e3a5f; font-weight:800; }
+.course p { font-size:0.78rem; color:var(--sub); margin:6px 0 14px; }
+.course .lessons { font-size:0.72rem; background:var(--bg); border-radius:999px; padding:4px 12px; color:var(--blue-deep); font-weight:700; display:inline-block; }
+
+/* lessons list */
+.lesson-wrap { background:#fff; border-radius:24px; padding:36px; margin-top:56px; box-shadow:0 2px 0 var(--line); }
+.lesson-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; }
+.lesson-head h2 { font-size:1.2rem; color:#1e3a5f; font-weight:800; }
+.lesson-head a { font-size:0.82rem; color:var(--blue); font-weight:700; }
+.lesson { display:flex; align-items:center; gap:18px; padding:16px 10px; border-radius:14px; transition:.15s; }
+.lesson:hover { background:var(--bg); }
+.lesson + .lesson { border-top:1px dashed var(--line); }
+.lesson .no { flex:0 0 44px; height:44px; border-radius:14px; display:flex; align-items:center; justify-content:center; font-family:"M PLUS Rounded 1c"; font-weight:800; color:#fff; font-size:1.05rem; }
+.l-1 { background:linear-gradient(135deg,#60a5fa,#3b82f6); }
+.l-2 { background:linear-gradient(135deg,#34d399,#10b981); }
+.l-3 { background:linear-gradient(135deg,#fbbf24,#f59e0b); }
+.l-4 { background:linear-gradient(135deg,#f472b6,#ec4899); }
+.l-5 { background:linear-gradient(135deg,#a78bfa,#8b5cf6); }
+.lesson .tx h3 { font-size:0.98rem; color:#1e3a5f; font-weight:700; }
+.lesson .tx p { font-size:0.78rem; color:var(--sub); }
+.lesson .go { margin-left:auto; flex:0 0 auto; background:var(--bg); color:var(--blue-deep); border-radius:999px; font-size:0.78rem; font-weight:800; padding:8px 18px; }
+.lesson:hover .go { background:var(--blue); color:#fff; }
+
+/* tool banner */
+.tool { margin-top:56px; background:linear-gradient(135deg,#1e3a5f,#1d4ed8); border-radius:24px; padding:40px; color:#fff; display:flex; align-items:center; justify-content:space-between; gap:28px; flex-wrap:wrap; position:relative; overflow:hidden; }
+.tool::after { content:"🧮"; position:absolute; right:-10px; bottom:-26px; font-size:7rem; opacity:.15; }
+.tool h2 { font-size:1.3rem; font-weight:800; margin-bottom:6px; }
+.tool p { color:#bfdbfe; font-size:0.88rem; }
+.tool .btn-main { background:var(--yellow); color:#7c4a03; box-shadow:0 4px 0 #d99e06; }
+
+/* footer */
+.footer { margin-top:72px; background:#1e3a5f; color:#9db4cd; font-size:0.82rem; }
+.footer-in { padding:36px 0 26px; display:flex; justify-content:space-between; gap:24px; flex-wrap:wrap; align-items:center; }
+.footer .f-logo { color:#fff; font-family:"M PLUS Rounded 1c"; font-weight:800; font-size:1.1rem; }
+.footer ul { list-style:none; display:flex; gap:22px; }
+.footer a:hover { color:#fff; }
+.copy { border-top:1px solid rgba(255,255,255,.12); text-align:center; padding:14px 0; font-size:0.72rem; }
+
+@media (max-width:860px){
+  .hero-in { grid-template-columns:1fr; }
+  .path { grid-template-columns:repeat(2,1fr); }
+  .gnav { display:none; }
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="container header-in">
+    <a href="#" class="logo"><span class="mark">構</span>構造設計ナビ</a>
+    <nav class="gnav">
+      <a href="#">コース一覧</a>
+      <a href="#">記事をさがす</a>
+      <a href="#">計算ツール</a>
+      <a href="#" class="cta">✏️ 学習をはじめる</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container hero-in">
+    <div>
+      <h1>ゲームみたいに、<br><span class="y">構造力学</span>がわかっていく。</h1>
+      <p>応力って何？から構造計算ルートまで。1記事10分・図解つきのレッスン形式で、構造設計の基礎をステップアップしながら学べます。</p>
+      <div class="btns">
+        <a href="#" class="btn btn-main">🚀 STEP1からはじめる</a>
+        <a href="#" class="btn btn-sub">計算ツールを試す</a>
+      </div>
+      <div class="stats">
+        <div class="stat"><b>30+</b><span>レッスン記事(予定)</span></div>
+        <div class="stat"><b>4</b><span>学習コース</span></div>
+        <div class="stat"><b>無料</b><span>すべてのコンテンツ</span></div>
+      </div>
+    </div>
+    <div class="hero-art">
+      <svg viewBox="0 0 420 320" xmlns="http://www.w3.org/2000/svg">
+        <rect x="20" y="280" width="380" height="14" rx="7" fill="#cbd5e1"/>
+        <rect x="60" y="120" width="18" height="160" rx="4" fill="#3b82f6"/>
+        <rect x="200" y="120" width="18" height="160" rx="4" fill="#3b82f6"/>
+        <rect x="340" y="120" width="18" height="160" rx="4" fill="#3b82f6"/>
+        <rect x="48" y="100" width="324" height="20" rx="6" fill="#1d4ed8"/>
+        <rect x="48" y="190" width="324" height="16" rx="6" fill="#60a5fa"/>
+        <line x1="78" y1="120" x2="200" y2="190" stroke="#fbbf24" stroke-width="8" stroke-linecap="round"/>
+        <line x1="200" y1="120" x2="78" y2="190" stroke="#fbbf24" stroke-width="8" stroke-linecap="round"/>
+        <circle cx="300" cy="60" r="34" fill="#fde68a"/>
+        <path d="M286 60l10 10 20-22" stroke="#b45309" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="120" y="36" width="92" height="40" rx="12" fill="#fff" stroke="#e2e8f0" stroke-width="2"/>
+        <text x="166" y="62" text-anchor="middle" font-size="17" font-weight="bold" fill="#1d4ed8" font-family="sans-serif">N・Q・M</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<main class="container section">
+  <div class="sec-title"><div class="en">COURSE</div><h2>4つのコースでステップアップ</h2></div>
+  <p class="sec-lead">基礎から順番に。前のコースが終わったら次へ進みましょう。</p>
+  <div class="path">
+    <a href="#" class="course"><span class="lv">STEP 1</span><div class="ic">📐</div><h3>構造力学の基礎</h3><p>応力・断面性能・たわみ</p><span class="lessons">12レッスン</span></a>
+    <a href="#" class="course"><span class="lv">STEP 2</span><div class="ic">🏗️</div><h3>構造形式と材料</h3><p>ラーメン・ブレース・RC/S造</p><span class="lessons">7レッスン</span></a>
+    <a href="#" class="course"><span class="lv">STEP 3</span><div class="ic">📊</div><h3>構造計算の実務</h3><p>荷重・ルート・断面検定</p><span class="lessons">8レッスン</span></a>
+    <a href="#" class="course"><span class="lv">STEP 4</span><div class="ic">🎓</div><h3>試験・キャリア</h3><p>建築士試験・構造設計の仕事</p><span class="lessons">4レッスン</span></a>
+  </div>
+
+  <div class="lesson-wrap">
+    <div class="lesson-head">
+      <h2>📚 STEP1：構造力学の基礎 — レッスン一覧</h2>
+      <a href="#">すべて見る →</a>
+    </div>
+    <a href="#" class="lesson">
+      <div class="no l-1">1</div>
+      <div class="tx"><h3>応力とは？軸力・せん断力・曲げモーメントの違い</h3><p>すべての出発点。3つの応力をイメージでつかむ ⏱ 約8分</p></div>
+      <span class="go">よむ →</span>
+    </a>
+    <a href="#" class="lesson">
+      <div class="no l-2">2</div>
+      <div class="tx"><h3>断面二次モーメントとは？意味と計算方法</h3><p>曲げにくさを決める I=bh³/12 のひみつ ⏱ 約7分</p></div>
+      <span class="go">よむ →</span>
+    </a>
+    <a href="#" class="lesson">
+      <div class="no l-3">3</div>
+      <div class="tx"><h3>梁のたわみの計算方法｜公式一覧と覚え方のコツ</h3><p>6つの公式をひとつの形で覚える ⏱ 約8分</p></div>
+      <span class="go">よむ →</span>
+    </a>
+    <a href="#" class="lesson">
+      <div class="no l-4">4</div>
+      <div class="tx"><h3>ラーメン構造とブレース構造の違いとは？</h3><p>曲げで耐えるか、軸力で耐えるか ⏱ 約8分</p></div>
+      <span class="go">よむ →</span>
+    </a>
+    <a href="#" class="lesson">
+      <div class="no l-5">5</div>
+      <div class="tx"><h3>許容応力度計算とは？構造計算ルートの全体像</h3><p>ルート1・2・3、一次設計と二次設計 ⏱ 約9分</p></div>
+      <span class="go">よむ →</span>
+    </a>
+  </div>
+
+  <div class="tool">
+    <div>
+      <h2>断面性能 計算ツール（無料）</h2>
+      <p>幅と成を入れるだけで、A・I・Z・断面二次半径を自動計算。課題の検算にどうぞ。</p>
+    </div>
+    <a href="#" class="btn btn-main">🧮 ツールをひらく</a>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container footer-in">
+    <div class="f-logo">構造設計ナビ</div>
+    <ul>
+      <li><a href="#">このサイトについて</a></li>
+      <li><a href="#">プライバシーポリシー</a></li>
+      <li><a href="#">お問い合わせ</a></li>
+    </ul>
+  </div>
+  <div class="copy">© 2026 構造設計ナビ</div>
+</footer>
+
+</body>
+</html>

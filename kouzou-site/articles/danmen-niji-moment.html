@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>断面二次モーメントとは？意味と計算方法を図解でわかりやすく解説｜構造設計ナビ</title>
 <meta name="description" content="断面二次モーメントは部材の「曲げにくさ」を表す断面性能です。長方形断面の公式 I=bh³/12 の意味、単位、計算例、断面係数との違いまでわかりやすく解説します。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
@@ -54,6 +57,26 @@
       <h2>長方形断面の公式</h2>
       <p>幅 <em>b</em>、成（高さ）<em>h</em> の長方形断面の、強軸まわりの断面二次モーメントは次式で求められます。</p>
 
+      <div class="diagram">
+        <svg viewBox="0 0 440 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="長方形断面と中立軸">
+          <defs>
+            <marker id="dm" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#6b7785"/></marker>
+          </defs>
+          <!-- 断面 -->
+          <rect x="150" y="28" width="120" height="180" fill="#e3ecf5" stroke="#1a3a5c" stroke-width="2.5"/>
+          <!-- 中立軸 -->
+          <line x1="118" y1="118" x2="302" y2="118" stroke="#e8843c" stroke-width="2.5" stroke-dasharray="9 6"/>
+          <text x="310" y="123" font-size="12.5" fill="#b35309" font-weight="bold">中立軸（図心）</text>
+          <!-- 寸法 b -->
+          <line x1="150" y1="228" x2="270" y2="228" stroke="#6b7785" stroke-width="1.5" marker-start="url(#dm)" marker-end="url(#dm)"/>
+          <text x="210" y="246" text-anchor="middle" font-size="13" fill="#1f2933" font-weight="bold">b（幅）</text>
+          <!-- 寸法 h -->
+          <line x1="128" y1="28" x2="128" y2="208" stroke="#6b7785" stroke-width="1.5" marker-start="url(#dm)" marker-end="url(#dm)"/>
+          <text x="112" y="123" text-anchor="end" font-size="13" fill="#1f2933" font-weight="bold">h（成）</text>
+        </svg>
+        <p class="cap">図：長方形断面。中立軸（図心を通る軸）まわりの曲げにくさが I = bh³/12</p>
+      </div>
+
       <div class="formula">
         I = bh³ / 12
         <span class="note">I：断面二次モーメント（mm⁴）／ b：断面の幅（mm）／ h：断面の成・高さ（mm）</span>
@@ -102,16 +125,17 @@
         <h4>関連記事</h4>
         <ul>
           <li><a href="ouryoku.html">応力とは？軸力・せん断力・曲げモーメントの違い</a></li>
+          <li><a href="oryokudo-hizumi.html">応力度とひずみ度とは？ヤング係数と応力ひずみ曲線</a></li>
           <li><a href="tawami.html">梁のたわみの計算方法｜公式一覧と覚え方のコツ</a></li>
           <li><a href="rahmen-brace.html">ラーメン構造とブレース構造の違いとは？</a></li>
           <li><a href="kyoyo-oryokudo.html">許容応力度計算とは？構造計算ルートの全体像</a></li>
         </ul>
       </div>
-      <div class="widget">
-        <h4>計算ツール</h4>
-        <ul>
-          <li><a href="../tools/section-calculator.html">断面性能計算ツール（無料）</a></li>
-        </ul>
+      <div class="tool-banner">
+        <div class="tb-ic">🧮</div>
+        <h4>断面性能 計算ツール</h4>
+        <p>b×hを入れるだけで A・I・Z・i を自動計算</p>
+        <a href="../tools/section-calculator.html">無料で使ってみる</a>
       </div>
       <div class="ad-slot">広告スペース（300×250）</div>
     </aside>

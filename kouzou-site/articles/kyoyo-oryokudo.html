@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>許容応力度計算とは？構造計算ルートの全体像をやさしく解説｜構造設計ナビ</title>
 <meta name="description" content="許容応力度計算の基本的な考え方と、構造計算ルート1・2・3の違いを初学者向けに整理。一次設計と二次設計、保有水平耐力計算との関係までわかりやすく解説します。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
@@ -57,6 +60,37 @@
         <li><strong>一次設計</strong>：中規模（稀に発生する）の地震に対して、<strong>損傷しない</strong>こと。→ 許容応力度計算で確認。</li>
         <li><strong>二次設計</strong>：大規模（極めて稀に発生する）の地震に対して、損傷はしても<strong>倒壊・崩壊しない</strong>こと。→ 層間変形角・剛性率・偏心率の確認や保有水平耐力計算で確認。</li>
       </ul>
+
+      <div class="diagram">
+        <svg viewBox="0 0 640 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="一次設計と二次設計の考え方">
+          <defs>
+            <marker id="kf" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#6b7785"/></marker>
+          </defs>
+          <!-- 一次設計 -->
+          <rect x="20" y="30" width="160" height="56" rx="8" fill="#e3ecf5" stroke="#1a3a5c" stroke-width="2"/>
+          <text x="100" y="53" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a3a5c">中規模の地震</text>
+          <text x="100" y="73" text-anchor="middle" font-size="11" fill="#6b7785">稀に発生（震度5強程度）</text>
+          <line x1="186" y1="58" x2="222" y2="58" stroke="#6b7785" stroke-width="2.5" marker-end="url(#kf)"/>
+          <rect x="228" y="30" width="150" height="56" rx="8" fill="#fff" stroke="#1a3a5c" stroke-width="2"/>
+          <text x="303" y="63" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#1f2933">損傷させない</text>
+          <line x1="384" y1="58" x2="420" y2="58" stroke="#6b7785" stroke-width="2.5" marker-end="url(#kf)"/>
+          <rect x="426" y="30" width="194" height="56" rx="8" fill="#fdf1e7" stroke="#e8843c" stroke-width="2"/>
+          <text x="523" y="53" text-anchor="middle" font-size="13" font-weight="bold" fill="#b35309">一次設計</text>
+          <text x="523" y="73" text-anchor="middle" font-size="11.5" fill="#1f2933">許容応力度計算で確認</text>
+          <!-- 二次設計 -->
+          <rect x="20" y="110" width="160" height="56" rx="8" fill="#e3ecf5" stroke="#1a3a5c" stroke-width="2"/>
+          <text x="100" y="133" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a3a5c">大規模の地震</text>
+          <text x="100" y="153" text-anchor="middle" font-size="11" fill="#6b7785">極めて稀（震度6強〜7）</text>
+          <line x1="186" y1="138" x2="222" y2="138" stroke="#6b7785" stroke-width="2.5" marker-end="url(#kf)"/>
+          <rect x="228" y="110" width="150" height="56" rx="8" fill="#fff" stroke="#1a3a5c" stroke-width="2"/>
+          <text x="303" y="143" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#1f2933">倒壊させない</text>
+          <line x1="384" y1="138" x2="420" y2="138" stroke="#6b7785" stroke-width="2.5" marker-end="url(#kf)"/>
+          <rect x="426" y="110" width="194" height="56" rx="8" fill="#fdf1e7" stroke="#e8843c" stroke-width="2"/>
+          <text x="523" y="133" text-anchor="middle" font-size="13" font-weight="bold" fill="#b35309">二次設計</text>
+          <text x="523" y="153" text-anchor="middle" font-size="11.5" fill="#1f2933">層間変形角・保有耐力等</text>
+        </svg>
+        <p class="cap">図：2段階の耐震設計目標。許容応力度計算は一次設計の中心的手法</p>
+      </div>
 
       <div class="point-box">
         <span class="label">POINT</span>
@@ -114,11 +148,11 @@
           <li><a href="rahmen-brace.html">ラーメン構造とブレース構造の違いとは？</a></li>
         </ul>
       </div>
-      <div class="widget">
-        <h4>計算ツール</h4>
-        <ul>
-          <li><a href="../tools/section-calculator.html">断面性能計算ツール（無料）</a></li>
-        </ul>
+      <div class="tool-banner">
+        <div class="tb-ic">🧮</div>
+        <h4>断面性能 計算ツール</h4>
+        <p>b×hを入れるだけで A・I・Z・i を自動計算</p>
+        <a href="../tools/section-calculator.html">無料で使ってみる</a>
       </div>
       <div class="ad-slot">広告スペース（300×250）</div>
     </aside>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>応力度とひずみ度とは？ヤング係数と応力ひずみ曲線をわかりやすく解説｜構造設計ナビ</title>
+<meta name="description" content="応力度（σ）とひずみ度（ε）の意味、フックの法則 σ=Eε、ヤング係数Eの材料別の値を解説。鋼材の応力ひずみ曲線（降伏点・引張強さ）の読み方も図解でわかりやすく説明します。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="ouryoku.html">構造力学の基礎</a></li>
+        <li><a href="rahmen-brace.html">構造設計</a></li>
+        <li><a href="../tools/section-calculator.html">計算ツール</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › 構造力学の基礎 › 応力度とひずみ度</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">構造力学の基礎</span>
+        <span>更新日：2026年6月12日</span>
+      </div>
+      <h1>応力度とひずみ度とは？ヤング係数と応力ひずみ曲線をわかりやすく解説</h1>
+
+      <p>「<a href="ouryoku.html">応力（N・Q・M）</a>」が断面全体に生じる力だとすれば、<strong>応力度は単位面積あたりの力、ひずみ度は単位長さあたりの変形</strong>です。この2つを結びつけるのが<strong>ヤング係数 E</strong>で、材料の硬さ（変形しにくさ）を表す、構造設計で最も基本的な材料定数です。</p>
+
+      <h2>応力度 σ：単位面積あたりの力</h2>
+      <p>材料が耐えられるかどうかは、力の大きさそのものではなく「単位面積あたりにどれだけの力がかかっているか」で決まります。これが応力度です。代表的な応力度は次のとおりです。</p>
+
+      <table class="data">
+        <tr><th>応力度</th><th>求め方</th><th>もとになる応力</th></tr>
+        <tr><td>軸方向応力度 σ</td><td>σ = N / A</td><td>軸力 N ÷ 断面積 A</td></tr>
+        <tr><td>曲げ応力度 σb</td><td>σb = M / Z</td><td>曲げモーメント M ÷ 断面係数 Z</td></tr>
+        <tr><td>せん断応力度 τ</td><td>τ = Q / A（平均）</td><td>せん断力 Q ÷ 断面積 A</td></tr>
+      </table>
+
+      <p>単位はいずれも N/mm²。<a href="kyoyo-oryokudo.html">許容応力度計算</a>では、この応力度が材料の許容値以下であることを確認します。</p>
+
+      <h2>ひずみ度 ε：単位長さあたりの変形</h2>
+      <p>力を受けた材料は伸び縮みします。その変形量 ΔL を元の長さ L で割った値がひずみ度 ε です。</p>
+
+      <div class="formula">
+        ε = ΔL / L
+        <span class="note">ε：ひずみ度（無次元）／ ΔL：伸び・縮みの量（mm）／ L：元の長さ（mm）。長さを長さで割るため単位はない。</span>
+      </div>
+
+      <p>「3mの柱が2mm縮んだ」と「30cmの試験体が2mm縮んだ」では変形の度合いがまったく違います。長さで割って比率にすることで、部材の長さによらず材料の状態を比較できるようにした値がひずみ度です。</p>
+
+      <h2>フックの法則とヤング係数 E</h2>
+      <p>多くの材料は、力が小さい範囲では<strong>応力度とひずみ度が比例</strong>します。これがフックの法則です。</p>
+
+      <div class="formula">
+        σ = E × ε
+        <span class="note">E：ヤング係数（弾性係数）（N/mm²）。応力度とひずみ度の比例定数で、値が大きいほど「硬い＝変形しにくい」材料。</span>
+      </div>
+
+      <p>主な構造材料のヤング係数は次のとおりです。</p>
+
+      <table class="data">
+        <tr><th>材料</th><th>ヤング係数 E（N/mm²）</th><th>備考</th></tr>
+        <tr><td>鋼材</td><td>2.05 × 10⁵</td><td>強度（SS400・SN490等）によらず一定</td></tr>
+        <tr><td>コンクリート</td><td>約 2.1〜3.3 × 10⁴</td><td>設計基準強度 Fc が高いほど大きい</td></tr>
+        <tr><td>木材</td><td>約 7 × 10³〜1.2 × 10⁴</td><td>樹種・等級により幅がある</td></tr>
+      </table>
+
+      <div class="point-box">
+        <span class="label">POINT（試験頻出）</span>
+        <ul>
+          <li>鋼材のヤング係数は<strong>強度に関係なく一定</strong>（2.05×10⁵ N/mm²）。SS400をSN490に変えても、強度は上がるが<strong>たわみは小さくならない</strong>。</li>
+          <li>鋼材のEはコンクリートの<strong>約10倍</strong>。RC断面の計算では、この比（ヤング係数比 n）を使って鉄筋をコンクリート断面に換算する。</li>
+        </ul>
+      </div>
+
+      <h3>計算例：柱の縮み量</h3>
+      <p>高さ L = 3m の鋼管柱に圧縮応力度 σ = 140 N/mm² が生じているとき、ひずみ度と縮み量は：</p>
+      <div class="formula">
+        ε = σ / E = 140 / 2.05×10⁵ ≒ 0.00068　→　ΔL = ε × L = 0.00068 × 3000 ≒ 2.0 mm
+      </div>
+      <p>大きな応力度がかかっていても、縮みはわずか2mm。鋼の「硬さ」が実感できる結果です。</p>
+
+      <h2>応力ひずみ曲線の読み方（鋼材）</h2>
+      <p>材料を引張試験にかけ、横軸にひずみ度・縦軸に応力度をとったグラフが<strong>応力ひずみ曲線</strong>です。鋼材の曲線には、設計上重要なポイントがいくつもあります。</p>
+
+      <div class="diagram">
+        <svg viewBox="0 0 500 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="鋼材の応力ひずみ曲線">
+          <defs>
+            <marker id="ax" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7 Z" fill="#6b7785"/></marker>
+          </defs>
+          <!-- 弾性域の背景 -->
+          <rect x="60" y="45" width="100" height="225" fill="#f0f5fa"/>
+          <line x1="160" y1="45" x2="160" y2="270" stroke="#c3ccd6" stroke-width="1.5" stroke-dasharray="6 5"/>
+          <text x="110" y="36" text-anchor="middle" font-size="12" fill="#1a3a5c" font-weight="bold">弾性域</text>
+          <text x="300" y="36" text-anchor="middle" font-size="12" fill="#6b7785">塑性域</text>
+          <!-- 軸 -->
+          <line x1="60" y1="270" x2="470" y2="270" stroke="#6b7785" stroke-width="2" marker-end="url(#ax)"/>
+          <line x1="60" y1="270" x2="60" y2="38" stroke="#6b7785" stroke-width="2" marker-end="url(#ax)"/>
+          <text x="455" y="292" font-size="13" fill="#6b7785" text-anchor="end">ひずみ度 ε</text>
+          <text x="42" y="50" font-size="13" fill="#6b7785" writing-mode="tb">応力度 σ</text>
+          <!-- 曲線 -->
+          <path d="M60,270 L160,120 L215,118 C260,112 310,75 345,72 C385,72 405,85 425,103"
+                fill="none" stroke="#1a3a5c" stroke-width="3.5" stroke-linejoin="round"/>
+          <!-- 降伏点 -->
+          <circle cx="160" cy="120" r="6" fill="#e8843c"/>
+          <text x="168" y="140" font-size="12.5" fill="#b35309" font-weight="bold">降伏点</text>
+          <!-- 引張強さ -->
+          <circle cx="345" cy="72" r="6" fill="#e8843c"/>
+          <text x="345" y="58" font-size="12.5" fill="#b35309" font-weight="bold" text-anchor="middle">引張強さ（最大）</text>
+          <!-- 破断 -->
+          <g stroke="#c0392b" stroke-width="3">
+            <line x1="418" y1="96" x2="432" y2="110"/>
+            <line x1="432" y1="96" x2="418" y2="110"/>
+          </g>
+          <text x="438" y="120" font-size="12.5" fill="#c0392b" font-weight="bold">破断</text>
+          <!-- 傾きE -->
+          <line x1="100" y1="210" x2="130" y2="210" stroke="#16a085" stroke-width="2"/>
+          <line x1="130" y1="210" x2="130" y2="165" stroke="#16a085" stroke-width="2"/>
+          <text x="142" y="200" font-size="12.5" fill="#0e7d6b" font-weight="bold">傾き＝ヤング係数 E</text>
+        </svg>
+        <p class="cap">図：鋼材の応力ひずみ曲線。直線部分の傾きがヤング係数 E にあたる。</p>
+      </div>
+
+      <ul>
+        <li><strong>弾性域</strong>：直線部分。力を除けば元の形に戻る範囲で、直線の傾きがヤング係数 E。</li>
+        <li><strong>降伏点</strong>：これを超えると力を除いても変形が残る（塑性変形）。SS400の降伏点は235 N/mm²（板厚40mm以下）。</li>
+        <li><strong>引張強さ</strong>：曲線の最高点。SS400の「400」はこの引張強さ（400 N/mm²以上）を表す。</li>
+        <li><strong>破断</strong>：降伏後も鋼材は大きく伸びてから破断する。この「粘り（じん性）」が耐震設計で重視される鋼材の長所。</li>
+      </ul>
+
+      <div class="note-box">
+        <span class="label">あわせて確認</span>
+        <p>応力度のもとになる応力（N・Q・M）は「<a href="ouryoku.html">応力とは？</a>」、応力度の検定の流れは「<a href="kyoyo-oryokudo.html">許容応力度計算とは？</a>」で解説しています。</p>
+      </div>
+
+      <h2>まとめ</h2>
+      <ul>
+        <li>応力度 σ は単位面積あたりの力（N/mm²）、ひずみ度 ε は単位長さあたりの変形（無次元）。</li>
+        <li>弾性範囲では σ = Eε（フックの法則）。E が大きいほど硬い材料。</li>
+        <li>鋼材の E は 2.05×10⁵ N/mm² で強度によらず一定。強い鋼材に変えてもたわみは減らない。</li>
+        <li>応力ひずみ曲線では、降伏点・引張強さ・破断までの伸び（じん性）を読み取る。</li>
+      </ul>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>関連記事</h4>
+        <ul>
+          <li><a href="ouryoku.html">応力とは？軸力・せん断力・曲げモーメントの違い</a></li>
+          <li><a href="danmen-niji-moment.html">断面二次モーメントとは？意味と計算方法</a></li>
+          <li><a href="tawami.html">梁のたわみの計算方法｜公式一覧と覚え方</a></li>
+          <li><a href="kyoyo-oryokudo.html">許容応力度計算とは？構造計算ルートの全体像</a></li>
+        </ul>
+      </div>
+      <div class="tool-banner">
+        <div class="tb-ic">🧮</div>
+        <h4>断面性能 計算ツール</h4>
+        <p>b×hを入れるだけで A・I・Z・i を自動計算</p>
+        <a href="../tools/section-calculator.html">無料で使ってみる</a>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
