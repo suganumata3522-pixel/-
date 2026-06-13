@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
+<title>お問い合わせ｜構造設計ナビ</title>
+<meta name="description" content="構造設計ナビへのお問い合わせフォームです。記事内容のご指摘、執筆・掲載のご依頼などはこちらからご連絡ください。">
+<meta property="og:title" content="お問い合わせ｜構造設計ナビ">
+<meta property="og:description" content="構造設計ナビへのお問い合わせフォームです。記事内容のご指摘、執筆・掲載のご依頼などはこちらからご連絡ください。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kouzou-navi.com/otoiawase.html">
+<meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
+<meta property="og:site_name" content="構造設計ナビ">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.kouzou-navi.com/otoiawase.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="index.html">ホーム</a></li>
+        <li><a href="articles.html#kiso">構造力学の基礎</a></li>
+        <li><a href="articles.html#keishiki">構造設計</a></li>
+        <li><a href="tools/section-calculator.html">計算ツール</a></li>
+        <li><a href="about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="index.html">ホーム</a> › お問い合わせ</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <h1>お問い合わせ</h1>
+      <p>構造設計ナビをご覧いただきありがとうございます。記事内容に関するご指摘、執筆・掲載のご依頼、その他のお問い合わせは、下記フォームよりお気軽にご連絡ください。</p>
+      <p style="font-size:0.88rem;color:var(--sub);">いただいた個人情報は、お問い合わせへの対応のみに使用します。詳しくは<a href="privacy.html">プライバシーポリシー</a>をご覧ください。</p>
+
+      <form class="tool-panel" id="contact-form"
+            action="https://formspree.io/f/YOUR_FORM_ID" method="POST"
+            style="margin-top:24px;">
+        <div class="field">
+          <label for="name">お名前 <span style="color:#c0392b;">*</span></label>
+          <input type="text" id="name" name="name" required style="max-width:none;">
+        </div>
+        <div class="field">
+          <label for="email">メールアドレス <span style="color:#c0392b;">*</span></label>
+          <input type="email" id="email" name="email" required style="max-width:none;">
+        </div>
+        <div class="field">
+          <label for="subject">件名</label>
+          <input type="text" id="subject" name="subject" style="max-width:none;">
+        </div>
+        <div class="field">
+          <label for="message">お問い合わせ内容 <span style="color:#c0392b;">*</span></label>
+          <textarea id="message" name="message" rows="7" required
+                    style="width:100%;padding:11px 14px;border:1.5px solid var(--line);border-radius:8px;font-size:1rem;font-family:inherit;"></textarea>
+        </div>
+        <button type="submit" class="btn-calc">送信する</button>
+        <p id="form-note" style="font-size:0.82rem;color:var(--sub);margin-top:14px;"></p>
+      </form>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>サイト情報</h4>
+        <ul>
+          <li><a href="about.html">このサイトについて</a></li>
+          <li><a href="privacy.html">プライバシーポリシー</a></li>
+          <li><a href="articles.html">記事一覧</a></li>
+        </ul>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+// フォーム未設定（YOUR_FORM_ID のまま）の場合は送信を止めて案内を出す
+(function () {
+  var form = document.getElementById('contact-form');
+  var note = document.getElementById('form-note');
+  if (!form) return;
+  if (form.action.indexOf('YOUR_FORM_ID') !== -1) {
+    note.textContent = '※現在フォームを準備中です。お急ぎの場合は時間をおいて再度お試しください。';
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      note.textContent = '※フォームは現在準備中です。設定完了までお待ちください。';
+    });
+  }
+})();
+</script>
+</body>
+</html>
