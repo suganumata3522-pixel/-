@@ -16,6 +16,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.kouzou-navi.com/articles/benkyo-hou.html</loc>
+    <lastmod>2026-06-13</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.kouzou-navi.com/articles/danmen-keisu.html</loc>
     <lastmod>2026-06-13</lastmod>
     <priority>0.7</priority>
@@ -46,6 +51,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.kouzou-navi.com/articles/kouzou-ikkyu.html</loc>
+    <lastmod>2026-06-13</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.kouzou-navi.com/articles/kouzou-shurui.html</loc>
     <lastmod>2026-06-13</lastmod>
     <priority>0.7</priority>
@@ -57,6 +67,11 @@
   </url>
   <url>
     <loc>https://www.kouzou-navi.com/articles/kyoyo-oryokudo.html</loc>
+    <lastmod>2026-06-13</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.kouzou-navi.com/articles/nenshu.html</loc>
     <lastmod>2026-06-13</lastmod>
     <priority>0.7</priority>
   </url>
