@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
+<title>基礎構造とは？直接基礎と杭基礎の違い・地盤との関係を解説｜構造設計ナビ</title>
+<meta name="description" content="建築の基礎構造を構造設計の視点でまとめて解説。直接基礎（独立・布・べた基礎）と杭基礎（支持杭・摩擦杭）の違い、地盤調査・支持力・不同沈下・液状化など、基礎を決める考え方を図解で整理します。">
+<meta property="og:title" content="基礎構造とは？直接基礎と杭基礎の違い・地盤との関係を解説｜構造設計ナビ">
+<meta property="og:description" content="建築の基礎構造を構造設計の視点でまとめて解説。直接基礎と杭基礎の違い、地盤調査・支持力・不同沈下・液状化など、基礎を決める考え方を図解で整理します。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kouzou-navi.com/articles/kiso-kouzou.html">
+<meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
+<meta property="og:site_name" content="構造設計ナビ">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.kouzou-navi.com/articles/kiso-kouzou.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="../articles.html#kiso">構造力学の基礎</a></li>
+        <li><a href="../articles.html#keishiki">構造設計</a></li>
+        <li><a href="../tools/section-calculator.html">計算ツール</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › 構造形式・材料 › 基礎構造</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">構造形式・材料</span>
+        <span>更新日：2026年6月13日</span>
+      </div>
+      <h1>基礎構造とは？直接基礎と杭基礎の違い・地盤との関係を解説</h1>
+
+      <p>基礎は、建物の重さや地震力を<strong>地盤に安全に伝える</strong>役割を担う、建物の足元です。どんなに上部構造を頑丈に設計しても、基礎と地盤が不適切なら建物は傾いたり沈んだりします。この記事では基礎構造の種類と、それを決める考え方を整理します。</p>
+
+      <h2>基礎は大きく2種類</h2>
+      <p>基礎は、建物を支えられる固い地盤（支持層）の深さによって、<strong>直接基礎</strong>と<strong>杭基礎</strong>に分かれます。</p>
+
+      <div class="diagram">
+        <svg viewBox="0 0 600 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="直接基礎と杭基礎の違い">
+          <!-- 直接基礎 -->
+          <text x="150" y="22" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a3a5c">直接基礎</text>
+          <rect x="60" y="90" width="180" height="20" fill="#1a3a5c"/>
+          <rect x="110" y="40" width="80" height="50" fill="#e3ecf5" stroke="#1a3a5c" stroke-width="2"/>
+          <text x="150" y="70" text-anchor="middle" font-size="12" fill="#1a3a5c">建物</text>
+          <!-- 地表と支持層(浅い) -->
+          <rect x="20" y="110" width="260" height="30" fill="#efe7d8"/>
+          <rect x="20" y="140" width="260" height="60" fill="#cdbb9a"/>
+          <text x="150" y="128" text-anchor="middle" font-size="11" fill="#7a6a4f">良い地盤が浅い</text>
+          <text x="150" y="175" text-anchor="middle" font-size="12" font-weight="bold" fill="#5a4a2f">支持層（固い地盤）</text>
+          <text x="150" y="222" text-anchor="middle" font-size="11.5" fill="#6b7785">基礎が直接支える</text>
+          <!-- 杭基礎 -->
+          <text x="450" y="22" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a3a5c">杭基礎</text>
+          <rect x="360" y="70" width="180" height="16" fill="#1a3a5c"/>
+          <rect x="410" y="40" width="80" height="30" fill="#e3ecf5" stroke="#1a3a5c" stroke-width="2"/>
+          <text x="450" y="60" text-anchor="middle" font-size="12" fill="#1a3a5c">建物</text>
+          <!-- 軟弱層 -->
+          <rect x="320" y="86" width="260" height="84" fill="#e3ecdf"/>
+          <text x="450" y="120" text-anchor="middle" font-size="11" fill="#8a9a8a">軟弱な地盤（厚い）</text>
+          <!-- 杭 -->
+          <rect x="400" y="86" width="12" height="100" fill="#6b7785"/>
+          <rect x="444" y="86" width="12" height="100" fill="#6b7785"/>
+          <rect x="488" y="86" width="12" height="100" fill="#6b7785"/>
+          <!-- 支持層(深い) -->
+          <rect x="320" y="170" width="260" height="40" fill="#cdbb9a"/>
+          <text x="450" y="195" text-anchor="middle" font-size="12" font-weight="bold" fill="#5a4a2f">支持層（深い）</text>
+          <text x="450" y="234" text-anchor="middle" font-size="11.5" fill="#6b7785">杭で深い地盤まで力を伝える</text>
+        </svg>
+        <p class="cap">図：良い地盤が浅ければ直接基礎、深ければ杭基礎で支持層まで力を伝える</p>
+      </div>
+
+      <h2>直接基礎の種類</h2>
+      <table class="data">
+        <tr><th>種類</th><th>形状</th><th>主な用途</th></tr>
+        <tr><td>独立基礎</td><td>柱の下に独立した基礎</td><td>地盤が良い場合の柱脚部</td></tr>
+        <tr><td>布基礎（連続基礎）</td><td>壁・柱の下に連続した逆T字</td><td>木造戸建ての定番</td></tr>
+        <tr><td>べた基礎</td><td>建物の底面全体を1枚の板で支える</td><td>軟弱地盤・木造で広く普及。荷重を面で分散し不同沈下に強い</td></tr>
+      </table>
+
+      <h2>杭基礎の種類</h2>
+      <ul>
+        <li><strong>支持杭</strong>：杭の先端を固い支持層に到達させ、<strong>先端支持力</strong>で支える。最も確実。</li>
+        <li><strong>摩擦杭</strong>：支持層が非常に深い場合に、杭の側面と地盤の<strong>摩擦力</strong>で支える。</li>
+        <li>施工方法では、既製杭（工場製の杭を打込み・埋込み）と場所打ちコンクリート杭（現場で掘削して造る）がある。</li>
+      </ul>
+
+      <h2>基礎を決める前に：地盤を知る</h2>
+      <p>基礎の設計は<strong>地盤調査</strong>から始まります。地盤の固さ・支持層の深さを調べ、建物が地盤に与える力（接地圧）が地盤の<strong>許容支持力</strong>以下になるようにします。</p>
+      <table class="data">
+        <tr><th>調査方法</th><th>内容</th></tr>
+        <tr><td>ボーリング調査（標準貫入試験）</td><td>N値で地盤の固さを深さごとに把握。中〜大規模建築の標準</td></tr>
+        <tr><td>スウェーデン式サウンディング（SWS）</td><td>戸建てで一般的な簡易な地盤調査</td></tr>
+      </table>
+
+      <h2>基礎設計の3大注意点</h2>
+      <ul>
+        <li><strong>支持力</strong>：建物の重さに地盤が耐えられるか（接地圧 ≦ 許容支持力）。</li>
+        <li><strong>不同沈下</strong>：場所によって沈下量が違うと建物が傾く。べた基礎や杭で防ぐ。</li>
+        <li><strong>液状化</strong>：地震時に砂質地盤が水のようになる現象。埋立地・河川沿いで注意。杭基礎や地盤改良で対策する。</li>
+      </ul>
+
+      <div class="point-box">
+        <span class="label">POINT</span>
+        <ul>
+          <li>基礎の選定は「<strong>良い地盤がどれだけ深いか</strong>」で決まる。浅ければ直接基礎、深ければ杭基礎。</li>
+          <li>上部構造（<a href="kouzou-shurui.html">RC・S・木</a>）の重さも効く。重いRC造ほど基礎・地盤への負担が大きい。</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="label">あわせて読みたい</span>
+        <p>基礎に伝わる荷重の拾い方は「<a href="kajuu.html">固定荷重・積載荷重の拾い方</a>」、地震力は「<a href="jishin-ryoku.html">地震力の計算方法</a>」、上部構造の種類は「<a href="kouzou-shurui.html">RC造・S造・SRC造・木造の違い</a>」をどうぞ。</p>
+      </div>
+
+      <h2>まとめ</h2>
+      <ul>
+        <li>基礎は建物の力を地盤に伝える足元。支持層が浅ければ直接基礎、深ければ杭基礎。</li>
+        <li>直接基礎は独立・布・べた、杭基礎は支持杭・摩擦杭。</li>
+        <li>地盤調査をもとに、支持力・不同沈下・液状化の3点を確認して設計する。</li>
+      </ul>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>関連記事</h4>
+        <ul>
+          <li><a href="kouzou-shurui.html">RC造・S造・SRC造・木造の違いとは？</a></li>
+          <li><a href="kajuu.html">固定荷重・積載荷重の拾い方</a></li>
+          <li><a href="rc-zou.html">鉄筋コンクリート造（RC造）とは？</a></li>
+          <li><a href="jishin-ryoku.html">地震力の計算方法｜Ai分布・Z・Rt・Co</a></li>
+        </ul>
+      </div>
+      <div class="tool-banner">
+        <div class="tb-ic">🧮</div>
+        <h4>断面性能 計算ツール</h4>
+        <p>b×hを入れるだけで A・I・Z・i を自動計算</p>
+        <a href="../tools/section-calculator.html">無料で使ってみる</a>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

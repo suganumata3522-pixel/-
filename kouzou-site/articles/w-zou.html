@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
+<title>木造（W造）とは？在来軸組工法と枠組壁工法・耐震のポイントを解説｜構造設計ナビ</title>
+<meta name="description" content="木造（W造）の特徴を構造設計の視点でまとめて解説。在来軸組工法と2×4（枠組壁工法）の違い、壁量計算・壁倍率・四分割法・N値計算、接合金物や中高層木造（CLT）まで、耐震のポイントを整理します。">
+<meta property="og:title" content="木造（W造）とは？在来軸組工法と枠組壁工法・耐震のポイントを解説｜構造設計ナビ">
+<meta property="og:description" content="木造（W造）の特徴を構造設計の視点でまとめて解説。在来軸組工法と2×4の違い、壁量計算・壁倍率・四分割法・N値計算、接合金物やCLTまで耐震のポイントを整理します。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kouzou-navi.com/articles/w-zou.html">
+<meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
+<meta property="og:site_name" content="構造設計ナビ">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.kouzou-navi.com/articles/w-zou.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="../articles.html#kiso">構造力学の基礎</a></li>
+        <li><a href="../articles.html#keishiki">構造設計</a></li>
+        <li><a href="../tools/section-calculator.html">計算ツール</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › 構造形式・材料 › 木造（W造）</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">構造形式・材料</span>
+        <span>更新日：2026年6月13日</span>
+      </div>
+      <h1>木造（W造）とは？在来軸組工法と枠組壁工法・耐震のポイントを解説</h1>
+
+      <p>木造（W造、Wood）は、日本の戸建て住宅で最も多い構造です。軽くて加工しやすく、コストも抑えられます。近年はCLTなどで中高層の木造建築も増えています。この記事では構造設計の視点で木造を体系的にまとめます。</p>
+
+      <h2>2つの主要工法</h2>
+      <table class="data">
+        <tr><th>工法</th><th>抵抗の考え方</th><th>特徴</th></tr>
+        <tr><td>在来軸組工法（木造軸組）</td><td>柱・梁の軸組＋筋かい・耐力壁</td><td>日本の伝統的工法。設計の自由度が高く、増改築しやすい</td></tr>
+        <tr><td>枠組壁工法（2×4）</td><td>壁・床の「面」で抵抗</td><td>規格化された木材と面材で箱をつくる。耐力が安定し気密・断熱に有利</td></tr>
+      </table>
+
+      <h2>木造の特徴（長所・短所）</h2>
+      <ul>
+        <li><strong>長所</strong>：軽い（<a href="jishin-ryoku.html">地震力が小さい</a>）。加工性・断熱性が高くコストが低い。炭素を固定し環境にやさしい。</li>
+        <li><strong>短所</strong>：防火・防腐・防蟻（シロアリ）の対策が必要。強度に<a href="oryokudo-hizumi.html">ばらつき</a>がある（節・含水率）。接合部の設計が要。</li>
+      </ul>
+
+      <h2>木造の耐震設計：3つのチェック</h2>
+      <p>小規模な木造（いわゆる4号建築物）では、次の3点で地震・風に対する安全を確認します。</p>
+      <ol>
+        <li><strong>壁量計算（量）</strong>：必要な<a href="tairyoku-heki.html">耐力壁</a>の量を満たしているか。「必要壁量 ≦ 存在壁量（壁長×壁倍率の合計）」を確認する。</li>
+        <li><strong>四分割法（バランス）</strong>：平面を4分割し、耐力壁が偏っていないか（<a href="sokan-henkei.html">偏心</a>）を確認する。南面に窓を集めると壁が偏りやすい。</li>
+        <li><strong>N値計算（接合）</strong>：柱の引き抜き力に応じて、必要な接合金物（ホールダウン金物など）を選ぶ。</li>
+      </ol>
+
+      <div class="point-box">
+        <span class="label">POINT</span>
+        <ul>
+          <li>木造の耐震は<strong>「壁の量・配置バランス・接合」の3点セット</strong>。壁倍率は0.5〜5.0で、5.0が上限なのは強すぎると柱の引き抜きや土台が先に壊れるため。</li>
+          <li>大地震で倒壊した木造の多くは「壁が少ない／偏っている／接合が弱い」のいずれか。新耐震基準（1981年）・2000年基準で規定が強化された。</li>
+        </ul>
+      </div>
+
+      <h2>接合と中高層木造</h2>
+      <ul>
+        <li><strong>接合金物</strong>：柱脚・柱頭、筋かい端部などをホールダウン金物・羽子板ボルト等で緊結。木造の弱点である「接合部の外れ」を防ぐ。</li>
+        <li><strong>CLT・集成材</strong>：板を直交に積層したCLTや大断面集成材により、中高層・大スパンの木造建築（オフィス・公共建築）も実現。耐火・遮音技術の進歩も後押し。</li>
+      </ul>
+
+      <div class="note-box">
+        <span class="label">あわせて読みたい</span>
+        <p>耐力壁の詳細は「<a href="tairyoku-heki.html">耐力壁とは？</a>」、配置バランスは「<a href="sokan-henkei.html">層間変形角・剛性率・偏心率</a>」、構造種別の比較は「<a href="kouzou-shurui.html">RC造・S造・SRC造・木造の違い</a>」をどうぞ。</p>
+      </div>
+
+      <h2>まとめ</h2>
+      <ul>
+        <li>木造は軽く・安く・加工しやすい。工法は在来軸組と2×4（枠組壁）。</li>
+        <li>耐震は「壁量計算・四分割法・N値計算」の3点で確認する。</li>
+        <li>弱点は防火・防腐・防蟻と接合部。CLT等で中高層化も進む。</li>
+      </ul>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>関連記事</h4>
+        <ul>
+          <li><a href="kouzou-shurui.html">RC造・S造・SRC造・木造の違いとは？</a></li>
+          <li><a href="tairyoku-heki.html">耐力壁とは？役割と配置のポイント</a></li>
+          <li><a href="s-zou.html">鉄骨造（S造）とは？</a></li>
+          <li><a href="rc-zou.html">鉄筋コンクリート造（RC造）とは？</a></li>
+        </ul>
+      </div>
+      <div class="tool-banner">
+        <div class="tb-ic">🧮</div>
+        <h4>断面性能 計算ツール</h4>
+        <p>b×hを入れるだけで A・I・Z・i を自動計算</p>
+        <a href="../tools/section-calculator.html">無料で使ってみる</a>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
