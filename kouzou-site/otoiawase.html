@@ -54,7 +54,7 @@
       <p style="font-size:0.88rem;color:var(--sub);">いただいた個人情報は、お問い合わせへの対応のみに使用します。詳しくは<a href="privacy.html">プライバシーポリシー</a>をご覧ください。</p>
 
       <form class="tool-panel" id="contact-form"
-            action="https://formspree.io/f/YOUR_FORM_ID" method="POST"
+            action="https://formspree.io/f/xjgdpadw" method="POST"
             style="margin-top:24px;">
         <div class="field">
           <label for="name">お名前 <span style="color:#c0392b;">*</span></label>
@@ -100,18 +100,33 @@
 
 <script src="js/main.js"></script>
 <script>
-// フォーム未設定（YOUR_FORM_ID のまま）の場合は送信を止めて案内を出す
+// 非同期送信して、ページ内で完了メッセージを表示する
 (function () {
   var form = document.getElementById('contact-form');
   var note = document.getElementById('form-note');
   if (!form) return;
-  if (form.action.indexOf('YOUR_FORM_ID') !== -1) {
-    note.textContent = '※現在フォームを準備中です。お急ぎの場合は時間をおいて再度お試しください。';
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      note.textContent = '※フォームは現在準備中です。設定完了までお待ちください。';
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    note.style.color = 'var(--sub)';
+    note.textContent = '送信中…';
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    }).then(function (res) {
+      if (res.ok) {
+        form.reset();
+        note.style.color = '#1d7a3a';
+        note.textContent = '送信が完了しました。お問い合わせありがとうございます。';
+      } else {
+        note.style.color = '#c0392b';
+        note.textContent = '送信に失敗しました。時間をおいて再度お試しください。';
+      }
+    }).catch(function () {
+      note.style.color = '#c0392b';
+      note.textContent = '送信に失敗しました。通信環境をご確認のうえ再度お試しください。';
     });
-  }
+  });
 })();
 </script>
 </body>
