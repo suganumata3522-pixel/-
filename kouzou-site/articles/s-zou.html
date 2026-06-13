@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
+<title>鉄骨造（S造）とは？特徴・構造形式・接合・耐火被覆をまとめて解説｜構造設計ナビ</title>
+<meta name="description" content="鉄骨造（S造）の特徴を構造設計の視点でまとめて解説。重量鉄骨と軽量鉄骨の違い、ラーメン・ブレース・トラスの架構、高力ボルト接合と溶接、座屈・耐火被覆・防錆など設計上の注意点を整理します。">
+<meta property="og:title" content="鉄骨造（S造）とは？特徴・構造形式・接合・耐火被覆をまとめて解説｜構造設計ナビ">
+<meta property="og:description" content="鉄骨造（S造）の特徴を構造設計の視点でまとめて解説。重量鉄骨と軽量鉄骨の違い、架構形式、接合方法、座屈・耐火被覆・防錆など設計上の注意点を整理します。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kouzou-navi.com/articles/s-zou.html">
+<meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
+<meta property="og:site_name" content="構造設計ナビ">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.kouzou-navi.com/articles/s-zou.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="../articles.html#kiso">構造力学の基礎</a></li>
+        <li><a href="../articles.html#keishiki">構造設計</a></li>
+        <li><a href="../tools/section-calculator.html">計算ツール</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › 構造形式・材料 › 鉄骨造（S造）</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">構造形式・材料</span>
+        <span>更新日：2026年6月13日</span>
+      </div>
+      <h1>鉄骨造（S造）とは？特徴・構造形式・接合・耐火被覆をまとめて解説</h1>
+
+      <p>鉄骨造（S造、Steel）は、工場で製作した<strong>鋼材</strong>を現場で組み立てる構造です。強くて粘り強く、軽いという特性から、超高層ビル・大スパンの工場や体育館・店舗まで幅広く使われます。この記事では構造設計の視点でS造を体系的にまとめます。構造種別全体の比較は「<a href="kouzou-shurui.html">RC造・S造・SRC造・木造の違い</a>」をご覧ください。</p>
+
+      <h2>重量鉄骨造と軽量鉄骨造</h2>
+      <table class="data">
+        <tr><th>種別</th><th>鋼材の厚さ</th><th>主な用途</th></tr>
+        <tr><td>重量鉄骨造</td><td>厚さ6mm超（H形鋼・角形鋼管など）</td><td>中高層ビル・工場・大スパン建築</td></tr>
+        <tr><td>軽量鉄骨造</td><td>厚さ6mm以下（軽量形鋼）</td><td>戸建て・アパート（プレハブ系）</td></tr>
+      </table>
+
+      <h2>S造の特徴（長所・短所）</h2>
+      <ul>
+        <li><strong>長所</strong>：高強度・高じん性（粘り）。軽いので大スパン・高層に有利。工場製作で品質が安定し工期が短い。</li>
+        <li><strong>短所</strong>：火災に弱く<a href="kouzou-shurui.html">耐火被覆</a>が必要（鋼材は約500℃で強度が半減）。錆対策（防錆）が必要。細い部材は<a href="zakutsu.html">座屈</a>に注意。揺れ・振動を感じやすい。</li>
+      </ul>
+
+      <h2>主な架構形式</h2>
+      <ul>
+        <li><strong>ラーメン構造</strong>：柱梁を剛接合。無柱の大空間がつくれる。中高層ビルの定番（<a href="rahmen-brace.html">詳しく</a>）。</li>
+        <li><strong>ブレース構造</strong>：斜材の軸力で水平力に抵抗。工場・倉庫で経済的。</li>
+        <li><strong>トラス構造</strong>：部材を三角形に組み、軸力で大スパンを飛ばす。体育館・屋根架構など。</li>
+      </ul>
+
+      <h2>接合方法</h2>
+      <table class="data">
+        <tr><th>接合</th><th>特徴</th></tr>
+        <tr><td>高力ボルト接合</td><td>部材を強く締め付け、摩擦力で力を伝える。現場接合の主流で信頼性が高い。</td></tr>
+        <tr><td>溶接接合</td><td>母材を溶かして一体化。工場溶接が基本。柱梁接合部などで使用。</td></tr>
+        <tr><td>普通ボルト接合</td><td>小規模・仮設など限定的な用途。</td></tr>
+      </table>
+      <p>柱梁の接合部は地震時に大きな力が集中するため、<strong>「柱・梁が壊れる前に接合部が壊れない」</strong>ように設計します（保有耐力接合）。</p>
+
+      <h2>設計上の注意点</h2>
+      <ul>
+        <li><strong>座屈の検討</strong>：細長い圧縮材・梁の横座屈に注意。<a href="zakutsu.html">細長比</a>で評価し、必要に応じて補剛材を入れる。</li>
+        <li><strong>耐火被覆</strong>：耐火建築物では、吹付けロックウール・耐火塗料・耐火ボードで鋼材を保護する。</li>
+        <li><strong>防錆</strong>：塗装・めっき・耐候性鋼などで腐食を防ぐ。</li>
+        <li><strong>変形・振動</strong>：軽量で揺れやすいため、<a href="tawami.html">たわみ</a>や歩行振動・風揺れ（居住性）の検討が重要。</li>
+      </ul>
+
+      <div class="note-box">
+        <span class="label">あわせて読みたい</span>
+        <p>鋼材の強度の考え方は「<a href="oryokudo-hizumi.html">応力度とひずみ度・ヤング係数</a>」、構造種別の比較は「<a href="kouzou-shurui.html">RC造・S造・SRC造・木造の違い</a>」、RC造は「<a href="rc-zou.html">鉄筋コンクリート造（RC造）とは？</a>」をどうぞ。</p>
+      </div>
+
+      <h2>まとめ</h2>
+      <ul>
+        <li>S造は高強度・高じん性・軽量で、大スパンと高層に強い。</li>
+        <li>架構はラーメン・ブレース・トラス。接合は高力ボルトと溶接が主流。</li>
+        <li>弱点は耐火と錆。耐火被覆・防錆と、座屈・振動の検討が設計の鍵。</li>
+      </ul>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>関連記事</h4>
+        <ul>
+          <li><a href="kouzou-shurui.html">RC造・S造・SRC造・木造の違いとは？</a></li>
+          <li><a href="rc-zou.html">鉄筋コンクリート造（RC造）とは？</a></li>
+          <li><a href="w-zou.html">木造（W造）とは？</a></li>
+          <li><a href="rahmen-brace.html">ラーメン構造とブレース構造の違いとは？</a></li>
+        </ul>
+      </div>
+      <div class="tool-banner">
+        <div class="tb-ic">🧮</div>
+        <h4>断面性能 計算ツール</h4>
+        <p>b×hを入れるだけで A・I・Z・i を自動計算</p>
+        <a href="../tools/section-calculator.html">無料で使ってみる</a>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
