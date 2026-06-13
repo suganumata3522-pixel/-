@@ -51,6 +51,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.kouzou-navi.com/articles/kiso-kouzou.html</loc>
+    <lastmod>2026-06-13</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.kouzou-navi.com/articles/kouzou-ikkyu.html</loc>
     <lastmod>2026-06-13</lastmod>
     <priority>0.7</priority>
@@ -96,6 +101,16 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.kouzou-navi.com/articles/rc-zou.html</loc>
+    <lastmod>2026-06-13</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.kouzou-navi.com/articles/s-zou.html</loc>
+    <lastmod>2026-06-13</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.kouzou-navi.com/articles/sokan-henkei.html</loc>
     <lastmod>2026-06-13</lastmod>
     <priority>0.7</priority>
@@ -112,6 +127,11 @@
   </url>
   <url>
     <loc>https://www.kouzou-navi.com/articles/tawami.html</loc>
+    <lastmod>2026-06-13</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.kouzou-navi.com/articles/w-zou.html</loc>
     <lastmod>2026-06-13</lastmod>
     <priority>0.7</priority>
   </url>
