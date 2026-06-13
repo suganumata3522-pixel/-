@@ -37,6 +37,9 @@ document.addEventListener('DOMContentLoaded', function () {
     { title: '地震力の計算方法｜Ai分布・Z・Rt・Coをわかりやすく解説', url: 'articles/jishin-ryoku.html', keywords: '地震力 層せん断力 Ai分布 地域係数 Z Rt Co ベースシア Qi=CiWi' },
     { title: '層間変形角・剛性率・偏心率とは？ルート2の検討項目', url: 'articles/sokan-henkei.html', keywords: '層間変形角 剛性率 偏心率 1/200 ピロティ ねじれ 重心 剛心 ルート2' },
     { title: '耐力壁とは？役割と配置のポイント', url: 'articles/tairyoku-heki.html', keywords: '耐力壁 耐震壁 壁倍率 壁量計算 筋かい 構造用合板 直下率 非耐力壁' },
+    { title: '構造設計一級建築士とは？なり方・難易度・できること', url: 'articles/kouzou-ikkyu.html', keywords: '構造設計一級建築士 資格 なり方 難易度 合格率 講習 修了考査 適合性判定 キャリア' },
+    { title: '構造設計者の年収はいくら？働き方と年収を上げる方法', url: 'articles/nenshu.html', keywords: '構造設計 年収 給料 収入 転職 独立 ゼネコン 組織設計事務所 働き方 キャリア' },
+    { title: '一級建築士「構造」の勉強法とおすすめ問題集', url: 'articles/benkyo-hou.html', keywords: '一級建築士 構造 勉強法 過去問 問題集 独学 試験 対策 力学' },
     { title: '断面性能計算ツール（長方形・円形断面）', url: 'tools/section-calculator.html', keywords: '計算ツール 断面積 断面二次モーメント 断面係数 断面二次半径 無料' }
   ];
 
