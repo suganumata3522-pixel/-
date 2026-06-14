@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
+<title>中実材とは？読み方と中空材との違い・断面二次モーメントの比較｜構造設計ナビ</title>
+<meta name="description" content="中実材をわかりやすく解説。中実材（ちゅうじつざい）の読み方と意味（丸鋼・平鋼など中身が詰まった鋼材）、中空材（鋼管）との違い、同じ断面積での断面二次モーメントの比較をまとめます。">
+<meta property="og:title" content="中実材とは？読み方と中空材との違い・断面二次モーメントの比較｜構造設計ナビ">
+<meta property="og:description" content="中実材の読み方・意味、中空材（鋼管）との違い、同じ断面積での断面二次モーメントの比較を解説します。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kouzou-navi.com/articles/chuujitsu-zai.html">
+<meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
+<meta property="og:site_name" content="構造設計ナビ">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.kouzou-navi.com/articles/chuujitsu-zai.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="../articles.html#kiso">構造力学の基礎</a></li>
+        <li><a href="../articles.html#s-zou">鉄骨造</a></li>
+        <li><a href="../tools/section-calculator.html">計算ツール</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › <a href="../articles.html#s-zou">鉄骨造（S造）</a> › 中実材</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">鉄骨造（S造）</span>
+        <span>更新日：2026年6月14日</span>
+      </div>
+      <h1>中実材とは？中空材との違いと断面二次モーメントの比較</h1>
+
+      <p><strong>中実材（ちゅうじつざい）</strong>とは、中身が詰まった断面の鋼材のことです。丸鋼・平鋼・角鋼などが該当します。中が空洞の<a href="chuukuu-danmen.html">中空材（鋼管）</a>と対になる言葉です。</p>
+
+      <div class="note-box">
+        <span class="label">この記事について</span>
+        <p>鋼材の規格・寸法などは<strong>JISや製品の改訂で変わる</strong>ことがあります。本記事は学習用の概要です。実務では必ず<strong>最新のJIS・メーカーの形鋼表（鋼材ハンドブック）</strong>を確認してください。</p>
+      </div>
+
+      <h2>中実材の読み方と意味</h2>
+      <p>読み方は「<strong>ちゅうじつざい</strong>」。断面の内部まで金属が詰まっている（中実な）鋼材を指します。代表は丸鋼（断面が円）・平鋼（フラットバー）・角鋼です。ブレースや小物の部材などに使われます。</p>
+
+      <h2>中空材との違い</h2>
+      <table class="data">
+        <tr><th></th><th>中実材</th><th><a href="chuukuu-danmen.html">中空材</a></th></tr>
+        <tr><td>断面</td><td>中身が詰まっている</td><td>中が空洞（鋼管）</td></tr>
+        <tr><td>例</td><td>丸鋼・平鋼・角鋼</td><td>円形鋼管・角形鋼管</td></tr>
+        <tr><td>曲げ・座屈効率</td><td>同じ重さでは劣る</td><td>同じ重さで有利</td></tr>
+      </table>
+
+      <h2>断面二次モーメントの比較</h2>
+      <p>同じ<strong>断面積（≒重さ）</strong>でも、材料が外周に分布する中空材のほうが<a href="danmen-niji-moment.html">断面二次モーメントI</a>は大きくなります。たとえば中実の丸鋼（直径D）は：</p>
+      <div class="formula">
+        中実丸鋼：I = πD⁴ / 64
+      </div>
+      <p>これに対し、同じ断面積を外径の大きな薄い鋼管に置き換えると、外周まで材料が広がるぶんIが大きくなり、曲げにも座屈にも強くなります。これが「材料を外側に配置するほど効率がよい」という構造の基本原則です。</p>
+      <div class="point-box">
+        <span class="label">POINT</span>
+        <p>だからこそ、鉄骨では中実材より<strong>H形鋼（外側にフランジ）や鋼管（中空）</strong>が梁・柱に多用されます。中実材は、断面が小さくてよい引張材（ブレース等）や、座屈が問題にならない部位で使われます。</p>
+      </div>
+
+      <div class="note-box">
+        <span class="label">あわせて読みたい</span>
+        <p>対になるのは「<a href="chuukuu-danmen.html">中空断面</a>」、計算は「<a href="danmen-niji-moment.html">断面二次モーメント</a>」、座屈は「<a href="zakutsu.html">座屈とは？</a>」をどうぞ。</p>
+      </div>
+
+      <h2>まとめ</h2>
+      <ul>
+        <li>中実材（ちゅうじつざい）は中身が詰まった鋼材。丸鋼・平鋼・角鋼など。</li>
+        <li>同じ断面積なら中空材のほうが断面二次モーメントが大きく曲げ・座屈に有利。</li>
+        <li>中実材は引張材や座屈が問題にならない部位に使われる。</li>
+      </ul>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>断面・形鋼の基礎</h4>
+        <ul>
+          <li><a href="katakou.html">形鋼とは</a></li>
+          <li><a href="katakou-yomikata.html">形鋼の読み方</a></li>
+          <li><a href="keiryou-katakou.html">軽量形鋼</a></li>
+          <li><a href="ssc400.html">軽量形鋼SSC400</a></li>
+          <li><a href="kai-danmen.html">開断面</a></li>
+          <li><a href="hei-danmen.html">閉断面</a></li>
+          <li><a href="hakogata-danmen.html">箱型断面</a></li>
+          <li><a href="chuukuu-danmen.html">中空断面</a></li>
+          <li><a href="juufukukei.html">充腹形・非充腹形</a></li>
+          <li><a href="hakuniku.html">薄肉と軽量鉄骨</a></li>
+          <li><a href="hari-sunpou.html">梁の寸法</a></li>
+        </ul>
+      </div>
+      <div class="tool-banner">
+        <div class="tb-ic">🧮</div>
+        <h4>断面性能 計算ツール</h4>
+        <p>b×hを入れるだけで A・I・Z・i を自動計算</p>
+        <a href="../tools/section-calculator.html">無料で使ってみる</a>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
