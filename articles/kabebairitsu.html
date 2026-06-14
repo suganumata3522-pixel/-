@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
+<title>壁倍率とは？筋かい・石膏ボードの値一覧と必要壁量の計算方法｜構造設計ナビ</title>
+<meta name="description" content="木造の壁倍率を解説。筋かい・構造用合板・石膏ボードなど耐力壁の壁倍率の値一覧、壁倍率の意味（1.0＝1.96kN/m）、必要壁量（床面積×係数、見付面積×係数）と存在壁量（壁長×壁倍率）の比較による壁量計算の手順を計算例つきでまとめます。">
+<meta property="og:title" content="壁倍率とは？筋かい・石膏ボードの値一覧と必要壁量の計算方法｜構造設計ナビ">
+<meta property="og:description" content="木造の壁倍率を解説。筋かい・合板・石膏ボードの値一覧、壁倍率の意味、必要壁量と存在壁量の比較による壁量計算を計算例つきでまとめます。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kouzou-navi.com/articles/kabebairitsu.html">
+<meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
+<meta property="og:site_name" content="構造設計ナビ">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.kouzou-navi.com/articles/kabebairitsu.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="../articles.html#kiso">構造力学の基礎</a></li>
+        <li><a href="../articles.html#w-zou">木造</a></li>
+        <li><a href="../tools/section-calculator.html">計算ツール</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › <a href="../articles.html#w-zou">木造（W造）</a> › 壁倍率と必要壁量</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">木造（W造）</span>
+        <span>更新日：2026年6月14日</span>
+      </div>
+      <h1>壁倍率とは？筋かい・石膏ボードの値一覧と必要壁量の計算方法</h1>
+
+      <p>木造の耐震性は「<a href="tairyoku-heki.html">耐力壁</a>がどれだけあるか」で大きく決まります。その耐力壁の強さを表すのが<strong>壁倍率</strong>です。この記事では、壁倍率の意味と仕様別の値一覧、そして必要壁量の計算方法をまとめます。</p>
+
+      <h2>壁倍率とは</h2>
+      <p>壁倍率は、耐力壁の<strong>強さの指標</strong>です。倍率<strong>1.0が「壁長1mあたり1.96kN（約200kgf）の水平力に抵抗できる」</strong>と定義され、仕様に応じて0.5〜5.0の値が決められています。倍率が大きいほど強い壁です。</p>
+
+      <h2>主な壁倍率の値一覧</h2>
+      <table class="data">
+        <tr><th>耐力壁の仕様</th><th>壁倍率</th></tr>
+        <tr><td>石膏ボード（大壁・片面）</td><td>0.9〜1.1</td></tr>
+        <tr><td>筋かい 15×90（木材）</td><td>1.0</td></tr>
+        <tr><td>筋かい 30×90（片側）</td><td>1.5</td></tr>
+        <tr><td>筋かい 45×90（片側）</td><td>2.0</td></tr>
+        <tr><td>構造用合板（大壁・釘N50@150）</td><td>2.5</td></tr>
+        <tr><td>筋かい 90×90（片側）</td><td>3.0</td></tr>
+        <tr><td>筋かい 45×90 たすき掛け</td><td>4.0</td></tr>
+        <tr><td>（合板＋筋かいなどの併用・上限）</td><td>5.0（上限）</td></tr>
+      </table>
+      <p>※値は代表例です。実際は告示・認定で仕様ごとに細かく定められています。複数の壁を重ねても<strong>合計5.0が上限</strong>です。</p>
+
+      <div class="point-box">
+        <span class="label">なぜ上限5.0なのか</span>
+        <p>壁を強くしすぎると、地震時に壁ではなく<strong>柱の引き抜きや土台・基礎が先に壊れる</strong>恐れがあります。そのため壁倍率には上限が設けられ、強い壁の端部には引き抜き防止の<strong>ホールダウン金物</strong>を入れます（N値計算で必要量を決定）。</p>
+      </div>
+
+      <h2>必要壁量の計算（壁量計算）</h2>
+      <p>4号建築物（小規模木造）では、地震と風のそれぞれについて「<strong>必要壁量 ≦ 存在壁量</strong>」を確認します。</p>
+      <div class="formula">
+        存在壁量 ＝ 壁長 × 壁倍率 の合計
+      </div>
+      <table class="data">
+        <tr><th>検討</th><th>必要壁量の求め方</th></tr>
+        <tr><td>地震に対して</td><td>各階の<strong>床面積 × 地震用の係数</strong>（階数・屋根の重さで決まる）</td></tr>
+        <tr><td>風に対して</td><td>その方向の<strong>見付面積 × 風用の係数</strong>（見付面積＝風を受ける壁の面積）</td></tr>
+      </table>
+      <p>地震用・風用それぞれで必要壁量を求め、<strong>大きいほうを満たす</strong>ように耐力壁を配置します。</p>
+
+      <h3>計算例（イメージ）</h3>
+      <p>ある階の床面積が50m²、地震用係数が0.29m/m²のとき、必要壁量は 50 × 0.29 ＝ <strong>14.5m</strong>。この階に「45×90片側筋かい（壁倍率2.0）の壁」を配置するなら、14.5 ÷ 2.0 ＝ <strong>約7.3m分の壁長</strong>が必要、という具合に求めます。</p>
+
+      <div class="note-box">
+        <span class="label">あわせて読みたい</span>
+        <p>量が足りても配置が偏ると危険です。バランスは「<a href="yonbunkatsu.html">四分割法</a>」で確認します。耐力壁の役割は「<a href="tairyoku-heki.html">耐力壁とは？</a>」、軸組図での見方は「<a href="jiku-waku.html">軸組図の読み方</a>」をどうぞ。</p>
+      </div>
+
+      <h2>まとめ</h2>
+      <ul>
+        <li>壁倍率は耐力壁の強さの指標。1.0＝壁長1mあたり1.96kN。上限は合計5.0。</li>
+        <li>筋かい45×90片側＝2.0、たすき掛け＝4.0、構造用合板＝2.5などが代表値。</li>
+        <li>壁量計算は「必要壁量（地震＝床面積×係数／風＝見付面積×係数）≦ 存在壁量（壁長×壁倍率）」で確認する。</li>
+      </ul>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>木造（W造）の記事</h4>
+        <ul>
+          <li><a href="w-zou.html">木造（W造）とは？</a></li>
+          <li><a href="yonbunkatsu.html">四分割法｜壁充足率・壁率比</a></li>
+          <li><a href="tairyoku-heki.html">耐力壁とは？役割と配置のポイント</a></li>
+          <li><a href="jiku-waku.html">軸組と枠組の違い・軸組図の読み方</a></li>
+        </ul>
+      </div>
+      <div class="tool-banner">
+        <div class="tb-ic">🧮</div>
+        <h4>断面性能 計算ツール</h4>
+        <p>b×hを入れるだけで A・I・Z・i を自動計算</p>
+        <a href="../tools/section-calculator.html">無料で使ってみる</a>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

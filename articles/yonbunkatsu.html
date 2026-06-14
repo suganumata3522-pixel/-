@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
+<title>四分割法とは？壁充足率・壁率比の計算と偏心の確認方法を解説｜構造設計ナビ</title>
+<meta name="description" content="木造の耐力壁の配置バランスを確認する四分割法を解説。平面を4分割して両端1/4の壁量を調べ、壁充足率（存在壁量÷必要壁量）と壁率比（小さい側÷大きい側≧0.5）で偏りを判定する手順を、計算例つきでわかりやすくまとめます。">
+<meta property="og:title" content="四分割法とは？壁充足率・壁率比の計算と偏心の確認方法を解説｜構造設計ナビ">
+<meta property="og:description" content="木造の耐力壁の配置バランスを確認する四分割法を解説。壁充足率と壁率比（≧0.5）で偏りを判定する手順を計算例つきでまとめます。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kouzou-navi.com/articles/yonbunkatsu.html">
+<meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
+<meta property="og:site_name" content="構造設計ナビ">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.kouzou-navi.com/articles/yonbunkatsu.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="../articles.html#kiso">構造力学の基礎</a></li>
+        <li><a href="../articles.html#w-zou">木造</a></li>
+        <li><a href="../tools/section-calculator.html">計算ツール</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › <a href="../articles.html#w-zou">木造（W造）</a> › 四分割法</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">木造（W造）</span>
+        <span>更新日：2026年6月14日</span>
+      </div>
+      <h1>四分割法とは？壁充足率・壁率比の計算と偏心の確認方法</h1>
+
+      <p>木造で<a href="tairyoku-heki.html">耐力壁</a>が足りていても、<strong>配置が偏っていると地震時に建物がねじれて</strong>倒壊することがあります。これを防ぐため、耐力壁のバランスを確認するのが<strong>四分割法</strong>です。小規模木造（4号建築物）で広く使われる簡易な方法です。</p>
+
+      <h2>四分割法の考え方</h2>
+      <p>平面を、X方向・Y方向それぞれについて<strong>4等分</strong>し、その<strong>両端の1/4ずつ（側端部分）</strong>の壁量を調べます。端のほうに壁がきちんとあれば、ねじれにくいバランスの良い建物だと判断できます。</p>
+
+      <div class="diagram">
+        <svg viewBox="0 0 420 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="四分割法の側端部分">
+          <rect x="60" y="30" width="300" height="160" fill="#f7f9fb" stroke="#1a3a5c" stroke-width="2"/>
+          <!-- 4分割線 -->
+          <line x1="135" y1="30" x2="135" y2="190" stroke="#c3ccd6" stroke-width="1.5" stroke-dasharray="5 4"/>
+          <line x1="210" y1="30" x2="210" y2="190" stroke="#c3ccd6" stroke-width="1.5" stroke-dasharray="5 4"/>
+          <line x1="285" y1="30" x2="285" y2="190" stroke="#c3ccd6" stroke-width="1.5" stroke-dasharray="5 4"/>
+          <!-- 側端部分を強調 -->
+          <rect x="60" y="30" width="75" height="160" fill="#fdf1e7" opacity="0.8"/>
+          <rect x="285" y="30" width="75" height="160" fill="#fdf1e7" opacity="0.8"/>
+          <text x="97" y="115" text-anchor="middle" font-size="12" font-weight="bold" fill="#b35309">側端1/4</text>
+          <text x="322" y="115" text-anchor="middle" font-size="12" font-weight="bold" fill="#b35309">側端1/4</text>
+          <text x="210" y="115" text-anchor="middle" font-size="11" fill="#6b7785">中央（評価しない）</text>
+          <text x="210" y="210" text-anchor="middle" font-size="11" fill="#6b7785">この向き（X方向）について両端を調べる</text>
+        </svg>
+        <p class="cap">図：平面を4分割し、両端1/4（側端部分）の壁量を調べる。X・Y両方向で行う</p>
+      </div>
+
+      <h2>手順①：壁充足率を計算する</h2>
+      <p>まず、両端の側端部分それぞれについて、壁が足りているかを<strong>壁充足率</strong>で確認します。</p>
+      <div class="formula">
+        壁充足率 ＝ 存在壁量 ÷ 必要壁量
+        <span class="note">存在壁量＝側端部分にある壁長×<a href="kabebairitsu.html">壁倍率</a>の合計／必要壁量＝側端部分の床面積×係数。両端とも 1.0 以上が望ましい。</span>
+      </div>
+
+      <h2>手順②：壁率比を計算する</h2>
+      <p>次に、両端のバランスを<strong>壁率比</strong>で確認します。</p>
+      <div class="formula">
+        壁率比 ＝ 小さい側の壁充足率 ÷ 大きい側の壁充足率 ≧ 0.5
+        <span class="note">両端の偏りが小さいほど1.0に近づく。0.5以上ならバランスOK。</span>
+      </div>
+      <p><strong>例外</strong>：両端とも壁充足率が1.0以上（＝どちらも壁が十分）なら、壁率比の確認は不要です。十分な壁があれば多少偏っていても問題ないためです。</p>
+
+      <h3>計算例</h3>
+      <table class="data">
+        <tr><th></th><th>左の側端</th><th>右の側端</th></tr>
+        <tr><td>存在壁量</td><td>6.0 m</td><td>3.0 m</td></tr>
+        <tr><td>必要壁量</td><td>4.0 m</td><td>4.0 m</td></tr>
+        <tr><td>壁充足率</td><td>6.0/4.0＝1.5</td><td>3.0/4.0＝0.75</td></tr>
+      </table>
+      <p>右側が1.0未満なので壁率比を確認します。壁率比＝0.75÷1.5＝<strong>0.5 → ぎりぎりOK</strong>。もし右側がさらに少ないとNGとなり、右側に壁を追加する必要があります。</p>
+
+      <div class="point-box">
+        <span class="label">POINT</span>
+        <ul>
+          <li>四分割法は「壁が<strong>端のほうにバランスよくあるか</strong>」を簡易に確認する方法。</li>
+          <li>判定は<strong>「両端とも壁充足率1.0以上」か「壁率比0.5以上」</strong>のどちらかを満たせばOK。</li>
+          <li>より厳密には<a href="sokan-henkei.html">偏心率</a>（≦0.3、木造の場合）で確認する方法もある。南面に窓を集めると壁が偏りやすいので注意。</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="label">あわせて読みたい</span>
+        <p>壁の強さと必要量は「<a href="kabebairitsu.html">壁倍率と必要壁量</a>」、偏心の一般論は「<a href="sokan-henkei.html">層間変形角・剛性率・偏心率</a>」、軸組図は「<a href="jiku-waku.html">軸組図の読み方</a>」をどうぞ。</p>
+      </div>
+
+      <h2>まとめ</h2>
+      <ul>
+        <li>四分割法は耐力壁の配置バランス（ねじれにくさ）を確認する方法。</li>
+        <li>平面を4分割し、両端1/4の壁充足率（存在壁量÷必要壁量）を計算する。</li>
+        <li>「両端とも1.0以上」または「壁率比0.5以上」でバランスOK。</li>
+      </ul>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>木造（W造）の記事</h4>
+        <ul>
+          <li><a href="w-zou.html">木造（W造）とは？</a></li>
+          <li><a href="kabebairitsu.html">壁倍率と必要壁量の計算</a></li>
+          <li><a href="jiku-waku.html">軸組と枠組の違い・軸組図の読み方</a></li>
+          <li><a href="tairyoku-heki.html">耐力壁とは？役割と配置のポイント</a></li>
+        </ul>
+      </div>
+      <div class="tool-banner">
+        <div class="tb-ic">🧮</div>
+        <h4>断面性能 計算ツール</h4>
+        <p>b×hを入れるだけで A・I・Z・i を自動計算</p>
+        <a href="../tools/section-calculator.html">無料で使ってみる</a>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

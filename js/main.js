@@ -51,7 +51,15 @@ document.addEventListener('DOMContentLoaded', function () {
     { title: 'コンクリートの弱点とは？引張の弱さ・劣化とひび割れの種類・対策', url: 'articles/concrete-jakuten.html', keywords: 'コンクリート 弱点 引張 劣化 中性化 塩害 凍害 アルカリ骨材反応 ひび割れ 乾燥収縮 水セメント比 かぶり厚さ' },
     { title: 'コンクリートと鉄筋の関係｜互いの弱点を補う仕組み', url: 'articles/rc-tetsu-kankei.html', keywords: 'コンクリート 鉄筋 関係 仕組み 圧縮 引張 役割分担 熱膨張率 付着 アルカリ 異形鉄筋 RC' },
     { title: '木造（W造）とは？在来軸組工法と枠組壁工法・耐震のポイント', url: 'articles/w-zou.html', keywords: '木造 W造 在来軸組 2×4 枠組壁工法 壁量計算 四分割法 N値計算 壁倍率 CLT 接合金物' },
+    { title: '在来工法とは？概要・耐震性・伝統工法との違い', url: 'articles/zairai-kouhou.html', keywords: '在来工法 在来軸組工法 木造 伝統工法 伝統構法 耐震性 筋かい 石場建て 違い' },
+    { title: '在来軸組工法とは？部材の種類と役割・枠組壁工法との違い', url: 'articles/jikugumi-kouhou.html', keywords: '在来軸組工法 部材 土台 柱 通し柱 管柱 梁 桁 胴差 筋かい 火打ち 母屋 2×4 枠組壁工法' },
+    { title: '軸組と枠組の違い・耐力壁の役割と軸組図の読み方', url: 'articles/jiku-waku.html', keywords: '軸組 枠組 違い 耐力壁 軸組図 読み方 たすき掛け 筋かい 2×4 木造' },
+    { title: '四分割法とは？壁充足率・壁率比の計算と偏心の確認方法', url: 'articles/yonbunkatsu.html', keywords: '四分割法 壁充足率 壁率比 偏心 配置バランス 側端部分 必要壁量 存在壁量 木造' },
+    { title: '壁倍率とは？筋かい・石膏ボードの値一覧と必要壁量の計算', url: 'articles/kabebairitsu.html', keywords: '壁倍率 筋かい 石膏ボード 構造用合板 値 一覧 必要壁量 存在壁量 壁量計算 たすき掛け ホールダウン' },
     { title: '基礎構造とは？直接基礎と杭基礎の違い・地盤との関係', url: 'articles/kiso-kouzou.html', keywords: '基礎 基礎構造 直接基礎 独立基礎 布基礎 べた基礎 杭基礎 支持杭 摩擦杭 地盤 支持力 不同沈下 液状化' },
+    { title: '基礎とは？べた基礎・布基礎・独立基礎の意味と種類', url: 'articles/chokusetsu-kiso.html', keywords: '基礎 べた基礎 布基礎 独立基礎 直接基礎 種類 意味 フーチング 不同沈下 木造' },
+    { title: '基礎構造と耐震性｜直接基礎・杭基礎の選び方と設計の関係', url: 'articles/kiso-taishin.html', keywords: '基礎構造 耐震性 設計 直接基礎 杭基礎 不同沈下 液状化 地中梁 地盤改良 支持力' },
+    { title: 'N値と支持層とは？ボーリング調査（標準貫入試験）の読み方', url: 'articles/n-chi.html', keywords: 'N値 支持層 ボーリング 標準貫入試験 地盤調査 柱状図 砂質 粘性土 SWS 基礎' },
     { title: '断面性能計算ツール（長方形・円形断面）', url: 'tools/section-calculator.html', keywords: '計算ツール 断面積 断面二次モーメント 断面係数 断面二次半径 無料' }
   ];
 
