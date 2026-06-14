@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
+<title>H形鋼の幅厚比とは？フランジ・ウェブの値と制限値・基準強度の関係｜構造設計ナビ</title>
+<meta name="description" content="H形鋼の幅厚比をわかりやすく解説。フランジ・ウェブの幅厚比の求め方、局部座屈を防ぐための制限値、基準強度Fとの関係（√(235/F)）、部材ランク（FA〜FD）の考え方をまとめます。">
+<meta property="og:title" content="H形鋼の幅厚比とは？フランジ・ウェブの値と制限値・基準強度の関係｜構造設計ナビ">
+<meta property="og:description" content="H形鋼の幅厚比（フランジ・ウェブ）の求め方、局部座屈の制限値、基準強度Fとの関係を解説します。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kouzou-navi.com/articles/h-habaatsuhi.html">
+<meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
+<meta property="og:site_name" content="構造設計ナビ">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.kouzou-navi.com/articles/h-habaatsuhi.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="../articles.html#kiso">構造力学の基礎</a></li>
+        <li><a href="../articles.html#s-zou">鉄骨造</a></li>
+        <li><a href="../tools/section-calculator.html">計算ツール</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › <a href="../articles.html#s-zou">鉄骨造（S造）</a> › H形鋼の幅厚比</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">鉄骨造（S造）</span>
+        <span>更新日：2026年6月14日</span>
+      </div>
+      <h1>H形鋼の幅厚比｜フランジ・ウェブの制限値と基準強度</h1>
+
+      <p><strong>幅厚比（はばあつひ）</strong>とは、板の「幅」と「厚さ」の比のことです。<a href="h-katako.html">H形鋼</a>の板が薄すぎると<a href="zakutsu.html">局部座屈</a>を起こすため、幅厚比には制限が設けられています。</p>
+
+      <div class="note-box">
+        <span class="label">この記事について</span>
+        <p>本記事の数値は<strong>代表的な目安・例</strong>で、学習用の概要です。設計・積算では必ず<strong>最新のJIS・建築基準法告示・鋼構造設計規準・鋼材ハンドブック</strong>の正確な値を確認してください。</p>
+      </div>
+
+      <h2>幅厚比とは</h2>
+      <p>薄くて幅の広い板ほど、圧縮を受けると波打つように座屈しやすくなります。これが<strong>局部座屈</strong>です。幅厚比は、この座屈のしやすさを表す指標で、<strong>大きいほど（板が薄いほど）危険</strong>です。</p>
+
+      <h2>フランジ・ウェブの幅厚比の求め方</h2>
+      <div class="formula">
+        フランジ：(B/2) / t2　　ウェブ：(H − 2·t2) / t1
+        <span class="note">B：フランジ幅／t2：フランジ厚／H：せい／t1：ウェブ厚</span>
+      </div>
+      <p>フランジは中央から外に張り出した板（片側）の幅厚比、ウェブは上下フランジ間の高さに対する幅厚比で評価します。</p>
+
+      <h2>制限値と基準強度Fの関係</h2>
+      <p>幅厚比の制限値は、鋼材の<a href="kouzai-shurui.html">基準強度F</a>が大きいほど<strong>厳しく（小さく）</strong>なります。強い鋼ほど高い応力が働き、局部座屈しやすくなるためで、制限値は<strong>√(235/F)</strong>に比例して調整されます。</p>
+      <div class="formula">
+        制限値 ∝ √(235 / F)
+        <span class="note">F=235(SN400等)を基準に、F=325(SN490等)では √(235/325)≒0.85 倍に厳しくなる</span>
+      </div>
+
+      <h2>部材ランク（FA〜FD）</h2>
+      <p>鋼構造の規準では、幅厚比などに応じて部材を<strong>FA・FB・FC・FD</strong>の4ランクに分類します。FAが最も塑性変形能力が高く（幅厚比が小さい）、FDに向かうほど早く局部座屈します。これは<a href="setsugoubu-shishin.html">保有水平耐力</a>計算で部材の粘り強さを評価する際に使われます。</p>
+      <table class="data">
+        <tr><th>ランク</th><th>幅厚比</th><th>変形能力</th></tr>
+        <tr><td>FA</td><td>小さい（厚い板）</td><td>高い（よく粘る）</td></tr>
+        <tr><td>FB・FC</td><td>中間</td><td>中間</td></tr>
+        <tr><td>FD</td><td>大きい（薄い板）</td><td>低い（早く座屈）</td></tr>
+      </table>
+      <p>参考：F=235の場合のFAの目安は、フランジ（B/2）/t2 ≈ 9、ウェブ（H−2t2）/t1 ≈ 60程度（正確な値は規準で確認）。</p>
+
+      <div class="note-box">
+        <span class="label">あわせて読みたい</span>
+        <p>板の役割は「<a href="h-flange-web.html">フランジとウェブ</a>」、座屈は「<a href="zakutsu.html">座屈とは？</a>」、規準は「<a href="koukouzou-kijun.html">鋼構造設計規準</a>」をどうぞ。</p>
+      </div>
+
+      <h2>まとめ</h2>
+      <ul>
+        <li>幅厚比は板の幅÷厚さ。大きい（薄い）ほど局部座屈しやすい。</li>
+        <li>フランジは(B/2)/t2、ウェブは(H−2t2)/t1で求める。</li>
+        <li>制限値は基準強度Fが大きいほど厳しく（√(235/F)倍）。部材ランクFA〜FDで評価する。</li>
+      </ul>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>H形鋼・形鋼の詳細</h4>
+        <ul>
+          <li><a href="h-sunpou.html">H形鋼の寸法</a></li>
+          <li><a href="h-flange-web.html">フランジとウェブ</a></li>
+          <li><a href="h-web.html">H形鋼のウェブ</a></li>
+          <li><a href="h-kyoudo.html">H形鋼の強度</a></li>
+          <li><a href="h-jiku.html">強軸・弱軸</a></li>
+          <li><a href="i-katako.html">I形鋼</a></li>
+          <li><a href="ct-katako.html">CT形鋼</a></li>
+          <li><a href="build-h.html">ビルドH鋼</a></li>
+          <li><a href="sotonori-ittei.html">外法一定H形鋼</a></li>
+          <li><a href="t-katako.html">T形鋼</a></li>
+        </ul>
+      </div>
+      <div class="tool-banner">
+        <div class="tb-ic">🧮</div>
+        <h4>断面性能 計算ツール</h4>
+        <p>b×hを入れるだけで A・I・Z・i を自動計算</p>
+        <a href="../tools/section-calculator.html">無料で使ってみる</a>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
