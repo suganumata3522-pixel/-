@@ -21,6 +21,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.kouzou-navi.com/articles/chokusetsu-kiso.html</loc>
+    <lastmod>2026-06-14</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.kouzou-navi.com/articles/concrete-jakuten.html</loc>
     <lastmod>2026-06-14</lastmod>
     <priority>0.7</priority>
@@ -46,7 +51,22 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.kouzou-navi.com/articles/jiku-waku.html</loc>
+    <lastmod>2026-06-14</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.kouzou-navi.com/articles/jikugumi-kouhou.html</loc>
+    <lastmod>2026-06-14</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.kouzou-navi.com/articles/jishin-ryoku.html</loc>
+    <lastmod>2026-06-14</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.kouzou-navi.com/articles/kabebairitsu.html</loc>
     <lastmod>2026-06-14</lastmod>
     <priority>0.7</priority>
   </url>
@@ -57,6 +77,11 @@
   </url>
   <url>
     <loc>https://www.kouzou-navi.com/articles/kiso-kouzou.html</loc>
+    <lastmod>2026-06-14</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.kouzou-navi.com/articles/kiso-taishin.html</loc>
     <lastmod>2026-06-14</lastmod>
     <priority>0.7</priority>
   </url>
@@ -77,6 +102,11 @@
   </url>
   <url>
     <loc>https://www.kouzou-navi.com/articles/kyoyo-oryokudo.html</loc>
+    <lastmod>2026-06-14</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.kouzou-navi.com/articles/n-chi.html</loc>
     <lastmod>2026-06-14</lastmod>
     <priority>0.7</priority>
   </url>
@@ -172,6 +202,16 @@
   </url>
   <url>
     <loc>https://www.kouzou-navi.com/articles/w-zou.html</loc>
+    <lastmod>2026-06-14</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.kouzou-navi.com/articles/yonbunkatsu.html</loc>
+    <lastmod>2026-06-14</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.kouzou-navi.com/articles/zairai-kouhou.html</loc>
     <lastmod>2026-06-14</lastmod>
     <priority>0.7</priority>
   </url>
