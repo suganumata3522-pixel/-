@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
+<title>コンクリートと鉄筋の関係｜互いの弱点を補う仕組みを図解で解説｜構造設計ナビ</title>
+<meta name="description" content="鉄筋コンクリート（RC）がなぜ成り立つのか。圧縮に強いコンクリートと引張に強い鉄筋が互いの弱点を補う仕組み、熱膨張率が同じこと、アルカリ性が鉄筋の錆を防ぐこと、付着で一体化することの4つの相性の良さを、梁の曲げの図解つきで解説します。">
+<meta property="og:title" content="コンクリートと鉄筋の関係｜互いの弱点を補う仕組みを図解で解説｜構造設計ナビ">
+<meta property="og:description" content="圧縮に強いコンクリートと引張に強い鉄筋が弱点を補う仕組み、熱膨張率が同じこと、アルカリ性が錆を防ぐこと、付着で一体化することを図解で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kouzou-navi.com/articles/rc-tetsu-kankei.html">
+<meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
+<meta property="og:site_name" content="構造設計ナビ">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.kouzou-navi.com/articles/rc-tetsu-kankei.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="../articles.html#kiso">構造力学の基礎</a></li>
+        <li><a href="../articles.html#rc-zou">RC造</a></li>
+        <li><a href="../tools/section-calculator.html">計算ツール</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › <a href="../articles.html#rc-zou">鉄筋コンクリート造（RC造）</a> › コンクリートと鉄筋の関係</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">鉄筋コンクリート造（RC造）</span>
+        <span>更新日：2026年6月14日</span>
+      </div>
+      <h1>コンクリートと鉄筋の関係｜互いの弱点を補う仕組みを図解で解説</h1>
+
+      <p><a href="rc-zou.html">鉄筋コンクリート（RC）</a>は、コンクリートと鉄筋という2つの材料を組み合わせた複合材料です。なぜこの2つを組み合わせるとうまくいくのか——それは<strong>互いの弱点をちょうど補い合う、奇跡のような相性の良さ</strong>があるからです。</p>
+
+      <h2>それぞれの得意・不得意</h2>
+      <table class="data">
+        <tr><th>材料</th><th>得意</th><th>不得意</th></tr>
+        <tr><td>コンクリート</td><td>圧縮に強い・安い・耐火・耐久</td><td><a href="concrete-jakuten.html">引張に弱い</a>（圧縮の約1/10）</td></tr>
+        <tr><td>鉄筋</td><td>引張に強い・粘り強い</td><td>錆びる・熱に弱い・細いと座屈</td></tr>
+      </table>
+
+      <h2>仕組み：引張は鉄筋、圧縮はコンクリート</h2>
+      <p>梁が曲がると、断面の中で<strong>引張と圧縮が同時に</strong>生じます（<a href="danmen-keisu.html">曲げ応力度</a>）。下に凸に曲がる梁では、下側が引張・上側が圧縮になります。そこで<strong>引張が生じる側に鉄筋を配置</strong>すれば、コンクリートが苦手な引張を鉄筋が肩代わりし、圧縮はコンクリートが受け持ちます。</p>
+
+      <div class="diagram">
+        <svg viewBox="0 0 520 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="RC梁の曲げと鉄筋の配置">
+          <defs>
+            <marker id="rt" markerWidth="7" markerHeight="7" refX="5" refY="2.5" orient="auto"><path d="M0,0 L6,2.5 L0,5 Z" fill="#e8843c"/></marker>
+          </defs>
+          <!-- 荷重 -->
+          <line x1="260" y1="14" x2="260" y2="44" stroke="#e8843c" stroke-width="4" marker-end="url(#rt)"/>
+          <text x="272" y="30" font-size="13" font-weight="bold" fill="#b35309">荷重</text>
+          <!-- 梁(たわんだ形) -->
+          <path d="M50,60 Q260,110 470,60 L470,100 Q260,150 50,100 Z" fill="#e3ecf5" stroke="#1a3a5c" stroke-width="2"/>
+          <!-- 支点 -->
+          <polygon points="50,100 38,124 62,124" fill="none" stroke="#1a3a5c" stroke-width="2.5"/>
+          <polygon points="470,100 458,124 482,124" fill="none" stroke="#1a3a5c" stroke-width="2.5"/>
+          <!-- 圧縮(上側) -->
+          <text x="260" y="80" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#1a3a5c">上側：圧縮 → コンクリートが担当</text>
+          <!-- 鉄筋(下側) -->
+          <path d="M70,138 Q260,178 450,138" fill="none" stroke="#c0392b" stroke-width="3.5"/>
+          <text x="260" y="170" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#c0392b">下側：引張 → 鉄筋が担当</text>
+        </svg>
+        <p class="cap">図：下に凸の梁では下側が引張。そこに鉄筋を入れてコンクリートの弱点を補う</p>
+      </div>
+
+      <h2>4つの「相性の良さ」</h2>
+      <p>RCが成立するのは、力の分担だけでなく、次の物理的な相性のおかげです。</p>
+      <table class="data">
+        <tr><th>相性</th><th>内容</th></tr>
+        <tr><td>① 力の補完</td><td>圧縮＝コンクリート、引張＝鉄筋で役割分担できる。</td></tr>
+        <tr><td>② 熱膨張率がほぼ同じ</td><td>温度変化で同じだけ伸縮するため、内部で剥がれたりズレたりしない。</td></tr>
+        <tr><td>③ アルカリ性が錆を防ぐ</td><td>コンクリートのアルカリ性が、覆われた鉄筋の<a href="concrete-jakuten.html">錆を防ぐ</a>。</td></tr>
+        <tr><td>④ 付着で一体化</td><td>鉄筋表面の凹凸（異形鉄筋）とコンクリートが密着し、一体で働く。</td></tr>
+      </table>
+
+      <div class="point-box">
+        <span class="label">POINT</span>
+        <ul>
+          <li>鉄筋はさらにコンクリートに守られることで、自身の弱点（錆・熱・座屈）も克服している。<strong>互いに守り合う</strong>関係。</li>
+          <li>この一体性を保つのが<strong>付着</strong>と<strong>かぶり厚さ</strong>。だからRC造ではかぶり厚さが極めて重要。</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <span class="label">あわせて読みたい</span>
+        <p>コンクリート側の弱点と対策は「<a href="concrete-jakuten.html">コンクリートの弱点</a>」、曲げと断面の関係は「<a href="danmen-keisu.html">断面係数とは？</a>」、RC造全体は「<a href="rc-zou.html">鉄筋コンクリート造（RC造）とは？</a>」をどうぞ。</p>
+      </div>
+
+      <h2>まとめ</h2>
+      <ul>
+        <li>圧縮に強いコンクリートと引張に強い鉄筋が、互いの弱点を補い合う。</li>
+        <li>熱膨張率が同じ・アルカリが錆を防ぐ・付着で一体化、の相性の良さで成立する。</li>
+        <li>一体性を保つ「付着」と「かぶり厚さ」がRC造の生命線。</li>
+      </ul>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>RC造の記事</h4>
+        <ul>
+          <li><a href="rc-zou.html">鉄筋コンクリート造（RC造）とは？</a></li>
+          <li><a href="rc-toha.html">RCとは何の略？S造との違い</a></li>
+          <li><a href="rc-taishin.html">RC造の耐震性と特徴</a></li>
+          <li><a href="concrete-jakuten.html">コンクリートの弱点とひび割れ対策</a></li>
+        </ul>
+      </div>
+      <div class="tool-banner">
+        <div class="tb-ic">🧮</div>
+        <h4>断面性能 計算ツール</h4>
+        <p>b×hを入れるだけで A・I・Z・i を自動計算</p>
+        <a href="../tools/section-calculator.html">無料で使ってみる</a>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
