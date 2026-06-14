@@ -46,6 +46,10 @@ document.addEventListener('DOMContentLoaded', function () {
     { title: '鉄骨造（S造）のメリット・デメリット（RC造との違い）', url: 'articles/s-merit.html', keywords: '鉄骨造 メリット デメリット 長所 短所 S造 RC造 違い 比較 大スパン 耐火' },
     { title: '折板屋根とは？意味・特徴・建築例・メリット', url: 'articles/seppan-yane.html', keywords: '折板屋根 せっぱん 折板 金属屋根 工場 倉庫 体育館 カーポート 母屋 軽量' },
     { title: '鉄筋コンクリート造（RC造）とは？鉄筋とコンクリートの役割分担', url: 'articles/rc-zou.html', keywords: 'RC造 鉄筋コンクリート 壁式構造 ラーメン かぶり厚さ 中性化 付着 Fc コンクリート 鉄筋' },
+    { title: 'RCとは何の略？RC造の意味・特徴とS造との違い', url: 'articles/rc-toha.html', keywords: 'RC とは 何の略 Reinforced Concrete 鉄筋コンクリート 意味 特徴 S造 違い 比較' },
+    { title: 'RC造の耐震性と特徴｜なぜ地震に強いのか', url: 'articles/rc-taishin.html', keywords: 'RC造 耐震性 地震 剛性 じん性 粘り 耐震壁 あばら筋 帯筋 フープ せん断破壊 曲げ先行' },
+    { title: 'コンクリートの弱点とは？引張の弱さ・劣化とひび割れの種類・対策', url: 'articles/concrete-jakuten.html', keywords: 'コンクリート 弱点 引張 劣化 中性化 塩害 凍害 アルカリ骨材反応 ひび割れ 乾燥収縮 水セメント比 かぶり厚さ' },
+    { title: 'コンクリートと鉄筋の関係｜互いの弱点を補う仕組み', url: 'articles/rc-tetsu-kankei.html', keywords: 'コンクリート 鉄筋 関係 仕組み 圧縮 引張 役割分担 熱膨張率 付着 アルカリ 異形鉄筋 RC' },
     { title: '木造（W造）とは？在来軸組工法と枠組壁工法・耐震のポイント', url: 'articles/w-zou.html', keywords: '木造 W造 在来軸組 2×4 枠組壁工法 壁量計算 四分割法 N値計算 壁倍率 CLT 接合金物' },
     { title: '基礎構造とは？直接基礎と杭基礎の違い・地盤との関係', url: 'articles/kiso-kouzou.html', keywords: '基礎 基礎構造 直接基礎 独立基礎 布基礎 べた基礎 杭基礎 支持杭 摩擦杭 地盤 支持力 不同沈下 液状化' },
     { title: '断面性能計算ツール（長方形・円形断面）', url: 'tools/section-calculator.html', keywords: '計算ツール 断面積 断面二次モーメント 断面係数 断面二次半径 無料' }
