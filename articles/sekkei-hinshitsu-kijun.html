@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
+<title>設計基準強度と品質基準強度の違い・それぞれの意味｜構造設計ナビ</title>
+<meta name="description" content="設計基準強度と品質基準強度の違いをわかりやすく解説。構造設計の基準である設計基準強度Fc、耐久設計基準強度Fd、両者の大きい方をとる品質基準強度Fqの意味と関係をまとめます。">
+<meta property="og:title" content="設計基準強度と品質基準強度の違い・それぞれの意味｜構造設計ナビ">
+<meta property="og:description" content="設計基準強度Fc・耐久設計基準強度Fd・品質基準強度Fqの意味と関係（Fq=大きい方）を解説します。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kouzou-navi.com/articles/sekkei-hinshitsu-kijun.html">
+<meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
+<meta property="og:site_name" content="構造設計ナビ">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.kouzou-navi.com/articles/sekkei-hinshitsu-kijun.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="../articles.html#kiso">構造力学の基礎</a></li>
+        <li><a href="../articles.html#rc-zou">鉄筋コンクリート造</a></li>
+        <li><a href="../tools/section-calculator.html">計算ツール</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › <a href="../articles.html#rc-zou">鉄筋コンクリート造（RC造）</a> › 設計基準強度と品質基準強度</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">鉄筋コンクリート造（RC造）</span>
+        <span>更新日：2026年6月14日</span>
+      </div>
+      <h1>設計基準強度と品質基準強度の違い</h1>
+
+      <p>コンクリートの強度には、目的の異なる複数の「基準強度」があります。<strong>設計基準強度（Fc）</strong>と<strong>品質基準強度（Fq）</strong>の違いを整理します。</p>
+
+      <div class="note-box">
+        <span class="label">この記事について</span>
+        <p>強度・設計に関する規準（JASS5・建築基準法施行令など）の数値は<strong>条件・改訂で変わる</strong>ことがあります。本記事は学習用の概要です。設計では最新の規準を確認してください。</p>
+      </div>
+
+      <h2>3つの基準強度</h2>
+      <table class="data">
+        <tr><th>記号</th><th>名称</th><th>意味</th></tr>
+        <tr><td>Fc</td><td>設計基準強度</td><td>構造設計で基準とする強度</td></tr>
+        <tr><td>Fd</td><td><a href="taikyuu-kijun.html">耐久設計基準強度</a></td><td>耐久性から定める強度（<a href="keikaku-kyouyou.html">計画供用期間</a>による）</td></tr>
+        <tr><td>Fq</td><td>品質基準強度</td><td>品質管理の基準。FcとFdの大きい方</td></tr>
+      </table>
+
+      <h2>関係</h2>
+      <div class="formula">
+        品質基準強度 Fq ＝ max（設計基準強度 Fc, 耐久設計基準強度 Fd）
+        <span class="note">構造で必要な強度と耐久で必要な強度の、大きい方を採用する</span>
+      </div>
+      <div class="point-box">
+        <span class="label">POINT</span>
+        <p>たとえば構造的にはFc=21で足りても、長期の耐久性でFd=30が必要なら、品質基準強度Fq=30となります。実際に<a href="kyoudo-hosei.html">調合（配合）</a>で目標とするのは、このFqに補正を加えた強度です。</p>
+      </div>
+
+      <div class="note-box">
+        <span class="label">あわせて読みたい</span>
+        <p>「<a href="taikyuu-kijun.html">耐久設計基準強度</a>」「<a href="kyoudo-hosei.html">構造体強度補正値</a>」「<a href="keikaku-kyouyou.html">計画供用期間</a>」をどうぞ。</p>
+      </div>
+
+      <h2>まとめ</h2>
+      <ul>
+        <li>設計基準強度Fcは構造設計の基準、耐久設計基準強度Fdは耐久性の基準。</li>
+        <li>品質基準強度Fqは、FcとFdの大きい方をとる品質管理の基準。</li>
+        <li>配合の目標強度は、Fqに補正値を加えて決める。</li>
+      </ul>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>設計基準・許容応力度</h4>
+        <ul>
+          <li><a href="keikaku-kyouyou.html">計画供用期間</a></li>
+          <li><a href="taikyuu-kijun.html">耐久設計基準強度</a></li>
+          <li><a href="kyoudo-hosei.html">構造体強度補正値</a></li>
+          <li><a href="doma-concrete.html">土間コンクリートの強度</a></li>
+          <li><a href="concrete-kyoyo.html">コンクリートの許容応力度</a></li>
+          <li><a href="kyoyo-asshuku.html">許容圧縮応力度</a></li>
+          <li><a href="taikyuusei.html">耐久性と耐久年数</a></li>
+          <li><a href="sokuatsu.html">側圧</a></li>
+        </ul>
+      </div>
+      <div class="widget">
+        <h4>コンクリートの強度</h4>
+        <ul>
+          <li><a href="kyoudo-tani.html">強度の単位（N/mm²）</a></li>
+          <li><a href="namacon-kyoudo.html">生コンの強度（Fc21）</a></li>
+          <li><a href="asshuku-wc.html">圧縮強度と水セメント比</a></li>
+          <li><a href="inchou-kyoudo.html">引張強度</a></li>
+          <li><a href="asshuku-inchou.html">圧縮強度と引張強度の関係</a></li>
+          <li><a href="sunpou-kouka.html">寸法効果</a></li>
+        </ul>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

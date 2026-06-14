@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
+<title>コンクリートの許容圧縮応力度とは？Fcと長期・短期の使い分け｜構造設計ナビ</title>
+<meta name="description" content="コンクリートの許容圧縮応力度をわかりやすく解説。設計基準強度Fcから求める長期（Fc/3）・短期（2Fc/3）の許容圧縮応力度、長期と短期の使い分けを計算例つきでまとめます。">
+<meta property="og:title" content="コンクリートの許容圧縮応力度とは？Fcと長期・短期の使い分け｜構造設計ナビ">
+<meta property="og:description" content="コンクリートの許容圧縮応力度（長期Fc/3・短期2Fc/3）とFc・長期短期の使い分けを解説します。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kouzou-navi.com/articles/kyoyo-asshuku.html">
+<meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
+<meta property="og:site_name" content="構造設計ナビ">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.kouzou-navi.com/articles/kyoyo-asshuku.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="../articles.html#kiso">構造力学の基礎</a></li>
+        <li><a href="../articles.html#rc-zou">鉄筋コンクリート造</a></li>
+        <li><a href="../tools/section-calculator.html">計算ツール</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › <a href="../articles.html#rc-zou">鉄筋コンクリート造（RC造）</a> › 許容圧縮応力度</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">鉄筋コンクリート造（RC造）</span>
+        <span>更新日：2026年6月14日</span>
+      </div>
+      <h1>コンクリートの許容圧縮応力度｜Fcと長期・短期</h1>
+
+      <p><strong>許容圧縮応力度</strong>は、コンクリートが圧縮に対して許容できる応力度です。<a href="sekkei-hinshitsu-kijun.html">設計基準強度Fc</a>から求めます。</p>
+
+      <div class="note-box">
+        <span class="label">この記事について</span>
+        <p>強度・設計に関する規準（JASS5・建築基準法施行令など）の数値は<strong>条件・改訂で変わる</strong>ことがあります。本記事は学習用の概要です。設計では最新の規準を確認してください。</p>
+      </div>
+
+      <h2>計算式</h2>
+      <div class="formula">
+        長期許容圧縮応力度 ＝ Fc ÷ 3<br>
+        短期許容圧縮応力度 ＝ 2 × Fc ÷ 3
+        <span class="note">短期は長期の2倍</span>
+      </div>
+      <p>例：Fc21なら長期7・短期14 N/mm²、Fc24なら長期8・短期16 N/mm²です。</p>
+
+      <h2>長期・短期の使い分け</h2>
+      <table class="data">
+        <tr><th></th><th>長期（Fc/3）</th><th>短期（2Fc/3）</th></tr>
+        <tr><td>対象の荷重</td><td>固定荷重・積載荷重（常時）</td><td>地震・台風（短時間）</td></tr>
+        <tr><td>考え方</td><td>長くかかるので余裕を大きく</td><td>短時間なので大きな応力を許容</td></tr>
+      </table>
+
+      <div class="point-box">
+        <span class="label">POINT</span>
+        <p>柱の圧縮や梁の曲げ圧縮側の検討で、コンクリートの圧縮応力度がこの許容値以下になることを確認します。引張側は<a href="rc-tetsu-kankei.html">鉄筋</a>が負担します。</p>
+      </div>
+
+      <div class="note-box">
+        <span class="label">あわせて読みたい</span>
+        <p>「<a href="concrete-kyoyo.html">コンクリートの許容応力度</a>」「<a href="kyoyo-oryokudo.html">許容応力度計算</a>」「<a href="kyoudo-tani.html">強度の単位</a>」をどうぞ。</p>
+      </div>
+
+      <h2>まとめ</h2>
+      <ul>
+        <li>許容圧縮応力度は長期＝Fc/3、短期＝2Fc/3。</li>
+        <li>長期は常時荷重、短期は地震・台風に使う。短期は長期の2倍。</li>
+        <li>圧縮はコンクリート、引張は鉄筋が負担する。</li>
+      </ul>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>設計基準・許容応力度</h4>
+        <ul>
+          <li><a href="keikaku-kyouyou.html">計画供用期間</a></li>
+          <li><a href="sekkei-hinshitsu-kijun.html">設計基準強度と品質基準強度</a></li>
+          <li><a href="taikyuu-kijun.html">耐久設計基準強度</a></li>
+          <li><a href="kyoudo-hosei.html">構造体強度補正値</a></li>
+          <li><a href="doma-concrete.html">土間コンクリートの強度</a></li>
+          <li><a href="concrete-kyoyo.html">コンクリートの許容応力度</a></li>
+          <li><a href="taikyuusei.html">耐久性と耐久年数</a></li>
+          <li><a href="sokuatsu.html">側圧</a></li>
+        </ul>
+      </div>
+      <div class="widget">
+        <h4>コンクリートの強度</h4>
+        <ul>
+          <li><a href="kyoudo-tani.html">強度の単位（N/mm²）</a></li>
+          <li><a href="namacon-kyoudo.html">生コンの強度（Fc21）</a></li>
+          <li><a href="asshuku-wc.html">圧縮強度と水セメント比</a></li>
+          <li><a href="inchou-kyoudo.html">引張強度</a></li>
+          <li><a href="asshuku-inchou.html">圧縮強度と引張強度の関係</a></li>
+          <li><a href="sunpou-kouka.html">寸法効果</a></li>
+        </ul>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
