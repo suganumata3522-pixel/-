@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
+<title>中空断面とは？断面係数・断面二次モーメントの計算と座屈への影響｜構造設計ナビ</title>
+<meta name="description" content="中空断面をわかりやすく解説。中が空洞の中空断面（鋼管）の意味、円形・角形中空断面の断面二次モーメント・断面係数の計算式、同じ断面積でも中実より座屈・曲げに強い理由をまとめます。">
+<meta property="og:title" content="中空断面とは？断面係数・断面二次モーメントの計算と座屈への影響｜構造設計ナビ">
+<meta property="og:description" content="中空断面の意味、円形・角形の断面二次モーメント・断面係数の計算式、座屈に強い理由を解説します。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kouzou-navi.com/articles/chuukuu-danmen.html">
+<meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
+<meta property="og:site_name" content="構造設計ナビ">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.kouzou-navi.com/articles/chuukuu-danmen.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="../articles.html#kiso">構造力学の基礎</a></li>
+        <li><a href="../articles.html#s-zou">鉄骨造</a></li>
+        <li><a href="../tools/section-calculator.html">計算ツール</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › <a href="../articles.html#s-zou">鉄骨造（S造）</a> › 中空断面</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">鉄骨造（S造）</span>
+        <span>更新日：2026年6月14日</span>
+      </div>
+      <h1>中空断面とは？断面係数・断面二次モーメントと座屈</h1>
+
+      <p><strong>中空断面（ちゅうくうだんめん）</strong>とは、中が空洞になっている断面のことで、円形鋼管や角形鋼管が代表です。同じ重さでも<strong>曲げ・座屈に効率よく強い</strong>のが特徴です。</p>
+
+      <div class="note-box">
+        <span class="label">この記事について</span>
+        <p>鋼材の規格・寸法などは<strong>JISや製品の改訂で変わる</strong>ことがあります。本記事は学習用の概要です。実務では必ず<strong>最新のJIS・メーカーの形鋼表（鋼材ハンドブック）</strong>を確認してください。</p>
+      </div>
+
+      <h2>中空断面が強い理由</h2>
+      <p>曲げや座屈への強さは、材料が中立軸から<strong>どれだけ外側に分布しているか</strong>で決まります。中空断面は材料を外周に集めるため、<a href="chuujitsu-zai.html">中実断面</a>より<a href="danmen-niji-moment.html">断面二次モーメントI</a>を大きくでき、同じ断面積（重さ）でも効率的です。</p>
+
+      <h2>断面二次モーメント・断面係数の計算</h2>
+      <p><strong>円形中空断面</strong>（外径D、内径d）の場合：</p>
+      <div class="formula">
+        I = π(D⁴ − d⁴) / 64　　Z = I / (D/2) = π(D⁴ − d⁴) / (32D)
+        <span class="note">D：外径／d：内径（mm）</span>
+      </div>
+      <p><strong>角形（箱型）中空断面</strong>（外形B×H、空洞b×h）の場合：</p>
+      <div class="formula">
+        I = (BH³ − bh³) / 12　　Z = I / (H/2)
+      </div>
+      <p>いずれも「外形の値 − 空洞の値」で求めます（詳しくは<a href="hakogata-danmen.html">箱型断面</a>）。</p>
+
+      <h2>座屈への影響</h2>
+      <div class="point-box">
+        <span class="label">POINT</span>
+        <p>柱の<a href="zakutsu.html">座屈</a>のしにくさは<strong>断面二次半径 i＝√(I/A)</strong>で効いてきます。中空断面はAが同じでもIが大きいのでiが大きく、<strong>細長比が小さくなって座屈しにくい</strong>。これが柱に鋼管（中空断面）が好まれる理由です。ただし管の肉厚が薄すぎると、管壁が局部的に座屈する<a href="hakuniku.html">局部座屈</a>に注意が必要です。</p>
+      </div>
+
+      <div class="note-box">
+        <span class="label">あわせて読みたい</span>
+        <p>対になるのは「<a href="chuujitsu-zai.html">中実材</a>」、計算は「<a href="danmen-niji-moment.html">断面二次モーメント</a>」「<a href="danmen-keisu.html">断面係数</a>」、座屈は「<a href="zakutsu.html">座屈とは？</a>」をどうぞ。</p>
+      </div>
+
+      <h2>まとめ</h2>
+      <ul>
+        <li>中空断面は中が空洞の断面（鋼管）。材料を外周に集め効率的に強い。</li>
+        <li>円形は I=π(D⁴−d⁴)/64、角形は I=(BH³−bh³)/12 で計算。</li>
+        <li>断面二次半径が大きく座屈に強いが、肉厚が薄いと局部座屈に注意。</li>
+      </ul>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>断面・形鋼の基礎</h4>
+        <ul>
+          <li><a href="katakou.html">形鋼とは</a></li>
+          <li><a href="katakou-yomikata.html">形鋼の読み方</a></li>
+          <li><a href="keiryou-katakou.html">軽量形鋼</a></li>
+          <li><a href="ssc400.html">軽量形鋼SSC400</a></li>
+          <li><a href="kai-danmen.html">開断面</a></li>
+          <li><a href="hei-danmen.html">閉断面</a></li>
+          <li><a href="hakogata-danmen.html">箱型断面</a></li>
+          <li><a href="juufukukei.html">充腹形・非充腹形</a></li>
+          <li><a href="chuujitsu-zai.html">中実材</a></li>
+          <li><a href="hakuniku.html">薄肉と軽量鉄骨</a></li>
+          <li><a href="hari-sunpou.html">梁の寸法</a></li>
+        </ul>
+      </div>
+      <div class="tool-banner">
+        <div class="tb-ic">🧮</div>
+        <h4>断面性能 計算ツール</h4>
+        <p>b×hを入れるだけで A・I・Z・i を自動計算</p>
+        <a href="../tools/section-calculator.html">無料で使ってみる</a>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

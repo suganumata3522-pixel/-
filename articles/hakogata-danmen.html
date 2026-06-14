@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
+<title>箱型断面とは？特徴と断面係数・断面二次モーメントの計算、角形鋼管への応用｜構造設計ナビ</title>
+<meta name="description" content="箱型断面をわかりやすく解説。4枚の板で囲んだ箱型（ボックス）断面の特徴、中空矩形の断面二次モーメント・断面係数の計算式、角形鋼管（BCR・BCP）への応用と柱に向く理由をまとめます。">
+<meta property="og:title" content="箱型断面とは？特徴と断面係数・断面二次モーメントの計算、角形鋼管への応用｜構造設計ナビ">
+<meta property="og:description" content="箱型断面の特徴、中空矩形の断面二次モーメント・断面係数の計算式、角形鋼管への応用を解説します。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kouzou-navi.com/articles/hakogata-danmen.html">
+<meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
+<meta property="og:site_name" content="構造設計ナビ">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.kouzou-navi.com/articles/hakogata-danmen.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="../articles.html#kiso">構造力学の基礎</a></li>
+        <li><a href="../articles.html#s-zou">鉄骨造</a></li>
+        <li><a href="../tools/section-calculator.html">計算ツール</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › <a href="../articles.html#s-zou">鉄骨造（S造）</a> › 箱型断面</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">鉄骨造（S造）</span>
+        <span>更新日：2026年6月14日</span>
+      </div>
+      <h1>箱型断面とは？断面係数・断面二次モーメントの計算</h1>
+
+      <p><strong>箱型断面（はこがただんめん／ボックス断面）</strong>とは、4枚の板で囲んだ矩形の<a href="hei-danmen.html">閉断面</a>です。<a href="reikan-kakukei.html">角形鋼管</a>や、板を溶接して組むボックス柱が代表で、鉄骨の柱に適します。</p>
+
+      <div class="note-box">
+        <span class="label">この記事について</span>
+        <p>鋼材の規格・寸法などは<strong>JISや製品の改訂で変わる</strong>ことがあります。本記事は学習用の概要です。実務では必ず<strong>最新のJIS・メーカーの形鋼表（鋼材ハンドブック）</strong>を確認してください。</p>
+      </div>
+
+      <h2>箱型断面の特徴</h2>
+      <ul>
+        <li><strong>2方向に強い</strong>：上下・左右どちらの曲げにもバランスよく抵抗する。</li>
+        <li><strong>ねじりに強い</strong>：閉断面なのでねじり剛性が大きい。</li>
+        <li><strong>座屈に有利</strong>：材料が外周に分布し、断面二次モーメントが大きい。</li>
+      </ul>
+
+      <h2>断面二次モーメント・断面係数の計算</h2>
+      <p>外形 B×H、内側の空洞 b×h の中空矩形（箱型）の断面二次モーメント I と断面係数 Z は、外形から空洞を引いて求めます。</p>
+      <div class="formula">
+        I = (BH³ − bh³) / 12
+        <span class="note">B：外形の幅／H：外形のせい／b：空洞の幅／h：空洞のせい（mm）</span>
+      </div>
+      <div class="formula">
+        Z = I / (H/2) = (BH³ − bh³) / (6H)
+        <span class="note">Z：断面係数（mm³）。H/2＝中立軸から縁までの距離</span>
+      </div>
+      <p>中身の詰まった<a href="chuujitsu-zai.html">中実断面</a>から、中央の空洞分を差し引く考え方です。空洞部は中立軸の近くで曲げにあまり寄与しないため、抜いても性能の低下が小さく、軽くできます。</p>
+
+      <h2>角形鋼管への応用</h2>
+      <p>角形鋼管（<a href="reikan-kakukei.html">BCR・BCP</a>・STKR）はこの箱型断面の代表です。実際の角形鋼管は四隅に丸み（コーナーR）がありますが、設計では<a href="koukou-handbook.html">形鋼表</a>に記載された I・Z の値を使います。柱に角形鋼管が多用されるのは、箱型断面の「2方向に強くねじれに強い」性質が柱に好都合だからです。</p>
+
+      <div class="note-box">
+        <span class="label">あわせて読みたい</span>
+        <p>計算の基礎は「<a href="danmen-niji-moment.html">断面二次モーメントとは？</a>」「<a href="danmen-keisu.html">断面係数とは？</a>」、中空の効果は「<a href="chuukuu-danmen.html">中空断面</a>」をどうぞ。</p>
+      </div>
+
+      <h2>まとめ</h2>
+      <ul>
+        <li>箱型断面は4枚の板で囲んだ矩形の閉断面。2方向に強くねじれに強い。</li>
+        <li>I=(BH³−bh³)/12、Z=I/(H/2) で計算する。</li>
+        <li>角形鋼管（BCR・BCP）が代表例で、柱に多用される。</li>
+      </ul>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>断面・形鋼の基礎</h4>
+        <ul>
+          <li><a href="katakou.html">形鋼とは</a></li>
+          <li><a href="katakou-yomikata.html">形鋼の読み方</a></li>
+          <li><a href="keiryou-katakou.html">軽量形鋼</a></li>
+          <li><a href="ssc400.html">軽量形鋼SSC400</a></li>
+          <li><a href="kai-danmen.html">開断面</a></li>
+          <li><a href="hei-danmen.html">閉断面</a></li>
+          <li><a href="chuukuu-danmen.html">中空断面</a></li>
+          <li><a href="juufukukei.html">充腹形・非充腹形</a></li>
+          <li><a href="chuujitsu-zai.html">中実材</a></li>
+          <li><a href="hakuniku.html">薄肉と軽量鉄骨</a></li>
+          <li><a href="hari-sunpou.html">梁の寸法</a></li>
+        </ul>
+      </div>
+      <div class="tool-banner">
+        <div class="tb-ic">🧮</div>
+        <h4>断面性能 計算ツール</h4>
+        <p>b×hを入れるだけで A・I・Z・i を自動計算</p>
+        <a href="../tools/section-calculator.html">無料で使ってみる</a>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
