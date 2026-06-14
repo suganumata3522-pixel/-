@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
+<title>鋼構造設計規準とは？内容・実務での使い方をわかりやすく解説｜構造設計ナビ</title>
+<meta name="description" content="日本建築学会の「鋼構造設計規準（許容応力度設計法）」とは何かを解説。許容応力度設計の基準となる規準の位置づけ・主な内容（許容応力度、部材・接合部の検定、座屈）、関連する規準・指針との関係、構造設計の実務での使い方をまとめます。">
+<meta property="og:title" content="鋼構造設計規準とは？内容・実務での使い方をわかりやすく解説｜構造設計ナビ">
+<meta property="og:description" content="日本建築学会の鋼構造設計規準（許容応力度設計法）の位置づけ・主な内容・実務での使い方を解説します。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kouzou-navi.com/articles/koukouzou-kijun.html">
+<meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
+<meta property="og:site_name" content="構造設計ナビ">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.kouzou-navi.com/articles/koukouzou-kijun.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="../articles.html#kiso">構造力学の基礎</a></li>
+        <li><a href="../articles.html#s-zou">鉄骨造</a></li>
+        <li><a href="../tools/section-calculator.html">計算ツール</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › <a href="../articles.html#s-zou">鉄骨造（S造）</a> › 鋼構造設計規準</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">鉄骨造（S造）</span>
+        <span>更新日：2026年6月14日</span>
+      </div>
+      <h1>鋼構造設計規準とは？内容・実務での使い方をわかりやすく解説</h1>
+
+      <p><strong>鋼構造設計規準</strong>は、日本建築学会（AIJ）が発行する、<a href="s-zou.html">鉄骨造（S造）</a>の設計の拠りどころとなる規準です。正式名称は「<strong>鋼構造設計規準―許容応力度設計法</strong>」で、鉄骨の<a href="kyoyo-oryokudo.html">許容応力度計算</a>を行う際の基本ルールがまとめられています。</p>
+
+      <div class="note-box">
+        <span class="label">この記事について</span>
+        <p>規準・指針類は<strong>版（年度）によって内容が改訂</strong>されます。本記事は学習用の概要です。実務で参照する際は、必ず<strong>最新版の原典（日本建築学会の刊行物）</strong>を確認してください。</p>
+      </div>
+
+      <h2>位置づけ：法律と実務をつなぐ</h2>
+      <p>日本の構造設計は、最上位に<strong>建築基準法・施行令・告示</strong>があり、その下に各種団体の<strong>規準・指針</strong>が、実務を支える詳細なルールとして存在します。鋼構造設計規準は、鉄骨造の許容応力度設計における代表的な技術基準です。</p>
+      <table class="data">
+        <tr><th>階層</th><th>例</th></tr>
+        <tr><td>法令（最上位）</td><td>建築基準法・同施行令・告示</td></tr>
+        <tr><td>学会規準・指針</td><td><strong>鋼構造設計規準</strong>、<a href="setsugoubu-shishin.html">鋼構造接合部設計指針</a> など</td></tr>
+        <tr><td>仕様書・マニュアル</td><td><a href="jass6.html">JASS6</a>、<a href="reikan-kakukei.html">冷間成形角形鋼管マニュアル</a> など</td></tr>
+      </table>
+
+      <h2>主な内容</h2>
+      <ul>
+        <li><strong>材料・許容応力度</strong>：鋼材の基準強度F、長期・短期の許容応力度の考え方。</li>
+        <li><strong>部材の設計</strong>：引張材・圧縮材（<a href="zakutsu.html">座屈</a>）・曲げ材（横座屈）・組合せ応力を受ける材の検定。</li>
+        <li><strong>接合部</strong>：高力ボルト接合・溶接接合の基本（詳細は<a href="setsugoubu-shishin.html">接合部設計指針</a>）。</li>
+        <li><strong>たわみ・使用性</strong>：<a href="tawami.html">たわみ</a>の制限など。</li>
+      </ul>
+
+      <h2>実務での使い方</h2>
+      <ul>
+        <li>鉄骨部材の<strong>断面検定</strong>（応力度が許容応力度以下か）の根拠として参照する。</li>
+        <li>圧縮材の<strong>許容圧縮応力度</strong>を細長比に応じて求める際に使う。</li>
+        <li>一貫構造計算プログラムの計算根拠もこの規準に準拠していることが多く、出力の妥当性確認に役立つ。</li>
+        <li>限界状態設計法ベースの「鋼構造許容応力度設計規準」など、関連規準との対応も押さえておくとよい。</li>
+      </ul>
+
+      <div class="note-box">
+        <span class="label">あわせて読みたい</span>
+        <p>接合部の詳細は「<a href="setsugoubu-shishin.html">鋼構造接合部設計指針</a>」、施工は「<a href="jass6.html">JASS6</a>」、許容応力度計算の全体像は「<a href="kyoyo-oryokudo.html">許容応力度計算とは？</a>」をどうぞ。</p>
+      </div>
+
+      <h2>まとめ</h2>
+      <ul>
+        <li>鋼構造設計規準は、日本建築学会による鉄骨造の許容応力度設計の基本規準。</li>
+        <li>材料・部材（座屈含む）・接合部・使用性の設計ルールを定める。</li>
+        <li>断面検定の根拠として実務で参照。版が改訂されるため最新版を確認する。</li>
+      </ul>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>鉄骨造の規準・資料</h4>
+        <ul>
+          <li><a href="setsugoubu-shishin.html">鋼構造接合部設計指針</a></li>
+          <li><a href="reikan-kakukei.html">冷間成形角形鋼管マニュアル（BCR・BCP）</a></li>
+          <li><a href="scss.html">梁継手・接合部標準図集（SCSS-H97）</a></li>
+          <li><a href="jass6.html">JASS6（鉄骨工事）</a></li>
+          <li><a href="koukou-handbook.html">鋼材ハンドブックの使い方</a></li>
+        </ul>
+      </div>
+      <div class="tool-banner">
+        <div class="tb-ic">🧮</div>
+        <h4>断面性能 計算ツール</h4>
+        <p>b×hを入れるだけで A・I・Z・i を自動計算</p>
+        <a href="../tools/section-calculator.html">無料で使ってみる</a>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
