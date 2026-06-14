@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
+<title>高張力鋼（ハイテン）とは？規格・許容応力度と軟鋼との使い分け｜構造設計ナビ</title>
+<meta name="description" content="高張力鋼（ハイテン）をわかりやすく解説。引張強さ490N/mm²以上の高強度鋼の規格（SM570・590・780N級など）、基準強度・許容応力度の考え方、軟鋼との使い分けと注意点（ヤング係数は同じ）をまとめます。">
+<meta property="og:title" content="高張力鋼（ハイテン）とは？規格・許容応力度と軟鋼との使い分け｜構造設計ナビ">
+<meta property="og:description" content="高張力鋼の規格・許容応力度（基準強度）と、軟鋼との使い分け・注意点（剛性は同じ）を解説します。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kouzou-navi.com/articles/kouchouryokukou.html">
+<meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
+<meta property="og:site_name" content="構造設計ナビ">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.kouzou-navi.com/articles/kouchouryokukou.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="../articles.html#kiso">構造力学の基礎</a></li>
+        <li><a href="../articles.html#s-zou">鉄骨造</a></li>
+        <li><a href="../tools/section-calculator.html">計算ツール</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › <a href="../articles.html#s-zou">鉄骨造（S造）</a> › 高張力鋼</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">鉄骨造（S造）</span>
+        <span>更新日：2026年6月14日</span>
+      </div>
+      <h1>高張力鋼（ハイテン）とは？規格・許容応力度と軟鋼との使い分け</h1>
+
+      <p><strong>高張力鋼</strong>（ハイテン／High Tensile Strength steel）とは、<strong>引張強さ490N/mm²以上</strong>の高強度な鋼材です。<a href="nankou.html">軟鋼</a>より強いため部材を細く・軽くできますが、使い方には注意が必要です。</p>
+
+      <div class="note-box">
+        <span class="label">この記事について</span>
+        <p>鋼材の規格・基準強度などは<strong>JISや告示の改訂で変わる</strong>ことがあります。本記事は学習用の概要です。実務では必ず<strong>最新のJIS・建築基準法告示・メーカー資料</strong>を確認してください。</p>
+      </div>
+
+      <h2>高張力鋼の規格</h2>
+      <table class="data">
+        <tr><th>区分</th><th>例</th></tr>
+        <tr><td>490N/mm²級</td><td>SN490・SM490</td></tr>
+        <tr><td>520〜570N/mm²級</td><td>SM520・SM570</td></tr>
+        <tr><td>590・780N/mm²級（超高張力）</td><td>建築構造用高性能鋼（大臣認定材など）</td></tr>
+      </table>
+      <p>一般に490N/mm²級から上を高張力鋼と呼び、590・780N級のものは「超高張力鋼」とも呼ばれます。</p>
+
+      <h2>基準強度・許容応力度</h2>
+      <p>鋼材の<a href="kyoyo-oryokudo.html">許容応力度</a>は<strong>基準強度F</strong>から定まります。高張力鋼はFが大きいため、同じ力に対して<strong>より小さい断面</strong>で済みます。</p>
+      <table class="data">
+        <tr><th>鋼種</th><th>基準強度F（板厚40mm以下の目安）</th></tr>
+        <tr><td>SN400・SS400</td><td>235N/mm²</td></tr>
+        <tr><td>SN490・SM490</td><td>325N/mm²</td></tr>
+        <tr><td>SM570級</td><td>400N/mm²程度</td></tr>
+      </table>
+
+      <h2>軟鋼との使い分けと注意点</h2>
+      <div class="point-box">
+        <span class="label">POINT：強くても「硬く」はならない</span>
+        <p>鋼の<strong>ヤング係数（剛性）は鋼種によらずほぼ一定（約205kN/mm²）</strong>です。つまり高張力鋼にしても<strong>たわみ・座屈・変形のしやすさは変わりません</strong>。強度だけ上げてもたわみや座屈で決まる部材では効果が出ない点に注意します。</p>
+      </div>
+      <ul>
+        <li><strong>高張力鋼が有効</strong>：強度（応力度）で断面が決まる、大荷重・大スパンの柱や梁。</li>
+        <li><strong>軟鋼で十分</strong>：たわみ・座屈・変形が支配する部材、一般的な規模。</li>
+        <li><strong>溶接管理</strong>：高張力鋼は溶接割れに注意が必要で、施工管理が厳しくなる。</li>
+      </ul>
+
+      <div class="note-box">
+        <span class="label">あわせて読みたい</span>
+        <p>対になる軟鋼は「<a href="nankou.html">軟鋼とは</a>」、許容応力度は「<a href="kyoyo-oryokudo.html">許容応力度計算とは？</a>」、厚板の高性能鋼は「<a href="tmcp-kou.html">TMCP鋼</a>」をどうぞ。</p>
+      </div>
+
+      <h2>まとめ</h2>
+      <ul>
+        <li>高張力鋼は引張強さ490N/mm²以上の高強度鋼。SM570や590・780N級など。</li>
+        <li>基準強度Fが大きく断面を小さくできるが、剛性（ヤング係数）は軟鋼と同じ。</li>
+        <li>たわみ・座屈支配の部材では効果が薄い。溶接管理も厳しくなる。</li>
+      </ul>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>鋼材の基礎知識</h4>
+        <ul>
+          <li><a href="s-zairyo.html">鉄骨の材料・耐火被覆</a></li>
+          <li><a href="kouzai-shurui.html">鋼材の種類（SS・SN・SM）</a></li>
+          <li><a href="kouzouyou-kouzai.html">構造用鋼材とSTKR</a></li>
+          <li><a href="futsuukou.html">普通鋼とは</a></li>
+          <li><a href="tokushukou.html">特殊鋼とは</a></li>
+          <li><a href="nankou.html">軟鋼とは</a></li>
+          <li><a href="stainless.html">ステンレス鋼</a></li>
+          <li><a href="fr-kou.html">FR鋼（耐火鋼）</a></li>
+          <li><a href="tmcp-kou.html">TMCP鋼</a></li>
+          <li><a href="kouro-zai.html">高炉材と電炉材</a></li>
+          <li><a href="jis-kouzai.html">JIS鋼材一覧</a></li>
+        </ul>
+      </div>
+      <div class="tool-banner">
+        <div class="tb-ic">🧮</div>
+        <h4>断面性能 計算ツール</h4>
+        <p>b×hを入れるだけで A・I・Z・i を自動計算</p>
+        <a href="../tools/section-calculator.html">無料で使ってみる</a>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
