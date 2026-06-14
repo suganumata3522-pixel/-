@@ -2,177 +2,197 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.kouzou-navi.com/</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-14</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://www.kouzou-navi.com/about.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-14</lastmod>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://www.kouzou-navi.com/articles.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-14</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.kouzou-navi.com/articles/benkyo-hou.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-14</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.kouzou-navi.com/articles/concrete-jakuten.html</loc>
+    <lastmod>2026-06-14</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.kouzou-navi.com/articles/danmen-keisu.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-14</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.kouzou-navi.com/articles/danmen-niji-moment.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-14</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.kouzou-navi.com/articles/fuseitei.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-14</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.kouzou-navi.com/articles/hanryoku.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-14</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.kouzou-navi.com/articles/jishin-ryoku.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-14</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.kouzou-navi.com/articles/kajuu.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-14</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.kouzou-navi.com/articles/kiso-kouzou.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-14</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.kouzou-navi.com/articles/kouzou-ikkyu.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-14</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.kouzou-navi.com/articles/kouzou-shurui.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-14</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.kouzou-navi.com/articles/koyu-shuki.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-14</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.kouzou-navi.com/articles/kyoyo-oryokudo.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-14</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.kouzou-navi.com/articles/nenshu.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-14</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.kouzou-navi.com/articles/oryokudo-hizumi.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-14</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.kouzou-navi.com/articles/ouryoku.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-14</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.kouzou-navi.com/articles/qm-zu.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-14</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.kouzou-navi.com/articles/rahmen-brace.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-14</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.kouzou-navi.com/articles/rc-taishin.html</loc>
+    <lastmod>2026-06-14</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.kouzou-navi.com/articles/rc-tetsu-kankei.html</loc>
+    <lastmod>2026-06-14</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.kouzou-navi.com/articles/rc-toha.html</loc>
+    <lastmod>2026-06-14</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.kouzou-navi.com/articles/rc-zou.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-14</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.kouzou-navi.com/articles/s-merit.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-14</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.kouzou-navi.com/articles/s-yougo.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-14</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.kouzou-navi.com/articles/s-zairyo.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-14</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.kouzou-navi.com/articles/s-zou.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-14</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.kouzou-navi.com/articles/seppan-yane.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-14</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.kouzou-navi.com/articles/sokan-henkei.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-14</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.kouzou-navi.com/articles/tairyoku-heki.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-14</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.kouzou-navi.com/articles/taishin-menshin.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-14</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.kouzou-navi.com/articles/tawami.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-14</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.kouzou-navi.com/articles/w-zou.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-14</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.kouzou-navi.com/articles/zakutsu.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-14</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.kouzou-navi.com/otoiawase.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-14</lastmod>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://www.kouzou-navi.com/privacy.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-14</lastmod>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://www.kouzou-navi.com/tools/section-calculator.html</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-06-14</lastmod>
     <priority>0.8</priority>
   </url>
 </urlset>
