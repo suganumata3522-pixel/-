@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
+<title>木材の比重と密度｜樹種別の一覧と荷重計算への使い方｜構造設計ナビ</title>
+<meta name="description" content="木材の比重と密度をわかりやすく解説。比重と密度の関係、スギ・ヒノキ・マツ・ケヤキなど樹種別の気乾比重・密度の一覧、自重・荷重計算への使い方をまとめます。">
+<meta property="og:title" content="木材の比重と密度｜樹種別の一覧と荷重計算への使い方｜構造設計ナビ">
+<meta property="og:description" content="木材の比重と密度の関係、樹種別の気乾比重・密度の一覧、荷重計算への使い方を解説します。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kouzou-navi.com/articles/mokuzai-hijuu.html">
+<meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
+<meta property="og:site_name" content="構造設計ナビ">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.kouzou-navi.com/articles/mokuzai-hijuu.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="../articles.html#kiso">構造力学の基礎</a></li>
+        <li><a href="../articles.html#w-zou">木造</a></li>
+        <li><a href="../tools/section-calculator.html">計算ツール</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › <a href="../articles.html#w-zou">木造（W造）</a> › 木材の比重と密度</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">木造（W造）</span>
+        <span>更新日：2026年6月14日</span>
+      </div>
+      <h1>木材の比重と密度｜樹種別一覧と荷重計算</h1>
+
+      <p>木材の<strong>比重</strong>と<strong>密度</strong>は、重さや強度の目安になる基本的な性質です。樹種によって大きく異なります。</p>
+
+      <div class="note-box">
+        <span class="label">この記事について</span>
+        <p>木材の規格・基準強度・含水率などは<strong>樹種・等級・JAS・条件によって異なり</strong>、規準も改訂されます。本記事は学習用の概要です。設計・施工では最新の基準・規格を確認してください。</p>
+      </div>
+
+      <h2>比重と密度の関係</h2>
+      <p><strong>密度</strong>は単位体積あたりの質量（kg/m³）、<strong>比重</strong>は水の密度を1としたときの比です。水が1000kg/m³なので、<strong>密度（kg/m³）＝比重 × 1000</strong>の関係です。木材では通常<a href="kikan-joutai.html">気乾状態</a>の「気乾比重」を使います。</p>
+
+      <h2>樹種別の気乾比重・密度（目安）</h2>
+      <table class="data">
+        <tr><th>樹種</th><th>気乾比重</th><th>密度（kg/m³）</th></tr>
+        <tr><td>スギ</td><td>約0.38</td><td>約380</td></tr>
+        <tr><td>ヒノキ</td><td>約0.41</td><td>約410</td></tr>
+        <tr><td>ヒバ</td><td>約0.41</td><td>約410</td></tr>
+        <tr><td>ベイマツ</td><td>約0.50</td><td>約500</td></tr>
+        <tr><td>アカマツ</td><td>約0.53</td><td>約530</td></tr>
+        <tr><td>ナラ</td><td>約0.68</td><td>約680</td></tr>
+        <tr><td>ケヤキ</td><td>約0.69</td><td>約690</td></tr>
+      </table>
+      <p>一般に<strong>比重が大きい木ほど硬く強い</strong>傾向があります。針葉樹（スギ・ヒノキ）は軽く、広葉樹（ナラ・ケヤキ）は重い傾向です。</p>
+
+      <h2>荷重計算への使い方</h2>
+      <div class="point-box">
+        <span class="label">POINT</span>
+        <p>木材の自重は<strong>体積 × 密度</strong>で求めます（→<a href="mokuzai-omosa.html">重さ計算</a>）。構造計算では、この自重を固定荷重として見込みます。密度は含水率で変わるため、条件に応じた値を使います。</p>
+      </div>
+
+      <div class="note-box">
+        <span class="label">あわせて読みたい</span>
+        <p>「<a href="mokuzai-omosa.html">木材の重さ計算</a>」「<a href="mokuzai-m3-t.html">m³→t換算</a>」「<a href="kikan-joutai.html">気乾状態</a>」をどうぞ。</p>
+      </div>
+
+      <h2>まとめ</h2>
+      <ul>
+        <li>密度（kg/m³）＝比重×1000。木材は気乾比重を使う。</li>
+        <li>スギ0.38・ヒノキ0.41・ベイマツ0.50・ケヤキ0.69などが目安。</li>
+        <li>比重が大きいほど硬く強い傾向。自重＝体積×密度で計算する。</li>
+      </ul>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>木材の性質・計算</h4>
+        <ul>
+          <li><a href="henzai-shinzai.html">辺材と心材</a></li>
+          <li><a href="kikan-joutai.html">気乾状態</a></li>
+          <li><a href="mokuzai-omosa.html">木材の重さ計算</a></li>
+          <li><a href="mokuzai-kyoyo.html">木材の許容応力度</a></li>
+          <li><a href="seware.html">背割り</a></li>
+          <li><a href="mokuzai-m3-t.html">m³→t換算</a></li>
+        </ul>
+      </div>
+      <div class="widget">
+        <h4>木造の基礎</h4>
+        <ul>
+          <li><a href="w-zou.html">木造（W造）とは？</a></li>
+          <li><a href="jikugumi-kouhou.html">在来軸組工法の部材</a></li>
+          <li><a href="kabebairitsu.html">壁倍率と壁量計算</a></li>
+          <li><a href="yonbunkatsu.html">四分割法</a></li>
+        </ul>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
