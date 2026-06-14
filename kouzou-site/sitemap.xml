@@ -121,6 +121,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.kouzou-navi.com/articles/futsuu-kotsuzai.html</loc>
+    <lastmod>2026-06-14</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.kouzou-navi.com/articles/futsuukou.html</loc>
     <lastmod>2026-06-14</lastmod>
     <priority>0.7</priority>
@@ -296,6 +301,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.kouzou-navi.com/articles/keiryou-kotsuzai.html</loc>
+    <lastmod>2026-06-14</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.kouzou-navi.com/articles/kiso-kouzou.html</loc>
     <lastmod>2026-06-14</lastmod>
     <priority>0.7</priority>
@@ -307,6 +317,11 @@
   </url>
   <url>
     <loc>https://www.kouzou-navi.com/articles/kongou-cement.html</loc>
+    <lastmod>2026-06-14</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.kouzou-navi.com/articles/kotsuzai.html</loc>
     <lastmod>2026-06-14</lastmod>
     <priority>0.7</priority>
   </url>
@@ -521,6 +536,21 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.kouzou-navi.com/articles/saikotsuzai.html</loc>
+    <lastmod>2026-06-14</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.kouzou-navi.com/articles/saisei-kotsuzai.html</loc>
+    <lastmod>2026-06-14</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.kouzou-navi.com/articles/saiseki.html</loc>
+    <lastmod>2026-06-14</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.kouzou-navi.com/articles/scss.html</loc>
     <lastmod>2026-06-14</lastmod>
     <priority>0.7</priority>
@@ -542,6 +572,16 @@
   </url>
   <url>
     <loc>https://www.kouzou-navi.com/articles/sokan-henkei.html</loc>
+    <lastmod>2026-06-14</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.kouzou-navi.com/articles/sokotsuzai-saidai.html</loc>
+    <lastmod>2026-06-14</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.kouzou-navi.com/articles/sokotsuzai.html</loc>
     <lastmod>2026-06-14</lastmod>
     <priority>0.7</priority>
   </url>
@@ -622,6 +662,11 @@
   </url>
   <url>
     <loc>https://www.kouzou-navi.com/articles/zakutsu.html</loc>
+    <lastmod>2026-06-14</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.kouzou-navi.com/articles/zettai-youseki.html</loc>
     <lastmod>2026-06-14</lastmod>
     <priority>0.7</priority>
   </url>
