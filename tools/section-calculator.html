@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
-<title>断面性能計算ツール（長方形・円形）｜無料｜構造設計ナビ</title>
-<meta name="description" content="長方形・円形断面の断面積、断面二次モーメント、断面係数、断面二次半径を無料で自動計算。寸法を入力するだけで結果が表示されます。課題の検算や実務の概算に。">
-<meta property="og:title" content="断面性能計算ツール（長方形・円形）｜無料｜構造設計ナビ">
-<meta property="og:description" content="長方形・円形断面の断面積、断面二次モーメント、断面係数、断面二次半径を無料で自動計算。寸法を入力するだけで結果が表示されます。課題の検算や実務の概算に。">
+<title>断面性能計算ツール（長方形・円形・H形鋼）｜無料｜構造設計ナビ</title>
+<meta name="description" content="長方形・円形・H形鋼の断面積、断面二次モーメント、断面係数、断面二次半径を無料で自動計算。H形鋼は強軸・弱軸の両方に対応。寸法を入力するだけで結果が表示されます。課題の検算や実務の概算に。">
+<meta property="og:title" content="断面性能計算ツール（長方形・円形・H形鋼）｜無料｜構造設計ナビ">
+<meta property="og:description" content="長方形・円形・H形鋼の断面積、断面二次モーメント、断面係数、断面二次半径を無料で自動計算。H形鋼は強軸・弱軸に対応。課題の検算や実務の概算に。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://www.kouzou-navi.com/tools/section-calculator.html">
 <meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
@@ -54,8 +54,8 @@
         <span class="tag">計算ツール</span>
         <span>無料・登録不要</span>
       </div>
-      <h1>断面性能計算ツール（長方形・円形断面）</h1>
-      <p>断面の寸法を入力するだけで、<strong>断面積 A・断面二次モーメント I・断面係数 Z・断面二次半径 i</strong> を自動計算します。課題の検算や実務での概算チェックにご利用ください。</p>
+      <h1>断面性能計算ツール（長方形・円形・H形鋼）</h1>
+      <p>断面の寸法を入力するだけで、<strong>断面積 A・断面二次モーメント I・断面係数 Z・断面二次半径 i</strong> を自動計算します。<strong>H形鋼は強軸（x）・弱軸（y）の両方</strong>を計算します。課題の検算や実務での概算チェックにご利用ください。</p>
 
       <div class="tool-panel">
         <div class="field">
@@ -63,6 +63,7 @@
           <select id="shape">
             <option value="rect">長方形（幅 b × 成 h）</option>
             <option value="circle">円形（直径 D）</option>
+            <option value="h">H形鋼（せい H × 幅 B × ウェブ厚 t1 × フランジ厚 t2）</option>
           </select>
         </div>
         <div class="field" id="field-b">
@@ -77,6 +78,22 @@
           <label for="input-d">直径 D<span class="unit">mm</span></label>
           <input type="number" id="input-d" value="400" min="0" step="any">
         </div>
+        <div class="field hsec" id="field-H" style="display:none;">
+          <label for="input-H">せい H<span class="unit">mm</span></label>
+          <input type="number" id="input-H" value="400" min="0" step="any">
+        </div>
+        <div class="field hsec" id="field-B" style="display:none;">
+          <label for="input-B">フランジ幅 B<span class="unit">mm</span></label>
+          <input type="number" id="input-B" value="200" min="0" step="any">
+        </div>
+        <div class="field hsec" id="field-t1" style="display:none;">
+          <label for="input-t1">ウェブ厚 t1<span class="unit">mm</span></label>
+          <input type="number" id="input-t1" value="8" min="0" step="any">
+        </div>
+        <div class="field hsec" id="field-t2" style="display:none;">
+          <label for="input-t2">フランジ厚 t2<span class="unit">mm</span></label>
+          <input type="number" id="input-t2" value="13" min="0" step="any">
+        </div>
         <button class="btn-calc" id="btn-calc">計算する</button>
 
         <div class="result-grid" id="results" style="display:none;">
@@ -86,18 +103,33 @@
             <div class="unit">mm²</div>
           </div>
           <div class="result-item">
-            <div class="name">断面二次モーメント I</div>
+            <div class="name" id="lbl-i">断面二次モーメント I</div>
             <div class="value" id="res-i">–</div>
             <div class="unit">mm⁴</div>
           </div>
           <div class="result-item">
-            <div class="name">断面係数 Z</div>
+            <div class="name" id="lbl-z">断面係数 Z</div>
             <div class="value" id="res-z">–</div>
             <div class="unit">mm³</div>
           </div>
           <div class="result-item">
-            <div class="name">断面二次半径 i</div>
+            <div class="name" id="lbl-r">断面二次半径 i</div>
             <div class="value" id="res-r">–</div>
+            <div class="unit">mm</div>
+          </div>
+          <div class="result-item axis-y" style="display:none;">
+            <div class="name">断面二次モーメント Iy（弱軸）</div>
+            <div class="value" id="res-iy">–</div>
+            <div class="unit">mm⁴</div>
+          </div>
+          <div class="result-item axis-y" style="display:none;">
+            <div class="name">断面係数 Zy（弱軸）</div>
+            <div class="value" id="res-zy">–</div>
+            <div class="unit">mm³</div>
+          </div>
+          <div class="result-item axis-y" style="display:none;">
+            <div class="name">断面二次半径 iy（弱軸）</div>
+            <div class="value" id="res-ry">–</div>
             <div class="unit">mm</div>
           </div>
         </div>
@@ -111,7 +143,16 @@
         <tr><td>断面係数 Z</td><td>bh² / 6</td><td>πD³ / 32</td></tr>
         <tr><td>断面二次半径 i</td><td colspan="2" style="text-align:center;">√(I / A)</td></tr>
       </table>
-      <p>長方形断面は図心を通る強軸（幅 b に平行な軸）まわりの値です。公式の意味や導出は「<a href="../articles/danmen-niji-moment.html">断面二次モーメントとは？</a>」で詳しく解説しています。</p>
+
+      <h3>H形鋼の計算式（せい H・幅 B・ウェブ厚 t1・フランジ厚 t2）</h3>
+      <table class="data">
+        <tr><th>項目</th><th>強軸（x 軸）</th><th>弱軸（y 軸）</th></tr>
+        <tr><td>断面積 A</td><td colspan="2" style="text-align:center;">2·B·t2 ＋ (H − 2·t2)·t1</td></tr>
+        <tr><td>断面二次モーメント</td><td>Ix ＝ [ B·H³ − (B − t1)·(H − 2·t2)³ ] / 12</td><td>Iy ＝ [ 2·t2·B³ ＋ (H − 2·t2)·t1³ ] / 12</td></tr>
+        <tr><td>断面係数</td><td>Zx ＝ Ix / (H/2)</td><td>Zy ＝ Iy / (B/2)</td></tr>
+        <tr><td>断面二次半径</td><td>ix ＝ √(Ix / A)</td><td>iy ＝ √(Iy / A)</td></tr>
+      </table>
+      <p>H形鋼はフィレット（フランジ付け根の丸み）を無視した概算値です。正確な値は<a href="../articles/h-danmenseinou.html">鋼材の形鋼表（断面性能一覧）</a>を確認してください。公式の意味は「<a href="../articles/h-danmen-moment.html">H形鋼の断面二次モーメント（強軸・弱軸）</a>」「<a href="../articles/danmen-niji-moment.html">断面二次モーメントとは？</a>」で解説しています。</p>
 
       <div class="point-box">
         <span class="label">ご注意</span>
@@ -146,13 +187,21 @@
   var fieldB = document.getElementById('field-b');
   var fieldH = document.getElementById('field-h');
   var fieldD = document.getElementById('field-d');
+  var hsecFields = document.querySelectorAll('.field.hsec');
+  var axisYItems = document.querySelectorAll('.result-item.axis-y');
+  var lblI = document.getElementById('lbl-i');
+  var lblZ = document.getElementById('lbl-z');
+  var lblR = document.getElementById('lbl-r');
 
-  shape.addEventListener('change', function () {
-    var isRect = shape.value === 'rect';
-    fieldB.style.display = isRect ? '' : 'none';
-    fieldH.style.display = isRect ? '' : 'none';
-    fieldD.style.display = isRect ? 'none' : '';
-  });
+  function syncFields() {
+    var v = shape.value;
+    fieldB.style.display = (v === 'rect') ? '' : 'none';
+    fieldH.style.display = (v === 'rect') ? '' : 'none';
+    fieldD.style.display = (v === 'circle') ? '' : 'none';
+    hsecFields.forEach(function (el) { el.style.display = (v === 'h') ? '' : 'none'; });
+  }
+  shape.addEventListener('change', syncFields);
+  syncFields();
 
   // 有効数字4桁程度に整形（大きい値は指数表記）
   function fmt(v) {
@@ -162,24 +211,42 @@
     }
     return Number(v.toPrecision(4)).toLocaleString('ja-JP');
   }
+  function val(id) { return parseFloat(document.getElementById(id).value); }
 
   document.getElementById('btn-calc').addEventListener('click', function () {
-    var A, I, Z;
+    var A, I, Z, r, isH = (shape.value === 'h');
+
     if (shape.value === 'rect') {
-      var b = parseFloat(document.getElementById('input-b').value);
-      var h = parseFloat(document.getElementById('input-h').value);
+      var b = val('input-b'), h = val('input-h');
       if (!(b > 0) || !(h > 0)) { alert('幅と成には正の数値を入力してください。'); return; }
-      A = b * h;
-      I = b * Math.pow(h, 3) / 12;
-      Z = b * h * h / 6;
-    } else {
-      var D = parseFloat(document.getElementById('input-d').value);
+      A = b * h; I = b * Math.pow(h, 3) / 12; Z = b * h * h / 6;
+    } else if (shape.value === 'circle') {
+      var D = val('input-d');
       if (!(D > 0)) { alert('直径には正の数値を入力してください。'); return; }
-      A = Math.PI * D * D / 4;
-      I = Math.PI * Math.pow(D, 4) / 64;
-      Z = Math.PI * Math.pow(D, 3) / 32;
+      A = Math.PI * D * D / 4; I = Math.PI * Math.pow(D, 4) / 64; Z = Math.PI * Math.pow(D, 3) / 32;
+    } else {
+      var H = val('input-H'), B = val('input-B'), t1 = val('input-t1'), t2 = val('input-t2');
+      if (!(H > 0) || !(B > 0) || !(t1 > 0) || !(t2 > 0)) { alert('H・B・t1・t2 には正の数値を入力してください。'); return; }
+      if (2 * t2 >= H) { alert('フランジ厚 t2 が大きすぎます（2·t2 < せい H）。'); return; }
+      if (t1 >= B) { alert('ウェブ厚 t1 が大きすぎます（t1 < 幅 B）。'); return; }
+      var hw = H - 2 * t2; // ウェブの高さ
+      A = 2 * B * t2 + hw * t1;
+      var Ix = (B * Math.pow(H, 3) - (B - t1) * Math.pow(hw, 3)) / 12;
+      var Iy = (2 * t2 * Math.pow(B, 3) + hw * Math.pow(t1, 3)) / 12;
+      I = Ix; Z = Ix / (H / 2); r = Math.sqrt(Ix / A);
+      var Zy = Iy / (B / 2), iy = Math.sqrt(Iy / A);
+      document.getElementById('res-iy').textContent = fmt(Iy);
+      document.getElementById('res-zy').textContent = fmt(Zy);
+      document.getElementById('res-ry').textContent = fmt(iy);
     }
-    var r = Math.sqrt(I / A);
+    if (!isH) r = Math.sqrt(I / A);
+
+    // ラベル切り替え（H形鋼は強軸表記）
+    lblI.textContent = isH ? '断面二次モーメント Ix（強軸）' : '断面二次モーメント I';
+    lblZ.textContent = isH ? '断面係数 Zx（強軸）' : '断面係数 Z';
+    lblR.textContent = isH ? '断面二次半径 ix（強軸）' : '断面二次半径 i';
+    axisYItems.forEach(function (el) { el.style.display = isH ? '' : 'none'; });
+
     document.getElementById('res-a').textContent = fmt(A);
     document.getElementById('res-i').textContent = fmt(I);
     document.getElementById('res-z').textContent = fmt(Z);

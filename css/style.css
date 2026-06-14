@@ -968,3 +968,50 @@ table.data tr:nth-child(even) td { background: var(--bg-soft); }
   font-size: 0.94rem;
   line-height: 1.9;
 }
+
+/* ---------- 記事の著者バイライン（E-E-A-T） ---------- */
+.byline {
+  font-size: 0.82rem;
+  color: var(--sub);
+  margin: 6px 0 20px;
+}
+.byline a { color: var(--accent-dark); font-weight: 700; }
+.article-author {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  margin: 38px 0 8px;
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--bg-soft);
+}
+.article-author img {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex: none;
+  border: 3px solid #fff;
+  box-shadow: 0 3px 10px rgba(26, 58, 92, 0.15);
+}
+.article-author .aa-role {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  margin: 0 0 3px;
+}
+.article-author .aa-name {
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: var(--navy);
+  margin: 0 0 3px;
+}
+.article-author .aa-cred {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 0 0 5px;
+}
+.article-author .aa-desc { font-size: 0.85rem; color: var(--sub); margin: 0; }
