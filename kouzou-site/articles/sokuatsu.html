@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
+<title>側圧とは？意味・計算式とコンクリートとの関係｜構造設計ナビ</title>
+<meta name="description" content="側圧をわかりやすく解説。フレッシュコンクリートが型枠を横に押す側圧の意味、液体圧として求める計算式、打込み速度や温度による違い、型枠設計との関係をまとめます。">
+<meta property="og:title" content="側圧とは？意味・計算式とコンクリートとの関係｜構造設計ナビ">
+<meta property="og:description" content="側圧（型枠にかかる水平圧力）の意味、計算式、打込み速度・温度による違いを解説します。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kouzou-navi.com/articles/sokuatsu.html">
+<meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
+<meta property="og:site_name" content="構造設計ナビ">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.kouzou-navi.com/articles/sokuatsu.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="../articles.html#kiso">構造力学の基礎</a></li>
+        <li><a href="../articles.html#rc-zou">鉄筋コンクリート造</a></li>
+        <li><a href="../tools/section-calculator.html">計算ツール</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › <a href="../articles.html#rc-zou">鉄筋コンクリート造（RC造）</a> › 側圧</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">鉄筋コンクリート造（RC造）</span>
+        <span>更新日：2026年6月14日</span>
+      </div>
+      <h1>側圧とは？意味・計算式とコンクリートとの関係</h1>
+
+      <p><strong>側圧（そくあつ）</strong>とは、まだ固まらない<a href="fresh-concrete.html">フレッシュコンクリート</a>が<strong><a href="katawaku.html">型枠</a>を横（水平方向）に押す圧力</strong>のことです。型枠が壊れないように設計する根拠になります。</p>
+
+      <div class="note-box">
+        <span class="label">この記事について</span>
+        <p>強度・設計に関する規準（JASS5・建築基準法施行令など）の数値は<strong>条件・改訂で変わる</strong>ことがあります。本記事は学習用の概要です。設計では最新の規準を確認してください。</p>
+      </div>
+
+      <h2>意味</h2>
+      <p>打ち込んだ直後のコンクリートは液体に近く、型枠を内側から外へ押し広げようとします。この水平方向の圧力が側圧です。<a href="katawaku.html">セパレーター</a>や型枠の強度は、この側圧に耐えるように決めます。</p>
+
+      <h2>計算式</h2>
+      <p>側圧は、液体の圧力と同じように<strong>深さ（打込み高さ）に比例</strong>すると考えるのが基本です。</p>
+      <div class="formula">
+        側圧 P ＝ W × H
+        <span class="note">W：コンクリートの単位容積重量（約23kN/m³）／H：打込み高さ（液頭）</span>
+      </div>
+      <p>ただし、コンクリートは時間が経つと凝結して固まり始めるため、実際の側圧は深くなるほど無限に増えるのではなく、ある高さで<strong>頭打ち（最大値）</strong>になります。</p>
+
+      <h2>側圧が大きくなる条件</h2>
+      <div class="point-box">
+        <span class="label">POINT</span>
+        <p>側圧は次の条件で大きくなります。</p>
+        <ul>
+          <li><strong>打込み速度が速い</strong>（凝結前に高く積み上がる）。</li>
+          <li><strong>気温が低い</strong>（凝結が遅く液体状が続く）。</li>
+          <li><strong>スランプが大きい・流動性が高い</strong>。</li>
+        </ul>
+        <p>これらの条件では型枠・セパレーターを強くする必要があります。</p>
+      </div>
+
+      <div class="note-box">
+        <span class="label">あわせて読みたい</span>
+        <p>「<a href="katawaku.html">型枠</a>」「<a href="uchikomi.html">打ち込み</a>」「<a href="fresh-concrete.html">フレッシュコンクリート</a>」をどうぞ。</p>
+      </div>
+
+      <h2>まとめ</h2>
+      <ul>
+        <li>側圧はフレッシュコンクリートが型枠を横に押す圧力。</li>
+        <li>液体圧として P＝W×H で近似。凝結で最大値に頭打ちする。</li>
+        <li>打込みが速い・低温・高スランプで大きくなる。型枠設計の根拠になる。</li>
+      </ul>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>設計基準・許容応力度</h4>
+        <ul>
+          <li><a href="keikaku-kyouyou.html">計画供用期間</a></li>
+          <li><a href="sekkei-hinshitsu-kijun.html">設計基準強度と品質基準強度</a></li>
+          <li><a href="taikyuu-kijun.html">耐久設計基準強度</a></li>
+          <li><a href="kyoudo-hosei.html">構造体強度補正値</a></li>
+          <li><a href="doma-concrete.html">土間コンクリートの強度</a></li>
+          <li><a href="concrete-kyoyo.html">コンクリートの許容応力度</a></li>
+          <li><a href="kyoyo-asshuku.html">許容圧縮応力度</a></li>
+          <li><a href="taikyuusei.html">耐久性と耐久年数</a></li>
+        </ul>
+      </div>
+      <div class="widget">
+        <h4>コンクリートの強度</h4>
+        <ul>
+          <li><a href="kyoudo-tani.html">強度の単位（N/mm²）</a></li>
+          <li><a href="namacon-kyoudo.html">生コンの強度（Fc21）</a></li>
+          <li><a href="asshuku-wc.html">圧縮強度と水セメント比</a></li>
+          <li><a href="inchou-kyoudo.html">引張強度</a></li>
+          <li><a href="asshuku-inchou.html">圧縮強度と引張強度の関係</a></li>
+          <li><a href="sunpou-kouka.html">寸法効果</a></li>
+        </ul>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

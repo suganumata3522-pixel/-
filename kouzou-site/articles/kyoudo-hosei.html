@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
+<title>構造体強度補正値とは？3N・6Nの使い分けと温度による違い｜構造設計ナビ</title>
+<meta name="description" content="構造体強度補正値をわかりやすく解説。供試体と構造体の強度差を補う補正値（mSn）の意味、3N/mm²・6N/mm²の使い分け、予想平均気温による違い、調合管理強度の求め方をまとめます。">
+<meta property="og:title" content="構造体強度補正値とは？3N・6Nの使い分けと温度による違い｜構造設計ナビ">
+<meta property="og:description" content="構造体強度補正値（mSn）の意味、3N・6Nの使い分け、温度による違いと調合管理強度を解説します。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kouzou-navi.com/articles/kyoudo-hosei.html">
+<meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
+<meta property="og:site_name" content="構造設計ナビ">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.kouzou-navi.com/articles/kyoudo-hosei.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="../articles.html#kiso">構造力学の基礎</a></li>
+        <li><a href="../articles.html#rc-zou">鉄筋コンクリート造</a></li>
+        <li><a href="../tools/section-calculator.html">計算ツール</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › <a href="../articles.html#rc-zou">鉄筋コンクリート造（RC造）</a> › 構造体強度補正値</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">鉄筋コンクリート造（RC造）</span>
+        <span>更新日：2026年6月14日</span>
+      </div>
+      <h1>構造体強度補正値｜3N・6Nの使い分けと温度</h1>
+
+      <p><strong>構造体強度補正値</strong>（mSn）とは、試験用の<a href="kyoushitai.html">供試体</a>と実際の<a href="kouzoutai-concrete.html">構造体</a>の強度差を補うための<strong>割増し</strong>です。コンクリートの配合（調合）強度を決めるときに使います。</p>
+
+      <div class="note-box">
+        <span class="label">この記事について</span>
+        <p>強度・設計に関する規準（JASS5・建築基準法施行令など）の数値は<strong>条件・改訂で変わる</strong>ことがあります。本記事は学習用の概要です。設計では最新の規準を確認してください。</p>
+      </div>
+
+      <h2>なぜ補正が必要か</h2>
+      <p>標準養生した供試体の強度に比べ、現場の温度で固まる構造体の強度は出にくいことがあります。そこで、<a href="sekkei-hinshitsu-kijun.html">品質基準強度Fq</a>に補正値を加えて、配合の目標（調合管理強度）を決めます。</p>
+      <div class="formula">
+        調合管理強度 ＝ 品質基準強度 Fq ＋ 構造体強度補正値（mSn）
+      </div>
+
+      <h2>3N・6Nの使い分け</h2>
+      <div class="point-box">
+        <span class="label">POINT：気温で変わる</span>
+        <p>構造体強度補正値は、セメントの種類と<strong>打込みから材齢までの予想平均気温</strong>に応じて、<strong>3N/mm² か 6N/mm²</strong>を使い分けます。普通ポルトランドセメントの場合の目安は次のとおりです。</p>
+        <table class="data">
+          <tr><th>予想平均気温</th><th>補正値（mSn）</th></tr>
+          <tr><td>高め（おおむね8〜25℃程度）</td><td>3 N/mm²</td></tr>
+          <tr><td>低め（おおむね0〜8℃程度）</td><td>6 N/mm²</td></tr>
+        </table>
+        <p>気温が低いと強度発現が遅く構造体強度が出にくいため、補正値を大きく（6N）します。</p>
+      </div>
+
+      <div class="note-box">
+        <span class="label">あわせて読みたい</span>
+        <p>「<a href="sekkei-hinshitsu-kijun.html">品質基準強度</a>」「<a href="kouzoutai-concrete.html">構造体コンクリート</a>」「<a href="namacon-kyoudo.html">生コンの強度</a>」をどうぞ。</p>
+      </div>
+
+      <h2>まとめ</h2>
+      <ul>
+        <li>構造体強度補正値は供試体と構造体の強度差を補う割増し（mSn）。</li>
+        <li>調合管理強度＝品質基準強度Fq＋補正値。</li>
+        <li>予想平均気温で3N/mm²か6N/mm²。気温が低いほど大きく（6N）する。</li>
+      </ul>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>設計基準・許容応力度</h4>
+        <ul>
+          <li><a href="keikaku-kyouyou.html">計画供用期間</a></li>
+          <li><a href="sekkei-hinshitsu-kijun.html">設計基準強度と品質基準強度</a></li>
+          <li><a href="taikyuu-kijun.html">耐久設計基準強度</a></li>
+          <li><a href="doma-concrete.html">土間コンクリートの強度</a></li>
+          <li><a href="concrete-kyoyo.html">コンクリートの許容応力度</a></li>
+          <li><a href="kyoyo-asshuku.html">許容圧縮応力度</a></li>
+          <li><a href="taikyuusei.html">耐久性と耐久年数</a></li>
+          <li><a href="sokuatsu.html">側圧</a></li>
+        </ul>
+      </div>
+      <div class="widget">
+        <h4>コンクリートの強度</h4>
+        <ul>
+          <li><a href="kyoudo-tani.html">強度の単位（N/mm²）</a></li>
+          <li><a href="namacon-kyoudo.html">生コンの強度（Fc21）</a></li>
+          <li><a href="asshuku-wc.html">圧縮強度と水セメント比</a></li>
+          <li><a href="inchou-kyoudo.html">引張強度</a></li>
+          <li><a href="asshuku-inchou.html">圧縮強度と引張強度の関係</a></li>
+          <li><a href="sunpou-kouka.html">寸法効果</a></li>
+        </ul>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

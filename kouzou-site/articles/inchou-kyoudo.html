@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
+<title>コンクリートの引張強度とは？基準・計算式と引張強度試験｜構造設計ナビ</title>
+<meta name="description" content="コンクリートの引張強度をわかりやすく解説。圧縮強度の約1/10という引張強度の目安、割裂引張試験などの試験方法、割裂引張強度の計算式、引張に弱いため鉄筋で補うことをまとめます。">
+<meta property="og:title" content="コンクリートの引張強度とは？基準・計算式と引張強度試験｜構造設計ナビ">
+<meta property="og:description" content="コンクリートの引張強度（圧縮の約1/10）、割裂引張試験、計算式、鉄筋で補う理由を解説します。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kouzou-navi.com/articles/inchou-kyoudo.html">
+<meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
+<meta property="og:site_name" content="構造設計ナビ">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.kouzou-navi.com/articles/inchou-kyoudo.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="../articles.html#kiso">構造力学の基礎</a></li>
+        <li><a href="../articles.html#rc-zou">鉄筋コンクリート造</a></li>
+        <li><a href="../tools/section-calculator.html">計算ツール</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › <a href="../articles.html#rc-zou">鉄筋コンクリート造（RC造）</a> › 引張強度</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">鉄筋コンクリート造（RC造）</span>
+        <span>更新日：2026年6月14日</span>
+      </div>
+      <h1>コンクリートの引張強度｜基準・計算式と試験</h1>
+
+      <p>コンクリートは圧縮に強い一方、<strong>引張には非常に弱い</strong>材料です。引張強度の目安と試験方法を整理します。</p>
+
+      <div class="note-box">
+        <span class="label">この記事について</span>
+        <p>強度・設計に関する規準（JASS5・建築基準法施行令など）の数値は<strong>条件・改訂で変わる</strong>ことがあります。本記事は学習用の概要です。設計では最新の規準を確認してください。</p>
+      </div>
+
+      <h2>引張強度の目安</h2>
+      <div class="point-box">
+        <span class="label">POINT</span>
+        <p>コンクリートの引張強度は、<strong>圧縮強度の約1/10（1/10〜1/13程度）</strong>しかありません。たとえば圧縮強度24N/mm²なら、引張強度は2〜2.4N/mm²程度です。このため引張・曲げのかかる部材では<a href="rc-tetsu-kankei.html">鉄筋</a>が引張を負担します。</p>
+      </div>
+
+      <h2>引張強度試験</h2>
+      <ul>
+        <li><strong>割裂引張試験</strong>：円柱<a href="test-piece.html">供試体</a>を横に寝かせて圧縮し、割れる力から引張強度を求める（最も一般的）。</li>
+        <li><strong>曲げ強度試験</strong>：角柱供試体を曲げて求める（曲げ強度として）。</li>
+      </ul>
+
+      <h2>割裂引張強度の計算式</h2>
+      <div class="formula">
+        σt ＝ 2P ÷（π × d × l）
+        <span class="note">σt：割裂引張強度／P：最大荷重／d：供試体の直径／l：供試体の長さ</span>
+      </div>
+
+      <div class="note-box">
+        <span class="label">あわせて読みたい</span>
+        <p>「<a href="asshuku-inchou.html">圧縮強度と引張強度の関係</a>」「<a href="rc-tetsu-kankei.html">コンクリートと鉄筋の関係</a>」「<a href="concrete-jakuten.html">コンクリートの弱点</a>」をどうぞ。</p>
+      </div>
+
+      <h2>まとめ</h2>
+      <ul>
+        <li>コンクリートの引張強度は圧縮強度の約1/10と非常に小さい。</li>
+        <li>試験は割裂引張試験が一般的。σt＝2P/(πdl)で求める。</li>
+        <li>引張は鉄筋が負担する。だからRC造が成り立つ。</li>
+      </ul>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>コンクリートの強度</h4>
+        <ul>
+          <li><a href="kyoudo-tani.html">強度の単位（N/mm²）</a></li>
+          <li><a href="namacon-kyoudo.html">生コンの強度（Fc21）</a></li>
+          <li><a href="asshuku-wc.html">圧縮強度と水セメント比</a></li>
+          <li><a href="asshuku-inchou.html">圧縮強度と引張強度の関係</a></li>
+          <li><a href="sunpou-kouka.html">寸法効果</a></li>
+        </ul>
+      </div>
+      <div class="widget">
+        <h4>設計基準・許容応力度</h4>
+        <ul>
+          <li><a href="keikaku-kyouyou.html">計画供用期間</a></li>
+          <li><a href="sekkei-hinshitsu-kijun.html">設計基準強度と品質基準強度</a></li>
+          <li><a href="taikyuu-kijun.html">耐久設計基準強度</a></li>
+          <li><a href="kyoudo-hosei.html">構造体強度補正値</a></li>
+          <li><a href="doma-concrete.html">土間コンクリートの強度</a></li>
+          <li><a href="concrete-kyoyo.html">コンクリートの許容応力度</a></li>
+          <li><a href="kyoyo-asshuku.html">許容圧縮応力度</a></li>
+          <li><a href="taikyuusei.html">耐久性と耐久年数</a></li>
+          <li><a href="sokuatsu.html">側圧</a></li>
+        </ul>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
