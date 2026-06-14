@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
+<title>H形鋼の強度とは？強度計算の公式と許容応力度との関係｜構造設計ナビ</title>
+<meta name="description" content="H形鋼の強度をわかりやすく解説。曲げ・せん断の強度計算の公式、断面係数や許容応力度との関係、許容曲げモーメント・許容せん断力の求め方を、初心者向けに計算例つきでまとめます。">
+<meta property="og:title" content="H形鋼の強度とは？強度計算の公式と許容応力度との関係｜構造設計ナビ">
+<meta property="og:description" content="H形鋼の強度計算（曲げ・せん断）の公式と、断面係数・許容応力度との関係を計算例つきで解説します。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kouzou-navi.com/articles/h-kyoudo.html">
+<meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
+<meta property="og:site_name" content="構造設計ナビ">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.kouzou-navi.com/articles/h-kyoudo.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="../articles.html#kiso">構造力学の基礎</a></li>
+        <li><a href="../articles.html#s-zou">鉄骨造</a></li>
+        <li><a href="../tools/section-calculator.html">計算ツール</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › <a href="../articles.html#s-zou">鉄骨造（S造）</a> › H形鋼の強度</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">鉄骨造（S造）</span>
+        <span>更新日：2026年6月14日</span>
+      </div>
+      <h1>H形鋼の強度｜強度計算の公式と許容応力度</h1>
+
+      <p><a href="h-katako.html">H形鋼</a>の「強度」は、どれだけの曲げやせん断に耐えられるかで決まります。<a href="kyoyo-oryokudo.html">許容応力度</a>と断面性能を使った計算方法を整理します。</p>
+
+      <div class="note-box">
+        <span class="label">この記事について</span>
+        <p>本記事の数値は<strong>代表的な目安・例</strong>で、学習用の概要です。設計・積算では必ず<strong>最新のJIS・建築基準法告示・鋼構造設計規準・鋼材ハンドブック</strong>の正確な値を確認してください。</p>
+      </div>
+
+      <h2>強度計算の基本：応力度 ≤ 許容応力度</h2>
+      <p>強度の確認は、部材に生じる<strong>応力度</strong>が<strong>許容応力度</strong>以下であることを確かめる作業です。許容応力度は<a href="kouzai-shurui.html">基準強度F</a>から定まります（長期の目安）。</p>
+      <div class="formula">
+        許容曲げ応力度 fb ≒ F / 1.5　　許容せん断応力度 fs ≒ F / (1.5√3)
+        <span class="note">長期。短期はこの1.5倍（≒F、F/√3）</span>
+      </div>
+
+      <h2>曲げの強度</h2>
+      <p>曲げモーメントMによる応力度は、<a href="h-danmen-keisu.html">断面係数Z</a>で決まります。許容できる曲げモーメント（許容曲げ耐力）は次式です。</p>
+      <div class="formula">
+        σ = M / Z ≤ fb　→　許容曲げモーメント Ma = fb × Z
+      </div>
+
+      <h2>せん断の強度</h2>
+      <p>せん断力Qは主に<a href="h-web.html">ウェブ</a>が負担します。</p>
+      <div class="formula">
+        τ = Q / Aw ≤ fs　→　許容せん断力 Qa = fs × Aw　（Aw ≒ H × t1）
+      </div>
+
+      <h2>計算例：H-400×200×8×13（長期・SN400 F=235）</h2>
+      <p>Zx＝1190cm³＝1.19×10⁶mm³、fb＝235/1.5≒157N/mm²。</p>
+      <div class="formula">
+        Ma = fb × Zx = 157 × 1.19×10⁶ ≒ 1.87×10⁸ N·mm ≒ 187 kN·m
+      </div>
+      <p>この梁は長期で約187kN·mの曲げまで許容できる、という目安が得られます。</p>
+
+      <div class="point-box">
+        <span class="label">POINT</span>
+        <p>実際は<a href="zakutsu.html">横座屈</a>や<a href="h-habaatsuhi.html">幅厚比</a>による低減、<a href="tawami.html">たわみ</a>の制限も加わります。強度（応力度）だけでなく、使用性まで含めて断面を決めます。</p>
+      </div>
+
+      <div class="note-box">
+        <span class="label">あわせて読みたい</span>
+        <p>断面係数は「<a href="h-danmen-keisu.html">断面係数</a>」、許容応力度は「<a href="kyoyo-oryokudo.html">許容応力度計算</a>」、ウェブは「<a href="h-web.html">H形鋼のウェブ</a>」をどうぞ。</p>
+      </div>
+
+      <h2>まとめ</h2>
+      <ul>
+        <li>強度確認は「応力度 ≤ 許容応力度」。許容応力度は基準強度Fから定まる。</li>
+        <li>曲げは Ma=fb×Z、せん断は Qa=fs×Aw で許容耐力を求める。</li>
+        <li>実務では横座屈・幅厚比・たわみも合わせて断面を決める。</li>
+      </ul>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>H形鋼・形鋼の詳細</h4>
+        <ul>
+          <li><a href="h-sunpou.html">H形鋼の寸法</a></li>
+          <li><a href="h-habaatsuhi.html">H形鋼の幅厚比</a></li>
+          <li><a href="h-flange-web.html">フランジとウェブ</a></li>
+          <li><a href="h-web.html">H形鋼のウェブ</a></li>
+          <li><a href="h-jiku.html">強軸・弱軸</a></li>
+          <li><a href="i-katako.html">I形鋼</a></li>
+          <li><a href="ct-katako.html">CT形鋼</a></li>
+          <li><a href="build-h.html">ビルドH鋼</a></li>
+          <li><a href="sotonori-ittei.html">外法一定H形鋼</a></li>
+          <li><a href="t-katako.html">T形鋼</a></li>
+        </ul>
+      </div>
+      <div class="tool-banner">
+        <div class="tb-ic">🧮</div>
+        <h4>断面性能 計算ツール</h4>
+        <p>b×hを入れるだけで A・I・Z・i を自動計算</p>
+        <a href="../tools/section-calculator.html">無料で使ってみる</a>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
