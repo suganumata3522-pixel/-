@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
+<title>H形鋼の断面二次モーメントとは？求め方・強軸と弱軸の違い・一覧｜構造設計ナビ</title>
+<meta name="description" content="H形鋼の断面二次モーメント（I）を解説。求め方の公式、強軸（Ix）と弱軸（Iy）の違いと意味、なぜ梁は強軸で使うのか、代表サイズの一覧を計算例つきでわかりやすくまとめます。">
+<meta property="og:title" content="H形鋼の断面二次モーメントとは？求め方・強軸と弱軸の違い・一覧｜構造設計ナビ">
+<meta property="og:description" content="H形鋼の断面二次モーメント（I）の求め方、強軸Ixと弱軸Iyの違い、代表サイズの一覧を解説します。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kouzou-navi.com/articles/h-danmen-moment.html">
+<meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
+<meta property="og:site_name" content="構造設計ナビ">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.kouzou-navi.com/articles/h-danmen-moment.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="../articles.html#kiso">構造力学の基礎</a></li>
+        <li><a href="../articles.html#s-zou">鉄骨造</a></li>
+        <li><a href="../tools/section-calculator.html">計算ツール</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › <a href="../articles.html#s-zou">鉄骨造（S造）</a> › 断面二次モーメント</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">鉄骨造（S造）</span>
+        <span>更新日：2026年6月14日</span>
+      </div>
+      <h1>H形鋼の断面二次モーメント｜強軸と弱軸の違い</h1>
+
+      <p><strong>断面二次モーメント（I）</strong>は、曲げにくさ（曲げ剛性）を表す断面性能です。<a href="h-katako.html">H形鋼</a>は向きによってIが大きく変わり、<strong>強軸</strong>と<strong>弱軸</strong>を区別することがとても重要です。</p>
+
+      <div class="note-box">
+        <span class="label">この記事について</span>
+        <p>本記事の数値は<strong>代表的なJIS呼称の例</strong>で、学習用の概要です。設計・積算では必ず<strong>最新のJIS G 3192や鋼材ハンドブック（形鋼表）の正確な値</strong>を使用してください。</p>
+      </div>
+
+      <h2>強軸（Ix）と弱軸（Iy）の違い</h2>
+      <p>H形鋼を曲げる向きによって、断面二次モーメントは2種類あります。</p>
+      <table class="data">
+        <tr><th></th><th>強軸（x軸）Ix</th><th>弱軸（y軸）Iy</th></tr>
+        <tr><td>曲げの向き</td><td>せい方向に曲げる（フランジが上下）</td><td>幅方向に曲げる</td></tr>
+        <tr><td>値</td><td>大きい</td><td>小さい</td></tr>
+        <tr><td>使い方</td><td>梁はこの向きで使う</td><td>横座屈・2軸曲げで効く</td></tr>
+      </table>
+      <p>材料が中立軸から遠い上下フランジに集まる強軸はIが大きく、フランジが中立軸の近くに来る弱軸はIが小さくなります。<strong>同じH形鋼でも、せいを縦にして使う（強軸で曲げる）と何倍も曲げに強い</strong>のはこのためです。</p>
+
+      <h2>求め方の公式</h2>
+      <div class="formula">
+        強軸：Ix = [ B·H³ − (B − t1)·(H − 2·t2)³ ] / 12<br>
+        弱軸：Iy = [ 2·t2·B³ + (H − 2·t2)·t1³ ] / 12
+        <span class="note">H：せい／B：フランジ幅／t1：ウェブ厚／t2：フランジ厚</span>
+      </div>
+      <p>強軸は「外形BHの矩形から、ウェブ両脇の空白を引く」考え方、弱軸は「フランジ2枚＋ウェブ」を足し合わせる考え方です。</p>
+
+      <h2>代表サイズの一覧（強軸Ix・弱軸Iy）</h2>
+      <table class="data">
+        <tr><th>呼称（mm）</th><th>Ix(cm⁴)</th><th>Iy(cm⁴)</th><th>Ix/Iy</th></tr>
+        <tr><td>H-400×200×8×13（細幅）</td><td>23700</td><td>1740</td><td>約13.6</td></tr>
+        <tr><td>H-300×300×10×15（広幅）</td><td>20400</td><td>6750</td><td>約3.0</td></tr>
+        <tr><td>H-400×400×13×21（広幅）</td><td>66600</td><td>22400</td><td>約3.0</td></tr>
+      </table>
+      <p>細幅はIx/Iyが大きく強軸に偏った断面（梁向き）、広幅はIyも比較的大きく2方向に強い断面（柱向き）であることが数値からわかります（→<a href="h-haba.html">広幅・中幅・細幅</a>）。</p>
+
+      <div class="point-box">
+        <span class="label">POINT</span>
+        <p>梁は<strong>強軸で曲げを受けるように</strong>架けるのが原則。弱軸方向は<a href="zakutsu.html">横座屈</a>に弱いため、横補剛で圧縮フランジを支えます。</p>
+      </div>
+
+      <div class="note-box">
+        <span class="label">あわせて読みたい</span>
+        <p>そこから出す「<a href="h-danmen-keisu.html">断面係数</a>」、代表値の「<a href="h-danmenseinou.html">断面性能一覧</a>」、基礎理論の「<a href="danmen-niji-moment.html">断面二次モーメントとは？</a>」をどうぞ。</p>
+      </div>
+
+      <h2>まとめ</h2>
+      <ul>
+        <li>断面二次モーメントIは曲げにくさ。H形鋼は強軸Ixと弱軸Iyで大きく異なる。</li>
+        <li>Ix=[BH³−(B−t1)(H−2t2)³]/12、Iy=[2t2·B³+(H−2t2)t1³]/12。</li>
+        <li>梁は強軸で使う。細幅は梁向き、広幅は2方向に強く柱向き。</li>
+      </ul>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>H形鋼を学ぶ</h4>
+        <ul>
+          <li><a href="h-katako.html">H形鋼とは</a></li>
+          <li><a href="h-katako-yomikata.html">H形鋼の読み方</a></li>
+          <li><a href="h-danmenseinou.html">断面性能・単位重量一覧</a></li>
+          <li><a href="h-juuryou-keisan.html">重量の計算方法</a></li>
+          <li><a href="h-danmen-keisu.html">断面係数の求め方</a></li>
+          <li><a href="h-haba.html">広幅・中幅・細幅</a></li>
+        </ul>
+      </div>
+      <div class="tool-banner">
+        <div class="tb-ic">🧮</div>
+        <h4>断面性能 計算ツール</h4>
+        <p>b×hを入れるだけで A・I・Z・i を自動計算</p>
+        <a href="../tools/section-calculator.html">無料で使ってみる</a>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
