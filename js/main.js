@@ -88,6 +88,8 @@ document.addEventListener('DOMContentLoaded', function () {
     { title: '層間変形角・剛性率・偏心率とは？ルート2の検討項目', url: 'articles/sokan-henkei.html', keywords: '層間変形角 剛性率 偏心率 1/200 ピロティ ねじれ 重心 剛心 ルート2' },
     { title: '基本設計とは？実施設計との違いと構造での役割', url: 'articles/kihon-sekkei.html', keywords: '基本設計 実施設計 違い 成果物 構造設計 役割 構造種別 架構 基礎方針 概算' },
     { title: '実施設計とは？基本設計との違いと設計料の比率', url: 'articles/jisshi-sekkei.html', keywords: '実施設計 基本設計 違い 詳細設計 設計料 比率 構造図 構造計算書 配筋図 業務報酬' },
+    { title: '構造図と計算書の整合性確認を効率化する方法', url: 'articles/seigousei-tool.html', keywords: '構造図 計算書 整合性 確認 整合性チェック 図面照合 業務効率化 設計変更 不整合 手戻り ヒューマンエラー 自動化 AI DX チェックリスト 整合性確認ツール' },
+    { title: '整合性確認ツール販売｜構造図と計算書のチェックを自動化', url: 'tools-shop.html', keywords: '整合性確認ツール 販売 構造図 計算書 整合性 チェック 自動化 照合 業務効率化 オーダーメイド 要相談 Excel ツール' },
     { title: '一次設計とは？震度との関係と二次設計との違い', url: 'articles/ichiji-sekkei.html', keywords: '一次設計 意味 震度 中地震 5強 許容応力度設計 C0 0.2 二次設計 違い' },
     { title: '二次設計とは？保有水平耐力計算の流れ', url: 'articles/niji-sekkei.html', keywords: '二次設計 一次設計 違い 対象建物 保有水平耐力計算 Qu Qun Ds Fes ルート3 大地震 6強 7' },
     { title: '構造設計の原則とは？施行令36条の3', url: 'articles/kouzou-gensoku.html', keywords: '構造設計の原則 施行令36条の3 構造耐力上主要な部分 釣合い 一体性 バランス 偏心率 剛性率' },
