@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
+<title>平行四辺形の法則とは？計算・証明と角度との関係｜構造設計ナビ</title>
+<meta name="description" content="平行四辺形の法則をわかりやすく解説。2つのベクトル（力）の和が平行四辺形の対角線になる法則の意味、合力の大きさの計算（余弦定理）と簡単な証明、角度との関係をまとめます。">
+<meta property="og:title" content="平行四辺形の法則とは？計算・証明と角度との関係｜構造設計ナビ">
+<meta property="og:description" content="平行四辺形の法則の意味、合力の計算（余弦定理）と証明、角度との関係を解説します。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kouzou-navi.com/articles/heikoushihenkei-housoku.html">
+<meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
+<meta property="og:site_name" content="構造設計ナビ">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.kouzou-navi.com/articles/heikoushihenkei-housoku.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="../articles.html#kiso">構造力学の基礎</a></li>
+        <li><a href="../articles.html#keishiki">構造形式と材料</a></li>
+        <li><a href="../tools/section-calculator.html">計算ツール</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › <a href="../articles.html#kiso">構造力学の基礎</a> › 平行四辺形の法則</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">構造力学の基礎</span>
+        <span>更新日：2026年6月15日</span>
+      </div>
+      <h1>平行四辺形の法則とは？計算・証明と角度</h1>
+      <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
+      <p><strong>平行四辺形の法則</strong>とは、2つのベクトル（<a href="chikara.html">力</a>）の和が、それらを2辺とする<a href="heikoushihenkei.html">平行四辺形の対角線</a>で表される、というベクトル合成の基本法則です。</p>
+
+      <h2>法則の内容</h2>
+      <p>同じ点に働く2力 F₁・F₂ の<a href="gouryoku.html">合力</a> R は、F₁・F₂ を2辺とする平行四辺形の対角線になります。これは力に限らず、速度・加速度などすべてのベクトルに成り立ちます。</p>
+
+      <h2>合力の大きさ（計算）</h2>
+      <p>2力のなす角をθとすると、対角線の長さ（合力）は次式です。</p>
+      <div class="formula">
+        R ＝ √(F₁² ＋ F₂² ＋ 2·F₁·F₂·cosθ)
+      </div>
+
+      <h2>証明（余弦定理）</h2>
+      <div class="point-box">
+        <span class="label">POINT</span>
+        <p>平行四辺形の対角線を1辺とする三角形を考えます。三角形の2辺が F₁・F₂、その間の角は <strong>180°−θ</strong>（平行四辺形の隣り合う角の和は180°）です。余弦定理 R²＝F₁²＋F₂²−2F₁F₂cos(180°−θ) に cos(180°−θ)＝−cosθ を代入すると、<strong>R²＝F₁²＋F₂²＋2F₁F₂cosθ</strong> が導けます。</p>
+      </div>
+
+      <h2>角度との関係</h2>
+      <ul>
+        <li>θ＝0°（同じ向き）：R＝F₁＋F₂（最大）。</li>
+        <li>θ＝90°（直交）：R＝√(F₁²＋F₂²)。</li>
+        <li>θ＝180°（逆向き）：R＝|F₁−F₂|（最小）。</li>
+      </ul>
+
+      <div class="note-box">
+        <span class="label">あわせて読みたい</span>
+        <p>「<a href="heikoushihenkei.html">力の平行四辺形</a>」「<a href="chikara-gousei.html">力の合成</a>」「<a href="gouryoku.html">合力</a>」をどうぞ。</p>
+      </div>
+
+      <h2>まとめ</h2>
+      <ul>
+        <li>平行四辺形の法則：2ベクトルの和は平行四辺形の対角線。</li>
+        <li>合力 R＝√(F₁²+F₂²+2F₁F₂cosθ)。余弦定理で証明できる。</li>
+        <li>同じ向きで最大、逆向きで最小、直交で√(F₁²+F₂²)。</li>
+      </ul>
+      <div class="article-author">
+        <img src="../assets/profile.png" alt="監修・執筆者 ホッタ ナオト（構造設計一級建築士）" width="76" height="76" loading="lazy">
+        <div class="aa-text">
+          <p class="aa-role">この記事の監修・執筆者</p>
+          <p class="aa-name">ホッタ ナオト</p>
+          <p class="aa-cred">一級建築士・構造設計一級建築士／ゼネコン構造設計部</p>
+          <p class="aa-desc">構造設計・耐震補強・工事監理の実務に10年以上従事。<a href="../about.html#author">プロフィール詳細 ›</a></p>
+        </div>
+      </div>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>力の合成・分解</h4>
+        <ul>
+          <li><a href="chikara.html">力とは</a></li>
+          <li><a href="chikara-3youso.html">力の3要素</a></li>
+          <li><a href="chikara-gousei.html">力の合成</a></li>
+          <li><a href="mittsu-gouryoku.html">3つの力の合力</a></li>
+          <li><a href="chikara-bunkai.html">力の分解</a></li>
+          <li><a href="gouryoku.html">合力</a></li>
+          <li><a href="heikoushihenkei.html">力の平行四辺形</a></li>
+          <li><a href="sayouryoku.html">作用力（作用反作用）</a></li>
+          <li><a href="gairyoku.html">外力</a></li>
+        </ul>
+      </div>
+      <div class="widget">
+        <h4>構造力学の基礎</h4>
+        <ul>
+          <li><a href="ouryoku.html">応力（軸力・せん断・曲げ）</a></li>
+          <li><a href="hanryoku.html">反力の求め方</a></li>
+          <li><a href="qm-zu.html">Q図・M図の描き方</a></li>
+          <li><a href="hari-koushiki.html">はりの公式一覧</a></li>
+        </ul>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

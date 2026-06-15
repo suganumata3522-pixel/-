@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
+<title>モーメントのつりあいから重心を求める計算方法｜構造設計ナビ</title>
+<meta name="description" content="モーメントのつり合いから重心を求める計算方法をわかりやすく解説。各部分の重さ×距離の和を全体の重さで割って重心位置を求める考え方を、例題つきでまとめます。">
+<meta property="og:title" content="モーメントのつりあいから重心を求める計算方法｜構造設計ナビ">
+<meta property="og:description" content="モーメントのつり合いを使って重心位置を求める計算方法を、例題つきで解説します。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kouzou-navi.com/articles/juushin-moment.html">
+<meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
+<meta property="og:site_name" content="構造設計ナビ">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.kouzou-navi.com/articles/juushin-moment.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="../articles.html#kiso">構造力学の基礎</a></li>
+        <li><a href="../articles.html#keishiki">構造形式と材料</a></li>
+        <li><a href="../tools/section-calculator.html">計算ツール</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › <a href="../articles.html#kiso">構造力学の基礎</a> › つり合いと重心</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">構造力学の基礎</span>
+        <span>更新日：2026年6月15日</span>
+      </div>
+      <h1>モーメントのつりあいから重心を求める計算方法</h1>
+      <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
+      <p><strong>重心</strong>は、物体の重さが1点に集まっているとみなせる点です。<a href="moment-tsuriai.html">モーメントのつり合い</a>を使うと、重心の位置を計算で求められます。</p>
+
+      <h2>考え方</h2>
+      <p>ある基準点まわりで、<strong>各部分の「重さ×距離」の和</strong>は、<strong>全体の重さ×重心までの距離</strong>に等しくなります。これをモーメントのつり合いとして式にします。</p>
+      <div class="formula">
+        x_g ＝ Σ(Wᵢ × xᵢ) ÷ ΣWᵢ
+        <span class="note">x_g：重心位置／Wᵢ：各部分の重さ／xᵢ：基準点から各部分までの距離</span>
+      </div>
+
+      <h2>例題</h2>
+      <div class="point-box">
+        <span class="label">例題</span>
+        <p>左端を基準に、位置0mに20N、位置3mに10N、位置6mに30Nの重さがあるとき、重心は？</p>
+        <p>分子 ＝ 20×0 ＋ 10×3 ＋ 30×6 ＝ 0 ＋ 30 ＋ 180 ＝ 210<br>
+        分母 ＝ 20 ＋ 10 ＋ 30 ＝ 60<br>
+        <strong>x_g ＝ 210 ÷ 60 ＝ 3.5m（左端から3.5m）</strong></p>
+      </div>
+      <p>同じ計算をy方向でも行えば、平面的な重心（x_g, y_g）が求まります。断面の図心（断面の重心）も同じ考え方です。</p>
+
+      <div class="note-box">
+        <span class="label">あわせて読みたい</span>
+        <p>「<a href="moment-tsuriai.html">モーメントのつり合い</a>」「<a href="danmen-niji-moment.html">断面二次モーメント</a>」「<a href="hanryoku.html">反力の求め方</a>」をどうぞ。</p>
+      </div>
+
+      <h2>まとめ</h2>
+      <ul>
+        <li>重心は重さが集まっているとみなせる点。</li>
+        <li>x_g ＝ Σ(Wᵢ×xᵢ) ÷ ΣWᵢ（モーメントのつり合いから導く）。</li>
+        <li>x・y両方向で計算すれば平面の重心が求まる。図心も同じ考え方。</li>
+      </ul>
+      <div class="article-author">
+        <img src="../assets/profile.png" alt="監修・執筆者 ホッタ ナオト（構造設計一級建築士）" width="76" height="76" loading="lazy">
+        <div class="aa-text">
+          <p class="aa-role">この記事の監修・執筆者</p>
+          <p class="aa-name">ホッタ ナオト</p>
+          <p class="aa-cred">一級建築士・構造設計一級建築士／ゼネコン構造設計部</p>
+          <p class="aa-desc">構造設計・耐震補強・工事監理の実務に10年以上従事。<a href="../about.html#author">プロフィール詳細 ›</a></p>
+        </div>
+      </div>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>モーメント</h4>
+        <ul>
+          <li><a href="guuryoku.html">偶力</a></li>
+          <li><a href="guuryoku-moment.html">偶力のモーメント</a></li>
+          <li><a href="moment.html">力のモーメント</a></li>
+          <li><a href="moment-muki.html">モーメントの向き</a></li>
+          <li><a href="moment-seifu.html">モーメントの正負</a></li>
+          <li><a href="moment-ude.html">腕の長さ</a></li>
+          <li><a href="kaiten-houkou.html">回転方向の覚え方</a></li>
+          <li><a href="moment-tsuriai.html">モーメントのつり合い</a></li>
+        </ul>
+      </div>
+      <div class="widget">
+        <h4>構造力学の基礎</h4>
+        <ul>
+          <li><a href="ouryoku.html">応力（軸力・せん断・曲げ）</a></li>
+          <li><a href="hanryoku.html">反力の求め方</a></li>
+          <li><a href="qm-zu.html">Q図・M図の描き方</a></li>
+          <li><a href="hari-koushiki.html">はりの公式一覧</a></li>
+        </ul>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
