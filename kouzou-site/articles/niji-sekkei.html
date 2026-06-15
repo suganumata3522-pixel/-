@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
+<title>二次設計とは？一次設計との違い・対象建物と保有水平耐力計算の流れ｜構造設計ナビ</title>
+<meta name="description" content="二次設計をわかりやすく解説。大地震で建物を倒壊させないことを確かめる二次設計の意味、一次設計との違い、対象となる建物の条件、保有水平耐力計算（必要保有水平耐力との比較）の流れをまとめます。">
+<meta property="og:title" content="二次設計とは？一次設計との違い・対象建物と保有水平耐力計算の流れ｜構造設計ナビ">
+<meta property="og:description" content="二次設計の意味、一次設計との違い、対象建物の条件、保有水平耐力計算の流れを解説します。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kouzou-navi.com/articles/niji-sekkei.html">
+<meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
+<meta property="og:site_name" content="構造設計ナビ">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.kouzou-navi.com/articles/niji-sekkei.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="../articles.html#kiso">構造力学の基礎</a></li>
+        <li><a href="../articles.html#jitsumu">構造計算の実務</a></li>
+        <li><a href="../tools/section-calculator.html">計算ツール</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › <a href="../articles.html#jitsumu">構造計算の実務</a> › 二次設計</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">構造計算の実務</span>
+        <span>更新日：2026年6月15日</span>
+      </div>
+      <h1>二次設計とは？保有水平耐力計算の流れ</h1>
+      <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
+      <p><strong>二次設計</strong>とは、<strong>めったに起こらない大地震</strong>に対して、建物が<strong>倒壊・崩壊しない</strong>（人命を守る）ことを確かめる設計です。<a href="ichiji-sekkei.html">一次設計</a>に加えて行います。</p>
+
+      <div class="note-box">
+        <span class="label">この記事について</span>
+        <p>建築基準法・施行令・告示などの法令は<strong>改正されます</strong>。本記事は学習用の概要です。実際の設計・申請では最新の法令・運用を確認してください。</p>
+      </div>
+
+      <h2>一次設計との違い</h2>
+      <p><a href="ichiji-sekkei.html">一次設計</a>は中地震で「損傷しない」、二次設計は大地震で「倒壊しない」ことが目標です。大地震では部材が一部降伏（塑性化）してもよく、<strong>建物の粘り（靱性）でエネルギーを吸収して倒壊を防ぐ</strong>という考え方です。</p>
+
+      <h2>対象建物の条件</h2>
+      <p>二次設計の方法は、建物の規模や<a href="kyoyo-oryokudo.html">計算ルート</a>で変わります。</p>
+      <ul>
+        <li><strong>ルート1</strong>：小規模で、剛性・耐力に余裕があり二次設計を省略できる範囲。</li>
+        <li><strong>ルート2</strong>：<a href="sokan-henkei.html">層間変形角・剛性率・偏心率</a>などで確認（高さ31m以下など）。</li>
+        <li><strong>ルート3</strong>：<strong>保有水平耐力計算</strong>で確認（高さ31m超など、より大規模）。</li>
+      </ul>
+
+      <h2>保有水平耐力計算の流れ</h2>
+      <div class="point-box">
+        <span class="label">POINT</span>
+        <p>大地震時に建物が実際に持つ水平耐力（<strong>保有水平耐力 Qu</strong>）が、<strong>必要保有水平耐力 Qun</strong> 以上であることを確かめます。</p>
+        <div class="formula">Qu ≧ Qun ＝ Ds × Fes × Qud</div>
+        <p>Ds＝構造特性係数（粘りが大きいほど小さい）、Fes＝形状係数（剛性率・偏心率による割増し）、Qud＝大地震時の地震層せん断力（C₀＝1.0相当）。粘り強い（Dsが小さい）建物ほど、必要保有水平耐力が小さくなります。</p>
+      </div>
+
+      <div class="note-box">
+        <span class="label">あわせて読みたい</span>
+        <p>「<a href="ichiji-sekkei.html">一次設計</a>」「<a href="kyoyo-oryokudo.html">許容応力度計算（ルート）</a>」「<a href="sokan-henkei.html">層間変形角・剛性率・偏心率</a>」をどうぞ。</p>
+      </div>
+
+      <h2>まとめ</h2>
+      <ul>
+        <li>二次設計は大地震（震度6強〜7）で倒壊させないことを確かめる設計。</li>
+        <li>規模・ルートで方法が変わり、ルート3では保有水平耐力計算を行う。</li>
+        <li>Qu≧Qun＝Ds・Fes・Qud。粘り強い建物ほど必要保有水平耐力が小さい。</li>
+      </ul>
+      <div class="article-author">
+        <img src="../assets/profile.png" alt="監修・執筆者 ホッタ ナオト（構造設計一級建築士）" width="76" height="76" loading="lazy">
+        <div class="aa-text">
+          <p class="aa-role">この記事の監修・執筆者</p>
+          <p class="aa-name">ホッタ ナオト</p>
+          <p class="aa-cred">一級建築士・構造設計一級建築士／ゼネコン構造設計部</p>
+          <p class="aa-desc">構造設計・耐震補強・工事監理の実務に10年以上従事。<a href="../about.html#author">プロフィール詳細 ›</a></p>
+        </div>
+      </div>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>構造計算の実務</h4>
+        <ul>
+          <li><a href="ichiji-sekkei.html">一次設計</a></li>
+          <li><a href="niji-sekkei.html">二次設計</a></li>
+          <li><a href="kouzou-gensoku.html">構造設計の原則</a></li>
+          <li><a href="taishin-kouzou.html">耐震構造</a></li>
+          <li><a href="kyoyo-oryokudo.html">許容応力度計算</a></li>
+          <li><a href="sokan-henkei.html">層間変形角・剛性率・偏心率</a></li>
+          <li><a href="kouzou-kyoudo.html">構造強度</a></li>
+          <li><a href="shiyou-kitei.html">仕様規定</a></li>
+        </ul>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
