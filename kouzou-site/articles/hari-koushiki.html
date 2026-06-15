@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
+<title>はりの公式一覧｜反力・せん断力・曲げモーメント・たわみ（図で選ぶ）｜構造設計ナビ</title>
+<meta name="description" content="片持ち梁・単純梁・両端固定・はね出しなど17種類のはりの公式を図から選べる一覧。構造モデルの図をクリックすると、反力・せん断力・曲げモーメント・たわみの公式が表示されます。構造力学の学習・検算に。">
+<meta property="og:title" content="はりの公式一覧｜反力・せん断力・曲げモーメント・たわみ（図で選ぶ）｜構造設計ナビ">
+<meta property="og:description" content="17種類のはりの公式を図から選べる一覧。構造モデルをクリックすると反力・せん断力・曲げモーメント・たわみの公式が出ます。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kouzou-navi.com/articles/hari-koushiki.html">
+<meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
+<meta property="og:site_name" content="構造設計ナビ">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.kouzou-navi.com/articles/hari-koushiki.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<style>
+  .koushiki-cat { font-size: 1.05rem; font-weight: 700; color: var(--navy); border-left: 5px solid var(--accent); padding-left: 10px; margin: 26px 0 14px; }
+  .model-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 14px; }
+  .model-card { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 12px 12px 10px; cursor: pointer; text-align: left; font-family: inherit; transition: border-color .15s, box-shadow .15s, transform .15s; }
+  .model-card:hover { border-color: var(--accent); box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+  .model-card svg { width: 100%; height: auto; display: block; }
+  .model-card .mc-name { font-size: .86rem; font-weight: 700; color: var(--navy); margin-top: 8px; line-height: 1.4; }
+  .model-card .mc-tap { font-size: .7rem; color: var(--accent); font-weight: 700; }
+  /* modal */
+  .modal-back { position: fixed; inset: 0; background: rgba(19,43,69,.55); display: none; align-items: center; justify-content: center; z-index: 200; padding: 16px; }
+  .modal-back.open { display: flex; }
+  .modal { background: #fff; border-radius: 16px; max-width: 560px; width: 100%; max-height: 90vh; overflow: auto; padding: 22px; position: relative; }
+  .modal h3 { font-size: 1.2rem; color: var(--navy); margin: 0 28px 4px 0; padding: 0; border: none; }
+  .modal .m-sub { font-size: .8rem; color: var(--sub); margin-bottom: 12px; }
+  .modal .m-svg { background: var(--bg-soft); border: 1px solid var(--line); border-radius: 10px; padding: 8px; margin-bottom: 14px; }
+  .modal .m-svg svg { width: 100%; height: auto; max-height: 150px; }
+  .modal table.data { width: 100%; }
+  .modal .m-close { position: absolute; top: 12px; right: 14px; background: none; border: none; font-size: 1.6rem; line-height: 1; color: var(--sub); cursor: pointer; }
+  .modal .m-note { font-size: .8rem; color: var(--sub); margin-top: 10px; }
+  .fml { font-family: "Times New Roman", "Noto Sans JP", serif; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="../articles.html#kiso">構造力学の基礎</a></li>
+        <li><a href="../articles.html#s-zou">鉄骨造</a></li>
+        <li><a href="../tools/section-calculator.html">計算ツール</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › <a href="../articles.html#kiso">構造力学の基礎</a> › はりの公式一覧</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">構造力学の基礎</span>
+        <span>更新日：2026年6月14日</span>
+      </div>
+      <h1>はりの公式一覧｜反力・せん断力・曲げモーメント・たわみ</h1>
+      <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
+
+      <p>代表的な17種類のはり（梁）について、<strong>構造モデルの図をクリック</strong>すると、<strong>反力・せん断力・曲げモーメント・たわみ</strong>の公式が表示されます。構造力学の学習、建築士試験の対策、設計の概算チェックにご利用ください。</p>
+
+      <div class="note-box">
+        <span class="label">記号</span>
+        <p><span class="fml">P</span>＝集中荷重、<span class="fml">w</span>＝等分布荷重（単位長さあたり）、<span class="fml">L</span>＝スパン、<span class="fml">a・b</span>＝荷重位置（左から a・右から b、a＋b＝L）、<span class="fml">E</span>＝ヤング係数、<span class="fml">I</span>＝断面二次モーメント。たわみは下向きを正とした最大値の大きさです。</p>
+      </div>
+
+      <div id="model-root"></div>
+
+      <div class="point-box">
+        <span class="label">ご注意</span>
+        <p>本ページの公式は学習・検算の参考用です。たわみは <span class="fml">EI</span> を一定とした弾性範囲の値で、不静定ばり（一端固定・両端固定）やはね出しの一部はモデルの仮定により値が変わります。実際の設計は法令・基準にもとづき責任ある技術者の判断で行ってください。</p>
+      </div>
+
+      <div class="note-box">
+        <span class="label">あわせて読みたい</span>
+        <p>意味と導出は「<a href="hanryoku.html">反力の求め方</a>」「<a href="qm-zu.html">せん断力図・曲げモーメント図</a>」「<a href="tawami.html">たわみの計算方法</a>」、断面性能は<a href="../tools/section-calculator.html">断面性能 計算ツール</a>でどうぞ。</p>
+      </div>
+
+      <div class="article-author">
+        <img src="../assets/profile.png" alt="監修・執筆者 ホッタ ナオト（構造設計一級建築士）" width="76" height="76" loading="lazy">
+        <div class="aa-text">
+          <p class="aa-role">この記事の監修・執筆者</p>
+          <p class="aa-name">ホッタ ナオト</p>
+          <p class="aa-cred">一級建築士・構造設計一級建築士／ゼネコン構造設計部</p>
+          <p class="aa-desc">構造設計・耐震補強・工事監理の実務に10年以上従事。<a href="../about.html#author">プロフィール詳細 ›</a></p>
+        </div>
+      </div>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>構造力学の基礎</h4>
+        <ul>
+          <li><a href="danmen-niji-moment.html">断面二次モーメントとは？</a></li>
+          <li><a href="danmen-keisu.html">断面係数とは？</a></li>
+          <li><a href="tawami.html">たわみの計算方法</a></li>
+          <li><a href="zakutsu.html">座屈とは？</a></li>
+        </ul>
+      </div>
+      <div class="tool-banner">
+        <div class="tb-ic">🧮</div>
+        <h4>断面性能 計算ツール</h4>
+        <p>b×hを入れるだけで A・I・Z・i を自動計算</p>
+        <a href="../tools/section-calculator.html">無料で使ってみる</a>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<div class="modal-back" id="modal-back">
+  <div class="modal" role="dialog" aria-modal="true">
+    <button class="m-close" id="m-close" aria-label="閉じる">×</button>
+    <h3 id="m-title"></h3>
+    <div class="m-sub" id="m-sub"></div>
+    <div class="m-svg" id="m-svg"></div>
+    <table class="data" id="m-table"></table>
+    <div class="m-note" id="m-note"></div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+<script>
+(function () {
+  var NV = '#1a3a5c', AC = '#e8843c', ACF = 'rgba(232,132,60,0.14)';
+  function ln(x1,y1,x2,y2,c,w){return '<line x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" stroke="'+(c||NV)+'" stroke-width="'+(w||2)+'" stroke-linecap="round"/>';}
+  function txt(x,y,s){return '<text x="'+x+'" y="'+y+'" font-size="12" font-weight="bold" fill="'+AC+'">'+s+'</text>';}
+  var BY = 64;
+  function beam(x1,x2){return ln(x1,BY,x2,BY,NV,5);}
+  function hatch(x1,x2,y){var s='';for(var x=x1;x<x2;x+=7){s+=ln(x,y,x+5,y+6,NV,1.1);}return s;}
+  function pin(x){return '<polygon points="'+x+','+BY+' '+(x-9)+',80 '+(x+9)+',80" fill="#fff" stroke="'+NV+'" stroke-width="2"/>'+ln(x-15,80,x+15,80,NV,2)+hatch(x-15,x+15,80);}
+  function roller(x){return '<polygon points="'+x+','+BY+' '+(x-9)+',78 '+(x+9)+',78" fill="#fff" stroke="'+NV+'" stroke-width="2"/>'+'<circle cx="'+(x-5)+'" cy="82" r="3" fill="#fff" stroke="'+NV+'" stroke-width="1.4"/><circle cx="'+(x+5)+'" cy="82" r="3" fill="#fff" stroke="'+NV+'" stroke-width="1.4"/>'+ln(x-15,87,x+15,87,NV,2);}
+  function fixed(x,side){var s=ln(x,38,x,90,NV,3);var dx=side==='left'?-7:7;for(var y=40;y<90;y+=7){s+=ln(x,y,x+dx,y+6,NV,1.1);}return s;}
+  function adown(x,ytop){return ln(x,ytop,x,BY-1,AC,2)+'<polygon points="'+x+','+(BY+1)+' '+(x-4)+',56 '+(x+4)+',56" fill="'+AC+'"/>';}
+  function pload(x,label){return adown(x,18)+(label?txt(x+5,20,label):'');}
+  function udl(x1,x2,label){var s=ln(x1,26,x2,26,AC,2);var step=Math.max(16,(x2-x1)/7);for(var x=x1+0.5;x<=x2+0.5;x+=step){var xx=Math.min(x,x2);s+=ln(xx,26,xx,BY-1,AC,1.3)+'<polygon points="'+xx+','+(BY+1)+' '+(xx-3)+',57 '+(xx+3)+',57" fill="'+AC+'"/>';}if(label)s+=txt((x1+x2)/2-4,20,label);return s;}
+  function tri(x1,x2,peakRight,label){var yA=peakRight?52:24,yB=peakRight?24:52;var s='<polygon points="'+x1+','+yA+' '+x2+','+yB+' '+x2+','+BY+' '+x1+','+BY+'" fill="'+ACF+'" stroke="'+AC+'" stroke-width="1.4"/>';var n=6;for(var i=0;i<=n;i++){var x=x1+(x2-x1)*i/n;var yt=yA+(yB-yA)*i/n;s+=ln(x,yt,x,BY-1,AC,1.1)+'<polygon points="'+x+','+(BY+1)+' '+(x-3)+',57 '+(x+3)+',57" fill="'+AC+'"/>';}if(label)s+=txt((x1+x2)/2-4,18,label);return s;}
+  function svg(inner){return '<svg viewBox="0 0 360 100" xmlns="http://www.w3.org/2000/svg" role="img">'+inner+'</svg>';}
+
+  // x座標の定義
+  var XW=50, XR=320; // 壁/単純系の左右
+  // 各モデル
+  var M = [
+   {cat:'片持ち梁（一端固定・他端自由）'},
+   {id:'c1', name:'片持ち梁＋先端集中荷重',
+    svg:svg(beam(XW,XR)+fixed(XW,'left')+pload(XR-2,'P')),
+    rows:[['反力','R ＝ P（上向き）／ 固定端モーメント ＝ P·L'],['せん断力','Q ＝ P（全長一定）'],['曲げモーメント','M<sub>max</sub> ＝ P·L（固定端）'],['たわみ','δ<sub>max</sub> ＝ P·L³ ／ 3EI（自由端）']]},
+   {id:'c2', name:'片持ち梁＋等分布荷重',
+    svg:svg(beam(XW,XR)+fixed(XW,'left')+udl(XW+6,XR-2,'w')),
+    rows:[['反力','R ＝ w·L ／ 固定端モーメント ＝ w·L² ／ 2'],['せん断力','Q<sub>max</sub> ＝ w·L（固定端）'],['曲げモーメント','M<sub>max</sub> ＝ w·L² ／ 2（固定端）'],['たわみ','δ<sub>max</sub> ＝ w·L⁴ ／ 8EI（自由端）']]},
+   {id:'c3', name:'片持ち梁＋先端分布荷重（三角形・先端で最大）',
+    svg:svg(beam(XW,XR)+fixed(XW,'left')+tri(XW+6,XR-2,true,'w')),
+    note:'w は先端（自由端）での最大荷重強度。荷重は固定端で 0、自由端で w の三角形分布。',
+    rows:[['反力','R ＝ w·L ／ 2 ／ 固定端モーメント ＝ w·L² ／ 3'],['せん断力','Q<sub>max</sub> ＝ w·L ／ 2（固定端）'],['曲げモーメント','M<sub>max</sub> ＝ w·L² ／ 3（固定端）'],['たわみ','δ<sub>max</sub> ＝ 11·w·L⁴ ／ 120EI（自由端）']]},
+
+   {cat:'単純梁（両端ピン・ローラー）'},
+   {id:'s1', name:'単純梁＋中央集中荷重',
+    svg:svg(beam(XW,XR)+pin(XW)+roller(XR)+pload((XW+XR)/2,'P')),
+    rows:[['反力','R<sub>A</sub> ＝ R<sub>B</sub> ＝ P ／ 2'],['せん断力','Q<sub>max</sub> ＝ P ／ 2'],['曲げモーメント','M<sub>max</sub> ＝ P·L ／ 4（中央）'],['たわみ','δ<sub>max</sub> ＝ P·L³ ／ 48EI（中央）']]},
+   {id:'s2', name:'単純梁＋偏心集中荷重',
+    svg:svg(beam(XW,XR)+pin(XW)+roller(XR)+pload(XW+(XR-XW)*0.38,'P')+'<text x="'+(XW+(XR-XW)*0.18)+'" y="92" font-size="11" fill="'+NV+'">a</text><text x="'+(XW+(XR-XW)*0.68)+'" y="92" font-size="11" fill="'+NV+'">b</text>'),
+    note:'荷重点が最大たわみ位置とは限りません（最大は中央寄り）。a≧b のときの最大たわみ式も併記。',
+    rows:[['反力','R<sub>A</sub> ＝ P·b ／ L ／ R<sub>B</sub> ＝ P·a ／ L'],['せん断力','Q<sub>max</sub> ＝ P·b ／ L（a≦b の側）'],['曲げモーメント','M<sub>max</sub> ＝ P·a·b ／ L（荷重点）'],['たわみ','荷重点 δ ＝ P·a²·b² ／ 3EI·L ／ 最大 δ<sub>max</sub> ＝ P·b(L²−b²)<sup>3/2</sup> ／ 9√3·EI·L']]},
+   {id:'s3', name:'単純梁＋等分布荷重',
+    svg:svg(beam(XW,XR)+pin(XW)+roller(XR)+udl(XW+4,XR-4,'w')),
+    rows:[['反力','R<sub>A</sub> ＝ R<sub>B</sub> ＝ w·L ／ 2'],['せん断力','Q<sub>max</sub> ＝ w·L ／ 2（支点）'],['曲げモーメント','M<sub>max</sub> ＝ w·L² ／ 8（中央）'],['たわみ','δ<sub>max</sub> ＝ 5·w·L⁴ ／ 384EI（中央）']]},
+
+   {cat:'一端ピン・他端固定（片持ち＋支え）'},
+   {id:'p1', name:'一端ピン・他端固定＋中央集中荷重',
+    svg:svg(beam(XW,XR)+pin(XW)+fixed(XR,'right')+pload((XW+XR)/2,'P')),
+    rows:[['反力','R<sub>ピン</sub> ＝ 5P ／ 16 ／ R<sub>固定</sub> ＝ 11P ／ 16 ／ 固定端 M ＝ 3P·L ／ 16'],['せん断力','Q<sub>max</sub> ＝ 11P ／ 16（固定端側）'],['曲げモーメント','M<sub>max</sub> ＝ 3P·L ／ 16（固定端）／ 荷重点 M ＝ 5P·L ／ 32'],['たわみ','δ<sub>max</sub> ＝ P·L³ ／ 48√5·EI ≒ P·L³ ／ 107EI（ピンから約0.447L）']]},
+   {id:'p2', name:'一端ピン・他端固定＋偏心集中荷重',
+    svg:svg(beam(XW,XR)+pin(XW)+fixed(XR,'right')+pload(XW+(XR-XW)*0.4,'P')),
+    note:'a＝ピンから、b＝固定端からの距離（a＋b＝L）。最大たわみは荷重位置により複雑なため省略します。',
+    rows:[['反力','R<sub>ピン</sub> ＝ P·b²(3L−b) ／ 2L³ ／ R<sub>固定</sub> ＝ P − R<sub>ピン</sub>'],['せん断力','Q<sub>max</sub> ＝ R<sub>固定</sub>（固定端側）'],['曲げモーメント','固定端 M ＝ P·a·b(2L−b) ／ 2L² ／ 荷重点 M ＝ R<sub>ピン</sub>·a'],['たわみ','δ ＝ 略（荷重位置により複雑）']]},
+   {id:'p3', name:'一端ピン・他端固定＋等分布荷重',
+    svg:svg(beam(XW,XR)+pin(XW)+fixed(XR,'right')+udl(XW+4,XR-2,'w')),
+    rows:[['反力','R<sub>ピン</sub> ＝ 3w·L ／ 8 ／ R<sub>固定</sub> ＝ 5w·L ／ 8 ／ 固定端 M ＝ w·L² ／ 8'],['せん断力','Q<sub>max</sub> ＝ 5w·L ／ 8（固定端側）'],['曲げモーメント','M<sub>max</sub> ＝ w·L² ／ 8（固定端）／ 径間最大 ＝ 9w·L² ／ 128（ピンから3L/8）'],['たわみ','δ<sub>max</sub> ≒ w·L⁴ ／ 185EI（ピンから約0.42L）']]},
+
+   {cat:'両端固定'},
+   {id:'f1', name:'両端固定＋中央集中荷重',
+    svg:svg(beam(XW,XR)+fixed(XW,'left')+fixed(XR,'right')+pload((XW+XR)/2,'P')),
+    rows:[['反力','R<sub>A</sub> ＝ R<sub>B</sub> ＝ P ／ 2 ／ 固定端 M ＝ P·L ／ 8'],['せん断力','Q<sub>max</sub> ＝ P ／ 2'],['曲げモーメント','M<sub>端</sub> ＝ M<sub>中央</sub> ＝ P·L ／ 8（絶対値が最大）'],['たわみ','δ<sub>max</sub> ＝ P·L³ ／ 192EI（中央）']]},
+   {id:'f2', name:'両端固定＋偏心集中荷重',
+    svg:svg(beam(XW,XR)+fixed(XW,'left')+fixed(XR,'right')+pload(XW+(XR-XW)*0.38,'P')),
+    note:'a＝左から、b＝右からの距離（a＋b＝L）。',
+    rows:[['反力','R<sub>A</sub> ＝ P·b²(3a+b) ／ L³ ／ R<sub>B</sub> ＝ P·a²(a+3b) ／ L³'],['せん断力','Q<sub>max</sub> ＝ R<sub>A</sub> または R<sub>B</sub>（大きい側）'],['曲げモーメント','固定端 M<sub>A</sub> ＝ P·a·b² ／ L² ／ M<sub>B</sub> ＝ P·a²·b ／ L² ／ 荷重点 ＝ 2P·a²·b² ／ L³'],['たわみ','荷重点 δ ＝ P·a³·b³ ／ 3EI·L³']]},
+   {id:'f3', name:'両端固定＋等分布荷重',
+    svg:svg(beam(XW,XR)+fixed(XW,'left')+fixed(XR,'right')+udl(XW+6,XR-6,'w')),
+    rows:[['反力','R<sub>A</sub> ＝ R<sub>B</sub> ＝ w·L ／ 2 ／ 固定端 M ＝ w·L² ／ 12'],['せん断力','Q<sub>max</sub> ＝ w·L ／ 2'],['曲げモーメント','M<sub>端</sub> ＝ w·L² ／ 12（最大）／ M<sub>中央</sub> ＝ w·L² ／ 24'],['たわみ','δ<sub>max</sub> ＝ w·L⁴ ／ 384EI（中央）']]},
+
+   {cat:'はね出し梁（片持ち出しのある単純梁）'},
+   {id:'o1', name:'片側はね出し＋はね出し先端に集中荷重',
+    svg:svg(beam(70,XR)+pin(70)+roller(250)+pload(XR-2,'P')),
+    note:'L＝支点間距離、a＝はね出し長さ。A支点は下向き反力（浮き上がり）に注意。',
+    rows:[['反力','R<sub>B</sub> ＝ P(L+a) ／ L（上向き）／ R<sub>A</sub> ＝ −P·a ／ L（下向き）'],['せん断力','はね出し部 Q ＝ P ／ 径間 Q ＝ P·a ／ L'],['曲げモーメント','M<sub>max</sub> ＝ P·a（支点B上、負曲げ）'],['たわみ','先端 δ ＝ P·a²(L+a) ／ 3EI（はね出し先端）']]},
+   {id:'o2', name:'片側はね出し＋全体に等分布荷重',
+    svg:svg(beam(70,XR)+pin(70)+roller(250)+udl(74,XR-2,'w')),
+    note:'L＝支点間距離、a＝はね出し長さ。径間中央に正の曲げ、支点B上に負の曲げが生じます。',
+    rows:[['反力','R<sub>B</sub> ＝ w(L+a)² ／ 2L ／ R<sub>A</sub> ＝ w(L²−a²) ／ 2L'],['せん断力','支点B近傍で最大（径間側・はね出し側で算定）'],['曲げモーメント','支点B上 M ＝ w·a² ／ 2（負）／ 径間に正の最大'],['たわみ','δ ＝ 略（L・a の比により異なる）']]},
+   {id:'o3', name:'片側はね出し＋はね出し部のみ等分布荷重',
+    svg:svg(beam(70,XR)+pin(70)+roller(250)+udl(252,XR-2,'w')),
+    note:'L＝支点間距離、a＝はね出し長さ。A支点は下向き反力に注意。',
+    rows:[['反力','R<sub>B</sub> ＝ w·a(2L+a) ／ 2L（上向き）／ R<sub>A</sub> ＝ −w·a² ／ 2L（下向き）'],['せん断力','はね出し部で最大 ＝ w·a（支点B）'],['曲げモーメント','M<sub>max</sub> ＝ w·a² ／ 2（支点B上、負曲げ）'],['たわみ','δ ＝ 略（L・a の比により異なる）']]},
+   {id:'o4', name:'両側はね出し＋片側先端に集中荷重',
+    svg:svg(beam(40,XR)+pin(100)+roller(260)+pload(XR-2,'P')),
+    note:'L＝支点間距離、a＝はね出し長さ。載荷側でない支点は浮き上がり（下向き反力）に注意。',
+    rows:[['反力','R<sub>B</sub>（載荷側支点）＝ P(L+a) ／ L ／ R<sub>A</sub> ＝ −P·a ／ L（下向き）'],['せん断力','はね出し部 Q ＝ P ／ 径間 Q ＝ P·a ／ L'],['曲げモーメント','M<sub>max</sub> ＝ P·a（載荷側支点上、負曲げ）'],['たわみ','先端 δ ＝ P·a²(L+a) ／ 3EI（載荷側先端）']]},
+   {id:'o5', name:'両側はね出し＋全体に等分布荷重',
+    svg:svg(beam(40,XR)+pin(100)+roller(260)+udl(44,XR-2,'w')),
+    note:'L＝支点間距離、a＝片側のはね出し長さ（左右対称）。',
+    rows:[['反力','R<sub>A</sub> ＝ R<sub>B</sub> ＝ w(L+2a) ／ 2'],['せん断力','支点上で最大（径間側で w·L／2、はね出し側で w·a）'],['曲げモーメント','支点上 M ＝ w·a² ／ 2（負）／ 中央 M ＝ w·L² ／ 8 − w·a² ／ 2'],['たわみ','δ ＝ 略（L・a の比により異なる）']]}
+  ];
+
+  // レンダリング
+  var root = document.getElementById('model-root');
+  var byId = {};
+  var html = '';
+  var openGrid = false;
+  M.forEach(function (m) {
+    if (m.cat) {
+      if (openGrid) html += '</div>';
+      html += '<h2 class="koushiki-cat">' + m.cat + '</h2><div class="model-grid">';
+      openGrid = true;
+    } else {
+      byId[m.id] = m;
+      html += '<button class="model-card" data-id="' + m.id + '">' + m.svg +
+        '<div class="mc-name">' + m.name + '</div><div class="mc-tap">タップで公式を表示 ›</div></button>';
+    }
+  });
+  if (openGrid) html += '</div>';
+  root.innerHTML = html;
+
+  // モーダル
+  var back = document.getElementById('modal-back');
+  var mTitle = document.getElementById('m-title');
+  var mSub = document.getElementById('m-sub');
+  var mSvg = document.getElementById('m-svg');
+  var mTable = document.getElementById('m-table');
+  var mNote = document.getElementById('m-note');
+
+  function openModal(id) {
+    var m = byId[id];
+    if (!m) return;
+    mTitle.textContent = m.name;
+    mSub.textContent = '構造モデルと公式';
+    mSvg.innerHTML = m.svg;
+    var t = '<tr><th>項目</th><th>公式</th></tr>';
+    m.rows.forEach(function (r) { t += '<tr><td>' + r[0] + '</td><td class="fml">' + r[1] + '</td></tr>'; });
+    mTable.innerHTML = t;
+    mNote.textContent = m.note || '';
+    mNote.style.display = m.note ? '' : 'none';
+    back.classList.add('open');
+  }
+  function closeModal() { back.classList.remove('open'); }
+
+  root.addEventListener('click', function (e) {
+    var card = e.target.closest('.model-card');
+    if (card) openModal(card.getAttribute('data-id'));
+  });
+  document.getElementById('m-close').addEventListener('click', closeModal);
+  back.addEventListener('click', function (e) { if (e.target === back) closeModal(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
+})();
+</script>
+</body>
+</html>
