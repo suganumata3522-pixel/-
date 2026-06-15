@@ -63,6 +63,8 @@ document.addEventListener('DOMContentLoaded', function () {
     { title: '設計とは？意味・設計図の種類・仕事内容', url: 'articles/sekkei.html', keywords: '設計 意味 設計図 種類 仕事内容 向き不向き 意匠 構造 設備 基本設計 実施設計' },
     { title: '建築設計とは？意匠・構造・設備の違いと資格', url: 'articles/kenchiku-sekkei.html', keywords: '建築設計 意匠設計 構造設計 設備設計 違い 資格 一級建築士 構造設計一級建築士 設備設計一級建築士' },
     { title: '構造設計とは？業務内容と役割', url: 'articles/kouzou-sekkei.html', keywords: '構造設計 業務内容 役割 荷重 地震力 架構 部材設計 構造図 構造計算書 工事監理 安全' },
+    { title: '構造設計に資格は必要？一級建築士・構造設計一級建築士の違い', url: 'articles/kouzou-shikaku.html', keywords: '構造設計 資格 必要 一級建築士 構造設計一級建築士 違い 無資格 業務範囲 補助 受験資格 取得 JSCA建築構造士 構造計算適合性判定 年収 キャリア' },
+    { title: '構造設計への転職ガイド｜年収・必須資格・キャリアパス', url: 'articles/kouzou-tenshoku.html', keywords: '構造設計 転職 年収 必須資格 キャリアパス 求人 構造計算 転職 売り手市場 BIM AI 構造解析ソフト 2024年問題 適合性判定 ゼネコン 組織設計事務所 独立' },
     { title: '鉄骨造（S造）とは？特徴・構造形式・接合・耐火被覆', url: 'articles/s-zou.html', keywords: 'S造 鉄骨造 重量鉄骨 軽量鉄骨 トラス 高力ボルト 溶接 耐火被覆 座屈 鋼材' },
     { title: '鉄骨造の基礎用語まとめ｜H形鋼・ダイアフラム・デッキなど', url: 'articles/s-yougo.html', keywords: '鉄骨造 用語 H形鋼 フランジ ウェブ ダイアフラム ガセット ベースプレート デッキプレート 母屋 胴縁 スタッド' },
     { title: '鉄骨の材料｜鋼材の性質・種類（SS400・SN材）と耐火被覆', url: 'articles/s-zairyo.html', keywords: '鉄骨 材料 鋼材 SS400 SN材 SN490 STKR 高張力鋼 耐火被覆 耐火鋼 防錆 ロックウール' },
