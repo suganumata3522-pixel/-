@@ -20,7 +20,7 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
-html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+html { scroll-padding-top: 84px; }
 
 body {
   font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Hiragino Sans",
@@ -256,6 +256,7 @@ a:hover { text-decoration: underline; }
   letter-spacing: 0.22em;
   font-weight: 700;
 }
+.section-title { scroll-margin-top: 80px; }
 .section-lead { color: var(--sub); margin-bottom: 28px; font-size: 0.9rem; }
 .subcat-title {
   font-size: 1.02rem;

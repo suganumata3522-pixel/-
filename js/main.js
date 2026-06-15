@@ -9,6 +9,29 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  // 別ページから #カテゴリ で来たときは「瞬時」に移動（待ち時間をなくす）。
+  // フォント読み込み等によるズレを次フレームで補正する。
+  if (location.hash.length > 1) {
+    var target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+    if (target) {
+      requestAnimationFrame(function () { target.scrollIntoView(); });
+    }
+  }
+  // ページ内リンク（チップナビ等）はなめらかにスクロール
+  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var hash = a.getAttribute('href');
+      if (hash.length > 1) {
+        var el = document.getElementById(hash.slice(1));
+        if (el) {
+          e.preventDefault();
+          el.scrollIntoView({ behavior: 'smooth' });
+          if (history.replaceState) history.replaceState(null, '', hash);
+        }
+      }
+    });
+  });
+
   // 現在ページのナビ項目をハイライト
   var path = location.pathname.split('/').pop() || 'index.html';
   document.querySelectorAll('.global-nav a').forEach(function (a) {
@@ -32,11 +55,34 @@ document.addEventListener('DOMContentLoaded', function () {
     { title: '座屈とは？オイラーの公式と座屈長さをわかりやすく解説', url: 'articles/zakutsu.html', keywords: '座屈 オイラー 座屈長さ 座屈荷重 細長比 圧縮 λ 断面二次半径' },
     { title: '不静定構造とは？静定・不静定の判別式をわかりやすく解説', url: 'articles/fuseitei.html', keywords: '不静定 静定 不安定 判別式 不静定次数 m=n+s+r-2k 冗長性' },
     { title: '固有周期と共振とは？建物の揺れの基礎をわかりやすく解説', url: 'articles/koyu-shuki.html', keywords: '固有周期 共振 振動 長周期地震動 卓越周期 減衰 T=2π√(m/k)' },
+    { title: '力とは？移動・回転・変形を起こす作用', url: 'articles/chikara.html', keywords: '力 ちから 移動 回転 変形 作用 構造力学 単位 ニュートン N 荷重 外力 内力' },
+    { title: '力の3要素｜大きさ・向き・作用点', url: 'articles/chikara-3youso.html', keywords: '力の3要素 大きさ 向き 方向 作用点 作用線 ベクトル 構造力学' },
+    { title: '力の合成｜平行四辺形と計算', url: 'articles/chikara-gousei.html', keywords: '力の合成 合力 平行四辺形 ベクトル 計算 余弦定理 成分' },
+    { title: '3つの力の合力の求め方・作図', url: 'articles/mittsu-gouryoku.html', keywords: '3つの力 合力 求め方 作図 示力図 力の多角形 平行四辺形 成分計算' },
+    { title: '力の分解｜計算とピタゴラスの定理', url: 'articles/chikara-bunkai.html', keywords: '力の分解 分力 計算 ピタゴラスの定理 直交 成分 cos sin 合力' },
+    { title: '合力とは？求め方と角度計算', url: 'articles/gouryoku.html', keywords: '合力 ごうりょく 読み方 求め方 角度 分力 余弦定理 ベクトル' },
+    { title: '力の平行四辺形｜書き方', url: 'articles/heikoushihenkei.html', keywords: '力の平行四辺形 書き方 合力 分解 対角線 作図 ベクトル' },
+    { title: '平行四辺形の法則｜計算・証明', url: 'articles/heikoushihenkei-housoku.html', keywords: '平行四辺形の法則 計算 証明 角度 余弦定理 ベクトル 合成' },
+    { title: '作用力｜作用・反作用の法則', url: 'articles/sayouryoku.html', keywords: '作用力 反作用力 作用反作用 ニュートン 第3法則 つり合い 違い 反力' },
+    { title: '外力とは？内力・反力との違い', url: 'articles/gairyoku.html', keywords: '外力 がいりょく 内力 反力 違い 荷重 摩擦力 応力' },
+    { title: '偶力とは？意味とモーメント公式', url: 'articles/guuryoku.html', keywords: '偶力 ぐうりょく 意味 モーメント 公式 求め方 合力 回転 F×d' },
+    { title: '偶力のモーメント｜公式・正負', url: 'articles/guuryoku-moment.html', keywords: '偶力のモーメント 公式 正負 力のモーメント 違い F×d 中心 一定' },
+    { title: '力のモーメント｜意味・計算と応用', url: 'articles/moment.html', keywords: '力のモーメント 意味 計算 M=F×L 腕の長さ 回転 建築 反力 曲げモーメント 単位 N・m' },
+    { title: '力のモーメントの単位｜N・m・kN・m', url: 'articles/moment-tani.html', keywords: 'モーメント 単位 N・m kN・m N・mm モーメント荷重 曲げモーメント 読み方' },
+    { title: 'モーメントの向き・見分け方', url: 'articles/moment-muki.html', keywords: 'モーメント 向き 見分け方 時計回り 反時計回り 正 負 符号' },
+    { title: 'モーメントの正負｜公式と例題', url: 'articles/moment-seifu.html', keywords: 'モーメント 正負 符号 意味 公式 例題 和 ΣM 時計回り 反時計回り' },
+    { title: 'モーメントの腕の長さ', url: 'articles/moment-ude.html', keywords: 'モーメント 腕の長さ 求め方 作用点 違い 垂直距離 作用線 r sinθ' },
+    { title: '回転方向の覚え方と正負', url: 'articles/kaiten-houkou.html', keywords: '回転方向 右回り 左回り 覚え方 時計回り 反時計回り モーメント 正負' },
+    { title: 'モーメントのつり合い｜ΣM＝0', url: 'articles/moment-tsuriai.html', keywords: 'モーメントのつり合い ΣM=0 意味 計算 重心 求め方 反力 つり合い3条件' },
+    { title: 'つり合いから重心を求める', url: 'articles/juushin-moment.html', keywords: 'モーメント つり合い 重心 求め方 計算方法 例題 図心 Σ(W×x)/ΣW' },
+    { title: 'モーメントの単位換算｜N・m・kN・m・N・mm', url: 'articles/moment-tani-kansan.html', keywords: 'モーメント 単位 換算 N・m kN・m N・mm 読み方 1000 構造計算' },
+    { title: '曲げモーメントの単位換算｜kNm・Nm・Nmm', url: 'articles/bending-tani-kansan.html', keywords: '曲げモーメント 単位 換算 kNm Nm Nmm 変換 構造設計 使い分け 応力度 N/mm2' },
     { title: 'RC造・S造・SRC造・木造の違いとは？特徴と使い分けを徹底比較', url: 'articles/kouzou-shurui.html', keywords: 'RC造 S造 SRC造 木造 鉄筋コンクリート 鉄骨 構造種別 比較 使い分け' },
     { title: '耐震・制震・免震の違いとは？仕組みとコストを比較して解説', url: 'articles/taishin-menshin.html', keywords: '耐震 制震 制振 免震 ダンパー 積層ゴム アイソレータ 地震対策' },
     { title: '超高層建築物とは？高さ60m超の定義と大臣認定', url: 'articles/choukousou.html', keywords: '超高層建築物 高さ 60m 定義 大臣認定 時刻歴応答解析 構造形式 制震 免震 長周期地震動 建築基準法20条' },
     { title: '4号特例の廃止と新2号・新3号建物', url: 'articles/yongou-tokurei.html', keywords: '4号特例 廃止 縮小 新2号建築物 新3号建築物 2025年 令和7年 改正 木造2階建て 構造審査 壁量計算 200㎡' },
     { title: '頑丈な建物とは？構造種別と災害時の選択', url: 'articles/ganjou-tatemono.html', keywords: '頑丈な建物 構造種別 RC SRC 鉄骨 木造 災害 地震 火災 台風 水害 耐震等級 選び方' },
+    { title: '構造材料の種類と特徴｜木材・RC・鉄骨の比較', url: 'articles/kouzou-zairyou.html', keywords: '構造材料 種類 特徴 木材 コンクリート RC 鉄骨 鋼材 比較 使い分け 強度 ヤング係数 密度 耐火 SRC' },
     { title: '固定荷重・積載荷重の拾い方｜荷重の種類と組み合わせ', url: 'articles/kajuu.html', keywords: '固定荷重 積載荷重 荷重拾い 床用 架構用 地震用 荷重の組み合わせ 長期 短期' },
     { title: '地震力の計算方法｜Ai分布・Z・Rt・Coをわかりやすく解説', url: 'articles/jishin-ryoku.html', keywords: '地震力 層せん断力 Ai分布 地域係数 Z Rt Co ベースシア Qi=CiWi' },
     { title: '層間変形角・剛性率・偏心率とは？ルート2の検討項目', url: 'articles/sokan-henkei.html', keywords: '層間変形角 剛性率 偏心率 1/200 ピロティ ねじれ 重心 剛心 ルート2' },

@@ -36,6 +36,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.kouzou-navi.com/articles/bending-tani-kansan.html</loc>
+    <lastmod>2026-06-15</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.kouzou-navi.com/articles/benkyo-hou.html</loc>
     <lastmod>2026-06-15</lastmod>
     <priority>0.7</priority>
@@ -77,6 +82,26 @@
   </url>
   <url>
     <loc>https://www.kouzou-navi.com/articles/cement-shurui.html</loc>
+    <lastmod>2026-06-15</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.kouzou-navi.com/articles/chikara-3youso.html</loc>
+    <lastmod>2026-06-15</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.kouzou-navi.com/articles/chikara-bunkai.html</loc>
+    <lastmod>2026-06-15</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.kouzou-navi.com/articles/chikara-gousei.html</loc>
+    <lastmod>2026-06-15</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.kouzou-navi.com/articles/chikara.html</loc>
     <lastmod>2026-06-15</lastmod>
     <priority>0.7</priority>
   </url>
@@ -206,7 +231,27 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.kouzou-navi.com/articles/gairyoku.html</loc>
+    <lastmod>2026-06-15</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.kouzou-navi.com/articles/ganjou-tatemono.html</loc>
+    <lastmod>2026-06-15</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.kouzou-navi.com/articles/gouryoku.html</loc>
+    <lastmod>2026-06-15</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.kouzou-navi.com/articles/guuryoku-moment.html</loc>
+    <lastmod>2026-06-15</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.kouzou-navi.com/articles/guuryoku.html</loc>
     <lastmod>2026-06-15</lastmod>
     <priority>0.7</priority>
   </url>
@@ -306,6 +351,16 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.kouzou-navi.com/articles/heikoushihenkei-housoku.html</loc>
+    <lastmod>2026-06-15</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.kouzou-navi.com/articles/heikoushihenkei.html</loc>
+    <lastmod>2026-06-15</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.kouzou-navi.com/articles/henzai-shinzai.html</loc>
     <lastmod>2026-06-15</lastmod>
     <priority>0.7</priority>
@@ -371,12 +426,22 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.kouzou-navi.com/articles/juushin-moment.html</loc>
+    <lastmod>2026-06-15</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.kouzou-navi.com/articles/kabebairitsu.html</loc>
     <lastmod>2026-06-15</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.kouzou-navi.com/articles/kai-danmen.html</loc>
+    <lastmod>2026-06-15</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.kouzou-navi.com/articles/kaiten-houkou.html</loc>
     <lastmod>2026-06-15</lastmod>
     <priority>0.7</priority>
   </url>
@@ -586,6 +651,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.kouzou-navi.com/articles/kouzou-zairyou.html</loc>
+    <lastmod>2026-06-15</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.kouzou-navi.com/articles/kouzoutai-concrete.html</loc>
     <lastmod>2026-06-15</lastmod>
     <priority>0.7</priority>
@@ -651,6 +721,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.kouzou-navi.com/articles/mittsu-gouryoku.html</loc>
+    <lastmod>2026-06-15</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.kouzou-navi.com/articles/mizu-cement-hi.html</loc>
     <lastmod>2026-06-15</lastmod>
     <priority>0.7</priority>
@@ -677,6 +752,41 @@
   </url>
   <url>
     <loc>https://www.kouzou-navi.com/articles/mold.html</loc>
+    <lastmod>2026-06-15</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.kouzou-navi.com/articles/moment-muki.html</loc>
+    <lastmod>2026-06-15</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.kouzou-navi.com/articles/moment-seifu.html</loc>
+    <lastmod>2026-06-15</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.kouzou-navi.com/articles/moment-tani-kansan.html</loc>
+    <lastmod>2026-06-15</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.kouzou-navi.com/articles/moment-tani.html</loc>
+    <lastmod>2026-06-15</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.kouzou-navi.com/articles/moment-tsuriai.html</loc>
+    <lastmod>2026-06-15</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.kouzou-navi.com/articles/moment-ude.html</loc>
+    <lastmod>2026-06-15</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.kouzou-navi.com/articles/moment.html</loc>
     <lastmod>2026-06-15</lastmod>
     <priority>0.7</priority>
   </url>
@@ -847,6 +957,11 @@
   </url>
   <url>
     <loc>https://www.kouzou-navi.com/articles/saiseki.html</loc>
+    <lastmod>2026-06-15</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.kouzou-navi.com/articles/sayouryoku.html</loc>
     <lastmod>2026-06-15</lastmod>
     <priority>0.7</priority>
   </url>
