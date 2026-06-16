@@ -1118,3 +1118,10 @@ table.data tr:nth-child(even) td { background: var(--bg-soft); }
   .bar-row { flex-direction: column; align-items: stretch; gap: 4px; }
   .bar-row .bar-label { flex: none; text-align: left; }
 }
+
+/* ツール販売：2つのプロモを並列表示 */
+.promo-duo { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+.shop-promo.solo { grid-template-columns: 1fr; padding: 28px 30px; }
+.shop-promo.solo .sp-text { display: flex; flex-direction: column; height: 100%; }
+.shop-promo.solo .sp-actions { margin-top: auto; }
+@media (max-width: 720px) { .promo-duo { grid-template-columns: 1fr; } }

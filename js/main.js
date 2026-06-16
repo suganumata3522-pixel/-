@@ -90,6 +90,8 @@ document.addEventListener('DOMContentLoaded', function () {
     { title: '実施設計とは？基本設計との違いと設計料の比率', url: 'articles/jisshi-sekkei.html', keywords: '実施設計 基本設計 違い 詳細設計 設計料 比率 構造図 構造計算書 配筋図 業務報酬' },
     { title: '構造図と計算書の整合性確認を効率化する方法', url: 'articles/seigousei-tool.html', keywords: '構造図 計算書 整合性 確認 整合性チェック 図面照合 業務効率化 設計変更 不整合 手戻り ヒューマンエラー 自動化 AI DX チェックリスト 整合性確認ツール' },
     { title: '整合性確認ツール販売｜構造図と計算書のチェックを自動化', url: 'tools-shop.html', keywords: '整合性確認ツール 販売 構造図 計算書 整合性 チェック 自動化 照合 業務効率化 オーダーメイド 要相談 Excel ツール' },
+    { title: '構造設計者の残業を減らすExcel構造計算支援ツール活用法', url: 'articles/keisan-shien-tool.html', keywords: '構造設計 Excel テンプレート 構造計算 支援ツール 残業 減らす 業務効率化 若手 教育 戦力化 一貫計算 諸検討 開口補強 スラブ 面内せん断 基礎 杭 接合部 大梁 ねじれ 属人化 標準化' },
+    { title: '構造計算支援ツール（Excel）販売｜一貫計算で行えない諸検討を効率化', url: 'calc-tools-shop.html', keywords: '構造計算支援ツール Excel 販売 一貫計算 諸検討 開口補強 スラブ 面内せん断 基礎 杭 接合部 大梁 ねじれ 残業 効率化 若手 教育 オーダーメイド 要相談 テンプレート' },
     { title: '一次設計とは？震度との関係と二次設計との違い', url: 'articles/ichiji-sekkei.html', keywords: '一次設計 意味 震度 中地震 5強 許容応力度設計 C0 0.2 二次設計 違い' },
     { title: '二次設計とは？保有水平耐力計算の流れ', url: 'articles/niji-sekkei.html', keywords: '二次設計 一次設計 違い 対象建物 保有水平耐力計算 Qu Qun Ds Fes ルート3 大地震 6強 7' },
     { title: '構造設計の原則とは？施行令36条の3', url: 'articles/kouzou-gensoku.html', keywords: '構造設計の原則 施行令36条の3 構造耐力上主要な部分 釣合い 一体性 バランス 偏心率 剛性率' },
