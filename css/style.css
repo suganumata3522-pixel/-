@@ -1105,3 +1105,16 @@ table.data tr:nth-child(even) td { background: var(--bg-soft); }
 .product-card .pc-btn { display: block; text-align: center; background: var(--accent); color: #fff; font-weight: 700; padding: 11px; border-radius: 999px; text-decoration: none; }
 .product-card .pc-btn:hover { background: var(--accent-dark); color: #fff; text-decoration: none; }
 .product-empty { border: 2px dashed #d9e1e8; border-radius: 14px; padding: 28px; text-align: center; color: var(--sub); font-size: 0.9rem; }
+
+/* 横棒グラフ（記事内の簡易チャート） */
+.chart-figure { margin: 22px 0; }
+.chart-figure figcaption { font-size: 0.82rem; color: var(--sub); margin-bottom: 10px; font-weight: 700; }
+.bar-chart { display: flex; flex-direction: column; gap: 10px; background: var(--accent-soft); border-radius: 14px; padding: 18px 20px; }
+.bar-row { display: flex; align-items: center; gap: 12px; }
+.bar-row .bar-label { flex: 0 0 92px; font-size: 0.8rem; font-weight: 700; color: var(--navy); text-align: right; }
+.bar-row .bar { flex: 1; background: #fff; border-radius: 999px; overflow: hidden; }
+.bar-row .bar-fill { display: block; background: linear-gradient(90deg, var(--accent), var(--accent-dark)); color: #fff; font-size: 0.74rem; font-weight: 700; padding: 7px 12px; border-radius: 999px; white-space: nowrap; min-width: max-content; }
+@media (max-width: 560px) {
+  .bar-row { flex-direction: column; align-items: stretch; gap: 4px; }
+  .bar-row .bar-label { flex: none; text-align: left; }
+}
