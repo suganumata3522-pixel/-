@@ -1148,3 +1148,9 @@ table.data tr:nth-child(even) td { background: var(--bg-soft); }
   .book-actions .book-btn { flex: 1; }
 }
 .a8-imp { position: absolute; width: 1px; height: 1px; border: 0; }
+
+/* アフィリエイトバナー（サイドバー設置） */
+.aff-banner { background: #fff; border: 1px solid #e3e9ef; border-radius: 12px; padding: 14px; margin-bottom: 18px; text-align: center; box-shadow: 0 2px 10px rgba(20,40,60,0.04); }
+.aff-banner .aff-label { display: block; font-size: 0.68rem; color: var(--sub); font-weight: 700; letter-spacing: 0.12em; margin-bottom: 8px; text-align: left; }
+.aff-banner a { display: inline-block; line-height: 0; }
+.aff-banner img.aff-main { max-width: 100%; height: auto; border: 0; border-radius: 6px; }
