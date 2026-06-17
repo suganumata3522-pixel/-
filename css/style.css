@@ -1146,3 +1146,4 @@ table.data tr:nth-child(even) td { background: var(--bg-soft); }
   .book-num { width: 36px; height: 36px; font-size: 1rem; }
   .book-actions .book-btn { flex: 1; }
 }
+.a8-imp { position: absolute; width: 1px; height: 1px; border: 0; }
