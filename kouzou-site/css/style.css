@@ -1154,3 +1154,7 @@ table.data tr:nth-child(even) td { background: var(--bg-soft); }
 .aff-banner .aff-label { display: block; font-size: 0.68rem; color: var(--sub); font-weight: 700; letter-spacing: 0.12em; margin-bottom: 8px; text-align: left; }
 .aff-banner a { display: inline-block; line-height: 0; }
 .aff-banner img.aff-main { max-width: 100%; height: auto; border: 0; border-radius: 6px; }
+
+/* === ADSENSE-REVIEW-HIDE START（審査中のみ：広告スペースのダミー枠を非表示。合格後にこのブロックを削除して戻す）=== */
+.ad-slot { display: none !important; }
+/* === ADSENSE-REVIEW-HIDE END === */
