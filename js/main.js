@@ -111,6 +111,7 @@ document.addEventListener('DOMContentLoaded', function () {
     { title: '構造設計者の年収はいくら？働き方と年収を上げる方法', url: 'articles/nenshu.html', keywords: '構造設計 年収 給料 収入 転職 独立 ゼネコン 組織設計事務所 働き方 キャリア' },
     { title: '一級建築士「構造」の勉強法とおすすめ問題集', url: 'articles/benkyo-hou.html', keywords: '一級建築士 構造 勉強法 過去問 問題集 独学 試験 対策 力学' },
     { title: '最短で一級建築士に合格したい人が総合資格学院を選ぶべき理由', url: 'articles/sougou-shikaku.html', keywords: '一級建築士 総合資格 総合資格学院 日建学院 予備校 資格学校 一発合格 独学 製図試験 製図対策 資料請求 合格実績 学習管理 社会人 学生 最短 合格 受験' },
+    { title: '若手構造設計者におすすめの実務書7選｜現役構造一級が厳選', url: 'articles/osusume-books.html', keywords: '構造設計 おすすめ 本 書籍 実務書 参考書 若手 新入社員 教育 実務から見た鉄骨構造設計 実務から見たRC構造設計 実務から見た基礎構造設計 上野嘉久 初めての建築構造設計 世界で一番やさしい建築構造 黄色本 建築物の構造関係技術基準解説書 建築構造ポケットブック 学芸出版社 楽天 Amazon' },
     { title: '設計とは？意味・設計図の種類・仕事内容', url: 'articles/sekkei.html', keywords: '設計 意味 設計図 種類 仕事内容 向き不向き 意匠 構造 設備 基本設計 実施設計' },
     { title: '建築設計とは？意匠・構造・設備の違いと資格', url: 'articles/kenchiku-sekkei.html', keywords: '建築設計 意匠設計 構造設計 設備設計 違い 資格 一級建築士 構造設計一級建築士 設備設計一級建築士' },
     { title: '構造設計とは？業務内容と役割', url: 'articles/kouzou-sekkei.html', keywords: '構造設計 業務内容 役割 荷重 地震力 架構 部材設計 構造図 構造計算書 工事監理 安全' },
