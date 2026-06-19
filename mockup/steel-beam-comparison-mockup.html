@@ -75,6 +75,16 @@
   .legend span{display:inline-flex; align-items:center; gap:5px;}
   .sw{width:13px; height:13px; border:1px solid var(--line); border-radius:3px; display:inline-block;}
   .note{font-size:10px; color:#94a3b8; margin-top:6px;}
+  /* ---- 小梁割り付け図セル ---- */
+  .cmp td.dia{background:#fbfdff; text-align:center; padding:5px 4px;}
+  .dia svg{display:block; margin:0 auto;}
+  .dia .cap{font-size:9px; color:#94a3b8; margin-top:2px;}
+  .dgird{stroke:#1f3a5f; stroke-width:3; fill:none;}
+  .dbeam{stroke:#33597f; stroke-width:1.4; fill:none;}
+  .dpanel{fill:#eef4fb;}
+  .ddim{stroke:#b0bccc; stroke-width:.7;}
+  .dtxt{font-size:7.5px; fill:#64748b; font-family:sans-serif;}
+  .dtag{font-size:7.5px; fill:#1f3a5f; font-weight:700; font-family:sans-serif;}
   @media print{ body{background:#fff; padding:0;} .sheet{box-shadow:none; width:auto;} }
 </style>
 </head>
@@ -156,6 +166,45 @@
           <th>主：H-588×300</th>
         </tr>
 
+        <!-- 小梁割り付け図（原図を各ケース列に配置） -->
+        <tr>
+          <td class="rowlbl" colspan="2">小梁<br>割り付け図</td>
+          <td class="dia">
+            <svg width="150" height="118" viewBox="0 0 150 118">
+              <rect class="dpanel" x="22" y="14" width="106" height="86"/>
+              <rect class="dgird" x="22" y="14" width="106" height="86"/>
+              <line class="dbeam" x1="75" y1="14" x2="75" y2="100"/>
+              <line class="ddim" x1="22" y1="8" x2="128" y2="8"/><text class="dtxt" x="60" y="6">Lx 11000</text>
+              <line class="ddim" x1="14" y1="14" x2="14" y2="100"/><text class="dtxt" x="2" y="60">Ly</text>
+              <text class="dtag" x="40" y="110">部材1</text><text class="dtag" x="88" y="110">部材2</text>
+            </svg>
+            <div class="cap">2部材：中間に小梁1本</div>
+          </td>
+          <td class="dia">
+            <svg width="150" height="118" viewBox="0 0 150 118">
+              <rect class="dpanel" x="22" y="14" width="106" height="86"/>
+              <rect class="dgird" x="22" y="14" width="106" height="86"/>
+              <line class="dbeam" x1="48.5" y1="14" x2="48.5" y2="100"/>
+              <line class="dbeam" x1="75" y1="14" x2="75" y2="100"/>
+              <line class="dbeam" x1="101.5" y1="14" x2="101.5" y2="100"/>
+              <line class="ddim" x1="22" y1="8" x2="128" y2="8"/><text class="dtxt" x="60" y="6">Lx 11000</text>
+              <line class="ddim" x1="14" y1="14" x2="14" y2="100"/><text class="dtxt" x="2" y="60">Ly</text>
+              <text class="dtag" x="30" y="110">部材1/2/3</text>
+            </svg>
+            <div class="cap">3部材：小梁3本で細分割</div>
+          </td>
+          <td class="dia best" style="background:#eef7f1;">
+            <svg width="150" height="118" viewBox="0 0 150 118">
+              <rect class="dpanel" x="22" y="14" width="106" height="86"/>
+              <rect class="dgird" x="22" y="14" width="106" height="86"/>
+              <line class="ddim" x1="22" y1="8" x2="128" y2="8"/><text class="dtxt" x="60" y="6">Lx 11000</text>
+              <line class="ddim" x1="14" y1="14" x2="14" y2="100"/><text class="dtxt" x="2" y="60">Ly</text>
+              <text class="dtag" x="52" y="60">部材1</text>
+            </svg>
+            <div class="cap">1部材：小梁なし（大梁のみ）</div>
+          </td>
+        </tr>
+
         <!-- 断面 -->
         <tr><td class="rowlbl" rowspan="3">断面</td>
             <td class="sub">部材1</td>
@@ -223,6 +272,7 @@
         <span><span class="pill p-ng">使用不可/NG</span></span>
       </div>
       <div class="note">※ 数値・断面は元PDF（S____Ver.1.4 トップページ）からの読み取り暫定値です。レイアウト・配色・判定表現を確認いただくためのデモであり、設計値は要再検証。</div>
+      <div class="note">※ 各ケースの「小梁割り付け図」は<b>配置位置を示す模式図</b>です。元Excelの原図（EMF）は別途 mockup/original-diagrams/ に抽出済み。実装時はこの枠に原図画像を差し込みます。</div>
     </div>
   </div>
 
