@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
+<title>ガラス重量 自動計算ツール（単板・合わせ・ペアガラス）｜無料｜構造設計ナビ</title>
+<meta name="description" content="ガラスの重さを無料で自動計算。単板ガラス・合わせガラス・ペアガラス（複層ガラス）に対応し、幅・高さ・厚みを入力するだけで重量（kg）を算出します。計算式（幅×高さ×厚み×比重2.5）と比重の意味もあわせて解説します。">
+<meta property="og:title" content="ガラス重量 自動計算ツール（単板・合わせ・ペアガラス）｜無料｜構造設計ナビ">
+<meta property="og:description" content="ガラスの重さを無料で自動計算。単板・合わせ・ペアガラスに対応。幅・高さ・厚みを入力するだけで重量（kg）を算出します。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kouzou-navi.com/tools/glass-weight.html">
+<meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
+<meta property="og:site_name" content="構造設計ナビ">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.kouzou-navi.com/tools/glass-weight.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="../articles.html#kiso">構造力学の基礎</a></li>
+        <li><a href="../articles.html#keishiki">構造設計</a></li>
+        <li><a href="section-calculator.html">計算ツール</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › 計算ツール › ガラス重量計算</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">計算ツール</span>
+        <span>無料・登録不要</span>
+      </div>
+      <h1>ガラス重量 自動計算ツール（単板・合わせ・ペアガラス）</h1>
+      <p>ガラスの種類を選び、<strong>幅・高さ・厚み</strong>を入力するだけで<strong>ガラスの重量（kg）</strong>を自動計算します。<strong>単板ガラス・合わせガラス・ペアガラス（複層ガラス）</strong>に対応。施工前の重量確認や、運搬・取付け時の人数検討などにご利用ください。</p>
+
+      <div class="tool-panel">
+        <div class="field">
+          <label for="gtype">(1) どんなガラスか選択してください</label>
+          <select id="gtype">
+            <option value="single">単板ガラス（1枚）</option>
+            <option value="laminated">合わせガラス（2枚＋中間膜）</option>
+            <option value="pair">ペアガラス／複層ガラス（2枚＋中空層）</option>
+          </select>
+        </div>
+        <p class="tool-hint" id="type-hint">単板ガラスは1枚のガラスです。厚みを1つ入力してください。</p>
+
+        <div class="field">
+          <label for="g-w">(2) 幅<span class="unit">mm</span></label>
+          <input type="number" id="g-w" value="900" min="0" step="any">
+        </div>
+        <div class="field">
+          <label for="g-h">高さ<span class="unit">mm</span></label>
+          <input type="number" id="g-h" value="1800" min="0" step="any">
+        </div>
+        <div class="field">
+          <label for="g-t1" id="lbl-t1">厚み<span class="unit">mm</span></label>
+          <input type="number" id="g-t1" value="5" min="0" step="any">
+        </div>
+        <div class="field" id="field-t2" style="display:none;">
+          <label for="g-t2">厚み②<span class="unit">mm</span></label>
+          <input type="number" id="g-t2" value="5" min="0" step="any">
+        </div>
+        <button class="btn-calc" id="btn-calc">計算する</button>
+
+        <div class="result-grid" id="results" style="display:none;">
+          <div class="result-item" style="grid-column:1 / -1;">
+            <div class="name">ガラスの重量</div>
+            <div class="value" id="res-kg">–</div>
+            <div class="unit">kg</div>
+          </div>
+          <div class="result-item">
+            <div class="name">面積</div>
+            <div class="value" id="res-area">–</div>
+            <div class="unit">m²</div>
+          </div>
+          <div class="result-item">
+            <div class="name">ガラス総厚（重量換算）</div>
+            <div class="value" id="res-thick">–</div>
+            <div class="unit">mm</div>
+          </div>
+        </div>
+      </div>
+
+      <h2>ガラスの種類と厚みの入れ方</h2>
+      <div class="point-box">
+        <span class="label">3種類の違い</span>
+        <ul>
+          <li><strong>単板ガラス</strong>：1枚のガラス。厚みを1つだけ入力します。</li>
+          <li><strong>合わせガラス</strong>：2枚のガラスを中間膜（フィルム）で貼り合わせたもの。<strong>厚み①・厚み②に各ガラスの厚み</strong>を入力します。中間膜は軽量なため、重量計算では無視します。</li>
+          <li><strong>ペアガラス（複層ガラス）</strong>：2枚のガラスの間に中空層（空気・ガス）を設けたもの。<strong>厚み①・厚み②に各ガラスの厚み</strong>を入力します。中空層は空気なので重量はほぼゼロとして無視します。</li>
+        </ul>
+        <p>※合わせ・ペアとも、重量は「2枚のガラス厚の合計」で計算します（中間膜・中空層ぶんは含めていません）。</p>
+      </div>
+
+      <h2>ガラスの重さの計算公式</h2>
+      <p>このツールは一発で重さが分かりますが、計算式そのものはとてもシンプルです。ガラスの重さは<strong>「幅 × 高さ × 厚み × 比重(2.5)」</strong>で求められます。単位の取り方で割る数が変わります。</p>
+      <table class="data">
+        <tr><th>寸法の単位</th><th>重量の公式（kg）</th></tr>
+        <tr><td>ミリ（mm）</td><td>幅 × 高さ × 厚み × 2.5 ÷ <strong>1,000,000</strong></td></tr>
+        <tr><td>センチ（cm）</td><td>幅 × 高さ × 厚み × 2.5 ÷ <strong>1,000</strong></td></tr>
+      </table>
+      <p>※本ツールは入力単位を<strong>ミリ（mm）</strong>に統一しています。合わせ・ペアガラスでは「厚み」に<strong>2枚分の合計（厚み①＋厚み②）</strong>を用います。</p>
+
+      <div class="formula">
+        重量 W（kg）＝ 幅(mm) × 高さ(mm) × 厚み(mm) × 2.5 ÷ 1,000,000
+      </div>
+      <p>たとえば、幅900mm・高さ1800mm・厚み5mmの単板ガラスなら、<br>
+      900 × 1800 × 5 × 2.5 ÷ 1,000,000 ＝ <strong>20.25 kg</strong> となります。</p>
+
+      <h2>ガラスの比重とは</h2>
+      <p>比重とは、ある物質の密度を水の密度で割った値で、単位は g/cm³。<strong>水と同じ体積のとき、その物質が何倍重いか</strong>を表す指標です。</p>
+      <ul>
+        <li>水の比重 ＝ <strong>1</strong></li>
+        <li>ガラスの比重 ＝ <strong>2.5</strong>（＝ 同じ体積の水の2.5倍重い）</li>
+      </ul>
+      <p>このため、ガラスの重さ計算では比重2.5を掛けています。なお、網入りガラスや特殊ガラスでは比重がわずかに異なる場合があります。</p>
+
+      <div class="point-box">
+        <span class="label">ご注意</span>
+        <p>本ツールの結果は比重2.5を用いた概算（中間膜・中空層・面取り等は考慮しません）です。製品の正確な重量・仕様は、メーカーのカタログや見積で必ずご確認ください。運搬・取付けの安全計画は、余裕をみて検討してください。</p>
+      </div>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>関連ツール・記事</h4>
+        <ul>
+          <li><a href="section-calculator.html">断面性能 計算ツール（無料）</a></li>
+          <li><a href="../articles/kajuu.html">荷重とは？固定荷重・積載荷重の拾い方</a></li>
+          <li><a href="../articles.html#kiso">構造力学の基礎カテゴリ</a></li>
+        </ul>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+<script>
+(function () {
+  var gtype = document.getElementById('gtype');
+  var fieldT2 = document.getElementById('field-t2');
+  var lblT1 = document.getElementById('lbl-t1');
+  var hint = document.getElementById('type-hint');
+
+  var hints = {
+    single: '単板ガラスは1枚のガラスです。厚みを1つ入力してください。',
+    laminated: '合わせガラスは2枚のガラスを中間膜で貼り合わせたもの。各ガラスの厚みを①②に入力してください（中間膜は重量計算では無視）。',
+    pair: 'ペアガラス（複層ガラス）は2枚のガラス＋中空層。各ガラスの厚みを①②に入力してください（中空層は空気のため重量0として無視）。'
+  };
+
+  function syncFields() {
+    var v = gtype.value;
+    var multi = (v !== 'single');
+    fieldT2.style.display = multi ? '' : 'none';
+    lblT1.innerHTML = multi ? '厚み①<span class="unit">mm</span>' : '厚み<span class="unit">mm</span>';
+    hint.textContent = hints[v];
+  }
+  gtype.addEventListener('change', syncFields);
+  syncFields();
+
+  function val(id) { return parseFloat(document.getElementById(id).value); }
+  function fmt(v, d) { return Number(v.toFixed(d)).toLocaleString('ja-JP'); }
+
+  document.getElementById('btn-calc').addEventListener('click', function () {
+    var w = val('g-w'), h = val('g-h'), t1 = val('g-t1');
+    var multi = (gtype.value !== 'single');
+    if (!(w > 0) || !(h > 0) || !(t1 > 0)) { alert('幅・高さ・厚みには正の数値を入力してください。'); return; }
+    var total = t1;
+    if (multi) {
+      var t2 = val('g-t2');
+      if (!(t2 > 0)) { alert('厚み②には正の数値を入力してください。'); return; }
+      total = t1 + t2;
+    }
+    var kg = w * h * total * 2.5 / 1000000;
+    var area = w * h / 1000000;
+    document.getElementById('res-kg').textContent = fmt(kg, 2);
+    document.getElementById('res-area').textContent = fmt(area, 3);
+    document.getElementById('res-thick').textContent = fmt(total, 1);
+    document.getElementById('results').style.display = '';
+  });
+})();
+</script>
+</body>
+</html>
