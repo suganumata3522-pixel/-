@@ -24,7 +24,18 @@
 <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
 <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
 <style>
-  .koushiki-cat { font-size: 1.05rem; font-weight: 700; color: var(--navy); border-left: 5px solid var(--accent); padding-left: 10px; margin: 26px 0 14px; }
+  .koushiki-cat { font-size: 1.05rem; font-weight: 700; color: var(--navy); border-left: 5px solid var(--accent); padding-left: 10px; margin: 26px 0 14px; display: flex; align-items: center; justify-content: space-between; gap: 10px; cursor: pointer; user-select: none; }
+  .koushiki-cat .cat-toggle { font-size: .72rem; font-weight: 700; color: #fff; background: var(--accent); border-radius: 999px; padding: 3px 12px; white-space: nowrap; }
+  .koushiki-cat:hover .cat-toggle { background: var(--accent-dark); }
+  .koushiki-cat .cat-arrow { display: inline-block; transition: transform .2s; }
+  .koushiki-cat.open .cat-arrow { transform: rotate(180deg); }
+  .cat-detail { margin: 4px 0 12px; display: flex; flex-direction: column; gap: 16px; }
+  .detail-item { border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; background: #fff; }
+  .detail-item .di-name { font-size: 1rem; color: var(--navy); margin: 0 0 10px; border: none; padding: 0; }
+  .detail-item .di-svg { background: var(--bg-soft); border: 1px solid var(--line); border-radius: 10px; padding: 8px; margin-bottom: 12px; }
+  .detail-item .di-svg svg { width: 100%; height: auto; max-height: 160px; }
+  .detail-item table.data { width: 100%; }
+  .detail-item .di-note { font-size: .8rem; color: var(--sub); margin-top: 10px; }
   .model-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 14px; }
   .model-card { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 12px 12px 10px; cursor: pointer; text-align: left; font-family: inherit; transition: border-color .15s, box-shadow .15s, transform .15s; }
   .model-card:hover { border-color: var(--accent); box-shadow: var(--shadow-hover); transform: translateY(-2px); }
@@ -239,24 +250,52 @@
     rows:[['反力','R<sub>A</sub> ＝ R<sub>B</sub> ＝ w(L+2a) ／ 2'],['せん断力','支点上で最大（径間側で w·L／2、はね出し側で w·a）'],['曲げモーメント','支点上 M ＝ w·a² ／ 2（負）／ 中央 M ＝ w·L² ／ 8 − w·a² ／ 2'],['たわみ','δ ＝ 略（L・a の比により異なる）']]}
   ];
 
-  // レンダリング
+  // レンダリング（カテゴリごとにグループ化）
   var root = document.getElementById('model-root');
   var byId = {};
-  var html = '';
-  var openGrid = false;
+  var groups = [];
+  var cur = null;
   M.forEach(function (m) {
-    if (m.cat) {
-      if (openGrid) html += '</div>';
-      html += '<h2 class="koushiki-cat">' + m.cat + '</h2><div class="model-grid">';
-      openGrid = true;
-    } else {
-      byId[m.id] = m;
+    if (m.cat) { cur = { name: m.cat, items: [] }; groups.push(cur); }
+    else { byId[m.id] = m; if (cur) cur.items.push(m); }
+  });
+
+  function tableHtml(m) {
+    var t = '<table class="data"><tr><th>項目</th><th>公式</th></tr>';
+    m.rows.forEach(function (r) { t += '<tr><td>' + r[0] + '</td><td class="fml">' + r[1] + '</td></tr>'; });
+    return t + '</table>';
+  }
+
+  var html = '';
+  groups.forEach(function (g, gi) {
+    html += '<section class="koushiki-section">';
+    html += '<h2 class="koushiki-cat" data-cat="' + gi + '" role="button" tabindex="0" aria-expanded="false">' +
+      '<span class="cat-name">' + g.name + '</span>' +
+      '<span class="cat-toggle">すべての公式を表示 <span class="cat-arrow">▼</span></span></h2>';
+    html += '<div class="model-grid">';
+    g.items.forEach(function (m) {
       html += '<button class="model-card" data-id="' + m.id + '">' + m.svg +
         '<div class="mc-name">' + m.name + '</div><div class="mc-tap">タップで公式を表示 ›</div></button>';
-    }
+    });
+    html += '</div>';
+    html += '<div class="cat-detail" id="cat-detail-' + gi + '" hidden>';
+    g.items.forEach(function (m) {
+      html += '<div class="detail-item"><h3 class="di-name">' + m.name + '</h3>' +
+        '<div class="m-svg di-svg">' + m.svg + '</div>' + tableHtml(m) +
+        (m.note ? '<p class="di-note">' + m.note + '</p>' : '') + '</div>';
+    });
+    html += '</div>';
+    html += '</section>';
   });
-  if (openGrid) html += '</div>';
   root.innerHTML = html;
+
+  function toggleCat(head) {
+    var det = document.getElementById('cat-detail-' + head.getAttribute('data-cat'));
+    if (!det) return;
+    var willOpen = det.hasAttribute('hidden');
+    if (willOpen) { det.removeAttribute('hidden'); head.classList.add('open'); head.setAttribute('aria-expanded', 'true'); head.querySelector('.cat-toggle').firstChild.nodeValue = '公式を閉じる '; }
+    else { det.setAttribute('hidden', ''); head.classList.remove('open'); head.setAttribute('aria-expanded', 'false'); head.querySelector('.cat-toggle').firstChild.nodeValue = 'すべての公式を表示 '; }
+  }
 
   // モーダル
   var back = document.getElementById('modal-back');
@@ -283,7 +322,14 @@
 
   root.addEventListener('click', function (e) {
     var card = e.target.closest('.model-card');
-    if (card) openModal(card.getAttribute('data-id'));
+    if (card) { openModal(card.getAttribute('data-id')); return; }
+    var head = e.target.closest('.koushiki-cat');
+    if (head) toggleCat(head);
+  });
+  root.addEventListener('keydown', function (e) {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    var head = e.target.closest('.koushiki-cat');
+    if (head) { e.preventDefault(); toggleCat(head); }
   });
   document.getElementById('m-close').addEventListener('click', closeModal);
   back.addEventListener('click', function (e) { if (e.target === back) closeModal(); });
