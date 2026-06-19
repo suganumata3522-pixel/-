@@ -1177,3 +1177,13 @@ table.data tr:nth-child(even) td { background: var(--bg-soft); }
 .glass-figure { margin: 18px 0 6px; text-align: center; }
 .glass-figure img { width: 100%; max-width: 560px; height: auto; border: 1px solid #e7ebf0; border-radius: 12px; margin: 0 auto; }
 .glass-figure figcaption { font-size: 0.8rem; color: var(--sub); margin-top: 8px; }
+
+/* ガラスツール：図と入力欄を横並び（スマホは図を上に） */
+.tool-with-figure { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 22px; align-items: start; margin: 6px 0 18px; }
+.tool-with-figure .glass-figure { margin: 0; position: sticky; top: 84px; }
+.tool-with-figure .tool-panel { margin: 0; }
+.glass-figure.tool-fig img { max-width: 100%; }
+@media (max-width: 760px) {
+  .tool-with-figure { grid-template-columns: 1fr; }
+  .tool-with-figure .glass-figure { position: static; }
+}
