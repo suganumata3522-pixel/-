@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>鉄骨梁 断面比較検討表 — リデザイン案</title>
+<style>
+  :root{
+    --ink:#1f2937; --line:#cbd5e1; --line2:#e2e8f0;
+    --input:#fff8db;      /* 入力セル：薄黄 */
+    --fixed:#eef2f7;      /* 固定・条件：薄グレー */
+    --head:#1f3a5f;       /* 見出し濃紺 */
+    --headsub:#33597f;
+    --ok:#e7f6ec; --okink:#1b7a3d;
+    --best:#d6f0dd; --bestbar:#1b7a3d;
+    --ng:#fde7e7; --ngink:#b42318;
+    --warn:#fff3da; --warnink:#b25e00;
+  }
+  *{box-sizing:border-box;}
+  body{font-family:"Yu Gothic","Hiragino Kaku Gothic ProN","Meiryo",sans-serif;
+       color:var(--ink); background:#f1f5f9; margin:0; padding:18px;}
+  .sheet{width:1080px; margin:0 auto; background:#fff; padding:18px 20px 22px;
+         box-shadow:0 2px 12px rgba(0,0,0,.12);}
+  /* ---- ヘッダー ---- */
+  .top{display:flex; justify-content:space-between; align-items:flex-end;
+       border-bottom:3px solid var(--head); padding-bottom:8px; margin-bottom:10px;}
+  .top h1{font-size:20px; margin:0; color:var(--head); letter-spacing:1px;}
+  .top .sub{font-size:11px; color:#64748b; margin-top:3px;}
+  .meta{font-size:11px; text-align:right; line-height:1.5;}
+  .meta b{display:inline-block; min-width:64px; color:#475569;}
+  /* ---- 推奨バナー ---- */
+  .reco{display:flex; align-items:center; gap:12px; background:var(--best);
+        border:1px solid var(--bestbar); border-left:6px solid var(--bestbar);
+        padding:8px 14px; border-radius:5px; margin-bottom:12px;}
+  .reco .badge{background:var(--bestbar); color:#fff; font-weight:700; font-size:13px;
+        padding:3px 12px; border-radius:14px;}
+  .reco .txt{font-size:13px;} .reco .txt b{font-size:15px;}
+  .reco .why{margin-left:auto; font-size:11px; color:#3f6b4d;}
+  .wrap{display:flex; gap:14px; align-items:flex-start;}
+  .col-l{width:300px; flex:none;} .col-r{flex:1;}
+  /* ---- 共通テーブル ---- */
+  table{border-collapse:collapse; width:100%; font-size:11px;}
+  caption{caption-side:top; text-align:left; font-size:12px; font-weight:700;
+          color:#fff; background:var(--head); padding:5px 9px; border-radius:4px 4px 0 0;}
+  th,td{border:1px solid var(--line); padding:4px 7px; line-height:1.35;}
+  .lbl{background:var(--fixed); color:#334155; font-weight:600; white-space:nowrap;}
+  .unit{color:#94a3b8; font-size:9.5px; font-weight:400;}
+  .in{background:var(--input); text-align:right; font-variant-numeric:tabular-nums;}
+  .val{text-align:right; font-variant-numeric:tabular-nums;}
+  .ct{text-align:center;}
+  /* ---- 入力テーブルの節見出し ---- */
+  .sec td{background:var(--headsub); color:#fff; font-weight:700; font-size:11px;
+          letter-spacing:.5px; padding:3px 9px;}
+  /* ---- 比較マトリクス ---- */
+  .cmp th{background:var(--head); color:#fff; text-align:center; font-weight:600;}
+  .cmp th.case{font-size:12px;}
+  .cmp .grp{background:var(--headsub); color:#fff; text-align:left; font-weight:700;}
+  .cmp td.rowlbl{background:var(--fixed); font-weight:600; white-space:nowrap;}
+  .cmp td.sub{background:#f8fafc; color:#64748b; white-space:nowrap; padding-left:14px;}
+  .num{text-align:right; font-variant-numeric:tabular-nums;}
+  .sec-cell{font-family:"Consolas",monospace; font-size:10.5px; text-align:center;}
+  /* 判定色 */
+  .best{background:var(--best); position:relative;}
+  .best::after{content:"◎"; color:var(--bestbar); font-weight:700; margin-left:5px;}
+  .ok{color:var(--okink);} .ng{background:var(--ng); color:var(--ngink); font-weight:700;}
+  .warnc{background:var(--warn); color:var(--warnink);}
+  .pill{display:inline-block; padding:1px 7px; border-radius:9px; font-size:10px; font-weight:700;}
+  .p-ok{background:var(--ok); color:var(--okink);}
+  .p-ng{background:var(--ng); color:var(--ngink);}
+  /* 合計帯 */
+  .cmp tr.total td{border-top:2px solid var(--head); font-weight:700; background:#f0f5fb;}
+  .cmp tr.total td.best{background:var(--best);}
+  /* ---- 凡例 ---- */
+  .legend{display:flex; gap:16px; flex-wrap:wrap; font-size:10.5px; color:#475569;
+          margin-top:12px; border-top:1px dashed var(--line); padding-top:8px;}
+  .legend span{display:inline-flex; align-items:center; gap:5px;}
+  .sw{width:13px; height:13px; border:1px solid var(--line); border-radius:3px; display:inline-block;}
+  .note{font-size:10px; color:#94a3b8; margin-top:6px;}
+  @media print{ body{background:#fff; padding:0;} .sheet{box-shadow:none; width:auto;} }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <!-- ヘッダー -->
+  <div class="top">
+    <div>
+      <h1>鉄骨梁 断面比較検討表</h1>
+      <div class="sub">Steel Beam Section Comparison Sheet — リデザイン案 / Ver.1.4 ベース</div>
+    </div>
+    <div class="meta">
+      <div><b>物件名</b>：○○○○ 新築工事</div>
+      <div><b>検討No.</b>：A-5 / B-5 / C-5</div>
+      <div><b>作成日</b>：2026.06.19　<b>設計</b>：―</div>
+    </div>
+  </div>
+
+  <!-- 推奨案バナー（自動判定の見せ方デモ） -->
+  <div class="reco">
+    <span class="badge">推奨案</span>
+    <span class="txt">案 <b>C-5</b>（H-588×300×12×20 主体）</span>
+    <span class="why">総金額 最小 ¥485,399／検定比・たわみ・変形角すべて OK</span>
+  </div>
+
+  <div class="wrap">
+    <!-- 左：設計条件（入力＝黄／固定＝グレー） -->
+    <div class="col-l">
+      <table>
+        <caption>設計条件（入力）</caption>
+        <tr class="sec"><td colspan="3">スパン・荷重</td></tr>
+        <tr><td class="lbl">Lx <span class="unit">mm</span></td><td class="in" colspan="2">11,000</td></tr>
+        <tr><td class="lbl">Ly <span class="unit">mm</span></td><td class="in" colspan="2">12,500</td></tr>
+        <tr><td class="lbl">DL 固定荷重 <span class="unit">N/㎡</span></td><td class="in" colspan="2">3,400</td></tr>
+        <tr><td class="lbl">LL 積載荷重 <span class="unit">N/㎡</span></td><td class="in" colspan="2">4,800</td></tr>
+        <tr><td class="lbl">TL 固定＋積載 <span class="unit">N/㎡</span></td><td class="val" colspan="2">8,200</td></tr>
+
+        <tr class="sec"><td colspan="3">スラブ・合成条件</td></tr>
+        <tr><td class="lbl">Fc コンクリート強度 <span class="unit">N/㎟</span></td><td class="in" colspan="2">24</td></tr>
+        <tr><td class="lbl">t スラブ厚 <span class="unit">mm</span></td><td class="in" colspan="2">180</td></tr>
+        <tr><td class="lbl">h 溝高さ <span class="unit">mm</span></td><td class="in" colspan="2">0</td></tr>
+        <tr><td class="lbl">n ヤング係数比</td><td class="in" colspan="2">15</td></tr>
+        <tr><td class="lbl">スタッド径</td><td class="val" colspan="2">φ16</td></tr>
+        <tr><td class="lbl">スタッド2列条件</td><td class="val" colspan="2">250 &gt; B</td></tr>
+        <tr><td class="lbl">スラブ取付</td><td class="val" colspan="2">両側</td></tr>
+
+        <tr class="sec"><td colspan="3">許容・制限値</td></tr>
+        <tr><td class="lbl">検定比 上限</td><td class="val" colspan="2">≦ 0.95</td></tr>
+        <tr><td class="lbl">たわみ制限A <span class="unit">床合成非考慮</span></td><td class="val" colspan="2">L/500 かつ 20mm</td></tr>
+        <tr><td class="lbl">たわみ制限B <span class="unit">床合成考慮</span></td><td class="val" colspan="2">L/700 かつ 20mm</td></tr>
+        <tr><td class="lbl">たわみ判定</td><td class="in" colspan="2">A or B</td></tr>
+        <tr><td class="lbl">梁せい上限 <span class="unit">mm</span></td><td class="in" colspan="2">1,000</td></tr>
+
+        <tr class="sec"><td colspan="3">材料指定</td></tr>
+        <tr><td class="lbl">400材</td><td class="val ct" colspan="2">SS400</td></tr>
+        <tr><td class="lbl">490材</td><td class="val ct" colspan="2">SM490A</td></tr>
+        <tr><td class="lbl">部材1 490材</td><td class="ct" colspan="2"><span class="pill p-ok">使用可</span></td></tr>
+        <tr><td class="lbl">部材2 490材</td><td class="ct" colspan="2"><span class="pill p-ok">使用可</span></td></tr>
+        <tr><td class="lbl">部材3 490材</td><td class="ct" colspan="2"><span class="pill p-ok">使用可</span></td></tr>
+        <tr><td class="lbl">外径H型鋼</td><td class="ct" colspan="2"><span class="pill p-ng">使用不可</span></td></tr>
+      </table>
+    </div>
+
+    <!-- 右：3案比較マトリクス -->
+    <div class="col-r">
+      <table class="cmp">
+        <caption>断面比較（3案 × 部材）　― 行ごとに最良値を ◎ 自動ハイライト ―</caption>
+        <tr>
+          <th rowspan="2" style="width:78px;">項目</th>
+          <th rowspan="2" style="width:64px;">部材</th>
+          <th class="case">案 A-5</th>
+          <th class="case">案 B-5</th>
+          <th class="case best" style="background:var(--bestbar);">案 C-5</th>
+        </tr>
+        <tr>
+          <th>主：H-350×175</th>
+          <th>主：H-692×300</th>
+          <th>主：H-588×300</th>
+        </tr>
+
+        <!-- 断面 -->
+        <tr><td class="rowlbl" rowspan="3">断面</td>
+            <td class="sub">部材1</td>
+            <td class="sec-cell">H-350×175×7×11</td>
+            <td class="sec-cell">H-350×175×7×11</td>
+            <td class="sec-cell">H-588×300×12×20</td></tr>
+        <tr><td class="sub">部材2</td>
+            <td class="sec-cell">H-890×299×15×23</td>
+            <td class="sec-cell">H-596×199×10×15</td>
+            <td class="sec-cell">―</td></tr>
+        <tr><td class="sub">部材3</td>
+            <td class="sec-cell">―</td>
+            <td class="sec-cell">H-692×300×13×20</td>
+            <td class="sec-cell">―</td></tr>
+
+        <!-- 検定比 -->
+        <tr><td class="rowlbl" rowspan="3">検定比<br><span class="unit">≦0.95</span></td>
+            <td class="sub">部材1</td>
+            <td class="num ok">0.66</td><td class="num ok">0.66</td><td class="num best">0.54</td></tr>
+        <tr><td class="sub">部材2</td>
+            <td class="num warnc">0.84</td><td class="num ok">0.76</td><td class="num">―</td></tr>
+        <tr><td class="sub">部材3</td>
+            <td class="num">―</td><td class="num ok">0.66</td><td class="num">―</td></tr>
+
+        <!-- たわみ -->
+        <tr><td class="rowlbl" rowspan="2">たわみ<br><span class="unit">mm</span></td>
+            <td class="sub">A 非合成</td>
+            <td class="num">14.2</td><td class="num">16.1</td><td class="num best">9.0</td></tr>
+        <tr><td class="sub">B 合成</td>
+            <td class="num">17.8</td><td class="num">12.8</td><td class="num">―</td></tr>
+
+        <!-- 変形角 -->
+        <tr><td class="rowlbl" rowspan="2">変形角</td>
+            <td class="sub">A</td>
+            <td class="num ok">1/773</td><td class="num ok">1/580</td><td class="num ok best">1/860</td></tr>
+        <tr><td class="sub">B</td>
+            <td class="num ok">1/616</td><td class="num ok">1/684</td><td class="num">―</td></tr>
+
+        <!-- コスト -->
+        <tr><td class="rowlbl">鉄骨単価<br><span class="unit">円/m</span></td>
+            <td class="sub">代表</td>
+            <td class="num">22,839</td><td class="num">17,432</td><td class="num">13,961</td></tr>
+        <tr><td class="rowlbl">総鉄骨量<br><span class="unit">t</span></td>
+            <td class="sub">合計</td>
+            <td class="num">6.47</td><td class="num">5.36</td><td class="num best">4.79</td></tr>
+        <tr class="total"><td class="rowlbl">総金額<br><span class="unit">円</span></td>
+            <td class="sub">合計</td>
+            <td class="num">614,294</td><td class="num">549,328</td><td class="num best">485,399</td></tr>
+
+        <!-- 総合判定 -->
+        <tr class="total"><td class="rowlbl" colspan="2">総合判定</td>
+            <td class="ct"><span class="pill p-ok">OK</span></td>
+            <td class="ct"><span class="pill p-ok">OK</span></td>
+            <td class="ct best"><span class="pill p-ok">OK</span></td></tr>
+      </table>
+
+      <!-- 凡例 -->
+      <div class="legend">
+        <span><span class="sw" style="background:var(--input)"></span>入力セル（要入力）</span>
+        <span><span class="sw" style="background:var(--fixed)"></span>条件・項目見出し</span>
+        <span><span class="sw" style="background:var(--best)"></span>各行の最良値 ◎</span>
+        <span><span class="sw" style="background:var(--warn)"></span>余裕小（要注意）</span>
+        <span><span class="sw" style="background:var(--ng)"></span>制限超過 NG</span>
+        <span><span class="pill p-ok">使用可/OK</span></span>
+        <span><span class="pill p-ng">使用不可/NG</span></span>
+      </div>
+      <div class="note">※ 数値・断面は元PDF（S____Ver.1.4 トップページ）からの読み取り暫定値です。レイアウト・配色・判定表現を確認いただくためのデモであり、設計値は要再検証。</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
