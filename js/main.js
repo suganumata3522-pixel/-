@@ -304,6 +304,7 @@ document.addEventListener('DOMContentLoaded', function () {
     { title: '基礎とは？べた基礎・布基礎・独立基礎の意味と種類', url: 'articles/chokusetsu-kiso.html', keywords: '基礎 べた基礎 布基礎 独立基礎 直接基礎 種類 意味 フーチング 不同沈下 木造' },
     { title: '基礎構造と耐震性｜直接基礎・杭基礎の選び方と設計の関係', url: 'articles/kiso-taishin.html', keywords: '基礎構造 耐震性 設計 直接基礎 杭基礎 不同沈下 液状化 地中梁 地盤改良 支持力' },
     { title: 'N値と支持層とは？ボーリング調査（標準貫入試験）の読み方', url: 'articles/n-chi.html', keywords: 'N値 支持層 ボーリング 標準貫入試験 地盤調査 柱状図 砂質 粘性土 SWS 基礎' },
+    { title: '無料計算ツール一覧', url: 'tools/index.html', keywords: '無料 計算ツール 一覧 まとめ 断面性能 ガラス重量 構造設計 ツール' },
     { title: '断面性能計算ツール（長方形・円形断面）', url: 'tools/section-calculator.html', keywords: '計算ツール 断面積 断面二次モーメント 断面係数 断面二次半径 無料' },
     { title: 'ガラス重量 自動計算ツール（単板・合わせ・ペアガラス）', url: 'tools/glass-weight.html', keywords: 'ガラス 重量 重さ 計算 自動計算 ツール 単板ガラス 合わせガラス ペアガラス 複層ガラス 比重 2.5 幅 高さ 厚み kg 無料' }
   ];
