@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
+<title>鉄筋継手の種類とは？重ね継手の長さ・基準・圧接・機械式を解説｜構造設計ナビ</title>
+<meta name="description" content="鉄筋継手の3種類（重ね継手・圧接継手・機械式継手）の違いと使い分けを解説。重ね継手の長さがコンクリートのFcと鉄筋強度（SD295/SD345/SD390）でどう決まるか、フックの効果、継手長さ表、いも継手を避けるずらし距離まで、現役の構造設計一級建築士がわかりやすく整理します。">
+<meta property="og:title" content="鉄筋継手の種類とは？重ね継手の長さ・基準・圧接・機械式を解説｜構造設計ナビ">
+<meta property="og:description" content="鉄筋継手の3種類（重ね継手・圧接継手・機械式継手）の違いと、重ね継手の長さの決まり方・継手長さ表をわかりやすく解説します。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kouzou-navi.com/articles/tekkin-tsugite.html">
+<meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
+<meta property="og:site_name" content="構造設計ナビ">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.kouzou-navi.com/articles/tekkin-tsugite.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="../articles.html#kiso">構造力学の基礎</a></li>
+        <li><a href="../articles.html#rc-zou">鉄筋コンクリート造</a></li>
+        <li><a href="../tools/index.html">計算ツール</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › <a href="../articles.html#rc-zou">鉄筋コンクリート造</a> › 鉄筋継手の種類</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">鉄筋コンクリート造</span>
+        <span>更新日：2026年6月18日</span>
+      </div>
+      <h1>鉄筋継手の種類とは？重ね継手の長さ・基準・圧接・機械式を解説</h1>
+      <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
+
+      <p>RC造の配筋で必ず登場するのが<strong>鉄筋の継手（つぎて）</strong>です。この記事では、<strong>鉄筋継手の3種類（重ね継手・圧接継手・機械式継手）の違いと使い分け</strong>、そして実務で迷いやすい<strong>重ね継手の長さの決まり方</strong>を、継手長さ表とあわせて整理します。</p>
+
+      <div class="point-box">
+        <span class="label">この記事の要点</span>
+        <ul>
+          <li>鉄筋の継手とは、分割した2本の鉄筋を<strong>1本と同等の性能</strong>になるよう接合すること。種類は<strong>重ね継手・圧接継手・機械式継手</strong>の3つ。</li>
+          <li>重ね継手の長さは<strong>コンクリートの設計基準強度Fcと鉄筋の強度</strong>で決まり、<strong>フックを付けると付着力が高まり継手長さを短くできる</strong>。</li>
+          <li>太径（D19以上など）では重ね継手ではなく<strong>圧接継手・機械式継手</strong>が用いられる。</li>
+        </ul>
+      </div>
+
+      <nav class="toc" aria-label="目次">
+        <div class="toc-ttl">目次</div>
+        <ol>
+          <li><a href="#towa">鉄筋の継手とは？なぜ必要なのか</a></li>
+          <li><a href="#kangae">重ね継手の長さの考え方</a></li>
+          <li><a href="#hyou">鉄筋の重ね継手長さ表</a></li>
+          <li><a href="#shurui">継手の種類（重ね・圧接・機械式）</a></li>
+          <li><a href="#yougo">混同しやすい用語の整理</a></li>
+          <li><a href="#matome">まとめ</a></li>
+        </ol>
+      </nav>
+
+      <h2 id="towa">鉄筋の継手とは？なぜ必要なのか</h2>
+      <p><strong>鉄筋の継手とは、2本の鉄筋を1本につなぎ合わせること</strong>です。代表例が、2本を重ねてコンクリートの付着力で力を伝える「<strong>重ね継手</strong>」です。</p>
+      <p>では、なぜ継手が必要なのでしょうか。理由は<strong>鉄筋の長さの制約</strong>にあります。</p>
+      <ul>
+        <li>鉄筋は標準で<strong>長さ12m以下</strong>の製品として製造されます。</li>
+        <li>一方、建物の部材は12mを超えることもあります（例：長さ15mの梁）。</li>
+        <li>長尺の鉄筋は製造も運搬も困難なため、<strong>数mに分割</strong>して現場へ運びます（例：7.5m＋7.5m＝15m）。</li>
+      </ul>
+      <p>ただし、分割したままでは鉄筋は1本分の性能を発揮できません。そこで<strong>継手</strong>によって、分割した鉄筋を「1本と同等」に働かせるのです。</p>
+
+      <h2 id="kangae">重ね継手の長さの考え方</h2>
+      <p>重ね継手の長さは、<strong>コンクリートの設計基準強度（Fc）と鉄筋の強度</strong>で決まります。実務では後述の表から読み取りますが、その値は次の考え方が元になっています（一次設計時）。</p>
+
+      <div class="formula">
+        L ＝ σ<sub>b</sub> × d<sub>b</sub> ／ （4 × f<sub>a</sub>）
+      </div>
+      <p>ここで <strong>L</strong>＝継手長さ、<strong>σ<sub>b</sub></strong>＝鉄筋に作用する応力度、<strong>d<sub>b</sub></strong>＝鉄筋の呼び径、<strong>f<sub>a</sub></strong>＝許容付着応力度です。</p>
+      <p>考え方はシンプルです。継手とは「<strong>鉄筋Aに作用する応力を、鉄筋Bへ確実に伝える</strong>」こと。重ね継手は鉄筋同士を溶接も機械接合もせず、配筋時に結束線で束ねる程度です。そのままでは力が加わるとバラバラになりますが、<strong>コンクリートを打設して固まると、鉄筋Aの応力はコンクリートの付着力を介して鉄筋Bへ伝わる</strong>ようになります。上の式は、この「付着で力を伝えるのに必要な重ね長さ」を表したものです。</p>
+      <div class="point-box">
+        <span class="label">POINT：フックで継手長さは短くなる</span>
+        <p>鉄筋端部に<strong>フック</strong>を付けると<strong>付着力が向上</strong>するため、フックなし（L<sub>1</sub>）よりフックあり（L<sub>1h</sub>）の方が継手長さを短くできます。</p>
+      </div>
+
+      <h2 id="hyou">鉄筋の重ね継手長さ表</h2>
+      <p>実務では、上記のような計算は毎回行いません。<strong>鉄筋の種類とコンクリートのFcが分かれば、表から継手長さ（鉄筋径dの倍数）を読み取れます。</strong></p>
+      <table class="data">
+        <tr><th>鉄筋の種類</th><th>Fc（N/mm²）</th><th>L<sub>1</sub>（フックなし）</th><th>L<sub>1h</sub>（フックあり）</th></tr>
+        <tr><td rowspan="4">SD295A<br>SD295B</td><td>18</td><td>45d</td><td>35d</td></tr>
+        <tr><td>21</td><td>40d</td><td>30d</td></tr>
+        <tr><td>24・27</td><td>35d</td><td>25d</td></tr>
+        <tr><td>30・33・36</td><td>35d</td><td>25d</td></tr>
+        <tr><td rowspan="4">SD345</td><td>18</td><td>50d</td><td>35d</td></tr>
+        <tr><td>21</td><td>45d</td><td>30d</td></tr>
+        <tr><td>24・27</td><td>40d</td><td>30d</td></tr>
+        <tr><td>30・33・36</td><td>35d</td><td>25d</td></tr>
+        <tr><td rowspan="3">SD390</td><td>21</td><td>50d</td><td>35d</td></tr>
+        <tr><td>24・27</td><td>45d</td><td>35d</td></tr>
+        <tr><td>30・33・36</td><td>40d</td><td>30d</td></tr>
+      </table>
+      <p style="font-size:0.84rem;color:var(--sub);">※ d は鉄筋の直径（呼び径）を表します。例：D16・SD345・Fc24でフックなしなら 40d ＝ 40×16 ＝ 640mm。</p>
+      <p>上表は<strong>公共建築工事標準仕様書</strong>を元に作成しています。公共建築物はこれに準じるのが基本ですが、<strong>日本建築学会のRC計算規準・配筋指針ではもう少し緩い値</strong>になります。適用する基準を確認のうえご利用ください。</p>
+      <div class="note-box">
+        <span class="label">太径の鉄筋は重ね継手を使わない</span>
+        <p>D19以上などの<strong>太径鉄筋</strong>では、重ね継手ではなく<strong>圧接継手</strong>が用いられます。やりたいこと（複数本を1本にする）は同じですが、圧接は鉄筋に<strong>熱を加えて1本に造り替えてしまう</strong>点が異なります（溶接とは別物ですが近いイメージです）。</p>
+      </div>
+
+      <h2 id="shurui">継手の種類（重ね・圧接・機械式）</h2>
+      <p>鉄筋継手は大きく次の3種類です。</p>
+      <ol>
+        <li><strong>重ね継手</strong>：細径の鉄筋で最も多用される。鉄筋を重ねてコンクリートの付着で力を伝える。</li>
+        <li><strong>圧接継手（ガス圧接）</strong>：鉄筋端面を加熱・加圧して一体化。太径に多い。</li>
+        <li><strong>機械式継手</strong>：カップラー（継手金具）で鉄筋を接合する。</li>
+      </ol>
+
+      <figure class="article-fig">
+        <img src="../assets/tekkin-tsugite-shurui.png" alt="鉄筋継手の種類（重ね継手フックあり・フックなし、圧接継手、機械式継手）の納まりと継手位置のずらし距離a" loading="lazy" onerror="this.closest('figure').style.display='none'">
+        <figcaption>継手の種類と納まり（重ね継手・圧接継手・機械式継手）。継手位置は所定の距離 a だけずらす。</figcaption>
+      </figure>
+
+      <p><strong>カップラー</strong>とは、鉄筋を差し込めるよう孔の空いた金具です。孔は全ネジになっており、両側から鉄筋をネジの要領で差し込みます。鉄筋Aの応力は、カップラーを介して鉄筋Bへ伝わります。機械式継手は<strong>施工精度が高く、狭あい部の施工にも適する</strong>のが利点です。</p>
+      <div class="point-box">
+        <span class="label">「いも継手」を避ける</span>
+        <p>どの継手でも、各鉄筋の<strong>継手位置が同じ断面に集中しない</strong>よう、所定の距離 a だけずらして配置します。継手が一列に並ぶ状態（<strong>いも継手</strong>）は弱点になるため避けます。重ね継手では a≧0.5L<sub>1</sub>（フックなし）など、圧接・機械式では a≧400mm などの規定があります。</p>
+      </div>
+
+      <h2 id="yougo">混同しやすい用語の整理</h2>
+      <h3>重ね継手</h3>
+      <p>2本の鉄筋を並べて重ね、<strong>コンクリートの付着力で力を伝達</strong>する方法。細径鉄筋（D16以下程度）に多用されます。圧接継手と違い、鉄筋同士を直接一体化はせず、付着に頼るため<strong>重ね長さが必要</strong>です。</p>
+      <h3>圧接継手</h3>
+      <p>鉄筋の端部を<strong>加熱・加圧して一体化</strong>させる方法。D19以上の太径鉄筋に用いられ、<strong>鉄筋1本分の強度を直接伝達</strong>できます。鉄筋を直接つなぐため、重ね継手のような重ね長さは不要です。</p>
+
+      <table class="data">
+        <tr><th>継手の種類</th><th>概要</th><th>適用範囲・特徴</th></tr>
+        <tr><td>重ね継手</td><td>鉄筋を一定長さ重ねて配置</td><td>細径（D16以下）に多用。Fcが大きいほど継手長さは短い</td></tr>
+        <tr><td>圧接継手</td><td>鉄筋端面を加熱・加圧して接合</td><td>D19以上の太径に使用。信頼性が高い</td></tr>
+        <tr><td>機械式継手</td><td>カップラーで鉄筋を接合</td><td>施工精度が高く、狭あい部の施工に適する</td></tr>
+      </table>
+
+      <h2 id="matome">まとめ</h2>
+      <ul>
+        <li>鉄筋の継手は、分割した鉄筋を<strong>1本と同等の性能</strong>にする接合。種類は重ね・圧接・機械式の3つ。</li>
+        <li>重ね継手の長さは<strong>FcとSD強度</strong>で決まり、表から「○d」で読み取る。<strong>フックありは短くできる</strong>。</li>
+        <li>太径はおもに圧接、狭あい部などは機械式と、条件で使い分ける。</li>
+        <li>継手位置は<strong>いも継手を避けて所定距離ずらす</strong>。</li>
+      </ul>
+
+      <div class="note-box">
+        <span class="label">あわせて読みたい</span>
+        <p>RC造の基礎は<a href="../articles.html#rc-zou">鉄筋コンクリート造カテゴリ</a>にまとめています。コンクリートの強度については「<a href="concrete-kyoyo.html">コンクリートの許容応力度</a>」もどうぞ。</p>
+      </div>
+
+      <p style="font-size:0.82rem;color:var(--sub);">※継手長さ・継手位置の規定は、適用する基準（公共建築工事標準仕様書／日本建築学会規準など）や年度の改定により異なります。実務では必ず採用基準の最新版をご確認ください。</p>
+
+      <div class="article-author">
+        <img src="../assets/profile.png" alt="監修・執筆者 ホッタ ナオト（構造設計一級建築士）" width="76" height="76" loading="lazy">
+        <div class="aa-text">
+          <p class="aa-role">この記事の監修・執筆者</p>
+          <p class="aa-name">ホッタ ナオト</p>
+          <p class="aa-cred">一級建築士・構造設計一級建築士／ゼネコン構造設計部</p>
+          <p class="aa-desc">構造設計・耐震補強・工事監理の実務に10年以上従事。<a href="../about.html#author">プロフィール詳細 ›</a></p>
+        </div>
+      </div>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>鉄筋コンクリート造</h4>
+        <ul>
+          <li><a href="../articles.html#rc-zou">RC造の記事一覧</a></li>
+          <li><a href="concrete-kyoyo.html">コンクリートの許容応力度</a></li>
+          <li><a href="kyoyo-oryokudo.html">許容応力度計算とは？</a></li>
+        </ul>
+      </div>
+      <div class="tool-banner">
+        <div class="tb-ic">🧮</div>
+        <h4>無料計算ツール</h4>
+        <p>断面性能・ガラス重量などを自動計算。登録不要・無料</p>
+        <a href="../tools/index.html">ツール一覧を見る</a>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
