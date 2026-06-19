@@ -175,6 +175,7 @@ document.addEventListener('DOMContentLoaded', function () {
     { title: 'RC造の耐震性と特徴｜なぜ地震に強いのか', url: 'articles/rc-taishin.html', keywords: 'RC造 耐震性 地震 剛性 じん性 粘り 耐震壁 あばら筋 帯筋 フープ せん断破壊 曲げ先行' },
     { title: 'コンクリートの弱点とは？引張の弱さ・劣化とひび割れの種類・対策', url: 'articles/concrete-jakuten.html', keywords: 'コンクリート 弱点 引張 劣化 中性化 塩害 凍害 アルカリ骨材反応 ひび割れ 乾燥収縮 水セメント比 かぶり厚さ' },
     { title: 'コンクリートと鉄筋の関係｜互いの弱点を補う仕組み', url: 'articles/rc-tetsu-kankei.html', keywords: 'コンクリート 鉄筋 関係 仕組み 圧縮 引張 役割分担 熱膨張率 付着 アルカリ 異形鉄筋 RC' },
+    { title: '鉄筋継手の種類とは？重ね継手の長さ・圧接・機械式を解説', url: 'articles/tekkin-tsugite.html', keywords: '鉄筋 継手 つぎて 種類 重ね継手 圧接継手 機械式継手 カップラー 継手長さ フック L1 L1h Fc 設計基準強度 SD295 SD345 SD390 いも継手 ずらし 付着 定着 D19 配筋' },
     { title: 'コンクリートの種類7選｜用途別の特性', url: 'articles/concrete-shurui.html', keywords: 'コンクリート 種類 7選 普通 軽量 重量 高強度 高流動 マス 水密 流動化 用途別 特性 一覧' },
     { title: '普通コンクリートとは？空気量・セメント量の規格', url: 'articles/futsuu-concrete.html', keywords: '普通コンクリート 意味 特徴 空気量 4.5% セメント量 単位セメント量 単位水量 270 185 普通骨材 JASS5 単位容積質量' },
     { title: '軽量コンクリートとは？普通との違い', url: 'articles/keiryou-concrete.html', keywords: '軽量コンクリート 軽量骨材 人工軽量骨材 特徴 普通コンクリート 違い 使用箇所 床 屋根 自重 ヤング係数 乾燥収縮 1種 2種' },

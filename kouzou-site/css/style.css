@@ -1183,3 +1183,13 @@ table.data tr:nth-child(even) td { background: var(--bg-soft); }
 .tool-with-figure .glass-figure { margin: 0 0 18px; }
 .tool-with-figure .tool-panel { margin: 0; }
 .glass-figure.tool-fig img { max-width: 100%; }
+
+/* 記事内の目次（タップ移動） */
+.toc { background: var(--bg-soft); border: 1px solid var(--line); border-radius: 12px; padding: 16px 20px; margin: 22px 0; }
+.toc .toc-ttl { font-weight: 700; color: var(--navy); font-size: 0.95rem; margin-bottom: 8px; }
+.toc ol { margin: 0; padding-left: 1.4em; }
+.toc li { margin: 5px 0; font-size: 0.9rem; line-height: 1.6; }
+.toc a { color: var(--accent-dark); }
+.article-fig { margin: 18px 0 6px; text-align: center; }
+.article-fig img { width: 100%; max-width: 640px; height: auto; border: 1px solid var(--line); border-radius: 10px; }
+.article-fig figcaption { font-size: 0.8rem; color: var(--sub); margin-top: 8px; }
