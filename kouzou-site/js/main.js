@@ -177,6 +177,7 @@ document.addEventListener('DOMContentLoaded', function () {
     { title: 'コンクリートと鉄筋の関係｜互いの弱点を補う仕組み', url: 'articles/rc-tetsu-kankei.html', keywords: 'コンクリート 鉄筋 関係 仕組み 圧縮 引張 役割分担 熱膨張率 付着 アルカリ 異形鉄筋 RC' },
     { title: '鉄筋継手の種類とは？重ね継手の長さ・圧接・機械式を解説', url: 'articles/tekkin-tsugite.html', keywords: '鉄筋 継手 つぎて 種類 重ね継手 圧接継手 機械式継手 カップラー 継手長さ フック L1 L1h Fc 設計基準強度 SD295 SD345 SD390 いも継手 ずらし 付着 定着 D19 配筋' },
     { title: 'あき重ね継手とは？意味・規準（あき間隔0.2L1かつ150mm以下）・寸法を解説', url: 'articles/aki-kasane-tsugite.html', keywords: 'あき重ね継手 重ね継手 あき間隔 0.2L1 150mm 規準 継手長さ L1 配筋指針 鉄筋コンクリート構造計算規準 かぶり あき 鉄筋 RC 日本建築学会' },
+    { title: '鉄筋の圧接（ガス圧接）とは？資格・径違い・検査・ふくらみの規定を解説', url: 'articles/atsusetsu.html', keywords: '圧接 ガス圧接 鉄筋 継手 資格 1種 2種 3種 4種 技量資格 径違い 7mm 材質 ランク SD295 SD345 SD390 外観検査 非破壊検査 超音波探傷 ふくらみ 1.4倍 1.1倍 偏心量 ずれ D19 一級建築士 試験' },
     { title: 'コンクリートの種類7選｜用途別の特性', url: 'articles/concrete-shurui.html', keywords: 'コンクリート 種類 7選 普通 軽量 重量 高強度 高流動 マス 水密 流動化 用途別 特性 一覧' },
     { title: '普通コンクリートとは？空気量・セメント量の規格', url: 'articles/futsuu-concrete.html', keywords: '普通コンクリート 意味 特徴 空気量 4.5% セメント量 単位セメント量 単位水量 270 185 普通骨材 JASS5 単位容積質量' },
     { title: '軽量コンクリートとは？普通との違い', url: 'articles/keiryou-concrete.html', keywords: '軽量コンクリート 軽量骨材 人工軽量骨材 特徴 普通コンクリート 違い 使用箇所 床 屋根 自重 ヤング係数 乾燥収縮 1種 2種' },
