@@ -179,6 +179,7 @@ document.addEventListener('DOMContentLoaded', function () {
     { title: 'あき重ね継手とは？意味・規準（あき間隔0.2L1かつ150mm以下）・寸法を解説', url: 'articles/aki-kasane-tsugite.html', keywords: 'あき重ね継手 重ね継手 あき間隔 0.2L1 150mm 規準 継手長さ L1 配筋指針 鉄筋コンクリート構造計算規準 かぶり あき 鉄筋 RC 日本建築学会' },
     { title: '鉄筋の圧接（ガス圧接）とは？資格・径違い・検査・ふくらみの規定を解説', url: 'articles/atsusetsu.html', keywords: '圧接 ガス圧接 鉄筋 継手 資格 1種 2種 3種 4種 技量資格 径違い 7mm 材質 ランク SD295 SD345 SD390 外観検査 非破壊検査 超音波探傷 ふくらみ 1.4倍 1.1倍 偏心量 ずれ D19 一級建築士 試験' },
     { title: '鉄筋の溶接とは？種類（エンクローズ・フレア）の特徴と適用場面', url: 'articles/tekkin-yousetsu.html', keywords: '鉄筋 溶接 継手 エンクローズ溶接 フレア溶接 突合せ溶接 杭頭補強筋 告示1463号 I型開先 重ねアーク溶接 アーク溶接 鋼管杭 RC 主筋 径25mm' },
+    { title: 'フレア溶接とは？脚長・のど厚・溶接長さの基準と記号・資格を解説', url: 'articles/flare-yousetsu.html', keywords: 'フレア溶接 脚長 のど厚 サイズ 溶接長さ 溶接記号 レ型 K型 V型 X型 杭頭補強筋 鋼管杭 アーク溶接 開先溶接 半自動溶接適格性証明書 資格 10d 5d 鉄筋 鋼板' },
     { title: 'コンクリートの種類7選｜用途別の特性', url: 'articles/concrete-shurui.html', keywords: 'コンクリート 種類 7選 普通 軽量 重量 高強度 高流動 マス 水密 流動化 用途別 特性 一覧' },
     { title: '普通コンクリートとは？空気量・セメント量の規格', url: 'articles/futsuu-concrete.html', keywords: '普通コンクリート 意味 特徴 空気量 4.5% セメント量 単位セメント量 単位水量 270 185 普通骨材 JASS5 単位容積質量' },
     { title: '軽量コンクリートとは？普通との違い', url: 'articles/keiryou-concrete.html', keywords: '軽量コンクリート 軽量骨材 人工軽量骨材 特徴 普通コンクリート 違い 使用箇所 床 屋根 自重 ヤング係数 乾燥収縮 1種 2種' },
