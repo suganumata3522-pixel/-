@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
+<title>あき重ね継手とは？意味・規準（あき間隔0.2L₁かつ150mm以下）・寸法を解説｜構造設計ナビ</title>
+<meta name="description" content="あき重ね継手とは、鉄筋同士を接触させずにあきを設けて重ねる継手。あき間隔の規準（0.2L₁かつ150mm以下）や継手長さL₁の決まり方、通常の重ね継手との違い、あきとかぶりの違い、根拠となる配筋指針・RC計算規準まで、現役の構造設計一級建築士が解説します。">
+<meta property="og:title" content="あき重ね継手とは？意味・規準（あき間隔0.2L₁かつ150mm以下）・寸法を解説｜構造設計ナビ">
+<meta property="og:description" content="あき重ね継手の意味・あき間隔の規準（0.2L₁かつ150mm以下）・継手長さの考え方・通常の重ね継手との違いをわかりやすく解説します。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kouzou-navi.com/articles/aki-kasane-tsugite.html">
+<meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
+<meta property="og:site_name" content="構造設計ナビ">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.kouzou-navi.com/articles/aki-kasane-tsugite.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="../articles.html#kiso">構造力学の基礎</a></li>
+        <li><a href="../articles.html#rc-zou">鉄筋コンクリート造</a></li>
+        <li><a href="../tools/index.html">計算ツール</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › <a href="../articles.html#rc-zou">鉄筋コンクリート造</a> › あき重ね継手</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">鉄筋コンクリート造</span>
+        <span>更新日：2026年6月20日</span>
+      </div>
+      <h1>あき重ね継手とは？意味・規準（あき間隔0.2L₁かつ150mm以下）・寸法を解説</h1>
+      <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
+      <p class="ad-disclosure">本記事はアフィリエイト広告（書籍）を含みます。価格・在庫は変動するため、最新情報は各販売サイトでご確認ください。</p>
+
+      <p><strong>あき重ね継手</strong>とは、<strong>鉄筋同士を接触させず、あき（すき間）を設けて重ねる重ね継手</strong>のことです。鉄筋が触れていないため一見「強度が不安」に思えますが、<strong>所定の規準を満たせば通常の重ね継手と同等に扱えます</strong>。この記事では、あき重ね継手の意味・あき間隔の規準・寸法・関連する配筋指針との関係を整理します。</p>
+
+      <div class="point-box">
+        <span class="label">この記事の要点</span>
+        <ul>
+          <li>あき重ね継手は<strong>鉄筋同士が接触しない重ね継手</strong>。規準を満たせば通常の重ね継手と<strong>同等</strong>に扱える。</li>
+          <li>あき間隔の規準は<strong>「0.2L₁ かつ 150mm 以下」</strong>。継手長さL₁は<strong>鉄筋径・材質・コンクリートの設計基準強度Fc</strong>で決まる。</li>
+          <li>根拠は<strong>RC構造計算規準・配筋指針</strong>などに明記されている。</li>
+        </ul>
+      </div>
+
+      <nav class="toc" aria-label="目次">
+        <div class="toc-ttl">目次</div>
+        <ol>
+          <li><a href="#towa">あき重ね継手とは？</a></li>
+          <li><a href="#kankaku">あき重ね継手の間隔と寸法（規準）</a></li>
+          <li><a href="#kijun">規準が記載されている書籍</a></li>
+          <li><a href="#yougo">混同しやすい用語の整理</a></li>
+          <li><a href="#seiri">あき重ね継手のまとめ表</a></li>
+          <li><a href="#matome">まとめ</a></li>
+        </ol>
+      </nav>
+
+      <h2 id="towa">あき重ね継手とは？</h2>
+      <p>あき重ね継手とは、<strong>鉄筋同士が接触しない（鉄筋間にあきを設ける）重ね継手</strong>の方法です。通常の重ね継手は2本の鉄筋を密着させて重ねますが、あき重ね継手では下図のように鉄筋の間にすき間があります。</p>
+
+      <figure class="article-fig">
+        <img src="../assets/aki-kasane-tsugite.png" alt="鉄筋のあき重ね継手の模式図。L₁（重ね長さ）と、あきの条件0.2L₁かつ150mm以下を示す" loading="lazy" onerror="this.closest('figure').style.display='none'">
+        <figcaption>あき重ね継手の模式図。重ね長さ L₁ と、あきの条件「0.2L₁ かつ 150mm 以下」。</figcaption>
+      </figure>
+
+      <p>鉄筋が触れていないため継手強度に不安を感じますが、<strong>後述の規準を満たせば通常の重ね継手と同等に扱える</strong>とされています。これは、鉄筋に作用する力が<strong>コンクリートの付着を介して相手の鉄筋へ伝わる</strong>ためで、考え方は通常の<a href="tekkin-tsugite.html">重ね継手</a>と同じです。</p>
+      <p>RC造では、配筋の納まりの都合で「継手を設けたいのに鉄筋同士が接触しない」場面があります。<strong>こうしたときに、あき重ね継手が有効</strong>です。</p>
+
+      <h2 id="kankaku">あき重ね継手の間隔と寸法（規準）</h2>
+      <p>あき重ね継手の継手長さとあき間隔は、次のように定められています。</p>
+      <div class="point-box">
+        <span class="label">あき重ね継手の規準</span>
+        <ul>
+          <li><strong>継手長さ ＝ L₁</strong>（通常の重ね継手と同じ重ね長さ）</li>
+          <li><strong>あき間隔 ≦ 0.2L₁ かつ 150mm 以下</strong>（この上限を超えると継手として有効に扱えません）</li>
+        </ul>
+      </div>
+      <p>継手長さ <strong>L₁ は鉄筋径に比例</strong>し、さらに<strong>鉄筋の材質（SD295・SD345・SD390など）とコンクリートの設計基準強度Fc</strong>によって変わります。具体的な数値（○d）は「<a href="tekkin-tsugite.html">鉄筋継手の種類｜重ね継手長さ表</a>」で確認できます。たとえば Fc24・SD345・D19 なら 40d ＝ 40×19 ＝ <strong>760mm 以上</strong>が目安です。</p>
+
+      <h2 id="kijun">規準が記載されている書籍</h2>
+      <p>あき重ね継手の規準は、<strong>日本建築学会の「鉄筋コンクリート構造計算規準・同解説」や「鉄筋コンクリート造配筋指針・同解説」</strong>などに明記されています。実務で根拠を確認するなら、手元に置いておきたい定番書です。</p>
+
+      <div class="book-list">
+        <div class="book-card">
+          <a class="book-cover" href="https://rpx.a8.net/svt/ejp?a8mat=3ZHHOE+C4ERYY+2HOM+BWGDT&amp;rakuten=y&amp;a8ejpredirect=https%3A%2F%2Fhb.afl.rakuten.co.jp%2Fhgc%2Fg00q0724.2bo11c45.g00q0724.2bo12179%2Fa24100109160_3ZHHOE_C4ERYY_2HOM_BWGDT%3Fpc%3Dhttps%253A%252F%252Fitem.rakuten.co.jp%252Fbook%252F18134597%252F%26m%3Dhttp%253A%252F%252Fm.rakuten.co.jp%252Fbook%252Fi%252F21521894%252F%26rafcid%3Dwsc_i_is_a9f492a7-8ef9-40e2-ab89-4bc43a1ee283" rel="sponsored nofollow noopener" referrerpolicy="no-referrer-when-downgrade" target="_blank">
+            <img src="https://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/6822/9784818906822_1_2.jpg?_ex=128x128" alt="鉄筋コンクリート構造計算規準・同解説（2024）の書影" loading="lazy" width="96" height="128">
+          </a>
+          <div class="book-body">
+            <h3>鉄筋コンクリート構造計算規準・同解説（2024）</h3>
+            <p class="book-meta">日本建築学会｜参考価格：7,700円（税込・変動あり）</p>
+            <p>RC造の構造計算の基本となる規準書。継手長さや定着、あき重ね継手の扱いなど、設計の根拠を確認できます。</p>
+            <div class="book-actions">
+              <a class="book-btn rakuten" href="https://rpx.a8.net/svt/ejp?a8mat=3ZHHOE+C4ERYY+2HOM+BWGDT&amp;rakuten=y&amp;a8ejpredirect=https%3A%2F%2Fhb.afl.rakuten.co.jp%2Fhgc%2Fg00q0724.2bo11c45.g00q0724.2bo12179%2Fa24100109160_3ZHHOE_C4ERYY_2HOM_BWGDT%3Fpc%3Dhttps%253A%252F%252Fitem.rakuten.co.jp%252Fbook%252F18134597%252F%26m%3Dhttp%253A%252F%252Fm.rakuten.co.jp%252Fbook%252Fi%252F21521894%252F%26rafcid%3Dwsc_i_is_a9f492a7-8ef9-40e2-ab89-4bc43a1ee283" rel="sponsored nofollow noopener" referrerpolicy="no-referrer-when-downgrade" target="_blank">楽天ブックスで見る</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="book-card">
+          <a class="book-cover" href="https://rpx.a8.net/svt/ejp?a8mat=3ZHHOE+C4ERYY+2HOM+BWGDT&amp;rakuten=y&amp;a8ejpredirect=https%3A%2F%2Fhb.afl.rakuten.co.jp%2Fhgc%2Fg00q0724.2bo11c45.g00q0724.2bo12179%2Fa24100109160_3ZHHOE_C4ERYY_2HOM_BWGDT%3Fpc%3Dhttps%253A%252F%252Fitem.rakuten.co.jp%252Fbook%252F16701719%252F%26m%3Dhttp%253A%252F%252Fm.rakuten.co.jp%252Fbook%252Fi%252F20329695%252F%26rafcid%3Dwsc_i_is_a9f492a7-8ef9-40e2-ab89-4bc43a1ee283" rel="sponsored nofollow noopener" referrerpolicy="no-referrer-when-downgrade" target="_blank">
+            <img src="https://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/0935/9784818910935.jpg?_ex=128x128" alt="鉄筋コンクリート造配筋指針・同解説 第6版の書影" loading="lazy" width="96" height="128">
+          </a>
+          <div class="book-body">
+            <h3>鉄筋コンクリート造配筋指針・同解説（第6版）</h3>
+            <p class="book-meta">日本建築学会｜参考価格：6,050円（税込・変動あり）</p>
+            <p>配筋の納まり・継手・定着の実務指針。あき重ね継手の規定や図解が充実しており、現場・設計の両方で重宝します。</p>
+            <div class="book-actions">
+              <a class="book-btn rakuten" href="https://rpx.a8.net/svt/ejp?a8mat=3ZHHOE+C4ERYY+2HOM+BWGDT&amp;rakuten=y&amp;a8ejpredirect=https%3A%2F%2Fhb.afl.rakuten.co.jp%2Fhgc%2Fg00q0724.2bo11c45.g00q0724.2bo12179%2Fa24100109160_3ZHHOE_C4ERYY_2HOM_BWGDT%3Fpc%3Dhttps%253A%252F%252Fitem.rakuten.co.jp%252Fbook%252F16701719%252F%26m%3Dhttp%253A%252F%252Fm.rakuten.co.jp%252Fbook%252Fi%252F20329695%252F%26rafcid%3Dwsc_i_is_a9f492a7-8ef9-40e2-ab89-4bc43a1ee283" rel="sponsored nofollow noopener" referrerpolicy="no-referrer-when-downgrade" target="_blank">楽天ブックスで見る</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <img class="a8-imp" src="https://www13.a8.net/0.gif?a8mat=3ZHHOE+C4ERYY+2HOM+BWGDT" alt="" width="1" height="1">
+
+      <h2 id="yougo">混同しやすい用語の整理</h2>
+      <h3>あき重ね継手と（通常の）重ね継手</h3>
+      <p><strong>重ね継手</strong>は鉄筋同士を接触させて重ねる方法、<strong>あき重ね継手</strong>は鉄筋間にあきを設けた継手です。規準（あき間隔0.2L₁かつ150mm以下）を満たせば同等の強度を持つとされますが、<strong>あき間隔には上限がある</strong>点に注意します。</p>
+      <h3>あきとかぶり</h3>
+      <p>混同しやすいのが「あき」と「かぶり」です。<strong>あき＝鉄筋相互の間隔</strong>、<strong>かぶり＝コンクリート表面から鉄筋表面までの距離</strong>を指します。どちらも配筋の寸法規定ですが、あきは<strong>鉄筋どうしの関係</strong>、かぶりは<strong>鉄筋とコンクリート外面の関係</strong>です。</p>
+
+      <h2 id="seiri">あき重ね継手のまとめ表</h2>
+      <table class="data">
+        <tr><th>項目</th><th>内容</th><th>備考</th></tr>
+        <tr><td>継手長さ（L₁）</td><td>鉄筋径・Fc・材質で決まる所定長さ</td><td>例：Fc24・SD345・D19で 40d＝760mm 以上</td></tr>
+        <tr><td>あき間隔の上限</td><td>0.2L₁ かつ 150mm 以下</td><td>上限を超えると継手として無効</td></tr>
+        <tr><td>通常の重ね継手との違い</td><td>鉄筋同士が接触しない</td><td>規準を満たせば同等の強度とみなせる</td></tr>
+      </table>
+
+      <h2 id="matome">まとめ</h2>
+      <ul>
+        <li>あき重ね継手は<strong>鉄筋同士が接触しない重ね継手</strong>。規準を満たせば通常の重ね継手と同等に扱える。</li>
+        <li>あき間隔は<strong>0.2L₁ かつ 150mm 以下</strong>。継手長さL₁は鉄筋径・材質・Fcで決まる。</li>
+        <li>規準はRC構造計算規準・配筋指針に明記。実務では<strong>採用する基準の最新版</strong>で必ず確認を。</li>
+      </ul>
+
+      <div class="note-box">
+        <span class="label">あわせて読みたい</span>
+        <p>継手の全体像は「<a href="tekkin-tsugite.html">鉄筋継手の種類とは？重ね継手の長さ・圧接・機械式</a>」、RC造の基礎は<a href="../articles.html#rc-zou">鉄筋コンクリート造カテゴリ</a>にまとめています。</p>
+      </div>
+
+      <p style="font-size:0.82rem;color:var(--sub);">※あき間隔・継手長さの規定は、適用する基準（日本建築学会のRC構造計算規準・配筋指針、公共建築工事標準仕様書など）や年度の改定により異なります。実務では必ず採用基準の最新版をご確認ください。</p>
+
+      <div class="article-author">
+        <img src="../assets/profile.png" alt="監修・執筆者 ホッタ ナオト（構造設計一級建築士）" width="76" height="76" loading="lazy">
+        <div class="aa-text">
+          <p class="aa-role">この記事の監修・執筆者</p>
+          <p class="aa-name">ホッタ ナオト</p>
+          <p class="aa-cred">一級建築士・構造設計一級建築士／ゼネコン構造設計部</p>
+          <p class="aa-desc">構造設計・耐震補強・工事監理の実務に10年以上従事。<a href="../about.html#author">プロフィール詳細 ›</a></p>
+        </div>
+      </div>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>継手と定着</h4>
+        <ul>
+          <li><a href="tekkin-tsugite.html">鉄筋継手の種類とは？</a></li>
+          <li><a href="../articles.html#rc-zou">RC造の記事一覧</a></li>
+          <li><a href="concrete-kyoyo.html">コンクリートの許容応力度</a></li>
+        </ul>
+      </div>
+      <div class="tool-banner">
+        <div class="tb-ic">🧮</div>
+        <h4>無料計算ツール</h4>
+        <p>断面性能・ガラス重量などを自動計算。登録不要・無料</p>
+        <a href="../tools/index.html">ツール一覧を見る</a>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
