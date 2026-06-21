@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
+<title>ストラット・タイモデルとは？偏心基礎フーチングの検討と無料Excel｜構造設計ナビ</title>
+<meta name="description" content="ストラット・タイモデルとは、コンクリート内の力の流れをトラス（ストラット＝圧縮材／タイ＝引張材）に置き換えて考える方法。杭が偏心した基礎フーチングの検討で役立ちます。考え方・検討が必要な場合・検討用Excel（無料ダウンロード）の使い方まで、現役の構造設計一級建築士が解説します。">
+<meta property="og:title" content="ストラット・タイモデルとは？偏心基礎フーチングの検討と無料Excel｜構造設計ナビ">
+<meta property="og:description" content="ストラット・タイモデルの考え方、検討が必要な偏心基礎、検討用Excel（無料ダウンロード）の使い方をわかりやすく解説します。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kouzou-navi.com/articles/strut-tie.html">
+<meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
+<meta property="og:site_name" content="構造設計ナビ">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.kouzou-navi.com/articles/strut-tie.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="../articles.html#kiso">構造力学の基礎</a></li>
+        <li><a href="../articles.html#kiso-kouzou">基礎構造</a></li>
+        <li><a href="../tools/index.html">計算ツール</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › <a href="../articles.html#kiso-kouzou">基礎構造</a> › ストラット・タイモデル</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">基礎構造</span>
+        <span>更新日：2026年6月21日</span>
+      </div>
+      <h1>ストラット・タイモデルとは？偏心基礎フーチングの検討と無料Excel</h1>
+      <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
+
+      <p><strong>ストラット・タイモデル</strong>は、コンクリートの中を流れる力を、シンプルな『骨組み（トラス）』に置きかえて考える方法です。特に<strong>杭が柱の真下からずれた「偏心基礎」のフーチング検討</strong>で役立ちます。この記事では、考え方・検討が必要になる場面・検討用Excel（<strong>無料ダウンロード</strong>）の使い方を、実務目線で解説します。</p>
+
+      <div class="point-box">
+        <span class="label">この記事の要点</span>
+        <ul>
+          <li>ストラット・タイモデルは、コンクリート内の力を<strong>ストラット（圧縮材）＝コンクリート／タイ（引張材）＝鉄筋</strong>のトラスに置き換える方法。</li>
+          <li>検討が必要になるのは、おもに<strong>基礎が偏心している場合</strong>（柱芯と杭芯がずれている）。</li>
+          <li>記事末で、<strong>ストラット・タイモデルの検討用Excelを無料配布</strong>しています。</li>
+        </ul>
+      </div>
+
+      <nav class="toc" aria-label="目次">
+        <div class="toc-ttl">目次</div>
+        <ol>
+          <li><a href="#towa">ストラット・タイモデルとは？</a></li>
+          <li><a href="#hitsuyou">検討が必要な場合（偏心基礎）</a></li>
+          <li><a href="#excel">検討用Excelの使い方ガイド</a></li>
+          <li><a href="#download">検討用Excelの無料ダウンロード</a></li>
+          <li><a href="#sankou">参考文献</a></li>
+          <li><a href="#matome">まとめ</a></li>
+        </ol>
+      </nav>
+
+      <h2 id="towa">ストラット・タイモデルとは？</h2>
+      <p>ストラット・タイモデルは、コンクリートの中を流れる力を、シンプルな『骨組み（トラス）』に置きかえて考える方法です。2つの部材でモデル化します。</p>
+      <table class="data">
+        <tr><th>部品</th><th>はたらき</th><th>実際のもの</th></tr>
+        <tr><td>ストラット（圧縮材）</td><td>押される力を伝える「つっぱり棒」</td><td>コンクリート（ななめの圧縮）</td></tr>
+        <tr><td>タイ（引張材）</td><td>引っぱられる力を受け持つ「ひも」</td><td>鉄筋（下端の主筋）</td></tr>
+      </table>
+      <p>フーチングでは、柱からの力がコンクリートの<strong>ななめのつっぱり棒（ストラット）</strong>を通って杭へ流れます。すると杭の上では外向きに広がろうとする力が生まれるので、それを下端の鉄筋（タイ）が<strong>『ひも』のように引っぱって</strong>、ぐっと押さえこみます。</p>
+
+      <figure class="article-fig">
+        <img src="../assets/strut-tie.png" alt="ストラット・タイモデルの概念図。柱軸力がストラット（コンクリートの圧縮力）を通って杭支持力へ流れ、タイ（鉄筋の引張力）が広がりを押さえる" loading="lazy" onerror="this.closest('figure').style.display='none'">
+        <figcaption>図1　ストラット（圧縮）とタイ（引張）の力の流れ（概念図）</figcaption>
+      </figure>
+
+      <h2 id="hitsuyou">検討が必要な場合（偏心基礎）</h2>
+      <p>柱の真下に杭がある基礎では、柱からの力が直接杭へ流れます。このような素直な力の流れなら、基本的に基礎フーチングに大きなせん断力は発生しません。</p>
+      <p>ところが、敷地境界や隣の建物との関係で、<strong>杭を柱の真下に置けない</strong>ことがあります。柱の中心と杭の中心が横にずれている――これが<strong>「偏心している基礎」</strong>です。この場合、柱の力はまっすぐ下へ流れず、<strong>大きなせん断力が発生して、基礎フーチングの設計が非常に厳しく</strong>なります。</p>
+      <p>そこで役立つのがストラット・タイモデルです。「力がどこを通って杭へ届くか」という実際の流れに沿って骨組みをえがき、それに合わせて鉄筋を配置します。</p>
+      <ul>
+        <li><strong>ストラット（つっぱり棒＝コンクリート）</strong>が、柱からかたよった杭へ向かうななめの力の道すじをそのまま表す。</li>
+        <li><strong>タイ（ひも＝鉄筋）</strong>が、その横ずれによって生じる引っぱりの力を受け持つ。</li>
+      </ul>
+      <p>つまり、力がねじれて流れる偏心基礎でも、<strong>「どこを押して、どこを引っぱるか」を正直にモデル化できる</strong>のが強みです。</p>
+
+      <h2 id="excel">検討用Excelの使い方ガイド</h2>
+
+      <h3>1. このシートの目的</h3>
+      <p>RC規準2018に倣い、柱から杭への軸力伝達において「ストラット・タイモデル」を用いて、ストラット（斜め圧縮材）に生じる圧縮応力度 σ が、コンクリートの許容圧縮応力度 fc 以下であること（<strong>σ ＜ fc</strong>）を確認するための計算シートです。検討軸力は1F柱軸力と1F床荷重の合計（支点反力−基礎自重）とします。</p>
+
+      <h3>2. 使い方の基本（3ステップ）</h3>
+      <ul>
+        <li><strong>STEP1</strong>　水色（薄い青）の入力欄に数値を入力します。</li>
+        <li><strong>STEP2</strong>　「自動計算」の欄は数式が入っているため、触らずにそのままにします。</li>
+        <li><strong>STEP3</strong>　一番下の「判定」欄を確認します。OK なら安全、NG なら断面などを見直します。</li>
+      </ul>
+
+      <h3>3. 入力する項目（①〜⑩）</h3>
+      <p>検討表の中で、次の項目に数値を入力します（G列。複数検討する場合はH列以降も同様）。</p>
+      <table class="data">
+        <tr><th>No.</th><th>入力項目</th><th>セル</th><th>内容・単位</th></tr>
+        <tr><td>①</td><td>基礎符号・位置</td><td>G26・G27</td><td>検討する基礎の名称と位置（例：F2A、SY1/SX1）</td></tr>
+        <tr><td>②</td><td>NL（長期軸力）</td><td>G28</td><td>[kN] 1F柱の長期軸力＋1F床荷重</td></tr>
+        <tr><td>③</td><td>NE（地震時軸力）</td><td>G29</td><td>[kN] 地震時に加わる軸力</td></tr>
+        <tr><td>④</td><td>基礎自重</td><td>G30</td><td>[kN] 基礎自身の重量</td></tr>
+        <tr><td>⑤</td><td>梁せい D</td><td>G31</td><td>[mm] 基礎梁のせい</td></tr>
+        <tr><td>⑥</td><td>dt</td><td>G32</td><td>[mm] 主筋重心までの距離</td></tr>
+        <tr><td>⑦</td><td>偏心距離 e</td><td>G34</td><td>[mm] 柱杭芯距離（施工誤差100mmを考慮）</td></tr>
+        <tr><td>⑧</td><td>柱幅</td><td>G39</td><td>[mm]</td></tr>
+        <tr><td>⑨</td><td>柱せい</td><td>G40</td><td>[mm]</td></tr>
+        <tr><td>⑩</td><td>コンクリート強度 Fc</td><td>G44</td><td>[N/mm²] 設計基準強度</td></tr>
+      </table>
+
+      <h3>4. 自動で計算される項目</h3>
+      <p>以下は数式により自動計算されます。入力は不要です。</p>
+      <table class="data">
+        <tr><th>自動計算項目</th><th>計算式</th><th>説明</th></tr>
+        <tr><td>j</td><td>=(D−dt)×7/8</td><td>ストラットのせい</td></tr>
+        <tr><td>sinθ</td><td>=j/√(j²+e²)</td><td>ストラットの傾斜角</td></tr>
+        <tr><td>ストラットの圧縮軸力 C</td><td>長期=(NL−自重)/sinθ／短期=(NL−自重+NE)/sinθ</td><td>ストラットに生じる圧縮力</td></tr>
+        <tr><td>ストラットの断面積 As</td><td>=柱幅×柱せい×0.8</td><td>有効断面積</td></tr>
+        <tr><td>ストラットの圧縮応力度 σ</td><td>=C×1000/(As×sinθ)</td><td>応力度（これを判定に使用）</td></tr>
+        <tr><td>長期/短期 許容応力度</td><td>長期=Fc/3／短期=Fc/3×2</td><td>許容できる応力度の上限</td></tr>
+      </table>
+
+      <h3>5. 判定の見方</h3>
+      <ul>
+        <li><strong>判定（長期）</strong>　σ（長期）＜ 長期許容応力度（Fc/3）　であれば <strong>OK</strong>。</li>
+        <li><strong>判定（短期）</strong>　σ（短期）＜ 短期許容応力度（Fc/3×2）　であれば <strong>OK</strong>。</li>
+      </ul>
+      <p><strong>NG の場合の対処</strong>：柱断面（柱幅・柱せい）を大きくする／偏心距離 e を小さくする／コンクリート強度 Fc を上げる、などにより応力度 σ を下げて再検討します。</p>
+
+      <h3>6. 補足</h3>
+      <ul>
+        <li>別の基礎も検討したいときは、H列をコピーして右の列（I列・J列…）に貼り付け、値を変えます。</li>
+        <li>単位は各行のセル（[kN]・[mm]・[N/mm²]）に合わせて入力してください。</li>
+        <li>数式セルを誤って消した場合は、隣の列からコピーして戻せます。</li>
+      </ul>
+
+      <h2 id="download">検討用Excelの無料ダウンロード</h2>
+      <div class="cta-box">
+        <span class="cta-label">無料ダウンロード</span>
+        <h3>ストラット・タイモデル 検討用Excel</h3>
+        <p>上で解説した検討シート（footing_stm.xlsx）を無料でダウンロードできます。水色の入力欄に数値を入れるだけで、ストラットの圧縮応力度 σ と判定（σ＜fc）を確認できます。</p>
+        <div class="cta-actions">
+          <a class="cta-btn" href="../assets/footing_stm.xlsx" download>📥 検討用Excelをダウンロード（無料）</a>
+        </div>
+        <p class="cta-note">※ Microsoft Excel（.xlsx）。計算結果は設計者ご自身の責任でご確認のうえご使用ください。</p>
+      </div>
+
+      <div class="note-box">
+        <span class="label">ご利用にあたって</span>
+        <p>本記事とExcelは、ストラット・タイモデルの考え方を理解するための解説資料です。実際の設計では、採用する基準（RC規準ほか）や条件に応じた確認が必要です。Excelの計算結果は設計者ご自身の責任でご確認のうえご使用ください。</p>
+      </div>
+
+      <h2 id="sankou">参考文献</h2>
+      <ul>
+        <li>鉄筋コンクリート構造計算規準・同解説（2024）（日本建築学会）</li>
+        <li>大阪府 構造計算適合性判定 指摘事例集（<a href="https://www.pref.osaka.lg.jp/documents/34495/zentai_1.pdf" target="_blank" rel="noopener">PDF</a>）</li>
+      </ul>
+
+      <h2 id="matome">まとめ</h2>
+      <ul>
+        <li>ストラット・タイモデルは、コンクリート内の力を<strong>ストラット（圧縮＝コンクリート）とタイ（引張＝鉄筋）</strong>のトラスで表す方法。</li>
+        <li>特に<strong>偏心基礎</strong>のフーチングで、力の流れに沿って鉄筋を配置できるのが強み。</li>
+        <li>検討用Excelで、ストラットの<strong>圧縮応力度σが許容値以下（σ＜fc）</strong>かを手早く確認できる。</li>
+      </ul>
+
+      <div class="note-box">
+        <span class="label">あわせて読みたい</span>
+        <p>基礎の基本は「<a href="kiso-kouzou.html">基礎構造とは？直接基礎と杭基礎の違い</a>」、計算の全体像は「<a href="kyoyo-oryokudo.html">許容応力度計算とは？</a>」、鉄筋の配置は<a href="../articles.html#rc-tsugite">継手と定着</a>もどうぞ。</p>
+      </div>
+
+      <div class="article-author">
+        <img src="../assets/profile.png" alt="監修・執筆者 ホッタ ナオト（構造設計一級建築士）" width="76" height="76" loading="lazy">
+        <div class="aa-text">
+          <p class="aa-role">この記事の監修・執筆者</p>
+          <p class="aa-name">ホッタ ナオト</p>
+          <p class="aa-cred">一級建築士・構造設計一級建築士／ゼネコン構造設計部</p>
+          <p class="aa-desc">構造設計・耐震補強・工事監理の実務に10年以上従事。<a href="../about.html#author">プロフィール詳細 ›</a></p>
+        </div>
+      </div>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>基礎構造</h4>
+        <ul>
+          <li><a href="kiso-kouzou.html">基礎構造とは？直接基礎と杭基礎</a></li>
+          <li><a href="n-chi.html">N値と支持層｜ボーリング調査</a></li>
+          <li><a href="../articles.html#kiso-kouzou">基礎構造の記事一覧</a></li>
+        </ul>
+      </div>
+      <div class="tool-banner">
+        <div class="tb-ic">🧮</div>
+        <h4>無料計算ツール</h4>
+        <p>断面性能・ガラス重量などを自動計算。登録不要・無料</p>
+        <a href="../tools/index.html">ツール一覧を見る</a>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
