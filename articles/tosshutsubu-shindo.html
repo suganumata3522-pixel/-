@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
+<title>突出部の水平震度とは？1G・塔屋・地震力の計算方法と検討の無料Excel｜構造設計ナビ</title>
+<meta name="description" content="突出部の水平震度とは、塔屋や屋上突出物に作用する水平地震力の割合で、大地震時相当の水平震度1.0（1G）を考慮します。地震力Q＝Wp×kの求め方、塔屋・看板・水槽・煙突・屋外階段などの該当例、2mを超える片持ち梁の鉛直震度まで解説。検討用Excelを無料ダウンロードできます。">
+<meta property="og:title" content="突出部の水平震度とは？1G・塔屋・地震力の計算方法と検討の無料Excel｜構造設計ナビ">
+<meta property="og:description" content="突出部の水平震度（1G）と地震力の求め方、塔屋・屋上突出物の該当例、鉛直震度をわかりやすく解説。検討用Excelを無料配布。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kouzou-navi.com/articles/tosshutsubu-shindo.html">
+<meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
+<meta property="og:site_name" content="構造設計ナビ">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.kouzou-navi.com/articles/tosshutsubu-shindo.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="../articles.html#kiso">構造力学の基礎</a></li>
+        <li><a href="../articles.html#jitsumu">構造計算の実務</a></li>
+        <li><a href="../tools/index.html">計算ツール</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › <a href="../articles.html#jitsumu">構造計算の実務</a> › 突出部の水平震度</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">構造計算の実務</span>
+        <span>更新日：2026年6月22日</span>
+      </div>
+      <h1>突出部の水平震度とは？1G・塔屋・地震力の計算方法と検討の無料Excel</h1>
+      <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
+
+      <p>この記事では、<strong>突出部の水平震度</strong>とは何か・どう求めるのかを整理し、塔屋や屋上突出物での地震力計算を解説します。記事末では、<strong>突出部の水平震度の検討用Excelを無料ダウンロード</strong>できます。</p>
+
+      <div class="point-box">
+        <span class="label">この記事の要点</span>
+        <ul>
+          <li>建築物の<strong>突出部</strong>とは、塔屋や屋上突出物（架構から2m以上突出する部分）のこと。</li>
+          <li>突出部は<strong>水平震度1.0（1G）</strong>を考慮して地震力を設計する（大地震時相当）。</li>
+          <li>記事末で、<strong>突出部の水平震度の検討用Excelを無料配布</strong>しています。</li>
+        </ul>
+      </div>
+
+      <nav class="toc" aria-label="目次">
+        <div class="toc-ttl">目次</div>
+        <ol>
+          <li><a href="#towa">突出部の水平震度とは？</a></li>
+          <li><a href="#jishinryoku">突出部に作用する地震力の求め方</a></li>
+          <li><a href="#rei">突出部に該当する例</a></li>
+          <li><a href="#yougo">混同しやすい用語の整理</a></li>
+          <li><a href="#hyou">突出部の水平震度のまとめ表</a></li>
+          <li><a href="#excel">検討用Excelの使い方</a></li>
+          <li><a href="#download">検討用Excelの無料ダウンロード</a></li>
+          <li><a href="#matome">まとめ</a></li>
+        </ol>
+      </nav>
+
+      <h2 id="towa">突出部の水平震度とは？</h2>
+      <p><strong>突出部の水平震度</strong>とは、建築物の塔屋や屋上突出物に作用する<strong>水平方向の地震力の割合</strong>のことです。突出部は、この水平震度を考慮して地震力を設計します。</p>
+      <p>突出部とは、屋上に設置される工作物や塔屋、<strong>架構から2m以上飛び出す部分</strong>を指します。これらには<strong>水平震度1.0（＝1G）</strong>が作用すると考えます。通常、建築物に作用するせん断力係数は0.2〜0.3程度、大地震時で1.0を考慮しますが、<strong>突出部は常に大地震時に相当する地震力</strong>を見込むわけです。</p>
+      <div class="point-box">
+        <span class="label">POINT</span>
+        <p>水平震度とは、水平方向に作用する地震力の割合のこと。突出部では <strong>k＝1.0（1G）</strong> を考慮します。なお、<strong>2mを超える片持ち梁（バルコニー・庇など）は鉛直震度</strong>を考慮します（考え方は水平震度と同じで、地震は鉛直方向にも作用するため）。</p>
+      </div>
+
+      <h2 id="jishinryoku">突出部に作用する地震力の求め方</h2>
+      <p>突出部分の重量を <strong>Wp</strong>、水平震度を <strong>k＝1.0</strong> とすると、突出部に作用する地震力 Q は次のとおりです。</p>
+      <div class="formula">
+        Q ＝ Wp × k ＝ Wp × 1.0 ＝ Wp
+      </div>
+      <p>つまり、<strong>突出部の地震力は重量の大きさがそのまま水平力として作用</strong>します。これは想像以上に大きな力です。突出物そのものの部材を確認するだけでなく、<strong>その力を受ける本体構造物（支持する架構・梁・柱）に問題がないか</strong>の検討も必要です。</p>
+
+      <h2 id="rei">突出部に該当する例</h2>
+      <p>突出部に該当する代表例は次のとおりです。</p>
+      <ul>
+        <li><strong>塔屋</strong>（階段室・エレベーター機械室など、屋上に設ける小さな建屋）</li>
+        <li><strong>架構から2m以上突出する工作物</strong>（看板・水槽・煙突・昇降機機械室 など）</li>
+        <li><strong>屋外階段</strong></li>
+      </ul>
+
+      <figure class="article-fig">
+        <img src="../assets/tosshutsubu-rei.png" alt="建築物の突出部の例。塔屋、架構から2m以上突出する工作物（看板・水槽・煙突・昇降機機械室）、屋外階段" loading="lazy" onerror="this.closest('figure').style.display='none'">
+        <figcaption>建築物の突出部（突出部分）の例。塔屋／2m以上突出する工作物／屋外階段。</figcaption>
+      </figure>
+
+      <p>塔屋に該当する場合は突出部として扱います。また、架構から2m以上突出する部分は水平震度を考慮します。たとえば2m以上突出して外壁だけを受ける部分なども、<strong>水平震度1.0を考慮した検討が必要</strong>です。</p>
+
+      <h2 id="yougo">混同しやすい用語の整理</h2>
+      <h3>水平震度と鉛直震度</h3>
+      <p><strong>水平震度</strong>は水平方向の地震力の割合で、突出部では1.0（1G）を考慮します。<strong>鉛直震度</strong>は鉛直方向の地震力の割合で、2mを超える片持ち梁に適用します。どちらも地震時に突出部・片持ち部へ作用しますが、<strong>方向と適用条件</strong>が異なります。</p>
+      <h3>突出部と塔屋</h3>
+      <p><strong>塔屋</strong>は屋上に設ける小さな建屋（階段室・エレベーター機械室など）で、突出部の一種です。<strong>突出部</strong>は架構から2m以上飛び出す工作物・看板・水槽なども含む広い概念で、塔屋はそのうちの一例です。</p>
+
+      <h2 id="hyou">突出部の水平震度のまとめ表</h2>
+      <table class="data">
+        <tr><th>項目</th><th>内容</th><th>備考</th></tr>
+        <tr><td>水平震度</td><td>突出部には水平震度1G（k＝1.0）を考慮</td><td>大地震時相当の地震力</td></tr>
+        <tr><td>鉛直震度</td><td>2mを超える片持ち梁は鉛直震度を考慮</td><td>鉛直方向にも地震力が作用</td></tr>
+        <tr><td>地震力</td><td>Q＝Wp×k＝Wp（k＝1.0）</td><td>重量がそのまま水平力に</td></tr>
+        <tr><td>突出部の例</td><td>塔屋・看板・水槽・煙突・屋外階段など</td><td>架構から2m以上突出する部分</td></tr>
+      </table>
+
+      <h2 id="excel">検討用Excelの使い方</h2>
+      <p>配布するExcelは、<strong>突出部の重量などを入力すると、水平震度（1.0）を考慮した地震力を自動計算</strong>する検討シートです。</p>
+      <ul>
+        <li><strong>STEP1</strong>　入力欄に突出部の重量 Wp などの数値を入力します。</li>
+        <li><strong>STEP2</strong>　数式の入った自動計算欄は触らずにそのままにします。</li>
+        <li><strong>STEP3</strong>　算出された地震力 Q をもとに、突出物および本体構造物への影響を確認します。</li>
+      </ul>
+
+      <h2 id="download">検討用Excelの無料ダウンロード</h2>
+      <div class="cta-box">
+        <span class="cta-label">無料ダウンロード</span>
+        <h3>突出部の水平震度 検討用Excel</h3>
+        <p>上で解説した検討シートを無料でダウンロードできます。突出部の重量を入力するだけで、水平震度を考慮した地震力を確認できます。</p>
+        <div class="cta-actions">
+          <a class="cta-btn" href="../assets/tosshutsubu-shindo.xlsx" download>📥 検討用Excelをダウンロード（無料）</a>
+        </div>
+        <p class="cta-note">※ Microsoft Excel（.xlsx）。計算結果は設計者ご自身の責任でご確認のうえご使用ください。</p>
+      </div>
+
+      <div class="note-box">
+        <span class="label">ご利用にあたって</span>
+        <p>本記事とExcelは、突出部の水平震度の考え方を理解するための解説資料です。実際の設計では、採用する基準（建築基準法・技術基準解説書ほか）や条件に応じた確認が必要です。計算結果は設計者ご自身の責任でご確認のうえご使用ください。</p>
+      </div>
+
+      <h2 id="sankou">参考文献</h2>
+      <ul>
+        <li>建築物の構造関係技術基準解説書（2025年版）</li>
+        <li>大阪府 構造計算適合性判定 指摘事例集（<a href="https://www.pref.osaka.lg.jp/documents/35034/zentai_1.pdf" target="_blank" rel="noopener">PDF</a>）</li>
+      </ul>
+
+      <h2 id="matome">まとめ</h2>
+      <ul>
+        <li>突出部（塔屋・屋上突出物・架構から2m以上突出する部分）は、<strong>水平震度1.0（1G）</strong>を考慮する。</li>
+        <li>地震力は <strong>Q＝Wp×k＝Wp</strong>。重量がそのまま水平力になるため大きい。突出物だけでなく<strong>本体構造</strong>も確認する。</li>
+        <li><strong>2mを超える片持ち梁は鉛直震度</strong>を考慮する。方向と適用条件の違いを押さえる。</li>
+      </ul>
+
+      <div class="note-box">
+        <span class="label">あわせて読みたい</span>
+        <p>地震力の基本は「<a href="jishin-ryoku.html">地震力の計算方法｜Ai分布・Z・Rt・Co</a>」、計算の全体像は「<a href="kyoyo-oryokudo.html">許容応力度計算とは？</a>」、荷重は「<a href="kajuu.html">固定荷重・積載荷重の拾い方</a>」をどうぞ。</p>
+      </div>
+
+      <div class="article-author">
+        <img src="../assets/profile.png" alt="監修・執筆者 ホッタ ナオト（構造設計一級建築士）" width="76" height="76" loading="lazy">
+        <div class="aa-text">
+          <p class="aa-role">この記事の監修・執筆者</p>
+          <p class="aa-name">ホッタ ナオト</p>
+          <p class="aa-cred">一級建築士・構造設計一級建築士／ゼネコン構造設計部</p>
+          <p class="aa-desc">構造設計・耐震補強・工事監理の実務に10年以上従事。<a href="../about.html#author">プロフィール詳細 ›</a></p>
+        </div>
+      </div>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>構造計算の実務</h4>
+        <ul>
+          <li><a href="jishin-ryoku.html">地震力の計算方法</a></li>
+          <li><a href="kajuu.html">固定荷重・積載荷重の拾い方</a></li>
+          <li><a href="kyoyo-oryokudo.html">許容応力度計算とは？</a></li>
+          <li><a href="../articles.html#jitsumu">構造計算の実務 一覧</a></li>
+        </ul>
+      </div>
+      <div class="tool-banner">
+        <div class="tb-ic">🧮</div>
+        <h4>無料計算ツール</h4>
+        <p>断面性能・ガラス重量などを自動計算。登録不要・無料</p>
+        <a href="../tools/index.html">ツール一覧を見る</a>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
