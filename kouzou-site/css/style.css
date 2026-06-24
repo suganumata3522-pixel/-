@@ -1159,6 +1159,10 @@ table.data tr:nth-child(even) td { background: var(--bg-soft); }
 .ad-slot { display: none !important; }
 /* === ADSENSE-REVIEW-HIDE END === */
 
+/* 準備中ボタン（リンク先が未設定の擬似ボタン。空リンクを排除しつつ体裁を維持） */
+.btn-soon { opacity: .55; cursor: default; pointer-events: none; }
+.btn-soon::after { content: "（準備中）"; font-size: .8em; }
+
 /* 計算ツールのヒント文 */
 .tool-hint { font-size: 0.82rem; color: var(--sub); margin: -6px 0 14px; line-height: 1.7; background: var(--accent-soft); border-radius: 8px; padding: 9px 12px; }
 
