@@ -497,6 +497,9 @@ a:hover { text-decoration: underline; }
 .article-main p { margin-bottom: 16px; }
 .article-main ul, .article-main ol { margin: 0 0 16px 1.4em; }
 .article-main li { margin-bottom: 6px; }
+.article-main ol.merit-list { margin: 0 0 20px 1.4em; }
+.article-main ol.merit-list > li { margin-bottom: 14px; line-height: 1.8; }
+.article-main ol.merit-list > li::marker { font-weight: 700; color: var(--navy); }
 
 .diagram {
   background: #fff;
