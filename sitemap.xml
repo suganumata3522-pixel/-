@@ -962,7 +962,12 @@
   </url>
   <url>
     <loc>https://www.kouzou-navi.com/articles/rc-zou.html</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-25</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.kouzou-navi.com/articles/tekkin-shurui.html</loc>
+    <lastmod>2026-06-26</lastmod>
     <priority>0.7</priority>
   </url>
   <url>

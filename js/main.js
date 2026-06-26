@@ -172,6 +172,7 @@ document.addEventListener('DOMContentLoaded', function () {
     { title: '外法一定H形鋼とは？JIS H形鋼との違い・規格', url: 'articles/sotonori-ittei.html', keywords: '外法一定H形鋼 そとのりいってい 外法 スーパーハイスレンド SuperHISLEND 日本製鉄 新日鉄住金 JIS H形鋼 違い 規格 納まり 梁天端 板厚' },
     { title: 'T形鋼とは？意味・用途・規格と寸法・断面係数', url: 'articles/t-katako.html', keywords: 'T形鋼 ティー形鋼 意味 用途 規格 寸法 断面係数 CT形鋼 圧延T形鋼 トラス 弦材 中立軸 偏心 T字' },
     { title: '鉄筋コンクリート造（RC造）とは？鉄筋とコンクリートの役割分担', url: 'articles/rc-zou.html', keywords: 'RC造 鉄筋コンクリート 壁式構造 ラーメン かぶり厚さ 中性化 付着 Fc コンクリート 鉄筋' },
+    { title: '鉄筋の種類とは？丸鋼・異形棒鋼（SR・SD）と呼び名・圧延マーク', url: 'articles/tekkin-shurui.html', keywords: '鉄筋 種類 丸鋼 異形棒鋼 異形鉄筋 SR SD SR235 SD295 SD345 SD390 SD490 降伏点強度 呼び名 D6 D10 D13 D25 D51 リブ 節 圧延マーク 色別塗色 Fc 組合せ JIS G3112 棒鋼' },
     { title: 'RCとは何の略？RC造の意味・特徴とS造との違い', url: 'articles/rc-toha.html', keywords: 'RC とは 何の略 Reinforced Concrete 鉄筋コンクリート 意味 特徴 S造 違い 比較' },
     { title: 'RC造の耐震性と特徴｜なぜ地震に強いのか', url: 'articles/rc-taishin.html', keywords: 'RC造 耐震性 地震 剛性 じん性 粘り 耐震壁 あばら筋 帯筋 フープ せん断破壊 曲げ先行' },
     { title: 'コンクリートの弱点とは？引張の弱さ・劣化とひび割れの種類・対策', url: 'articles/concrete-jakuten.html', keywords: 'コンクリート 弱点 引張 劣化 中性化 塩害 凍害 アルカリ骨材反応 ひび割れ 乾燥収縮 水セメント比 かぶり厚さ' },

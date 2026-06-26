@@ -584,6 +584,7 @@ table.data th, table.data td {
 }
 table.data th { background: var(--navy); color: #fff; font-weight: 600; }
 table.data tr:nth-child(even) td { background: var(--bg-soft); }
+table.data caption { caption-side: top; text-align: left; font-weight: 700; color: var(--navy); margin-bottom: 8px; font-size: 0.9rem; }
 
 /* ---------- サイドバー ---------- */
 .sidebar { display: flex; flex-direction: column; gap: 24px; }
