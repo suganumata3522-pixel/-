@@ -1134,6 +1134,7 @@ table.data caption { caption-side: top; text-align: left; font-weight: 700; colo
 .ad-disclosure { font-size: 0.8rem; color: var(--sub); background: #f4f7fa; border: 1px solid #e3e9ef; border-radius: 8px; padding: 10px 14px; margin: 0 0 20px; line-height: 1.7; }
 .book-list { display: flex; flex-direction: column; gap: 18px; margin: 24px 0; }
 .book-card { display: grid; grid-template-columns: 112px 1fr; gap: 18px; border: 1px solid #e3e9ef; border-radius: 14px; padding: 20px 22px; background: #fff; box-shadow: 0 2px 10px rgba(20,40,60,0.04); }
+.book-card.no-cover { grid-template-columns: 1fr; }
 .book-cover { position: relative; display: block; align-self: start; }
 .book-cover img { width: 100%; height: auto; border-radius: 6px; box-shadow: 0 3px 12px rgba(20,40,60,0.18); display: block; background: #f4f7fa; }
 .book-rank { position: absolute; top: -9px; left: -9px; width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(135deg, var(--navy), var(--navy-deep)); color: #fff; font-weight: 900; font-size: 0.95rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(20,40,60,0.3); }

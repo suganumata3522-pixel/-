@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
+<title>RC造の構造計算ルートとは？ルート1・2・3の違いと判定をわかりやすく解説｜構造設計ナビ</title>
+<meta name="description" content="鉄筋コンクリート造（RC造）の構造計算ルート（設計ルート）を、はじめての方にもわかるよう図解で丁寧に解説。ルート1・2・3の違い、許容応力度計算・剛性率・偏心率・層間変形角・保有水平耐力計算、構造計算適合性判定（構適判）の要否、各ルートの比較表、実務での注意点とよくある質問、法的根拠まで整理。計算書に使える設計ルート判定Excelを無料ダウンロードできます。">
+<meta property="og:title" content="RC造の構造計算ルートとは？ルート1・2・3の違いと判定をわかりやすく解説｜構造設計ナビ">
+<meta property="og:description" content="RC造の構造計算ルート1・2・3の違い・選び方・判定の流れを図解で解説。剛性率・偏心率・層間変形角・保有水平耐力計算・構造計算適合性判定の要否、比較表、Q&Aまで。計算書に使える判定Excelを無料配布。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kouzou-navi.com/articles/rc-keisan-route.html">
+<meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
+<meta property="og:site_name" content="構造設計ナビ">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.kouzou-navi.com/articles/rc-keisan-route.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="../articles.html#kiso">構造力学の基礎</a></li>
+        <li><a href="../articles.html#jitsumu">構造計算の実務</a></li>
+        <li><a href="../tools/index.html">計算ツール</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › <a href="../articles.html#jitsumu">構造計算の実務</a> › RC造の構造計算ルート</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">構造計算の実務</span>
+        <span>更新日：2026年6月29日</span>
+      </div>
+      <h1>RC造の構造計算ルートとは？ルート1・2・3の違いと判定をわかりやすく解説</h1>
+      <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
+
+      <p>鉄筋コンクリート造（RC造）の構造設計では、建物の規模や特性に応じて「<strong>構造計算ルート</strong>」を選びます。ルート1・2・3のどれを通すかで、必要な検討項目・計算量・構造計算適合性判定の要否が変わります。この記事では、各ルートの違い・選び方・判定の流れを、はじめての方にもわかるように図解で丁寧に解説します。記事末では、<strong>計算書に使えるRC造の設計ルート判定Excelを無料ダウンロード</strong>できます。</p>
+
+      <div class="point-box">
+        <span class="label">この記事の要点</span>
+        <ul>
+          <li>構造計算ルートとは、<strong>大地震に対する安全性をどう確認するか</strong>の手順の選択肢。RC造はルート1・2・3。</li>
+          <li>ルートが上がる（1→3）ほど検討は厳密になり、適用できる建物の規模も大きくなる。</li>
+          <li><strong>ルート3は構造計算適合性判定（構適判）が必要</strong>。ルート2も一定条件で必要、ルート1は不要。</li>
+        </ul>
+      </div>
+
+      <nav class="toc" aria-label="目次">
+        <div class="toc-ttl">目次</div>
+        <ol>
+          <li><a href="#towa">構造計算ルートとは？（一次設計と二次設計）</a></li>
+          <li><a href="#zentai">RC造の設計ルート全体像（ルート1・2・3）</a></li>
+          <li><a href="#route1">ルート1｜許容応力度計算＋壁量・柱量の確保</a></li>
+          <li><a href="#route2">ルート2｜剛性率・偏心率・層間変形角の確認</a></li>
+          <li><a href="#route3">ルート3｜保有水平耐力計算</a></li>
+          <li><a href="#erabikata">ルートの選び方と判定の流れ</a></li>
+          <li><a href="#hikaku">各ルートの比較表</a></li>
+          <li><a href="#faq">実務での注意点とよくある質問</a></li>
+          <li><a href="#konkyo">法的根拠</a></li>
+          <li><a href="#excel">設計ルート判定Excelの無料ダウンロード</a></li>
+          <li><a href="#matome">まとめ</a></li>
+        </ol>
+      </nav>
+
+      <h2 id="towa">構造計算ルートとは？（一次設計と二次設計）</h2>
+      <p>建築物の構造計算は、大きく2段階で安全性を確かめます。</p>
+      <ul>
+        <li><strong><a href="ichiji-sekkei.html">一次設計</a>（<a href="kyoyo-oryokudo.html">許容応力度計算</a>）</strong>…数十年に一度程度の「中地震」に対し、部材の応力が<strong>許容応力度以内</strong>で、建物が損傷しないことを確認する。</li>
+        <li><strong><a href="niji-sekkei.html">二次設計</a>（大地震に対する検討）</strong>…数百年に一度級の「大地震」に対し、建物が<strong>倒壊・崩壊しない</strong>ことを確認する。</li>
+      </ul>
+      <p>この<strong>二次設計を“どの方法で”確認するか</strong>の違いが、ルート1・2・3です。ルートが上がるほど、地震時の挙動をより直接的・厳密に検証します。</p>
+
+      <h2 id="zentai">RC造の設計ルート全体像（ルート1・2・3）</h2>
+      <p>RC造の構造計算ルートは、二次設計の確認方法によって次の3つに分かれます。まずは全体像をつかみましょう。</p>
+
+      <figure class="article-fig">
+        <img src="../assets/rc-keisan-route.png" alt="RC造の構造計算ルート（ルート1・ルート2・ルート3）の判定フロー図。許容応力度計算から、壁量・柱量の確保、剛性率・偏心率・層間変形角の確認、保有水平耐力計算へ進む流れ" loading="lazy" onerror="this.closest('figure').style.display='none'">
+        <figcaption>RC造の設計ルート（構造計算ルート）の全体像。二次設計の確認方法でルート1・2・3に分かれる。</figcaption>
+      </figure>
+
+      <table class="data">
+        <tr><th>ルート</th><th>二次設計の確認方法</th><th>適用の目安</th><th>構適判</th></tr>
+        <tr><td>ルート1</td><td>壁量・柱量の確保で代替</td><td>小規模・低層の建物</td><td>不要</td></tr>
+        <tr><td>ルート2</td><td>剛性率・偏心率・層間変形角＋靭性確保</td><td>中規模の建物</td><td>一部必要</td></tr>
+        <tr><td>ルート3</td><td>保有水平耐力計算</td><td>規模・高さの大きい建物</td><td>必要</td></tr>
+      </table>
+      <p class="cta-note">※ 具体的な高さ・階数などの適用条件は「<a href="#hikaku">各ルートの比較表</a>」と「<a href="#konkyo">法的根拠</a>」を参照してください。高さ60mを超える建物は<a href="choukousou.html">時刻歴応答解析（大臣認定ルート）</a>になります。</p>
+
+      <h2 id="route1">ルート1｜許容応力度計算＋壁量・柱量の確保</h2>
+      <p>小規模な建物で使える、もっとも簡便なルートです。許容応力度計算（一次設計）に加えて、<strong>各階に十分な耐力壁・柱の断面積を確保</strong>することで、保有水平耐力計算などの二次設計を省略します。</p>
+      <p>考え方はシンプルで、<strong>壁・柱が十分にあれば、大地震時の地震力も弾性的に受け止められる</strong>とみなすものです。代表的な確認式（イメージ）は次のとおりです。</p>
+      <div class="formula">
+        Σ(2.5 × Aw) ＋ Σ(0.7 × Ac) ≧ Z・W・Ai
+      </div>
+      <p>ここで Aw＝耐力壁の水平断面積、Ac＝柱の水平断面積、Z＝<a href="jishin-ryoku.html">地域係数</a>、W＝重量、Ai＝高さ方向の分布係数です（係数はコンクリート強度などにより告示で規定されます）。</p>
+      <ul>
+        <li><strong>メリット</strong>：計算が簡便で、構造計算適合性判定が不要。</li>
+        <li><strong>デメリット</strong>：壁量・柱量の制約が厳しく、大きな建物や開放的なプランには不向き。</li>
+      </ul>
+
+      <h2 id="route2">ルート2｜剛性率・偏心率・層間変形角の確認</h2>
+      <p>中規模の建物向けのルートです。許容応力度計算に加えて、<strong>建物のバランスと変形</strong>を確認します。</p>
+      <ul>
+        <li><strong>層間変形角 ≦ 1/200</strong>…地震時の各階の変形が過大でないことを確認する。</li>
+        <li><strong>剛性率 ≧ 0.6</strong>…高さ方向で硬さが極端に偏っていないこと（特定階への損傷集中を防ぐ）。</li>
+        <li><strong>偏心率 ≦ 0.15</strong>…平面的に剛性が偏っていないこと（ねじれ破壊を防ぐ）。</li>
+      </ul>
+      <p>あわせて、柱・梁・耐力壁の<strong>せん断破壊を防ぐ靭性確保（せん断設計）</strong>を行います。ルート2は構造形式により<strong>ルート2-1・2-2・2-3</strong>などに細分されます。</p>
+
+      <h2 id="route3">ルート3｜保有水平耐力計算</h2>
+      <p>規模・高さの大きい建物や、ルート1・2の条件を満たさない場合に用いるルートです。大地震に対する建物の<strong>粘り（保有水平耐力）</strong>を直接計算して確かめます。</p>
+      <div class="formula">
+        Qu ≧ Qun　（必要保有水平耐力）　Qun ＝ Ds・Fes・Qud
+      </div>
+      <p>ここで Qu＝保有水平耐力、Ds＝構造特性係数（靭性が高いほど小さくできる）、Fes＝形状係数（剛性率・偏心率に応じた割増）、Qud＝大地震時の地震層せん断力です。崩壊メカニズムを想定し、各部材が<strong>脆性破壊せず粘り強く壊れる（曲げ降伏先行・せん断破壊回避）</strong>ように設計します。もっとも自由度が高い反面、検討は大規模で、構造計算適合性判定が必要です。</p>
+
+      <h2 id="erabikata">ルートの選び方と判定の流れ</h2>
+      <ul>
+        <li>まず<strong>建物の高さ・階数・形状</strong>で、適用可能なルートを絞り込む。</li>
+        <li>小規模で壁量が確保できる → <strong>ルート1</strong>。バランス確認で成立 → <strong>ルート2</strong>。それ以外・大規模 → <strong>ルート3</strong>。</li>
+        <li><strong>ルート3は構造計算適合性判定の対象</strong>。ルート2も一定条件で対象、ルート1は対象外（ただし許容応力度計算は必須）。</li>
+        <li>材料選定の考え方（梁断面を小さくしたいなら高強度鉄筋、柱断面を小さくしたいなら高強度コンクリート）ともあわせて検討します（→「<a href="rc-zou.html">RC造とは？</a>」「<a href="tekkin-shurui.html">鉄筋の種類</a>」）。</li>
+      </ul>
+
+      <h2 id="hikaku">各ルートの比較表</h2>
+      <p>ルート1・2・3の違いを一覧で整理すると次のとおりです。</p>
+      <table class="data">
+        <tr><th>項目</th><th>ルート1</th><th>ルート2</th><th>ルート3</th></tr>
+        <tr><td>計算内容</td><td>仕様規定のみ</td><td>許容応力度＋剛性率・偏心率</td><td>ルート2＋保有水平耐力</td></tr>
+        <tr><td>高さ制限</td><td>13m以下（目安）</td><td>31m以下</td><td>制限なし（60m超は別途）</td></tr>
+        <tr><td>構造計算適合性判定</td><td>不要</td><td>不要（一部必要）</td><td>必要</td></tr>
+        <tr><td>計算の複雑さ</td><td>低</td><td>中</td><td>高</td></tr>
+        <tr><td>設計の自由度</td><td>低</td><td>中</td><td>高</td></tr>
+        <tr><td>実務での使用頻度</td><td>低</td><td>高（最多）</td><td>中</td></tr>
+      </table>
+
+      <h2 id="faq">実務での注意点とよくある質問</h2>
+
+      <h3>Q1. ルート2とルート3、どちらを選ぶべきか？</h3>
+      <p>原則は<strong>ルート2での設計を目指すこと</strong>を推奨します。ルート2はルート3に比べて計算量が少なく、<strong>構造計算適合性判定（いわゆる「構適判」）が不要なケースが多い</strong>ためです。ただし、平面・立面に<strong>形状的な不整形がある場合</strong>はルート3が必要になります。</p>
+
+      <h3>Q2. 構造計算適合性判定（構適判）はどのルートで必要？</h3>
+      <p>原則として<strong>ルート3（保有水平耐力計算）以上</strong>の計算を行う場合に、構造計算適合性判定機関による審査が必要です。<strong>ルート2でも、高さ20mを超えるRC造など一定の条件</strong>で必要となります。</p>
+
+      <h3>Q3. 剛性率・偏心率がNGになった場合は？</h3>
+      <p>以下の対応策が考えられます。</p>
+      <ul>
+        <li>耐震壁の追加・移動による<strong>バランス改善</strong></li>
+        <li>柱・梁<strong>断面の見直し</strong></li>
+        <li><strong>ルート3への移行</strong>（形状係数 Fes を用いて保有水平耐力で確認する）</li>
+      </ul>
+
+      <h3>Q4. 免震構造の場合はどのルートになる？</h3>
+      <p>免震構造は通常の設計ルートとは別に、<strong>大臣認定に基づく特別な計算方法</strong>が適用されます。<strong>限界耐力計算または時刻歴応答解析との組み合わせ</strong>が一般的です。</p>
+
+      <h2 id="konkyo">法的根拠</h2>
+      <p>RC造の構造計算ルートの根拠となる主な法令・基準は次のとおりです。</p>
+      <table class="data">
+        <tr><th>根拠法令</th><th>条項</th></tr>
+        <tr><td>建築基準法施行令</td><td>第81条</td></tr>
+        <tr><td>国土交通省告示</td><td>第593号（平成19年）</td></tr>
+        <tr><td>建築物の構造関係技術基準解説書（黄色本）</td><td>最新版参照</td></tr>
+      </table>
+
+      <p class="ad-disclosure">本記事はアフィリエイト広告（楽天ブックス）を含みます。価格・版（エディション）は変動するため、最新情報は販売サイトでご確認ください。</p>
+      <div class="book-card no-cover">
+        <div class="book-body">
+          <h3>建築物の構造関係技術基準解説書（黄色本）</h3>
+          <p class="book-meta">監修：国土交通省国土技術政策総合研究所 ほか｜構造設計実務の必携書（通称「黄色本」）</p>
+          <p>構造計算ルートの判定や許容応力度計算・保有水平耐力計算の根拠が体系的にまとめられた、構造設計の<strong>実務の拠り所</strong>となる解説書です。法令・告示と一体で参照されるため、最新版を1冊手元に置いておくことを強くおすすめします。</p>
+          <div class="book-actions">
+            <a class="book-btn rakuten" href="https://rpx.a8.net/svt/ejp?a8mat=3ZHHOE+C4ERYY+2HOM+BWGDT&amp;rakuten=y&amp;a8ejpredirect=https%3A%2F%2Fhb.afl.rakuten.co.jp%2Fhgc%2Fg00q0724.2bo11c45.g00q0724.2bo12179%2Fa24100109160_3ZHHOE_C4ERYY_2HOM_BWGDT%3Fpc%3Dhttps%253A%252F%252Fbooks.rakuten.co.jp%252Fsearch%252F%253Fsitem%253D%2525E5%2525BB%2525BA%2525E7%2525AF%252589%2525E7%252589%2525A9%2525E3%252581%2525AE%2525E6%2525A7%25258B%2525E9%252580%2525A0%2525E9%252596%2525A2%2525E4%2525BF%252582%2525E6%25258A%252580%2525E8%2525A1%252593%2525E5%25259F%2525BA%2525E6%2525BA%252596%2525E8%2525A7%2525A3%2525E8%2525AA%2525AC%2525E6%25259B%2525B8%26m%3Dhttps%253A%252F%252Fbooks.rakuten.co.jp%252Fsearch%252F%253Fsitem%253D%2525E5%2525BB%2525BA%2525E7%2525AF%252589%2525E7%252589%2525A9%2525E3%252581%2525AE%2525E6%2525A7%25258B%2525E9%252580%2525A0%2525E9%252596%2525A2%2525E4%2525BF%252582%2525E6%25258A%252580%2525E8%2525A1%252593%2525E5%25259F%2525BA%2525E6%2525BA%252596%2525E8%2525A7%2525A3%2525E8%2525AA%2525AC%2525E6%25259B%2525B8%26rafcid%3Dwsc_i_is_a9f492a7-8ef9-40e2-ab89-4bc43a1ee283" rel="sponsored nofollow noopener" target="_blank">楽天ブックスで見る</a>
+          </div>
+          <img class="a8-imp" src="https://www19.a8.net/0.gif?a8mat=3ZHHOE+C4ERYY+2HOM+BWGDT" alt="" width="1" height="1">
+        </div>
+      </div>
+
+      <h2 id="excel">設計ルート判定Excelの無料ダウンロード</h2>
+      <div class="cta-box">
+        <span class="cta-label">無料ダウンロード</span>
+        <h3>RC造 設計ルート判定Excel</h3>
+        <p>建物条件を入力すると、適用できる構造計算ルートの判定に使えるシートです。計算書の添付資料としてもご活用いただけます。</p>
+        <div class="cta-actions">
+          <a class="cta-btn" href="../assets/rc-keisan-route.xlsx" download>📥 設計ルート判定Excelをダウンロード（無料）</a>
+        </div>
+        <p class="cta-note">※ Microsoft Excel（.xlsx）。判定結果は設計者ご自身の責任でご確認のうえご使用ください。</p>
+      </div>
+
+      <div class="note-box">
+        <span class="label">ご利用にあたって</span>
+        <p>本記事とExcelは、RC造の構造計算ルートの考え方を理解するための解説資料です。実際の設計では、採用する基準（建築基準法施行令・関連告示・建築物の構造関係技術基準解説書ほか）や条件に応じた確認が必要です。計算結果は設計者ご自身の責任でご確認のうえご使用ください。</p>
+      </div>
+
+      <h2 id="matome">まとめ</h2>
+      <ul>
+        <li>RC造の構造計算ルートは<strong>1・2・3</strong>で、二次設計（大地震への確認）の方法が違う。</li>
+        <li>ルート1＝壁量・柱量で代替／ルート2＝剛性率・偏心率・層間変形角／ルート3＝保有水平耐力計算。</li>
+        <li>実務では<strong>ルート2が最多</strong>。形状の不整形などがあればルート3へ。</li>
+        <li><strong>ルート3は構適判が必要</strong>、ルート2も一定条件で必要。規模・高さ・形状でルートを選ぶ。</li>
+      </ul>
+
+      <div class="note-box">
+        <span class="label">あわせて読みたい</span>
+        <p>基礎は「<a href="rc-zou.html">鉄筋コンクリート造（RC造）とは？</a>」、計算の前提は「<a href="kyoyo-oryokudo.html">許容応力度計算とは？</a>」「<a href="jishin-ryoku.html">地震力の計算方法</a>」、超高層は「<a href="choukousou.html">超高層建築物と時刻歴応答解析</a>」をどうぞ。</p>
+      </div>
+
+      <div class="article-author">
+        <img src="../assets/profile.png" alt="監修・執筆者 ホッタ ナオト（構造設計一級建築士）" width="76" height="76" loading="lazy">
+        <div class="aa-text">
+          <p class="aa-role">この記事の監修・執筆者</p>
+          <p class="aa-name">ホッタ ナオト</p>
+          <p class="aa-cred">一級建築士・構造設計一級建築士／ゼネコン構造設計部</p>
+          <p class="aa-desc">構造設計・耐震補強・工事監理の実務に10年以上従事。<a href="../about.html#author">プロフィール詳細 ›</a></p>
+        </div>
+      </div>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>構造計算の実務</h4>
+        <ul>
+          <li><a href="kyoyo-oryokudo.html">許容応力度計算とは？</a></li>
+          <li><a href="jishin-ryoku.html">地震力の計算方法</a></li>
+          <li><a href="rc-zou.html">鉄筋コンクリート造（RC造）とは？</a></li>
+          <li><a href="../articles.html#jitsumu">構造計算の実務 一覧</a></li>
+        </ul>
+      </div>
+      <div class="tool-banner">
+        <div class="tb-ic">🧮</div>
+        <h4>無料計算ツール</h4>
+        <p>断面性能・ガラス重量などを自動計算。登録不要・無料</p>
+        <a href="../tools/index.html">ツール一覧を見る</a>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "ルート2とルート3、どちらを選ぶべきか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "原則はルート2での設計を目指すことを推奨します。ルート2はルート3に比べて計算量が少なく、構造計算適合性判定（構適判）が不要なケースが多いためです。ただし、形状的な不整形がある場合はルート3が必要になります。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "構造計算適合性判定（構適判）はどのルートで必要？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "原則としてルート3（保有水平耐力計算）以上の計算を行う場合に、構造計算適合性判定機関による審査が必要です。ルート2でも、高さ20mを超えるRC造など一定の条件で必要となります。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "剛性率・偏心率がNGになった場合は？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "耐震壁の追加・移動によるバランス改善、柱・梁断面の見直し、ルート3への移行（形状係数Fesを用いて保有水平耐力で確認）といった対応策が考えられます。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "免震構造の場合はどのルートになる？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "免震構造は通常の設計ルートとは別に、大臣認定に基づく特別な計算方法が適用されます。限界耐力計算または時刻歴応答解析との組み合わせが一般的です。"
+      }
+    }
+  ]
+}
+</script>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
