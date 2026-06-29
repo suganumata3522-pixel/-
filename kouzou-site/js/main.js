@@ -51,6 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
     { title: 'はりの公式一覧｜反力・せん断力・曲げモーメント・たわみ', url: 'articles/hari-koushiki.html', keywords: 'はり 梁 公式 一覧 反力 せん断力 曲げモーメント たわみ 片持ち梁 単純梁 両端固定 一端ピン他端固定 はね出し 集中荷重 等分布荷重 三角形分布 偏心 PL/4 wL2/8 PL3/48EI 早見表 構造モデル' },
     { title: 'ラーメン構造とブレース構造の違いとは？特徴と使い分けを解説', url: 'articles/rahmen-brace.html', keywords: 'ラーメン構造 ブレース構造 筋かい 剛接合 ピン接合 水平力 構造形式' },
     { title: '許容応力度計算とは？構造計算ルートの全体像をやさしく解説', url: 'articles/kyoyo-oryokudo.html', keywords: '許容応力度 構造計算 ルート1 ルート2 ルート3 一次設計 二次設計 保有水平耐力 剛性率 偏心率' },
+    { title: 'RC造の構造計算ルートとは？ルート1・2・3の違いと判定', url: 'articles/rc-keisan-route.html', keywords: 'RC造 構造計算ルート 設計ルート ルート1 ルート2 ルート3 許容応力度計算 保有水平耐力計算 層間変形角 剛性率 偏心率 Ds Fes 壁量 柱量 構造計算適合性判定 構適判 免震 施行令81条 告示593号 技術基準解説書 黄色本 鉄筋コンクリート 比較表 Excel' },
     { title: '反力の求め方｜つり合い式の立て方を例題でわかりやすく解説', url: 'articles/hanryoku.html', keywords: '反力 支点 ローラー ピン 固定 つり合い ΣM=0 モーメント 例題' },
     { title: '座屈とは？オイラーの公式と座屈長さをわかりやすく解説', url: 'articles/zakutsu.html', keywords: '座屈 オイラー 座屈長さ 座屈荷重 細長比 圧縮 λ 断面二次半径' },
     { title: '不静定構造とは？静定・不静定の判別式をわかりやすく解説', url: 'articles/fuseitei.html', keywords: '不静定 静定 不安定 判別式 不静定次数 m=n+s+r-2k 冗長性' },
