@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
     { title: '座屈とは？オイラーの公式と座屈長さをわかりやすく解説', url: 'articles/zakutsu.html', keywords: '座屈 オイラー 座屈長さ 座屈荷重 細長比 圧縮 λ 断面二次半径' },
     { title: '不静定構造とは？静定・不静定の判別式をわかりやすく解説', url: 'articles/fuseitei.html', keywords: '不静定 静定 不安定 判別式 不静定次数 m=n+s+r-2k 冗長性' },
     { title: '固有周期と共振とは？建物の揺れの基礎をわかりやすく解説', url: 'articles/koyu-shuki.html', keywords: '固有周期 共振 振動 長周期地震動 卓越周期 減衰 T=2π√(m/k)' },
-    { title: '力とは？移動・回転・変形を起こす作用', url: 'articles/chikara.html', keywords: '力 ちから 移動 回転 変形 作用 構造力学 単位 ニュートン N 荷重 外力 内力' },
+    { title: '力とは？移動・回転・変形を起こす作用', url: 'articles/chikara.html', keywords: '力 ちから 移動 回転 変形 作用 構造力学 単位 ニュートン N kN 荷重 外力 内力 力の3要素 大きさ 向き 作用点 ベクトル 合成 分解 モーメント 釣り合い つり合い ΣF ΣM フックの法則 応力 ひずみ ヤング係数 仕事 エネルギー' },
     { title: '力の3要素｜大きさ・向き・作用点', url: 'articles/chikara-3youso.html', keywords: '力の3要素 大きさ 向き 方向 作用点 作用線 ベクトル 構造力学' },
     { title: '力の合成｜平行四辺形と計算', url: 'articles/chikara-gousei.html', keywords: '力の合成 合力 平行四辺形 ベクトル 計算 余弦定理 成分' },
     { title: '3つの力の合力の求め方・作図', url: 'articles/mittsu-gouryoku.html', keywords: '3つの力 合力 求め方 作図 示力図 力の多角形 平行四辺形 成分計算' },
