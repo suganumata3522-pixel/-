@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
-<title>力とは？移動・回転・変形を起こす作用と構造力学の出発点｜構造設計ナビ</title>
-<meta name="description" content="力とは何かをわかりやすく解説。物体に移動・回転・変形を起こす作用としての力の意味、単位ニュートン（N）、構造力学で扱う荷重・反力・内力との関係をまとめます。">
-<meta property="og:title" content="力とは？移動・回転・変形を起こす作用と構造力学の出発点｜構造設計ナビ">
-<meta property="og:description" content="力の意味（移動・回転・変形を起こす作用）、単位N、構造力学での荷重・反力・内力との関係を解説します。">
+<title>力とは？移動・回転・変形を起こす作用をわかりやすく解説【構造力学の基礎】｜構造設計ナビ</title>
+<meta name="description" content="力とは何かを構造力学の基礎としてわかりやすく解説。物体に移動・回転・変形を起こす作用としての力の定義、力の3要素（大きさ・向き・作用点）、力がもたらす3つの作用、ベクトルによる合成・分解、モーメント、力の釣り合い（ΣFx=0・ΣFy=0・ΣM=0）、建築・土木の荷重の種類まで、図解と公式で丁寧にまとめます。">
+<meta property="og:title" content="力とは？移動・回転・変形を起こす作用をわかりやすく解説【構造力学の基礎】｜構造設計ナビ">
+<meta property="og:description" content="力の定義・3要素・3つの作用（移動・回転・変形）、ベクトルの合成と分解、モーメント、力の釣り合い、建築土木の荷重の種類まで、構造力学の出発点を図解で解説します。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://www.kouzou-navi.com/articles/chikara.html">
 <meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
@@ -52,46 +52,256 @@
     <article class="article-main">
       <div class="meta">
         <span class="tag">構造力学の基礎</span>
-        <span>更新日：2026年6月15日</span>
+        <span>更新日：2026年6月30日</span>
       </div>
-      <h1>力とは？移動・回転・変形を起こす作用</h1>
+      <h1>力とは？移動・回転・変形を起こす作用をわかりやすく解説【構造力学の基礎】</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
-      <p><strong>力（ちから）</strong>とは、物体に作用して<strong>移動（並進）・回転・変形</strong>を起こす作用のことです。構造力学は「建物にどんな力が働き、どう伝わるか」を考える学問で、力の理解がすべての出発点になります。</p>
 
-      <h2>力が起こす3つの作用</h2>
+      <p><strong>「力」</strong>とは、物体に<strong>移動・回転・変形</strong>を起こす作用のことです。私たちの日常にも、重力・風・水圧などさまざまな「力」が存在します。建築・土木の構造設計においても、力の概念は<strong>すべての計算の出発点</strong>となる、もっとも基礎的な知識です。</p>
+      <p>この記事では、次の内容をできるだけわかりやすく・丁寧に解説します。</p>
       <ul>
-        <li><strong>移動（並進）</strong>：物体全体を動かす。</li>
-        <li><strong>回転</strong>：物体を回す（→<a href="moment.html">力のモーメント</a>）。</li>
-        <li><strong>変形</strong>：物体の形を変える（伸び・縮み・たわみ）。</li>
+        <li>力の定義と3要素</li>
+        <li>力がもたらす3つの作用（移動・回転・変形）</li>
+        <li>力のベクトル表現と合成・分解</li>
+        <li>モーメントとは何か</li>
+        <li>建築・土木における力の実例</li>
       </ul>
-      <p>建物は動いたり倒れたりしては困るので、力が<a href="hanryoku.html">つり合う</a>ように設計します。</p>
-
-      <h2>力の単位</h2>
-      <div class="formula">
-        力の単位＝ニュートン（N）　／　1N ＝ 1kg·m/s²
-        <span class="note">質量1kgの物体に働く重力は約9.8N。1kN＝1000N</span>
+      <div class="point-box">
+        <span class="label">この記事のねらい</span>
+        <p>構造力学をこれから学ぶ方、復習したい方にも最適な<strong>入門記事</strong>です。「移動・回転・変形」という3つの作用を軸に、力の全体像をつかみましょう。</p>
       </div>
 
-      <h2>構造力学で扱う力</h2>
+      <nav class="toc" aria-label="目次">
+        <div class="toc-ttl">目次</div>
+        <ol>
+          <li><a href="#towa">力とは何か？定義と基本概念</a></li>
+          <li><a href="#youso">力の3要素</a></li>
+          <li><a href="#sayou">力がもたらす3つの作用</a></li>
+          <li><a href="#vector">力の表し方（ベクトル）</a></li>
+          <li><a href="#gousei">力の合成と分解</a></li>
+          <li><a href="#moment">モーメントとは？（回転を起こす力）</a></li>
+          <li><a href="#tsuriai">力の釣り合いとは？</a></li>
+          <li><a href="#kajuu">建築・土木における力の種類</a></li>
+          <li><a href="#faq">よくある質問</a></li>
+          <li><a href="#matome">まとめ</a></li>
+        </ol>
+      </nav>
+
+      <h2 id="towa">1. 力とは何か？定義と基本概念</h2>
+      <figure class="article-fig">
+        <img src="../assets/chikara-zu1.png" alt="力の定義の図解。物体に作用する力が移動・回転・変形を起こすイメージ" loading="lazy" onerror="this.closest('figure').style.display='none'">
+        <figcaption>図1　力とは、物体に移動・回転・変形を起こす作用。</figcaption>
+      </figure>
+      <p><strong>力（ちから）</strong>とは、<strong>物体に移動・回転・変形のいずれか（またはその組み合わせ）を生じさせる作用</strong>のことです。物理学では、力はニュートンの運動の法則に基づいて定義されます。</p>
+      <div class="formula">
+        F ＝ m・a
+        <span class="note">F：力（N〔ニュートン〕）　m：質量（kg）　a：加速度（m/s²）</span>
+      </div>
+
+      <h3>力の単位</h3>
+      <p>構造設計の実務では、次の単位が使われます。</p>
       <table class="data">
-        <tr><th>種類</th><th>内容</th></tr>
-        <tr><td><a href="gairyoku.html">外力（荷重）</a></td><td>建物の外から働く力（自重・人・地震・風）</td></tr>
-        <tr><td><a href="hanryoku.html">反力</a></td><td>支点が建物を支え返す力</td></tr>
-        <tr><td><a href="ouryoku.html">内力（応力）</a></td><td>部材の内部に生じる力（軸力・せん断力・曲げモーメント）</td></tr>
+        <tr><th>単位</th><th>読み方</th><th>使用場面</th></tr>
+        <tr><td>N</td><td>ニュートン</td><td>SI単位系の基本単位</td></tr>
+        <tr><td>kN</td><td>キロニュートン</td><td>建築構造計算（主流）</td></tr>
+        <tr><td>kN/m</td><td>キロニュートン毎メートル</td><td>分布荷重（線荷重）</td></tr>
+        <tr><td>kN/m²</td><td>キロニュートン毎平方メートル</td><td>面荷重・応力度</td></tr>
       </table>
-      <p>力には「大きさ・向き・作用点」という<a href="chikara-3youso.html">3つの要素</a>があり、ベクトルとして扱います。</p>
+      <div class="point-box">
+        <span class="label">POINT</span>
+        <p>1 kN ＝ 1,000 N です。重力加速度を 9.8 m/s² とすると、約 102 kgf ≒ 1 kN。実務では概算として <strong>1 kN ≒ 100 kgf（0.1 tf）</strong> と覚えておくと便利です。</p>
+      </div>
+
+      <h2 id="youso">2. 力の3要素</h2>
+      <figure class="article-fig">
+        <img src="../assets/chikara-zu2.png" alt="力の3要素の図解。大きさ（矢印の長さ）・向き（矢印の方向）・作用点を示す" loading="lazy" onerror="this.closest('figure').style.display='none'">
+        <figcaption>図2　力の3要素＝大きさ・向き・作用点。</figcaption>
+      </figure>
+      <p>力を正確に表現するには、次の3つの要素が必要です。この3要素が決まって初めて、力が一意に定まります。</p>
+      <ul>
+        <li><strong>① 大きさ（マグニチュード）</strong>…力がどれだけ強いか。単位は N または kN。</li>
+        <li><strong>② 向き（方向）</strong>…力がどちらの方向に作用しているか。上下・左右・斜めなど、ベクトルの方向成分で表す。</li>
+        <li><strong>③ 作用点（作用位置）</strong>…力がどこに作用しているか。同じ大きさ・同じ向きでも、作用点が異なれば力の効果は変わる。</li>
+      </ul>
+      <div class="point-box">
+        <span class="label">まとめると</span>
+        <p>力 ＝ <strong>大きさ ＋ 向き ＋ 作用点</strong>。この3つを「<a href="chikara-3youso.html">力の3要素</a>」と呼びます。</p>
+      </div>
+
+      <h2 id="sayou">3. 力がもたらす3つの作用</h2>
+      <figure class="article-fig">
+        <img src="../assets/chikara-zu3.png" alt="力がもたらす3つの作用の図解。移動（並進）・回転（モーメント）・変形（ひずみ）" loading="lazy" onerror="this.closest('figure').style.display='none'">
+        <figcaption>図3　力がもたらす3つの作用＝移動・回転・変形。</figcaption>
+      </figure>
+      <p>力が物体に作用すると、次の3つの作用が生じます。これが本記事の核心です。</p>
+
+      <h3>① 移動（並進運動）</h3>
+      <p>力の方向に物体が平行移動する作用です。</p>
+      <ul>
+        <li>水平力（<a href="jishin-ryoku.html">地震力</a>・風圧力）による建物の水平移動</li>
+        <li>鉛直荷重による基礎の沈下</li>
+        <li>荷重を受けた梁のたわみ（鉛直方向の移動）</li>
+      </ul>
+      <p>物体の重心に力が作用する場合、回転は生じず<strong>純粋な並進移動</strong>のみが起きます。</p>
+
+      <h3>② 回転（モーメント）</h3>
+      <p>力の作用線が物体の重心を通らない場合、または複数の力が組み合わさる場合に、物体が回転しようとする作用が生じます。この回転を起こそうとする力の作用を<strong>モーメント</strong>と呼びます（詳しくは<a href="#moment">第6章</a>・「<a href="moment.html">力のモーメント</a>」）。</p>
+      <div class="formula">
+        M ＝ F × d
+        <span class="note">M：モーメント（kN・m）　F：力（kN）　d：作用線から回転中心までの距離（m）＝アーム長</span>
+      </div>
+      <ul>
+        <li>柱の頂部に水平力 → 柱脚に回転（曲げモーメント）が生じる</li>
+        <li>片持ちスラブの先端に荷重 → 根元に曲げモーメントが発生</li>
+        <li>基礎に偏心荷重 → 転倒モーメントの発生</li>
+      </ul>
+
+      <h3>③ 変形（ひずみ・応力）</h3>
+      <p>力が作用すると、物体内部に<strong>応力（内力）</strong>が生じ、それに伴い<strong>ひずみ（変形）</strong>が発生します。変形の種類は、力の作用方向によって異なります。</p>
+      <table class="data">
+        <tr><th>変形の種類</th><th>力の作用</th><th>発生する応力</th><th>建築での例</th></tr>
+        <tr><td>軸方向変形（伸び・縮み）</td><td>引張力・圧縮力</td><td>軸応力度（σ）</td><td>柱の圧縮、ブレースの引張</td></tr>
+        <tr><td>せん断変形</td><td>せん断力</td><td>せん断応力度（τ）</td><td>梁端部のせん断</td></tr>
+        <tr><td>曲げ変形（たわみ）</td><td>曲げモーメント</td><td>曲げ応力度（σ）</td><td>梁・スラブのたわみ</td></tr>
+        <tr><td>ねじれ変形</td><td>ねじりモーメント</td><td>ねじり応力度</td><td>偏心荷重を受ける梁</td></tr>
+      </table>
+      <h3>応力とひずみの関係（フックの法則）</h3>
+      <p>弾性範囲内では、応力とひずみは比例します（→「<a href="oryokudo-hizumi.html">応力度とひずみ・ヤング係数</a>」）。</p>
+      <div class="formula">
+        σ ＝ E・ε
+        <span class="note">σ：応力度（N/mm²）　E：ヤング係数（弾性係数）　ε：ひずみ</span>
+      </div>
+      <div class="point-box">
+        <span class="label">ヤング係数の目安</span>
+        <ul>
+          <li>コンクリート（Fc24）：E ≒ 25,000 N/mm²（25 kN/mm²）</li>
+          <li>鋼材（SS400・SN400）：E ＝ 205,000 N/mm²（205 kN/mm²）</li>
+        </ul>
+      </div>
+
+      <h2 id="vector">4. 力の表し方（ベクトル）</h2>
+      <figure class="article-fig">
+        <img src="../assets/chikara-zu4.png" alt="力のベクトル表現の図解。矢印の長さが大きさ、向きが方向。x成分とy成分への分解" loading="lazy" onerror="this.closest('figure').style.display='none'">
+        <figcaption>図4　力は矢印（ベクトル）で表す。長さ＝大きさ、向き＝方向。</figcaption>
+      </figure>
+      <p>力は<strong>大きさと方向を持つ量（ベクトル量）</strong>です。矢印で表現し、<strong>矢印の長さが大きさ、矢印の向きが力の方向</strong>を示します。</p>
+      <h3>スカラーとベクトルの違い</h3>
+      <table class="data">
+        <tr><th>量の種類</th><th>定義</th><th>例</th></tr>
+        <tr><td>スカラー量</td><td>大きさのみを持つ量</td><td>質量・温度・時間・面積</td></tr>
+        <tr><td>ベクトル量</td><td>大きさと方向を持つ量</td><td>力・変位・速度・加速度</td></tr>
+      </table>
+      <h3>力のベクトル表現</h3>
+      <p>2次元（平面）では、力 F を x 成分と y 成分に分けて表します。</p>
+      <div class="formula">
+        Fx ＝ F・cosθ　／　Fy ＝ F・sinθ
+        <span class="note">θ：x軸（水平）からの角度</span>
+      </div>
+
+      <h2 id="gousei">5. 力の合成と分解</h2>
+      <figure class="article-fig">
+        <img src="../assets/chikara-zu5.png" alt="力の合成と分解の図解。平行四辺形の法則による合力、x・y方向への分解" loading="lazy" onerror="this.closest('figure').style.display='none'">
+        <figcaption>図5　力の合成（合力）と分解。</figcaption>
+      </figure>
+      <h3>力の合成</h3>
+      <p>複数の力が一点に作用するとき、それらをまとめて<strong>1つの力（合力）</strong>に置き換えることができます。<a href="heikoushihenkei-housoku.html">平行四辺形の法則</a>を用いるか、x・y 成分ごとに足し合わせます。</p>
+      <div class="formula">
+        Rx ＝ ΣFxi　／　Ry ＝ ΣFyi<br>
+        R ＝ √( Rx² ＋ Ry² )
+        <span class="note">R：合力の大きさ　Rx・Ry：合力のx・y成分</span>
+      </div>
+      <h3>力の分解</h3>
+      <p>1つの力を、互いに直交する2方向（x・y）の力に分解することを<strong><a href="chikara-bunkai.html">力の分解</a></strong>といいます。斜め荷重の計算や、トラス部材の軸力計算でよく使われます。</p>
+
+      <h2 id="moment">6. モーメントとは？（回転を起こす力の作用）</h2>
+      <figure class="article-fig">
+        <img src="../assets/chikara-zu6.png" alt="モーメントの図解。力Fとアーム長dの積で回転作用M＝F×dが決まる" loading="lazy" onerror="this.closest('figure').style.display='none'">
+        <figcaption>図6　モーメント M ＝ F × d（力 × アーム長）。</figcaption>
+      </figure>
+      <p>モーメントは「<strong>回転を起こそうとする力の作用</strong>」であり、構造設計では非常に重要な概念です。</p>
+      <div class="formula">
+        M ＝ F × d
+        <span class="note">F：力　d：アーム長（作用線から回転中心までの距離）</span>
+      </div>
+      <h3>モーメントの正負の定義</h3>
+      <p>一般に、<strong>時計回りを正（＋）、反時計回りを負（－）</strong>とする場合と、その逆の場合があります。<strong>計算書内で統一すること</strong>が重要です。</p>
+      <h3>建築構造でのモーメントの例</h3>
+      <p><strong>片持ち梁の根元の曲げモーメント</strong>：先端に集中荷重 P が作用する長さ L の片持ち梁では、根元の曲げモーメントは次のとおりです。</p>
+      <div class="formula">M ＝ P × L</div>
+      <p><strong>単純梁の中央の曲げモーメント</strong>：スパン L の単純梁の中央に集中荷重 P が作用する場合。</p>
+      <div class="formula">M ＝ P・L ／ 4</div>
+      <p>等分布荷重 w（kN/m）が作用する場合。</p>
+      <div class="formula">M ＝ w・L² ／ 8</div>
+      <p>各種はりの公式は「<a href="hari-koushiki.html">はりの公式一覧</a>」、図示の方法は「<a href="qm-zu.html">Q図・M図の描き方</a>」も参考にしてください。</p>
+
+      <h2 id="tsuriai">7. 力の釣り合いとは？</h2>
+      <figure class="article-fig">
+        <img src="../assets/chikara-zu7.png" alt="力の釣り合いの図解。x方向・y方向の力の総和とモーメントの総和がいずれもゼロ" loading="lazy" onerror="this.closest('figure').style.display='none'">
+        <figcaption>図7　力の釣り合い（ΣFx＝0、ΣFy＝0、ΣM＝0）。</figcaption>
+      </figure>
+      <p>物体が静止（変形していない）状態にあるとき、物体に作用するすべての力は釣り合っています。これを<strong>力の釣り合い</strong>といいます。釣り合い条件は、次の3式で表されます（2次元の場合）。</p>
+      <div class="formula">
+        ΣFx ＝ 0　／　ΣFy ＝ 0　／　ΣM ＝ 0
+        <span class="note">x方向・y方向の力の総和＝0、任意の点まわりのモーメントの総和＝0</span>
+      </div>
+      <p>この3条件が、構造力学における<strong>静定構造の解法の基本</strong>となります。</p>
+      <div class="point-box">
+        <span class="label">POINT</span>
+        <p>釣り合い式は構造計算のすべての基礎です。<a href="hanryoku.html">反力</a>の計算、<a href="ouryoku.html">応力</a>計算、変位計算のすべてがこの3式から始まります。</p>
+      </div>
+
+      <h2 id="kajuu">8. 建築・土木における力の種類</h2>
+      <p>実際の建築・土木構造物には、さまざまな種類の力（荷重）が作用します（→詳しくは「<a href="kajuu.html">固定荷重・積載荷重の拾い方</a>」「<a href="gairyoku.html">外力（荷重）とは</a>」）。</p>
+      <h3>荷重の分類</h3>
+      <table class="data">
+        <tr><th>荷重の種類</th><th>具体例</th><th>作用の特徴</th></tr>
+        <tr><td>固定荷重（G）</td><td>建物自重（コンクリート・鉄骨・仕上げ材等）</td><td>常時・鉛直・不変</td></tr>
+        <tr><td>積載荷重（P）</td><td>人・家具・設備機器等</td><td>常時・鉛直・変動</td></tr>
+        <tr><td>積雪荷重（S）</td><td>屋根への積雪</td><td>季節的・鉛直</td></tr>
+        <tr><td>風圧力（W）</td><td>建物外壁面への風の圧力</td><td>水平・変動</td></tr>
+        <tr><td>地震力（E）</td><td>地盤の振動による慣性力</td><td>水平・動的</td></tr>
+        <tr><td>土圧・水圧</td><td>地下外壁への土・水の圧力</td><td>水平・常時</td></tr>
+      </table>
+      <h3>荷重の作用形式</h3>
+      <table class="data">
+        <tr><th>作用形式</th><th>説明</th><th>単位</th></tr>
+        <tr><td>集中荷重</td><td>一点に作用する力</td><td>kN</td></tr>
+        <tr><td>分布荷重（線荷重）</td><td>長さ方向に分布する力</td><td>kN/m</td></tr>
+        <tr><td>面荷重</td><td>面積に分布する力</td><td>kN/m²</td></tr>
+      </table>
+
+      <h2 id="faq">9. よくある質問</h2>
+      <h3>Q1. 力とエネルギーの違いは？</h3>
+      <p>力は「作用そのもの（ベクトル量）」であり、エネルギーは「力が物体を動かした仕事量（スカラー量）」です。</p>
+      <div class="formula">
+        W ＝ F × δ
+        <span class="note">W：仕事（エネルギー）　F：力　δ：変位　単位は N・m ＝ J（ジュール）</span>
+      </div>
+      <h3>Q2. 内力と外力の違いは？</h3>
+      <p><strong>外力</strong>は外部から物体に作用する力（荷重・反力など）、<strong>内力</strong>は外力によって部材内部に生じる力（軸力・せん断力・曲げモーメントなど）です。構造設計では、外力から内力（応力）を求め、内力が部材の許容値以内に収まるかを確認します。</p>
+      <h3>Q3. 「力の流れ」とは何ですか？</h3>
+      <p>建築構造において「力の流れ」とは、荷重が<strong>スラブ → 梁 → 柱 → 基礎 → 地盤</strong>へと伝達されていく経路のことです。構造計画の根本は、この力の流れを明確にすることにあります。</p>
+      <h3>Q4. kN と tf（トン力）の換算は？</h3>
+      <div class="formula">1 tf ≒ 9.8 kN ≒ 10 kN</div>
+      <p>実務の概算では <strong>1 tf ≒ 10 kN</strong> と覚えておくと便利です。</p>
+
+      <h2 id="matome">10. まとめ</h2>
+      <table class="data">
+        <tr><th>項目</th><th>内容</th></tr>
+        <tr><td>力の定義</td><td>移動・回転・変形を起こす作用</td></tr>
+        <tr><td>力の3要素</td><td>大きさ・向き・作用点</td></tr>
+        <tr><td>移動</td><td>並進運動。重心への力の作用で純粋に発生</td></tr>
+        <tr><td>回転</td><td>モーメント M ＝ F × d で表現</td></tr>
+        <tr><td>変形</td><td>応力・ひずみ。フックの法則（σ ＝ E・ε）で表現</td></tr>
+        <tr><td>釣り合い条件</td><td>ΣFx ＝ 0、ΣFy ＝ 0、ΣM ＝ 0</td></tr>
+      </table>
+      <p>力の概念は、構造力学・建築設計・土木設計のすべての基盤です。「<strong>移動・回転・変形</strong>」という3つの作用と、<strong>力の3要素・モーメント・釣り合い条件</strong>をしっかり理解することで、構造力学の学習が大きく前進します。</p>
 
       <div class="note-box">
         <span class="label">あわせて読みたい</span>
-        <p>「<a href="chikara-3youso.html">力の3要素</a>」「<a href="chikara-gousei.html">力の合成</a>」「<a href="moment.html">力のモーメント</a>」をどうぞ。</p>
+        <p>「<a href="chikara-3youso.html">力の3要素</a>」「<a href="chikara-gousei.html">力の合成</a>」「<a href="chikara-bunkai.html">力の分解</a>」「<a href="moment.html">力のモーメント</a>」「<a href="ouryoku.html">応力（軸力・せん断・曲げ）</a>」「<a href="hanryoku.html">反力の求め方</a>」をどうぞ。</p>
       </div>
 
-      <h2>まとめ</h2>
-      <ul>
-        <li>力は物体に移動・回転・変形を起こす作用。単位はN（ニュートン）。</li>
-        <li>構造では外力（荷重）・反力・内力（応力）として扱う。</li>
-        <li>力は大きさ・向き・作用点の3要素を持つベクトル量。</li>
-      </ul>
       <div class="article-author">
         <img src="../assets/profile.png" alt="監修・執筆者 ホッタ ナオト（構造設計一級建築士）" width="76" height="76" loading="lazy">
         <div class="aa-text">
@@ -121,6 +331,7 @@
       <div class="widget">
         <h4>構造力学の基礎</h4>
         <ul>
+          <li><a href="moment.html">力のモーメント</a></li>
           <li><a href="ouryoku.html">応力（軸力・せん断・曲げ）</a></li>
           <li><a href="hanryoku.html">反力の求め方</a></li>
           <li><a href="qm-zu.html">Q図・M図の描き方</a></li>
@@ -137,6 +348,47 @@
     <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
   </div>
 </footer>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "力とエネルギーの違いは？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "力は「作用そのもの（ベクトル量）」であり、エネルギーは「力が物体を動かした仕事量（スカラー量）」です。仕事W＝F×δ（力×変位）で表し、単位はN・m＝J（ジュール）です。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "内力と外力の違いは？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "外力は外部から物体に作用する力（荷重・反力など）、内力は外力によって部材内部に生じる力（軸力・せん断力・曲げモーメントなど）です。構造設計では外力から内力（応力）を求め、内力が部材の許容値以内に収まるかを確認します。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "「力の流れ」とは何ですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "建築構造における「力の流れ」とは、荷重がスラブ→梁→柱→基礎→地盤へと伝達されていく経路のことです。構造計画の根本は、この力の流れを明確にすることにあります。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "kNとtf（トン力）の換算は？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "1 tf ≒ 9.8 kN ≒ 10 kN です。実務の概算では1 tf ≒ 10 kNと覚えておくと便利です。"
+      }
+    }
+  ]
+}
+</script>
 
 <script src="../js/main.js"></script>
 </body>
