@@ -6,9 +6,9 @@
 <meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
 <title>コンクリートの圧縮強度と水セメント比の関係｜計算式｜構造設計ナビ</title>
-<meta name="description" content="コンクリートの圧縮強度と水セメント比の関係をわかりやすく解説。水セメント比が小さいほど高強度になる理由、セメント水比と強度の直線関係（計算式）、設計基準強度への影響をまとめます。">
+<meta name="description" content="コンクリートの圧縮強度と水セメント比の関係をわかりやすく解説。水セメント比（W/C）が小さいほど高強度になる理由、セメント水比（C/W）と強度の直線関係 F＝A(C/W)＋B、目標強度から必要なW/Cを逆算する計算例、設計基準強度への影響をまとめます。">
 <meta property="og:title" content="コンクリートの圧縮強度と水セメント比の関係｜計算式｜構造設計ナビ">
-<meta property="og:description" content="圧縮強度と水セメント比の関係、セメント水比と強度の直線関係（計算式）、設計への影響を解説します。">
+<meta property="og:description" content="コンクリートの圧縮強度はほぼ水セメント比で決まります。W/Cが小さいほど高強度になる理由、セメント水比と強度の直線関係（計算式）、目標強度から必要なW/Cを逆算する計算例、設計基準強度への影響をわかりやすく解説します。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://www.kouzou-navi.com/articles/asshuku-wc.html">
 <meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
@@ -52,30 +52,59 @@
     <article class="article-main">
       <div class="meta">
         <span class="tag">鉄筋コンクリート造（RC造）</span>
-        <span>更新日：2026年6月14日</span>
+        <span>更新日：2026年7月2日</span>
       </div>
       <h1>圧縮強度と水セメント比の関係｜計算式</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
 
-      <p>コンクリートの<strong>圧縮強度は、ほぼ<a href="mizu-cement-hi.html">水セメント比</a>で決まります</strong>。配合設計の基本となる関係を整理します。</p>
+      <p>コンクリートの<strong>圧縮強度は、ほぼ<a href="mizu-cement-hi.html">水セメント比</a>（W/C：水とセメントの質量比）で決まります</strong>。水セメント比が小さいほど強度は高くなり、この関係は「水セメント比説」と呼ばれる配合設計の最重要原則です。この記事では、なぜ水セメント比で強度が決まるのか、セメント水比を使った強度の関係式、配合設計での使い方を、計算例を交えて整理します。</p>
+
+      <div class="point-box">
+        <span class="label">この記事の要点</span>
+        <ul>
+          <li>圧縮強度はほぼ水セメント比で決まり、W/Cが小さいほど高強度・高耐久。</li>
+          <li>セメント水比（C/W＝W/Cの逆数）と圧縮強度はほぼ直線関係になる。</li>
+          <li>目標強度から必要なW/Cを逆算して配合を決める。</li>
+        </ul>
+      </div>
+
+      <nav class="toc" aria-label="目次">
+        <div class="toc-ttl">目次</div>
+        <ol>
+          <li><a href="#gensoku">水セメント比が小さいほど高強度</a></li>
+          <li><a href="#shiki">セメント水比と強度の関係式</a></li>
+          <li><a href="#rei">計算例：必要な水セメント比を逆算する</a></li>
+          <li><a href="#sekkei">設計基準強度への影響</a></li>
+          <li><a href="#matome">まとめ</a></li>
+        </ol>
+      </nav>
 
       <div class="note-box">
         <span class="label">この記事について</span>
         <p>強度・設計に関する規準（JASS5・建築基準法施行令など）の数値は<strong>条件・改訂で変わる</strong>ことがあります。本記事は学習用の概要です。設計では最新の規準を確認してください。</p>
       </div>
 
-      <h2>水セメント比が小さいほど高強度</h2>
+      <h2 id="gensoku">水セメント比が小さいほど高強度</h2>
       <p>水が多い（水セメント比W/Cが大きい）と、硬化後に水が抜けた跡が空隙として残り、強度が下がります。逆に<strong>W/Cが小さいほど緻密で高強度</strong>になります。これがコンクリート強度の最重要原則です。</p>
+      <p>理屈を補足すると、セメントの水和反応に必要な水はセメント質量の25%前後といわれます。実際の配合ではワーカビリティを確保するために50%前後の水を加えるため、反応に使われなかった余剰水が毛細管空隙となって残ります。W/Cが大きいほどこの空隙が多くなり、組織が粗くなって強度も耐久性も低下する、というメカニズムです。同じ理由で、W/Cが小さいコンクリートは中性化や塩害にも強くなります。</p>
 
-      <h2>セメント水比と強度の関係式</h2>
+      <h2 id="shiki">セメント水比と強度の関係式</h2>
       <p>実務では、水セメント比の逆数＝<strong>セメント水比（C/W）</strong>と圧縮強度が、ほぼ<strong>直線関係</strong>になることを使います。</p>
       <div class="formula">
         F ＝ A ×（C/W）＋ B
         <span class="note">F：圧縮強度／C/W：セメント水比（水セメント比の逆数）／A・B：使用材料で決まる定数</span>
       </div>
-      <p>この関係から、目標の強度を出すために必要な水セメント比を逆算して配合を決めます。</p>
+      <p>この関係から、目標の強度を出すために必要な水セメント比を逆算して配合を決めます。定数A・Bはセメントや骨材など使用材料によって変わるため、実際には生コン工場の試し練りデータに基づいて定められます。W/Cそのものではなく逆数のC/Wをとると直線になる、という点が試験でも問われるポイントです。</p>
 
-      <h2>設計基準強度への影響</h2>
+      <h2 id="rei">計算例：必要な水セメント比を逆算する</h2>
+      <p>仮に、ある材料の組合せで F＝20×(C/W)−10（単位：N/mm²）という関係が得られたとします。目標とする調合強度を30N/mm²とすると、</p>
+      <div class="formula">
+        30 ＝ 20 ×（C/W）− 10　→　C/W ＝ 2.0　→　W/C ＝ 1/2.0 ＝ 50%
+        <span class="note">目標強度から必要なセメント水比を求め、逆数で水セメント比に直す</span>
+      </div>
+      <p>となり、水セメント比50%以下とすれば目標強度を満たせることが分かります。<a href="tani-suiryou.html">単位水量</a>を185kg/m³とすれば、単位セメント量は185÷0.50＝370kg/m³と求められます。</p>
+
+      <h2 id="sekkei">設計基準強度への影響</h2>
       <div class="point-box">
         <span class="label">POINT</span>
         <p>高い<a href="sekkei-hinshitsu-kijun.html">設計基準強度</a>を得るには、水セメント比を小さくします（<a href="koukyoudo-concrete.html">高強度コンクリート</a>では30〜40%）。ただし水を減らすと固くなるため、<a href="ae-zai.html">減水剤</a>で流動性を確保します。耐久性の面からも水セメント比に上限が定められます。</p>
@@ -86,10 +115,11 @@
         <p>「<a href="mizu-cement-hi.html">水セメント比</a>」「<a href="asshuku-inchou.html">圧縮強度と引張強度</a>」「<a href="koukyoudo-concrete.html">高強度コンクリート</a>」をどうぞ。</p>
       </div>
 
-      <h2>まとめ</h2>
+      <h2 id="matome">まとめ</h2>
       <ul>
-        <li>圧縮強度はほぼ水セメント比で決まり、W/Cが小さいほど高強度。</li>
-        <li>セメント水比（C/W）と強度はほぼ直線関係 F＝A(C/W)＋B。</li>
+        <li>圧縮強度はほぼ水セメント比で決まり、W/Cが小さいほど高強度・高耐久。</li>
+        <li>余剰水が空隙として残ることが、W/Cが大きいと強度が下がる理由。</li>
+        <li>セメント水比（C/W）と強度はほぼ直線関係 F＝A(C/W)＋B。目標強度からW/Cを逆算する。</li>
         <li>高い設計基準強度にはW/Cを小さくし、減水剤で流動性を確保する。</li>
       </ul>
       <div class="article-author">

@@ -6,9 +6,9 @@
 <meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
 <title>ビルドH鋼とは？意味・規格・重量・溶接をわかりやすく解説｜構造設計ナビ</title>
-<meta name="description" content="ビルドH鋼（溶接組立H形鋼・BH）をわかりやすく解説。鋼板を溶接して作るビルドH鋼の意味、ロールH形鋼との違い、規格外の自由な寸法・重量、フランジとウェブの溶接（隅肉溶接）と品質管理をまとめます。">
+<meta name="description" content="ビルドH鋼（溶接組立H形鋼・BH）をわかりやすく解説。鋼板を溶接して組み立てるビルドH鋼の意味と寸法表記、JIS規格に縛られないロールH形鋼との違いと使い分け、断面積×0.785で求める重量の計算例、隅肉溶接と品質管理のポイントまでまとめます。">
 <meta property="og:title" content="ビルドH鋼とは？意味・規格・重量・溶接をわかりやすく解説｜構造設計ナビ">
-<meta property="og:description" content="ビルドH鋼（溶接組立H形鋼・BH）の意味、ロールH形鋼との違い、自由な寸法・重量、溶接を解説します。">
+<meta property="og:description" content="ビルドH鋼（BH）は鋼板を溶接して組み立てたH形鋼です。ロールH形鋼との違いと使い分け、自由に設定できる寸法・板厚、断面積×0.785で求める重量の計算例、隅肉溶接と品質管理のポイントをわかりやすく解説します。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://www.kouzou-navi.com/articles/build-h.html">
 <meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
@@ -52,22 +52,43 @@
     <article class="article-main">
       <div class="meta">
         <span class="tag">鉄骨造（S造）</span>
-        <span>更新日：2026年6月14日</span>
+        <span>更新日：2026年7月2日</span>
       </div>
       <h1>ビルドH鋼とは？意味・規格・重量・溶接</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
 
-      <p><strong>ビルドH鋼（ビルドアップH形鋼・BH）</strong>とは、鋼板を<strong>溶接して組み立てたH形断面</strong>の部材です。圧延でつくる<a href="h-katako.html">ロールH形鋼</a>にないサイズを自由につくれます。</p>
+      <p><strong>ビルドH鋼（ビルドアップH形鋼・BH）</strong>とは、鋼板を<strong>溶接して組み立てたH形断面</strong>の部材のことです。圧延で一体成形される<a href="h-katako.html">ロールH形鋼</a>と違い、せい・幅・板厚を設計に合わせて自由に設定できるため、規格サイズにない大型断面や特殊断面が必要な場面で使われます。この記事では、ビルドH鋼の意味、ロールHとの違い、寸法表記と重量計算、溶接・製作上のポイントを整理します。</p>
+
+      <div class="point-box">
+        <span class="label">この記事の要点</span>
+        <ul>
+          <li>ビルドH鋼はフランジ・ウェブの鋼板を溶接して組み立てたH形鋼。図面表記はBH。</li>
+          <li>JIS規格サイズに縛られず、寸法・板厚・材質を自由に設定できる。</li>
+          <li>製作の手間で割高。溶接品質の管理が性能を左右する。</li>
+        </ul>
+      </div>
+
+      <nav class="toc" aria-label="目次">
+        <div class="toc-ttl">目次</div>
+        <ol>
+          <li><a href="#imi">意味：板を溶接して作るH形鋼</a></li>
+          <li><a href="#kikaku">規格：自由な寸法</a></li>
+          <li><a href="#juuryou">重量の計算</a></li>
+          <li><a href="#yousetsu">溶接と製作のポイント</a></li>
+          <li><a href="#faq">よくある質問</a></li>
+          <li><a href="#matome">まとめ</a></li>
+        </ol>
+      </nav>
 
       <div class="note-box">
         <span class="label">この記事について</span>
         <p>本記事の数値は<strong>代表的な目安・例</strong>で、学習用の概要です。設計・積算では必ず<strong>最新のJIS・建築基準法告示・鋼構造設計規準・鋼材ハンドブック</strong>の正確な値を確認してください。</p>
       </div>
 
-      <h2>意味：板を溶接して作るH形鋼</h2>
-      <p>ロールH形鋼が圧延（ロール成形）で一体に作られるのに対し、ビルドH鋼は<strong>フランジ用とウェブ用の鋼板を切り出し、溶接してH形に組み立てます</strong>。「build-up（組立）」が名前の由来で、図面では<strong>BH</strong>と表記されることもあります。</p>
+      <h2 id="imi">意味：板を溶接して作るH形鋼</h2>
+      <p>ロールH形鋼が圧延（ロール成形）で一体に作られるのに対し、ビルドH鋼は<strong>フランジ用とウェブ用の鋼板を切り出し、溶接してH形に組み立てます</strong>。「build-up（組立）」が名前の由来で、図面では<strong>BH</strong>と表記されることもあります。寸法の表記はロールHと同様に「BH-せい×幅×ウェブ厚×フランジ厚」の順で書くのが一般的です（例：BH-900×300×16×28）。</p>
 
-      <h2>規格：自由な寸法</h2>
+      <h2 id="kikaku">規格：自由な寸法</h2>
       <p>ロールH形鋼はJIS G 3192の規格サイズに限られますが、ビルドH鋼は<strong>板厚・せい・幅を自由に設定</strong>できます。規格にない大せいの梁や、フランジとウェブで板厚・材質を変えた断面など、設計に合わせた最適な断面を作れるのが最大の利点です。</p>
       <table class="data">
         <tr><th></th><th>ロールH形鋼</th><th>ビルドH鋼（BH）</th></tr>
@@ -77,24 +98,35 @@
         <tr><td>用途</td><td>一般の柱・梁</td><td>大型・特殊断面</td></tr>
       </table>
 
-      <h2>重量</h2>
-      <p>重量は、設定した板厚・寸法から断面積を求め、<strong>断面積 × 0.785</strong>（kg/m）で計算します（→<a href="h-juuryou-keisan.html">重量の計算方法</a>）。板厚を自由に選べるため、必要強度に対して無駄のない重量にできます。</p>
+      <p>実務でビルドHを選ぶ典型例は、①スパンが大きく規格最大のロールHでは断面が足りない大梁、②階高の制約からせいを抑えつつフランジを厚くしたい梁、③<a href="sotonori-ittei.html">外法一定</a>にできない特殊な取り合いの部材、などです。逆に、規格サイズで足りる一般的な柱・梁にあえてBHを使うとコストが上がるだけなので、<strong>「ロールHで足りないときにBH」</strong>が基本の考え方になります。</p>
 
-      <h2>溶接</h2>
+      <h2 id="juuryou">重量の計算</h2>
+      <p>重量は、設定した板厚・寸法から断面積を求め、<strong>断面積 × 0.785</strong>（kg/m）で計算します（→<a href="h-juuryou-keisan.html">重量の計算方法</a>）。板厚を自由に選べるため、必要強度に対して無駄のない重量にできます。</p>
+      <p>たとえばBH-900×300×16×28なら、フランジ2枚（30cm×2.8cm×2枚＝168cm²）とウェブ（84.4cm×1.6cm＝135cm²）で断面積は約303cm²。単位重量は303×0.785≒<strong>約238kg/m</strong>と概算できます（0.785は鋼の密度7,850kg/m³をcm²・m単位に直した係数）。</p>
+
+      <h2 id="yousetsu">溶接と製作のポイント</h2>
       <div class="point-box">
         <span class="label">POINT</span>
         <p>フランジとウェブの接合は、自動溶接（サブマージアーク溶接など）による<strong>隅肉溶接</strong>が一般的です。溶接部の品質が性能を左右するため、<a href="jass6.html">JASS6</a>などに基づく溶接施工・検査の管理が重要になります。</p>
       </div>
+      <p>フランジとウェブの間には梁のせん断力に応じた水平せん断力が流れるため、隅肉溶接のサイズ（脚長）はこの力を伝達できるように設計します。また、溶接による熱で部材に反りや歪みが生じるため、製作工場では歪み矯正まで含めた品質管理が行われます。</p>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. ロールH形鋼とどちらが強いのですか？</h3>
+      <p>同じ断面寸法・同じ鋼材なら強度的な優劣はありません。違いは「規格サイズか自由寸法か」「圧延一体か溶接組立か」であり、強さは断面性能と鋼材の強度で決まります。BHは断面を最適化できるぶん、同じ性能をより軽い断面で実現できることがあります。</p>
+      <h3>Q2. フランジとウェブで違う鋼種を使えますか？</h3>
+      <p>使えます。曲げ応力の大きいフランジに高強度鋼、ウェブに一般鋼を使う「ハイブリッド断面」も可能で、これはビルドHならではの利点です。ただし溶接性や設計上の取り扱いに注意が必要です。</p>
 
       <div class="note-box">
         <span class="label">あわせて読みたい</span>
         <p>圧延品の「<a href="h-katako.html">H形鋼とは</a>」、外法を揃える「<a href="sotonori-ittei.html">外法一定H形鋼</a>」、施工は「<a href="jass6.html">JASS6</a>」をどうぞ。</p>
       </div>
 
-      <h2>まとめ</h2>
+      <h2 id="matome">まとめ</h2>
       <ul>
         <li>ビルドH鋼は鋼板を溶接して組み立てたH形部材（BH）。</li>
-        <li>JIS規格に縛られず、寸法・板厚・材質を自由に設定できる。</li>
+        <li>JIS規格に縛られず、寸法・板厚・材質を自由に設定できる。ロールHで足りないときに使う。</li>
+        <li>重量は断面積×0.785（kg/m）で概算できる。</li>
         <li>フランジ・ウェブは隅肉溶接で接合。溶接品質の管理が重要。</li>
       </ul>
       <div class="article-author">
