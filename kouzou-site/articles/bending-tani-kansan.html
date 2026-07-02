@@ -6,9 +6,9 @@
 <meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
 <title>曲げモーメントの単位換算｜kNm・Nm・Nmmの変換と使い分け｜構造設計ナビ</title>
-<meta name="description" content="曲げモーメントの単位換算をわかりやすく解説。kN・m、N・m、N・mmの変換方法と、構造設計での使い分け（図はkN・m、応力度計算はN・mm）をまとめます。">
+<meta name="description" content="曲げモーメントの単位換算をわかりやすく解説。1kN・m＝1,000N・m＝1,000,000N・mmという換算ルール、応力図はkN・m・応力度計算σ＝M/ZはN・mmという構造設計での使い分け、桁間違いを防ぐ計算例とcm³→mm³換算の注意点をまとめます。">
 <meta property="og:title" content="曲げモーメントの単位換算｜kNm・Nm・Nmmの変換と使い分け｜構造設計ナビ">
-<meta property="og:description" content="曲げモーメントの単位（kN・m・N・m・N・mm）の変換と、構造設計での使い分けを解説します。">
+<meta property="og:description" content="曲げモーメントの単位（kN・m・N・m・N・mm）の換算ルールと、応力図はkN・m・応力度計算はN・mmという構造設計での使い分け、桁間違いを防ぐための計算例と注意点をわかりやすく解説します。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://www.kouzou-navi.com/articles/bending-tani-kansan.html">
 <meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
@@ -52,25 +52,51 @@
     <article class="article-main">
       <div class="meta">
         <span class="tag">構造力学の基礎</span>
-        <span>更新日：2026年6月15日</span>
+        <span>更新日：2026年7月2日</span>
       </div>
       <h1>曲げモーメントの単位換算と構造設計での使い分け</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
-      <p><a href="ouryoku.html">曲げモーメント</a>は梁を曲げようとする内力で、単位は「力×距離」です。構造設計では場面ごとに単位を使い分けます。</p>
+      <p><a href="ouryoku.html">曲げモーメント</a>とは、梁などの部材を曲げようとする内力のことで、単位は「力×距離」（kN·m、N·mmなど）で表されます。構造設計では、応力図ではkN·m、応力度計算ではN·mmというように、場面ごとに単位を使い分けるのが実務の約束事です。この記事では、曲げモーメントの単位換算のルールと、なぜ使い分けるのか、桁を間違えないための計算手順を数値例で解説します。</p>
 
-      <h2>換算</h2>
-      <div class="formula">
-        1 kN·m ＝ 1,000 N·m ＝ 1,000,000 N·mm
+      <div class="point-box">
+        <span class="label">この記事の要点</span>
+        <ul>
+          <li>1kN·m＝1,000N·m＝1,000,000N·mm（10⁶N·mm）。</li>
+          <li>応力図・計算書はkN·m、応力度計算σ＝M/ZはN·mm系に統一する。</li>
+          <li>単位を揃えずに計算すると桁を間違える。換算を先に済ませるのが鉄則。</li>
+        </ul>
       </div>
 
-      <h2>構造設計での使い分け</h2>
+      <nav class="toc" aria-label="目次">
+        <div class="toc-ttl">目次</div>
+        <ol>
+          <li><a href="#naze">単位が「力×距離」になる理由</a></li>
+          <li><a href="#kansan">換算のルール</a></li>
+          <li><a href="#tsukaiwake">構造設計での使い分け</a></li>
+          <li><a href="#rei">使い分けの例（計算例）</a></li>
+          <li><a href="#matome">まとめ</a></li>
+        </ol>
+      </nav>
+
+      <h2 id="naze">単位が「力×距離」になる理由</h2>
+      <p>モーメントは「力の大きさ×回転中心からの距離（<a href="moment-ude.html">モーメントの腕</a>）」で定義されます。力の単位N（ニュートン）と距離の単位m（またはmm）を掛け合わせるため、単位も自動的にN·m、kN·m、N·mmといった「力×距離」の形になります。曲げモーメントは部材内部に生じるモーメントですが、定義は同じなので単位も同じです。</p>
+
+      <h2 id="kansan">換算のルール</h2>
+      <div class="formula">
+        1 kN·m ＝ 1,000 N·m ＝ 1,000,000 N·mm
+        <span class="note">k（キロ）＝10³、m→mmで×10³。合わせて10⁶倍</span>
+      </div>
+      <p>kN·mからN·mmへの換算は、力の換算（kN→Nで10³倍）と距離の換算（m→mmで10³倍）の掛け合わせで<strong>10⁶倍（100万倍）</strong>になります。「kN·m→N·mmは6桁ずらす」と覚えておくと、実務でも試験でも素早く換算できます。</p>
+
+      <h2 id="tsukaiwake">構造設計での使い分け</h2>
       <table class="data">
         <tr><th>場面</th><th>使う単位</th><th>理由</th></tr>
         <tr><td>応力図（M図）・計算書</td><td>kN·m</td><td>建物規模の曲げを扱いやすい大きさ</td></tr>
-        <tr><td><a href="danmen-keisu.html">応力度計算</a> σ＝M/Z</td><td>N·mm</td><td>断面係数ZがmM³、応力度がN/mm²で揃う</td></tr>
+        <tr><td><a href="danmen-keisu.html">応力度計算</a> σ＝M/Z</td><td>N·mm</td><td>断面係数Zがmm³、応力度がN/mm²で揃う</td></tr>
       </table>
+      <p>建物の梁に生じる曲げモーメントは数十〜数百kN·mのオーダーなので、応力図や計算書ではkN·mが読みやすい単位です。一方、応力度（N/mm²）を求める段階では、断面係数Z（mm³）や断面二次モーメントI（mm⁴）がmm系で表されるため、<strong>MもN·mmに換算してから割り算する</strong>必要があります。この「入口はkN·m、出口の応力度検定はN·mm」という流れが構造計算書の標準的なスタイルです。</p>
 
-      <h2>使い分けの例</h2>
+      <h2 id="rei">使い分けの例（計算例）</h2>
       <div class="point-box">
         <span class="label">POINT</span>
         <p>梁の曲げモーメントが M＝100kN·m、断面係数が Z＝1,000cm³ のとき、曲げ応力度σを求めるには単位を揃えます。</p>
@@ -81,15 +107,21 @@
       </div>
 
       <div class="note-box">
+        <span class="label">注意：よくある間違い</span>
+        <p>cm³で与えられた断面係数をmm³に直すとき、<strong>1cm³＝10³mm³（1,000mm³）</strong>です。長さの換算（1cm＝10mm）につられて10倍としたり、逆に10⁶倍としたりする間違いが多発します。体積の単位は長さの3乗で換算する、と意識しましょう。</p>
+      </div>
+
+      <div class="note-box">
         <span class="label">あわせて読みたい</span>
         <p>「<a href="moment-tani-kansan.html">モーメントの単位換算</a>」「<a href="danmen-keisu.html">断面係数（σ＝M/Z）</a>」「<a href="h-danmen-keisu.html">H形鋼の断面係数</a>」をどうぞ。</p>
       </div>
 
-      <h2>まとめ</h2>
+      <h2 id="matome">まとめ</h2>
       <ul>
-        <li>1kN·m＝1,000N·m＝1,000,000N·mm。</li>
-        <li>M図・計算書はkN·m、応力度計算σ＝M/ZはN·mmで揃える。</li>
-        <li>単位を揃えないと桁間違いになる。応力度はN·mm・mm³に統一。</li>
+        <li>曲げモーメントの単位は「力×距離」。1kN·m＝1,000N·m＝1,000,000N·mm。</li>
+        <li>kN·m→N·mmは6桁（10⁶倍）ずらすと覚える。</li>
+        <li>M図・計算書はkN·m、応力度計算σ＝M/ZはN·mm・mm³で揃える。</li>
+        <li>単位を揃えないと桁間違いになる。cm³→mm³は10³倍に注意。</li>
       </ul>
       <div class="article-author">
         <img src="../assets/profile.png" alt="監修・執筆者 ホッタ ナオト（構造設計一級建築士）" width="76" height="76" loading="lazy">

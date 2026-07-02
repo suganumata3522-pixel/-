@@ -6,9 +6,9 @@
 <meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
 <title>コンクリートの圧縮強度と引張強度の関係｜試験方法と出題ポイント｜構造設計ナビ</title>
-<meta name="description" content="コンクリートの圧縮強度と引張強度の関係をわかりやすく解説。引張強度は圧縮の約1/10という関係、圧縮試験と割裂引張試験の方法、建築士試験での出題ポイントをまとめます。">
+<meta name="description" content="コンクリートの圧縮強度と引張強度の関係をわかりやすく解説。引張強度は圧縮強度の約1/10という関係とその理由、圧縮試験と割裂引張試験の方法の違い、引張を鉄筋が負担するRC造の原理、建築士試験での出題ポイントまで数値例を交えてまとめます。">
 <meta property="og:title" content="コンクリートの圧縮強度と引張強度の関係｜試験方法と出題ポイント｜構造設計ナビ">
-<meta property="og:description" content="圧縮強度と引張強度の関係（約1/10）、試験方法、建築士試験の出題ポイントを解説します。">
+<meta property="og:description" content="コンクリートの引張強度は圧縮強度の約1/10。その理由と、圧縮試験・割裂引張試験の方法の違い、引張を鉄筋が負担するRC造の原理、建築士試験での出題ポイントまで数値例を交えてわかりやすく解説します。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://www.kouzou-navi.com/articles/asshuku-inchou.html">
 <meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
@@ -52,32 +52,57 @@
     <article class="article-main">
       <div class="meta">
         <span class="tag">鉄筋コンクリート造（RC造）</span>
-        <span>更新日：2026年6月14日</span>
+        <span>更新日：2026年7月2日</span>
       </div>
       <h1>圧縮強度と引張強度の関係｜試験方法と出題</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
 
-      <p>コンクリートの<strong>圧縮強度と<a href="inchou-kyoudo.html">引張強度</a>の関係</strong>は、構造設計の前提であり、建築士試験でも頻出のポイントです。</p>
+      <p>コンクリートの<strong>圧縮強度と<a href="inchou-kyoudo.html">引張強度</a>の関係</strong>とは、「コンクリートは圧縮に強く引張に弱い（引張強度は圧縮強度の約1/10）」という材料特性のことです。この性質は鉄筋コンクリート（RC）造が成立する根本の理由であり、構造設計の前提として、建築士試験でも繰り返し出題されるポイントです。この記事では、両者の関係、なぜ引張に弱いのか、試験方法の違い、出題ポイントを整理します。</p>
+
+      <div class="point-box">
+        <span class="label">この記事の要点</span>
+        <ul>
+          <li>コンクリートの引張強度は圧縮強度のおよそ1/10。</li>
+          <li>圧縮は円柱供試体の圧縮試験、引張は割裂引張試験で求める。</li>
+          <li>引張に弱い性質を鉄筋で補うのがRC造の基本原理。</li>
+        </ul>
+      </div>
+
+      <nav class="toc" aria-label="目次">
+        <div class="toc-ttl">目次</div>
+        <ol>
+          <li><a href="#kankei">圧縮と引張の関係</a></li>
+          <li><a href="#naze">なぜ引張に弱いのか</a></li>
+          <li><a href="#shiken">試験方法の違い</a></li>
+          <li><a href="#shutsudai">建築士での出題ポイント</a></li>
+          <li><a href="#matome">まとめ</a></li>
+        </ol>
+      </nav>
 
       <div class="note-box">
         <span class="label">この記事について</span>
         <p>強度・設計に関する規準（JASS5・建築基準法施行令など）の数値は<strong>条件・改訂で変わる</strong>ことがあります。本記事は学習用の概要です。設計では最新の規準を確認してください。</p>
       </div>
 
-      <h2>圧縮と引張の関係</h2>
+      <h2 id="kankei">圧縮と引張の関係</h2>
       <div class="point-box">
         <span class="label">POINT：引張は圧縮の約1/10</span>
         <p>コンクリートは<strong>圧縮に強く引張に弱い</strong>材料で、<strong>引張強度は圧縮強度のおよそ1/10</strong>です。だからコンクリート単体では引張・曲げに使えず、引張を<a href="rc-tetsu-kankei.html">鉄筋</a>に負担させる鉄筋コンクリート（RC）が用いられます。</p>
       </div>
+      <p>簡単な数値例で確認しましょう。圧縮強度24N/mm²の普通コンクリートなら、引張強度はその約1/10の<strong>2.4N/mm²程度</strong>しかありません。梁が曲げを受けると断面の引張側には数N/mm²の引張応力が容易に生じるため、コンクリートだけではすぐにひび割れてしまいます。そこで引張側に鉄筋を配置し、ひび割れ後の引張力はすべて鉄筋に負担させる、というのがRC造の設計の考え方です。許容応力度計算でも、コンクリートの引張抵抗は原則として無視します。</p>
 
-      <h2>試験方法の違い</h2>
+      <h2 id="naze">なぜ引張に弱いのか</h2>
+      <p>コンクリートは、セメントペーストと骨材からなる不均質な材料で、内部には微細な空隙やひび割れ、骨材とペーストの境界（遷移帯）といった弱点が無数に存在します。圧縮ではこれらの欠陥が押しつぶされる方向に働くため耐力を発揮できますが、引張では欠陥の先端に応力が集中し、小さな力でひび割れが進展してしまいます。これが「圧縮に強く引張に弱い」理由です。石やレンガなど、他の脆性材料にも共通する性質です。</p>
+
+      <h2 id="shiken">試験方法の違い</h2>
       <table class="data">
         <tr><th></th><th>圧縮強度</th><th>引張強度</th></tr>
         <tr><td>試験</td><td>円柱供試体を立てて圧縮</td><td>割裂引張試験（円柱を横にして圧縮）</td></tr>
         <tr><td>大きさ</td><td>大きい</td><td>圧縮の約1/10</td></tr>
       </table>
+      <p>引張強度を直接引っ張って測るのは、つかみ部で壊れやすく難しいため、円柱<a href="test-piece.html">供試体</a>を横に寝かせて上下から線状に圧縮する<strong>割裂引張試験</strong>が用いられます。このとき供試体内部の直径面には均一な引張応力が生じ、供試体は縦に割裂して壊れます。「引張試験なのに圧縮力を加える」点が試験で問われやすいところです。</p>
 
-      <h2>建築士での出題ポイント</h2>
+      <h2 id="shutsudai">建築士での出題ポイント</h2>
       <ul>
         <li><strong>「コンクリートの引張強度は圧縮強度の約1/10」</strong>。</li>
         <li><strong>「引張に弱いため鉄筋で補う」</strong>のがRC造の原理。</li>
@@ -85,15 +110,19 @@
         <li>引張強度は<strong>割裂引張試験</strong>で求める。</li>
       </ul>
 
+      <h3>Q. 曲げ強度は圧縮・引張とどう違うのですか？</h3>
+      <p>曲げ強度は、角柱供試体に曲げを加えて求める強度で、引張強度よりやや大きく、圧縮強度よりはるかに小さい値になります。舗装コンクリートなどで用いられる指標ですが、建築のRC造では「圧縮はコンクリート、引張は鉄筋」と役割分担させるため、設計上は圧縮強度が基準になります。</p>
+
       <div class="note-box">
         <span class="label">あわせて読みたい</span>
         <p>「<a href="inchou-kyoudo.html">引張強度</a>」「<a href="asshuku-wc.html">圧縮強度と水セメント比</a>」「<a href="rc-tetsu-kankei.html">コンクリートと鉄筋の関係</a>」をどうぞ。</p>
       </div>
 
-      <h2>まとめ</h2>
+      <h2 id="matome">まとめ</h2>
       <ul>
         <li>引張強度は圧縮強度の約1/10。コンクリートは引張に弱い。</li>
-        <li>圧縮は円柱圧縮、引張は割裂引張試験で求める。</li>
+        <li>内部の微細な欠陥に応力が集中するため、引張ではひび割れが進展しやすい。</li>
+        <li>圧縮は円柱圧縮、引張は割裂引張試験（横にして圧縮）で求める。</li>
         <li>「引張は鉄筋が負担」がRC造の基本。建築士試験で頻出。</li>
       </ul>
       <div class="article-author">
