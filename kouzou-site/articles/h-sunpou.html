@@ -6,9 +6,9 @@
 <meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
 <title>H形鋼の寸法とは？値・規格・長さ・表記の方法とJISとの関係｜構造設計ナビ</title>
-<meta name="description" content="H形鋼の寸法をわかりやすく解説。寸法の値（せい・幅・板厚）、規格（JIS G 3192）、定尺長さ、寸法表記の方法、JISとの関係（許容差・呼称寸法）を初心者向けにまとめます。">
+<meta name="description" content="H形鋼の寸法をわかりやすく解説。せい・幅・ウェブ厚・フランジ厚の4つの値、規格（JIS G 3192）、定尺長さ6m・12m、寸法表記の方法、呼称寸法と許容差などJISとの関係を計算例つきで初心者向けにまとめます。">
 <meta property="og:title" content="H形鋼の寸法とは？値・規格・長さ・表記の方法とJISとの関係｜構造設計ナビ">
-<meta property="og:description" content="H形鋼の寸法の値・規格（JIS G 3192）・定尺長さ・表記の方法・JISとの関係を解説します。">
+<meta property="og:description" content="H形鋼の寸法の4つの値・規格（JIS G 3192）・定尺長さ・表記の方法・呼称寸法と許容差の関係を計算例つきで解説します。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://www.kouzou-navi.com/articles/h-sunpou.html">
 <meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
@@ -52,19 +52,41 @@
     <article class="article-main">
       <div class="meta">
         <span class="tag">鉄骨造（S造）</span>
-        <span>更新日：2026年6月14日</span>
+        <span>更新日：2026年7月2日</span>
       </div>
       <h1>H形鋼の寸法｜値・規格・長さ・表記とJISとの関係</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
 
-      <p><a href="h-katako.html">H形鋼</a>の寸法は、せい・幅・板厚と長さで決まります。ここでは寸法の値・規格・長さ・表記の方法と、JISとの関係を整理します。</p>
+      <p><a href="h-katako.html">H形鋼</a>の寸法とは、断面の大きさを表す「せい・幅・ウェブ厚・フランジ厚」の4つの値と、部材の長さのことです。図面や積算書では「H-400×200×8×13」のような表記で示され、この数字の意味を正しく読めることが鉄骨造（S造）を扱ううえでの第一歩になります。ここでは寸法の値・規格・長さ・表記の方法と、JIS（日本産業規格）との関係を、構造設計の実務の視点から整理します。</p>
+
+      <div class="point-box">
+        <span class="label">この記事の要点</span>
+        <ul>
+          <li>H形鋼の断面寸法は「せいH・幅B・ウェブ厚t1・フランジ厚t2」の4つの値で決まる。</li>
+          <li>形状・寸法・質量・許容差はJIS G 3192で規定され、定尺長さは6m・12mが基本。</li>
+          <li>呼称寸法と実寸法が異なる系列があるため、納まり検討では形鋼表の実寸法を確認する。</li>
+        </ul>
+      </div>
 
       <div class="note-box">
         <span class="label">この記事について</span>
         <p>本記事の数値は<strong>代表的な目安・例</strong>で、学習用の概要です。設計・積算では必ず<strong>最新のJIS・建築基準法告示・鋼構造設計規準・鋼材ハンドブック</strong>の正確な値を確認してください。</p>
       </div>
 
-      <h2>寸法の値（4つの数字）</h2>
+      <nav class="toc" aria-label="目次">
+        <div class="toc-ttl">目次</div>
+        <ol>
+          <li><a href="#atai">寸法の値（4つの数字）</a></li>
+          <li><a href="#kikaku">規格（JIS G 3192）</a></li>
+          <li><a href="#nagasa">長さ（定尺）</a></li>
+          <li><a href="#hyouki">寸法表記の方法</a></li>
+          <li><a href="#jis">JISとの関係：呼称寸法と許容差</a></li>
+          <li><a href="#faq">よくある質問</a></li>
+          <li><a href="#matome">まとめ</a></li>
+        </ol>
+      </nav>
+
+      <h2 id="atai">寸法の値（4つの数字）</h2>
       <p>H形鋼の断面寸法は、次の4つで表されます。</p>
       <table class="data">
         <tr><th>記号</th><th>意味</th></tr>
@@ -73,35 +95,46 @@
         <tr><td>t1（ウェブ厚）</td><td>垂直な板の厚さ</td></tr>
         <tr><td>t2（フランジ厚）</td><td>上下の板の厚さ</td></tr>
       </table>
+      <p>せいHが大きいほど曲げに強くなり、フランジ幅Bと板厚が大きいほど断面積が増えて強度・剛性が上がります。どの寸法がどの性能に効くのかを意識すると、断面選定の考え方が理解しやすくなります。上下の水平な板が<a href="h-flange-web.html">フランジ、それをつなぐ垂直な板がウェブ</a>で、曲げは主にフランジ、せん断は主に<a href="h-web.html">ウェブ</a>が負担します。</p>
 
-      <h2>規格（JIS G 3192）</h2>
-      <p>H形鋼の形状・寸法・質量・<strong>許容差</strong>は<strong>JIS G 3192（熱間圧延形鋼）</strong>で定められています。せい100mm程度の小型から、せい900mmクラスの大型まで多くの呼称が規格化されています。</p>
+      <h2 id="kikaku">規格（JIS G 3192）</h2>
+      <p>H形鋼の形状・寸法・質量・<strong>許容差</strong>は<strong>JIS G 3192（熱間圧延形鋼）</strong>で定められています。せい100mm程度の小型から、せい900mmクラスの大型まで多くの呼称が規格化されています。また、せいと幅の比率によって<a href="h-haba.html">広幅（H≒B）・中幅（H≒1.5B〜2B）・細幅（H≒2B〜3B）</a>の系列に分かれ、柱には広幅、梁には中幅・細幅が使われるのが一般的です。なお、鋼材そのものの材質（SS400やSN400Bなど）は寸法規格とは別のJISで規定されており、「寸法の規格」と「材質の規格」は分けて考える点に注意しましょう。</p>
 
-      <h2>長さ（定尺）</h2>
-      <p>H形鋼の長さは、流通している標準的な長さ＝<strong>定尺（ていじゃく）</strong>があり、一般に<strong>6m・12m</strong>が基本です。サイズやメーカーにより、さらに長い長さも生産されます。設計長さに合わせて、定尺から切断（加工）して使います。</p>
+      <h2 id="nagasa">長さ（定尺）</h2>
+      <p>H形鋼の長さは、流通している標準的な長さ＝<strong>定尺（ていじゃく）</strong>があり、一般に<strong>6m・12m</strong>が基本です。サイズやメーカーにより、さらに長い長さも生産されます。設計長さに合わせて、定尺から切断（加工）して使います。実務では、梁の長さが定尺を超える場合は継手（ジョイント）を設けて接合し、逆に半端な長さで切ると端材（ロス）が出るため、積算では歩留まりを考えて材料取りを検討します。</p>
 
-      <h2>寸法表記の方法</h2>
+      <h2 id="hyouki">寸法表記の方法</h2>
       <div class="formula">
         H-400×200×8×13
         <span class="note">H：せい400／B：幅200／t1：ウェブ厚8／t2：フランジ厚13（mm）</span>
       </div>
-      <p>「H−せい×幅×ウェブ厚×フランジ厚」の順です（→<a href="h-katako-yomikata.html">読み方の詳細</a>）。</p>
+      <p>「H−せい×幅×ウェブ厚×フランジ厚」の順です（→<a href="h-katako-yomikata.html">読み方の詳細</a>）。単位はすべてmmで、口頭では「エッチ400（ヨンヒャク）の200（ニヒャク）」のように、せいと幅だけで呼ぶことも多くあります。板厚は「薄い方がウェブ、厚い方がフランジ」の順と覚えると混同しません。</p>
 
-      <h2>JISとの関係：呼称寸法と許容差</h2>
+      <h2 id="jis">JISとの関係：呼称寸法と許容差</h2>
       <div class="point-box">
         <span class="label">POINT</span>
         <p>JISでは<strong>呼称寸法</strong>と、製造上のばらつきを認める<strong>許容差</strong>が定められています。一部の系列では呼称と実寸法が異なる（例：呼称300×150の実せい298mm）ため、納まりや製作では<a href="koukou-handbook.html">形鋼表</a>の実寸法・許容差を確認します。</p>
       </div>
+      <p>圧延でつくる以上、寸法をぴったりに揃えることはできないため、JISは「この範囲に収まっていれば合格」という許容差を定めています。数mmの違いでも、仕上げ材との取り合いやボルト孔の位置に影響することがあるので、詳細図の検討では呼称寸法ではなく実寸法を用いるのが実務の基本です。</p>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. H-400×200×8×13の重さはどのくらいですか？</h3>
+      <p>単位質量は約66kg/m（形鋼表の値）です。長さ10mなら約660kgになります。単位質量は断面積×鋼の密度（7,850kg/m³）から計算でき、詳しくは「<a href="h-juuryou-keisan.html">H形鋼の重量計算</a>」で解説しています。</p>
+      <h3>Q2. 呼称寸法と実寸法はなぜ違うのですか？</h3>
+      <p>圧延ロールの構成上、同じ系列で板厚を変えて生産するため、板厚が変わるとせいの実寸法がわずかに変わる呼称があるからです。JISの寸法表には実寸法が記載されているので、納まり検討ではそちらを使います。</p>
+      <h3>Q3. 12mを超える梁はどうしますか？</h3>
+      <p>工場または現場で継手を設けて接合します。また、規格にない大きな断面が必要な場合は、鋼板を溶接して組み立てる<a href="build-h.html">ビルドH鋼</a>を用います。</p>
 
       <div class="note-box">
         <span class="label">あわせて読みたい</span>
         <p>表記は「<a href="h-katako-yomikata.html">H形鋼の読み方</a>」、性能値は「<a href="h-danmenseinou.html">断面性能・単位重量一覧</a>」、系列は「<a href="h-haba.html">広幅・中幅・細幅</a>」をどうぞ。</p>
       </div>
 
-      <h2>まとめ</h2>
+      <h2 id="matome">まとめ</h2>
       <ul>
         <li>H形鋼の寸法はせい・幅・ウェブ厚・フランジ厚と長さで決まる。</li>
         <li>規格はJIS G 3192。定尺は6m・12mが基本。</li>
+        <li>表記は「H−せい×幅×ウェブ厚×フランジ厚」の順（単位mm）。</li>
         <li>呼称寸法と実寸法・許容差はJISで規定。実寸は形鋼表で確認する。</li>
       </ul>
       <div class="article-author">

@@ -6,9 +6,9 @@
 <meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
 <title>H形鋼のウェブとは？サイズの見方とせん断力を負担する役割｜構造設計ナビ</title>
-<meta name="description" content="H形鋼のウェブをわかりやすく解説。ウェブ（腹板）の意味、サイズ表記での見方（ウェブ厚t1）、せん断力を負担する役割、せん断応力度の計算、ウェブの座屈とスチフナによる補強をまとめます。">
+<meta name="description" content="H形鋼のウェブ（腹板）をわかりやすく解説。サイズ表記での見方（ウェブ厚t1）、せん断力を負担する役割、τ＝Q/Awによるせん断応力度の計算例、ウェブの座屈とスチフナによる補強までを初心者向けにまとめます。">
 <meta property="og:title" content="H形鋼のウェブとは？サイズの見方とせん断力を負担する役割｜構造設計ナビ">
-<meta property="og:description" content="H形鋼のウェブの意味・サイズの見方・せん断力を負担する役割・せん断応力度の計算を解説します。">
+<meta property="og:description" content="H形鋼のウェブ（腹板）の意味・サイズの見方・せん断力を負担する役割・せん断応力度の計算例・スチフナ補強を解説します。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://www.kouzou-navi.com/articles/h-web.html">
 <meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
@@ -52,12 +52,21 @@
     <article class="article-main">
       <div class="meta">
         <span class="tag">鉄骨造（S造）</span>
-        <span>更新日：2026年6月14日</span>
+        <span>更新日：2026年7月2日</span>
       </div>
       <h1>H形鋼のウェブ｜サイズの見方とせん断力の役割</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
 
-      <p><strong>ウェブ（腹板）</strong>は、<a href="h-katako.html">H形鋼</a>の上下<a href="h-flange-web.html">フランジ</a>をつなぐ垂直な板です。主に<strong>せん断力</strong>を負担する重要な部分です。</p>
+      <p><strong>ウェブ（腹板）</strong>とは、<a href="h-katako.html">H形鋼</a>の上下の<a href="h-flange-web.html">フランジ</a>をつなぐ垂直な板のことです。英語のweb（つなぎ・膜）に由来し、日本語では「腹板（ふくばん・はらいた）」とも呼ばれます。断面の中央に立つ地味な存在に見えますが、梁に生じる<strong>せん断力</strong>のほとんどを負担する、構造上欠かせない部分です。この記事では、サイズ表記での見方、せん断力を受け持つ役割と計算のしかた、座屈とスチフナによる補強までを整理します。</p>
+
+      <div class="point-box">
+        <span class="label">この記事の要点</span>
+        <ul>
+          <li>ウェブ厚は寸法表記の3番目の数字（t1）。ウェブの高さの目安はH−2t2。</li>
+          <li>曲げはフランジ、せん断はウェブという役割分担。τ＝Q/Awで検定する。</li>
+          <li>薄いウェブは座屈しやすいため、幅厚比の制限とスチフナ補強で対処する。</li>
+        </ul>
+      </div>
 
       <div class="note-box">
         <span class="label">この記事について</span>
@@ -65,32 +74,41 @@
       </div>
 
       <h2>サイズの見方</h2>
-      <p>ウェブの厚さは、寸法表記の<strong>3番目の数字（t1）</strong>です。たとえば「H-400×200×8×13」ならウェブ厚は8mm。ウェブの高さは、せいからフランジ厚2枚分を引いた「H − 2·t2」がおおよその目安です。</p>
+      <p>ウェブの厚さは、<a href="h-sunpou.html">寸法表記</a>の<strong>3番目の数字（t1）</strong>です。たとえば「H-400×200×8×13」ならウェブ厚は8mm。ウェブの高さは、せいからフランジ厚2枚分を引いた「H − 2·t2」がおおよその目安です。この例では 400 − 2×13 ＝ 374mm となります。同じせいのH形鋼でも、ウェブは4.5mm程度の薄いものから十数mmの厚いものまであり、ウェブが薄い系列ほど軽くて経済的な断面になります。</p>
 
       <h2>せん断力を負担する役割</h2>
-      <p>梁が荷重を支えるとき、断面には曲げモーメントと<strong>せん断力</strong>が生じます。曲げは主にフランジが、<strong>せん断力は主にウェブ</strong>が負担します。せん断応力度は、せん断力をウェブの断面積で割って概算します。</p>
+      <p>梁が荷重を支えるとき、断面には曲げモーメントと<strong>せん断力</strong>が生じます。曲げは主にフランジが、<strong>せん断力は主にウェブ</strong>が負担します。これは、曲げによる引張・圧縮は断面の上下端（フランジ位置）で最大になる一方、せん断応力度は断面の中央部で最大になるためで、材料の配置と力の流れが合理的に対応しています。せん断応力度は、せん断力をウェブの断面積で割って概算します。</p>
       <div class="formula">
         τ = Q / Aw　（Aw ≒ H × t1）
         <span class="note">τ：せん断応力度／Q：せん断力／Aw：ウェブの断面積</span>
       </div>
       <p>この τ が<a href="kyoyo-oryokudo.html">許容せん断応力度 fs</a> 以下であることを確認します。</p>
+      <p>【計算例】H-400×200×8×13 の梁に、せん断力 Q＝200kN が作用する場合を考えます。Aw ≒ 400×8 ＝ 3,200mm² なので、τ ＝ 200,000N ÷ 3,200mm² ≒ 62.5N/mm² です。これが許容せん断応力度以下なら安全と判断します。実務の一次設計では、曲げの検定に比べてせん断は余裕があることが多いものの、スパンの短い梁や大きな集中荷重を受ける梁では決定要因になることがあります。</p>
 
       <h2>ウェブの座屈とスチフナ</h2>
       <div class="point-box">
         <span class="label">POINT</span>
         <p>ウェブが薄い（<a href="h-habaatsuhi.html">幅厚比</a>が大きい）と、せん断や集中荷重で<strong>ウェブが座屈</strong>することがあります。これを防ぐため、梁の支点や集中荷重位置、大きなせいの梁では、ウェブに<strong>スチフナ（補剛材）</strong>を溶接して補強します。</p>
       </div>
+      <p>座屈とは、薄い板が面外に波打つようにはらみ出す現象です。ウェブは高さに対して厚さが小さい「薄い板」なので、断面が大きいほど座屈への配慮が重要になります。建築基準法の告示や鋼構造設計規準では、部材のランク（変形能力）に応じたウェブの幅厚比の制限が定められており、制限を超える場合はスチフナ補強や断面変更で対応します。</p>
+
+      <h2>よくある質問</h2>
+      <h3>Q1. ウェブとフランジ、どちらが厚いのですか？</h3>
+      <p>一般に<strong>フランジ（t2）の方が厚く</strong>、ウェブ（t1）は薄くつくられます。曲げを受け持つフランジに材料を集め、せん断で決まるウェブは必要最小限にするのが合理的だからです。</p>
+      <h3>Q2. ウェブに設備配管用の孔をあけてもよいですか？</h3>
+      <p>梁貫通孔（スリーブ）として実務でよく行われますが、ウェブの断面が欠けるためせん断耐力が低下します。孔径・位置の制限を守り、必要に応じて孔の周囲を補強プレートで補強します。無断で孔をあけることは厳禁です。</p>
 
       <div class="note-box">
         <span class="label">あわせて読みたい</span>
         <p>フランジとの役割分担は「<a href="h-flange-web.html">フランジとウェブ</a>」、強度計算は「<a href="h-kyoudo.html">H形鋼の強度</a>」、薄さの限界は「<a href="h-habaatsuhi.html">幅厚比</a>」をどうぞ。</p>
       </div>
 
-      <h2>まとめ</h2>
+      <h2 id="matome">まとめ</h2>
       <ul>
         <li>ウェブはフランジをつなぐ垂直な板。厚さは表記の3番目（t1）。</li>
         <li>主にせん断力を負担。τ＝Q/Aw（Aw≒H×t1）で確認する。</li>
-        <li>薄いと座屈するため、必要に応じてスチフナで補強する。</li>
+        <li>曲げはフランジ・せん断はウェブという役割分担を押さえる。</li>
+        <li>薄いと座屈するため、幅厚比の制限を守り必要に応じてスチフナで補強する。</li>
       </ul>
       <div class="article-author">
         <img src="../assets/profile.png" alt="監修・執筆者 ホッタ ナオト（構造設計一級建築士）" width="76" height="76" loading="lazy">
