@@ -6,9 +6,9 @@
 <meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
 <title>力の合成とは？計算方法・合力と平行四辺形の関係｜構造設計ナビ</title>
-<meta name="description" content="力の合成をわかりやすく解説。複数の力を1つの合力にまとめる力の合成の意味、平行四辺形の法則による作図、直交成分を使った計算方法（ベクトルの合成の基礎）をまとめます。">
+<meta name="description" content="力の合成をわかりやすく解説。複数の力を1つの合力にまとめる意味、平行四辺形の法則による作図、直交成分・余弦定理を使った計算方法と数値例、3つ以上の力の合成、力の分解との違いまでまとめます。">
 <meta property="og:title" content="力の合成とは？計算方法・合力と平行四辺形の関係｜構造設計ナビ">
-<meta property="og:description" content="力の合成の意味、平行四辺形の法則、直交成分による計算方法（ベクトル合成）を解説します。">
+<meta property="og:description" content="力の合成の意味、平行四辺形の法則、直交成分・余弦定理による計算方法と数値例、力の分解との違いを解説します。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://www.kouzou-navi.com/articles/chikara-gousei.html">
 <meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
@@ -52,17 +52,44 @@
     <article class="article-main">
       <div class="meta">
         <span class="tag">構造力学の基礎</span>
-        <span>更新日：2026年6月15日</span>
+        <span>更新日：2026年7月2日</span>
       </div>
       <h1>力の合成とは？計算方法と平行四辺形の関係</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
-      <p><strong>力の合成</strong>とは、物体に働く複数の<a href="chikara.html">力</a>を、同じ効果を持つ<strong>1つの力（<a href="gouryoku.html">合力</a>）</strong>にまとめることです。</p>
+      <p><strong>力の合成</strong>とは、物体に働く複数の<a href="chikara.html">力</a>を、同じ効果を持つ<strong>1つの力（<a href="gouryoku.html">合力</a>）</strong>にまとめることです。英語では composition of forces と呼ばれ、力をベクトル（大きさと向きを持つ量）として足し合わせる操作にあたります。構造力学の最初に学ぶ基本操作で、反力の計算や応力の算定など、あらゆる計算の土台になります。この記事では、作図による方法（平行四辺形の法則）と、計算による方法（直交成分・余弦定理）を数値例つきで解説します。</p>
 
-      <h2>平行四辺形の法則</h2>
-      <p>同じ作用点に働く2つの力の合力は、その2力を2辺とする<a href="heikoushihenkei.html">平行四辺形の対角線</a>になります（<a href="heikoushihenkei-housoku.html">平行四辺形の法則</a>）。これがベクトルの和です。</p>
+      <div class="point-box">
+        <span class="label">この記事の要点</span>
+        <ul>
+          <li>力の合成＝複数の力を、同じ効果を持つ1つの合力にまとめること（ベクトルの和）。</li>
+          <li>2つの力の合力は、2力を2辺とする平行四辺形の対角線で作図できる。</li>
+          <li>計算では各力をx・y成分に分解して足し、R＝√(Rx²＋Ry²)で合成する。</li>
+        </ul>
+      </div>
 
-      <h2>計算方法（直交成分）</h2>
-      <p>実際の計算では、各力を<a href="chikara-bunkai.html">x・y方向に分解</a>して成分ごとに足し、最後に合成します。</p>
+      <nav class="toc" aria-label="目次">
+        <div class="toc-ttl">目次</div>
+        <ol>
+          <li><a href="#heikou">平行四辺形の法則</a></li>
+          <li><a href="#keisan">計算方法（直交成分）</a></li>
+          <li><a href="#keisanrei">計算例：2つの力を合成してみる</a></li>
+          <li><a href="#sanryoku">3つ以上の力の合成</a></li>
+          <li><a href="#bunkai">力の分解との関係</a></li>
+          <li><a href="#qa">よくある質問</a></li>
+          <li><a href="#matome">まとめ</a></li>
+        </ol>
+      </nav>
+
+      <h2 id="heikou">平行四辺形の法則</h2>
+      <p>同じ作用点に働く2つの力の合力は、その2力を2辺とする<a href="heikoushihenkei.html">平行四辺形の対角線</a>になります（<a href="heikoushihenkei-housoku.html">平行四辺形の法則</a>）。これがベクトルの和です。2つの力の矢印を平行移動して四辺形を描き、作用点から出る対角線を引けば、その長さが合力の大きさ、向きが合力の向きを表します。</p>
+      <p>2力が一直線上にある場合は特別で、同じ向きなら単純な足し算、逆向きなら引き算（大きい方の向き）になります。平行四辺形がつぶれた特殊なケースと考えれば統一的に理解できます。</p>
+      <div class="note-box">
+        <span class="label">注意</span>
+        <p>平行四辺形の法則で合成できるのは、<strong>作用線が1点で交わる力</strong>です。作用線が交わらない平行な2力は、大きさの合成だけでなく<strong>合力の作用位置（<a href="moment.html">モーメント</a>のつり合い）</strong>も考える必要があります。力の大きさ・向き・作用点という<a href="chikara-3youso.html">力の3要素</a>を常に意識しましょう。</p>
+      </div>
+
+      <h2 id="keisan">計算方法（直交成分）</h2>
+      <p>実際の計算では、各力を<a href="chikara-bunkai.html">x・y方向に分解</a>して成分ごとに足し、最後に合成します。作図より正確で、力の数が増えても手順が変わらないため、実務や試験ではこちらが主流です。</p>
       <div class="formula">
         Rx ＝ ΣFx　Ry ＝ ΣFy　→　R ＝ √(Rx² ＋ Ry²)
         <span class="note">合力の向き θ＝tan⁻¹(Ry / Rx)</span>
@@ -70,21 +97,42 @@
       <p>2力のなす角がθのとき、合力の大きさは余弦定理から次のようにも求められます。</p>
       <div class="formula">
         R ＝ √(F₁² ＋ F₂² ＋ 2·F₁·F₂·cosθ)
+        <span class="note">F₁・F₂：2つの力の大きさ／θ：2力のなす角</span>
       </div>
+      <p>θ＝0°（同じ向き）なら R＝F₁＋F₂、θ＝180°（逆向き）なら R＝|F₁−F₂|、θ＝90°なら三平方の定理そのものになり、直交成分の式と一致します。</p>
 
-      <h2>3つ以上の力の合成</h2>
-      <p>3つ以上は、<a href="mittsu-gouryoku.html">示力図（力の多角形）</a>で順に矢印をつなぐか、平行四辺形を繰り返して求めます。</p>
+      <h2 id="keisanrei">計算例：2つの力を合成してみる</h2>
+      <p><strong>例1：直交する2力。</strong>水平方向に30kN、鉛直方向に40kNの力が同じ点に働くとき、合力は次のとおりです。</p>
+      <div class="formula">
+        R ＝ √(30² ＋ 40²) ＝ √2500 ＝ 50kN
+        <span class="note">向きは tanθ＝40/30 → θ≒53.1°（水平から）</span>
+      </div>
+      <p><strong>例2：60°で交わる2力。</strong>大きさ100kNの2つの力が60°の角度で働く場合、余弦定理の式に代入すると R＝√(100²＋100²＋2×100×100×cos60°)＝√30000≒<strong>173.2kN</strong>となります。単純な足し算（200kN）にはならない点がポイントです。</p>
+
+      <h2 id="sanryoku">3つ以上の力の合成</h2>
+      <p>3つ以上は、<a href="mittsu-gouryoku.html">示力図（力の多角形）</a>で順に矢印をつなぐか、平行四辺形を繰り返して求めます。計算なら、力の数がいくつでも「全部の力のx成分の和・y成分の和」を求めて最後に合成するだけなので、直交成分による方法が最も確実です。</p>
+      <p>構造設計の実務では、節点に集まる部材力の釣り合いの確認、風圧力と地震力など複数の<a href="gairyoku.html">外力</a>の整理、斜め部材（ブレースや斜め柱）の軸力の処理など、力の合成・分解は日常的に登場します。電卓やソフトが計算してくれる時代でも、「合力がどちらを向くか」を暗算で見積もれる感覚は、計算結果のチェックに欠かせません。</p>
+
+      <h2 id="bunkai">力の分解との関係</h2>
+      <p><a href="chikara-bunkai.html">力の分解</a>は、合成のちょうど逆の操作です。1つの力を、同じ効果を持つ複数の力（分力）に分けることをいい、こちらも平行四辺形の法則を逆向きに使います。合成は「答えが1つに決まる」のに対し、分解は「分け方が無数にある」ため、通常はx・y直交方向など分解する方向を先に決めて使います。</p>
+
+      <h2 id="qa">よくある質問</h2>
+      <h3>Q1. 力の合成と単なる足し算はどう違いますか？</h3>
+      <p>力は大きさだけでなく向きを持つベクトルなので、向きが違う力は数値をそのまま足せません。同じ向きのときだけ単純な足し算になり、それ以外は平行四辺形の法則（ベクトルの和）に従います。</p>
+      <h3>Q2. 合力がゼロになることはありますか？</h3>
+      <p>あります。すべての力の合力（と<a href="moment.html">モーメント</a>）がゼロの状態が「力のつり合い」で、静止している建物はまさにこの状態です。<a href="hanryoku.html">反力</a>の計算は、つり合い条件ΣFx＝0・ΣFy＝0・ΣM＝0を使って行います。</p>
 
       <div class="note-box">
         <span class="label">あわせて読みたい</span>
-        <p>「<a href="gouryoku.html">合力</a>」「<a href="chikara-bunkai.html">力の分解</a>」「<a href="heikoushihenkei-housoku.html">平行四辺形の法則</a>」をどうぞ。</p>
+        <p>「<a href="gouryoku.html">合力</a>」「<a href="chikara-bunkai.html">力の分解</a>」「<a href="heikoushihenkei-housoku.html">平行四辺形の法則</a>」「<a href="chikara-3youso.html">力の3要素</a>」をどうぞ。</p>
       </div>
 
-      <h2>まとめ</h2>
+      <h2 id="matome">まとめ</h2>
       <ul>
-        <li>力の合成は複数の力を1つの合力にまとめること。</li>
-        <li>2力は平行四辺形の対角線が合力。計算は直交成分の和→合成。</li>
-        <li>R＝√(Rx²+Ry²)。2力なら余弦定理でも求められる。</li>
+        <li>力の合成は複数の力を1つの合力にまとめること（ベクトルの和）。分解はその逆操作。</li>
+        <li>2力は平行四辺形の対角線が合力。計算は直交成分の和→合成が基本。</li>
+        <li>R＝√(Rx²+Ry²)、向きはθ＝tan⁻¹(Ry/Rx)。2力なら余弦定理でも求められる。</li>
+        <li>合成できるのは1点で交わる力。平行な力はモーメントも考慮する。</li>
       </ul>
       <div class="article-author">
         <img src="../assets/profile.png" alt="監修・執筆者 ホッタ ナオト（構造設計一級建築士）" width="76" height="76" loading="lazy">
