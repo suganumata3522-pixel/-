@@ -6,9 +6,9 @@
 <meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
 <title>中実材とは？読み方と中空材との違い・断面二次モーメントの比較｜構造設計ナビ</title>
-<meta name="description" content="中実材をわかりやすく解説。中実材（ちゅうじつざい）の読み方と意味（丸鋼・平鋼など中身が詰まった鋼材）、中空材（鋼管）との違い、同じ断面積での断面二次モーメントの比較をまとめます。">
+<meta name="description" content="中実材（ちゅうじつざい）とは丸鋼・平鋼・角鋼など中身が詰まった断面の鋼材のこと。中空材（鋼管）との違い、同じ断面積での断面二次モーメントの比較（計算例つき）、実務での使い分けを一級建築士がわかりやすく解説します。">
 <meta property="og:title" content="中実材とは？読み方と中空材との違い・断面二次モーメントの比較｜構造設計ナビ">
-<meta property="og:description" content="中実材の読み方・意味、中空材（鋼管）との違い、同じ断面積での断面二次モーメントの比較を解説します。">
+<meta property="og:description" content="中実材（ちゅうじつざい）の読み方・意味、中空材（鋼管）との違い、同じ断面積での断面二次モーメントの比較と実務での使い分けを解説します。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://www.kouzou-navi.com/articles/chuujitsu-zai.html">
 <meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
@@ -52,50 +52,100 @@
     <article class="article-main">
       <div class="meta">
         <span class="tag">鉄骨造（S造）</span>
-        <span>更新日：2026年6月14日</span>
+        <span>更新日：2026年7月2日</span>
       </div>
       <h1>中実材とは？中空材との違いと断面二次モーメントの比較</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
 
-      <p><strong>中実材（ちゅうじつざい）</strong>とは、中身が詰まった断面の鋼材のことです。丸鋼・平鋼・角鋼などが該当します。中が空洞の<a href="chuukuu-danmen.html">中空材（鋼管）</a>と対になる言葉です。</p>
+      <p><strong>中実材（ちゅうじつざい）</strong>とは、断面の内部まで材料が詰まった鋼材のことです。丸鋼・平鋼・角鋼などが該当し、英語では solid section（ソリッド断面）と呼ばれます。中が空洞になっている<a href="chuukuu-danmen.html">中空材（鋼管）</a>と対になる言葉です。この記事では、中実材の読み方と意味、中空材との違い、断面二次モーメントの比較を計算例つきで解説します。</p>
+
+      <div class="point-box">
+        <span class="label">この記事の要点</span>
+        <ul>
+          <li>中実材（ちゅうじつざい）＝中身が詰まった鋼材。丸鋼・平鋼・角鋼が代表例です。</li>
+          <li>同じ断面積（≒同じ重さ）なら、材料が外周に分布する中空材のほうが断面二次モーメントが大きく、曲げ・座屈に有利です。</li>
+          <li>中実材は引張ブレースや小物部材など、断面性能より加工性・接合のしやすさが重視される部位で活躍します。</li>
+        </ul>
+      </div>
 
       <div class="note-box">
         <span class="label">この記事について</span>
         <p>鋼材の規格・寸法などは<strong>JISや製品の改訂で変わる</strong>ことがあります。本記事は学習用の概要です。実務では必ず<strong>最新のJIS・メーカーの形鋼表（鋼材ハンドブック）</strong>を確認してください。</p>
       </div>
 
-      <h2>中実材の読み方と意味</h2>
-      <p>読み方は「<strong>ちゅうじつざい</strong>」。断面の内部まで金属が詰まっている（中実な）鋼材を指します。代表は丸鋼（断面が円）・平鋼（フラットバー）・角鋼です。ブレースや小物の部材などに使われます。</p>
+      <nav class="toc" aria-label="目次">
+        <div class="toc-ttl">目次</div>
+        <ol>
+          <li><a href="#yomikata">中実材の読み方と意味</a></li>
+          <li><a href="#chigai">中空材との違い</a></li>
+          <li><a href="#hikaku">断面二次モーメントの比較（計算例つき）</a></li>
+          <li><a href="#jitsumu">実務での使い分け</a></li>
+          <li><a href="#qa">よくある質問</a></li>
+          <li><a href="#matome">まとめ</a></li>
+        </ol>
+      </nav>
 
-      <h2>中空材との違い</h2>
+      <h2 id="yomikata">中実材の読み方と意味</h2>
+      <p>読み方は「<strong>ちゅうじつざい</strong>」です。「中実」は「中身が実（み）ちている」、つまり断面の内部まで金属が詰まっている状態を表します。「ちゅうみざい」「なかみざい」ではないので注意しましょう。代表的な中実材には次のようなものがあります。</p>
+      <ul>
+        <li><strong>丸鋼</strong>：断面が円形の棒鋼。引張ブレース（<a href="sujikai.html">筋かい</a>）やアンカーボルトの素材などに使われます。</li>
+        <li><strong>平鋼（フラットバー）</strong>：断面が長方形の帯状の鋼材。ガセットプレートの添え材や手すり・階段まわりの部材に多用されます。</li>
+        <li><strong>角鋼</strong>：断面が正方形の棒鋼。小物金物や機械部品の素材になります。</li>
+      </ul>
+      <p>なお、H形鋼などの<a href="katakou.html">形鋼</a>は板要素を組み合わせた断面であり、通常「中実材」とは呼びません。あくまで「中身が詰まっているか、空洞か」という視点の分類です。</p>
+
+      <h2 id="chigai">中空材との違い</h2>
+      <p>中実材と対になるのが、円形鋼管や角形鋼管のように<strong>断面の中央が空洞になっている中空材</strong>です。両者の違いを整理すると次のとおりです。</p>
       <table class="data">
         <tr><th></th><th>中実材</th><th><a href="chuukuu-danmen.html">中空材</a></th></tr>
         <tr><td>断面</td><td>中身が詰まっている</td><td>中が空洞（鋼管）</td></tr>
         <tr><td>例</td><td>丸鋼・平鋼・角鋼</td><td>円形鋼管・角形鋼管</td></tr>
         <tr><td>曲げ・座屈効率</td><td>同じ重さでは劣る</td><td>同じ重さで有利</td></tr>
+        <tr><td>加工・接合</td><td>ねじ切り・曲げ加工が容易</td><td>端部処理・接合に工夫が必要</td></tr>
+        <tr><td>主な用途</td><td>引張ブレース・小物部材</td><td>柱・トラス材など圧縮を受ける部材</td></tr>
       </table>
+      <p>曲げやすさ・座屈しにくさを断面のかたちで比較するときのキーワードが、次に説明する<a href="danmen-niji-moment.html">断面二次モーメント</a>です。</p>
 
-      <h2>断面二次モーメントの比較</h2>
-      <p>同じ<strong>断面積（≒重さ）</strong>でも、材料が外周に分布する中空材のほうが<a href="danmen-niji-moment.html">断面二次モーメントI</a>は大きくなります。たとえば中実の丸鋼（直径D）は：</p>
+      <h2 id="hikaku">断面二次モーメントの比較（計算例つき）</h2>
+      <p>断面二次モーメントIは、断面の曲げにくさを表す量で、<strong>図心（断面の中心）から遠い位置にある材料ほど大きく効く</strong>という性質があります。同じ断面積（≒同じ重さ）でも、材料が外周に分布する中空材のほうがIは大きくなります。中実の丸鋼（直径D）のIは次式です。</p>
       <div class="formula">
-        中実丸鋼：I = πD⁴ / 64
+        中実丸鋼：I = πD⁴ / 64<span class="note">D：直径。中空円管の場合は I = π(D⁴ − d⁴)/64（D：外径、d：内径）</span>
       </div>
-      <p>これに対し、同じ断面積を外径の大きな薄い鋼管に置き換えると、外周まで材料が広がるぶんIが大きくなり、曲げにも座屈にも強くなります。これが「材料を外側に配置するほど効率がよい」という構造の基本原則です。</p>
+      <p><strong>数値例</strong>で確かめてみましょう。直径50mmの丸鋼の断面積は約19.6cm²、Iは約30.7万mm⁴です。これとほぼ同じ断面積になるように、外径約100mm・厚さ約6.6mmの鋼管に置き換えると、Iは約220万mm⁴となり、<strong>同じ重さのまま約7倍</strong>に増えます。材料を図心から遠い外周側へ移すだけで、曲げにも座屈にも大幅に強くなるわけです。</p>
       <div class="point-box">
         <span class="label">POINT</span>
         <p>だからこそ、鉄骨では中実材より<strong>H形鋼（外側にフランジ）や鋼管（中空）</strong>が梁・柱に多用されます。中実材は、断面が小さくてよい引張材（ブレース等）や、座屈が問題にならない部位で使われます。</p>
       </div>
+
+      <h2 id="jitsumu">実務での使い分け</h2>
+      <p>「中空材のほうが効率的なら、中実材は不要では？」と思うかもしれませんが、実務では中実材にも明確な出番があります。</p>
+      <ul>
+        <li><strong>引張専用の部材</strong>：引張力には断面積だけが効き、<a href="zakutsu.html">座屈</a>の心配がないため断面のかたちによる効率差が出ません。丸鋼ブレース（ターンバックル付き）が典型です。</li>
+        <li><strong>加工性が必要な部位</strong>：丸鋼は端部にねじを切って接合でき、平鋼は曲げ加工や孔あけが容易です。</li>
+        <li><strong>断面が小さくてよい部材</strong>：小径では鋼管の板厚が薄くなりすぎて製作・接合が難しく、中実材のほうが合理的なことがあります。</li>
+      </ul>
+      <div class="note-box">
+        <span class="label">注意</span>
+        <p>丸鋼ブレースは<strong>圧縮側では座屈してほぼ効かない</strong>ため、「引張のみ有効」として設計するのが原則です。圧縮も負担させたい場合は、鋼管や形鋼のブレースを選定します。</p>
+      </div>
+
+      <h2 id="qa">よくある質問</h2>
+      <h3>Q1. 中実材と「充腹材」は同じ意味ですか？</h3>
+      <p>別の概念です。充腹材（じゅうふくざい）は、H形鋼のように<strong>ウェブが一枚板で連続している部材</strong>を指し、トラス状の非充腹材と対比される言葉です。一方、中実材は「棒として中身が詰まっているか」という分類です。詳しくは「<a href="juufukukei.html">充腹形・非充腹形</a>」をご覧ください。</p>
+      <h3>Q2. 同じ直径なら中実材と鋼管はどちらが強いですか？</h3>
+      <p><strong>同じ外径</strong>で比べれば、断面積の大きい中実材のほうがIも耐力も大きくなります。中空材が有利なのは、あくまで「同じ断面積（同じ重さ）」で比較した場合です。</p>
 
       <div class="note-box">
         <span class="label">あわせて読みたい</span>
         <p>対になるのは「<a href="chuukuu-danmen.html">中空断面</a>」、計算は「<a href="danmen-niji-moment.html">断面二次モーメント</a>」、座屈は「<a href="zakutsu.html">座屈とは？</a>」をどうぞ。</p>
       </div>
 
-      <h2>まとめ</h2>
+      <h2 id="matome">まとめ</h2>
       <ul>
         <li>中実材（ちゅうじつざい）は中身が詰まった鋼材。丸鋼・平鋼・角鋼など。</li>
-        <li>同じ断面積なら中空材のほうが断面二次モーメントが大きく曲げ・座屈に有利。</li>
-        <li>中実材は引張材や座屈が問題にならない部位に使われる。</li>
+        <li>同じ断面積なら中空材のほうが断面二次モーメントが大きく曲げ・座屈に有利（数値例では約7倍）。</li>
+        <li>中実材は引張材や座屈が問題にならない部位、加工性が求められる部位に使われる。</li>
+        <li>比較するときは「同じ重さか、同じ外径か」の条件をそろえて考える。</li>
       </ul>
       <div class="article-author">
         <img src="../assets/profile.png" alt="監修・執筆者 ホッタ ナオト（構造設計一級建築士）" width="76" height="76" loading="lazy">

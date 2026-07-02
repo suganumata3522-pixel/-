@@ -6,9 +6,9 @@
 <meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
 <title>偶力とは？意味とモーメントの公式・求め方｜構造設計ナビ</title>
-<meta name="description" content="偶力をわかりやすく解説。大きさが等しく逆向きで作用線が異なる2つの力である偶力の意味、合力は0でも回転（モーメント）を生む性質、偶力のモーメントの公式と求め方をまとめます。">
+<meta name="description" content="偶力とは、大きさが等しく逆向きで作用線が平行にずれた2つの力のことです。合力は0でも回転（モーメント）を生む性質、公式M＝F×d、どの点でも値が同じ理由、H形鋼のフランジに現れる例まで一級建築士がわかりやすく解説します。">
 <meta property="og:title" content="偶力とは？意味とモーメントの公式・求め方｜構造設計ナビ">
-<meta property="og:description" content="偶力の意味（等大逆向き・作用線が異なる2力）、合力0でも回転を生む性質、モーメントの公式を解説します。">
+<meta property="og:description" content="偶力の意味（等大逆向き・作用線が異なる2力）、合力0でも回転を生む性質、公式M＝F×dと計算例、建築構造に現れる偶力の例を解説します。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://www.kouzou-navi.com/articles/guuryoku.html">
 <meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
@@ -52,39 +52,89 @@
     <article class="article-main">
       <div class="meta">
         <span class="tag">構造力学の基礎</span>
-        <span>更新日：2026年6月15日</span>
+        <span>更新日：2026年7月2日</span>
       </div>
       <h1>偶力とは？意味とモーメントの公式</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
-      <p><strong>偶力（ぐうりょく）</strong>とは、<strong>大きさが等しく・向きが逆で・作用線が異なる（平行な）2つの<a href="chikara.html">力</a></strong>のことです。物体を回転させる働きをします。</p>
+      <p><strong>偶力（ぐうりょく）</strong>とは、<strong>大きさが等しく・向きが逆で・作用線が異なる（平行な）2つの<a href="chikara.html">力</a></strong>のことです。英語では couple（カップル）と呼びます。2つの力を合成すると<a href="gouryoku.html">合力</a>は0になるのに、物体を回転させる働きだけが残るという、少し不思議な性質を持つ力の組です。自動車のハンドルを両手で回す動作や、蛇口をひねる動作が身近な例で、構造力学では回転（モーメント）を扱ううえで欠かせない基本概念です。</p>
 
-      <h2>偶力の特徴</h2>
+      <div class="point-box">
+        <span class="label">この記事の要点</span>
+        <ul>
+          <li>偶力は「等大・逆向き・作用線が平行にずれた」2つの力の組。</li>
+          <li>合力は0で物体を移動させないが、回転（モーメント）だけを生む。</li>
+          <li>偶力のモーメントは M＝F×d で、どの点まわりに計算しても同じ値になる。</li>
+        </ul>
+      </div>
+
+      <nav class="toc" aria-label="目次">
+        <div class="toc-ttl">目次</div>
+        <ol>
+          <li><a href="#tokucho">偶力の特徴</a></li>
+          <li><a href="#koushiki">偶力のモーメントの公式</a></li>
+          <li><a href="#chigai">1つの力のモーメントとの違い</a></li>
+          <li><a href="#kenchiku">建築構造に現れる偶力の例</a></li>
+          <li><a href="#keisan">計算例：ハンドルを回す偶力</a></li>
+          <li><a href="#faq">よくある質問</a></li>
+          <li><a href="#matome">まとめ</a></li>
+        </ol>
+      </nav>
+
+      <h2 id="tokucho">偶力の特徴</h2>
       <ul>
         <li>2力の<strong>合力は0</strong>（移動はさせない）。</li>
         <li>しかし<strong>回転（<a href="moment.html">モーメント</a>）を生む</strong>。</li>
         <li>ハンドルを両手で回す、ねじを回す動作が偶力の例。</li>
       </ul>
+      <p>注意したいのは、「合力が0＝つり合っている」ではないことです。物体のつり合いは「合力が0」と「<a href="moment-tsuriai.html">モーメントの和が0</a>」の両方がそろって初めて成立します。偶力は合力が0でもモーメントが残るため、物体はその場で回転を始めます。2つの力の作用線が一直線上にあれば打ち消し合ってつり合いますが、平行にずれている（作用線が異なる）ことが回転を生む原因です。</p>
 
-      <h2>偶力のモーメントの公式</h2>
+      <h2 id="koushiki">偶力のモーメントの公式</h2>
       <div class="formula">
         M ＝ F × d
         <span class="note">F：力の大きさ／d：2力の作用線間の距離（垂直距離）</span>
       </div>
+      <p>d は2つの力の作用線の間の<strong>垂直距離</strong>で、<a href="moment-ude.html">腕の長さ</a>にあたります。単位は N·mm や kN·m など「力×長さ」です。力Fが大きいほど、また2力の間隔dが広いほど、物体を回転させる能力は大きくなります。</p>
       <div class="point-box">
         <span class="label">POINT</span>
         <p>偶力のモーメントは、<strong>どの点を中心に考えても同じ大きさ</strong>になります。これが、ある1点まわりで考える<a href="moment.html">力のモーメント</a>との大きな違いです（→<a href="guuryoku-moment.html">偶力のモーメント</a>）。</p>
       </div>
+
+      <h2 id="chigai">1つの力のモーメントとの違い</h2>
+      <table class="data">
+        <tr><th></th><th>1つの力のモーメント</th><th>偶力のモーメント</th></tr>
+        <tr><td>式</td><td>M＝F×L（Lは点から作用線までの距離）</td><td>M＝F×d（dは2力間の距離）</td></tr>
+        <tr><td>基準点の影響</td><td>点の位置で値が変わる</td><td>どの点でも同じ値</td></tr>
+        <tr><td>移動の効果</td><td>合力があるため移動もさせる</td><td>合力0で回転のみ</td></tr>
+      </table>
+      <p>「どの点でも同じ」になる理由は、任意の点Oから2つの作用線までの距離を a、a＋d と置いて計算すると確かめられます。M＝F×(a＋d)−F×a＝F×d となり、点の位置を表す a が式から消えるため、基準点の取り方によらず一定になるのです。詳しい導出は「<a href="guuryoku-moment.html">偶力のモーメント</a>」で解説しています。</p>
+
+      <h2 id="kenchiku">建築構造に現れる偶力の例</h2>
+      <p>偶力は試験問題だけの概念ではなく、構造設計の実務にも顔を出します。代表例が<a href="h-katako.html">H形鋼</a>の梁です。梁が曲げモーメントを受けると、上フランジに圧縮・下フランジに引張の力が生じます。この2つは「等大・逆向き・上下に離れた平行な力」、つまり偶力そのものです。曲げモーメントを「フランジの力×上下フランジ間の距離」と読み替える考え方は、梁接合部の設計などで実際に使われます（→<a href="h-flange-web.html">フランジとウェブ</a>）。ほかにも、露出柱脚でアンカーボルトの引張と基礎の圧縮反力が対になってモーメントに抵抗する仕組みなど、「モーメント＝力の対（偶力）」への置き換えは構造の随所で活躍します。</p>
+
+      <h2 id="keisan">計算例：ハンドルを回す偶力</h2>
+      <p>直径0.4mのハンドルを両手で持ち、左右の縁でそれぞれ50Nの力を逆向きに加えて回すとします。2力の作用線間の距離は d＝0.4m なので、偶力のモーメントは次のとおりです。</p>
+      <div class="formula">
+        M ＝ F × d ＝ 50 N × 0.4 m ＝ 20 N·m
+        <span class="note">ハンドルの中心まわりでも縁まわりでも、どの点で計算しても20N·mになる</span>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 偶力はつり合っているのですか？</h3>
+      <p>つり合っていません。合力は0ですがモーメントが残るため、物体は回転します。つり合いが成立するには「合力0」に加えて「モーメントの和も0」であることが必要です。</p>
+      <h3>Q2. 偶力のモーメントはどの点を中心に計算すればよいですか？</h3>
+      <p>どこでも構いません。偶力のモーメントは基準点によらず M＝F×d で一定なので、計算しやすい点を自由に選べます。この性質のおかげで、偶力は「回転作用だけを持つ量」として自由に平行移動させて扱えます。</p>
 
       <div class="note-box">
         <span class="label">あわせて読みたい</span>
         <p>「<a href="guuryoku-moment.html">偶力のモーメント</a>」「<a href="moment.html">力のモーメント</a>」「<a href="moment-tsuriai.html">モーメントのつり合い</a>」をどうぞ。</p>
       </div>
 
-      <h2>まとめ</h2>
+      <h2 id="matome">まとめ</h2>
       <ul>
-        <li>偶力は大きさが等しく逆向き・作用線が異なる2力。</li>
-        <li>合力は0だが回転（モーメント）を生む。</li>
+        <li>偶力は大きさが等しく逆向き・作用線が異なる2力。英語ではcouple。</li>
+        <li>合力は0だが回転（モーメント）を生む。つり合いとは区別する。</li>
         <li>偶力のモーメント M＝F×d（dは2力間の距離）。中心によらず一定。</li>
+        <li>H形鋼のフランジの圧縮・引張など、構造設計の実務にも現れる。</li>
       </ul>
       <div class="article-author">
         <img src="../assets/profile.png" alt="監修・執筆者 ホッタ ナオト（構造設計一級建築士）" width="76" height="76" loading="lazy">
