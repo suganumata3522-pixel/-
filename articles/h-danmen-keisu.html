@@ -6,9 +6,9 @@
 <meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
 <title>H形鋼の断面係数とは？規格・公式・計算方法をわかりやすく解説｜構造設計ナビ</title>
-<meta name="description" content="H形鋼の断面係数（Z）を解説。断面係数の意味、H形鋼の強軸・弱軸の断面係数を求める公式、断面二次モーメントから断面係数を計算する方法を、計算例つきでわかりやすくまとめます。">
+<meta name="description" content="H形鋼の断面係数（Z）を一級建築士が解説。Z＝I/yの意味、強軸Zx・弱軸Zyを求める公式、H-400×200の計算例、許容曲げモーメントへの使い方、塑性断面係数との違いまでわかりやすくまとめます。">
 <meta property="og:title" content="H形鋼の断面係数とは？規格・公式・計算方法をわかりやすく解説｜構造設計ナビ">
-<meta property="og:description" content="H形鋼の断面係数（Z）の意味、強軸・弱軸の公式、断面二次モーメントから求める計算方法を解説します。">
+<meta property="og:description" content="H形鋼の断面係数（Z）の意味、強軸・弱軸の公式、計算例、許容曲げモーメントへの使い方、塑性断面係数との違いを解説します。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://www.kouzou-navi.com/articles/h-danmen-keisu.html">
 <meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
@@ -52,27 +52,48 @@
     <article class="article-main">
       <div class="meta">
         <span class="tag">鉄骨造（S造）</span>
-        <span>更新日：2026年6月14日</span>
+        <span>更新日：2026年7月2日</span>
       </div>
       <h1>H形鋼の断面係数とは？公式・計算方法</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
 
-      <p><strong>断面係数（Z）</strong>は、梁の曲げに対する強さを表す断面性能です。<a href="h-katako.html">H形鋼</a>の梁を設計するとき、許容できる曲げモーメントを決める重要な値です。</p>
+      <p><strong>断面係数（Z）</strong>とは、梁の曲げに対する強さを表す断面性能です。<a href="h-katako.html">H形鋼</a>の梁を設計するとき、許容できる曲げモーメントを決める最重要の値で、曲げを受ける部材の断面選定は「必要なZを満たすか」の確認が出発点になります。英語では section modulus といい、単位には mm³ や cm³ を使います。</p>
+
+      <div class="point-box">
+        <span class="label">この記事の要点</span>
+        <ul>
+          <li>断面係数は Z＝I/y。曲げ応力度は σ＝M/Z で求まる。</li>
+          <li>H形鋼は強軸Zx＝Ix/(H/2)、弱軸Zy＝Iy/(B/2)。梁の設計では強軸Zxを使う。</li>
+          <li>許容曲げモーメントは Ma＝fb×Z。Zが大きい断面ほど曲げに強い。</li>
+        </ul>
+      </div>
+
+      <nav class="toc" aria-label="目次">
+        <div class="toc-ttl">目次</div>
+        <ol>
+          <li><a href="#teigi">断面係数とは</a></li>
+          <li><a href="#koushiki">H形鋼の断面係数の公式</a></li>
+          <li><a href="#keisan">計算例：H-400×200×8×13（強軸Zx）</a></li>
+          <li><a href="#jitsumu">実務での使い方：許容曲げモーメント</a></li>
+          <li><a href="#faq">よくある質問</a></li>
+          <li><a href="#matome">まとめ</a></li>
+        </ol>
+      </nav>
 
       <div class="note-box">
         <span class="label">この記事について</span>
         <p>本記事の数値は<strong>代表的なJIS呼称の例</strong>で、学習用の概要です。設計・積算では必ず<strong>最新のJIS G 3192や鋼材ハンドブック（形鋼表）の正確な値</strong>を使用してください。</p>
       </div>
 
-      <h2>断面係数とは</h2>
+      <h2 id="teigi">断面係数とは</h2>
       <p>断面係数Zは、<a href="h-danmen-moment.html">断面二次モーメントI</a>を、中立軸から断面の縁までの距離 y で割ったものです。曲げモーメントMを受ける梁の縁の<a href="kyoyo-oryokudo.html">曲げ応力度</a>σは、Zで決まります。</p>
       <div class="formula">
         Z = I / y　→　σ = M / Z
         <span class="note">Z：断面係数(mm³)／I：断面二次モーメント(mm⁴)／y：縁までの距離(mm)／M：曲げモーメント(N·mm)</span>
       </div>
-      <p>Zが大きいほど、同じ曲げモーメントでも応力度が小さく、曲げに強い断面です。</p>
+      <p>Zが大きいほど、同じ曲げモーメントでも応力度が小さく、曲げに強い断面です。梁が曲がるとき、応力度は中立軸で0、断面の縁（上下フランジの外面）で最大になります。その「最も厳しい縁の応力度」を一発で求められるようにした係数がZ、と考えると意味がつかみやすいでしょう。H形鋼が同じ重さの長方形断面より曲げに強いのは、材料を中立軸から遠い上下フランジに集めてIとZを稼いでいるからです（→<a href="h-flange-web.html">フランジとウェブ</a>）。</p>
 
-      <h2>H形鋼の断面係数の公式</h2>
+      <h2 id="koushiki">H形鋼の断面係数の公式</h2>
       <p>H形鋼は強軸（x軸）と弱軸（y軸）で値が大きく異なります。まず<a href="h-danmen-moment.html">断面二次モーメント</a>を求め、縁までの距離で割ります。</p>
       <div class="formula">
         強軸：Zx = Ix / (H/2)<br>

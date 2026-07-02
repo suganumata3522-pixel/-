@@ -6,9 +6,9 @@
 <meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
 <title>はりの公式一覧｜反力・せん断力・曲げモーメント・たわみ（図で選ぶ）｜構造設計ナビ</title>
-<meta name="description" content="片持ち梁・単純梁・両端固定・はね出しなど17種類のはりの公式を図から選べる一覧。構造モデルの図をクリックすると、反力・せん断力・曲げモーメント・たわみの公式が表示されます。構造力学の学習・検算に。">
+<meta name="description" content="片持ち梁・単純梁・両端固定・はね出しなど17種類のはりの公式を図から選べる一覧。反力・せん断力・曲げモーメント・たわみの公式に加え、支持条件による違いの比較や覚え方のコツ、概算・検算での使い方も解説します。">
 <meta property="og:title" content="はりの公式一覧｜反力・せん断力・曲げモーメント・たわみ（図で選ぶ）｜構造設計ナビ">
-<meta property="og:description" content="17種類のはりの公式を図から選べる一覧。構造モデルをクリックすると反力・せん断力・曲げモーメント・たわみの公式が出ます。">
+<meta property="og:description" content="17種類のはりの公式を図から選べる一覧。反力・せん断力・曲げモーメント・たわみの公式と、支持条件による違い・覚え方のコツを解説します。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://www.kouzou-navi.com/articles/hari-koushiki.html">
 <meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
@@ -85,12 +85,21 @@
     <article class="article-main">
       <div class="meta">
         <span class="tag">構造力学の基礎</span>
-        <span>更新日：2026年6月14日</span>
+        <span>更新日：2026年7月2日</span>
       </div>
       <h1>はりの公式一覧｜反力・せん断力・曲げモーメント・たわみ</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
 
-      <p>代表的な17種類のはり（梁）について、<strong>構造モデルの図をクリック</strong>すると、<strong>反力・せん断力・曲げモーメント・たわみ</strong>の公式が表示されます。構造力学の学習、建築士試験の対策、設計の概算チェックにご利用ください。</p>
+      <p><strong>はりの公式</strong>とは、支持条件（片持ち・単純支持・固定など）と荷重条件（集中荷重・等分布荷重など）の組み合わせごとに、<strong>反力・せん断力・曲げモーメント・たわみ</strong>を直接計算できるようにまとめた式のことです。このページでは代表的な17種類のはり（梁）について、<strong>構造モデルの図をクリック</strong>すると公式が表示されます。構造力学の学習、建築士試験の対策、設計の概算チェックにご利用ください。</p>
+
+      <div class="point-box">
+        <span class="label">この記事の要点</span>
+        <ul>
+          <li>片持ち梁・単純梁・両端固定・はね出し梁など17種類の公式を図から選べる。</li>
+          <li>支持条件が変わると、同じ荷重でも曲げモーメントとたわみは大きく変わる。</li>
+          <li>まず「単純梁の wL²／8」「片持ち梁の PL」などの代表値を押さえるのが近道。</li>
+        </ul>
+      </div>
 
       <div class="note-box">
         <span class="label">記号</span>
@@ -103,6 +112,44 @@
         <span class="label">ご注意</span>
         <p>本ページの公式は学習・検算の参考用です。たわみは <span class="fml">EI</span> を一定とした弾性範囲の値で、不静定ばり（一端固定・両端固定）やはね出しの一部はモデルの仮定により値が変わります。実際の設計は法令・基準にもとづき責任ある技術者の判断で行ってください。</p>
       </div>
+
+      <h2 id="shiji-hikaku">支持条件で公式はどう変わるか</h2>
+      <p>同じスパン・同じ荷重でも、はりの端部がどう支えられているかで最大曲げモーメントとたわみは大きく変わります。等分布荷重 <span class="fml">w</span> を受ける場合の代表値を比べると、支持条件の影響がよく分かります。</p>
+      <table class="data">
+        <tr><th>支持条件</th><th>最大曲げモーメント</th><th>最大たわみ</th></tr>
+        <tr><td>片持ち梁</td><td class="fml">w·L² ／ 2（固定端）</td><td class="fml">w·L⁴ ／ 8EI</td></tr>
+        <tr><td>単純梁</td><td class="fml">w·L² ／ 8（中央）</td><td class="fml">5·w·L⁴ ／ 384EI</td></tr>
+        <tr><td>一端ピン・他端固定</td><td class="fml">w·L² ／ 8（固定端）</td><td class="fml">約 w·L⁴ ／ 185EI</td></tr>
+        <tr><td>両端固定</td><td class="fml">w·L² ／ 12（端部）</td><td class="fml">w·L⁴ ／ 384EI</td></tr>
+      </table>
+      <p>端部の拘束が強いほど曲げモーメントが端部に移り、たわみが小さくなることが読み取れます。両端固定のたわみは単純梁の5分の1です。片持ち梁は支点が1か所しかないぶん条件が最も厳しく、単純梁の同じ荷重に比べて曲げモーメントで4倍、たわみでは大幅に大きくなります。<a href="hanryoku.html">反力</a>のつり合いから自分で導けるのは静定ばり（片持ち梁・単純梁・はね出し梁）までで、一端固定や両端固定などの不静定ばりは変形の条件も使って解くため、公式として覚えておくと便利です。</p>
+
+      <h2 id="oboekata">公式の覚え方のコツ</h2>
+      <p>17種類すべてを丸暗記する必要はありません。まず次の4つを確実に覚え、ほかは「係数がどう変わるか」で整理するのがおすすめです。</p>
+      <ul>
+        <li>単純梁＋中央集中荷重：<span class="fml">M ＝ P·L ／ 4</span>、<span class="fml">δ ＝ P·L³ ／ 48EI</span></li>
+        <li>単純梁＋等分布荷重：<span class="fml">M ＝ w·L² ／ 8</span>、<span class="fml">δ ＝ 5·w·L⁴ ／ 384EI</span></li>
+        <li>片持ち梁＋先端集中荷重：<span class="fml">M ＝ P·L</span>、<span class="fml">δ ＝ P·L³ ／ 3EI</span></li>
+        <li>片持ち梁＋等分布荷重：<span class="fml">M ＝ w·L² ／ 2</span>、<span class="fml">δ ＝ w·L⁴ ／ 8EI</span></li>
+      </ul>
+      <p>次元（単位のかたち）にも注目してください。曲げモーメントは集中荷重なら <span class="fml">P·L</span>、等分布荷重なら <span class="fml">w·L²</span> に係数が付く形、たわみは <span class="fml">P·L³／EI</span> または <span class="fml">w·L⁴／EI</span> に係数が付く形と決まっています。式の形を覚えておけば、係数をど忘れしても検算で誤りに気づけます。</p>
+
+      <h2 id="jitsumu">実務・試験での使いどころ</h2>
+      <p>実務では、構造計算ソフトの結果が妥当かを確かめる<strong>検算</strong>や、部材断面の当たりを付ける<strong>概算</strong>に公式を使います。たとえばスパン6m の単純梁に等分布荷重 w＝10kN/m が作用するなら、最大曲げモーメントは M＝10×6²／8＝45kN·m とすぐに出せます。この値と必要な許容応力度から<a href="danmen-keisu.html">断面係数</a>の目安を逆算すれば、初期段階で梁せいの見当が付きます。一級・二級建築士や構造設計一級建築士の試験でも、ここに挙げた公式は頻出です。</p>
+
+      <h3>Q1. 公式はどこまで暗記すべきですか？</h3>
+      <p>静定ばりは<a href="hanryoku.html">反力の求め方</a>と<a href="qm-zu.html">Q図・M図</a>の描き方を理解していればその場で導けます。暗記が必須なのは、導出に時間のかかる不静定ばり（両端固定の w·L²／12 など）とたわみの係数です。</p>
+
+      <h3>Q2. たわみの公式の EI とは何ですか？</h3>
+      <p>E はヤング係数（材料の硬さ）、I は<a href="danmen-niji-moment.html">断面二次モーメント</a>（断面の曲げにくさ）で、積 EI を曲げ剛性と呼びます。EI が大きいほどたわみは小さくなります。詳しくは「<a href="tawami.html">たわみの計算方法</a>」をご覧ください。</p>
+
+      <h2 id="matome">まとめ</h2>
+      <ul>
+        <li>はりの公式は「支持条件×荷重条件」の組み合わせごとに反力・Q・M・たわみを直接求められる式。</li>
+        <li>端部の拘束が強いほどたわみは小さくなり、最大曲げモーメントは端部側に生じる。</li>
+        <li>まず単純梁と片持ち梁の代表4公式を確実に覚え、ほかは係数の違いで整理する。</li>
+        <li>実務ではソフトの検算・断面の概算に、試験では頻出公式として活用できる。</li>
+      </ul>
 
       <div class="note-box">
         <span class="label">あわせて読みたい</span>

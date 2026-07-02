@@ -6,9 +6,9 @@
 <meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
 <title>力の分解とは？計算方法とピタゴラスの定理による求め方｜構造設計ナビ</title>
-<meta name="description" content="力の分解をわかりやすく解説。1つの力を複数の分力に分ける力の分解の意味、直交2方向（x・y）への分解、三角比とピタゴラスの定理を使った計算方法、合力との関係をまとめます。">
+<meta name="description" content="力の分解をわかりやすく解説。1つの力を分力に分ける意味、直交2方向（x・y）への分解と三角比・ピタゴラスの定理を使った計算方法を、数値例と筋かい・屋根荷重など実務での使いどころを交えてまとめます。">
 <meta property="og:title" content="力の分解とは？計算方法とピタゴラスの定理による求め方｜構造設計ナビ">
-<meta property="og:description" content="力の分解の意味、直交成分への分解、三角比・ピタゴラスの定理による計算、合力との関係を解説します。">
+<meta property="og:description" content="力の分解の意味、直交成分への分解、三角比・ピタゴラスの定理による計算方法を数値例つきで解説します。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://www.kouzou-navi.com/articles/chikara-bunkai.html">
 <meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
@@ -52,40 +52,91 @@
     <article class="article-main">
       <div class="meta">
         <span class="tag">構造力学の基礎</span>
-        <span>更新日：2026年6月15日</span>
+        <span>更新日：2026年7月2日</span>
       </div>
       <h1>力の分解とは？計算方法とピタゴラスの定理</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
-      <p><strong>力の分解</strong>とは、1つの<a href="chikara.html">力</a>を、同じ効果を持つ複数の<strong>分力</strong>に分けることです。<a href="chikara-gousei.html">合成</a>の逆の操作です。</p>
+      <p><strong>力の分解</strong>とは、1つの<a href="chikara.html">力</a>を、それと同じ効果を持つ複数の<strong>分力</strong>に分けることです。複数の力を1つにまとめる<a href="chikara-gousei.html">合成</a>のちょうど逆の操作にあたります。斜めに働く力をそのまま扱うのは難しいため、水平・鉛直の2方向に分けて計算しやすくするのが目的です。この記事では、直交2方向への分解の公式、ピタゴラスの定理による合力との関係、数値例と実務での使いどころを解説します。</p>
 
-      <h2>直交2方向への分解</h2>
+      <div class="point-box">
+        <span class="label">この記事の要点</span>
+        <ul>
+          <li>力の分解は、1つの力を同じ効果の分力に分けること（合成の逆）</li>
+          <li>直交分解の公式は Fx＝F·cosθ、Fy＝F·sinθ（θは水平となす角）</li>
+          <li>分力から元の力に戻すときはピタゴラスの定理 F＝√(Fx²＋Fy²) を使う</li>
+        </ul>
+      </div>
+
+      <nav class="toc" aria-label="目次">
+        <div class="toc-ttl">目次</div>
+        <ol>
+          <li><a href="#teigi">力の分解とは</a></li>
+          <li><a href="#chokkou">直交2方向への分解</a></li>
+          <li><a href="#keisan">計算例：30度傾いた10kNの力</a></li>
+          <li><a href="#pythagoras">ピタゴラスの定理（合力との関係）</a></li>
+          <li><a href="#jitsumu">実務での使いどころ</a></li>
+          <li><a href="#qa">よくある質問</a></li>
+          <li><a href="#matome">まとめ</a></li>
+        </ol>
+      </nav>
+
+      <h2 id="teigi">力の分解とは</h2>
+      <p>力の分解とは、1つの力を、合成すると元の力に戻る2つ以上の力（分力）に置き換えることです。力はベクトル量なので、<a href="heikoushihenkei.html">力の平行四辺形</a>を逆にたどる作図で分解できます。元の力を対角線とする平行四辺形を描けば、2辺が分力になります。</p>
+      <p>注意したいのは、分解の答えは本来一通りではないという点です。同じ力でも、分ける2方向の取り方しだいで分力の組み合わせは無数にあります。ただし、<strong>分解する2つの方向を先に決めれば、分力は一通りに定まります</strong>。実用上は、直交する2方向（水平x・鉛直y）を選ぶのがもっとも扱いやすく、標準的な方法です。</p>
+
+      <h2 id="chokkou">直交2方向への分解</h2>
       <p>最もよく使うのが、力を<strong>水平（x）と鉛直（y）の直交2方向</strong>に分解する方法です。力Fが水平となす角をθとすると、三角比で求められます。</p>
       <div class="formula">
         Fx ＝ F·cosθ　　Fy ＝ F·sinθ
+        <span class="note">F：元の力の大きさ、θ：Fが水平（x軸）となす角、Fx・Fy：水平・鉛直の分力</span>
       </div>
+      <p>元の力Fを斜辺とする直角三角形を考えると、底辺がFx、高さがFyに対応します。「水平に近い力ほどcosθが大きく水平成分が大きい」「鉛直に近い力ほどsinθが大きく鉛直成分が大きい」とイメージすると覚えやすいでしょう。θ＝0度ならFx＝F・Fy＝0、θ＝90度ならFx＝0・Fy＝Fとなり、感覚とも一致します。</p>
 
-      <h2>ピタゴラスの定理（合力との関係）</h2>
-      <p>逆に、直交する2つの分力から元の力（<a href="gouryoku.html">合力</a>）を求めるときは、直角三角形なので<strong>ピタゴラスの定理</strong>を使います。</p>
+      <h2 id="keisan">計算例：30度傾いた10kNの力</h2>
+      <p>水平から30度傾いた方向に10kNの力が働くときの分力を求めてみます。cos30°≒0.866、sin30°＝0.5なので、</p>
+      <div class="formula">
+        Fx ＝ 10 × cos30° ≒ 8.66kN　　Fy ＝ 10 × sin30° ＝ 5.0kN
+      </div>
+      <p>つまりこの力は、水平方向に約8.66kN、鉛直方向に5.0kNの力を同時に加えたのと同じ効果を持ちます。検算として √(8.66²＋5.0²) ≒ √100 ＝ 10kN となり、元の力に戻ることが確認できます。</p>
+
+      <h2 id="pythagoras">ピタゴラスの定理（合力との関係）</h2>
+      <p>逆に、直交する2つの分力から元の力（<a href="gouryoku.html">合力</a>）を求めるときは、直角三角形なので<strong>ピタゴラスの定理（三平方の定理）</strong>を使います。</p>
       <div class="formula">
         F ＝ √(Fx² ＋ Fy²)　　θ ＝ tan⁻¹(Fy / Fx)
+        <span class="note">tan⁻¹はアークタンジェント。分力の比から元の力の傾きを求める</span>
       </div>
+      <p>たとえばFx＝3kN、Fy＝4kNなら、F＝√(9＋16)＝√25＝5kNです。3：4：5の直角三角形として知られる組み合わせで、試験でもよく登場します。</p>
 
+      <h2 id="jitsumu">実務での使いどころ</h2>
       <div class="point-box">
         <span class="label">POINT</span>
         <p>分解は、斜めの力をそのまま扱うより<strong>x・y成分に分けたほうが計算しやすい</strong>ために行います。<a href="hanryoku.html">つり合い式（ΣX=0・ΣY=0）</a>を立てるときの基本操作です。</p>
       </div>
+      <p>構造設計では、力の分解は日常的に使います。代表的な場面は次のとおりです。</p>
+      <ul>
+        <li><strong>筋かい（ブレース）の検討</strong>：斜め材の軸力を水平・鉛直成分に分解し、水平力への抵抗分を求める</li>
+        <li><strong>勾配屋根の荷重</strong>：屋根面に働く鉛直荷重を、屋根面に沿う方向と直交方向に分解する</li>
+        <li><strong>トラスの節点計算</strong>：斜材の軸力を分解して節点ごとのつり合い式を立てる</li>
+      </ul>
+
+      <h2 id="qa">よくある質問</h2>
+      <h3>Q1. 分解した力は元の力と一緒に考えてよいのですか？</h3>
+      <p>いけません。分力は元の力の「置き換え」なので、両方を同時に荷重として数えると二重計上になります。計算では元の力を消して分力だけを使います。</p>
+      <h3>Q2. なぜ直交方向に分解するのですか？</h3>
+      <p>直交する成分どうしは互いに影響しないため、x方向とy方向のつり合いを別々の式として独立に扱えるからです。また直角三角形になるので、三角比とピタゴラスの定理がそのまま使えて計算が簡単になります。</p>
+
+      <h2 id="matome">まとめ</h2>
+      <ul>
+        <li>力の分解は1つの力を同じ効果の分力に分けること。合成の逆の操作。</li>
+        <li>直交分解は Fx＝F·cosθ、Fy＝F·sinθ。分解する方向を決めれば分力は一通りに定まる。</li>
+        <li>分力から元の力は F＝√(Fx²＋Fy²)（ピタゴラスの定理）で求める。</li>
+        <li>筋かいの軸力や屋根荷重の処理、つり合い式を立てるときの基本操作として実務で多用する。</li>
+      </ul>
 
       <div class="note-box">
         <span class="label">あわせて読みたい</span>
         <p>「<a href="chikara-gousei.html">力の合成</a>」「<a href="gouryoku.html">合力</a>」「<a href="hanryoku.html">反力の求め方</a>」をどうぞ。</p>
       </div>
-
-      <h2>まとめ</h2>
-      <ul>
-        <li>力の分解は1つの力を分力に分けること。合成の逆。</li>
-        <li>直交分解は Fx＝Fcosθ、Fy＝Fsinθ。</li>
-        <li>分力から元の力は F＝√(Fx²+Fy²)（ピタゴラスの定理）。</li>
-      </ul>
       <div class="article-author">
         <img src="../assets/profile.png" alt="監修・執筆者 ホッタ ナオト（構造設計一級建築士）" width="76" height="76" loading="lazy">
         <div class="aa-text">

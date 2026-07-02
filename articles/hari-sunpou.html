@@ -6,9 +6,9 @@
 <meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
 <title>梁の寸法とは？RC造・S造の標準寸法とH形鋼の表記の読み方｜構造設計ナビ</title>
-<meta name="description" content="梁の寸法をわかりやすく解説。RC造・S造の梁せい（高さ）の目安（スパンとの関係）、梁幅の決め方、H形鋼の寸法表記（せい×幅×ウェブ厚×フランジ厚）の読み方を、設計初心者向けにまとめます。">
+<meta name="description" content="梁の寸法をわかりやすく解説。RC造・S造の梁せい（高さ）の目安がスパンで決まる理由、梁幅の決め方、H形鋼の寸法表記の読み方、実務で寸法を決める流れと計算例まで、設計初心者向けにまとめます。">
 <meta property="og:title" content="梁の寸法とは？RC造・S造の標準寸法とH形鋼の表記の読み方｜構造設計ナビ">
-<meta property="og:description" content="RC造・S造の梁せいの目安（スパンとの関係）と、H形鋼の寸法表記の読み方を解説します。">
+<meta property="og:description" content="RC造・S造の梁せいの目安（スパンとの関係）とその理由、H形鋼の寸法表記の読み方、実務で寸法を決める流れを解説します。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://www.kouzou-navi.com/articles/hari-sunpou.html">
 <meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
@@ -52,48 +52,94 @@
     <article class="article-main">
       <div class="meta">
         <span class="tag">鉄骨造（S造）</span>
-        <span>更新日：2026年6月14日</span>
+        <span>更新日：2026年7月2日</span>
       </div>
       <h1>梁の寸法｜RC造・S造の標準寸法とH形鋼の表記</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
 
-      <p>梁の<strong>寸法</strong>は、スパン（梁が架かる長さ）や荷重に応じて決まります。ここでは<a href="rc-zou.html">RC造</a>・<a href="s-zou.html">S造</a>の梁せい（高さ）の目安と、H形鋼の寸法表記の読み方をまとめます。</p>
+      <p>梁の<strong>寸法</strong>とは、梁の断面を決める「梁せい（高さ）」と「梁幅」のことです。梁の寸法は、スパン（梁が架かる長さ）や荷重に応じて決まり、初期検討では「スパンの何分の1」という目安で当たりを付けるのが実務の定番です。ここでは<a href="rc-zou.html">RC造</a>・<a href="s-zou.html">S造</a>の梁せいの目安とその理由、H形鋼の寸法表記の読み方、実際に寸法を決めるまでの流れをまとめます。</p>
+
+      <div class="point-box">
+        <span class="label">この記事の要点</span>
+        <ul>
+          <li>梁せいの目安はRC造でスパンの1/10〜1/12、S造で1/15〜1/20程度。</li>
+          <li>目安がスパンで決まる主な理由は、たわみ（変形）の制限にある。</li>
+          <li>H形鋼は「H-せい×幅×ウェブ厚×フランジ厚」の順で表記される。</li>
+        </ul>
+      </div>
+
+      <nav class="toc" aria-label="目次">
+        <div class="toc-ttl">目次</div>
+        <ol>
+          <li><a href="#sei-haba">梁の「せい」と「幅」</a></li>
+          <li><a href="#meyasu">梁せいの標準寸法（目安）</a></li>
+          <li><a href="#naze-span">なぜ目安はスパンで決まるのか</a></li>
+          <li><a href="#h-hyouki">H形鋼の表記の読み方</a></li>
+          <li><a href="#kimekata">実務で梁の寸法を決める流れ</a></li>
+          <li><a href="#matome">まとめ</a></li>
+        </ol>
+      </nav>
 
       <div class="note-box">
         <span class="label">この記事について</span>
         <p>鋼材の規格・寸法などは<strong>JISや製品の改訂で変わる</strong>ことがあります。本記事は学習用の概要です。実務では必ず<strong>最新のJIS・メーカーの形鋼表（鋼材ハンドブック）</strong>を確認してください。</p>
       </div>
 
-      <h2>梁の「せい」と「幅」</h2>
-      <p>梁の断面は、高さにあたる<strong>梁せい</strong>と、横幅にあたる<strong>梁幅</strong>で表します。曲げに効くのは主に梁せいで、せいが大きいほど<a href="danmen-keisu.html">断面係数</a>が大きく曲げに強くなります。</p>
+      <h2 id="sei-haba">梁の「せい」と「幅」</h2>
+      <p>梁の断面は、高さにあたる<strong>梁せい</strong>と、横幅にあたる<strong>梁幅</strong>で表します。「せい」は漢字で「成」または「背」と書き、図面では D（Depth）や H で表すのが一般的です。曲げに効くのは主に梁せいで、せいが大きいほど<a href="danmen-keisu.html">断面係数</a>や<a href="danmen-niji-moment.html">断面二次モーメント</a>が大きくなり、曲げに強く、たわみにくい梁になります。断面二次モーメントは梁せいの3乗に比例するため、幅を2倍にするより、せいを2倍にするほうがはるかに効率的です。</p>
 
-      <h2>梁せいの標準寸法（目安）</h2>
+      <h2 id="meyasu">梁せいの標準寸法（目安）</h2>
       <p>梁せいは、おおむね<strong>スパンに対する割合</strong>で見当をつけます（あくまで初期検討の目安で、最終的には計算で決めます）。</p>
       <table class="data">
         <tr><th>構造</th><th>梁せいの目安</th><th>梁幅の目安</th></tr>
         <tr><td>RC造</td><td>スパンの 1/10 〜 1/12 程度</td><td>梁せいの 1/2 程度</td></tr>
         <tr><td>S造（H形鋼）</td><td>スパンの 1/15 〜 1/20 程度</td><td>形鋼の規格による</td></tr>
       </table>
-      <p>たとえばスパン6m（6000mm）のRC梁なら梁せい500〜600mm程度、S造のH形鋼梁なら300〜400mm程度が初期の目安です。鉄骨は<a href="danmen-keisu.html">断面係数</a>の大きいH形鋼を使えるため、RC造より梁せいを抑えやすい傾向があります。</p>
+      <p>たとえばスパン6m（6000mm）のRC梁なら梁せい500〜600mm程度、S造のH形鋼梁なら300〜400mm程度が初期の目安です。鉄骨は<a href="danmen-keisu.html">断面係数</a>の大きいH形鋼を使えるため、RC造より梁せいを抑えやすい傾向があります。スパン8mのRC大梁なら、8000÷10＝800mmを上限の目安として、梁せい700〜800mm・梁幅350〜450mm程度から検討を始める、といった使い方をします。</p>
 
-      <h2>H形鋼の表記の読み方</h2>
+      <h2 id="naze-span">なぜ目安はスパンで決まるのか</h2>
+      <p>梁せいの目安がスパンとの比で語られるのは、寸法を支配する条件が多くの場合<strong>たわみ（変形）</strong>だからです。等分布荷重を受ける単純梁のたわみはスパンの4乗に比例して増えるため、スパンが長くなるほど、強度は足りてもたわみが先に問題になります。建築基準法の関係告示では、梁のたわみは原則として<strong>スパンの1/250以下</strong>（変形増大係数を考慮した値）とすることが求められており、この変形制限を満たすために必要な梁せいが、経験的に「スパンの1/10」などの比率に落ち着いています。</p>
+      <p>また、住宅や事務所などでは、たわみが小さくても人の歩行による<strong>床の振動</strong>が気になることがあります。とくに梁せいを抑えた長スパンのS造では、強度・たわみに加えて振動の検討も欠かせません。</p>
+      <div class="note-box">
+        <span class="label">注意</span>
+        <p>階高や設備配管の関係で梁せいを目安より小さくしたい場合は、たわみ・振動の検討が厳しくなります。安易にせいを削らず、ハンチや小梁の追加、鋼材のグレードアップなど代替案とあわせて検討してください。</p>
+      </div>
+
+      <h2 id="h-hyouki">H形鋼の表記の読み方</h2>
       <p>S造の梁に使うH形鋼は、次の順で寸法を表記します。</p>
       <div class="formula">
         H-400×200×8×13
         <span class="note">せいH=400mm／フランジ幅B=200mm／ウェブ厚t1=8mm／フランジ厚t2=13mm</span>
       </div>
-      <p>最初の数字が<strong>梁せい</strong>です。たとえば「H-400×200×8×13」は、せい400mmの梁ということがひと目で分かります（読み方の詳細は<a href="katakou-yomikata.html">形鋼の読み方</a>）。</p>
+      <p>最初の数字が<strong>梁せい</strong>です。たとえば「H-400×200×8×13」は、せい400mmの梁ということがひと目で分かります（読み方の詳細は<a href="katakou-yomikata.html">形鋼の読み方</a>）。H形鋼にはせいと幅の比によって細幅・中幅・広幅の系列があり、梁には細幅・中幅系列を使うのが一般的です。寸法や断面性能の細目はJISに規定されているため、実務では鋼材ハンドブックや<a href="jis-kouzai.html">JIS鋼材</a>の規格表で確認します。</p>
+
+      <h2 id="kimekata">実務で梁の寸法を決める流れ</h2>
+      <p>実際の構造設計では、おおむね次の手順で梁の寸法を確定させます。</p>
+      <ul>
+        <li><strong>仮定断面の設定</strong>：スパン比の目安から梁せい・梁幅を仮定する。</li>
+        <li><strong>応力計算</strong>：荷重を拾い、曲げモーメント・せん断力を求める。</li>
+        <li><strong>断面検定</strong>：許容応力度と比較し、RC造なら配筋、S造なら鋼材グレードと板厚を決める。</li>
+        <li><strong>たわみ・振動の確認</strong>：変形制限（スパンの1/250以下など）と使用性を確認する。</li>
+      </ul>
+      <p>検定でNGになれば断面を上げ、余裕が大きすぎれば下げて再計算する、という繰り返しで寸法が収れんします。目安の比率は、この試行回数を減らすための「最初の一手」と考えてください。</p>
+
+      <h3>Q1. 梁せいは大きいほど安全ですか？</h3>
+      <p>構造的には余裕が増えますが、階高が伸びて建物全体のコストが上がり、天井内の設備スペースも圧迫します。安全性と経済性・納まりのバランスで決めるのが設計者の仕事です。</p>
+
+      <h3>Q2. 小梁と大梁で寸法の目安は違いますか？</h3>
+      <p>柱に取り付く大梁は地震時の応力も負担するため、床荷重だけを受ける小梁より条件が厳しく、同じスパンでも大梁のほうが大きな断面になります。小梁はスパン比の目安より小さめで収まることが多いです。</p>
 
       <div class="note-box">
         <span class="label">あわせて読みたい</span>
         <p>表記の詳細は「<a href="katakou-yomikata.html">形鋼の読み方</a>」、断面性能は「<a href="danmen-keisu.html">断面係数</a>」、たわみは「<a href="tawami.html">たわみとは？</a>」をどうぞ。実寸の断面性能は<a href="../tools/index.html">計算ツール</a>でも確認できます。</p>
       </div>
 
-      <h2>まとめ</h2>
+      <h2 id="matome">まとめ</h2>
       <ul>
         <li>梁の寸法は梁せい（高さ）と梁幅で表し、曲げには梁せいが効く。</li>
-        <li>目安はRC造でスパンの1/10〜1/12、S造で1/15〜1/20程度。</li>
+        <li>目安はRC造でスパンの1/10〜1/12、S造で1/15〜1/20程度。根拠は主にたわみの制限。</li>
         <li>H形鋼は「H-せい×幅×ウェブ厚×フランジ厚」。最初の数字が梁せい。</li>
+        <li>実務では「仮定断面→応力計算→検定→たわみ確認」の繰り返しで寸法を決める。</li>
       </ul>
       <div class="article-author">
         <img src="../assets/profile.png" alt="監修・執筆者 ホッタ ナオト（構造設計一級建築士）" width="76" height="76" loading="lazy">
