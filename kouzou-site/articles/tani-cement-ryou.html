@@ -6,9 +6,9 @@
 <meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
 <title>単位セメント量とは？求め方・計算と最小値・ワーカビリティの関係｜構造設計ナビ</title>
-<meta name="description" content="単位セメント量をわかりやすく解説。コンクリート1m³中のセメント質量である単位セメント量の意味、水セメント比と単位水量から求める計算方法、最小値270kg/m³の規準とワーカビリティ・耐久性との関係をまとめます。">
+<meta name="description" content="単位セメント量をわかりやすく解説。コンクリート1m³中のセメント質量である単位セメント量の意味、水セメント比と単位水量から求める計算方法、最小値270kg/m³の規準とワーカビリティ・耐久性との関係、計算例をまとめます。">
 <meta property="og:title" content="単位セメント量とは？求め方・計算と最小値・ワーカビリティの関係｜構造設計ナビ">
-<meta property="og:description" content="単位セメント量の意味、求め方（W÷(W/C)）、最小値270kg/m³とワーカビリティ・耐久性の関係を解説します。">
+<meta property="og:description" content="単位セメント量の意味、求め方（W÷(W/C)）、最小値270kg/m³とワーカビリティ・耐久性の関係、計算例を解説します。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://www.kouzou-navi.com/articles/tani-cement-ryou.html">
 <meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
@@ -52,12 +52,21 @@
     <article class="article-main">
       <div class="meta">
         <span class="tag">鉄筋コンクリート造（RC造）</span>
-        <span>更新日：2026年6月14日</span>
+        <span>更新日：2026年7月2日</span>
       </div>
       <h1>単位セメント量とは？求め方と最小値</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
 
-      <p><strong>単位セメント量</strong>とは、コンクリート<strong>1m³に含まれるセメントの質量（kg/m³）</strong>です。強度・耐久性・施工性に関わる重要な配合値です。</p>
+      <p><strong>単位セメント量</strong>とは、コンクリート<strong>1m³に含まれるセメントの質量（kg/m³）</strong>です。強度・耐久性・施工性に関わる重要な配合値で、コンクリートの調合を決める配合設計において必ず算出される数値の一つです。単位セメント量が適切でないと、強度不足やワーカビリティの悪化、あるいはひび割れの増加といった問題につながるため、設計時にしっかり確認しておく必要があります。</p>
+
+      <div class="point-box">
+        <span class="label">この記事の要点</span>
+        <ul>
+          <li>単位セメント量は1m³中のセメント質量で、単位水量÷水セメント比で求める</li>
+          <li>JASS5では最小値270kg/m³程度が目安として定められている</li>
+          <li>多すぎると水和熱・乾燥収縮が増え、少なすぎるとワーカビリティ・耐久性が低下する</li>
+        </ul>
+      </div>
 
       <div class="note-box">
         <span class="label">この記事について</span>
@@ -68,12 +77,20 @@
       <p>セメントが多い配合を<a href="tomi-haigou.html">富配合</a>、少ない配合を貧配合といいます。セメント量は強度・水密性を高めますが、多すぎると<a href="mass-concrete.html">水和熱</a>や<a href="concrete-jakuten.html">乾燥収縮</a>が増えます。</p>
 
       <h2>求め方・計算</h2>
-      <p>単位セメント量は、<a href="tani-suiryou.html">単位水量</a>と<a href="mizu-cement-hi.html">水セメント比</a>から求めます。</p>
+      <p>単位セメント量は、<a href="tani-suiryou.html">単位水量</a>と<a href="mizu-cement-hi.html">水セメント比</a>から求めます。この2つの値は配合設計において最初に決定される基本パラメータであり、単位セメント量はそこから導かれる結果の値という位置づけです。そのため、単位セメント量だけを単独で調整するのではなく、常に単位水量・水セメント比とのバランスを意識する必要があります。</p>
       <div class="formula">
         単位セメント量 C ＝ 単位水量 W ÷ 水セメント比（W/C）
         <span class="note">例：W=175kg/m³、W/C=50% → C＝175÷0.50＝350kg/m³</span>
       </div>
-      <p>強度・耐久性からW/Cの上限が、施工性から単位水量の上限（<a href="tani-suiryou.html">185kg/m³</a>）が決まると、必要なセメント量が定まります。</p>
+      <p>強度・耐久性からW/Cの上限が、施工性から単位水量の上限（<a href="tani-suiryou.html">185kg/m³</a>）が決まると、必要なセメント量が定まります。もう少し実務的に考えると、まず必要な圧縮強度から水セメント比の上限を決め、次に施工性（打込みやすさ）から必要な単位水量を決め、この2つの値から単位セメント量を逆算するという流れになります。</p>
+
+      <h2>計算例</h2>
+      <p>例えば、必要な水セメント比が55%、単位水量が160kg/m³の場合を考えます。</p>
+      <div class="formula">
+        C ＝ 160 ÷ 0.55 ≒ 291kg/m³
+        <span class="note">C：単位セメント量（kg/m³）、W：単位水量（kg/m³）、W/C：水セメント比</span>
+      </div>
+      <p>この例では最小値270kg/m³を上回っているため問題ありませんが、水セメント比を大きく（セメントを相対的に少なく）取りすぎると、最小値を下回ってしまうことがあります。その場合は水セメント比を見直すか、単位水量を増やす必要があり、単位水量の上限（185kg/m³程度）とのバランスを取りながら配合を調整します。</p>
 
       <h2>最小値とワーカビリティの関係</h2>
       <div class="point-box">
@@ -82,15 +99,21 @@
       </div>
 
       <div class="note-box">
+        <span class="label">注意</span>
+        <p>単位セメント量は多ければよいというものではありません。多すぎるとマスコンクリートで問題になる<a href="mass-concrete.html">水和熱によるひび割れ</a>のリスクが高まるほか、材料コストも上がります。必要な強度・耐久性・施工性を満たす範囲で、過不足のない値に調整することが大切です。</p>
+      </div>
+
+      <div class="note-box">
         <span class="label">あわせて読みたい</span>
         <p>「<a href="tani-suiryou.html">単位水量</a>」「<a href="mizu-cement-hi.html">水セメント比</a>」「<a href="tomi-haigou.html">富配合・富調合</a>」をどうぞ。</p>
       </div>
 
-      <h2>まとめ</h2>
+      <h2 id="matome">まとめ</h2>
       <ul>
         <li>単位セメント量はコンクリート1m³中のセメント質量（kg/m³）。</li>
         <li>求め方は C＝単位水量 ÷ 水セメント比。</li>
         <li>最小270kg/m³程度。少ないとワーカビリティ・耐久性が低下、多いと発熱・収縮が増える。</li>
+        <li>水セメント比・単位水量とのバランスをとりながら、過不足なく設定する。</li>
       </ul>
       <div class="article-author">
         <img src="../assets/profile.png" alt="監修・執筆者 ホッタ ナオト（構造設計一級建築士）" width="76" height="76" loading="lazy">
