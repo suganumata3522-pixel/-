@@ -6,9 +6,9 @@
 <meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
 <title>作用力とは？反作用力との関係と力のつり合いの計算｜構造設計ナビ</title>
-<meta name="description" content="作用力をわかりやすく解説。作用・反作用の法則（ニュートンの第3法則）における作用力と反作用力の関係、力のつり合いとの違い、構造での反力との関係をまとめます。">
+<meta name="description" content="作用力をわかりやすく解説。作用・反作用の法則（ニュートンの第3法則）における作用力と反作用力の関係、身近な例、力のつり合いとの違い、構造での反力との関係、計算例をまとめます。">
 <meta property="og:title" content="作用力とは？反作用力との関係と力のつり合いの計算｜構造設計ナビ">
-<meta property="og:description" content="作用力と反作用力の関係（ニュートン第3法則）、力のつり合いとの違いを解説します。">
+<meta property="og:description" content="作用力と反作用力の関係（ニュートン第3法則）、身近な例、力のつり合いとの違い、構造の反力との関係を解説します。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://www.kouzou-navi.com/articles/sayouryoku.html">
 <meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
@@ -52,38 +52,83 @@
     <article class="article-main">
       <div class="meta">
         <span class="tag">構造力学の基礎</span>
-        <span>更新日：2026年6月15日</span>
+        <span>更新日：2026年7月3日</span>
       </div>
       <h1>作用力とは？反作用力との関係とつり合い</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
-      <p><strong>作用力</strong>とは、ある物体が別の物体に及ぼす<a href="chikara.html">力</a>のことです。このとき必ず、相手から大きさが等しく逆向きの<strong>反作用力</strong>を受けます（作用・反作用の法則）。</p>
+      <p><strong>作用力</strong>とは、ある物体が別の物体に及ぼす<a href="chikara.html">力</a>のことです。このとき必ず、相手から大きさが等しく逆向きの<strong>反作用力</strong>を受けます（作用・反作用の法則）。日常のあらゆる場面で生じている現象ですが、構造設計では建物と地盤、部材どうしの接触面など、力の伝わり方を考えるうえでの基本的な考え方になります。</p>
 
-      <h2>作用・反作用の法則（ニュートンの第3法則）</h2>
+      <div class="point-box">
+        <span class="label">この記事の要点</span>
+        <ul>
+          <li>作用力には必ず、大きさが等しく逆向きの反作用力が対で生じる（ニュートン第3法則）。</li>
+          <li>作用・反作用は異なる2物体に働く点で、同一物体に働く「力のつり合い」とは別の概念。</li>
+          <li>建物と地盤の間の反力も、作用・反作用の関係によって生じている。</li>
+        </ul>
+      </div>
+
+      <nav class="toc" aria-label="目次">
+        <div class="toc-ttl">目次</div>
+        <ol>
+          <li><a href="#housoku">作用・反作用の法則（ニュートンの第3法則）</a></li>
+          <li><a href="#mijika">身近な例で理解する</a></li>
+          <li><a href="#tsuriai">力のつり合いとの違い</a></li>
+          <li><a href="#hanryoku">構造での反力との関係</a></li>
+          <li><a href="#keisan">簡単な計算例</a></li>
+          <li><a href="#qa">よくある質問</a></li>
+          <li><a href="#matome">まとめ</a></li>
+        </ol>
+      </nav>
+
+      <h2 id="housoku">作用・反作用の法則（ニュートンの第3法則）</h2>
+      <p>作用・反作用の法則は、17世紀にニュートンが整理した運動の3法則のうち3番目にあたるもので、英語では「Newton's third law」と呼ばれます。</p>
       <div class="point-box">
         <span class="label">POINT</span>
         <p>物体Aが物体Bを押す（作用力）と、BはAを同じ大きさで逆向きに押し返します（反作用力）。<strong>作用力と反作用力は、大きさが等しく・向きが反対・同一作用線上</strong>にあり、<strong>異なる2つの物体に働きます</strong>。</p>
       </div>
 
-      <h2>力のつり合いとの違い</h2>
+      <h2 id="mijika">身近な例で理解する</h2>
+      <p>作用・反作用は特別な現象ではなく、私たちの動作のすべてに現れています。たとえば人が地面を足で蹴って歩くとき、足は地面を後方に押しており（作用力）、地面は足を前方に押し返しています（反作用力）。この反作用力によって体が前に進みます。同様に、ロケットが燃焼ガスを後方に噴射する（作用力）と、ガスはロケット本体を前方に押し返し（反作用力）、推進力になります。壁に手を押し当てたときに手に感じる押し返す力も、壁からの反作用力です。</p>
+
+      <h2 id="tsuriai">力のつり合いとの違い</h2>
       <p>混同しやすいのが「力のつり合い」です。両者は別物です。</p>
       <table class="data">
         <tr><th></th><th>作用・反作用</th><th>力のつり合い</th></tr>
         <tr><td>働く相手</td><td>異なる2物体に働く</td><td>同一の物体に働く</td></tr>
         <tr><td>関係</td><td>必ず対で生じる</td><td>合力が0で静止</td></tr>
       </table>
+      <div class="note-box">
+        <span class="label">注意</span>
+        <p id="chuui-gokai">机の上に置いた物体に働く重力と、机が物体を押し返す力（垂直抗力）は、大きさが等しく逆向きなので作用・反作用と誤解されがちですが、これは同一の物体（置かれた物）に働く2つの力の「つり合い」です。作用・反作用の相手はあくまで異なる物体どうしである点に注意してください。</p>
+      </div>
 
-      <h2>構造での反力との関係</h2>
-      <p>建物が地盤（基礎）を押す力（作用力）に対し、地盤は建物を押し返します。これが<a href="hanryoku.html">反力</a>です。反力は作用・反作用で生じ、建物のつり合いを保ちます。</p>
+      <h2 id="hanryoku">構造での反力との関係</h2>
+      <p>建物が地盤（基礎）を押す力（作用力）に対し、地盤は建物を押し返します。これが<a href="hanryoku.html">反力</a>です。反力は作用・反作用で生じ、建物のつり合いを保ちます。構造計算では、建物にかかる<a href="gairyoku.html">外力</a>（自重・積載荷重・地震力・風荷重など）を支点に伝え、支点で生じる反力を求めることが解析の第一歩になります。</p>
+
+      <h2 id="keisan">簡単な計算例</h2>
+      <p>両端が支点で支えられた単純梁の中央に、荷重P＝10kNが作用している場合を考えます。梁の自重を無視すると、荷重は左右の支点に均等に分かれて伝わるため、左右それぞれの支点に生じる反力は次のようになります。</p>
+      <div class="formula">
+        反力 R ＝ P ÷ 2 ＝ 10kN ÷ 2 ＝ 5kN（左右の支点それぞれ）
+        <span class="note">P：梁に作用する荷重、R：各支点に生じる反力。梁は地盤（支点）を押し、支点は梁を押し返す作用・反作用の関係にある</span>
+      </div>
+      <p>このとき、梁が支点を押す力（作用力）と、支点が梁を押し返す力（反作用力・反力）は、大きさが等しく向きが逆になっています。</p>
+
+      <h2 id="qa">よくある質問</h2>
+      <h3>Q1. 反作用力があるのに、なぜ物体は動けるのですか？</h3>
+      <p>作用力と反作用力は、それぞれ<strong>別の物体</strong>に働くためです。人が地面を蹴る力は地面に、地面が押し返す力は人の体に働くので、互いに打ち消し合うことなく、人の体は前に進むことができます。</p>
+      <h3>Q2. 静止している建物には反作用力しか働いていないのですか？</h3>
+      <p>建物には常に自重などの作用力が働いており、地盤はそれに対する反力（反作用力）を返しています。両者が釣り合っているために建物は静止して見えますが、力そのものは常に発生し続けています。</p>
 
       <div class="note-box">
         <span class="label">あわせて読みたい</span>
         <p>「<a href="gairyoku.html">外力</a>」「<a href="hanryoku.html">反力の求め方</a>」「<a href="chikara.html">力とは</a>」をどうぞ。</p>
       </div>
 
-      <h2>まとめ</h2>
+      <h2 id="matome">まとめ</h2>
       <ul>
         <li>作用力に対し、相手から等しく逆向きの反作用力を受ける（ニュートン第3法則）。</li>
         <li>作用・反作用は異なる2物体に働く。つり合い（同一物体）とは別。</li>
+        <li>歩行やロケット推進など、身近な現象の多くが作用・反作用で説明できる。</li>
         <li>建物と地盤の間の反力も作用・反作用で生じる。</li>
       </ul>
       <div class="article-author">

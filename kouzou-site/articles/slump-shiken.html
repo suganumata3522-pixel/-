@@ -6,9 +6,9 @@
 <meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
 <title>スランプ試験とは？スランプコーン・スランプ値とFcの関係｜構造設計ナビ</title>
-<meta name="description" content="スランプ試験をわかりやすく解説。スランプコーンを使う試験の方法（JIS A 1101）、スランプ値の測り方、軟らかさの指標としての意味、設計基準強度Fcとの関係をまとめます。">
+<meta name="description" content="スランプ試験をわかりやすく解説。スランプコーンを使う試験手順（JIS A 1101）、スランプ値の意味と許容差、設計基準強度Fcとの関係、スランプフロー試験との違いや注意点をまとめます。">
 <meta property="og:title" content="スランプ試験とは？スランプコーン・スランプ値とFcの関係｜構造設計ナビ">
-<meta property="og:description" content="スランプ試験の方法（スランプコーン）、スランプ値の測り方、Fcとの関係を解説します。">
+<meta property="og:description" content="スランプ試験の手順（スランプコーン）、スランプ値の意味・許容差、Fcとの関係、スランプフローとの違いを解説します。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://www.kouzou-navi.com/articles/slump-shiken.html">
 <meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
@@ -52,45 +52,93 @@
     <article class="article-main">
       <div class="meta">
         <span class="tag">鉄筋コンクリート造（RC造）</span>
-        <span>更新日：2026年6月14日</span>
+        <span>更新日：2026年7月3日</span>
       </div>
       <h1>スランプ試験とは？スランプコーンとFcの関係</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
 
-      <p><strong>スランプ試験</strong>は、<a href="fresh-concrete.html">フレッシュコンクリート</a>の<strong>軟らかさ（コンシステンシー）</strong>を測る試験です。現場の品質管理で最もよく行われます（JIS A 1101）。</p>
+      <p><strong>スランプ試験</strong>とは、まだ固まっていない<a href="fresh-concrete.html">フレッシュコンクリート</a>の<strong>軟らかさ（コンシステンシー）</strong>を、スランプコーンを引き抜いたときの下がり量（スランプ値、単位cm）で表す試験のことです。現場の受入検査で最も広く行われる品質管理項目で、方法はJIS A 1101に定められています。「スランプ」は英語のslump（へたる・崩れ落ちる）に由来し、コンクリートが自重で沈み込む様子をそのまま言い表した言葉です。</p>
+
+      <div class="point-box">
+        <span class="label">この記事の要点</span>
+        <ul>
+          <li>スランプ試験はスランプコーンの引き抜き後の下がり量（cm）を測る、現場で最も一般的な品質管理試験（JIS A 1101）。</li>
+          <li>試験は生コン車1台ごと・打込み工区ごとなど決められた頻度で行い、指定値との許容差で合否を判定する。</li>
+          <li>スランプは軟らかさの指標であり、強度Fcそのものとは別物。呼び強度とスランプを両方満たすように配合する。</li>
+        </ul>
+      </div>
+
+      <nav class="toc" aria-label="目次">
+        <div class="toc-ttl">目次</div>
+        <ol>
+          <li><a href="#kongu">試験器具とスランプコーンの寸法</a></li>
+          <li><a href="#tejun">試験の手順</a></li>
+          <li><a href="#imi">スランプ値の意味と許容差</a></li>
+          <li><a href="#fc-kankei">Fc（設計基準強度）との関係</a></li>
+          <li><a href="#flow-chigai">スランプフロー試験との違い</a></li>
+          <li><a href="#chuui">よくある間違い・注意点</a></li>
+          <li><a href="#matome">まとめ</a></li>
+        </ol>
+      </nav>
 
       <div class="note-box">
         <span class="label">この記事について</span>
         <p>コンクリートの規格・基準値（JIS A 1101ほか・JASS5など）は<strong>改訂される</strong>ことがあります。本記事は学習用の概要です。設計・施工では最新の規格・指針を確認してください。</p>
       </div>
 
-      <h2>スランプコーンと試験方法</h2>
-      <p><strong>スランプコーン</strong>は、高さ30cm・上口径10cm・下口径20cmの金属製の円錐台です。手順は次のとおりです。</p>
+      <h2 id="kongu">試験器具とスランプコーンの寸法</h2>
+      <p><strong>スランプコーン</strong>は、高さ30cm・上口径10cm・下口径20cmの金属製の円錐台です。このほか、突き棒（直径16mm程度の丸鋼で先端が半球状のもの）、コーンを水平に保つための鋼製の平板、下がり量を測る巻尺やスケールを使います。平板は水平な場所に置き、コーンがずれないよう足で押さえて固定します。</p>
+
+      <h2 id="tejun">試験の手順</h2>
       <ol>
-        <li>コーンにコンクリートを<strong>3層に分けて</strong>詰め、各層を突き棒で<strong>25回</strong>突く。</li>
-        <li>上面をならし、コーンを<strong>静かに真上に引き抜く</strong>。</li>
-        <li>コンクリートが自重で下がった<strong>下がり量（cm）＝スランプ値</strong>を測る。</li>
+        <li>コーンにコンクリートを<strong>ほぼ等しい3層に分けて</strong>詰め、各層を突き棒で<strong>25回</strong>、均等に突く。</li>
+        <li>上面を突き棒やこてで<strong>すり切り</strong>、余分なコンクリートを取り除く。</li>
+        <li>コーンを両手で<strong>静かに真上に</strong>、ねじったり傾けたりせず引き抜く。</li>
+        <li>コンクリートが自重で下がった<strong>下がり量（cm）＝スランプ値</strong>を、コーンの上端を基準に測定する。</li>
       </ol>
+      <p>引き抜きの速度や突き方が均一でないと、下がり方が偏ったり崩れたりして正しい値が出ません。試験は手際よく行い、コンクリートの材料分離が進む前に測定を終えることが大切です。</p>
 
-      <h2>スランプ値の意味</h2>
-      <p>スランプ値が<strong>大きいほど軟らかい（流動的）</strong>、小さいほど硬いコンクリートです。軟らかいほど打ちやすい一方、水が多いと品質が下がるため、適切な値を指定します（→<a href="slump-chi.html">スランプ値の目安</a>）。</p>
+      <h2 id="imi">スランプ値の意味と許容差</h2>
+      <p>スランプ値が<strong>大きいほど軟らかい（流動的）</strong>、小さいほど硬いコンクリートです。軟らかいほど型枠のすみずみまで流れ込みやすく打ちやすい一方、水を増やして軟らかくすると品質が下がるため、発注時に適切な値を指定します（→<a href="slump-chi.html">スランプ値の目安</a>）。</p>
+      <p>生コンは注文したスランプに対して、実際の測定値が一定の<strong>許容差の範囲内</strong>にあるかを現場で確認します。範囲を外れる場合は、その車（バッチ）を荷卸ししない、あるいは配合の見直しを求めるといった対応を取ります。許容差の具体的な数値はJIS A 5308に規定されているため、発注前に確認しておくとよいでしょう。</p>
 
-      <h2>Fc（設計基準強度）との関係</h2>
+      <h2 id="fc-kankei">Fc（設計基準強度）との関係</h2>
       <div class="point-box">
         <span class="label">POINT</span>
         <p>スランプは<strong>軟らかさ</strong>の指標で、強度Fcそのものを測るものではありません。ただし、軟らかくしようと<a href="tani-suiryou.html">水を増やす</a>と<a href="mizu-cement-hi.html">水セメント比</a>が大きくなり強度が下がります。そのため生コンは<strong>呼び強度（Fcに対応）とスランプを別々に指定</strong>して発注し、両方を満たすよう配合します。</p>
       </div>
 
-      <div class="note-box">
-        <span class="label">あわせて読みたい</span>
-        <p>「<a href="slump-chi.html">スランプ値</a>」「<a href="slump-flow.html">スランプフロー</a>」「<a href="workability.html">ワーカビリティ</a>」をどうぞ。</p>
+      <h2 id="flow-chigai">スランプフロー試験との違い</h2>
+      <table class="data">
+        <tr><th></th><th>スランプ試験</th><th>スランプフロー試験</th></tr>
+        <tr><td>測るもの</td><td>下がり量（cm）</td><td>広がった円の直径（cm）</td></tr>
+        <tr><td>対象</td><td>一般のコンクリート</td><td><a href="kouryuudou-concrete.html">高流動コンクリート</a>など軟らかい配合</td></tr>
+        <tr><td>器具</td><td>同じスランプコーンを使用</td><td>同じスランプコーンを使用</td></tr>
+      </table>
+      <p>非常に軟らかい配合では、コーンを引き抜くとコンクリートがほぼ水平に広がってしまい、下がり量だけでは軟らかさの違いを区別できません。このような配合では<a href="slump-flow.html">スランプフロー</a>として広がりの直径を測ります。</p>
+
+      <div class="note-box" id="chuui">
+        <span class="label">注意</span>
+        <p>スランプ試験は、突き方・引き抜き方・測定までの時間が結果に大きく影響します。突き棒を斜めに入れる、コーンを引き抜くときに横へずらす、平板の水平が崩れたまま測定するといったミスがあると、実際の軟らかさより値がずれてしまいます。また、生コンの採取から試験開始までの時間が長いと凝結が進んでスランプが小さく出ることもあるため、経過時間をそろえて試験することが重要です。</p>
       </div>
 
-      <h2>まとめ</h2>
+      <h3>Q1. スランプ値が指定より小さいとどうなりますか？</h3>
+      <p>硬すぎて型枠内に十分行き渡らず、締固め不足によるジャンカ（豆板）や充填不良の原因になります。許容差を外れる場合は荷卸しを見合わせ、配合や運搬時間の見直しを検討します。</p>
+
+      <h3>Q2. スランプ値が指定より大きいとどうなりますか？</h3>
+      <p>水が多すぎる可能性があり、水セメント比が上がって強度低下やブリーディング増加につながります。材料分離しやすくなる点にも注意が必要です。</p>
+
+      <div class="note-box">
+        <span class="label">あわせて読みたい</span>
+        <p>「<a href="slump-chi.html">スランプ値</a>」「<a href="slump-flow.html">スランプフロー</a>」「<a href="workability.html">ワーカビリティ</a>」「<a href="test-piece.html">コンクリートのテストピース</a>」をどうぞ。</p>
+      </div>
+
+      <h2 id="matome">まとめ</h2>
       <ul>
-        <li>スランプ試験はコンクリートの軟らかさを測る試験（JIS A 1101）。</li>
-        <li>スランプコーンに3層・各25回突きで詰め、引き抜いた下がり量がスランプ値。</li>
-        <li>スランプは軟らかさの指標で強度Fcとは別。呼び強度と合わせて指定する。</li>
+        <li>スランプ試験はコンクリートの軟らかさを測る試験（JIS A 1101）。スランプコーンに3層・各25回突きで詰め、引き抜いた下がり量がスランプ値。</li>
+        <li>スランプは軟らかさの指標で強度Fcとは別。呼び強度と合わせて指定し、許容差の範囲内かを現場で確認する。</li>
+        <li>非常に軟らかい配合ではスランプフロー試験（広がりの直径）で評価する。</li>
+        <li>突き方・引き抜き方・経過時間の管理が、正確な試験結果のポイントになる。</li>
       </ul>
       <div class="article-author">
         <img src="../assets/profile.png" alt="監修・執筆者 ホッタ ナオト（構造設計一級建築士）" width="76" height="76" loading="lazy">

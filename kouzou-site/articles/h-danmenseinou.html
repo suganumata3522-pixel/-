@@ -52,19 +52,38 @@
     <article class="article-main">
       <div class="meta">
         <span class="tag">鉄骨造（S造）</span>
-        <span>更新日：2026年6月14日</span>
+        <span>更新日：2026年7月3日</span>
       </div>
       <h1>H鋼の断面性能・単位重量一覧（代表サイズ）</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
 
-      <p><a href="h-katako.html">H形鋼</a>の設計では、断面性能（断面二次モーメント・断面係数）と単位重量を使います。ここでは代表的なサイズの値を早見表にまとめます。</p>
+      <p><a href="h-katako.html">H形鋼</a>の設計では、部材の強さ・変形しにくさを表す<strong>断面性能</strong>（断面積・断面二次モーメント・断面係数）と、材料費・搬入計画に関わる<strong>単位重量</strong>を使います。断面性能は形状だけで決まる値のため、電卓を使わずとも形鋼表を引けば即座に把握できるのが特徴です。ここでは代表的なサイズの値を早見表にまとめ、あわせて数値の見方や使い方も解説します。</p>
+
+      <div class="point-box">
+        <span class="label">この記事の要点</span>
+        <ul>
+          <li>H形鋼の断面性能はサイズごとに形鋼表で決まっている</li>
+          <li>細幅は強軸Ixが大きく梁向き、広幅は弱軸Iyも大きく柱向き</li>
+          <li>単位重量は断面積×0.785でおおよそ求められる</li>
+        </ul>
+      </div>
 
       <div class="note-box">
         <span class="label">この記事について</span>
         <p>本記事の数値は<strong>代表的なJIS呼称の例</strong>で、学習用の概要です。設計・積算では必ず<strong>最新のJIS G 3192や鋼材ハンドブック（形鋼表）の正確な値</strong>を使用してください。</p>
       </div>
 
-      <h2>細幅H形鋼（梁向き）</h2>
+      <nav class="toc" aria-label="目次">
+        <div class="toc-ttl">目次</div>
+        <ol>
+          <li><a href="#hosohaba">細幅H形鋼（梁向き）</a></li>
+          <li><a href="#hirohaba">広幅H形鋼（柱向き）</a></li>
+          <li><a href="#mikata">早見表の見方</a></li>
+          <li><a href="#matome">まとめ</a></li>
+        </ol>
+      </nav>
+
+      <h2 id="hosohaba">細幅H形鋼（梁向き）</h2>
       <table class="data">
         <tr><th>呼称（mm）</th><th>単位重量<br>(kg/m)</th><th>断面積<br>A(cm²)</th><th>Ix<br>(cm⁴)</th><th>Zx<br>(cm³)</th><th>Iy<br>(cm⁴)</th><th>Zy<br>(cm³)</th></tr>
         <tr><td>H-200×100×5.5×8</td><td>21.3</td><td>27.2</td><td>1840</td><td>184</td><td>134</td><td>26.8</td></tr>
@@ -74,7 +93,7 @@
         <tr><td>H-600×200×11×17</td><td>106</td><td>135</td><td>77600</td><td>2590</td><td>2280</td><td>228</td></tr>
       </table>
 
-      <h2>広幅H形鋼（柱向き）</h2>
+      <h2 id="hirohaba">広幅H形鋼（柱向き）</h2>
       <table class="data">
         <tr><th>呼称（mm）</th><th>単位重量<br>(kg/m)</th><th>断面積<br>A(cm²)</th><th>Ix<br>(cm⁴)</th><th>Zx<br>(cm³)</th><th>Iy<br>(cm⁴)</th><th>Zy<br>(cm³)</th></tr>
         <tr><td>H-200×200×8×12</td><td>49.9</td><td>63.5</td><td>4720</td><td>472</td><td>1600</td><td>160</td></tr>
@@ -88,15 +107,23 @@
         <p>単位重量（kg/m）は <strong>断面積A(cm²) × 0.785</strong> でおおよそ求められます（鋼の密度7.85g/cm³より）。計算方法は「<a href="h-juuryou-keisan.html">H形鋼の重量の計算方法</a>」を参照。</p>
       </div>
 
+      <h2 id="mikata">早見表の見方</h2>
+      <p>表中の記号は、<strong>A</strong>（断面積）が重量や軸力の検討、<strong>Ix・Zx</strong>（強軸まわりの断面二次モーメント・断面係数）が梁のたわみ・曲げ強度の検討、<strong>Iy・Zy</strong>（弱軸まわりの値）が柱の2方向の曲げや横座屈の検討に使われます。たとえば「H-400×200×8×13」を梁として使う場合、まず必要な曲げ耐力からZxの目安を求め、早見表からZxがそれ以上となるサイズを選ぶ、という手順で断面選定を行います。同じせいでもフランジ厚が厚いシリーズほどA・I・Zが大きくなる点も、表を横に見比べると分かりやすくなります。</p>
+      <div class="note-box">
+        <span class="label">注意</span>
+        <p>早見表の数値はJISの改正やメーカーによって細部が異なることがあります。実際の断面選定・積算では、必ず<strong>最新の形鋼表・鋼材ハンドブック</strong>の値を用いてください。</p>
+      </div>
+
       <div class="note-box">
         <span class="label">あわせて読みたい</span>
         <p>断面係数の出し方は「<a href="h-danmen-keisu.html">断面係数の求め方</a>」、強軸・弱軸は「<a href="h-danmen-moment.html">断面二次モーメント</a>」、自分で計算するなら<a href="../tools/index.html">計算ツール</a>をどうぞ。</p>
       </div>
 
-      <h2>まとめ</h2>
+      <h2 id="matome">まとめ</h2>
       <ul>
         <li>H形鋼は単位重量・A・Ix・Zx・Iy・Zy を形鋼表で確認して設計に使う。</li>
         <li>細幅は強軸Ixが大きく梁向き、広幅は弱軸Iyも大きく柱向き。</li>
+        <li>断面選定は必要耐力からZxなどの目安を求め、表から満たすサイズを選ぶ。</li>
         <li>単位重量は断面積×0.785でおおよそ求められる。正確な値はJIS・形鋼表で。</li>
       </ul>
       <div class="article-author">

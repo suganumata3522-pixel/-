@@ -52,41 +52,82 @@
     <article class="article-main">
       <div class="meta">
         <span class="tag">構造力学の基礎</span>
-        <span>更新日：2026年6月15日</span>
+        <span>更新日：2026年7月3日</span>
       </div>
       <h1>合力とは？読み方・求め方と角度計算</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
-      <p><strong>合力（ごうりょく）</strong>とは、複数の<a href="chikara.html">力</a>を1つにまとめた力のことです。<a href="chikara-gousei.html">力の合成</a>の結果が合力です。</p>
+      <p><strong>合力（ごうりょく）</strong>とは、複数の<a href="chikara.html">力</a>を、それらと同じ効果を持つ1つの力にまとめたもののことです。英語では resultant force と呼ばれます。<a href="chikara-gousei.html">力の合成</a>という作業を行った結果として得られる力が、この合力にあたります。構造力学の計算では、複数の外力や部材力をまとめて扱いたい場面が多く、合力の考え方は反力の計算や応力の検討など、あらゆる場面の土台になります。</p>
 
-      <h2>読み方と意味</h2>
-      <p>読み方は「<strong>ごうりょく</strong>」。複数の力と同じ効果を1つで表す力で、反対に1つの力を分けたものが<a href="chikara-bunkai.html">分力</a>です。</p>
+      <div class="point-box">
+        <span class="label">この記事の要点</span>
+        <ul>
+          <li>合力（ごうりょく）は複数の力を1つにまとめた力</li>
+          <li>2力の合力は平行四辺形の対角線、大きさは余弦定理で求まる</li>
+          <li>向きはtan⁻¹(Ry/Rx)。分力とは合成・分解で表裏の関係</li>
+        </ul>
+      </div>
 
-      <h2>合力の求め方</h2>
+      <nav class="toc" aria-label="目次">
+        <div class="toc-ttl">目次</div>
+        <ol>
+          <li><a href="#yomikata">読み方と意味</a></li>
+          <li><a href="#motomekata">合力の求め方</a></li>
+          <li><a href="#reidai">計算例</a></li>
+          <li><a href="#kakudo">角度の計算</a></li>
+          <li><a href="#bunryoku">分力との関係</a></li>
+          <li><a href="#jitsumu">構造設計での使われ方</a></li>
+          <li><a href="#matome">まとめ</a></li>
+        </ol>
+      </nav>
+
+      <h2 id="yomikata">読み方と意味</h2>
+      <p>読み方は「<strong>ごうりょく</strong>」。複数の力と同じ効果を1つで表す力で、反対に1つの力を分けたものが<a href="chikara-bunkai.html">分力</a>です。日常生活でも、2人で荷物を斜め方向に引っ張っているとき、その結果として荷物が実際に動く方向・大きさが合力にあたります。</p>
+
+      <h2 id="motomekata">合力の求め方</h2>
       <p>同じ作用点に働く2力の合力は、<a href="heikoushihenkei.html">平行四辺形の対角線</a>です。大きさは余弦定理で求められます。</p>
       <div class="formula">
         R ＝ √(F₁² ＋ F₂² ＋ 2·F₁·F₂·cosθ)
         <span class="note">θ：2力のなす角</span>
       </div>
-      <p>直交する2力（θ=90°、cosθ=0）なら、<strong>R＝√(F₁²＋F₂²)</strong>と簡単になります。</p>
+      <p>直交する2力（θ=90°、cosθ=0）なら、<strong>R＝√(F₁²＋F₂²)</strong>と簡単になります。実務ではx方向・y方向の直交する力を扱うことが多いため、この直交の式を使う場面が大半です。</p>
 
-      <h2>角度の計算</h2>
+      <h2 id="reidai">計算例</h2>
+      <p>F₁＝30kN、F₂＝40kNの2力が直交して働く場合を考えます。</p>
+      <div class="formula">
+        R ＝ √(30² ＋ 40²) ＝ √(900＋1600) ＝ √2500 ＝ 50 kN
+      </div>
+      <p>ちょうど3:4:5の直角三角形の関係になっており、暗算でも確認しやすい典型例です。角度はθ＝tan⁻¹(40/30)≒53.1°と求まります。</p>
+
+      <h2 id="kakudo">角度の計算</h2>
       <p>合力の向き（基準軸からの角度）は、成分を使って求めます。</p>
       <div class="formula">
         θ ＝ tan⁻¹(Ry / Rx)　（Rx＝ΣFx、Ry＝ΣFy）
       </div>
 
-      <h2>分力との関係</h2>
-      <p>合力と分力は表裏の関係です。<strong>分力を合わせると合力、合力を分けると分力</strong>。構造計算では、斜めの合力を扱いやすいx・y方向の分力に分けて計算します（→<a href="chikara-bunkai.html">力の分解</a>）。</p>
+      <h2 id="bunryoku">分力との関係</h2>
+      <p>合力と分力は表裏の関係です。<strong>分力を合わせると合力、合力を分けると分力</strong>。構造計算では、斜めの合力を扱いやすいx・y方向の分力に分けて計算します（→<a href="chikara-bunkai.html">力の分解</a>）。3つ以上の力がある場合も、まず各力をx・y成分に分解してから足し合わせる方法が確実です（→<a href="mittsu-gouryoku.html">3つの力の合力</a>）。</p>
+
+      <div class="note-box">
+        <span class="label">注意</span>
+        <p>合力を求める際は、必ず各力の<strong>作用点・向き・大きさ</strong>を正確に図示してから計算に入ることが大切です。作用点が異なる力を単純に足し合わせると、モーメントのつり合いを見落とすミスにつながります。</p>
+      </div>
+
+      <h2 id="jitsumu">構造設計での使われ方</h2>
+      <p>実務では、地震力や風圧力のように斜め方向・複数方向から同時に作用する荷重を、いったんx方向・y方向の分力に置き換えて処理し、部材ごとの応力計算が終わった後で、必要に応じて合力として結果を確認するという流れがよく使われます。トラス構造の節点にかかる複数の部材力をまとめて<a href="hanryoku.html">反力</a>とつり合わせる場面や、<a href="chikara-3youso.html">力の3要素</a>（大きさ・向き・作用点）を踏まえて荷重を整理する場面でも、合力の考え方が土台になります。</p>
+
+      <h3>Q. 3つ以上の力の合力はどう求めますか？</h3>
+      <p>2力ずつ平行四辺形で合成を繰り返す方法もありますが、力の数が増えると煩雑になります。実務ではまず各力をx成分・y成分に分解し、それぞれを足し合わせてΣFx・ΣFyを求め、最後にR＝√(ΣFx²＋ΣFy²)、θ＝tan⁻¹(ΣFy/ΣFx)で合力を求める方法が確実です（→<a href="mittsu-gouryoku.html">3つの力の合力</a>）。</p>
 
       <div class="note-box">
         <span class="label">あわせて読みたい</span>
         <p>「<a href="chikara-gousei.html">力の合成</a>」「<a href="chikara-bunkai.html">力の分解</a>」「<a href="heikoushihenkei-housoku.html">平行四辺形の法則</a>」をどうぞ。</p>
       </div>
 
-      <h2>まとめ</h2>
+      <h2 id="matome">まとめ</h2>
       <ul>
         <li>合力（ごうりょく）は複数の力を1つにまとめた力。</li>
         <li>2力の合力は余弦定理、直交なら R＝√(F₁²+F₂²)。</li>
+        <li>計算例：30kNと40kNの直交合力は50kN、角度は約53.1°。</li>
         <li>向きは θ＝tan⁻¹(Ry/Rx)。分力とは表裏の関係。</li>
       </ul>
       <div class="article-author">

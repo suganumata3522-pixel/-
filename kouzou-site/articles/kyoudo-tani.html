@@ -52,45 +52,82 @@
     <article class="article-main">
       <div class="meta">
         <span class="tag">鉄筋コンクリート造（RC造）</span>
-        <span>更新日：2026年6月14日</span>
+        <span>更新日：2026年7月3日</span>
       </div>
       <h1>コンクリートの強度の単位｜N/mm²・Fc・換算</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
 
-      <p>コンクリートの強度は<strong>N/mm²（ニュートン毎平方ミリメートル）</strong>という単位で表します。記号や読み方、換算を整理します。</p>
+      <p>コンクリートの強度とは、材料が壊れずに耐えられる力の大きさを表す指標のことで、<strong>N/mm²（ニュートン毎平方ミリメートル）</strong>という単位で表します。図面や仕様書には「Fc24」のような記号もよく登場するため、単位の意味・記号の読み方・旧単位との換算を整理しておくと、構造の資料を読み解くうえで役立ちます。</p>
+
+      <div class="point-box">
+        <span class="label">この記事の要点</span>
+        <ul>
+          <li>コンクリートの強度の単位はN/mm²（＝MPa）。1mm²あたりに耐えられる力</li>
+          <li>Fc（エフシー）は設計基準強度を表す記号。Fc24＝24N/mm²</li>
+          <li>旧単位のkgf/cm²とは1N/mm²≒10.2kgf/cm²で換算する</li>
+        </ul>
+      </div>
+
+      <nav class="toc" aria-label="目次">
+        <div class="toc-ttl">目次</div>
+        <ol>
+          <li><a href="#tani">N/mm²とは</a></li>
+          <li><a href="#fc">Fc（設計基準強度）の読み方</a></li>
+          <li><a href="#tasu">その他の強度記号</a></li>
+          <li><a href="#kansan">旧単位との換算</a></li>
+          <li><a href="#chuui">よくある間違い</a></li>
+          <li><a href="#matome">まとめ</a></li>
+        </ol>
+      </nav>
 
       <div class="note-box">
         <span class="label">この記事について</span>
         <p>強度・設計に関する規準（JASS5・建築基準法施行令など）の数値は<strong>条件・改訂で変わる</strong>ことがあります。本記事は学習用の概要です。設計では最新の規準を確認してください。</p>
       </div>
 
-      <h2>N/mm²とは</h2>
-      <p>強度は「単位面積あたりに耐えられる力」で表します。<strong>1N/mm²＝1mm²あたり1ニュートンの力</strong>に耐える強さです。読み方は「<strong>ニュートン パー へいほうミリメートル</strong>」。</p>
+      <h2 id="tani">N/mm²とは</h2>
+      <p>強度は「単位面積あたりに耐えられる力」で表します。<strong>1N/mm²＝1mm²あたり1ニュートンの力</strong>に耐える強さです。読み方は「<strong>ニュートン パー へいほうミリメートル</strong>」。鉄筋の強度やその他の材料強度でも同じ単位が使われ、構造計算全体を通して共通の物差しになっています。</p>
       <div class="formula">
         1 N/mm² ＝ 1 MPa（メガパスカル）
         <span class="note">N/mm² と MPa は同じ大きさ</span>
       </div>
 
-      <h2>Fc（設計基準強度）の読み方</h2>
-      <p><strong>Fc</strong>は<a href="sekkei-hinshitsu-kijun.html">設計基準強度</a>を表す記号で、「<strong>エフシー</strong>」と読みます。たとえば「Fc24」は設計基準強度24N/mm²のことです。</p>
+      <h2 id="fc">Fc（設計基準強度）の読み方</h2>
+      <p><strong>Fc</strong>は<a href="sekkei-hinshitsu-kijun.html">設計基準強度</a>を表す記号で、「<strong>エフシー</strong>」と読みます。たとえば「Fc24」は設計基準強度24N/mm²のことです。Fcは構造計算のうえで許容応力度などを求める際の基準となる値で、コンクリートの品質を表す最も基本的な指標のひとつです。</p>
 
-      <h2>旧単位との換算</h2>
+      <h2 id="tasu">その他の強度記号</h2>
+      <p>設計基準強度Fcのほかにも、品質基準強度を表す<strong>Fq</strong>、耐久設計基準強度を表す<strong>Fd</strong>など、目的に応じたさまざまな強度記号があります。いずれも単位はN/mm²で共通しており、記号の違いはその強度が何を基準に定められているかを示しています。</p>
+
+      <h2 id="kansan">旧単位との換算</h2>
       <p>昔は<strong>kgf/cm²</strong>が使われていました。換算は次のとおりです。</p>
       <div class="formula">
         1 N/mm² ≒ 10.2 kgf/cm²
         <span class="note">例：24N/mm² ≒ 245kgf/cm²（昔の「240級」に相当）</span>
       </div>
+      <p>古い図面や文献にkgf/cm²の表記が残っていることがあるため、現行のN/mm²表記と混同しないよう、換算の考え方を知っておくと安心です。</p>
+
+      <div class="note-box">
+        <span class="label">注意</span>
+        <p id="chuui">N/mm²とMPa（メガパスカル）は数値がまったく同じであるため混乱しにくい一方、旧単位のkgf/cm²は数値が約10倍近く異なります。古い資料の数値をそのままN/mm²として読み違えると、強度を大きく見誤るため注意が必要です。</p>
+      </div>
+
+      <h3>Q1. なぜ日本ではN/mm²が使われるようになったのですか？</h3>
+      <p>国際的に単位を統一するSI単位系（国際単位系）への移行にともない、力の単位がキログラム重（kgf）からニュートン（N）に切り替えられました。これにより、強度の単位もkgf/cm²からN/mm²（MPa）へと移行しています。</p>
+
+      <h3>Q2. コンクリート以外の材料もN/mm²で表しますか？</h3>
+      <p>はい。鉄筋や鋼材の強度も同じくN/mm²で表され、構造計算では材料の種類にかかわらず共通の単位で比較できるようになっています。</p>
 
       <div class="note-box">
         <span class="label">あわせて読みたい</span>
         <p>「<a href="namacon-kyoudo.html">生コンの強度（Fc21）</a>」「<a href="sekkei-hinshitsu-kijun.html">設計基準強度</a>」「<a href="concrete-kyoyo.html">許容応力度</a>」をどうぞ。</p>
       </div>
 
-      <h2>まとめ</h2>
+      <h2 id="matome">まとめ</h2>
       <ul>
         <li>コンクリートの強度の単位はN/mm²（＝MPa）。1mm²あたりの力。</li>
         <li>Fc（エフシー）は設計基準強度。Fc24＝24N/mm²。</li>
-        <li>旧単位は1N/mm²≒10.2kgf/cm²で換算する。</li>
+        <li>Fq・Fdなど、目的に応じたさまざまな強度記号がある。</li>
+        <li>旧単位は1N/mm²≒10.2kgf/cm²で換算する。読み違いに注意。</li>
       </ul>
       <div class="article-author">
         <img src="../assets/profile.png" alt="監修・執筆者 ホッタ ナオト（構造設計一級建築士）" width="76" height="76" loading="lazy">

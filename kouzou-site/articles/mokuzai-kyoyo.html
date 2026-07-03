@@ -6,9 +6,9 @@
 <meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
 <title>木材の許容応力度とは？基準強度Fc・Fbと長期・短期の計算｜構造設計ナビ</title>
-<meta name="description" content="木材の許容応力度をわかりやすく解説。圧縮Fc・曲げFbなどの基準強度、長期（1.1/3×F）・短期（2/3×F）の許容応力度の計算方法、樹種・等級による基準強度の違いをまとめます。">
+<meta name="description" content="木材の許容応力度をわかりやすく解説。圧縮Fc・曲げFbなどの基準強度の意味、無等級材・目視等級・機械等級による違い、長期・短期の許容応力度の計算方法を計算例つきでまとめます。">
 <meta property="og:title" content="木材の許容応力度とは？基準強度Fc・Fbと長期・短期の計算｜構造設計ナビ">
-<meta property="og:description" content="木材の許容応力度の基準強度（Fc・Fb）と、長期・短期の計算方法（1.1/3・2/3）を解説します。">
+<meta property="og:description" content="木材の許容応力度の基準強度（Fc・Fb）、等級区分、長期・短期の計算方法（1.1/3・2/3）を解説します。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://www.kouzou-navi.com/articles/mokuzai-kyoyo.html">
 <meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
@@ -52,19 +52,40 @@
     <article class="article-main">
       <div class="meta">
         <span class="tag">木造（W造）</span>
-        <span>更新日：2026年6月14日</span>
+        <span>更新日：2026年7月3日</span>
       </div>
       <h1>木材の許容応力度｜基準強度と長期・短期の計算</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
 
-      <p>木材の<a href="kyoyo-oryokudo.html">許容応力度</a>は、<strong>基準強度F</strong>に係数を掛けて求めます。木材は荷重の継続時間で強さが変わるため、長期と短期で係数が異なります。</p>
+      <p>木材の<a href="kyoyo-oryokudo.html">許容応力度</a>とは、<strong>基準強度F</strong>に所定の係数を掛けて求める、部材が安全に負担できる応力度の限界値のことです。木材は同じ樹種でも等級によって基準強度が異なるうえ、荷重の継続時間によっても強さが変わる特徴があり、長期と短期で係数を使い分けます。</p>
+
+      <div class="point-box">
+        <span class="label">この記事の要点</span>
+        <ul>
+          <li>木材の許容応力度は基準強度F×係数（長期1.1/3・短期2/3）で求める。</li>
+          <li>基準強度は無等級材・目視等級区分・機械等級区分で値が異なる。</li>
+          <li>木は長時間荷重がかかるほど弱くなるため、長期係数が小さい。</li>
+        </ul>
+      </div>
 
       <div class="note-box">
         <span class="label">この記事について</span>
         <p>木材の規格・基準強度・含水率などは<strong>樹種・等級・JAS・条件によって異なり</strong>、規準も改訂されます。本記事は学習用の概要です。設計・施工では最新の基準・規格を確認してください。</p>
       </div>
 
-      <h2>基準強度（Fc・Fb など）</h2>
+      <nav class="toc" aria-label="目次">
+        <div class="toc-ttl">目次</div>
+        <ol>
+          <li><a href="#kijun">基準強度（Fc・Fb など）</a></li>
+          <li><a href="#toukyu">等級による基準強度の違い</a></li>
+          <li><a href="#choutan">長期・短期の計算</a></li>
+          <li><a href="#zakutsu">座屈・積雪時の考え方</a></li>
+          <li><a href="#qa">よくある質問</a></li>
+          <li><a href="#matome">まとめ</a></li>
+        </ol>
+      </nav>
+
+      <h2 id="kijun">基準強度（Fc・Fb など）</h2>
       <p>木材の基準強度は、応力の種類ごとに定められています。</p>
       <table class="data">
         <tr><th>記号</th><th>意味</th></tr>
@@ -73,29 +94,50 @@
         <tr><td>Fb</td><td>曲げの基準強度</td></tr>
         <tr><td>Fs</td><td>せん断の基準強度</td></tr>
       </table>
-      <p>値は樹種・等級（無等級材・目視等級・機械等級）で異なります。例：スギ無等級材で Fc≒17.7、Fb≒22.2 N/mm²、ヒノキで Fc≒20.7、Fb≒26.7 N/mm² 程度。</p>
+      <p>値は樹種・等級で異なります。例：スギ無等級材で Fc≒17.7、Fb≒22.2 N/mm²、ヒノキで Fc≒20.7、Fb≒26.7 N/mm² 程度が目安です。</p>
 
-      <h2>長期・短期の計算</h2>
+      <h2 id="toukyu">等級による基準強度の違い</h2>
+      <p>同じ樹種でも、木材は<strong>強度を保証する等級区分</strong>によって基準強度の扱いが変わります。</p>
+      <table class="data">
+        <tr><th>区分</th><th>内容</th></tr>
+        <tr><td>無等級材</td><td>強度等級区分を行わない製材。樹種ごとの基準強度を一律に適用する</td></tr>
+        <tr><td>目視等級区分材</td><td>節・割れ・繊維の傾きなどを<strong>目視</strong>で確認し等級付けした製材</td></tr>
+        <tr><td>機械等級区分材</td><td>ヤング係数などを<strong>機械測定</strong>して等級付けした製材。強度のばらつきが小さい</td></tr>
+      </table>
+      <p>目視等級区分材・機械等級区分材は、無等級材より基準強度を割り増して使える場合があります。等級の高い木材ほど、節や欠点が少なく強度のばらつきも小さいため、構造上有利です。使用する木材の等級表示は、<a href="kikan-joutai.html">含水率区分</a>とあわせてJASの規定に基づき確認します。</p>
+
+      <h2 id="choutan">長期・短期の計算</h2>
       <div class="formula">
         長期許容応力度 ＝ 1.1/3 × F（≒0.37F）<br>
         短期許容応力度 ＝ 2/3 × F（≒0.67F）
-        <span class="note">F：各応力の基準強度。建築基準法施行令に基づく（積雪時は別途係数）</span>
+        <span class="note">F：各応力の基準強度。建築基準法令に基づく（積雪時は別途係数）</span>
       </div>
       <div class="point-box">
         <span class="label">POINT：木は長く力がかかると弱くなる</span>
         <p>木材は<strong>荷重が長時間かかるほど壊れやすくなる（クリープ・荷重継続効果）</strong>性質があります。そのため、長期（常時かかる固定荷重など）は係数を小さく、短期（地震・台風など短時間）は大きく取ります。</p>
       </div>
+      <p><strong>計算例</strong>：スギ無等級材（Fc＝17.7N/mm²）の柱の長期許容圧縮応力度は、17.7×1.1/3≒<strong>6.5N/mm²</strong>です。短期なら17.7×2/3≒<strong>11.8N/mm²</strong>となり、長期の約1.8倍まで負担できます。</p>
+
+      <h2 id="zakutsu">座屈・積雪時の考え方</h2>
+      <p>木材の柱は細長い部材が多く、圧縮力を受けると<a href="zakutsu.html">座屈</a>（横に曲がって耐力を失う現象）を起こしやすくなります。そのため圧縮の許容応力度は、細長比（柱の長さと断面の比）に応じて<strong>低減した値</strong>を用いるのが基本です。また積雪の多い地域では、<a href="niji-sekkei.html">積雪荷重</a>が長期間かかり続けることを考慮し、長期・短期それぞれに積雪時用の係数を別途定めて評価します。</p>
+
+      <h2 id="qa">よくある質問</h2>
+      <h3>Q1. 無等級材と等級区分材はどちらを使うべきですか？</h3>
+      <p>どちらも使用できますが、等級区分材は強度のばらつきが管理されているため、より合理的な設計が可能です。近年は機械等級区分材（プレカット材など）の使用が広がっています。</p>
+      <h3>Q2. 長期と短期の許容応力度はどちらが大きいですか？</h3>
+      <p>短期の方が大きくなります。短期は地震・台風など短時間の荷重を想定し、木材が瞬間的に負担できる強さに近い値を採用するためです。</p>
 
       <div class="note-box">
         <span class="label">あわせて読みたい</span>
-        <p>「<a href="kyoyo-oryokudo.html">許容応力度計算</a>」「<a href="mokuzai-hijuu.html">木材の比重と密度</a>」「<a href="kikan-joutai.html">気乾状態</a>」をどうぞ。</p>
+        <p>「<a href="kyoyo-oryokudo.html">許容応力度計算</a>」「<a href="mokuzai-hijuu.html">木材の比重と密度</a>」「<a href="mokuzai-omosa.html">木材の重さ計算</a>」「<a href="kikan-joutai.html">気乾状態</a>」をどうぞ。</p>
       </div>
 
-      <h2>まとめ</h2>
+      <h2 id="matome">まとめ</h2>
       <ul>
         <li>木材の基準強度はFc（圧縮）・Ft（引張）・Fb（曲げ）・Fs（せん断）。</li>
+        <li>無等級材・目視等級区分材・機械等級区分材で基準強度の扱いが異なる。</li>
         <li>長期＝1.1/3×F、短期＝2/3×F で許容応力度を求める。</li>
-        <li>木は荷重継続で弱くなるため長期係数が小さい。値は樹種・等級で異なる。</li>
+        <li>柱は座屈による低減、積雪地域は積雪時係数も考慮する。</li>
       </ul>
       <div class="article-author">
         <img src="../assets/profile.png" alt="監修・執筆者 ホッタ ナオト（構造設計一級建築士）" width="76" height="76" loading="lazy">

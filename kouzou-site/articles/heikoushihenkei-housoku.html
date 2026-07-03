@@ -56,39 +56,69 @@
       </div>
       <h1>平行四辺形の法則とは？計算・証明と角度</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
-      <p><strong>平行四辺形の法則</strong>とは、2つのベクトル（<a href="chikara.html">力</a>）の和が、それらを2辺とする<a href="heikoushihenkei.html">平行四辺形の対角線</a>で表される、というベクトル合成の基本法則です。</p>
+      <p><strong>平行四辺形の法則</strong>とは、2つのベクトル（<a href="chikara.html">力</a>）の和が、それらを2辺とする<a href="heikoushihenkei.html">平行四辺形の対角線</a>で表される、というベクトル合成の基本法則のことです。力学の教科書で最初に登場する図解の一つですが、単に「図を描けば合力が分かる」だけでなく、この法則を数式化することで、角度や大きさが変わってもすぐに合力を計算できるようになります。構造力学における<a href="chikara-gousei.html">力の合成</a>・<a href="chikara-bunkai.html">力の分解</a>の理論的な土台が、この平行四辺形の法則です。</p>
 
-      <h2>法則の内容</h2>
-      <p>同じ点に働く2力 F₁・F₂ の<a href="gouryoku.html">合力</a> R は、F₁・F₂ を2辺とする平行四辺形の対角線になります。これは力に限らず、速度・加速度などすべてのベクトルに成り立ちます。</p>
+      <div class="point-box">
+        <span class="label">この記事の要点</span>
+        <ul>
+          <li>2ベクトルの和は、それらを2辺とする平行四辺形の対角線になる</li>
+          <li>合力 R＝√(F₁²+F₂²+2F₁F₂cosθ)。余弦定理で証明できる</li>
+          <li>力に限らず、速度・加速度などすべてのベクトルに成り立つ</li>
+        </ul>
+      </div>
 
-      <h2>合力の大きさ（計算）</h2>
+      <nav class="toc" aria-label="目次">
+        <div class="toc-ttl">目次</div>
+        <ol>
+          <li><a href="#naiyou">法則の内容</a></li>
+          <li><a href="#ookisa">合力の大きさ（計算）</a></li>
+          <li><a href="#shoumei">証明（余弦定理）</a></li>
+          <li><a href="#kakudo">角度との関係</a></li>
+          <li><a href="#reidai">計算例</a></li>
+          <li><a href="#matome">まとめ</a></li>
+        </ol>
+      </nav>
+
+      <h2 id="naiyou">法則の内容</h2>
+      <p>同じ点に働く2力 F₁・F₂ の<a href="gouryoku.html">合力</a> R は、F₁・F₂ を2辺とする平行四辺形の対角線になります。これは力に限らず、速度・加速度などすべてのベクトルに成り立ちます。図で確認する方法として、F₁の始点にF₂の矢印を平行移動して重ねると、その対角線がちょうど合力Rの矢印と一致することからも直感的に理解できます。</p>
+
+      <h2 id="ookisa">合力の大きさ（計算）</h2>
       <p>2力のなす角をθとすると、対角線の長さ（合力）は次式です。</p>
       <div class="formula">
         R ＝ √(F₁² ＋ F₂² ＋ 2·F₁·F₂·cosθ)
       </div>
 
-      <h2>証明（余弦定理）</h2>
+      <h2 id="shoumei">証明（余弦定理）</h2>
       <div class="point-box">
         <span class="label">POINT</span>
         <p>平行四辺形の対角線を1辺とする三角形を考えます。三角形の2辺が F₁・F₂、その間の角は <strong>180°−θ</strong>（平行四辺形の隣り合う角の和は180°）です。余弦定理 R²＝F₁²＋F₂²−2F₁F₂cos(180°−θ) に cos(180°−θ)＝−cosθ を代入すると、<strong>R²＝F₁²＋F₂²＋2F₁F₂cosθ</strong> が導けます。</p>
       </div>
 
-      <h2>角度との関係</h2>
+      <h2 id="kakudo">角度との関係</h2>
       <ul>
         <li>θ＝0°（同じ向き）：R＝F₁＋F₂（最大）。</li>
         <li>θ＝90°（直交）：R＝√(F₁²＋F₂²)。</li>
         <li>θ＝180°（逆向き）：R＝|F₁−F₂|（最小）。</li>
       </ul>
+      <p>このように、合力の大きさは2力のなす角θによって「F₁＋F₂」から「|F₁−F₂|」までの範囲で変化します。同じ大きさの2力でも、向きをそろえるか打ち消し合わせるかで、生み出せる合力の大きさが大きく変わることが分かります。</p>
+
+      <h2 id="reidai">計算例</h2>
+      <p>F₁＝40kN、F₂＝40kNの2力が60°の角度で作用する場合を考えます。</p>
+      <div class="formula">
+        R ＝ √(40² ＋ 40² ＋ 2×40×40×cos60°) ＝ √(1600＋1600＋1600) ＝ √4800 ≒ 69.3 kN
+      </div>
+      <p>同じ大きさの2力でも、なす角が60°になると、単純な足し算（80kN）より小さい合力になることが確認できます。</p>
 
       <div class="note-box">
         <span class="label">あわせて読みたい</span>
         <p>「<a href="heikoushihenkei.html">力の平行四辺形</a>」「<a href="chikara-gousei.html">力の合成</a>」「<a href="gouryoku.html">合力</a>」をどうぞ。</p>
       </div>
 
-      <h2>まとめ</h2>
+      <h2 id="matome">まとめ</h2>
       <ul>
         <li>平行四辺形の法則：2ベクトルの和は平行四辺形の対角線。</li>
         <li>合力 R＝√(F₁²+F₂²+2F₁F₂cosθ)。余弦定理で証明できる。</li>
+        <li>計算例：40kNと40kN、なす角60°の合力は約69.3kN。</li>
         <li>同じ向きで最大、逆向きで最小、直交で√(F₁²+F₂²)。</li>
       </ul>
       <div class="article-author">

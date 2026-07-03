@@ -6,9 +6,9 @@
 <meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
 <title>耐久性等関係規定とは？施行令36条・仕様規定との違い｜構造設計ナビ</title>
-<meta name="description" content="耐久性等関係規定をわかりやすく解説。建築基準法施行令36条に基づき、構造計算をしても必ず守るべき仕様規定の一群である耐久性等関係規定の意味、仕様規定との違い、計算ルートとの関係をまとめます。">
+<meta name="description" content="耐久性等関係規定をわかりやすく解説。建築基準法施行令36条に基づき、構造計算をしても必ず守るべき仕様規定の一群である耐久性等関係規定の意味、なぜ計算で代替できないのか、仕様規定との違い、計算ルートとの関係をまとめます。">
 <meta property="og:title" content="耐久性等関係規定とは？施行令36条・仕様規定との違い｜構造設計ナビ">
-<meta property="og:description" content="耐久性等関係規定の意味、施行令36条、仕様規定との違い、計算ルートでも適用される点を解説します。">
+<meta property="og:description" content="耐久性等関係規定の意味、施行令36条、計算で代替できない理由、仕様規定との違いを解説します。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://www.kouzou-navi.com/articles/taikyuusei-kitei.html">
 <meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
@@ -52,43 +52,74 @@
     <article class="article-main">
       <div class="meta">
         <span class="tag">構造計算の実務</span>
-        <span>更新日：2026年6月15日</span>
+        <span>更新日：2026年7月3日</span>
       </div>
       <h1>耐久性等関係規定とは？施行令36条・仕様規定との違い</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
-      <p><strong>耐久性等関係規定</strong>とは、<strong>構造計算で安全性を確かめる場合でも、必ず守らなければならない仕様規定</strong>の一群です。建築基準法施行令第36条に位置づけられています。</p>
+      <p><strong>耐久性等関係規定</strong>とは、<strong>構造計算で安全性を確かめる場合でも、必ず守らなければならない仕様規定</strong>の一群のことです。建築基準法施行令第36条に位置づけられており、どれほど高度な構造計算を行っても、これらの規定は免除されません。構造計算による安全性の確認と、仕様規定による耐久性の確保は、いわば<strong>役割の違う2つのチェック</strong>だと理解すると全体像がつかみやすくなります。</p>
+
+      <div class="point-box">
+        <span class="label">この記事の要点</span>
+        <ul>
+          <li>耐久性等関係規定は施行令36条に定められ、構造計算をしても適用が外れない仕様規定。</li>
+          <li>かぶり厚さやコンクリート強度、防腐防錆対策、基礎の仕様など「長持ちさせるための最低限のルール」が中心。</li>
+          <li>強度計算で確かめられるのは「力に耐えられるか」であり、「劣化に耐えられるか」は計算では担保できないため仕様で守らせる。</li>
+        </ul>
+      </div>
+
+      <nav class="toc" aria-label="目次">
+        <div class="toc-ttl">目次</div>
+        <ol>
+          <li><a href="#seirei36">施行令36条との関係</a></li>
+          <li><a href="#rei">耐久性等関係規定の例</a></li>
+          <li><a href="#naze">なぜ計算では代替できないのか</a></li>
+          <li><a href="#chigai">仕様規定との違い</a></li>
+          <li><a href="#chuui">よくある間違い・注意点</a></li>
+          <li><a href="#matome">まとめ</a></li>
+        </ol>
+      </nav>
 
       <div class="note-box">
         <span class="label">この記事について</span>
         <p>建築基準法・施行令・告示などの法令は<strong>改正されます</strong>。本記事は学習用の概要です。実際の設計・確認申請では、必ず<strong>最新の法令・告示・特定行政庁の運用</strong>を確認してください。</p>
       </div>
 
-      <h2>施行令36条との関係</h2>
-      <p>施行令36条は、構造方法に関する技術的基準（仕様規定）のうち、<strong>どの計算ルートでも適用される基本的な規定＝耐久性等関係規定</strong>を定めています。<a href="kyoyo-oryokudo.html">ルート2・3</a>のように高度な計算をしても、これらは適用が外れません。</p>
+      <h2 id="seirei36">施行令36条との関係</h2>
+      <p>施行令36条は、構造方法に関する技術的基準（仕様規定）のうち、<strong>どの計算ルートでも適用される基本的な規定＝耐久性等関係規定</strong>を定めています。<a href="kyoyo-oryokudo.html">ルート2・3</a>のように高度な計算をしても、これらは適用が外れません。構造計算によって安全性を検証するさまざまな「計算ルート」がありますが、耐久性等関係規定はどのルートを選んでも共通して適用される、いわば土台となる規定です。</p>
 
-      <h2>耐久性等関係規定の例</h2>
+      <h2 id="rei">耐久性等関係規定の例</h2>
       <ul>
         <li>RC造の<a href="rc-zou.html">かぶり厚さ</a>・コンクリートの設計基準強度。</li>
         <li>木材・鉄骨の<strong>腐食・腐朽・さびへの対策</strong>。</li>
         <li>基礎の構造、土台の緊結などの基本的な仕様。</li>
+        <li>木造の柱の小径や、壁を貫通する配管まわりの防腐措置など。</li>
       </ul>
 
-      <h2>仕様規定との違い</h2>
+      <h2 id="naze">なぜ計算では代替できないのか</h2>
+      <p>構造計算は、地震力や積載荷重に対して部材が壊れないかを、力のつり合いという形で数値的に検証するものです。これに対して、コンクリートの中性化や鉄筋のさび、木材の腐朽・シロアリ被害といった<strong>時間とともに進行する劣化現象</strong>は、力のつり合いの計算だけでは表現しきれません。かぶり厚さを確保する、防腐処理をするといった仕様上のルールを最初から守らせることで、計算では捉えにくい劣化のリスクに対応しているのが、耐久性等関係規定の考え方です。</p>
+
+      <h2 id="chigai">仕様規定との違い</h2>
       <div class="point-box">
         <span class="label">POINT</span>
         <p>一般の<a href="shiyou-kitei.html">仕様規定</a>には、構造計算で安全性を確かめれば<strong>適用しなくてよい（計算で代替できる）</strong>ものがあります。これに対し<strong>耐久性等関係規定は、計算をしても必ず守る</strong>「最低限のルール」です。強度（力）の問題は計算で確かめられても、<strong>耐久性（長持ち）は計算だけでは担保できない</strong>ため、仕様で確実に守らせる考え方です。</p>
       </div>
 
-      <div class="note-box">
-        <span class="label">あわせて読みたい</span>
-        <p>「<a href="shiyou-kitei.html">仕様規定</a>」「<a href="kouzou-kyoudo.html">構造強度</a>」「<a href="kyoyo-oryokudo.html">許容応力度計算（計算ルート）</a>」をどうぞ。</p>
+      <div class="note-box" id="chuui">
+        <span class="label">注意</span>
+        <p>「構造計算で安全性を確認しているから仕様規定は関係ない」と誤解されることがありますが、耐久性等関係規定はその例外にあたります。ルート3のような高度な計算を行った建物であっても、かぶり厚さの不足や防腐措置の省略は認められません。確認申請の審査でも、構造計算の内容だけでなく、耐久性等関係規定を満たしているかどうかが別途チェックされる点に注意が必要です。</p>
       </div>
 
-      <h2>まとめ</h2>
+      <div class="note-box">
+        <span class="label">あわせて読みたい</span>
+        <p>「<a href="shiyou-kitei.html">仕様規定</a>」「<a href="kouzou-kyoudo.html">構造強度</a>」「<a href="kyoyo-oryokudo.html">許容応力度計算（計算ルート）</a>」「<a href="taikyuu-kijun.html">耐久設計基準強度</a>」をどうぞ。</p>
+      </div>
+
+      <h2 id="matome">まとめ</h2>
       <ul>
         <li>耐久性等関係規定は、計算をしても必ず守る仕様規定（施行令36条）。</li>
         <li>かぶり厚さ・コンクリート強度・防腐防錆・基礎などが該当。</li>
-        <li>強度は計算で確かめられるが、耐久性は仕様で確実に守る考え方。</li>
+        <li>劣化現象は構造計算だけでは担保できないため、仕様で確実に守らせる考え方。</li>
+        <li>どの計算ルートを選んでも適用が外れない、いわば構造安全性の土台となる規定。</li>
       </ul>
       <div class="article-author">
         <img src="../assets/profile.png" alt="監修・執筆者 ホッタ ナオト（構造設計一級建築士）" width="76" height="76" loading="lazy">

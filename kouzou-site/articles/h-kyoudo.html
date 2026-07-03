@@ -52,58 +52,83 @@
     <article class="article-main">
       <div class="meta">
         <span class="tag">鉄骨造（S造）</span>
-        <span>更新日：2026年6月14日</span>
+        <span>更新日：2026年7月3日</span>
       </div>
       <h1>H形鋼の強度｜強度計算の公式と許容応力度</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
 
-      <p><a href="h-katako.html">H形鋼</a>の「強度」は、どれだけの曲げやせん断に耐えられるかで決まります。<a href="kyoyo-oryokudo.html">許容応力度</a>と断面性能を使った計算方法を整理します。</p>
+      <p><a href="h-katako.html">H形鋼</a>の「強度」とは、部材が壊れたり許容範囲を超えて変形したりせずに、どれだけの曲げやせん断力に耐えられるかを示す性能のことです。単に「材料が硬い・柔らかい」という話ではなく、<a href="kyoyo-oryokudo.html">許容応力度</a>という基準値と、断面形状から決まる断面性能の掛け合わせで評価します。ここでは、その計算方法の考え方を、実際の数値を使った計算例つきで整理します。</p>
+
+      <div class="point-box">
+        <span class="label">この記事の要点</span>
+        <ul>
+          <li>強度確認は「応力度 ≤ 許容応力度」が基本の考え方</li>
+          <li>曲げは Ma=fb×Z、せん断は Qa=fs×Aw で許容耐力を求める</li>
+          <li>実務では横座屈・幅厚比・たわみも合わせて断面を決める</li>
+        </ul>
+      </div>
 
       <div class="note-box">
         <span class="label">この記事について</span>
         <p>本記事の数値は<strong>代表的な目安・例</strong>で、学習用の概要です。設計・積算では必ず<strong>最新のJIS・建築基準法告示・鋼構造設計規準・鋼材ハンドブック</strong>の正確な値を確認してください。</p>
       </div>
 
-      <h2>強度計算の基本：応力度 ≤ 許容応力度</h2>
+      <nav class="toc" aria-label="目次">
+        <div class="toc-ttl">目次</div>
+        <ol>
+          <li><a href="#kihon">強度計算の基本：応力度 ≤ 許容応力度</a></li>
+          <li><a href="#mage">曲げの強度</a></li>
+          <li><a href="#sendan">せん断の強度</a></li>
+          <li><a href="#reidai">計算例</a></li>
+          <li><a href="#chuui">実務での注意点</a></li>
+          <li><a href="#matome">まとめ</a></li>
+        </ol>
+      </nav>
+
+      <h2 id="kihon">強度計算の基本：応力度 ≤ 許容応力度</h2>
       <p>強度の確認は、部材に生じる<strong>応力度</strong>が<strong>許容応力度</strong>以下であることを確かめる作業です。許容応力度は<a href="kouzai-shurui.html">基準強度F</a>から定まります（長期の目安）。</p>
       <div class="formula">
         許容曲げ応力度 fb ≒ F / 1.5　　許容せん断応力度 fs ≒ F / (1.5√3)
         <span class="note">長期。短期はこの1.5倍（≒F、F/√3）</span>
       </div>
 
-      <h2>曲げの強度</h2>
+      <h2 id="mage">曲げの強度</h2>
       <p>曲げモーメントMによる応力度は、<a href="h-danmen-keisu.html">断面係数Z</a>で決まります。許容できる曲げモーメント（許容曲げ耐力）は次式です。</p>
       <div class="formula">
         σ = M / Z ≤ fb　→　許容曲げモーメント Ma = fb × Z
       </div>
+      <p>この式が示す通り、同じ材質（同じF・fb）であれば、断面係数Zが大きいほど許容できる曲げモーメントも大きくなります。梁のサイズを検討する際、まず必要なMaを求め、それを満たすZを持つH形鋼を<a href="h-danmenseinou.html">断面性能・単位重量一覧</a>から探す、という手順が基本になります。</p>
 
-      <h2>せん断の強度</h2>
-      <p>せん断力Qは主に<a href="h-web.html">ウェブ</a>が負担します。</p>
+      <h2 id="sendan">せん断の強度</h2>
+      <p>せん断力Qは主に<a href="h-web.html">ウェブ</a>が負担します。フランジは主に曲げモーメントを、ウェブは主にせん断力を負担するという役割分担が、H形鋼の合理的な断面構成の理由の一つです。</p>
       <div class="formula">
         τ = Q / Aw ≤ fs　→　許容せん断力 Qa = fs × Aw　（Aw ≒ H × t1）
       </div>
 
-      <h2>計算例：H-400×200×8×13（長期・SN400 F=235）</h2>
+      <h2 id="reidai">計算例：H-400×200×8×13（長期・SN400 F=235）</h2>
       <p>Zx＝1190cm³＝1.19×10⁶mm³、fb＝235/1.5≒157N/mm²。</p>
       <div class="formula">
         Ma = fb × Zx = 157 × 1.19×10⁶ ≒ 1.87×10⁸ N·mm ≒ 187 kN·m
       </div>
-      <p>この梁は長期で約187kN·mの曲げまで許容できる、という目安が得られます。</p>
+      <p>この梁は長期で約187kN·mの曲げまで許容できる、という目安が得られます。せん断についても同様に、Aw≒400×8＝3200mm²、fs＝235/(1.5√3)≒90N/mm²とすると、Qa＝fs×Aw≒90×3200≒288kNとなり、この梁が長期に耐えられるせん断力の目安が求まります。</p>
 
+      <h2 id="chuui">実務での注意点</h2>
       <div class="point-box">
         <span class="label">POINT</span>
         <p>実際は<a href="zakutsu.html">横座屈</a>や<a href="h-habaatsuhi.html">幅厚比</a>による低減、<a href="tawami.html">たわみ</a>の制限も加わります。強度（応力度）だけでなく、使用性まで含めて断面を決めます。</p>
       </div>
+      <p>特に細長い梁や、圧縮側フランジが横方向に拘束されていない梁では、断面が持つ本来の曲げ耐力まで発揮できず、<a href="zakutsu.html">横座屈</a>によって早期に耐力が低下することがあります。この場合、許容曲げ応力度fbそのものを低減して計算する必要があり、単純にMa=fb×Zの式だけでは安全側の評価にならない点に注意が必要です。</p>
 
       <div class="note-box">
         <span class="label">あわせて読みたい</span>
         <p>断面係数は「<a href="h-danmen-keisu.html">断面係数</a>」、許容応力度は「<a href="kyoyo-oryokudo.html">許容応力度計算</a>」、ウェブは「<a href="h-web.html">H形鋼のウェブ</a>」をどうぞ。</p>
       </div>
 
-      <h2>まとめ</h2>
+      <h2 id="matome">まとめ</h2>
       <ul>
         <li>強度確認は「応力度 ≤ 許容応力度」。許容応力度は基準強度Fから定まる。</li>
         <li>曲げは Ma=fb×Z、せん断は Qa=fs×Aw で許容耐力を求める。</li>
+        <li>計算例：H-400×200×8×13は長期で約187kN·mの曲げ、約288kNのせん断に耐える。</li>
         <li>実務では横座屈・幅厚比・たわみも合わせて断面を決める。</li>
       </ul>
       <div class="article-author">
