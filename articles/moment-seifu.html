@@ -6,9 +6,9 @@
 <meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
 <title>力のモーメントの正負とは？意味・公式とモーメントの和の例題｜構造設計ナビ</title>
-<meta name="description" content="力のモーメントの正負をわかりやすく解説。回転の向きで符号を決める意味、公式、複数のモーメントを符号付きで足し合わせる（ΣM）例題をまとめます。">
+<meta name="description" content="力のモーメントの正負をわかりやすく解説。回転の向きで符号を決める理由、公式M＝±F×L、複数のモーメントを符号付きで足し合わせる（ΣM）例題2つ、よくある間違いをまとめます。">
 <meta property="og:title" content="力のモーメントの正負とは？意味・公式とモーメントの和の例題｜構造設計ナビ">
-<meta property="og:description" content="力のモーメントの正負の意味・公式と、符号付きで和をとる（ΣM）例題を解説します。">
+<meta property="og:description" content="力のモーメントの正負の意味・公式と、符号付きで和をとる（ΣM）例題2つ、注意点を解説します。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://www.kouzou-navi.com/articles/moment-seifu.html">
 <meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
@@ -52,22 +52,47 @@
     <article class="article-main">
       <div class="meta">
         <span class="tag">構造力学の基礎</span>
-        <span>更新日：2026年6月15日</span>
+        <span>更新日：2026年7月2日</span>
       </div>
       <h1>力のモーメントの正負｜公式とモーメントの和の例題</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
-      <p><a href="moment.html">力のモーメント</a>は<strong>回転の向きによって正負（符号）</strong>を区別します。符号を付けることで、複数のモーメントを足し引きできます。</p>
+      <p><a href="moment.html">力のモーメント</a>は<strong>回転の向きによって正負（符号）</strong>を区別します。向き（時計回り・反時計回り）という言葉のままでは足し算・引き算ができないため、片方の向きを「＋」、もう片方を「−」と数値の符号に置き換えます。こうして符号を付けることで、複数のモーメントを代数的に足し引きし、全体として物体がどちら向きにどれだけ回ろうとしているかを1つの数値で表せるようになります。</p>
 
-      <h2>正負の意味と公式</h2>
-      <p>本サイトでは<strong>時計回りを正（＋）、反時計回りを負（−）</strong>とします（→<a href="moment-muki.html">向きの見分け方</a>）。</p>
+      <div class="point-box">
+        <span class="label">この記事の要点</span>
+        <ul>
+          <li>正負は回転の向きを符号に置き換えたもの。これで複数のモーメントを足し引きできる。</li>
+          <li>本サイトの公式はM＝±F×L（時計回りが＋）。</li>
+          <li>符号付きで合計したΣMが0であれば、その点まわりで回転せずつり合っている。</li>
+        </ul>
+      </div>
+
+      <nav class="toc" aria-label="目次">
+        <div class="toc-ttl">目次</div>
+        <ol>
+          <li><a href="#naze">なぜ正負をつけるのか</a></li>
+          <li><a href="#koushiki">正負の意味と公式</a></li>
+          <li><a href="#reidai">モーメントの和の例題</a></li>
+          <li><a href="#ouyou">3つの力がある場合の計算例</a></li>
+          <li><a href="#chuui">よくある間違い</a></li>
+          <li><a href="#matome">まとめ</a></li>
+        </ol>
+      </nav>
+
+      <h2 id="naze">なぜ正負をつけるのか</h2>
+      <p>「時計回りに20N·m」「反時計回りに6N·m」という言葉のままでは、2つを合計するときに毎回向きを確認しながら計算しなければならず、複雑な骨組みでは計算ミスの元になります。そこで、あらかじめ<strong>1つの回転向きを正（＋）、もう1つを負（−）</strong>と決めておけば、あとは符号付きの数として単純に足し算するだけで、全体の回転の向きと大きさが求められます。この考え方は、<a href="hanryoku.html">反力の計算</a>や<a href="qm-zu.html">Q図・M図</a>の作成など、構造力学のほぼすべての計算の土台になっています。</p>
+
+      <h2 id="koushiki">正負の意味と公式</h2>
+      <p>本サイトでは<strong>時計回りを正（＋）、反時計回りを負（−）</strong>とします（向きの判断そのものの見分け方は→<a href="moment-muki.html">モーメントの向き・見分け方</a>）。</p>
       <div class="formula">
         M ＝ ± F × L
         <span class="note">時計回りなら＋、反時計回りなら−。Lは<a href="moment-ude.html">腕の長さ</a></span>
       </div>
+      <p>符号は「回転の向き」だけを表すもので、力の大きさそのものには関係しません。同じ大きさの力でも、支点から見た位置や向きが変われば符号が反転します。</p>
 
-      <h2>モーメントの和の例題</h2>
+      <h2 id="reidai">モーメントの和の例題</h2>
       <div class="point-box">
-        <span class="label">例題</span>
+        <span class="label">例題1</span>
         <p>点Oから右に2m、上向き10Nの力（時計回り）と、点Oから右に1m、下向き6Nの力（反時計回り）が働くとき、点Oまわりのモーメントの和は？</p>
         <p>M₁ ＝ ＋10×2 ＝ ＋20N·m（時計回り）<br>
         M₂ ＝ −6×1 ＝ −6N·m（反時計回り）<br>
@@ -75,16 +100,33 @@
       </div>
       <p>このように符号を付けて合計すると、全体としてどちら回りに、どれだけ回そうとするかが分かります。<a href="moment-tsuriai.html">ΣM＝0なら回転せずつり合い</a>です。</p>
 
+      <h2 id="ouyou">3つの力がある場合の計算例</h2>
+      <div class="point-box">
+        <span class="label">例題2</span>
+        <p>点Oから右に3m、下向き8Nの力（時計回り）、右に1.5m、上向き4Nの力（反時計回り）、右に4m、下向き5Nの力（時計回り）が働くとき、点Oまわりのモーメントの和は？</p>
+        <p>M₁ ＝ ＋8×3 ＝ ＋24N·m<br>
+        M₂ ＝ −4×1.5 ＝ −6N·m<br>
+        M₃ ＝ ＋5×4 ＝ ＋20N·m<br>
+        <strong>ΣM ＝ 24 − 6 ＋ 20 ＝ ＋38N·m（時計回り）</strong></p>
+      </div>
+      <p>力の数が増えても、やることは同じです。各モーメントに符号を付けて、単純に足し合わせるだけで全体の回転傾向が求まります。</p>
+
       <div class="note-box">
-        <span class="label">あわせて読みたい</span>
-        <p>「<a href="moment-muki.html">モーメントの向き</a>」「<a href="moment-tsuriai.html">モーメントのつり合い</a>」「<a href="kaiten-houkou.html">回転方向の覚え方</a>」をどうぞ。</p>
+        <span class="label">注意</span>
+        <p id="chuui">計算の途中で符号規約（時計回りを正／負）を変えてしまうと、合計が正しく求まりません。1つの問題の中では最初から最後まで同じ規約を使います。また、力の単位（N・kN）や距離の単位（m・mm）がそろっていないと符号以前に値そのものが誤るため、計算前に<a href="moment-tani-kansan.html">単位</a>をそろえておくことも重要です。</p>
       </div>
 
-      <h2>まとめ</h2>
+      <div class="note-box">
+        <span class="label">あわせて読みたい</span>
+        <p>「<a href="moment-muki.html">モーメントの向き</a>」「<a href="moment-tsuriai.html">モーメントのつり合い</a>」「<a href="kaiten-houkou.html">回転方向の覚え方</a>」「<a href="moment-tani-kansan.html">モーメントの単位換算</a>」をどうぞ。</p>
+      </div>
+
+      <h2 id="matome">まとめ</h2>
       <ul>
         <li>モーメントは回転の向きで正負を区別する（本サイトは時計回り＝正）。</li>
-        <li>M＝±F×L。符号を付けて足し引きできる。</li>
+        <li>M＝±F×L。符号を付けることで複数のモーメントを代数的に足し引きできる。</li>
         <li>ΣM（符号付きの和）で全体の回転を求める。ΣM＝0でつり合い。</li>
+        <li>計算の途中で符号規約を変えない。単位をそろえてから計算する。</li>
       </ul>
       <div class="article-author">
         <img src="../assets/profile.png" alt="監修・執筆者 ホッタ ナオト（構造設計一級建築士）" width="76" height="76" loading="lazy">

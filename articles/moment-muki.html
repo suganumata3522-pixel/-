@@ -6,9 +6,9 @@
 <meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
 <title>力のモーメントの向き・見分け方｜時計回りと反時計回り｜構造設計ナビ</title>
-<meta name="description" content="力のモーメントの向きと見分け方をわかりやすく解説。時計回り・反時計回りのどちらに回そうとするかの見分け方、本サイトの符号規約（時計回りを正）、向きの判断のコツをまとめます。">
+<meta name="description" content="力のモーメントの向きと見分け方をわかりやすく解説。時計回り・反時計回りのどちらに回そうとするかを見分ける3ステップ、符号規約、転倒モーメントや片持ち梁など実務での向きの考え方をまとめます。">
 <meta property="og:title" content="力のモーメントの向き・見分け方｜時計回りと反時計回り｜構造設計ナビ">
-<meta property="og:description" content="力のモーメントの向き（時計回り・反時計回り）の見分け方と符号規約を解説します。">
+<meta property="og:description" content="力のモーメントの向きの見分け方3ステップ、符号規約、実務で向きが重要になる例を解説します。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://www.kouzou-navi.com/articles/moment-muki.html">
 <meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
@@ -52,37 +52,82 @@
     <article class="article-main">
       <div class="meta">
         <span class="tag">構造力学の基礎</span>
-        <span>更新日：2026年6月15日</span>
+        <span>更新日：2026年7月2日</span>
       </div>
       <h1>力のモーメントの向き・見分け方</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
-      <p><a href="moment.html">力のモーメント</a>には、物体を回す<strong>向き（時計回り／反時計回り）</strong>があります。向きの見分け方を整理します。</p>
+      <p><a href="moment.html">力のモーメント</a>とは、ある点（回転中心）のまわりに物体を回そうとする力の働きの大きさのことです。モーメントには大きさだけでなく、物体を回す<strong>向き（時計回り／反時計回り）</strong>があり、この向きを正しく見分けられないと、複数の力を合成したときの計算やつり合いの判定を誤ってしまいます。ここでは向きの考え方と、実務での見分け方のコツを整理します。</p>
 
-      <h2>向きの見分け方</h2>
+      <div class="point-box">
+        <span class="label">この記事の要点</span>
+        <ul>
+          <li>向きは「その力だけが働いたとき、物体がどちら回りに回転しようとするか」で判断する。</li>
+          <li>本サイトでは時計回りを正（＋）、反時計回りを負（−）とする。</li>
+          <li>転倒モーメントや片持ち梁の曲げなど、実務では向きの取り違えがそのまま設計ミスにつながる。</li>
+        </ul>
+      </div>
+
+      <nav class="toc" aria-label="目次">
+        <div class="toc-ttl">目次</div>
+        <ol>
+          <li><a href="#towa">モーメントの向きとは</a></li>
+          <li><a href="#miwakekata">向きの見分け方（3ステップ）</a></li>
+          <li><a href="#fugou">符号規約（時計回りを正）</a></li>
+          <li><a href="#jitsurei">実務で向きが重要になる例</a></li>
+          <li><a href="#chuui">よくある間違い・注意点</a></li>
+          <li><a href="#matome">まとめ</a></li>
+        </ol>
+      </nav>
+
+      <h2 id="towa">モーメントの向きとは</h2>
+      <p>力のモーメントは「大きさ」と「向き」の2つの情報がそろって初めて意味を持ちます。大きさは<a href="moment-tani.html">単位（N·m）</a>で表される回転力の強さ、向きは物体をどちら回りに回そうとしているかという回転の方向（英語ではsense of rotation、direction of momentなどと呼ばれます）です。力そのものの向き（矢印の方向）とモーメントの向き（回転の向き）は別物である点に注意してください。同じ力でも、作用点や回転中心の位置によって、生じるモーメントの向きは変わります。</p>
+
+      <h2 id="miwakekata">向きの見分け方（3ステップ）</h2>
       <div class="point-box">
         <span class="label">POINT</span>
         <p>回転中心に「軸（ピン）」があると考え、<strong>その力だけが働いたとき、物体がどちら回りに回るか</strong>を想像します。中心から見て力が右へ回そうとすれば時計回り、左へ回そうとすれば反時計回りです。力の<a href="moment-ude.html">作用線</a>が中心を通る場合は腕の長さが0で、モーメントは生じません。</p>
       </div>
+      <p>実際の見分け方は、次の3ステップで考えるとミスが減ります。</p>
+      <ol>
+        <li><strong>回転中心Oを決める</strong>：モーメントを求めたい基準点を1つ定める。</li>
+        <li><strong>力の作用線を延長する</strong>：Oから見て作用線がどちら側を通るかを確認する。</li>
+        <li><strong>Oにピンがあると仮定して回してみる</strong>：その力だけが働いたら物体がどちらに回るかを、時計の針をイメージしながら判断する。</li>
+      </ol>
+      <p>図やフリーハンドのスケッチで矢印と回転中心を書き込みながら考えると、頭の中だけで判断するより誤りが少なくなります。</p>
 
-      <h2>符号規約（時計回りを正）</h2>
+      <h2 id="fugou">符号規約（時計回りを正）</h2>
       <p>本サイトでは<strong>時計回りを正（＋）、反時計回りを負（−）</strong>とします。</p>
       <table class="data">
         <tr><th>回転の向き</th><th>符号</th></tr>
         <tr><td>時計回り（右回り）</td><td>＋（正）</td></tr>
         <tr><td>反時計回り（左回り）</td><td>−（負）</td></tr>
       </table>
-      <p>※符号の取り方は教科書・流派により逆の場合もあります。大切なのは<strong>1つの規約を最後まで一貫して使う</strong>ことです（→<a href="moment-seifu.html">正負</a>・<a href="kaiten-houkou.html">回転方向の覚え方</a>）。</p>
+      <p>※符号の取り方は教科書・流派により逆の場合もあります。大切なのは<strong>1つの規約を最後まで一貫して使う</strong>ことです。符号を使った計算式や複数のモーメントの足し合わせ方は「<a href="moment-seifu.html">モーメントの正負</a>」で詳しく扱っています。あわせて<a href="kaiten-houkou.html">回転方向の覚え方</a>も参考にしてください。</p>
+
+      <h2 id="jitsurei">実務で向きが重要になる例</h2>
+      <p>構造設計の実務では、次のような場面で「どちら向きに回そうとしているか」の判断が直接結果を左右します。</p>
+      <ul>
+        <li><strong>転倒モーメント</strong>：擁壁や基礎に水平力（土圧・風圧など）が働くとき、転倒させようとする向きのモーメントと、自重による抵抗（安定）側のモーメントを見分けて比較します。</li>
+        <li><strong>片持ち梁の曲げ</strong>：先端に下向きの荷重が載る片持ち梁は、固定端で梁を上側に引張らせる向きのモーメントが生じます。向きを誤ると引張側と圧縮側の判断（配筋の向き）を間違えます。</li>
+        <li><strong>偏心荷重による付加曲げ</strong>：柱の中心からずれた位置に荷重がかかると、そのずれ（偏心距離）に応じたモーメントが追加で生じ、向きによって片側の応力を増やします。</li>
+      </ul>
+
+      <div class="note-box">
+        <span class="label">注意</span>
+        <p id="chuui">力の向きとモーメントの向きを混同しないようにします。また、複数の力を扱う計算の途中で符号規約（時計回りを正／負）を変えてしまうと、和が合わなくなります。作用線が回転中心をちょうど通る場合は腕の長さが0となり、モーメントが生じない点も見落としやすいポイントです。</p>
+      </div>
 
       <div class="note-box">
         <span class="label">あわせて読みたい</span>
-        <p>「<a href="moment-seifu.html">モーメントの正負</a>」「<a href="kaiten-houkou.html">回転方向の覚え方</a>」「<a href="moment-ude.html">腕の長さ</a>」をどうぞ。</p>
+        <p>「<a href="moment-seifu.html">モーメントの正負</a>」「<a href="kaiten-houkou.html">回転方向の覚え方</a>」「<a href="moment-ude.html">腕の長さ</a>」「<a href="moment-tani.html">力のモーメントの単位</a>」をどうぞ。</p>
       </div>
 
-      <h2>まとめ</h2>
+      <h2 id="matome">まとめ</h2>
       <ul>
-        <li>モーメントの向きは、その力だけで物体がどちら回りに回るかで判断。</li>
-        <li>本サイトは時計回りを正・反時計回りを負とする。</li>
-        <li>符号規約は流派で異なる。一貫して使うことが重要。</li>
+        <li>モーメントの向きは、その力だけで物体がどちら回りに回るかで判断する。</li>
+        <li>回転中心を決め、作用線の位置関係を確認し、回してみるイメージで見分ける。</li>
+        <li>本サイトは時計回りを正・反時計回りを負とする。符号規約は一貫して使うことが重要。</li>
+        <li>転倒モーメントや片持ち梁の曲げなど、実務では向きの判断がそのまま設計結果に影響する。</li>
       </ul>
       <div class="article-author">
         <img src="../assets/profile.png" alt="監修・執筆者 ホッタ ナオト（構造設計一級建築士）" width="76" height="76" loading="lazy">

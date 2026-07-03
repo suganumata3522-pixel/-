@@ -52,42 +52,76 @@
     <article class="article-main">
       <div class="meta">
         <span class="tag">構造力学の基礎</span>
-        <span>更新日：2026年6月15日</span>
+        <span>更新日：2026年7月2日</span>
       </div>
       <h1>力のモーメントの単位｜N・m・kN・mと曲げモーメント</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
-      <p><a href="moment.html">力のモーメント</a>の単位は、<strong>力×距離</strong>なので<strong>N·m（ニュートンメートル）</strong>です。種類ごとに整理します。</p>
+      <p><a href="moment.html">力のモーメント</a>の単位は、<strong>力×距離</strong>なので<strong>N·m（ニュートンメートル）</strong>です。力の単位（N）と距離の単位（m）を組み合わせただけのシンプルな単位ですが、実務では場面に応じてkN·mやN·mmなど複数の単位が使い分けられています。ここでは単位の種類とその使い分けを整理します。</p>
 
-      <h2>基本単位はN·m</h2>
+      <div class="point-box">
+        <span class="label">この記事の要点</span>
+        <ul>
+          <li>力のモーメントの基本単位はN·m（力×距離）。</li>
+          <li>建築の構造計算ではkN·m、応力度計算ではN·mmがよく使われる。</li>
+          <li>N·mは仕事・エネルギーの単位（ジュール）と次元は同じだが、意味が異なるため区別して使う。</li>
+        </ul>
+      </div>
+
+      <nav class="toc" aria-label="目次">
+        <div class="toc-ttl">目次</div>
+        <ol>
+          <li><a href="#kihon">基本単位はN·m</a></li>
+          <li><a href="#tsukau">よく使う単位</a></li>
+          <li><a href="#kajuu">モーメント荷重の単位</a></li>
+          <li><a href="#mageru">曲げモーメントの単位は？</a></li>
+          <li><a href="#chigai">仕事・エネルギーの単位との違い</a></li>
+          <li><a href="#qa">よくある質問</a></li>
+          <li><a href="#matome">まとめ</a></li>
+        </ol>
+      </nav>
+
+      <h2 id="kihon">基本単位はN·m</h2>
       <div class="formula">
         モーメント ＝ 力(N) × 距離(m) ＝ N·m
         <span class="note">読み方：ニュートンメートル。大きい値は kN·m（キロニュートンメートル）</span>
       </div>
+      <p>力の単位N（ニュートン）は<a href="hanryoku.html">力・反力</a>の記事でも扱う基本のSI単位です。モーメントはこの力に、回転中心からの距離（腕の長さ）を掛けたものなので、単位も自然に「力の単位×距離の単位」となります。</p>
 
-      <h2>よく使う単位</h2>
+      <h2 id="tsukau">よく使う単位</h2>
       <table class="data">
         <tr><th>単位</th><th>用途・備考</th></tr>
         <tr><td>N·m</td><td>基本単位</td></tr>
         <tr><td>kN·m</td><td>建築の構造計算で最もよく使う（1kN·m＝1000N·m）</td></tr>
-        <tr><td>N·mm</td><td>応力度計算で使う（σ＝M/Z、ZがmM³のとき）</td></tr>
+        <tr><td>N·mm</td><td>応力度計算で使う（σ＝M/Z、Zがmm³のとき）</td></tr>
       </table>
+      <p>実際の換算のしかたや、場面ごとにどの単位を選べばよいかは「<a href="moment-tani-kansan.html">モーメントの単位換算</a>」で計算例つきに詳しく解説しています。</p>
 
-      <h2>モーメント荷重の単位</h2>
-      <p>外力として直接かかる回転の力＝<strong>モーメント荷重</strong>の単位も、同じく<strong>N·m（kN·m）</strong>です。</p>
+      <h2 id="kajuu">モーメント荷重の単位</h2>
+      <p>外力として直接かかる回転の力＝<strong>モーメント荷重</strong>の単位も、同じく<strong>N·m（kN·m）</strong>です。集中荷重（N・kN）や分布荷重（N/m・kN/m）とは単位の形が違うため、混同しないよう注意します。</p>
 
-      <h2>曲げモーメントの単位は？</h2>
-      <p>梁を曲げる内力＝<a href="ouryoku.html">曲げモーメント</a>も「力×距離」なので単位は<strong>N·m（kN·m）</strong>です。構造設計の図面・計算書では<strong>kN·m</strong>が標準的に使われます（→<a href="bending-tani-kansan.html">曲げモーメントの単位換算</a>）。</p>
+      <h2 id="mageru">曲げモーメントの単位は？</h2>
+      <p>梁を曲げる内力＝<a href="ouryoku.html">曲げモーメント</a>も「力×距離」なので単位は<strong>N·m（kN·m）</strong>です。構造設計の図面・計算書では<strong>kN·m</strong>が標準的に使われます（→<a href="bending-tani-kansan.html">曲げモーメントの単位換算</a>）。<a href="qm-zu.html">M図</a>の縦軸もこの単位で表されます。</p>
+
+      <h2 id="chigai">仕事・エネルギーの単位との違い</h2>
+      <p>力×距離という組み合わせは、実は仕事・エネルギーの単位（ジュール、記号J）とも同じ次元です。1J＝1N·mであり、数式のうえではモーメントと同じ形をしています。しかし両者は物理的な意味がまったく異なります。仕事は「力の向きに物体を動かした量」を表すスカラー量であるのに対し、モーメントは「物体を回転させようとする働き」を表す量です。混同を避けるため、モーメントの単位は<strong>ジュール（J）ではなく必ずN·m（またはkN·m）で表記</strong>する、という慣習が広く使われています。</p>
+
+      <h3 id="qa">よくある質問</h3>
+      <h3>Q1. 昔はkgf·m（重量キログラムメートル）も使われていたと聞きますが？</h3>
+      <p>かつては重力単位系のkgf·mが使われていた場面もありましたが、現在の構造計算はSI単位系のN·m（kN·m）が標準です。1kgfは約9.8Nに相当するため、古い資料の数値を扱う際は換算に注意が必要です。</p>
+      <h3>Q2. どの単位を使えばよいか迷ったら？</h3>
+      <p>梁・柱にかかる荷重や部材の設計用モーメントはkN·m、断面係数（mm³）を使う応力度計算はN·mmを基本と考えると迷いにくくなります。詳しい換算手順は「<a href="moment-tani-kansan.html">モーメントの単位換算</a>」を参照してください。</p>
 
       <div class="note-box">
         <span class="label">あわせて読みたい</span>
         <p>「<a href="moment-tani-kansan.html">モーメントの単位換算</a>」「<a href="bending-tani-kansan.html">曲げモーメントの単位換算</a>」「<a href="moment.html">力のモーメント</a>」をどうぞ。</p>
       </div>
 
-      <h2>まとめ</h2>
+      <h2 id="matome">まとめ</h2>
       <ul>
         <li>力のモーメントの単位は N·m（力×距離）。大きい値は kN·m。</li>
         <li>モーメント荷重・曲げモーメントの単位も N·m（kN·m）。</li>
         <li>応力度計算では N·mm を使う場面もある。</li>
+        <li>N·mはジュール（仕事の単位）と次元は同じだが意味が異なるため、モーメントはN·mのまま表記する。</li>
       </ul>
       <div class="article-author">
         <img src="../assets/profile.png" alt="監修・執筆者 ホッタ ナオト（構造設計一級建築士）" width="76" height="76" loading="lazy">
