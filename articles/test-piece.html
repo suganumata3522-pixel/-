@@ -6,7 +6,7 @@
 <meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
 <title>コンクリートのテストピースとは？サイズ・本数・養生方法｜構造設計ナビ</title>
-<meta name="description" content="コンクリートのテストピースをわかりやすく解説。圧縮強度試験に使う供試体（テストピース）のサイズ、採取する本数や頻度、標準水中養生などの養生方法をまとめます。">
+<meta name="description" content="コンクリートのテストピースをわかりやすく解説。圧縮強度試験に使う供試体（テストピース）のサイズ、採取する本数や頻度、標準水中養生などの養生方法、判定の考え方や注意点までまとめます。">
 <meta property="og:title" content="コンクリートのテストピースとは？サイズ・本数・養生方法｜構造設計ナビ">
 <meta property="og:description" content="コンクリートのテストピースのサイズ・本数（頻度）・養生方法を解説します。">
 <meta property="og:type" content="article">
@@ -52,19 +52,40 @@
     <article class="article-main">
       <div class="meta">
         <span class="tag">鉄筋コンクリート造（RC造）</span>
-        <span>更新日：2026年6月14日</span>
+        <span>更新日：2026年7月3日</span>
       </div>
       <h1>コンクリートのテストピース｜サイズ・本数・養生</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
 
-      <p><strong>テストピース</strong>は、コンクリートの<strong>圧縮強度試験に使う円柱形の<a href="kyoushitai.html">供試体</a></strong>です。コンクリートが規定の強度を満たすかを確認します。</p>
+      <p><strong>テストピース</strong>とは、コンクリートの<strong>圧縮強度試験に使う円柱形の<a href="kyoushitai.html">供試体</a></strong>のことです。生コンを現場で採取し、規定の型枠（モールド）に詰めて作製し、一定期間養生した後に圧縮試験機で強度を測定して、コンクリートが設計・調合で定めた強度を満たしているかを確認します。テストピースの採り方や本数、養生方法を誤ると、正しい強度判定ができず、後になって強度不足の疑いが生じても検証しづらくなるため、決められたルールに沿った採取・管理が欠かせません。</p>
+
+      <div class="point-box">
+        <span class="label">この記事の要点</span>
+        <ul>
+          <li>テストピースは円柱形の供試体で、φ100×200mmが最も一般的なサイズ</li>
+          <li>1回の試験は通常3本で行い、その平均値で強度を判定する</li>
+          <li>目的に応じて標準養生・現場水中養生・現場封かん養生を使い分ける</li>
+        </ul>
+      </div>
 
       <div class="note-box">
         <span class="label">この記事について</span>
         <p>施工・試験に関する規準（JASS5・JIS A各規格など）は<strong>改訂される</strong>ことがあります。本記事は学習用の概要です。施工・管理では最新の規格・指針を確認してください。</p>
       </div>
 
-      <h2>サイズ</h2>
+      <nav class="toc" aria-label="目次">
+        <div class="toc-ttl">目次</div>
+        <ol>
+          <li><a href="#size">サイズ</a></li>
+          <li><a href="#honsuu">本数・頻度</a></li>
+          <li><a href="#yojou">養生方法</a></li>
+          <li><a href="#hantei">判定の考え方</a></li>
+          <li><a href="#chuui">よくある間違い・注意点</a></li>
+          <li><a href="#matome">まとめ</a></li>
+        </ol>
+      </nav>
+
+      <h2 id="size">サイズ</h2>
       <p>圧縮強度試験用のテストピースは<strong>円柱形</strong>で、直径と高さが1：2です。代表的なサイズは次のとおりです。</p>
       <table class="data">
         <tr><th>直径×高さ</th><th>備考</th></tr>
@@ -72,32 +93,50 @@
         <tr><td>φ125×250mm</td><td>—</td></tr>
         <tr><td>φ150×300mm</td><td>粗骨材が大きい場合</td></tr>
       </table>
+      <p>直径は使用する粗骨材の最大寸法の3倍以上を確保する必要があるとされ、粗骨材が大きいコンクリートでは、より大きいサイズのテストピースを選びます。高さが直径の2倍あるのは、圧縮試験時に材料内部の応力状態を安定させ、正しい強度が測定できるようにするためです。</p>
 
-      <h2>本数・頻度</h2>
-      <p>1回の試験は通常<strong>3本</strong>で行い、その平均で判定します。採取の頻度は、<strong>打込み日・打込み工区ごと、かつ150m³に1回</strong>などを目安に、所定の回数を採取します。</p>
+      <h2 id="honsuu">本数・頻度</h2>
+      <p>1回の試験は通常<strong>3本</strong>で行い、その平均で判定します。採取の頻度は、<strong>打込み日・打込み工区ごと、かつ150m³に1回</strong>などを目安に、所定の回数を採取します。1本だけでは、たまたま気泡やジャンカが混じっていた場合に誤った判定をしてしまうリスクがあるため、複数本の平均を取ることで測定のばらつきを吸収する仕組みになっています。</p>
 
-      <h2>養生方法</h2>
+      <h2 id="yojou">養生方法</h2>
       <ul>
         <li><strong><a href="suichuu-yojou.html">標準（水中）養生</a></strong>（20±2℃）：配合の強度判定用。</li>
         <li><strong>現場水中養生</strong>：<a href="katawaku-torihazushi.html">型枠取り外し</a>時期の判定用。</li>
         <li><strong>現場封かん養生</strong>：<a href="kouzoutai-concrete.html">構造体コンクリート強度</a>の推定用。</li>
       </ul>
+      <p>標準養生は、常に一定の温度・湿潤条件で管理するため、コンクリートそのものの配合強度（材料としてのポテンシャル）を確認するのに適しています。一方、現場封かん養生は実際の構造体に近い温度履歴で養生するため、実際に打設された構造体コンクリートがどの程度の強度に達しているかを、より実態に近い形で推定するのに使われます。目的が異なるため、両方の養生方法を併用することも多くあります。</p>
 
       <div class="point-box">
         <span class="label">POINT</span>
         <p>テストピースは<a href="mold.html">モールド（型枠）</a>にコンクリートを詰めて作ります。作り方・養生はJISに従い、目的に応じて養生方法を選びます。</p>
       </div>
 
+      <h2 id="hantei">判定の考え方</h2>
+      <p>圧縮強度試験は、材齢28日で行うのが一般的です。判定は1回の試験（3本の平均）が設計基準強度以上であること、かつ個々の値が大きく下回っていないことなど、複数の基準を満たすことで合否を判断します。1回の試験結果だけでなく、複数回の試験結果を合わせて評価することもあり、単純に「1本でも低ければ不合格」という単純な話ではない点に注意が必要です。</p>
+
+      <h2 id="chuui">よくある間違い・注意点</h2>
+      <div class="note-box">
+        <span class="label">注意</span>
+        <p>テストピースの採取・作製方法（詰め方、突き固めの回数、脱型のタイミングなど）が不適切だと、コンクリート自体の品質が良くても低い強度で測定されてしまうことがあります。テストピースの品質は試験結果の信頼性に直結するため、JISに定められた手順を正確に守ることが重要です。</p>
+      </div>
+
+      <h3>Q1. テストピースの強度が低い場合、構造体も強度不足なのですか。</h3>
+      <p>必ずしもそうとは限りません。テストピースの作製・養生に問題があった可能性もあるため、現場封かん養生の供試体や、必要に応じてコア抜き試験など、他の方法とあわせて総合的に判断します。</p>
+
+      <h3>Q2. テストピースは誰が採取しますか。</h3>
+      <p>一般に、生コンの受入検査を行う試験担当者や施工者が、荷卸し地点でJISの手順に従って採取します。第三者機関による立会いが行われることもあります。</p>
+
       <div class="note-box">
         <span class="label">あわせて読みたい</span>
         <p>「<a href="kyoushitai.html">供試体</a>」「<a href="mold.html">供試体型枠（モールド）</a>」「<a href="kouzoutai-concrete.html">構造体コンクリート</a>」をどうぞ。</p>
       </div>
 
-      <h2>まとめ</h2>
+      <h2 id="matome">まとめ</h2>
       <ul>
         <li>テストピースは圧縮強度試験用の円柱供試体。φ100×200mmが一般的。</li>
         <li>1回3本で判定。打込み日・工区ごと、150m³に1回などの頻度で採取。</li>
         <li>標準・現場水中・封かん養生を目的別に使い分ける。</li>
+        <li>採取・作製方法の精度が試験結果の信頼性を左右するため注意が必要。</li>
       </ul>
       <div class="article-author">
         <img src="../assets/profile.png" alt="監修・執筆者 ホッタ ナオト（構造設計一級建築士）" width="76" height="76" loading="lazy">
