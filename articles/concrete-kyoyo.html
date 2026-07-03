@@ -52,32 +52,73 @@
     <article class="article-main">
       <div class="meta">
         <span class="tag">鉄筋コンクリート造（RC造）</span>
-        <span>更新日：2026年6月14日</span>
+        <span>更新日：2026年7月2日</span>
       </div>
       <h1>コンクリートの許容応力度｜長期・短期の値</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
 
-      <p>コンクリートの<a href="kyoyo-oryokudo.html">許容応力度</a>は、<strong><a href="sekkei-hinshitsu-kijun.html">設計基準強度Fc</a>から計算</strong>します。荷重の継続時間で長期・短期に分かれます。</p>
+      <p>コンクリートの<a href="kyoyo-oryokudo.html">許容応力度</a>とは、部材に生じさせてよい応力の上限値のことで、許容応力度計算（一次設計）において部材断面の安全性を確認する際の基準となります。コンクリートの許容応力度は<strong><a href="sekkei-hinshitsu-kijun.html">設計基準強度Fc</a>から計算</strong>し、荷重が作用する時間の長さによって長期・短期の2種類に分かれます。</p>
+
+      <div class="point-box">
+        <span class="label">この記事の要点</span>
+        <ul>
+          <li>長期許容圧縮応力度＝Fc/3、短期許容圧縮応力度＝2Fc/3（長期の2倍）</li>
+          <li>許容せん断応力度は圧縮よりはるかに小さく、鉄筋による補強が前提</li>
+          <li>長期は常時荷重、短期は地震・積雪などの一時的な荷重に対応した値</li>
+        </ul>
+      </div>
+
+      <nav class="toc" aria-label="目次">
+        <div class="toc-ttl">目次</div>
+        <ol>
+          <li><a href="#asshuku">長期・短期の許容圧縮応力度</a></li>
+          <li><a href="#reikei">計算例</a></li>
+          <li><a href="#sendan">許容せん断応力度</a></li>
+          <li><a href="#chouki-tanki">長期と短期の違い</a></li>
+          <li><a href="#chuui">よくある間違い・注意点</a></li>
+          <li><a href="#matome">まとめ</a></li>
+        </ol>
+      </nav>
 
       <div class="note-box">
         <span class="label">この記事について</span>
         <p>強度・設計に関する規準（JASS5・建築基準法施行令など）の数値は<strong>条件・改訂で変わる</strong>ことがあります。本記事は学習用の概要です。設計では最新の規準を確認してください。</p>
       </div>
 
-      <h2>長期・短期の許容圧縮応力度</h2>
+      <h2 id="asshuku">長期・短期の許容圧縮応力度</h2>
       <div class="formula">
         長期許容圧縮応力度 ＝ Fc ÷ 3<br>
         短期許容圧縮応力度 ＝ 2 × Fc ÷ 3（＝長期の2倍）
         <span class="note">Fc：設計基準強度。例 Fc24 → 長期8・短期16 N/mm²</span>
       </div>
+      <p>この式が意味しているのは、常時作用する荷重に対しては<strong>安全率をおよそ3倍</strong>見込み、短時間しか作用しない地震・暴風時の荷重に対しては<strong>安全率をおよそ1.5倍</strong>まで下げて許容している、ということです。地震のような一過性の荷重は、材料が多少大きな応力を受けても直ちに破壊には至らないと考えられるため、長期より緩い基準が採用されています。</p>
 
-      <h2>許容せん断応力度</h2>
-      <p>せん断は圧縮よりずっと小さい値です。長期の許容せん断応力度は、おおむね<strong>Fc/30</strong>かつ一定の上限以下（例：(0.49＋Fc/100) など）で求めます。短期はその2倍です。せん断は数値が小さいため、RC部材では<a href="rc-tetsu-kankei.html">せん断補強筋（あばら筋・帯筋）</a>で補います。</p>
+      <h2 id="reikei">計算例</h2>
+      <p>設計基準強度Fc21（21N/mm²）の場合を考えてみます。</p>
+      <ul>
+        <li>長期許容圧縮応力度＝21÷3＝7N/mm²</li>
+        <li>短期許容圧縮応力度＝21×2÷3＝14N/mm²</li>
+      </ul>
+      <p>柱に生じる常時の圧縮応力度が7N/mm²を超えないように断面を決め、さらに地震時には14N/mm²を超えないことを確認する、という流れで断面の妥当性を検証します。</p>
 
-      <h2>長期と短期の違い</h2>
+      <h2 id="sendan">許容せん断応力度</h2>
+      <p>せん断は圧縮よりずっと小さい値です。長期の許容せん断応力度は、おおむね<strong>Fc/30</strong>かつ一定の上限以下（例：(0.49＋Fc/100) など）で求めます。短期はその2倍です。せん断は数値が小さいため、RC部材では<a href="rc-tetsu-kankei.html">せん断補強筋（あばら筋・帯筋）</a>で補います。コンクリート単体でのせん断耐力が不足する分を鉄筋が肩代わりする、という考え方は梁のあばら筋・柱の帯筋の設計における基本原理です。</p>
+
+      <h2 id="chouki-tanki">長期と短期の違い</h2>
       <div class="point-box">
         <span class="label">POINT</span>
         <p><strong>長期</strong>は固定荷重・積載荷重など常時かかる荷重に対する値、<strong>短期</strong>は地震・台風など短時間の荷重に対する値です。短時間なら大きな応力に耐えられるため、<strong>短期は長期の2倍</strong>に設定されます。</p>
+      </div>
+      <table class="data">
+        <tr><th></th><th>長期許容応力度</th><th>短期許容応力度</th></tr>
+        <tr><td>対象となる荷重</td><td>固定荷重・積載荷重・積雪（多雪区域）</td><td>地震荷重・暴風荷重・一般積雪</td></tr>
+        <tr><td>作用時間</td><td>常時（長期間継続）</td><td>短時間（一時的）</td></tr>
+        <tr><td>圧縮応力度の目安</td><td>Fc/3</td><td>2Fc/3</td></tr>
+      </table>
+
+      <div class="note-box" id="chuui">
+        <span class="label">注意</span>
+        <p>許容応力度計算はあくまで一次設計（中規模の地震・荷重に対する検証）の考え方です。大地震時の安全性は、保有水平耐力計算など別の検証（二次設計）で確認します。許容応力度計算だけで建物全体の耐震性が保証されるわけではない点に注意してください。</p>
       </div>
 
       <div class="note-box">
@@ -85,11 +126,12 @@
         <p>「<a href="kyoyo-asshuku.html">許容圧縮応力度</a>」「<a href="kyoyo-oryokudo.html">許容応力度計算</a>」「<a href="sekkei-hinshitsu-kijun.html">設計基準強度</a>」をどうぞ。</p>
       </div>
 
-      <h2>まとめ</h2>
+      <h2 id="matome">まとめ</h2>
       <ul>
         <li>コンクリートの許容応力度は設計基準強度Fcから求める。</li>
         <li>長期許容圧縮＝Fc/3、短期＝2Fc/3（長期の2倍）。</li>
         <li>せん断は小さく補強筋で補う。長期は常時、短期は地震・台風用。</li>
+        <li>許容応力度計算は一次設計であり、大地震時の検証は別途必要。</li>
       </ul>
       <div class="article-author">
         <img src="../assets/profile.png" alt="監修・執筆者 ホッタ ナオト（構造設計一級建築士）" width="76" height="76" loading="lazy">

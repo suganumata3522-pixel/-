@@ -6,9 +6,9 @@
 <meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
 <title>コンクリートの許容圧縮応力度とは？Fcと長期・短期の使い分け｜構造設計ナビ</title>
-<meta name="description" content="コンクリートの許容圧縮応力度をわかりやすく解説。設計基準強度Fcから求める長期（Fc/3）・短期（2Fc/3）の許容圧縮応力度、長期と短期の使い分けを計算例つきでまとめます。">
+<meta name="description" content="コンクリートの許容圧縮応力度をわかりやすく解説。設計基準強度Fcから求める長期（Fc/3）・短期（2Fc/3）の許容圧縮応力度、長期と短期の使い分け、許容応力度計算での使い方を計算例つきでまとめます。">
 <meta property="og:title" content="コンクリートの許容圧縮応力度とは？Fcと長期・短期の使い分け｜構造設計ナビ">
-<meta property="og:description" content="コンクリートの許容圧縮応力度（長期Fc/3・短期2Fc/3）とFc・長期短期の使い分けを解説します。">
+<meta property="og:description" content="コンクリートの許容圧縮応力度（長期Fc/3・短期2Fc/3）とFc・長期短期の使い分け、計算例を解説します。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://www.kouzou-navi.com/articles/kyoyo-asshuku.html">
 <meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
@@ -52,48 +52,77 @@
     <article class="article-main">
       <div class="meta">
         <span class="tag">鉄筋コンクリート造（RC造）</span>
-        <span>更新日：2026年6月14日</span>
+        <span>更新日：2026年7月2日</span>
       </div>
       <h1>コンクリートの許容圧縮応力度｜Fcと長期・短期</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
 
-      <p><strong>許容圧縮応力度</strong>は、コンクリートが圧縮に対して許容できる応力度です。<a href="sekkei-hinshitsu-kijun.html">設計基準強度Fc</a>から求めます。</p>
+      <p><strong>許容圧縮応力度</strong>とは、コンクリートが圧縮に対して安全に負担できる応力度の上限として、設計上定められた値のことです。<a href="sekkei-hinshitsu-kijun.html">設計基準強度Fc</a>に一定の係数を掛けて求め、<a href="kyoyo-oryokudo.html">許容応力度計算（一次設計）</a>で部材の断面が安全かどうかを判定するために使います。</p>
+
+      <div class="point-box">
+        <span class="label">この記事の要点</span>
+        <ul>
+          <li>許容圧縮応力度は長期＝Fc/3、短期＝2Fc/3で求める。</li>
+          <li>長期は常時荷重、短期は地震・暴風時の荷重に対応する値。</li>
+          <li>柱・梁の圧縮側の検討で、実際の応力度と比較して安全性を確認する。</li>
+        </ul>
+      </div>
 
       <div class="note-box">
         <span class="label">この記事について</span>
         <p>強度・設計に関する規準（JASS5・建築基準法施行令など）の数値は<strong>条件・改訂で変わる</strong>ことがあります。本記事は学習用の概要です。設計では最新の規準を確認してください。</p>
       </div>
 
-      <h2>計算式</h2>
+      <nav class="toc" aria-label="目次">
+        <div class="toc-ttl">目次</div>
+        <ol>
+          <li><a href="#keisan">計算式</a></li>
+          <li><a href="#tsukaiwake">長期・短期の使い分け</a></li>
+          <li><a href="#tsukaikata">実務での使い方</a></li>
+          <li><a href="#matome">まとめ</a></li>
+        </ol>
+      </nav>
+
+      <h2 id="keisan">計算式</h2>
       <div class="formula">
         長期許容圧縮応力度 ＝ Fc ÷ 3<br>
         短期許容圧縮応力度 ＝ 2 × Fc ÷ 3
         <span class="note">短期は長期の2倍</span>
       </div>
-      <p>例：Fc21なら長期7・短期14 N/mm²、Fc24なら長期8・短期16 N/mm²です。</p>
+      <p>例：Fc21なら長期7・短期14 N/mm²、Fc24なら長期8・短期16 N/mm²です。同じ部材でも、常時作用する固定荷重・積載荷重を検討する長期と、地震・暴風など短時間の荷重を検討する短期とでは、許容できる応力度の大きさが異なる点がポイントです。</p>
 
-      <h2>長期・短期の使い分け</h2>
+      <h2 id="tsukaiwake">長期・短期の使い分け</h2>
       <table class="data">
         <tr><th></th><th>長期（Fc/3）</th><th>短期（2Fc/3）</th></tr>
         <tr><td>対象の荷重</td><td>固定荷重・積載荷重（常時）</td><td>地震・台風（短時間）</td></tr>
         <tr><td>考え方</td><td>長くかかるので余裕を大きく</td><td>短時間なので大きな応力を許容</td></tr>
       </table>
+      <p>長期は建物が存在する限りずっとかかり続ける荷重を対象とするため、クリープ（長期間の持続荷重による変形の進行）なども考慮して安全率を大きめに取ります。短期は地震・台風のような一時的で発生頻度の低い荷重が対象のため、許容できる応力度を長期より大きく設定しています。</p>
 
+      <h2 id="tsukaikata">実務での使い方</h2>
       <div class="point-box">
         <span class="label">POINT</span>
-        <p>柱の圧縮や梁の曲げ圧縮側の検討で、コンクリートの圧縮応力度がこの許容値以下になることを確認します。引張側は<a href="rc-tetsu-kankei.html">鉄筋</a>が負担します。</p>
+        <p>柱の圧縮や梁の曲げ圧縮側の検討で、コンクリートの圧縮応力度がこの許容値以下になることを確認します。引張側は<a href="rc-tetsu-kankei.html">鉄筋</a>が負担します。実際の応力度は、軸力や曲げモーメントを断面積・断面係数で割って求め、長期・短期それぞれについて許容圧縮応力度と比較します。</p>
       </div>
+      <p>Fcの値が大きいほど許容圧縮応力度も大きくなるため、高い応力度が生じる柱脚部などでは<a href="koukyoudo-concrete.html">高強度コンクリート</a>を採用して断面を抑える設計も行われます。逆に許容応力度に対して余裕がありすぎる場合は、無駄にコンクリート強度を上げず、コストとのバランスを取ります。</p>
+
+      <h3>Q1. なぜ長期はFc/3、短期は2Fc/3という数値なのですか？</h3>
+      <p>コンクリートは、破壊に至る応力度（終局的な強度）に対して十分な安全余裕を持たせるため、長期は約1/3、短期はその2倍にあたる約2/3を許容応力度としています。長期は荷重が持続することによる強度低下（クリープの影響）も考慮し、より安全側の係数が設定されています。</p>
+
+      <h3>Q2. 許容引張応力度とは違うのですか？</h3>
+      <p>はい、別の値です。コンクリートは圧縮には強い一方、引張には弱い材料のため、<a href="rc-tetsu-kankei.html">引張側は鉄筋が負担</a>する設計が基本です。許容引張応力度は、ひび割れ発生の検討などで補助的に扱われることはありますが、主要な安全性の検討は圧縮応力度と鉄筋の引張応力度で行います。</p>
 
       <div class="note-box">
         <span class="label">あわせて読みたい</span>
         <p>「<a href="concrete-kyoyo.html">コンクリートの許容応力度</a>」「<a href="kyoyo-oryokudo.html">許容応力度計算</a>」「<a href="kyoudo-tani.html">強度の単位</a>」をどうぞ。</p>
       </div>
 
-      <h2>まとめ</h2>
+      <h2 id="matome">まとめ</h2>
       <ul>
         <li>許容圧縮応力度は長期＝Fc/3、短期＝2Fc/3。</li>
         <li>長期は常時荷重、短期は地震・台風に使う。短期は長期の2倍。</li>
         <li>圧縮はコンクリート、引張は鉄筋が負担する。</li>
+        <li>実際の応力度と比較して、部材断面の安全性を許容応力度計算で確認する。</li>
       </ul>
       <div class="article-author">
         <img src="../assets/profile.png" alt="監修・執筆者 ホッタ ナオト（構造設計一級建築士）" width="76" height="76" loading="lazy">
