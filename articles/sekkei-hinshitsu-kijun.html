@@ -6,9 +6,9 @@
 <meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
 <title>設計基準強度と品質基準強度の違い・それぞれの意味｜構造設計ナビ</title>
-<meta name="description" content="設計基準強度と品質基準強度の違いをわかりやすく解説。構造設計の基準である設計基準強度Fc、耐久設計基準強度Fd、両者の大きい方をとる品質基準強度Fqの意味と関係をまとめます。">
+<meta name="description" content="設計基準強度と品質基準強度の違いをわかりやすく解説。構造設計の基準である設計基準強度Fc、計画供用期間ごとの耐久設計基準強度Fd、両者の大きい方をとる品質基準強度Fqの意味と関係、調合管理強度までの計算例をまとめます。">
 <meta property="og:title" content="設計基準強度と品質基準強度の違い・それぞれの意味｜構造設計ナビ">
-<meta property="og:description" content="設計基準強度Fc・耐久設計基準強度Fd・品質基準強度Fqの意味と関係（Fq=大きい方）を解説します。">
+<meta property="og:description" content="設計基準強度Fc・耐久設計基準強度Fd・品質基準強度Fqの意味と関係、調合管理強度までの計算例を解説します。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://www.kouzou-navi.com/articles/sekkei-hinshitsu-kijun.html">
 <meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
@@ -52,27 +52,60 @@
     <article class="article-main">
       <div class="meta">
         <span class="tag">鉄筋コンクリート造（RC造）</span>
-        <span>更新日：2026年6月14日</span>
+        <span>更新日：2026年7月3日</span>
       </div>
       <h1>設計基準強度と品質基準強度の違い</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
 
-      <p>コンクリートの強度には、目的の異なる複数の「基準強度」があります。<strong>設計基準強度（Fc）</strong>と<strong>品質基準強度（Fq）</strong>の違いを整理します。</p>
+      <p>コンクリートの強度には、目的の異なる複数の「基準強度」があります。<strong>設計基準強度（Fc）</strong>と<strong>品質基準強度（Fq）</strong>の違いを整理し、実際に生コンを発注する際の目標強度までの流れを見ていきます。</p>
+
+      <div class="point-box">
+        <span class="label">この記事の要点</span>
+        <ul>
+          <li>設計基準強度Fcは構造計算の基準、耐久設計基準強度Fdは耐久性から定める基準。</li>
+          <li>品質基準強度Fqは、FcとFdのうち大きい方の値を採用する。</li>
+          <li>実際の発注では、Fqにさらに補正値を加えた調合管理強度を目標にする。</li>
+        </ul>
+      </div>
 
       <div class="note-box">
         <span class="label">この記事について</span>
         <p>強度・設計に関する規準（JASS5・建築基準法施行令など）の数値は<strong>条件・改訂で変わる</strong>ことがあります。本記事は学習用の概要です。設計では最新の規準を確認してください。</p>
       </div>
 
-      <h2>3つの基準強度</h2>
+      <nav class="toc" aria-label="目次">
+        <div class="toc-ttl">目次</div>
+        <ol>
+          <li><a href="#kijun3">3つの基準強度</a></li>
+          <li><a href="#kyouyoukikan">計画供用期間とFdの目安</a></li>
+          <li><a href="#kankei">FcとFdの関係</a></li>
+          <li><a href="#keisan">計算例：調合管理強度まで</a></li>
+          <li><a href="#chuui">注意点</a></li>
+          <li><a href="#matome">まとめ</a></li>
+        </ol>
+      </nav>
+
+      <h2 id="kijun3">3つの基準強度</h2>
       <table class="data">
         <tr><th>記号</th><th>名称</th><th>意味</th></tr>
         <tr><td>Fc</td><td>設計基準強度</td><td>構造設計で基準とする強度</td></tr>
         <tr><td>Fd</td><td><a href="taikyuu-kijun.html">耐久設計基準強度</a></td><td>耐久性から定める強度（<a href="keikaku-kyouyou.html">計画供用期間</a>による）</td></tr>
         <tr><td>Fq</td><td>品質基準強度</td><td>品質管理の基準。FcとFdの大きい方</td></tr>
       </table>
+      <p>Fcは、柱・梁・壁などの部材が必要な耐力を持つかを確認するために構造計算で使う強度です。一方Fdは、中性化などの劣化が進んでも建物が計画した期間にわたり性能を保てるように、耐久性の観点から定める強度で、建物の<a href="keikaku-kyouyou.html">計画供用期間</a>（何年間その性能を維持したいか）によって値が変わります。</p>
 
-      <h2>関係</h2>
+      <h2 id="kyouyoukikan">計画供用期間とFdの目安</h2>
+      <p>計画供用期間は一般に「短期」「標準」「長期」「超長期」の4段階の級に区分され、期間が長くなるほど、必要とされる耐久設計基準強度Fdも大きくなる傾向があります。おおよその目安は次のとおりです。</p>
+      <table class="data">
+        <tr><th>計画供用期間の級</th><th>期間の目安</th><th>Fdの目安</th></tr>
+        <tr><td>短期</td><td>約30年</td><td>比較的小さい</td></tr>
+        <tr><td>標準</td><td>約65年</td><td>短期より大きい</td></tr>
+        <tr><td>長期</td><td>約100年</td><td>標準よりさらに大きい</td></tr>
+        <tr><td>超長期</td><td>約200年</td><td>最も大きい</td></tr>
+      </table>
+      <p>具体的な数値は規準によって定められているため、設計にあたっては必ず最新のJASS5等の規定値を確認してください。</p>
+
+      <h2 id="kankei">FcとFdの関係</h2>
       <div class="formula">
         品質基準強度 Fq ＝ max（設計基準強度 Fc, 耐久設計基準強度 Fd）
         <span class="note">構造で必要な強度と耐久で必要な強度の、大きい方を採用する</span>
@@ -82,16 +115,31 @@
         <p>たとえば構造的にはFc=21で足りても、長期の耐久性でFd=30が必要なら、品質基準強度Fq=30となります。実際に<a href="kyoudo-hosei.html">調合（配合）</a>で目標とするのは、このFqに補正を加えた強度です。</p>
       </div>
 
+      <h2 id="keisan">計算例：調合管理強度まで</h2>
+      <p>実務では、Fqを求めた後、さらに気温による強度の伸び具合のばらつきなどを考慮した<a href="kyoudo-hosei.html">構造体強度補正値</a>（S）を加えて、生コン工場に発注する際の目標強度である<strong>調合管理強度</strong>を決めます。</p>
+      <div class="formula">
+        調合管理強度 ＝ 品質基準強度 Fq ＋ 構造体強度補正値 S
+        <span class="note">Sは気温条件などに応じて設定される割増し分。現場で打込んだコンクリート（構造体コンクリート）の強度が、試験室で管理する強度よりも低く出やすいことを見込んだ値</span>
+      </div>
+      <p>たとえば、品質基準強度Fq＝24（N/mm²）で、想定される構造体強度補正値S＝3（N/mm²）であれば、調合管理強度は24＋3＝27（N/mm²）となります。生コン工場は、この調合管理強度を満たすように配合を設計し、出荷します。</p>
+
+      <h2 id="chuui">注意点</h2>
+      <div class="note-box">
+        <span class="label">注意</span>
+        <p id="chuui-fq">Fqは「FcとFdの大きい方をそのまま使えばよい」という単純な話に見えますが、実際に発注・管理する強度はさらに構造体強度補正値を加えたものになります。Fc・Fd・Fq・調合管理強度の違いを混同すると、必要な品質を満たさないコンクリートを発注してしまうおそれがあるため、それぞれの位置づけを正しく理解しておくことが大切です。</p>
+      </div>
+
       <div class="note-box">
         <span class="label">あわせて読みたい</span>
         <p>「<a href="taikyuu-kijun.html">耐久設計基準強度</a>」「<a href="kyoudo-hosei.html">構造体強度補正値</a>」「<a href="keikaku-kyouyou.html">計画供用期間</a>」をどうぞ。</p>
       </div>
 
-      <h2>まとめ</h2>
+      <h2 id="matome">まとめ</h2>
       <ul>
         <li>設計基準強度Fcは構造設計の基準、耐久設計基準強度Fdは耐久性の基準。</li>
+        <li>計画供用期間が長いほど、必要な耐久設計基準強度Fdは大きくなる傾向がある。</li>
         <li>品質基準強度Fqは、FcとFdの大きい方をとる品質管理の基準。</li>
-        <li>配合の目標強度は、Fqに補正値を加えて決める。</li>
+        <li>実際の発注強度（調合管理強度）は、Fqに構造体強度補正値を加えて決める。</li>
       </ul>
       <div class="article-author">
         <img src="../assets/profile.png" alt="監修・執筆者 ホッタ ナオト（構造設計一級建築士）" width="76" height="76" loading="lazy">

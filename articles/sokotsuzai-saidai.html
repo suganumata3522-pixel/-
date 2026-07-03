@@ -6,9 +6,9 @@
 <meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
 <title>粗骨材の最大寸法とは？25mmの根拠・求め方とかぶり厚さとの関係｜構造設計ナビ</title>
-<meta name="description" content="粗骨材の最大寸法をわかりやすく解説。最大寸法の意味と求め方（ふるい分け）、20mm・25mmが使われる根拠、鉄筋のあき・部材寸法・かぶり厚さとの関係（充填性のための制限）をまとめます。">
+<meta name="description" content="粗骨材の最大寸法をわかりやすく解説。最大寸法の意味と求め方（ふるい分け）、20mm・25mmが使われる根拠、鉄筋のあき・部材寸法・かぶり厚さとの関係（充填性のための制限）、計算例をまとめます。">
 <meta property="og:title" content="粗骨材の最大寸法とは？25mmの根拠・求め方とかぶり厚さとの関係｜構造設計ナビ">
-<meta property="og:description" content="粗骨材の最大寸法の意味・求め方、20/25mmの根拠、鉄筋あき・かぶり厚さとの関係を解説します。">
+<meta property="og:description" content="粗骨材の最大寸法の意味・求め方、20/25mmの根拠、鉄筋あき・かぶり厚さとの関係、計算例を解説します。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://www.kouzou-navi.com/articles/sokotsuzai-saidai.html">
 <meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
@@ -52,35 +52,68 @@
     <article class="article-main">
       <div class="meta">
         <span class="tag">鉄筋コンクリート造（RC造）</span>
-        <span>更新日：2026年6月14日</span>
+        <span>更新日：2026年7月3日</span>
       </div>
       <h1>粗骨材の最大寸法｜25mmの根拠とかぶり厚さ</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
 
-      <p><strong>粗骨材の最大寸法（Gmax）</strong>は、<a href="sokotsuzai.html">粗骨材</a>の大きさの上限を表す値です。鉄筋のすき間やかぶりを通って、すみずみまで充填できるかに関わります。</p>
+      <p><strong>粗骨材の最大寸法（Gmax）</strong>とは、<a href="sokotsuzai.html">粗骨材</a>の粒の大きさの上限を表す値のことです。鉄筋のすき間やかぶりを通って、コンクリートがすみずみまで充填できるかどうかに直結する、配合設計上の重要な指標です。粗骨材そのものの種類や品質は「粗骨材とは」で扱いますが、この記事では<strong>大きさの上限をどう決めるか</strong>にしぼって掘り下げます。</p>
+
+      <div class="point-box">
+        <span class="label">この記事の要点</span>
+        <ul>
+          <li>最大寸法は「質量で90%以上が通る、ふるいの最小の呼び寸法」で定義され、ふるい分け試験で求める。</li>
+          <li>一般のRC造では経済性と充填性のバランスから20mmまたは25mmが標準。</li>
+          <li>鉄筋あき・部材寸法・かぶり厚さという3つの制限をすべて満たす必要がある。</li>
+        </ul>
+      </div>
+
+      <nav class="toc" aria-label="目次">
+        <div class="toc-ttl">目次</div>
+        <ol>
+          <li><a href="#imi">意味と求め方</a></li>
+          <li><a href="#konkyo">20mm・25mmが使われる根拠</a></li>
+          <li><a href="#seigen">3つの制限（鉄筋あき・部材寸法・かぶり）</a></li>
+          <li><a href="#kabari-kankei">かぶり厚さとの関係</a></li>
+          <li><a href="#keisan-rei">計算例</a></li>
+          <li><a href="#chuui">よくある間違い・注意点</a></li>
+          <li><a href="#matome">まとめ</a></li>
+        </ol>
+      </nav>
 
       <div class="note-box">
         <span class="label">この記事について</span>
         <p>骨材・コンクリートの規格・基準値（JIS A 5005・A 5308・JASS5など）は<strong>改訂される</strong>ことがあります。本記事は学習用の概要です。設計・施工では最新の規格・指針を確認してください。</p>
       </div>
 
-      <h2>意味と求め方</h2>
-      <p>粗骨材の最大寸法とは、<strong>質量で90%以上が通るふるいのうち、最小のふるいの寸法</strong>です。ふるい分け試験で求めます。一般のコンクリートでは<strong>20mmまたは25mm</strong>が使われます。</p>
+      <h2 id="imi">意味と求め方</h2>
+      <p>粗骨材の最大寸法とは、<strong>質量で90%以上が通るふるいのうち、最小のふるいの寸法</strong>のことです。骨材を複数の目の粗さのふるいにかける「ふるい分け試験」を行い、通過率が90%を上回る最小のふるい寸法を採用します。一般のコンクリートでは<strong>20mmまたは25mm</strong>が使われます。</p>
 
-      <h2>20mm・25mmの根拠</h2>
-      <p>最大寸法は、大きいほどセメント・水を減らせて経済的・低発熱ですが、大きすぎると鉄筋のすき間を通らず<strong>充填不良（ジャンカ）</strong>になります。そのバランスから、一般の<a href="rc-zou.html">RC造</a>では<strong>20mmか25mm</strong>が標準です。次のいずれか以下とするのが原則です。</p>
+      <h2 id="konkyo">20mm・25mmが使われる根拠</h2>
+      <p>最大寸法は、大きいほど骨材どうしのすき間が減り、すき間を埋めるセメントペースト（セメント＋水）の量を減らせるため経済的で、発熱量も抑えられます。しかし大きすぎると鉄筋のすき間を通らず<strong>充填不良（ジャンカ・豆板）</strong>の原因になります。このバランスから、一般の<a href="rc-zou.html">RC造</a>では<strong>20mmか25mm</strong>が標準として広く使われています。</p>
+
+      <h2 id="seigen">3つの制限（鉄筋あき・部材寸法・かぶり）</h2>
+      <p>最大寸法は、次のいずれも満たすように定めるのが原則です。</p>
       <table class="data">
         <tr><th>制限（いずれも満たす）</th></tr>
         <tr><td>鉄筋の最小あきの<strong>3/4以下</strong></td></tr>
-        <tr><td>部材の最小寸法の<strong>1/5以下</strong></td></tr>
+        <tr><td>部材の最小寸法（幅・厚さなど）の<strong>1/5以下</strong></td></tr>
         <tr><td>かぶり厚さ以下（充填できること）</td></tr>
       </table>
-      <p>断面が大きく鉄筋のない無筋コンクリートなどでは、40mmの大きな骨材を使うこともあります。</p>
+      <p>断面が大きく鉄筋のない無筋コンクリート（土間コンクリートなど）では、これらの制約がゆるいため40mm程度の大きな骨材を使うこともあります。逆に、鉄筋が密に入る柱・梁の接合部やポンプ圧送を行う現場では、より小さい最大寸法が選ばれることもあります。</p>
 
-      <h2>かぶり厚さとの関係</h2>
+      <h2 id="kabari-kankei">かぶり厚さとの関係</h2>
       <div class="point-box">
         <span class="label">POINT</span>
-        <p>粗骨材は、鉄筋と型枠の間（＝<a href="rc-zou.html">かぶり</a>）や鉄筋どうしのすき間を通って流れます。最大寸法が大きすぎると、この狭い隙間に骨材が引っかかり、コンクリートが回り込めず<strong>充填不良</strong>になります。だから最大寸法は<strong>かぶり厚さや鉄筋あきとの関係で制限</strong>されます。配筋が密な部材ほど小さめの骨材を選びます。</p>
+        <p>粗骨材は、鉄筋と型枠の間（＝<a href="rc-zou.html">かぶり</a>）や鉄筋どうしのすき間を通って流れ込みます。最大寸法が大きすぎると、この狭い隙間に骨材が引っかかってブリッジ（架橋）を起こし、コンクリートが奥まで回り込めず<strong>充填不良</strong>になります。だから最大寸法は<strong>かぶり厚さや鉄筋あきとの関係で制限</strong>されるのです。配筋が密な部材ほど小さめの骨材を選びます。</p>
+      </div>
+
+      <h2 id="keisan-rei">計算例</h2>
+      <p>例えば、鉄筋の最小あきが30mm、部材の最小寸法が200mmの柱を考えます。鉄筋あきの3/4は22.5mm、部材最小寸法の1/5は40mmとなるため、より厳しい制限は鉄筋あきの22.5mmです。この場合、粗骨材の最大寸法は22.5mm以下、つまり実務上は20mmを選ぶことになります。このように、複数の制限のうち<strong>最も厳しい値</strong>で最大寸法が決まる点がポイントです。</p>
+
+      <div class="note-box" id="chuui">
+        <span class="label">注意</span>
+        <p>最大寸法だけを大きくしてコストを下げようとすると、配筋が密な部分でジャンカが発生しやすくなります。逆に、必要以上に小さい骨材ばかりを使うと、セメントペーストの量が増えて乾燥収縮やコストが増加します。設計段階で配筋（鉄筋あき）とかぶり厚さを確認したうえで、施工上無理なく充填できる最大寸法を選定することが大切です。</p>
       </div>
 
       <div class="note-box">
@@ -88,11 +121,11 @@
         <p>「<a href="sokotsuzai.html">粗骨材</a>」、充填性は「<a href="kouryuudou-concrete.html">高流動コンクリート</a>」、砕石は「<a href="saiseki.html">砕石とコンクリート</a>」をどうぞ。</p>
       </div>
 
-      <h2>まとめ</h2>
+      <h2 id="matome">まとめ</h2>
       <ul>
-        <li>粗骨材の最大寸法は「質量で90%以上が通る最小ふるい寸法」。一般は20/25mm。</li>
-        <li>鉄筋あきの3/4以下・部材最小寸法の1/5以下・かぶり以下が原則。</li>
-        <li>大きいほど経済的だが、充填性のためかぶり・配筋に応じて制限する。</li>
+        <li>粗骨材の最大寸法は「質量で90%以上が通る最小ふるい寸法」。ふるい分け試験で求め、一般は20/25mm。</li>
+        <li>鉄筋あきの3/4以下・部材最小寸法の1/5以下・かぶり以下という3つの制限のうち最も厳しい値で決まる。</li>
+        <li>大きいほど経済的だが、充填性のためかぶり・配筋に応じて適切な最大寸法を選ぶ。</li>
       </ul>
       <div class="article-author">
         <img src="../assets/profile.png" alt="監修・執筆者 ホッタ ナオト（構造設計一級建築士）" width="76" height="76" loading="lazy">

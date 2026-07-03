@@ -6,9 +6,9 @@
 <meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
 <title>軽量形鋼とは？種類・規格と溶接性・リップ溝形鋼（Cチャン）との違い｜構造設計ナビ</title>
-<meta name="description" content="軽量形鋼をわかりやすく解説。薄い鋼板を冷間成形した軽量形鋼の種類（リップ溝形鋼・ハット形・Z形など）と規格（JIS G 3350・SSC400）、薄板ゆえの溶接性の注意、リップ溝形鋼（Cチャン）との関係をまとめます。">
+<meta name="description" content="軽量形鋼をわかりやすく解説。薄い鋼板を冷間成形した軽量形鋼の種類（リップ溝形鋼・ハット形・Z形など）と規格（JIS G 3350・SSC400）、製法、薄板ゆえの溶接性・局部座屈の注意、軽量鉄骨造での使われ方をまとめます。">
 <meta property="og:title" content="軽量形鋼とは？種類・規格と溶接性・リップ溝形鋼（Cチャン）との違い｜構造設計ナビ">
-<meta property="og:description" content="軽量形鋼の種類・規格（SSC400）と、薄板ゆえの溶接性の注意、リップ溝形鋼（Cチャン）との関係を解説します。">
+<meta property="og:description" content="軽量形鋼の種類・規格（SSC400）・製法と、薄板ゆえの溶接性・局部座屈の注意、軽量鉄骨造での使われ方を解説します。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://www.kouzou-navi.com/articles/keiryou-katakou.html">
 <meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
@@ -52,19 +52,41 @@
     <article class="article-main">
       <div class="meta">
         <span class="tag">鉄骨造（S造）</span>
-        <span>更新日：2026年6月14日</span>
+        <span>更新日：2026年7月3日</span>
       </div>
       <h1>軽量形鋼とは？種類・規格と溶接性・Cチャンとの違い</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
 
-      <p><strong>軽量形鋼（けいりょうかたこう）</strong>とは、薄い鋼板を常温で曲げ加工（冷間ロール成形）してつくる<a href="katakou.html">形鋼</a>です。軽くて安価なため、母屋・胴縁などの<strong>二次部材</strong>に多く使われます。</p>
+      <p><strong>軽量形鋼（けいりょうかたこう）</strong>とは、薄い鋼板を常温で曲げ加工（冷間ロール成形）してつくる<a href="katakou.html">形鋼</a>です。熱間圧延でつくる<a href="h-katako.html">H形鋼</a>などの重量形鋼に比べて板厚が薄く軽いため、母屋・胴縁などの<strong>二次部材</strong>や、間仕切り壁の下地材として広く使われます。</p>
+
+      <div class="point-box">
+        <span class="label">この記事の要点</span>
+        <ul>
+          <li>軽量形鋼は薄板を常温で曲げてつくる形鋼。規格はJIS G 3350、材質はSSC400。</li>
+          <li>板厚が薄いため溶接に不向きで、ボルト・ビス接合が基本。局部座屈にも注意。</li>
+          <li>代表格はリップ溝形鋼（Cチャン）。軽量鉄骨造や下地材として使われる。</li>
+        </ul>
+      </div>
+
+      <nav class="toc" aria-label="目次">
+        <div class="toc-ttl">目次</div>
+        <ol>
+          <li><a href="#shurui">軽量形鋼の種類</a></li>
+          <li><a href="#seihou">製法</a></li>
+          <li><a href="#kikaku">規格</a></li>
+          <li><a href="#yousetsu">溶接性の注意</a></li>
+          <li><a href="#c-kankei">リップ溝形鋼（Cチャン）との関係</a></li>
+          <li><a href="#tsukawarekata">使われ方</a></li>
+          <li><a href="#matome">まとめ</a></li>
+        </ol>
+      </nav>
 
       <div class="note-box">
         <span class="label">この記事について</span>
         <p>鋼材の規格・寸法などは<strong>JISや製品の改訂で変わる</strong>ことがあります。本記事は学習用の概要です。実務では必ず<strong>最新のJIS・メーカーの形鋼表（鋼材ハンドブック）</strong>を確認してください。</p>
       </div>
 
-      <h2>軽量形鋼の種類</h2>
+      <h2 id="shurui">軽量形鋼の種類</h2>
       <table class="data">
         <tr><th>種類</th><th>特徴</th></tr>
         <tr><td>リップ溝形鋼（C形鋼・Cチャン）</td><td>溝形の口にリップ（縁折り返し）を付けたもの。最も一般的</td></tr>
@@ -73,28 +95,35 @@
         <tr><td>ハット形鋼・山形鋼</td><td>帽子形・L形の薄板成形</td></tr>
       </table>
 
-      <h2>規格</h2>
-      <p>軽量形鋼は<strong>JIS G 3350（一般構造用軽量形鋼）</strong>で規定され、材質記号は<a href="ssc400.html">SSC400</a>です。板厚はおおむね1.6〜4.0mm程度と薄いのが特徴です。</p>
+      <h2 id="seihou">製法</h2>
+      <p>軽量形鋼は、コイル状の薄い鋼板を連続したロール群に通し、常温のまま少しずつ角度をつけて折り曲げていく<strong>冷間ロール成形</strong>でつくられます。熱を加えないため、H形鋼のような熱間圧延に比べ製造設備が小さく済み、比較的自由な断面形状を経済的につくれるのが利点です。一方で常温での曲げ加工のため、板厚を厚くするほど成形が難しくなり、結果として薄板の製品に用途が限られます。</p>
 
-      <h2>溶接性の注意</h2>
+      <h2 id="kikaku">規格</h2>
+      <p>軽量形鋼は<strong>JIS G 3350（一般構造用軽量形鋼）</strong>で規定され、材質記号は<a href="ssc400.html">SSC400</a>です。板厚はおおむね1.6〜4.0mm程度と薄いのが特徴です。H形鋼など熱間圧延形鋼（JIS G 3192）とは規格・記号がまったく異なるため、仕様書や見積りでは混同しないよう注意してください。</p>
+
+      <h2 id="yousetsu">溶接性の注意</h2>
       <div class="point-box">
         <span class="label">POINT：薄いので溶接は不向き</span>
         <p>軽量形鋼は板厚が薄いため、<strong>溶接すると母材が焼け落ちやすく、溶接接合には向きません</strong>。接合は<strong>ボルト・ドリルビス・タッピングねじ</strong>が基本です。また薄板ゆえ<a href="hakuniku.html">局部座屈</a>を起こしやすく、断面性能を十分に発揮させる工夫（リップ等）が必要です。</p>
       </div>
 
-      <h2>リップ溝形鋼（Cチャン）との関係</h2>
+      <h2 id="c-kankei">リップ溝形鋼（Cチャン）との関係</h2>
       <p>現場で「<strong>Cチャン</strong>」と呼ばれるのは、軽量形鋼の中の<strong>リップ溝形鋼</strong>を指すのが一般的です。溝形鋼の開口部にリップ（縁の折り返し）を付けることで、薄板でも<a href="hakuniku.html">局部座屈</a>に強くなり、断面性能が向上します。つまり「軽量形鋼」という大きなくくりの中に、代表選手として「リップ溝形鋼（Cチャン）」がある、という関係です。</p>
+
+      <h2 id="tsukawarekata">使われ方</h2>
+      <p>軽量形鋼は、屋根や外壁の下地となる<strong>母屋・胴縁</strong>、天井や間仕切り壁の<strong>下地材（LGS）</strong>など、大きな荷重を負担しない部材に多用されます。また、軽量形鋼を主要な柱・梁に用いる建物を<strong>軽量鉄骨造</strong>と呼び、戸建て住宅や小規模な倉庫などで採用されます。荷重の大きい主要構造部材にはH形鋼などの重量形鋼、荷重の小さい二次部材には軽量形鋼、というように使い分けるのが一般的です。</p>
 
       <div class="note-box">
         <span class="label">あわせて読みたい</span>
-        <p>材質規格は「<a href="ssc400.html">一般構造用軽量形鋼SSC400</a>」、薄板の特性は「<a href="hakuniku.html">薄肉と軽量鉄骨</a>」、形鋼全体は「<a href="katakou.html">形鋼とは</a>」をどうぞ。</p>
+        <p>材質規格は「<a href="ssc400.html">一般構造用軽量形鋼SSC400</a>」、薄板の特性は「<a href="hakuniku.html">薄肉と軽量鉄骨</a>」、形鋼全体は「<a href="katakou.html">形鋼とは</a>」をどうぞ。なお「軽量」を含む用語には、コンクリート用の「<a href="keiryou-kotsuzai.html">軽量骨材</a>」「<a href="keiryou-concrete.html">軽量コンクリート</a>」もありますが、これらは鋼材ではなく別分野の用語なので混同しないよう注意してください。</p>
       </div>
 
-      <h2>まとめ</h2>
+      <h2 id="matome">まとめ</h2>
       <ul>
-        <li>軽量形鋼は薄い鋼板を冷間成形した形鋼。母屋・胴縁などの二次部材に使う。</li>
+        <li>軽量形鋼は薄い鋼板を冷間ロール成形した形鋼。母屋・胴縁などの二次部材に使う。</li>
         <li>規格はJIS G 3350、材質はSSC400。板厚が薄く溶接には不向きでボルト・ビス接合。</li>
         <li>代表がリップ溝形鋼（Cチャン）。リップで薄板の局部座屈を抑える。</li>
+        <li>主要構造部材に用いる建物は軽量鉄骨造と呼ばれる。</li>
       </ul>
       <div class="article-author">
         <img src="../assets/profile.png" alt="監修・執筆者 ホッタ ナオト（構造設計一級建築士）" width="76" height="76" loading="lazy">

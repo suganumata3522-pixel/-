@@ -6,9 +6,9 @@
 <meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
 <title>鉄骨構造梁継手・接合部標準図集とは？SCSS-H97と設計実務での活用を解説｜構造設計ナビ</title>
-<meta name="description" content="鉄骨構造の梁継手・接合部標準図集（SCSS-H97）をわかりやすく解説。SCSS-H97とは何か、H形鋼の梁継手・柱梁接合部の標準ディテール、標準図集を使うメリット、設計実務・図面作成での活用方法をまとめます。">
+<meta name="description" content="鉄骨構造の梁継手・接合部標準図集（SCSS-H97）をわかりやすく解説。SCSS-H97とは何か、H形鋼の梁継手・柱梁接合部の標準ディテール、標準化の背景、標準図集を使うメリット、設計実務・図面作成での活用方法をまとめます。">
 <meta property="og:title" content="鉄骨構造梁継手・接合部標準図集とは？SCSS-H97と設計実務での活用を解説｜構造設計ナビ">
-<meta property="og:description" content="梁継手・接合部標準図集（SCSS-H97）とは何か、標準ディテールの内容と設計実務での活用方法を解説します。">
+<meta property="og:description" content="梁継手・接合部標準図集（SCSS-H97）とは何か、標準化の背景・標準ディテールの内容・設計実務での活用方法を解説します。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://www.kouzou-navi.com/articles/scss.html">
 <meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
@@ -52,22 +52,47 @@
     <article class="article-main">
       <div class="meta">
         <span class="tag">鉄骨造（S造）</span>
-        <span>更新日：2026年6月14日</span>
+        <span>更新日：2026年7月3日</span>
       </div>
       <h1>鉄骨構造 梁継手・接合部標準図集とは？SCSS-H97と設計実務での活用</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
 
-      <p><strong>鉄骨構造 梁継手・接合部標準図集</strong>は、<a href="s-zou.html">鉄骨造（S造）</a>の継手や柱梁接合部の<strong>標準的なディテール（おさまり）</strong>をまとめた資料です。中でも有名なのが<strong>SCSS-H97</strong>で、H形鋼を使った接合部の標準仕様として実務で広く使われてきました。</p>
+      <p><strong>鉄骨構造 梁継手・接合部標準図集</strong>とは、<a href="s-zou.html">鉄骨造（S造）</a>の継手や柱梁接合部の<strong>標準的なディテール（おさまり）</strong>をまとめた資料のことです。中でも有名なのが<strong>SCSS-H97</strong>で、H形鋼を使った接合部の標準仕様として実務で広く使われてきました。鉄骨造は同じような梁継手・柱梁接合部が建物ごとに繰り返し現れるため、あらかじめ標準的なディテールを整えておくことで、設計・製作・施工のすべての段階で効率と品質を両立できる、という発想がその背景にあります。</p>
+
+      <div class="point-box">
+        <span class="label">この記事の要点</span>
+        <ul>
+          <li>標準図集は鉄骨造の梁継手・柱梁接合部の標準ディテールをまとめた資料。</li>
+          <li>SCSS-H97はH形鋼を対象にした標準接合部仕様として実務で広く使われてきた。</li>
+          <li>接合部設計指針（考え方）と標準図集（標準解）を組み合わせて活用する。</li>
+        </ul>
+      </div>
 
       <div class="note-box">
         <span class="label">この記事について</span>
         <p>標準図集・規準類は<strong>版（年度）によって内容が改訂</strong>されます。本記事は学習用の概要です。実務で参照する際は、必ず<strong>最新版の原典</strong>を確認してください。</p>
       </div>
 
-      <h2>SCSS-H97とは</h2>
-      <p>SCSS-H97は、<strong>1997年</strong>にまとめられたH形鋼の標準接合部仕様で、「Standard Connection details for Steel Structures（H形鋼／1997年版）」を表します。H形鋼の梁継手・柱梁接合部について、<strong>ボルト本数・板厚・溶接・スカラップ形状</strong>などを部材サイズごとに標準化したものです。</p>
+      <nav class="toc" aria-label="目次">
+        <div class="toc-ttl">目次</div>
+        <ol>
+          <li><a href="#toha">SCSS-H97とは</a></li>
+          <li><a href="#haikei">標準化が求められた背景</a></li>
+          <li><a href="#merit">標準図集を使うメリット</a></li>
+          <li><a href="#shishin">接合部設計指針との関係</a></li>
+          <li><a href="#jitsumu">設計実務での活用</a></li>
+          <li><a href="#chuui">注意点</a></li>
+          <li><a href="#matome">まとめ</a></li>
+        </ol>
+      </nav>
 
-      <h2>標準図集を使うメリット</h2>
+      <h2 id="toha">SCSS-H97とは</h2>
+      <p>SCSS-H97は、<strong>1997年</strong>にまとめられたH形鋼の標準接合部仕様で、「Standard Connection details for Steel Structures（H形鋼／1997年版）」を表します。H形鋼の梁継手・柱梁接合部について、<strong>ボルト本数・板厚・溶接・スカラップ形状</strong>などを部材サイズごとに標準化したものです。設計者が部材断面を決めれば、対応する接合部の標準仕様を選ぶだけで、個別に接合部を設計しなくても妥当な仕様にたどり着けるように整理されています。</p>
+
+      <h2 id="haikei">標準化が求められた背景</h2>
+      <p>鉄骨造の接合部は、建物ごとに部材サイズや荷重条件は違っても、基本的な接合の考え方（高力ボルト摩擦接合・溶接接合など）は共通しています。個々の設計者・工場（ファブ）がそれぞれ独自にディテールを決めていると、品質にばらつきが出やすく、確認や検査の手間も増えます。そこで、実績と検証を積み重ねた「標準解」をあらかじめ整備し、多くの物件で共通して使えるようにしたのが標準図集です。また、過去の地震被害の分析から接合部のディテールが耐震性能に大きく影響することが分かってきたため、スカラップ形状や溶接方法など、ディテールの改良が標準図集にも反映されてきた経緯があります。</p>
+
+      <h2 id="merit">標準図集を使うメリット</h2>
       <ul>
         <li><strong>設計の効率化</strong>：部材サイズが決まれば、対応する継手仕様をすぐ選べる。</li>
         <li><strong>品質の安定</strong>：実績のある標準ディテールなので、おさまりや施工性のトラブルが少ない。</li>
@@ -75,26 +100,34 @@
         <li><strong>関係者の共通言語</strong>：設計・製作（ファブ）・施工で認識を合わせやすい。</li>
       </ul>
 
-      <h2>接合部設計指針との関係</h2>
-      <p><a href="setsugoubu-shishin.html">鋼構造接合部設計指針</a>が接合部設計の<strong>「考え方・計算方法」</strong>を示すのに対し、標準図集は<strong>「具体的な標準解（ディテール集）」</strong>です。指針に基づいて安全性を確認したうえで、標準図集の仕様を採用する、という関係になります。</p>
+      <h2 id="shishin">接合部設計指針との関係</h2>
+      <p><a href="setsugoubu-shishin.html">鋼構造接合部設計指針</a>が接合部設計の<strong>「考え方・計算方法」</strong>を示すのに対し、標準図集は<strong>「具体的な標準解（ディテール集）」</strong>です。指針に基づいて安全性を確認したうえで、標準図集の仕様を採用する、という関係になります。標準図集はあくまで指針の考え方に沿って作られた「よくあるケースの解」であり、指針そのものに代わるものではない点を理解しておく必要があります。</p>
 
-      <h2>設計実務での活用</h2>
+      <h2 id="jitsumu">設計実務での活用</h2>
       <ul>
         <li>梁継手の<strong>高力ボルト本数・スプライスプレート</strong>を標準仕様から選定する。</li>
         <li>柱梁接合部の<strong>ダイアフラム・スカラップ</strong>のおさまりを標準化する。</li>
         <li>標準外（大スパン・特殊形状）の場合は指針に立ち返って個別に設計する。</li>
+        <li>標準図集をもとに、ファブ（製作工場）と仕様の認識をすり合わせる。</li>
       </ul>
+
+      <h2 id="chuui">注意点</h2>
+      <div class="note-box">
+        <span class="label">注意</span>
+        <p id="chuui-hyoujungai">標準図集はあくまで一般的な条件を想定した標準解であり、大スパンの梁、特殊な断面、大きな偏心・ねじれが生じる接合部などには、そのまま適用できないことがあります。標準の適用範囲外と判断される場合は、接合部設計指針に基づいて個別に検討し、必要な余裕（安全性）を確認することが欠かせません。</p>
+      </div>
 
       <div class="note-box">
         <span class="label">あわせて読みたい</span>
         <p>接合部設計の考え方は「<a href="setsugoubu-shishin.html">鋼構造接合部設計指針</a>」、部材設計の基本は「<a href="koukouzou-kijun.html">鋼構造設計規準</a>」、施工は「<a href="jass6.html">JASS6</a>」をどうぞ。</p>
       </div>
 
-      <h2>まとめ</h2>
+      <h2 id="matome">まとめ</h2>
       <ul>
         <li>梁継手・接合部標準図集は、鉄骨接合部の標準ディテールをまとめた資料。</li>
         <li>SCSS-H97は1997年版のH形鋼標準接合部仕様で、実務で広く使われる。</li>
-        <li>設計指針（考え方）に基づき、標準図集（標準解）を活用すると効率と品質が両立する。</li>
+        <li>実績の蓄積と耐震性能の知見を反映しながらディテールが整備されてきた。</li>
+        <li>設計指針（考え方）に基づき、標準図集（標準解）を活用すると効率と品質が両立する。標準外は個別検討が必要。</li>
       </ul>
       <div class="article-author">
         <img src="../assets/profile.png" alt="監修・執筆者 ホッタ ナオト（構造設計一級建築士）" width="76" height="76" loading="lazy">

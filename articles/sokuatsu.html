@@ -6,9 +6,9 @@
 <meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
 <title>側圧とは？意味・計算式とコンクリートとの関係｜構造設計ナビ</title>
-<meta name="description" content="側圧をわかりやすく解説。フレッシュコンクリートが型枠を横に押す側圧の意味、液体圧として求める計算式、打込み速度や温度による違い、型枠設計との関係をまとめます。">
+<meta name="description" content="側圧をわかりやすく解説。フレッシュコンクリートが型枠を横に押す側圧の意味、液体圧として求める計算式、打込み速度や温度による違い、型枠・セパレーター設計との関係、注意点をまとめます。">
 <meta property="og:title" content="側圧とは？意味・計算式とコンクリートとの関係｜構造設計ナビ">
-<meta property="og:description" content="側圧（型枠にかかる水平圧力）の意味、計算式、打込み速度・温度による違いを解説します。">
+<meta property="og:description" content="側圧（型枠にかかる水平圧力）の意味、計算式、打込み速度・温度による違い、型枠設計との関係を解説します。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://www.kouzou-navi.com/articles/sokuatsu.html">
 <meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
@@ -52,51 +52,81 @@
     <article class="article-main">
       <div class="meta">
         <span class="tag">鉄筋コンクリート造（RC造）</span>
-        <span>更新日：2026年6月14日</span>
+        <span>更新日：2026年7月3日</span>
       </div>
       <h1>側圧とは？意味・計算式とコンクリートとの関係</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
 
-      <p><strong>側圧（そくあつ）</strong>とは、まだ固まらない<a href="fresh-concrete.html">フレッシュコンクリート</a>が<strong><a href="katawaku.html">型枠</a>を横（水平方向）に押す圧力</strong>のことです。型枠が壊れないように設計する根拠になります。</p>
+      <p><strong>側圧（そくあつ）</strong>とは、まだ固まらない<a href="fresh-concrete.html">フレッシュコンクリート</a>が<strong><a href="katawaku.html">型枠</a>を横（水平方向）に押す圧力</strong>のことです。打込み中の型枠が変形・破損しないよう、型枠やセパレーター・締付け金物の強度を決めるための、施工計画上とても重要な数値です。</p>
+
+      <div class="point-box">
+        <span class="label">この記事の要点</span>
+        <ul>
+          <li>側圧はフレッシュコンクリートが型枠を横に押す圧力で、型枠設計の基本になる。</li>
+          <li>打込み高さに比例する液体圧に近いが、コンクリートの凝結によりある高さで頭打ちになる。</li>
+          <li>打込み速度・気温・スランプ（流動性）で大きさが変わり、これらを踏まえて型枠を計画する。</li>
+        </ul>
+      </div>
+
+      <nav class="toc" aria-label="目次">
+        <div class="toc-ttl">目次</div>
+        <ol>
+          <li><a href="#imi">側圧の意味</a></li>
+          <li><a href="#shiki">計算式（液体圧としての近似）</a></li>
+          <li><a href="#youin">側圧が大きくなる条件</a></li>
+          <li><a href="#katawaku-sekkei">型枠・セパレーターの設計との関係</a></li>
+          <li><a href="#chuui">よくある間違い・注意点</a></li>
+          <li><a href="#matome">まとめ</a></li>
+        </ol>
+      </nav>
 
       <div class="note-box">
         <span class="label">この記事について</span>
         <p>強度・設計に関する規準（JASS5・建築基準法施行令など）の数値は<strong>条件・改訂で変わる</strong>ことがあります。本記事は学習用の概要です。設計では最新の規準を確認してください。</p>
       </div>
 
-      <h2>意味</h2>
-      <p>打ち込んだ直後のコンクリートは液体に近く、型枠を内側から外へ押し広げようとします。この水平方向の圧力が側圧です。<a href="katawaku.html">セパレーター</a>や型枠の強度は、この側圧に耐えるように決めます。</p>
+      <h2 id="imi">側圧の意味</h2>
+      <p>打ち込んだ直後のコンクリートは液体に近い状態で、型枠を内側から外へ押し広げようとします。この水平方向の圧力が側圧です。柱や壁など縦に高く打ち込む部位ほど、下のほうにかかる側圧は大きくなります。<a href="katawaku.html">セパレーター</a>や型枠の強度は、この側圧に耐えられるように決めます。</p>
 
-      <h2>計算式</h2>
+      <h2 id="shiki">計算式（液体圧としての近似）</h2>
       <p>側圧は、液体の圧力と同じように<strong>深さ（打込み高さ）に比例</strong>すると考えるのが基本です。</p>
       <div class="formula">
         側圧 P ＝ W × H
         <span class="note">W：コンクリートの単位容積重量（約23kN/m³）／H：打込み高さ（液頭）</span>
       </div>
-      <p>ただし、コンクリートは時間が経つと凝結して固まり始めるため、実際の側圧は深くなるほど無限に増えるのではなく、ある高さで<strong>頭打ち（最大値）</strong>になります。</p>
+      <p>ただし、コンクリートは時間が経つと<a href="concrete-kouka-jikan.html">凝結・硬化</a>して固まり始めるため、実際の側圧は深くなるほど無限に増えるのではなく、ある高さで<strong>頭打ち（最大値）</strong>になります。これは、下のほうのコンクリートが上から打ち込まれている間にある程度固まり始め、液体として振る舞わなくなるためです。頭打ちになる高さや最大側圧の具体的な値は、打込み速度や気温などの条件によって変わるため、実務ではJASS5などの計算方法に基づいて設計します。</p>
 
-      <h2>側圧が大きくなる条件</h2>
+      <h2 id="youin">側圧が大きくなる条件</h2>
       <div class="point-box">
         <span class="label">POINT</span>
         <p>側圧は次の条件で大きくなります。</p>
         <ul>
-          <li><strong>打込み速度が速い</strong>（凝結前に高く積み上がる）。</li>
-          <li><strong>気温が低い</strong>（凝結が遅く液体状が続く）。</li>
-          <li><strong>スランプが大きい・流動性が高い</strong>。</li>
+          <li><strong>打込み速度が速い</strong>（凝結が進む前に高く積み上がるため、液体状の部分が厚くなる）。</li>
+          <li><strong>気温が低い</strong>（凝結が遅く、液体状の状態が長く続く）。</li>
+          <li><strong><a href="slump-shiken.html">スランプ</a>が大きい・流動性が高い</strong>（軟らかいコンクリートほど型枠を押す力が伝わりやすい）。</li>
         </ul>
-        <p>これらの条件では型枠・セパレーターを強くする必要があります。</p>
+        <p>これらの条件が重なる工事（寒中コンクリートで高い壁を速く打つ場合など）では、通常より側圧が大きくなることを見込んで型枠・セパレーターを計画する必要があります。</p>
+      </div>
+
+      <h2 id="katawaku-sekkei">型枠・セパレーターの設計との関係</h2>
+      <p>型枠は、想定される最大側圧に対して変形・破損しないよう、せき板の厚さや<a href="katawaku.html">端太（ばた）</a>の間隔、セパレーターの本数・強度を決めます。側圧を過小に見積もると、コンクリート打込み中に型枠がはらんだり、最悪の場合は型枠が破損してコンクリートが漏れ出す事故につながります。逆に側圧を過大に見込みすぎると、型枠材料や手間が増えて不経済になるため、施工条件に応じた適切な側圧の評価が重要です。</p>
+
+      <div class="note-box" id="chuui">
+        <span class="label">注意</span>
+        <p>側圧は「打込み速度」に強く影響されるため、現場で計画より速いペースで打ち込んでしまうと、設計時に想定した側圧を超えるおそれがあります。ポンプ車の圧送能力に任せて打込み速度が上がりすぎないよう、施工計画どおりの速度で打ち込むことが型枠事故の防止につながります。また、バイブレーターによる過度な締固めも局所的に側圧を高めることがあるため、締固めの範囲や時間にも注意が必要です。</p>
       </div>
 
       <div class="note-box">
         <span class="label">あわせて読みたい</span>
-        <p>「<a href="katawaku.html">型枠</a>」「<a href="uchikomi.html">打ち込み</a>」「<a href="fresh-concrete.html">フレッシュコンクリート</a>」をどうぞ。</p>
+        <p>「<a href="katawaku.html">型枠</a>」「<a href="uchikomi.html">打ち込み</a>」「<a href="fresh-concrete.html">フレッシュコンクリート</a>」「<a href="slump-shiken.html">スランプ試験</a>」をどうぞ。</p>
       </div>
 
-      <h2>まとめ</h2>
+      <h2 id="matome">まとめ</h2>
       <ul>
-        <li>側圧はフレッシュコンクリートが型枠を横に押す圧力。</li>
-        <li>液体圧として P＝W×H で近似。凝結で最大値に頭打ちする。</li>
-        <li>打込みが速い・低温・高スランプで大きくなる。型枠設計の根拠になる。</li>
+        <li>側圧はフレッシュコンクリートが型枠を横に押す圧力で、型枠・セパレーターの設計根拠になる。</li>
+        <li>液体圧として P＝W×H で近似できるが、凝結により深部では最大値に頭打ちする。</li>
+        <li>打込みが速い・低温・高スランプの条件が重なると側圧は大きくなる。</li>
+        <li>打込み速度の管理が、想定した側圧を超えないための実務上のポイント。</li>
       </ul>
       <div class="article-author">
         <img src="../assets/profile.png" alt="監修・執筆者 ホッタ ナオト（構造設計一級建築士）" width="76" height="76" loading="lazy">

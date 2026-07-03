@@ -6,9 +6,9 @@
 <meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
 <title>I形鋼とは？規格・断面係数とH形鋼との違い｜構造設計ナビ</title>
-<meta name="description" content="I形鋼をわかりやすく解説。I形鋼の規格（JIS G 3192）、フランジ内側に勾配がある形状、断面係数の特徴、H形鋼との違い（フランジの平行・幅・用途）、現在クレーン走行梁などに使われる理由をまとめます。">
+<meta name="description" content="I形鋼をわかりやすく解説。I形鋼の規格（JIS G 3192）、フランジ内側に勾配がある形状とテーパーができる理由、断面係数の特徴、H形鋼との違い（フランジの平行・幅・用途）、現在クレーン走行梁などに使われる理由をQ&A付きでまとめます。">
 <meta property="og:title" content="I形鋼とは？規格・断面係数とH形鋼との違い｜構造設計ナビ">
-<meta property="og:description" content="I形鋼の規格・断面係数の特徴と、H形鋼との違い（フランジ形状・幅・用途）を解説します。">
+<meta property="og:description" content="I形鋼の規格・断面係数の特徴、テーパー形状の理由と、H形鋼との違い（フランジ形状・幅・用途）を解説します。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://www.kouzou-navi.com/articles/i-katako.html">
 <meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
@@ -52,25 +52,52 @@
     <article class="article-main">
       <div class="meta">
         <span class="tag">鉄骨造（S造）</span>
-        <span>更新日：2026年6月14日</span>
+        <span>更新日：2026年7月3日</span>
       </div>
       <h1>I形鋼とは？規格・断面係数とH形鋼との違い</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
 
-      <p><strong>I形鋼（アイがたこう）</strong>は、断面が「I」の形をした<a href="katakou.html">形鋼</a>です。<a href="h-katako.html">H形鋼</a>とよく似ていますが、フランジの形状が異なり、用途も限られます。</p>
+      <p><strong>I形鋼（アイがたこう、英語表記：I-beam／I-section）</strong>とは、断面が「I」の形をした<a href="katakou.html">形鋼</a>です。上下のフランジとそれをつなぐウェブから成る構成は<a href="h-katako.html">H形鋼</a>と共通していますが、フランジの形状が異なり、現在の建築ではごく限られた用途にしか使われません。かつては鉄骨造の梁材として広く使われた歴史がありますが、断面性能に優れるH形鋼が普及したことで主役の座を譲りました。</p>
+
+      <div class="point-box">
+        <span class="label">この記事の要点</span>
+        <ul>
+          <li>I形鋼はフランジ内側にテーパー（勾配）がある形鋼で、規格はH形鋼と同じJIS G 3192。</li>
+          <li>フランジ幅が狭く、弱軸方向の断面性能・横座屈耐力でH形鋼に劣る。</li>
+          <li>現在はクレーン走行梁など、フランジを車輪が転動する特定用途に使われる。</li>
+        </ul>
+      </div>
+
+      <nav class="toc" aria-label="目次">
+        <div class="toc-ttl">目次</div>
+        <ol>
+          <li><a href="#keijou">I形鋼の形状</a></li>
+          <li><a href="#kikaku">規格</a></li>
+          <li><a href="#naze-tapa">なぜテーパーがあるのか</a></li>
+          <li><a href="#h-chigai">H形鋼との違い</a></li>
+          <li><a href="#danmenkeisu">断面係数の特徴</a></li>
+          <li><a href="#youto">用途</a></li>
+          <li><a href="#chuui">よくある間違い・注意点</a></li>
+          <li><a href="#qa">よくある質問</a></li>
+          <li><a href="#matome">まとめ</a></li>
+        </ol>
+      </nav>
 
       <div class="note-box">
         <span class="label">この記事について</span>
         <p>本記事の数値は<strong>代表的な目安・例</strong>で、学習用の概要です。設計・積算では必ず<strong>最新のJIS・建築基準法告示・鋼構造設計規準・鋼材ハンドブック</strong>の正確な値を確認してください。</p>
       </div>
 
-      <h2>I形鋼の形状</h2>
-      <p>I形鋼は、上下フランジの<strong>内側に勾配（テーパー）</strong>がついており、付け根が厚く先が薄い形です。これに対しH形鋼はフランジの内外が<strong>平行</strong>です。</p>
+      <h2 id="keijou">I形鋼の形状</h2>
+      <p>I形鋼は、上下フランジの<strong>内側に勾配（テーパー）</strong>がついており、ウェブとの付け根が厚く、先端に向かって薄くなる形です。これに対しH形鋼はフランジの内外面が<strong>平行</strong>で厚みが一定です。テーパーがある分、フランジ先端側の材料が断面二次モーメントに寄与しにくく、同じ材料量でもH形鋼より効率がやや劣る一因になっています。</p>
 
-      <h2>規格</h2>
-      <p>I形鋼もH形鋼と同じく<strong>JIS G 3192（熱間圧延形鋼）</strong>に規定されています。ただし現在はH形鋼が主流となり、I形鋼の規格サイズは少なく、流通も限定的です。</p>
+      <h2 id="kikaku">規格</h2>
+      <p>I形鋼もH形鋼と同じく<strong>JIS G 3192（熱間圧延形鋼の形状、寸法、質量及びその許容差）</strong>に規定されています。ただし現在はH形鋼が主流となり、I形鋼として流通するサイズはごくわずかです。設計でサイズを選ぶ際は、必ず鋼材メーカーの<a href="koukou-handbook.html">鋼材ハンドブック</a>で在庫・製造可否を確認する必要があります。</p>
 
-      <h2>H形鋼との違い</h2>
+      <h2 id="naze-tapa">なぜテーパーがあるのか</h2>
+      <p>I形鋼は熱間圧延（赤熱した鋼片をロールで挟んで延ばす製法）でつくられます。フランジを完全に平行な厚みへ仕上げるには複雑な圧延工程が必要で、古くはテーパー形状のほうが圧延しやすかったという製造上の背景があります。その後、圧延技術の進歩によってフランジが平行なH形鋼が量産できるようになり、扱いやすさ・接合のしやすさから建築の主流はH形鋼へ移っていきました。</p>
+
+      <h2 id="h-chigai">H形鋼との違い</h2>
       <table class="data">
         <tr><th></th><th>I形鋼</th><th>H形鋼</th></tr>
         <tr><td>フランジ内側</td><td>勾配あり（テーパー）</td><td>平行</td></tr>
@@ -79,23 +106,36 @@
         <tr><td>接合</td><td>傾斜座金が必要なことも</td><td>平行で接合しやすい</td></tr>
         <tr><td>用途</td><td>クレーン走行梁など</td><td>柱・梁全般</td></tr>
       </table>
+      <p>特にボルト接合では、フランジ内側が平行でないI形鋼は<strong>傾斜座金（テーパーワッシャー）</strong>を挟まないと座金・ナットが密着しないことがあり、施工の手間が増える点も実務上の弱点です。</p>
 
-      <h2>断面係数の特徴</h2>
-      <p>I形鋼はフランジ幅が狭いため、<strong>弱軸の<a href="h-danmen-keisu.html">断面係数</a>が小さく</strong>、<a href="zakutsu.html">横座屈</a>に弱い傾向があります。強軸の曲げ性能は確保できますが、横方向の安定性で不利なため、一般の梁にはフランジが広く扱いやすいH形鋼が選ばれます。</p>
+      <h2 id="danmenkeisu">断面係数の特徴</h2>
+      <p>I形鋼はフランジ幅が狭いため、<strong>弱軸の<a href="h-danmen-keisu.html">断面係数</a>が小さく</strong>、<a href="zakutsu.html">横座屈</a>に弱い傾向があります。強軸の曲げ性能は確保できますが、横方向の安定性で不利なため、一般の梁にはフランジが広く扱いやすいH形鋼が選ばれます。同じせい（高さ）のH形鋼と比べると、I形鋼はフランジ幅が狭い分だけ断面二次モーメント・断面係数とも小さくなる傾向があり、同等の耐力を得るにはより大きなせいが必要になることもあります。</p>
 
-      <h2>用途</h2>
-      <p>I形鋼は、フランジ下面に車輪が走る<strong>クレーンの走行梁（ガーダー）</strong>やモノレール・ホイストのレールなど、特定の用途で使われます。</p>
+      <h2 id="youto">用途</h2>
+      <p>I形鋼は、フランジ下面に車輪が走る<strong>クレーンの走行梁（ガーダー）</strong>やモノレール・ホイストのレールなど、特定の用途で使われます。クレーン走行梁では、車輪が転動するフランジ上面の局部的な変形・摩耗に対する耐久性が求められるため、あえてフランジが厚く安定したI形鋼の形状が選ばれてきた経緯があります。近年は同じ用途でもH形鋼にレール受けを追加した構成に置き換わる例もありますが、既存建物の改修では現状のI形鋼サイズを踏襲する必要がある点に注意が必要です。</p>
+
+      <div class="note-box" id="chuui">
+        <span class="label">注意</span>
+        <p>「I形鋼」と「H形鋼」を混同し、断面性能をH形鋼の数値で見積もってしまう間違いに注意してください。両者は形状も断面性能表もまったくの別物です。またI形鋼は流通サイズが少なく、改修工事で同一サイズが手に入らないこともあるため、選定時は早めに鋼材メーカーへ在庫を確認しましょう。</p>
+      </div>
+
+      <h3 id="qa">Q1. I形鋼はもう製造されていないのですか？</h3>
+      <p>完全に製造中止というわけではありませんが、建築向けの流通サイズは非常に限られています。クレーン走行梁のような専用用途向けに、必要に応じて生産されているのが実情です。</p>
+
+      <h3>Q2. I形鋼とH形鋼、どちらを選ぶべきですか？</h3>
+      <p>一般の柱・梁であれば、入手性・コスト・断面性能のすべてで有利なH形鋼を選ぶのが基本です。I形鋼は、フランジ上面を車輪が転動するクレーン走行梁のような、形状そのものに理由がある用途に限って検討します。</p>
 
       <div class="note-box">
         <span class="label">あわせて読みたい</span>
         <p>主流の「<a href="h-katako.html">H形鋼とは</a>」、断面係数は「<a href="h-danmen-keisu.html">断面係数</a>」、形鋼全般は「<a href="katakou.html">形鋼とは</a>」をどうぞ。</p>
       </div>
 
-      <h2>まとめ</h2>
+      <h2 id="matome">まとめ</h2>
       <ul>
-        <li>I形鋼はフランジ内側に勾配がある形鋼。規格はJIS G 3192。</li>
-        <li>H形鋼に比べフランジが狭く弱軸・横座屈に弱い。</li>
+        <li>I形鋼はフランジ内側に勾配がある形鋼。規格はH形鋼と同じJIS G 3192。</li>
+        <li>H形鋼に比べフランジが狭く、弱軸・横座屈に弱い。</li>
         <li>現在はクレーン走行梁など特定用途に限られ、一般部材はH形鋼が主流。</li>
+        <li>流通サイズが少ないため、選定時は鋼材メーカーへの在庫確認が欠かせない。</li>
       </ul>
       <div class="article-author">
         <img src="../assets/profile.png" alt="監修・執筆者 ホッタ ナオト（構造設計一級建築士）" width="76" height="76" loading="lazy">

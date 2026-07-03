@@ -52,25 +52,49 @@
     <article class="article-main">
       <div class="meta">
         <span class="tag">鉄筋コンクリート造（RC造）</span>
-        <span>更新日：2026年6月14日</span>
+        <span>更新日：2026年7月3日</span>
       </div>
       <h1>構造体強度補正値｜3N・6Nの使い分けと温度</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
 
-      <p><strong>構造体強度補正値</strong>（mSn）とは、試験用の<a href="kyoushitai.html">供試体</a>と実際の<a href="kouzoutai-concrete.html">構造体</a>の強度差を補うための<strong>割増し</strong>です。コンクリートの配合（調合）強度を決めるときに使います。</p>
+      <p><strong>構造体強度補正値</strong>（mSn）とは、試験用の<a href="kyoushitai.html">供試体</a>と実際の<a href="kouzoutai-concrete.html">構造体</a>の強度差を補うための<strong>割増し</strong>のことです。コンクリートの配合（調合）強度を決めるときに使い、現場の養生環境で生じる強度差をあらかじめ見込んでおく仕組みといえます。</p>
+
+      <div class="point-box">
+        <span class="label">この記事の要点</span>
+        <ul>
+          <li>構造体強度補正値（mSn）は供試体と構造体の強度差を補う割増し値</li>
+          <li>調合管理強度＝品質基準強度Fq＋構造体強度補正値で求める</li>
+          <li>予想平均気温に応じて3N/mm²か6N/mm²を使い分ける</li>
+        </ul>
+      </div>
+
+      <nav class="toc" aria-label="目次">
+        <div class="toc-ttl">目次</div>
+        <ol>
+          <li><a href="#naze">なぜ補正が必要か</a></li>
+          <li><a href="#riyu">強度差が生じる理由</a></li>
+          <li><a href="#tsukaiwake">3N・6Nの使い分け</a></li>
+          <li><a href="#reidai">計算例</a></li>
+          <li><a href="#chuui">注意点</a></li>
+          <li><a href="#matome">まとめ</a></li>
+        </ol>
+      </nav>
 
       <div class="note-box">
         <span class="label">この記事について</span>
         <p>強度・設計に関する規準（JASS5・建築基準法施行令など）の数値は<strong>条件・改訂で変わる</strong>ことがあります。本記事は学習用の概要です。設計では最新の規準を確認してください。</p>
       </div>
 
-      <h2>なぜ補正が必要か</h2>
+      <h2 id="naze">なぜ補正が必要か</h2>
       <p>標準養生した供試体の強度に比べ、現場の温度で固まる構造体の強度は出にくいことがあります。そこで、<a href="sekkei-hinshitsu-kijun.html">品質基準強度Fq</a>に補正値を加えて、配合の目標（調合管理強度）を決めます。</p>
       <div class="formula">
         調合管理強度 ＝ 品質基準強度 Fq ＋ 構造体強度補正値（mSn）
       </div>
 
-      <h2>3N・6Nの使い分け</h2>
+      <h2 id="riyu">強度差が生じる理由</h2>
+      <p>コンクリートの強度は、セメントの水和反応が進むことで発現します。標準養生の供試体は一定の温度・湿潤環境で管理されますが、実際の構造体は外気温の影響を直接受けるため、とくに気温が低い時期には水和反応が緩やかになり、同じ材齢でも供試体より強度が低くなる傾向があります。この差を見込まずに配合を決めると、構造体の強度が設計上必要な水準を下回るおそれがあるため、あらかじめ割増しをして配合強度を高く設定します。とくに躯体の断面が薄い部材や外気にさらされる面積が大きい部材ほど、供試体との温度差の影響を受けやすい傾向があります。</p>
+
+      <h2 id="tsukaiwake">3N・6Nの使い分け</h2>
       <div class="point-box">
         <span class="label">POINT：気温で変わる</span>
         <p>構造体強度補正値は、セメントの種類と<strong>打込みから材齢までの予想平均気温</strong>に応じて、<strong>3N/mm² か 6N/mm²</strong>を使い分けます。普通ポルトランドセメントの場合の目安は次のとおりです。</p>
@@ -79,7 +103,21 @@
           <tr><td>高め（おおむね8〜25℃程度）</td><td>3 N/mm²</td></tr>
           <tr><td>低め（おおむね0〜8℃程度）</td><td>6 N/mm²</td></tr>
         </table>
-        <p>気温が低いと強度発現が遅く構造体強度が出にくいため、補正値を大きく（6N）します。</p>
+        <p>気温が低いと強度発現が遅く構造体強度が出にくいため、補正値を大きく（6N）します。<a href="kouro-cement.html">高炉セメント</a>など水和熱・強度発現の傾向が異なるセメントを使う場合は、別途補正値の考え方を確認する必要があります。</p>
+      </div>
+
+      <h2 id="reidai">計算例</h2>
+      <div class="formula">
+        例：品質基準強度Fq＝24N/mm²、予想平均気温が低め（mSn＝6N/mm²）の場合<br>
+        調合管理強度 ＝ 24 ＋ 6 ＝ 30 N/mm²
+        <span class="note">気温が高めでmSn＝3N/mm²であれば、調合管理強度は27N/mm²になる</span>
+      </div>
+      <p>このように、同じ品質基準強度でも施工時期の気温によって配合の目標強度が変わるため、工程計画と合わせて補正値を確認しておくことが重要です。</p>
+
+      <h2 id="chuui">注意点</h2>
+      <div class="note-box">
+        <span class="label">注意</span>
+        <p>構造体強度補正値は、あくまで気温による強度差を補うためのものであり、施工不良や養生不足による強度低下まで補償するものではありません。適切な打込み・締固め・養生を行うことが前提であり、補正値に頼って品質管理を軽視してはいけません。</p>
       </div>
 
       <div class="note-box">
@@ -87,11 +125,12 @@
         <p>「<a href="sekkei-hinshitsu-kijun.html">品質基準強度</a>」「<a href="kouzoutai-concrete.html">構造体コンクリート</a>」「<a href="namacon-kyoudo.html">生コンの強度</a>」をどうぞ。</p>
       </div>
 
-      <h2>まとめ</h2>
+      <h2 id="matome">まとめ</h2>
       <ul>
         <li>構造体強度補正値は供試体と構造体の強度差を補う割増し（mSn）。</li>
         <li>調合管理強度＝品質基準強度Fq＋補正値。</li>
         <li>予想平均気温で3N/mm²か6N/mm²。気温が低いほど大きく（6N）する。</li>
+        <li>補正値は気温差を補うものであり、施工品質そのものの管理は別途必要。</li>
       </ul>
       <div class="article-author">
         <img src="../assets/profile.png" alt="監修・執筆者 ホッタ ナオト（構造設計一級建築士）" width="76" height="76" loading="lazy">

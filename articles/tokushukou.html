@@ -6,9 +6,9 @@
 <meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
 <title>特殊鋼とは？普通鋼との違いと耐火鋼・高張力鋼の特性｜構造設計ナビ</title>
-<meta name="description" content="特殊鋼の意味を解説。合金元素を加えて性質を高めた特殊鋼と普通鋼の違い、特殊鋼の種類（合金鋼・ステンレス鋼・耐火鋼・高張力鋼）と、耐火鋼・高張力鋼の特性をわかりやすくまとめます。">
+<meta name="description" content="特殊鋼の意味を解説。合金元素を加えて性質を高めた特殊鋼と普通鋼の違い、特殊鋼の種類（合金鋼・ステンレス鋼・耐火鋼・高張力鋼）、性質が変わる理由、耐火鋼・高張力鋼の特性と注意点をわかりやすくまとめます。">
 <meta property="og:title" content="特殊鋼とは？普通鋼との違いと耐火鋼・高張力鋼の特性｜構造設計ナビ">
-<meta property="og:description" content="特殊鋼の意味と普通鋼との違い、種類（耐火鋼・高張力鋼・ステンレス鋼）の特性を解説します。">
+<meta property="og:description" content="特殊鋼の意味と普通鋼との違い、種類（耐火鋼・高張力鋼・ステンレス鋼）の特性と実務上の注意点を解説します。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://www.kouzou-navi.com/articles/tokushukou.html">
 <meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
@@ -52,51 +52,91 @@
     <article class="article-main">
       <div class="meta">
         <span class="tag">鉄骨造（S造）</span>
-        <span>更新日：2026年6月14日</span>
+        <span>更新日：2026年7月3日</span>
       </div>
       <h1>特殊鋼とは？普通鋼との違いと耐火鋼・高張力鋼の特性</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
 
-      <p><strong>特殊鋼</strong>とは、炭素鋼に<strong>合金元素を加える</strong>などして、強度・耐食性・耐熱性といった特定の性質を高めた鋼の総称です。<a href="futsuukou.html">普通鋼</a>に対する言葉で、用途に応じてさまざまな種類があります。</p>
+      <p><strong>特殊鋼</strong>とは、炭素鋼に<strong>クロム（Cr）・ニッケル（Ni）・モリブデン（Mo）</strong>などの合金元素を加える、あるいは特別な熱処理を施すことで、強度・耐食性・耐熱性といった特定の性質を高めた鋼材の総称です。英語では「special steel」「alloy steel」と呼ばれます。<a href="futsuukou.html">普通鋼</a>に対する言葉として使われ、用途に応じてさまざまな種類が製造されています。建築構造の分野では、耐火性を高めた耐火鋼や、強度を高めた高張力鋼、錆びにくいステンレス鋼などが代表的な特殊鋼として使われます。</p>
+
+      <div class="point-box">
+        <span class="label">この記事の要点</span>
+        <ul>
+          <li>特殊鋼は合金元素の添加や熱処理で特定の性質を高めた鋼で、普通鋼より高価になりやすい</li>
+          <li>建築でよく使われるのはステンレス鋼・耐火鋼（FR鋼）・高張力鋼の3種類</li>
+          <li>強度は上がってもヤング係数（剛性）は普通鋼とほぼ変わらない点に注意が必要</li>
+        </ul>
+      </div>
+
+      <nav class="toc" aria-label="目次">
+        <div class="toc-ttl">目次</div>
+        <ol>
+          <li><a href="#chigai">普通鋼との違い</a></li>
+          <li><a href="#shurui">特殊鋼の主な種類</a></li>
+          <li><a href="#riyuu">合金元素で性質が変わる理由</a></li>
+          <li><a href="#taika">耐火鋼（FR鋼）の特性</a></li>
+          <li><a href="#kouchouryoku">高張力鋼の特性</a></li>
+          <li><a href="#chuui">注意点</a></li>
+          <li><a href="#matome">まとめ</a></li>
+        </ol>
+      </nav>
 
       <div class="note-box">
         <span class="label">この記事について</span>
         <p>鋼材の規格・基準強度などは<strong>JISや告示の改訂で変わる</strong>ことがあります。本記事は学習用の概要です。実務では必ず<strong>最新のJIS・建築基準法告示・メーカー資料</strong>を確認してください。</p>
       </div>
 
-      <h2>普通鋼との違い</h2>
+      <h2 id="chigai">普通鋼との違い</h2>
+      <p>普通鋼が鉄と炭素を中心とした汎用材であるのに対し、特殊鋼は合金元素の添加によって「錆びにくい」「熱に強い」「強度が高い」といった特定の性能に特化させた鋼材です。そのぶん製造コストがかかり、価格も普通鋼より高くなる傾向があります。構造設計では、部材ごとに求められる性能（耐火性・耐食性・強度）とコストを比較し、必要な箇所にだけ特殊鋼を採用するのが一般的です。</p>
       <table class="data">
         <tr><th></th><th><a href="futsuukou.html">普通鋼</a></th><th>特殊鋼</th></tr>
         <tr><td>成分</td><td>鉄＋炭素が中心</td><td>合金元素（Cr・Ni・Mo等）を添加</td></tr>
         <tr><td>性質</td><td>汎用・標準的</td><td>耐食・耐熱・高強度などに特化</td></tr>
         <tr><td>価格</td><td>安い</td><td>高い</td></tr>
+        <tr><td>主な用途</td><td>一般構造部材全般</td><td>耐火要求部位・高強度部材・水回りなど</td></tr>
       </table>
 
-      <h2>特殊鋼の主な種類</h2>
+      <h2 id="shurui">特殊鋼の主な種類</h2>
       <ul>
-        <li><strong>合金鋼</strong>：強度・靭性を高めた鋼。</li>
-        <li><strong><a href="stainless.html">ステンレス鋼</a></strong>：クロムを多く含み錆びにくい。</li>
-        <li><strong><a href="fr-kou.html">耐火鋼（FR鋼）</a></strong>：高温でも強度低下が少ない。</li>
-        <li><strong><a href="kouchouryokukou.html">高張力鋼</a></strong>：引張強さを高めた高強度鋼。</li>
-        <li><strong>工具鋼・特殊用途鋼</strong>：刃物・機械部品など（建築では少ない）。</li>
+        <li><strong>合金鋼</strong>：Cr・Ni・Moなどを加え、強度・靭性を高めた鋼。</li>
+        <li><strong><a href="stainless.html">ステンレス鋼</a></strong>：クロムを多く含み錆びにくい。外装材や水回りに使用。</li>
+        <li><strong><a href="fr-kou.html">耐火鋼（FR鋼）</a></strong>：高温でも強度低下が少ない鋼。</li>
+        <li><strong><a href="kouchouryokukou.html">高張力鋼</a></strong>：引張強さを高めた高強度鋼。ハイテン材とも呼ばれる。</li>
+        <li><strong>工具鋼・特殊用途鋼</strong>：刃物・機械部品など（建築構造での使用は少ない）。</li>
       </ul>
 
-      <h2>耐火鋼（FR鋼）の特性</h2>
-      <p>モリブデンなどを添加し、<strong>600℃でも常温規格の降伏点の2/3以上</strong>を保つよう設計された鋼です。火災時の強度低下が小さいため、条件によっては<a href="fr-kou.html">耐火被覆を低減・省略</a>できる場合があります。</p>
+      <h2 id="riyuu">合金元素で性質が変わる理由</h2>
+      <p>鋼の性質は、鉄にどのような元素がどれだけ混ざるかで大きく変わります。クロムを加えると表面に緻密な酸化被膜ができて錆びにくくなり（ステンレス鋼）、モリブデンを加えると高温での強度低下が抑えられます（耐火鋼）。合金元素と圧延・冷却プロセスの工夫（<a href="tmcp-kou.html">TMCP</a>など）を組み合わせれば、溶接性を保ちながら強度だけを引き上げることも可能です（高張力鋼）。特殊鋼は、配合と製造プロセスの設計によって狙った性能を実現する鋼材といえます。</p>
 
-      <h2>高張力鋼の特性</h2>
-      <p>引張強さ490N/mm²以上の<a href="kouchouryokukou.html">高張力鋼</a>は、普通鋼より高い強度を持ち、部材を細く・軽くできます。ただし<strong>ヤング係数（剛性）は普通鋼と同じ</strong>なので、たわみや座屈は強度ほど改善せず、溶接管理も厳しくなります。</p>
+      <h2 id="taika">耐火鋼（FR鋼）の特性</h2>
+      <p>モリブデンなどを添加し、<strong>600℃でも常温規格の降伏点の2/3以上</strong>を保つよう設計された鋼です。一般の鋼材は高温になると急激に強度が低下しますが、耐火鋼は高温域での強度保持性能が高いため、火災時でも構造安全性を確保しやすくなります。この特性を活かし、条件によっては<a href="fr-kou.html">耐火被覆を低減・省略</a>できる場合があり、鉄骨をそのまま見せるデザイン（現し仕上げ）を採用しやすくなる点もメリットです。ただし建物の用途・規模によって耐火被覆の要否は建築基準法・告示で定められているため、採用にあたっては個別に確認が必要です。</p>
+
+      <h2 id="kouchouryoku">高張力鋼の特性</h2>
+      <p>引張強さ490N/mm²以上の<a href="kouchouryokukou.html">高張力鋼</a>は、普通鋼より高い強度を持ち、同じ耐力を確保しながら部材を細く・軽くできます。柱・梁の断面を小さくできれば、建物の軽量化や意匠の自由度向上につながります。ただし<strong>ヤング係数（剛性）は普通鋼とほぼ同じ</strong>なので、強度が上がってもたわみや座屈への抵抗は強度ほど改善しません。設計時には強度だけでなく変形性能も別途チェックする必要があります。また高強度になるほど溶接時の入熱管理・予熱などの品質管理が厳しくなる点も実務上の注意点です。</p>
+
+      <h2 id="chuui">よくある注意点</h2>
+      <div class="note-box">
+        <span class="label">注意</span>
+        <p>「特殊鋼＝高強度」というわけではありません。ステンレス鋼のように耐食性を主目的とした特殊鋼もあり、必ずしも強度が高いとは限りません。また高張力鋼は強度が高いぶん、たわみ（剛性）は改善しないため、変形制限が厳しい部材に安易に採用すると想定外のたわみが生じることがあります。用途に応じて適切な種類を選定することが大切です。</p>
+      </div>
+
+      <h3>Q1. 特殊鋼と合金鋼は同じものですか？</h3>
+      <p>合金鋼は特殊鋼の一種です。特殊鋼は熱処理などで性質を高めた鋼全般を含む、より広い概念です。</p>
+
+      <h3>Q2. 特殊鋼はなぜ普通鋼より高価なのですか？</h3>
+      <p>合金元素の添加や特別な製造プロセスが必要になるため、原材料費・製造コストの両面で割高になります。</p>
 
       <div class="note-box">
         <span class="label">あわせて読みたい</span>
         <p>対になる普通鋼は「<a href="futsuukou.html">普通鋼とは</a>」、耐火鋼は「<a href="fr-kou.html">FR鋼（耐火鋼）</a>」、高張力鋼は「<a href="kouchouryokukou.html">高張力鋼</a>」をどうぞ。</p>
       </div>
 
-      <h2>まとめ</h2>
+      <h2 id="matome">まとめ</h2>
       <ul>
-        <li>特殊鋼は合金元素を加えて性質を高めた鋼の総称。普通鋼より高価。</li>
-        <li>ステンレス鋼・耐火鋼・高張力鋼などがある。</li>
+        <li>特殊鋼は合金元素の添加や熱処理で性質を高めた鋼の総称。普通鋼より高価。</li>
+        <li>建築ではステンレス鋼・耐火鋼・高張力鋼などが代表的。</li>
         <li>耐火鋼は高温に強く被覆低減に、高張力鋼は高強度化に使われる。</li>
+        <li>高張力鋼はヤング係数が変わらないため、たわみ・座屈への配慮は別途必要。</li>
       </ul>
       <div class="article-author">
         <img src="../assets/profile.png" alt="監修・執筆者 ホッタ ナオト（構造設計一級建築士）" width="76" height="76" loading="lazy">
