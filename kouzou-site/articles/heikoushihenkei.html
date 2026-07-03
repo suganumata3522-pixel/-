@@ -6,9 +6,9 @@
 <meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
 <title>力の平行四辺形とは？書き方と合力・分解の計算｜構造設計ナビ</title>
-<meta name="description" content="力の平行四辺形をわかりやすく解説。2つの力を2辺とする平行四辺形の対角線が合力になるという考え方、書き方の手順、合成と分解への使い方をまとめます。">
+<meta name="description" content="力の平行四辺形をわかりやすく解説。2つの力を2辺とする平行四辺形の対角線が合力になる仕組み、読み方、書き方の手順、余弦定理による計算例、分解への応用や注意点までまとめます。">
 <meta property="og:title" content="力の平行四辺形とは？書き方と合力・分解の計算｜構造設計ナビ">
-<meta property="og:description" content="力の平行四辺形の意味、書き方の手順、合力・分解への使い方を解説します。">
+<meta property="og:description" content="力の平行四辺形の意味・読み方、書き方の手順、余弦定理での計算例、合力・分解への使い方を解説します。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://www.kouzou-navi.com/articles/heikoushihenkei.html">
 <meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
@@ -52,38 +52,82 @@
     <article class="article-main">
       <div class="meta">
         <span class="tag">構造力学の基礎</span>
-        <span>更新日：2026年6月15日</span>
+        <span>更新日：2026年7月2日</span>
       </div>
       <h1>力の平行四辺形とは？書き方と合力・分解</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
-      <p><strong>力の平行四辺形</strong>は、2つの<a href="chikara.html">力</a>を合成するときに使う作図法です。2力を2辺とする平行四辺形の<strong>対角線が<a href="gouryoku.html">合力</a></strong>になります。</p>
+      <p><strong>力の平行四辺形（へいこうしへんけい）</strong>とは、2つの<a href="chikara.html">力</a>を1つにまとめる（合成する）ときに使う、図を用いた考え方・作図法のことです。2つの力を2辺とする平行四辺形を描くと、その<strong>対角線が2力を合わせた<a href="gouryoku.html">合力</a></strong>になります。中学・高校の物理でも学ぶ基本原理ですが、構造力学では地震力・風圧力・荷重といった複数の外力を1つにまとめて扱う際の土台になる考え方です。</p>
 
-      <h2>書き方の手順</h2>
+      <div class="point-box">
+        <span class="label">この記事の要点</span>
+        <ul>
+          <li>2つの力を2辺とする平行四辺形を描くと、対角線が合力になる。</li>
+          <li>合力の大きさは余弦定理（平行四辺形の法則）で計算できる。</li>
+          <li>同じ作図法を逆向きに使えば、1つの力を2方向に分解できる。</li>
+        </ul>
+      </div>
+
+      <nav class="toc" aria-label="目次">
+        <div class="toc-ttl">目次</div>
+        <ol>
+          <li><a href="#kakikata">書き方の手順</a></li>
+          <li><a href="#gouryoku-keisan">合力の計算・計算例</a></li>
+          <li><a href="#riyu">なぜ対角線が合力になるのか</a></li>
+          <li><a href="#bunkai">分解への応用</a></li>
+          <li><a href="#chuui">よくある間違い・注意点</a></li>
+          <li><a href="#matome">まとめ</a></li>
+        </ol>
+      </nav>
+
+      <h2 id="kakikata">書き方の手順</h2>
       <ol>
         <li>同じ作用点から、2つの力の矢印を大きさ・向きどおりに描く。</li>
         <li>各矢印の先端から、もう一方の力に平行な線を引く。</li>
         <li>2本の平行線の交点と作用点を結ぶ。これが<strong>合力（対角線）</strong>。</li>
       </ol>
+      <p>2つの矢印を「2辺」として四角形を完成させ、作用点を通る対角線を引くだけなので、定規とコンパス（または三角定規）があれば手作業でも合力の向きと大きさをおおよそ把握できます。</p>
 
-      <h2>合力の計算</h2>
-      <p>平行四辺形の対角線の長さ（合力）は、<a href="heikoushihenkei-housoku.html">平行四辺形の法則</a>＝余弦定理で求めます。</p>
+      <h2 id="gouryoku-keisan">合力の計算・計算例</h2>
+      <p>平行四辺形の対角線の長さ（合力の大きさ）は、<a href="heikoushihenkei-housoku.html">平行四辺形の法則</a>＝余弦定理で求めます。2つの力の大きさをF₁・F₂、なす角をθとすると、次の式になります。</p>
       <div class="formula">
         R ＝ √(F₁² ＋ F₂² ＋ 2·F₁·F₂·cosθ)
+        <span class="note">R：合力の大きさ／F₁・F₂：2つの力の大きさ／θ：2力のなす角</span>
+      </div>
+      <p><strong>計算例</strong>：F₁＝30kN、F₂＝40kN、なす角θ＝60°のとき、</p>
+      <div class="formula">
+        R ＝ √(30² ＋ 40² ＋ 2×30×40×cos60°) ＝ √(900＋1600＋1200) ＝ √3700 ≒ 60.8kN
+      </div>
+      <p>θ＝90°（直角）のときはcosθ＝0となるため、式は<a href="danmen-keisu.html">三平方の定理</a>と同じR＝√(F₁²＋F₂²)に一致します。</p>
+
+      <h2 id="riyu">なぜ対角線が合力になるのか</h2>
+      <p>力は大きさと向きを持つ「ベクトル量」です。2つのベクトルを足し合わせる（ベクトル和をとる）と、その結果は平行四辺形の対角線として作図できることが、幾何学的に証明されています。矢印の先端に次の矢印の始点をつなげて描く「三角形（多角形）の作図法」と、平行四辺形の作図法は本質的に同じ結果になり、どちらも力の合成の基本操作です。</p>
+
+      <h2 id="bunkai">分解への応用</h2>
+      <p>逆に、1つの力を対角線とみなし、指定した2方向を2辺とする平行四辺形を描けば、その力を2方向に<a href="chikara-bunkai.html">分解</a>できます。合成と分解の両方に使える作図法です。たとえば、屋根にかかる荷重を「屋根面に垂直な成分」と「屋根面に平行な成分」に分けて考えたいときや、斜め材にかかる力を水平・鉛直方向に分けて<a href="hanryoku.html">反力</a>を求めたいときなど、実務でもよく使う考え方です。</p>
+
+      <h2 id="chuui">よくある間違い・注意点</h2>
+      <div class="note-box">
+        <span class="label">注意</span>
+        <p>平行四辺形には対角線が2本ありますが、<strong>合力になるのは作用点（2力の始点）を通る対角線だけ</strong>です。もう一方の対角線は合力ではないので混同しないようにしましょう。また、θは2つの力の矢印がなす角度であり、平行四辺形の内角そのものではない点にも注意してください。</p>
       </div>
 
-      <h2>分解への応用</h2>
-      <p>逆に、1つの力を対角線とみなし、指定した2方向を2辺とする平行四辺形を描けば、その力を2方向に<a href="chikara-bunkai.html">分解</a>できます。合成と分解の両方に使える作図法です。</p>
+      <h3>Q1. 3つ以上の力を合成したいときはどうすればよいですか？</h3>
+      <p>まず2力を平行四辺形で合成して1つの合力を求め、その合力と残りの力を再び平行四辺形で合成する、という手順を繰り返します。詳しくは<a href="mittsu-gouryoku.html">3つの力の合力</a>を参照してください。</p>
+
+      <h3>Q2. 平行四辺形を描かずに合力を求める方法はありますか？</h3>
+      <p>各力をx成分・y成分に分解し、成分ごとに足し合わせてから三平方の定理で大きさを求める方法もあります。図を描かずに計算できるため、実務ではこちらもよく使われます。</p>
 
       <div class="note-box">
         <span class="label">あわせて読みたい</span>
         <p>「<a href="heikoushihenkei-housoku.html">平行四辺形の法則</a>」「<a href="chikara-gousei.html">力の合成</a>」「<a href="gouryoku.html">合力</a>」をどうぞ。</p>
       </div>
 
-      <h2>まとめ</h2>
+      <h2 id="matome">まとめ</h2>
       <ul>
-        <li>力の平行四辺形は2力の合成に使う作図法。対角線が合力。</li>
+        <li>力の平行四辺形は2力の合成に使う作図法。対角線が合力になる。</li>
         <li>各力の先端から相手に平行線を引き、交点を作用点と結ぶ。</li>
-        <li>合力の大きさは余弦定理。分解にも応用できる。</li>
+        <li>合力の大きさは余弦定理（R＝√(F₁²＋F₂²＋2F₁F₂cosθ)）で計算できる。</li>
+        <li>同じ作図法を逆向きに使えば、力を2方向に分解できる。</li>
       </ul>
       <div class="article-author">
         <img src="../assets/profile.png" alt="監修・執筆者 ホッタ ナオト（構造設計一級建築士）" width="76" height="76" loading="lazy">
