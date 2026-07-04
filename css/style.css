@@ -554,6 +554,28 @@ a:hover { text-decoration: underline; }
 }
 .point-box p:last-child, .point-box ul:last-child { margin-bottom: 0; }
 
+/* 実務のワンポイント（現役構造一級の視点）— 独自の実務コメント用 */
+.field-note {
+  background: #f5f7fb;
+  border-left: 4px solid var(--navy);
+  border-radius: 0 10px 10px 0;
+  padding: 16px 20px;
+  margin: 24px 0;
+}
+.field-note .label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 800;
+  color: var(--navy);
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  margin-bottom: 8px;
+}
+.field-note .label::before { content: "🛠"; font-size: 1rem; }
+.field-note p:last-child { margin-bottom: 0; }
+.field-note p { line-height: 1.9; }
+
 .note-box {
   background: #eef5f0;
   border: 1px solid #d3e5d9;
