@@ -34,6 +34,7 @@
    "inLanguage": "ja",
    "url": "https://www.kouzou-navi.com/articles/h-danmen-moment.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/h-danmen-moment.html",
+   "datePublished": "2026-06-14",
    "dateModified": "2026-06-14",
    "image": "https://www.kouzou-navi.com/assets/ogp.png",
    "author": {
@@ -78,6 +79,9 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "なぜ同じH形鋼でも強軸と弱軸で断面二次モーメントがこれほど違うのですか？", "acceptedAnswer": {"@type": "Answer", "text": "断面二次モーメントは「中立軸から離れた位置にある材料ほど効く（距離の2乗で効く）」量だからです。強軸まわりでは上下フランジが中立軸から大きく離れているためIxが大きく、弱軸まわりではフランジ幅の範囲でしか材料が広がらないためIyは小さくなります。この差が、梁をウェブ縦向き（強軸曲げ）で使う理由です。"}}, {"@type": "Question", "name": "たわみの計算にはIxとZxのどちらを使いますか？", "acceptedAnswer": {"@type": "Answer", "text": "たわみは断面二次モーメントIxを使います（例：等分布荷重の単純梁の中央たわみ δ＝5wL⁴/384EIx）。断面係数Zは応力度（強度）の検討に使う量で、役割が異なります。両者を取り違えると検討結果を誤るので注意してください。 実務のワンポイント 形鋼表を照合していて気づくのは、たわみの検討でIxとZxを取り違える若手が意外と多いことです。断面二次モーメントは変形、断面係数は応力度の話だと最初に整理しておかないと、計算書の後段で数値の意味を見失いがちです。"}}]}
+</script>
 </head>
 <body>
 
@@ -107,6 +111,7 @@
     <article class="article-main">
       <div class="meta">
         <span class="tag">鉄骨造（S造）</span>
+        <span>公開日：2026年6月14日</span>
         <span>更新日：2026年7月6日</span>
       </div>
       <h1>H形鋼の断面二次モーメント｜強軸と弱軸の違い</h1>
