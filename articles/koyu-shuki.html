@@ -111,6 +111,25 @@
       <p>建物にはそれぞれ「揺れやすいリズム」があります。これが<strong>固有周期</strong>です。地震の揺れのリズムと建物のリズムが一致すると、揺れがどんどん大きくなる<strong>共振</strong>が起きます。耐震設計・免震設計の根っこにある、振動の基礎を押さえましょう。</p>
 
       <h2>固有周期 T とは</h2>
+
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 320" role="img" aria-label="固有周期の比較。低くて硬い建物は周期が短く小刻みに揺れ、高くて柔らかい建物は周期が長くゆっくり大きく揺れる">
+          <defs><marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#e8843c"/></marker></defs>
+          <line x1="30" y1="270" x2="670" y2="270" stroke="#1a3a5c" stroke-width="3"/>
+          <g stroke="#6b7785" stroke-width="2"><line x1="40" y1="270" x2="28" y2="288"/><line x1="80" y1="270" x2="68" y2="288"/><line x1="120" y1="270" x2="108" y2="288"/><line x1="160" y1="270" x2="148" y2="288"/><line x1="200" y1="270" x2="188" y2="288"/><line x1="240" y1="270" x2="228" y2="288"/><line x1="280" y1="270" x2="268" y2="288"/><line x1="320" y1="270" x2="308" y2="288"/><line x1="360" y1="270" x2="348" y2="288"/><line x1="400" y1="270" x2="388" y2="288"/><line x1="440" y1="270" x2="428" y2="288"/><line x1="480" y1="270" x2="468" y2="288"/><line x1="520" y1="270" x2="508" y2="288"/><line x1="560" y1="270" x2="548" y2="288"/><line x1="600" y1="270" x2="588" y2="288"/><line x1="640" y1="270" x2="628" y2="288"/></g>
+          <rect x="110" y="170" width="120" height="100" fill="#eef3f8" stroke="#1a3a5c" stroke-width="3"/>
+          <rect x="118" y="150" width="120" height="100" fill="none" stroke="#e8843c" stroke-width="2" stroke-dasharray="6 4"/>
+          <line x1="140" y1="130" x2="205" y2="130" stroke="#e8843c" stroke-width="4" marker-start="url(#ar2)" marker-end="url(#ar2)"/>
+          <text x="170" y="112" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">小さく速く揺れる</text>
+          <text x="170" y="305" font-size="18" text-anchor="middle" fill="#1a3a5c" font-weight="bold">低い・硬い ＝ 周期が短い</text>
+          <rect x="460" y="60" width="110" height="210" fill="#eef3f8" stroke="#1a3a5c" stroke-width="3"/>
+          <path d="M 480 270 L 500 60 L 610 60" fill="none" stroke="#e8843c" stroke-width="2" stroke-dasharray="6 4"/>
+          <line x1="470" y1="40" x2="600" y2="40" stroke="#e8843c" stroke-width="4" marker-start="url(#ar2)" marker-end="url(#ar2)"/>
+          <text x="535" y="24" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">大きくゆっくり揺れる</text>
+          <text x="515" y="305" font-size="18" text-anchor="middle" fill="#1a3a5c" font-weight="bold">高い・柔らかい ＝ 周期が長い</text>
+        </svg>
+        <figcaption>固有周期のイメージ。建物が高く（柔らかく）なるほど、ゆっくり大きく揺れる＝固有周期が長くなる。</figcaption>
+      </figure>
       <p>建物を横に押して手を離すと、建物は一定のリズムで左右に揺れます。<strong>1往復にかかる時間（秒）</strong>が固有周期 T です。1質点系（おもり＋バネのモデル）では次式で表されます。</p>
 
       <div class="formula">

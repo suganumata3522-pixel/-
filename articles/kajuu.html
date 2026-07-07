@@ -111,6 +111,28 @@
       <p>構造計算は「建物にどんな力が作用するか」を数え上げる<strong>荷重の拾い（荷重拾い）</strong>から始まります。地味な作業ですが、ここを間違えると後の計算がすべて狂う、実務で最も大切な工程のひとつです。</p>
 
       <h2>建築の荷重の全体像</h2>
+
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 330" role="img" aria-label="荷重の流れ。人や家具などの荷重がスラブから梁、柱、基礎、地盤へと伝わる">
+          <defs><marker id="ar3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#e8843c"/></marker></defs>
+          <g stroke="#e8843c" stroke-width="4"><line x1="170" y1="30" x2="170" y2="62" marker-end="url(#ar3)"/><line x1="260" y1="30" x2="260" y2="62" marker-end="url(#ar3)"/><line x1="350" y1="30" x2="350" y2="62" marker-end="url(#ar3)"/><line x1="440" y1="30" x2="440" y2="62" marker-end="url(#ar3)"/><line x1="530" y1="30" x2="530" y2="62" marker-end="url(#ar3)"/></g>
+          <text x="350" y="20" font-size="17" text-anchor="middle" fill="#e8843c" font-weight="bold">固定荷重・積載荷重・積雪…</text>
+          <rect x="120" y="66" width="460" height="24" fill="#eef3f8" stroke="#1a3a5c" stroke-width="3"/>
+          <text x="350" y="84" font-size="16" text-anchor="middle" fill="#1a3a5c" font-weight="bold">スラブ（床）</text>
+          <rect x="150" y="90" width="44" height="34" fill="#1a3a5c"/><rect x="506" y="90" width="44" height="34" fill="#1a3a5c"/>
+          <text x="350" y="115" font-size="16" text-anchor="middle" fill="#1a3a5c" font-weight="bold">← 梁 →</text>
+          <rect x="158" y="124" width="28" height="120" fill="#eef3f8" stroke="#1a3a5c" stroke-width="3"/>
+          <rect x="514" y="124" width="28" height="120" fill="#eef3f8" stroke="#1a3a5c" stroke-width="3"/>
+          <text x="120" y="190" font-size="16" fill="#1a3a5c" font-weight="bold">柱</text>
+          <rect x="128" y="244" width="88" height="30" fill="#eef3f8" stroke="#1a3a5c" stroke-width="3"/>
+          <rect x="484" y="244" width="88" height="30" fill="#eef3f8" stroke="#1a3a5c" stroke-width="3"/>
+          <text x="350" y="266" font-size="16" text-anchor="middle" fill="#1a3a5c" font-weight="bold">基礎</text>
+          <line x1="40" y1="274" x2="660" y2="274" stroke="#1a3a5c" stroke-width="3"/>
+          <g stroke="#6b7785" stroke-width="2"><line x1="52" y1="274" x2="40" y2="292"/><line x1="92" y1="274" x2="80" y2="292"/><line x1="132" y1="274" x2="120" y2="292"/><line x1="172" y1="274" x2="160" y2="292"/><line x1="212" y1="274" x2="200" y2="292"/><line x1="252" y1="274" x2="240" y2="292"/><line x1="292" y1="274" x2="280" y2="292"/><line x1="332" y1="274" x2="320" y2="292"/><line x1="372" y1="274" x2="360" y2="292"/><line x1="412" y1="274" x2="400" y2="292"/><line x1="452" y1="274" x2="440" y2="292"/><line x1="492" y1="274" x2="480" y2="292"/><line x1="532" y1="274" x2="520" y2="292"/><line x1="572" y1="274" x2="560" y2="292"/><line x1="612" y1="274" x2="600" y2="292"/><line x1="652" y1="274" x2="640" y2="292"/></g>
+          <text x="350" y="316" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">地盤へ　（スラブ → 梁 → 柱 → 基礎 → 地盤）</text>
+        </svg>
+        <figcaption>「力の流れ」の基本。荷重はスラブ→梁→柱→基礎→地盤の順に伝達される。</figcaption>
+      </figure>
       <table class="data">
         <tr><th>記号</th><th>荷重</th><th>性質</th></tr>
         <tr><td>G</td><td>固定荷重（自重）</td><td>常時・鉛直</td></tr>

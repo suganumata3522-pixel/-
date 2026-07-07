@@ -1224,3 +1224,4 @@ table.data caption { caption-side: top; text-align: left; font-weight: 700; colo
 .article-fig { margin: 18px 0 6px; text-align: center; }
 .article-fig img { width: 100%; max-width: 640px; height: auto; border: 1px solid var(--line); border-radius: 10px; }
 .article-fig figcaption { font-size: 0.8rem; color: var(--sub); margin-top: 8px; }
+.article-fig svg { width: 100%; height: auto; display: block; background: #fff; border: 1px solid var(--line); border-radius: 10px; }
