@@ -1392,7 +1392,12 @@
   </url>
   <url>
     <loc>https://www.kouzou-navi.com/downloads.html</loc>
-    <lastmod>2026-07-07</lastmod>
+    <lastmod>2026-07-10</lastmod>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.kouzou-navi.com/articles/goushou.html</loc>
+    <lastmod>2026-07-10</lastmod>
+    <priority>0.7</priority>
   </url>
 </urlset>

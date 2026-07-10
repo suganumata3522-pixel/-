@@ -87,6 +87,7 @@ document.addEventListener('DOMContentLoaded', function () {
     { title: '固定荷重・積載荷重の拾い方｜荷重の種類と組み合わせ', url: 'articles/kajuu.html', keywords: '固定荷重 積載荷重 荷重拾い 床用 架構用 地震用 荷重の組み合わせ 長期 短期' },
     { title: '地震力の計算方法｜Ai分布・Z・Rt・Coをわかりやすく解説', url: 'articles/jishin-ryoku.html', keywords: '地震力 層せん断力 Ai分布 地域係数 Z Rt Co ベースシア Qi=CiWi' },
     { title: '突出部の水平震度とは？1G・塔屋・地震力の計算方法と検討の無料Excel', url: 'articles/tosshutsubu-shindo.html', keywords: '突出部 水平震度 1G 塔屋 屋上突出物 地震力 鉛直震度 片持ち梁 2m 看板 水槽 煙突 屋外階段 昇降機 工作物 検討 Excel 無料 Wp k=1.0' },
+    { title: '剛床とは？剛床仮定と床面内せん断力の検討【無料Excel】', url: 'articles/goushou.html', keywords: '剛床 剛床仮定 床面内せん断力 スラブ 面内せん断 水平ダイアフラム 耐震壁 EW 移行せん断力 杭 剛比分配 構造計算 一次設計 根太工法 剛床工法 無料Excel' },
     { title: '層間変形角・剛性率・偏心率とは？ルート2の検討項目', url: 'articles/sokan-henkei.html', keywords: '層間変形角 剛性率 偏心率 1/200 ピロティ ねじれ 重心 剛心 ルート2' },
     { title: '基本設計とは？実施設計との違いと構造での役割', url: 'articles/kihon-sekkei.html', keywords: '基本設計 実施設計 違い 成果物 構造設計 役割 構造種別 架構 基礎方針 概算' },
     { title: '実施設計とは？基本設計との違いと設計料の比率', url: 'articles/jisshi-sekkei.html', keywords: '実施設計 基本設計 違い 詳細設計 設計料 比率 構造図 構造計算書 配筋図 業務報酬' },

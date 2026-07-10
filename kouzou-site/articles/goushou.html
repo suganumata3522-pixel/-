@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
+<title>剛床とは？剛床仮定と床面内せん断力の検討をわかりやすく解説【無料Excel】｜構造設計ナビ</title>
+<meta name="description" content="剛床仮定とは、床が硬く面内で変形しないと仮定して構造計算を簡略化する考え方です。剛床仮定の意味と成立条件、床の役割（重力・地震力の伝達）、剛床仮定が成り立つために必要な床面内せん断力の検討方法（Q＝(1)−(2)の算定・スラブのせん断耐力との照査）を、現役の構造設計一級建築士が図解で解説。1階床スラブの面内せん断検討に使える無料Excelをダウンロードできます。">
+<meta property="og:title" content="剛床とは？剛床仮定と床面内せん断力の検討をわかりやすく解説【無料Excel】｜構造設計ナビ">
+<meta property="og:description" content="剛床仮定の意味・成立条件と、床面内せん断力の検討方法（Q算定・スラブせん断耐力との照査）を図解で解説。1階床スラブの面内せん断検討Excelを無料配布。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kouzou-navi.com/articles/goushou.html">
+<meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
+<meta property="og:site_name" content="構造設計ナビ">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.kouzou-navi.com/articles/goushou.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "TechArticle",
+   "headline": "剛床とは？剛床仮定と床面内せん断力の検討をわかりやすく解説",
+   "description": "剛床仮定の意味・成立条件と、床の役割、剛床仮定が成り立つために必要な床面内せん断力の検討方法（Q算定・スラブせん断耐力との照査）を図解で解説。1階床スラブの面内せん断検討Excelを無料配布。",
+   "inLanguage": "ja",
+   "url": "https://www.kouzou-navi.com/articles/goushou.html",
+   "mainEntityOfPage": "https://www.kouzou-navi.com/articles/goushou.html",
+   "datePublished": "2026-07-10",
+   "dateModified": "2026-07-10",
+   "image": "https://www.kouzou-navi.com/assets/ogp.png",
+   "author": {
+    "@type": "Person",
+    "name": "ホッタ ナオト",
+    "jobTitle": "構造設計一級建築士",
+    "url": "https://www.kouzou-navi.com/about.html#author"
+   },
+   "publisher": {
+    "@type": "Organization",
+    "name": "構造設計ナビ",
+    "url": "https://www.kouzou-navi.com/",
+    "logo": { "@type": "ImageObject", "url": "https://www.kouzou-navi.com/assets/apple-touch-icon.png" }
+   }
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://www.kouzou-navi.com/" },
+    { "@type": "ListItem", "position": 2, "name": "構造計算の実務", "item": "https://www.kouzou-navi.com/articles.html#jitsumu" },
+    { "@type": "ListItem", "position": 3, "name": "剛床とは？剛床仮定と床面内せん断力の検討", "item": "https://www.kouzou-navi.com/articles/goushou.html" }
+   ]
+  }
+ ]
+}
+</script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "剛床仮定とは何ですか？", "acceptedAnswer": {"@type": "Answer", "text": "剛床仮定とは、床が面内方向に非常に硬く、力を受けても変形しないと仮定して構造計算を簡略化する考え方です。床でつながった柱や壁は同じ動きをするとみなせるため、扱う自由度が減って解析が大幅に簡単になります。この仮定を用いるには、実際に床が十分に硬く強い必要があります。"}},
+ {"@type": "Question", "name": "剛床仮定が成り立つために床面内せん断力の検討が必要なのはなぜですか？", "acceptedAnswer": {"@type": "Answer", "text": "剛床仮定では、地震力を床（水平ダイアフラム）を介して耐震壁などの鉛直部材へ伝達させます。その過程で床面内にせん断力が生じるため、床スラブがそのせん断力を伝達できる（スラブの許容せん断耐力以下である）ことを確認しないと、仮定どおりに力が流れず計算結果が信頼できなくなるためです。"}},
+ {"@type": "Question", "name": "床面内せん断力はどのように求めますか？", "acceptedAnswer": {"@type": "Answer", "text": "剛床で解析した各通りのせん断力Q(1)と、当該階の各通りの重量×震度に上階のせん断力を加えたQ(2)の差、Q＝Q(1)−Q(2)で求めます。下の通りから順にΣQ(1)・ΣQ(2)を積み上げ、その差分から床面内せん断力の大きさと向きが決まります。求めたQがスラブのせん断耐力以下であることを確認します。"}}
+]}
+</script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="../articles.html#kiso">構造力学の基礎</a></li>
+        <li><a href="../articles.html#jitsumu">構造計算の実務</a></li>
+        <li><a href="../tools/index.html">計算ツール</a></li>
+        <li><a href="../downloads.html">無料Excel</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › <a href="../articles.html#jitsumu">構造計算の実務</a> › 剛床仮定と床面内せん断力</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">構造計算の実務</span>
+        <span>公開日：2026年7月10日</span>
+        <span>更新日：2026年7月10日</span>
+      </div>
+      <h1>剛床とは？剛床仮定と床面内せん断力の検討をわかりやすく解説【無料Excel】</h1>
+      <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
+
+      <p>地震に強い建物をつくるには、柱や壁をバランスよく配置することが大切です。しかし、いくら柱や壁だけを強くしても、うまくいかないことがあります。建物の重量の大半は<strong>屋根や床</strong>に集中し、<a href="jishin-ryoku.html">地震の力は各部の重量に比例</a>して生じます。屋根や床に生じた地震力を柱や壁まで伝達できなければ、どれだけ強い柱や壁があっても意味がありません。そのためには、力の通り道となる<strong>床が強く、硬い</strong>必要があります。この記事では、構造計算の基礎の基礎である<strong>剛床仮定</strong>と、それが成り立つために必要な<strong>床面内せん断力の検討</strong>を、図解と無料Excelでわかりやすく解説します。</p>
+
+      <div class="point-box">
+        <span class="label">この記事の要点</span>
+        <ul>
+          <li><strong>剛床仮定</strong>とは、床が面内で変形しないほど硬いと仮定して構造計算を簡略化する考え方。</li>
+          <li>この仮定が成り立つには、地震力を伝える過程で生じる<strong>床面内せん断力</strong>をスラブが負担できる必要がある。</li>
+          <li>記事末で<strong>1階床スラブの面内せん断検討に使える無料Excel</strong>を配布しています。</li>
+        </ul>
+      </div>
+
+      <nav class="toc" aria-label="目次">
+        <div class="toc-ttl">目次</div>
+        <ol>
+          <li><a href="#yakuwari">床の役割（重力・地震力への抵抗）</a></li>
+          <li><a href="#katei">剛床仮定とは</a></li>
+          <li><a href="#yuka">RC造の床と木造の床（根太工法・剛床工法）</a></li>
+          <li><a href="#balance">壁と床のバランス／1階床にも剛床は必要か</a></li>
+          <li><a href="#sendan">床面内せん断力の検討</a></li>
+          <li><a href="#excel">床面内せん断検討Excelの無料ダウンロード</a></li>
+          <li><a href="#faq">よくある質問</a></li>
+          <li><a href="#matome">まとめ</a></li>
+        </ol>
+      </nav>
+
+      <h2 id="yakuwari">床の役割（重力・地震力への抵抗）</h2>
+      <h3>① 重力（鉛直荷重）に抵抗する</h3>
+      <p>骨組となる柱や梁は「線」の部材なので、それだけでは空間をつくれません。骨組の上に床を設けて「面」を構成します。床は、その上にいる人・家具・その他すべての<a href="kajuu.html">重量を梁まで伝える</a>役割を担い、床が抜けたりたわみが過大にならないよう、ある程度の厚さが必要です。ここまでは、多くの方が認識している床の役割でしょう。</p>
+      <h3>② 地震の力に抵抗する（水平力の伝達）</h3>
+      <p>室内にあるもののほとんどが床の上に載っており、床自体にも重量があるため、<strong>建物重量の大部分が床に集中</strong>しています。地震力は重量に比例するため、地震時に床には大きな力が生じ、この力を柱や<a href="tairyoku-heki.html">耐震壁</a>まで伝達しなければなりません。さらに、柱や壁が上下階でずれている場合には、床は「上の階の壁から下の階の壁へ」「柱から柱へ」力を渡す<strong>通り道</strong>にもなり、場合によっては壁と同程度の性能が要求されます。</p>
+
+      <h2 id="katei">剛床仮定とは</h2>
+      <p>建物の安全性を確かめる<a href="kyoyo-oryokudo.html">構造計算</a>は、さまざまな仮定のうえに成り立っています。その中でも特に重要なのが<strong>剛床仮定</strong>です。簡単に言えば「<strong>建物の床がとても硬く、力が加わっても（面内方向に）変形しない</strong>」という仮定です。</p>
+      <p>地震が起こると、建物の各部（各節点）は前後・左右・上下の3方向に動き、それぞれの方向に回転もできるため、<strong>1点あたり6方向（6つの自由度）</strong>の成分があります。部材の数×6方向について答えを求めるため、本来は膨大な計算量になります。しかし床が非常に硬くて変形しないのであれば、<strong>同じ床につながる部材は一体となって同じ動きをする</strong>とみなせます。すると考慮すべき方向が大幅に減り、解析が非常に簡単になります。この仮定のおかげで、構造計算に要する時間が大きく短縮されるのです。</p>
+      <div class="point-box">
+        <span class="label">POINT</span>
+        <p>剛床仮定は「計算を楽にする便利な仮定」ですが、<strong>実際に床が十分硬いことが前提</strong>です。床の硬さが仮定とかけ離れていると計算結果は信頼できません。だからこそ、剛床が成り立つことを<strong>床面内せん断力の検討</strong>で裏づける必要があります。</p>
+      </div>
+
+      <h2 id="yuka">RC造の床と木造の床（根太工法・剛床工法）</h2>
+      <h3>RC造の床</h3>
+      <p><a href="rc-zou.html">鉄筋コンクリート造（RC造）</a>の建物は床も鉄筋コンクリートで、鉄骨造でも床は鉄筋コンクリートとするのが一般的です。RCスラブは施工性・耐久性・耐火性に優れ、<strong>剛床仮定を成立させるだけの硬さ・強さ</strong>を備えています。ただし、分厚い壁が多い高層建物や吹き抜けの多い建物では、剛床とみなせなくなる場合もあり、その際は個別の検討が必要です。</p>
+      <h3>木造の床（根太工法・剛床工法）</h3>
+      <p>木造では床の作り方によって面内の硬さが大きく変わります。従来の<strong>根太（ねだ）工法</strong>は根太の上に床板を張る方式で、面内のせん断剛性は高くありません。一方、厚い構造用合板を梁・土台に直接留め付ける<strong>剛床工法（根太レス工法）</strong>は、床面が一体の面材として働き、面内せん断剛性が高く、水平力を耐力壁へ確実に伝えられます（→<a href="yukagumi.html">床組</a>）。近年の木造で剛床工法が主流なのは、この面内剛性の確保が耐震上きわめて重要だからです。</p>
+
+      <h2 id="balance">壁と床のバランス／1階床にも剛床は必要か</h2>
+      <p>耐震設計では<strong>耐震壁の量とバランス</strong>が注目されがちですが、その力を集めて壁へ渡すのは床です。壁だけを強くしても、床が力を運べなければ性能を発揮できません。「<strong>強い壁</strong>」と「<strong>力を運べる床</strong>」は両輪の関係にあります。</p>
+      <p>また、上階の床だけでなく<strong>1階床</strong>にも面内せん断の検討が必要になる場合があります。たとえばRC造マンションで、張間方向が<a href="tairyoku-heki.html">耐震壁</a>・両妻が<a href="rahmen-brace.html">ラーメン架構</a>のように、<strong>各フレームの負担せん断力に差がある</strong>場合、杭は「1階床が剛床である」という仮定のもとに剛比分配されています。この負担力の差を1階床スラブが伝達できることを確認しなければ、剛床仮定が崩れてしまうのです。次章で具体的な検討方法を見ていきましょう。</p>
+
+      <h2 id="sendan">床面内せん断力の検討</h2>
+      <p>ここでは、剛床仮定を裏づけるための<strong>床面内せん断力</strong>の考え方と算定手順を整理します。</p>
+
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 340" role="img" aria-label="床面内せん断力の概念図。地震力を受けた床が水平の梁のように働き、耐震壁へ力を伝える過程で床面内にせん断力が生じる">
+          <defs>
+            <marker id="arA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#e8843c"/></marker>
+            <marker id="arB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1a3a5c"/></marker>
+          </defs>
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">床（水平ダイアフラム）を上から見た図</text>
+          <rect x="120" y="120" width="460" height="120" rx="4" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2"/>
+          <g stroke="#e8843c" stroke-width="4">
+            <line x1="150" y1="70" x2="150" y2="116" marker-end="url(#arA)"/>
+            <line x1="230" y1="70" x2="230" y2="116" marker-end="url(#arA)"/>
+            <line x1="310" y1="70" x2="310" y2="116" marker-end="url(#arA)"/>
+            <line x1="390" y1="70" x2="390" y2="116" marker-end="url(#arA)"/>
+            <line x1="470" y1="70" x2="470" y2="116" marker-end="url(#arA)"/>
+            <line x1="550" y1="70" x2="550" y2="116" marker-end="url(#arA)"/>
+          </g>
+          <text x="350" y="58" font-size="15" text-anchor="middle" fill="#e8843c" font-weight="bold">地震力（床全体に分布して作用）</text>
+          <rect x="120" y="120" width="20" height="120" fill="#1a3a5c"/>
+          <rect x="560" y="120" width="20" height="120" fill="#1a3a5c"/>
+          <text x="110" y="270" font-size="14" text-anchor="middle" fill="#1a3a5c" font-weight="bold">耐震壁 EW</text>
+          <text x="590" y="270" font-size="14" text-anchor="middle" fill="#1a3a5c" font-weight="bold">耐震壁 EW</text>
+          <line x1="105" y1="180" x2="60" y2="180" stroke="#1a3a5c" stroke-width="5" marker-end="url(#arB)"/>
+          <line x1="595" y1="180" x2="640" y2="180" stroke="#1a3a5c" stroke-width="5" marker-end="url(#arB)"/>
+          <text x="350" y="188" font-size="15" text-anchor="middle" fill="#1a3a5c" font-weight="bold">床面内にせん断力が生じる</text>
+          <text x="350" y="214" font-size="13" text-anchor="middle" fill="#6b7785">（床が“横向きの深い梁”のように働く）</text>
+          <text x="350" y="320" font-size="14" text-anchor="middle" fill="#6b7785">床が地震力を集め、両側の耐震壁へ伝達する。その通り道で面内せん断力が生じる。</text>
+        </svg>
+        <figcaption>床面内せん断力の概念。床（ダイアフラム）は水平の梁のように働き、地震力を耐震壁へ伝える。その過程で床面内にせん断力が生じる。</figcaption>
+      </figure>
+
+      <h3>① 床面内せん断力とは</h3>
+      <p>X方向の地震（X加力）を考えます。RC架構で、ある通りに<strong>耐震壁（EW）</strong>があると、その壁は大きな地震力を負担します。負担する地震力は、床面を介して壁へと集まってきます。このとき<strong>床面（スラブ）内に生じるせん断力</strong>が「床面内せん断力」です。</p>
+      <h3>② 力の流れの向き</h3>
+      <p>力の流れは階ごとに向きが変わります。たとえば2階にY1・Y3通りに耐震壁があれば、RF床面ではその壁に向かって面内せん断力が生じます。逆に1階にY2通りの耐震壁があれば、2F床面ではRFとは逆向きに面内せん断力が生じます。<strong>どの通りに壁があるか</strong>で、床面内せん断力の向きが決まります。</p>
+      <h3>③ 床面内せん断力Qの算定</h3>
+      <p>床面内せん断力Qは、次の(1)と(2)の差として求めます。</p>
+      <div class="formula">
+        床面内せん断力 Q ＝ Q(1) − Q(2)
+        <span class="note">Q(1)：剛床で解析した応力解析結果での各通りせん断力／Q(2)：当該階の各通りの重量×震度 ＋ その通りの上階のせん断力</span>
+      </div>
+      <p>(2)で上階のせん断力を加えているのは、<strong>上階のせん断力は移動せず、そのまま下階へ降りてくる</strong>ためです。下の通りから順に ΣQ(1)・ΣQ(2) を積み上げていき、その差分から床面内せん断力の大きさと向きが決まります。</p>
+      <h3>④ 検定（照査）</h3>
+      <p>算定した床面内せん断力が、スラブのせん断耐力以下であることを確認します。</p>
+      <div class="formula">床面内せん断力 Q ≦ スラブのせん断耐力</div>
+      <p>実際にはスラブ厚と有効せいから断面積Aを求め、生じるせん断応力度 τ＝QD／A が、コンクリート強度Fcから定まる<strong>許容せん断応力度 sfc 以下</strong>であることを確認します。なお、これは<strong>剛床が成り立つ場合</strong>のスラブ耐力検討である点に注意してください（一次設計での確認）。</p>
+
+      <h2 id="excel">床面内せん断検討Excelの無料ダウンロード</h2>
+      <div class="cta-box">
+        <span class="cta-label">無料ダウンロード</span>
+        <h3>1階床スラブ 面内せん断検討 Excel</h3>
+        <p>杭は「1階床が剛床」という仮定のもとに剛比分配されています。たとえばRC造マンションで張間方向が耐震壁・両妻がラーメン架構の場合、各フレームの負担せん断力に差があるため、1階床でせん断力の移行が発生します。本Excelは、その<strong>移行せん断力に対して1階スラブが許容せん断耐力以下</strong>であることを確認する検討シートです（一次設計）。1層地震用重量・基礎部水平震度・各フレームの杭負担水平力・スパン・スラブ厚・Fcなどを入力すると、移行せん断力とτ・sfcを算定できます。</p>
+        <div class="cta-actions">
+          <a class="cta-btn" href="../assets/yukamennai-sendan.xlsx" download>📥 面内せん断検討Excelをダウンロード（無料）</a>
+        </div>
+        <p class="cta-note">※ Microsoft Excel（.xlsx）。計算結果は設計者ご自身の責任でご確認のうえご使用ください。</p>
+        <p class="cta-note">📂 <a href="../downloads.html">その他の無料Excel一覧はこちら ›</a></p>
+      </div>
+
+      <div class="field-note">
+        <span class="label">実務のワンポイント</span>
+        <p>私が構造計算書をチェックするとき、耐震壁が特定の通りに偏った建物では真っ先に床面内せん断の検討を探します。応力解析は剛床で回っていても、その力をスラブが本当に運べるかは別問題で、開口の多いスラブや細長い床は要注意です。壁の量ばかり気にして「床が力を運べるか」を見落とすと、剛床仮定そのものが崩れてしまいます。</p>
+      </div>
+
+      <div class="note-box">
+        <span class="label">ご利用にあたって</span>
+        <p>本記事とExcelは、剛床仮定と床面内せん断力の考え方を理解するための解説資料です。実際の設計では、採用する基準・指針や条件に応じた確認が必要です。計算結果は設計者ご自身の責任でご確認のうえご使用ください。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 剛床仮定は必ず使わなければいけませんか？</h3>
+      <p>必須ではありませんが、実務ではほとんどのRC造・S造で剛床仮定を用います。床を剛とみなすことで自由度が減り、解析が現実的な時間で行えるためです。吹き抜けが大きい・平面が細長い・スラブに大きな開口があるなど剛床が疑わしい場合は、床の面内変形を考慮した解析（非剛床・弾性床）や、本記事のような面内せん断の検討で妥当性を確認します。</p>
+      <h3>Q2. 床面内せん断力の向きはどう決まりますか？</h3>
+      <p>どの通りに耐震壁があるかで決まります。壁のある通りに向かって床面内せん断力が集まります。上下階で壁の位置が変わると床面内せん断力の向きも変わるため、下の通りから順にΣQ(1)・ΣQ(2)を積み上げ、その差分の符号（向き）と大きさを確認します。</p>
+      <h3>Q3. 1階の床にも検討が必要なのはなぜですか？</h3>
+      <p>杭の負担せん断力を「1階床は剛床」という前提で剛比分配しているためです。各フレームの負担力に差があると、その差分が1階床スラブを介して伝達されます。この移行せん断力にスラブが耐えられなければ前提が崩れるので、1階床でも面内せん断の検討が必要になります。</p>
+
+      <h2 id="matome">まとめ</h2>
+      <ul>
+        <li><strong>床</strong>は重力を梁へ伝えるだけでなく、地震力を集めて<strong>耐震壁・柱へ伝達</strong>する重要な部材。</li>
+        <li><strong>剛床仮定</strong>は「床が面内で変形しない」とみなして計算を簡略化する仮定。使うには床が実際に硬い必要がある。</li>
+        <li>剛床が成り立つことを裏づけるのが<strong>床面内せん断力の検討</strong>。Q＝Q(1)−Q(2)で算定し、<strong>スラブのせん断耐力以下</strong>であることを確認する。</li>
+        <li>耐震壁が偏った建物では<strong>1階床</strong>でも移行せん断力の検討が必要。記事末のExcelで確認できます。</li>
+      </ul>
+
+      <div class="note-box">
+        <span class="label">あわせて読みたい</span>
+        <p>地震力は「<a href="jishin-ryoku.html">地震力の計算方法</a>」、壁は「<a href="tairyoku-heki.html">耐力壁とは？</a>」、計算の全体像は「<a href="kyoyo-oryokudo.html">許容応力度計算とは？</a>」、荷重は「<a href="kajuu.html">固定荷重・積載荷重の拾い方</a>」をどうぞ。</p>
+      </div>
+
+      <div class="article-author">
+        <img src="../assets/profile.png" alt="監修・執筆者 ホッタ ナオト（構造設計一級建築士）" width="76" height="76" loading="lazy">
+        <div class="aa-text">
+          <p class="aa-role">この記事の監修・執筆者</p>
+          <p class="aa-name">ホッタ ナオト</p>
+          <p class="aa-cred">一級建築士・構造設計一級建築士／ゼネコン構造設計部</p>
+          <p class="aa-desc">構造設計・耐震補強・工事監理の実務に10年以上従事。<a href="../about.html#author">プロフィール詳細 ›</a></p>
+        </div>
+      </div>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>構造計算の実務</h4>
+        <ul>
+          <li><a href="jishin-ryoku.html">地震力の計算方法</a></li>
+          <li><a href="kyoyo-oryokudo.html">許容応力度計算とは？</a></li>
+          <li><a href="tairyoku-heki.html">耐力壁とは？</a></li>
+          <li><a href="../articles.html#jitsumu">構造計算の実務 一覧</a></li>
+        </ul>
+      </div>
+      <div class="tool-banner">
+        <div class="tb-ic">📥</div>
+        <h4>無料Excelダウンロード</h4>
+        <p>床面内せん断・突出部の水平震度・RC設計ルートなどの検討用Excelを無料配布中</p>
+        <a href="../downloads.html">ダウンロード一覧を見る</a>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
