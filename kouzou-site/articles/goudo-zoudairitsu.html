@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
+<title>剛度増大率とは？スラブ付きRC梁の剛性倍率と協力幅の計算方法【無料Excel】｜構造設計ナビ</title>
+<meta name="description" content="剛度増大率とは、部材がもともと持っている剛性（断面二次モーメント）を増大させる係数φのことです。スラブ付きRC梁の実務略算値（片側1.5倍・両側2.0倍）、RC規準による協力幅とT形梁の剛性倍率φ＝4α−3β²/γの計算方法、増し打ち・腰壁や垂れ壁などの雑壁・パラペットが剛性に与える影響を、現役の構造設計一級建築士が図解で解説。単純梁・連続梁・スラブ段差対応の剛度増大率計算Excelを無料ダウンロードできます。">
+<meta property="og:title" content="剛度増大率とは？スラブ付きRC梁の剛性倍率と協力幅の計算方法【無料Excel】｜構造設計ナビ">
+<meta property="og:description" content="剛度増大率φの意味、スラブ付きRC梁の略算値（片側1.5・両側2.0）とRC規準の協力幅による詳算、増し打ち・雑壁・パラペットの影響を図解で解説。計算Excelを無料配布。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kouzou-navi.com/articles/goudo-zoudairitsu.html">
+<meta property="og:image" content="https://www.kouzou-navi.com/assets/eyecatch-goudo-zoudairitsu.jpg">
+<meta property="og:site_name" content="構造設計ナビ">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.kouzou-navi.com/assets/eyecatch-goudo-zoudairitsu.jpg">
+<link rel="canonical" href="https://www.kouzou-navi.com/articles/goudo-zoudairitsu.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "TechArticle",
+   "headline": "剛度増大率とは？スラブ付きRC梁の剛性倍率と協力幅の計算方法",
+   "description": "剛度増大率φの意味、スラブ付きRC梁の実務略算値（片側1.5・両側2.0）、RC規準の協力幅とT形梁の剛性倍率の計算方法、増し打ち・雑壁・パラペットの影響を図解で解説。計算Excelを無料配布。",
+   "inLanguage": "ja",
+   "url": "https://www.kouzou-navi.com/articles/goudo-zoudairitsu.html",
+   "mainEntityOfPage": "https://www.kouzou-navi.com/articles/goudo-zoudairitsu.html",
+   "datePublished": "2026-07-12",
+   "dateModified": "2026-07-12",
+   "image": "https://www.kouzou-navi.com/assets/eyecatch-goudo-zoudairitsu.jpg",
+   "author": {
+    "@type": "Person",
+    "name": "ホッタ ナオト",
+    "jobTitle": "構造設計一級建築士",
+    "url": "https://www.kouzou-navi.com/about.html#author"
+   },
+   "publisher": {
+    "@type": "Organization",
+    "name": "構造設計ナビ",
+    "url": "https://www.kouzou-navi.com/",
+    "logo": { "@type": "ImageObject", "url": "https://www.kouzou-navi.com/assets/apple-touch-icon.png" }
+   }
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://www.kouzou-navi.com/" },
+    { "@type": "ListItem", "position": 2, "name": "構造計算の実務", "item": "https://www.kouzou-navi.com/articles.html#jitsumu" },
+    { "@type": "ListItem", "position": 3, "name": "剛度増大率とは？スラブ付きRC梁の剛性倍率と協力幅", "item": "https://www.kouzou-navi.com/articles/goudo-zoudairitsu.html" }
+   ]
+  }
+ ]
+}
+</script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "剛度増大率とは何ですか？", "acceptedAnswer": {"@type": "Answer", "text": "剛度増大率とは、部材がもともと持っている剛性（断面二次モーメント）を増大させる係数φのことです。元の剛性（原剛性）をI、増大後の剛性をI'とすると、φ＝I'／Iで表されます。RC造の梁ではスラブと一体で働くため、実務では片側スラブ付きでφ＝1.5、両側スラブ付きでφ＝2.0がよく用いられます。"}},
+ {"@type": "Question", "name": "スラブの協力幅とはどのような幅ですか？", "acceptedAnswer": {"@type": "Answer", "text": "協力幅とは、梁の剛性や耐力に寄与するとみなせるスラブの有効な幅のことです。日本建築学会のRC規準では、スラブの内法距離aとスパンlの比a/lに応じて、単純梁ではba＝(0.5−0.3a/l)a（a<lのとき、a≧lでは0.2l）、連続梁ではba＝(0.5−0.6a/l)a（a/l<0.5のとき、a/l≧0.5では0.1l）として片側ずつ算定します。"}},
+ {"@type": "Question", "name": "剛度増大率はなぜ確認申請で質疑が多いのですか？", "acceptedAnswer": {"@type": "Answer", "text": "剛度増大率は部材の剛性を通じて応力の分配に直接影響し、評価の仕方（増し打ち・腰壁や垂れ壁などの雑壁・パラペットをどこまで考慮するか）に設計者の判断が入るためです。剛性を大きく見るか小さく見るかで応力が変わるため、審査側は根拠の説明を求めます。判断に迷う場合は、剛性を考慮した場合と無視した場合の両方を検証するのが通例です。"}}
+]}
+</script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="../articles.html#kiso">構造力学の基礎</a></li>
+        <li><a href="../articles.html#jitsumu">構造計算の実務</a></li>
+        <li><a href="../tools/index.html">計算ツール</a></li>
+        <li><a href="../downloads.html">無料Excel</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › <a href="../articles.html#jitsumu">構造計算の実務</a> › 剛度増大率とスラブ付きRC梁</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">構造計算の実務</span>
+        <span>公開日：2026年7月12日</span>
+        <span>更新日：2026年7月12日</span>
+      </div>
+      <h1>剛度増大率とは？スラブ付きRC梁の剛性倍率と協力幅の計算方法【無料Excel】</h1>
+      <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
+
+      <figure class="article-fig" style="margin:14px 0 22px;">
+        <img src="../assets/eyecatch-goudo-zoudairitsu.jpg" alt="剛度増大率とは？スラブ付きRC梁の剛性倍率と協力幅の計算方法【無料Excel】" width="1200" height="630" style="max-width:100%;" fetchpriority="high">
+      </figure>
+
+      <p><strong>剛度増大率</strong>とは、部材がもともと持っている剛性（要するに<a href="danmen-niji-moment.html">断面二次モーメント</a>）を増大させる係数のことです。<a href="rc-zou.html">RC造</a>の梁はスラブと一体に打設されるため、単独の長方形断面よりも剛性が高くなります。この「どれだけ増えるか」を表すのが剛度増大率φです。確認申請に出すと、剛度増大率に関する質疑が嫌になるくらい届くことがあります。剛性の評価しだいで応力の流れが変わり、建物のバランスに直結する<strong>やっかいもの</strong>だからです。この記事では、一般的なスラブによる剛度増大率の値と計算方法、そして「なぜ剛度増大率が厄介なのか」を、実務目線でわかりやすく解説します。</p>
+
+      <div class="point-box">
+        <span class="label">この記事の要点</span>
+        <ul>
+          <li><strong>剛度増大率φ＝I'／I</strong>。原剛性Iに対する増大後の剛性I'の比率。</li>
+          <li>スラブ付きRC梁の実務略算値は<strong>片側1.5倍・両側2.0倍</strong>。詳算はRC規準の<strong>協力幅</strong>から求める。</li>
+          <li>増し打ち・雑壁・パラペットは剛性を急変させ、確認申請で質疑が多い。記事末で<strong>計算Excel（単純梁・連続梁・スラブ段差対応）</strong>を無料配布。</li>
+        </ul>
+      </div>
+
+      <nav class="toc" aria-label="目次">
+        <div class="toc-ttl">目次</div>
+        <ol>
+          <li><a href="#toha">剛度増大率とは（φ＝I'／I）</a></li>
+          <li><a href="#slab">スラブによる剛性増大を考慮しよう</a></li>
+          <li><a href="#kyouryoku">協力幅による詳算（RC規準）</a></li>
+          <li><a href="#yakkai">やっかいな剛度増大率（応力を急変させる要因）</a></li>
+          <li><a href="#excel">剛度増大率計算Excelの無料ダウンロード</a></li>
+          <li><a href="#faq">よくある質問</a></li>
+          <li><a href="#matome">まとめ</a></li>
+        </ol>
+      </nav>
+
+      <h2 id="toha">剛度増大率とは（φ＝I'／I）</h2>
+      <p>もともとの剛性を<strong>原剛性</strong>と呼ぶことにします。梁単独（長方形断面）の<a href="danmen-niji-moment.html">断面二次モーメント</a>がこれにあたります。原剛性をI、スラブなどにより増大した後の剛性をI'とすると、剛度増大率φとの関係は次のとおりです。</p>
+      <div class="formula">
+        φ ＝ I' ／ I
+        <span class="note">I：原剛性（梁単独の断面二次モーメント）／I'：スラブ等を考慮した増大後の剛性</span>
+      </div>
+      <p>応力解析では、各部材の剛性（剛度）に応じて力が分配されます。つまりφをいくつに設定するかで、<strong>梁や柱に流れる応力そのものが変わります</strong>。φは「入力のひと項目」でありながら、計算結果の全体に効いてくる重要な係数なのです。</p>
+
+      <h2 id="slab">スラブによる剛性増大を考慮しよう</h2>
+      <p>原剛性を増やす代表的な要因が<strong>スラブ</strong>です。RC造の梁はもちろん、鉄骨造でも床には必ずといっていいほどRCスラブが用いられます。RCスラブはそれなりに剛性が高く、梁と一体で曲げに抵抗するため、この影響を考慮します（床が水平力を伝える役割については「<a href="goushou.html">剛床仮定と床面内せん断力</a>」も参考にしてください）。</p>
+      <p>RC造の場合、実務でよく使われる略算値はとてもシンプルです。</p>
+      <div class="formula">
+        片側スラブ付き　φ ＝ 1.5<br>
+        両側スラブ付き　φ ＝ 2.0
+      </div>
+      <p>ざっくりとした定め方ですが、実務で使うにはとても使い勝手がよい値です。一貫計算プログラムの初期値としても広く用いられています。ただし、スラブ厚が薄い・スパンが特殊・段差があるなど、略算値が実態と合わない場合には、次章の<strong>協力幅による詳算</strong>で確認します。</p>
+
+      <h2 id="kyouryoku">協力幅による詳算（RC規準）</h2>
+      <p>梁の剛性に寄与するとみなせるスラブの幅を<strong>協力幅</strong>と呼びます。日本建築学会「鉄筋コンクリート構造計算規準（RC規準）」では、スラブの内法距離aとスパンlの比 a/l から、片側ごとの協力幅baを次のように算定します。</p>
+
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 360" role="img" aria-label="スラブ付きT形梁の断面図。梁幅B・梁せいDの長方形断面の上に厚さtのスラブが付き、左右に協力幅baが広がる">
+          <defs>
+            <marker id="arD" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1a3a5c"/></marker>
+          </defs>
+          <text x="350" y="28" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">スラブ付きRC梁（T形梁）の断面と協力幅</text>
+          <!-- スラブ -->
+          <rect x="60" y="80" width="580" height="46" fill="#f5d9c2" stroke="#e8843c" stroke-width="2.5"/>
+          <!-- 梁 -->
+          <rect x="290" y="126" width="120" height="180" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2.5"/>
+          <rect x="290" y="80" width="120" height="46" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2.5"/>
+          <!-- 協力幅（左・右） -->
+          <g stroke="#e8843c" stroke-width="2.5">
+            <line x1="140" y1="60" x2="140" y2="86"/>
+            <line x1="290" y1="52" x2="290" y2="86"/>
+            <line x1="410" y1="52" x2="410" y2="86"/>
+            <line x1="560" y1="60" x2="560" y2="86"/>
+          </g>
+          <g stroke="#e8843c" stroke-width="3">
+            <line x1="140" y1="66" x2="290" y2="66"/>
+            <line x1="410" y1="66" x2="560" y2="66"/>
+          </g>
+          <text x="215" y="52" font-size="15" text-anchor="middle" fill="#e8843c" font-weight="bold">協力幅 ba（左）</text>
+          <text x="485" y="52" font-size="15" text-anchor="middle" fill="#e8843c" font-weight="bold">協力幅 ba（右）</text>
+          <!-- 寸法 t -->
+          <line x1="665" y1="80" x2="665" y2="126" stroke="#1a3a5c" stroke-width="2" marker-start="url(#arD)" marker-end="url(#arD)"/>
+          <text x="682" y="109" font-size="15" fill="#1a3a5c" font-weight="bold" text-anchor="middle">t</text>
+          <!-- 寸法 D -->
+          <line x1="255" y1="80" x2="255" y2="306" stroke="#1a3a5c" stroke-width="2" marker-start="url(#arD)" marker-end="url(#arD)"/>
+          <text x="235" y="200" font-size="15" fill="#1a3a5c" font-weight="bold" text-anchor="middle">D</text>
+          <!-- 寸法 B -->
+          <line x1="290" y1="330" x2="410" y2="330" stroke="#1a3a5c" stroke-width="2" marker-start="url(#arD)" marker-end="url(#arD)"/>
+          <text x="350" y="352" font-size="15" fill="#1a3a5c" font-weight="bold" text-anchor="middle">B（梁幅）</text>
+          <text x="62" y="180" font-size="13.5" fill="#6b7785">スラブと梁が一体で</text>
+          <text x="62" y="200" font-size="13.5" fill="#6b7785">曲げに抵抗する</text>
+          <text x="520" y="180" font-size="13.5" fill="#6b7785">協力幅ba は a/l に</text>
+          <text x="520" y="200" font-size="13.5" fill="#6b7785">応じて片側ずつ算定</text>
+        </svg>
+        <figcaption>スラブ付きRC梁（T形梁）の断面。梁幅B・梁せいDの断面に厚さtのスラブが付き、左右の協力幅baの範囲が剛性に寄与する。</figcaption>
+      </figure>
+
+      <div class="formula">
+        【単純梁】a &lt; l のとき ba ＝ (0.5 − 0.3·a/l)·a、a ≧ l のとき ba ＝ 0.2·l<br>
+        【連続梁】a/l &lt; 0.5 のとき ba ＝ (0.5 − 0.6·a/l)·a、a/l ≧ 0.5 のとき ba ＝ 0.1·l
+        <span class="note">a：梁側面から隣の梁側面までの距離（スラブの内法距離）／l：スパン長さ</span>
+      </div>
+      <p>協力幅が求まれば、有効幅（左右の協力幅＋梁幅）と梁断面からT形断面の剛性を算定できます。RC規準の付録では、幅の比 b₁（有効幅／梁幅）とスラブ厚の比 t₁（スラブ厚／梁せい）を用いて、次の形で剛性倍率φを与えています。</p>
+      <div class="formula">
+        φ ＝ 4α − 3β²／γ<br>
+        α ＝ 1＋(b₁−1)·t₁³　　β ＝ 1＋(b₁−1)·t₁²　　γ ＝ 1＋(b₁−1)·t₁
+        <span class="note">b₁＝(ba左＋B＋ba右)／B、t₁＝t／D。増大後の剛性は I' ＝ φ·I</span>
+      </div>
+      <p>単純梁と連続梁で協力幅の式が変わるため場合分けが必要で、スラブに段差があると図心位置を求めて断面を合成する計算になり、手計算ではちょっと面倒です。この面倒な計算をまとめたExcelを<a href="#excel">記事末</a>でダウンロードできます。まずは『<strong>RCスラブは元々の梁の剛性を増大させる</strong>』ことを覚えてください。</p>
+
+      <h2 id="yakkai">やっかいな剛度増大率（応力を急変させる要因）</h2>
+      <p>剛度増大率は部材の応力を急変させる、やっかいな存在です。<a href="kyoyo-oryokudo.html">構造計算</a>では剛性の大きい部材に力が集まるため、剛性の評価を誤ると特定の部材に想定外の力が流れます。確認申請でも指摘事項が多い項目で、特にRC造では剛度増大率を考慮すべき場面が数多くあります。代表的な事例を見てみましょう。</p>
+
+      <h3>① 増し打ち</h3>
+      <p>剛度増大率を考慮する事例として最も多いのが<strong>増し打ち</strong>（梁や柱にコンクリートを打ち増して断面を大きくすること）です。意匠計画では、仕上げや納まりの調整を「増し打ちで処理」したくなりがちです。しかし構造的にはコンクリートの塊が増えるわけですから、その剛性を梁や柱に考慮しなければなりません。増し打ちの大きさや位置によって剛性が変わり、応力の分配まで変わってしまうのです。</p>
+
+      <h3>② 雑壁（腰壁・垂れ壁・袖壁）</h3>
+      <p>梁の上の<strong>腰壁</strong>や梁の下の<strong>垂れ壁</strong>は、梁の剛度増大率に大きく影響します。構造スリットを切って縁を切れるのなら、それが一番確実です。また、柱に<strong>袖壁</strong>が付くだけで柱の剛性は大きく上昇し、そこへ水平力が集まります。その結果、柱の鉄筋が持たなくなることがあるので注意が必要です。ただし袖壁の場合は、<strong>袖壁付き柱</strong>として補強筋を入れて設計すれば成立させることもできます（壁の扱いについては「<a href="tairyoku-heki.html">耐力壁とは？</a>」も参考にどうぞ）。</p>
+
+      <h3>③ パラペット</h3>
+      <p>審査機関によっては「パラペットの剛度増大率を考慮していますか」という指摘もあるようです。確かにパラペットは屋上の梁と一体に打設されています。しかし配筋を見ると、梁と一体で曲げに抵抗するよう構造的に配慮されているわけではありません。ひび割れて早期に剛性低下を起こすと考えれば、剛性に見込む必要はなさそうにも思えます。とはいえ現実の挙動は断定しづらいのも事実です。よく分からないときは<strong>考慮した場合と無視した場合の両方を検証する</strong>のが通例なので、影響が懸念される場合は両ケースを確認しておくと安心です。</p>
+
+      <h2 id="excel">剛度増大率計算Excelの無料ダウンロード</h2>
+      <div class="cta-box">
+        <span class="cta-label">無料ダウンロード</span>
+        <h3>スラブ付きRC梁 剛度増大率（剛性倍率）計算 Excel</h3>
+        <p>RC規準の協力幅に基づき、T形梁の剛度増大率φを算定するExcelです。<strong>「単純梁」「連続梁」「単純梁・スラブ段差あり」の3シート構成</strong>で、梁幅B・梁せいD・スパンl・スラブ厚t・スラブ内法距離a（左右別）を入力すると、協力幅ba、係数α・β・γ、剛度増大率φ、増大後の剛性I'を自動計算します。スラブ段差ありのシートでは、図心位置を求めて断面を合成し剛性を直接算定します。</p>
+        <div class="cta-actions">
+          <a class="cta-btn" href="../assets/goudo-zoudairitsu.xlsx" download>📥 剛度増大率計算Excelをダウンロード（無料）</a>
+        </div>
+        <p class="cta-note">※ Microsoft Excel（.xlsx）。計算結果は設計者ご自身の責任でご確認のうえご使用ください。</p>
+        <p class="cta-note">📂 <a href="../downloads.html">その他の無料Excel一覧はこちら ›</a></p>
+      </div>
+
+      <div class="field-note">
+        <span class="label">実務のワンポイント</span>
+        <p>剛度増大率で審査から質疑が来たとき、いちばん説明しやすいのは「計算根拠を数式で示せる状態にしておくこと」です。一貫計算の初期値（片側1.5・両側2.0）のまま提出して「根拠は？」と聞かれ、協力幅から詳算し直す——という手戻りは意外と多いもの。スラブ段差や増し打ちが絡む物件では、最初から協力幅ベースで算定した資料を添付しておくと、質疑が一往復で済みます。</p>
+      </div>
+
+      <div class="note-box">
+        <span class="label">ご利用にあたって</span>
+        <p>本記事とExcelは、剛度増大率の考え方を理解するための解説資料です。協力幅・剛性倍率の式は日本建築学会「鉄筋コンクリート構造計算規準」に基づいていますが、実際の設計では採用する基準・指針や建物条件に応じた確認が必要です。計算結果は設計者ご自身の責任でご確認のうえご使用ください。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 片側1.5倍・両側2.0倍はどんなときでも使えますか？</h3>
+      <p>多くの一般的なRC造の梁では実用上問題ない値ですが、あくまで略算値です。スラブ厚が特に薄い（または厚い）、スパンが極端に長い・短い、スラブに大きな段差や開口がある場合には、協力幅から詳算して確認するのが安全です。本記事のExcelで簡単に確認できます。</p>
+      <h3>Q2. 鉄骨梁にも剛度増大率は考慮しますか？</h3>
+      <p>鉄骨造では、スラブと梁をスタッドボルトで一体化した合成梁として設計する場合に、スラブによる剛性増大を考慮します。単純に「片側1.5倍」といったRC造の略算値をそのまま使うのではなく、合成梁の規準に基づいて評価する点が異なります。非合成梁として扱う場合は、剛性増大を見込まないのが一般的です。</p>
+      <h3>Q3. 雑壁はすべて剛性に考慮しなければいけませんか？</h3>
+      <p>構造スリットで構造体と縁を切った雑壁は、剛性に考慮する必要はありません。縁が切れていない腰壁・垂れ壁・袖壁は、剛性への影響を評価するのが原則です。影響の程度が判断しづらい場合は、考慮した場合と無視した場合の両方を検証し、どちらでも安全側であることを確認する方法がよく用いられます。</p>
+
+      <h2 id="matome">まとめ</h2>
+      <ul>
+        <li><strong>剛度増大率φ＝I'／I</strong>。原剛性（断面二次モーメント）をどれだけ増大させるかを表す係数。</li>
+        <li>スラブ付きRC梁の実務略算値は<strong>片側1.5倍・両側2.0倍</strong>。詳算はRC規準の<strong>協力幅</strong>とφ＝4α−3β²/γで求める。</li>
+        <li>剛性の評価は<strong>応力の分配に直結</strong>する。増し打ち・雑壁（腰壁・垂れ壁・袖壁）・パラペットは剛性を急変させる要因で、確認申請でも質疑が多い。</li>
+        <li>単純梁・連続梁・スラブ段差ありに対応した<strong>計算Excel</strong>を記事末で無料配布中。</li>
+      </ul>
+
+      <div class="note-box">
+        <span class="label">あわせて読みたい</span>
+        <p>剛性の基本は「<a href="danmen-niji-moment.html">断面二次モーメントとは？</a>」、床の役割は「<a href="goushou.html">剛床仮定と床面内せん断力</a>」、計算の全体像は「<a href="kyoyo-oryokudo.html">許容応力度計算とは？</a>」、梁断面の目安は「<a href="hari-sunpou.html">梁寸法の決め方</a>」をどうぞ。</p>
+      </div>
+
+      <div class="article-author">
+        <img src="../assets/profile.png" alt="監修・執筆者 ホッタ ナオト（構造設計一級建築士）" width="76" height="76" loading="lazy">
+        <div class="aa-text">
+          <p class="aa-role">この記事の監修・執筆者</p>
+          <p class="aa-name">ホッタ ナオト</p>
+          <p class="aa-cred">一級建築士・構造設計一級建築士／ゼネコン構造設計部</p>
+          <p class="aa-desc">構造設計・耐震補強・工事監理の実務に10年以上従事。<a href="../about.html#author">プロフィール詳細 ›</a></p>
+        </div>
+      </div>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>構造計算の実務</h4>
+        <ul>
+          <li><a href="goushou.html">剛床仮定と床面内せん断力</a></li>
+          <li><a href="kyoyo-oryokudo.html">許容応力度計算とは？</a></li>
+          <li><a href="danmen-niji-moment.html">断面二次モーメントとは？</a></li>
+          <li><a href="../articles.html#jitsumu">構造計算の実務 一覧</a></li>
+        </ul>
+      </div>
+      <div class="tool-banner">
+        <div class="tb-ic">📥</div>
+        <h4>無料Excelダウンロード</h4>
+        <p>剛度増大率・床面内せん断・RC設計ルートなどの検討用Excelを無料配布中</p>
+        <a href="../downloads.html">ダウンロード一覧を見る</a>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
