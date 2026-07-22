@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
+<title>地震力の算定方法とは？Z・Rt・Ai・C0の意味と層せん断力係数をわかりやすく解説【無料Excel】｜構造設計ナビ</title>
+<meta name="description" content="地震力の算定方法を、建築基準法の層せん断力 Qi＝Ci×Wi と、地震層せん断力係数 Ci＝Z・Rt・Ai・C0 に分けて解説。地域係数Z、振動特性係数Rt（地盤種別と一次固有周期T）、高さ方向の分布係数Ai、標準せん断力係数C0の意味と求め方、地震用重量W、地下部分の地震力（水平震度k）までを、現役の構造設計一級建築士が図解でわかりやすく紹介。18層モデルのAi分布算出Excelを無料ダウンロードできます。">
+<meta property="og:title" content="地震力の算定方法とは？Z・Rt・Ai・C0の意味と層せん断力係数をわかりやすく解説【無料Excel】｜構造設計ナビ">
+<meta property="og:description" content="地震層せん断力係数 Ci＝Z・Rt・Ai・C0 の4係数の意味と算定方法、地震用重量W、地下部分の地震力を図解で解説。Ai分布算出Excelを無料配布。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kouzou-navi.com/articles/jishin-santei.html">
+<meta property="og:image" content="https://www.kouzou-navi.com/assets/eyecatch-jishin-santei.jpg">
+<meta property="og:site_name" content="構造設計ナビ">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.kouzou-navi.com/assets/eyecatch-jishin-santei.jpg">
+<link rel="canonical" href="https://www.kouzou-navi.com/articles/jishin-santei.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "TechArticle",
+   "headline": "地震力の算定方法とは？Z・Rt・Ai・C0の意味と層せん断力係数をわかりやすく解説",
+   "description": "地震力の算定方法を、層せん断力 Qi＝Ci×Wi と 地震層せん断力係数 Ci＝Z・Rt・Ai・C0 に分けて解説。Z・Rt・Ai・C0の意味と求め方、地震用重量W、地下部分の地震力を図解で紹介。Ai分布算出Excelを無料配布。",
+   "inLanguage": "ja",
+   "url": "https://www.kouzou-navi.com/articles/jishin-santei.html",
+   "mainEntityOfPage": "https://www.kouzou-navi.com/articles/jishin-santei.html",
+   "datePublished": "2026-07-22",
+   "dateModified": "2026-07-22",
+   "image": "https://www.kouzou-navi.com/assets/eyecatch-jishin-santei.jpg",
+   "author": {
+    "@type": "Person",
+    "name": "ホッタ ナオト",
+    "jobTitle": "構造設計一級建築士",
+    "url": "https://www.kouzou-navi.com/about.html#author"
+   },
+   "publisher": {
+    "@type": "Organization",
+    "name": "構造設計ナビ",
+    "url": "https://www.kouzou-navi.com/",
+    "logo": { "@type": "ImageObject", "url": "https://www.kouzou-navi.com/assets/apple-touch-icon.png" }
+   }
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://www.kouzou-navi.com/" },
+    { "@type": "ListItem", "position": 2, "name": "構造計算の実務", "item": "https://www.kouzou-navi.com/articles.html#jitsumu" },
+    { "@type": "ListItem", "position": 3, "name": "地震力の算定方法とZ・Rt・Ai・C0", "item": "https://www.kouzou-navi.com/articles/jishin-santei.html" }
+   ]
+  }
+ ]
+}
+</script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "地震層せん断力係数 Ci＝Z・Rt・Ai・C0 の4つの係数は何を表しますか？", "acceptedAnswer": {"@type": "Answer", "text": "Zは地域係数で、地域ごとの地震の起こりやすさ（0.7〜1.0）を表します。Rtは振動特性係数で、建物の一次固有周期Tと地盤の硬さ（地盤種別）による揺れやすさの補正です。Aiは高さ方向の分布係数で、上階ほど地震力が大きくなる度合いを表します。C0は標準せん断力係数で、一次設計では0.2、二次設計（保有水平耐力）では1.0以上とします。"}},
+ {"@type": "Question", "name": "Ai分布はなぜ上階ほど大きくなるのですか？", "acceptedAnswer": {"@type": "Answer", "text": "建物は地震時に上階ほど大きく揺れ動くため、上階に生じる加速度が大きくなり、必要な地震力も大きくなります。Aiは αi＝Wi/W（当該階から上の重量を全重量で割った値）と一次固有周期Tから、Ai＝1＋(1/√αi−αi)×2T/(1+3T) で求められ、最上階に近いほど1.0より大きな値になります。周期Tが長い（背の高い）建物ほど、上階への集中が強まります。"}},
+ {"@type": "Question", "name": "地下部分の地震力はどう算定しますか？", "acceptedAnswer": {"@type": "Answer", "text": "地下部分は地上部分と異なり、水平震度kを用いて各部分の重量に直接かける方法で算定します。水平震度は k≧0.1(1−H/40)Z で、Hは地盤面からの深さ（メートル、20を超える場合は20とする）です。地表に近いほどkが大きく、深くなるほど小さくなります。"}}
+]}
+</script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="../articles.html#kiso">構造力学の基礎</a></li>
+        <li><a href="../articles.html#jitsumu">構造計算の実務</a></li>
+        <li><a href="../tools/index.html">計算ツール</a></li>
+        <li><a href="../downloads.html">無料Excel</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › <a href="../articles.html#jitsumu">構造計算の実務</a> › 地震力の算定方法とZ・Rt・Ai・C0</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">構造計算の実務</span>
+        <span>公開日：2026年7月22日</span>
+        <span>更新日：2026年7月22日</span>
+      </div>
+      <h1>地震力の算定方法とは？Z・Rt・Ai・C0の意味と層せん断力係数をわかりやすく解説【無料Excel】</h1>
+      <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
+
+      <figure class="article-fig" style="margin:14px 0 22px;">
+        <img src="../assets/eyecatch-jishin-santei.jpg" alt="地震力の算定方法とは？Z・Rt・Ai・C0の意味と層せん断力係数をわかりやすく解説【無料Excel】" width="1200" height="630" style="max-width:100%;" fetchpriority="high">
+      </figure>
+
+      <p>建物の耐震設計では、まず「地震のときに各階へどれだけの水平力が働くか」を求めることから始まります。この水平力が<strong>地震力</strong>です。建築基準法では、地震力を<strong>層せん断力</strong>という形で階ごとに算定し、その大きさは<strong>地震層せん断力係数 Ci＝Z・Rt・Ai・C0</strong> という4つの係数の積で決まります。名前だけ見ると難しそうですが、一つひとつは「地域」「地盤と建物の揺れやすさ」「高さ方向の分布」「地震の強さ」を表しているだけです。この記事では、地震力の算定方法と<strong>Z・Rt・Ai・C0の意味</strong>を図解でかみくだき、記事末で<strong>Ai分布算出Excel</strong>を無料配布します。基礎的な全体像は「<a href="jishin-ryoku.html">地震力の計算方法</a>」もあわせてご覧ください。</p>
+
+      <div class="point-box">
+        <span class="label">この記事の要点</span>
+        <ul>
+          <li>各階の地震力（層せん断力）は <strong>Qi＝Ci×Wi</strong>。Ciは <strong>Z・Rt・Ai・C0</strong> の積。</li>
+          <li><strong>Z</strong>＝地域、<strong>Rt</strong>＝地盤と周期、<strong>Ai</strong>＝高さ方向の分布、<strong>C0</strong>＝地震の強さ（一次0.2／二次1.0）。</li>
+          <li>記事末で <strong>Ai分布算出Excel</strong> を無料配布。地下部分の地震力（水平震度k）も解説します。</li>
+        </ul>
+      </div>
+
+      <nav class="toc" aria-label="目次">
+        <div class="toc-ttl">目次</div>
+        <ol>
+          <li><a href="#doko">地震力はどこに作用するのか（層せん断力）</a></li>
+          <li><a href="#ci">地震層せん断力係数 Ci＝Z・Rt・Ai・C0</a></li>
+          <li><a href="#c0">標準せん断力係数 C0 の意味</a></li>
+          <li><a href="#w">地震用重量 W とは</a></li>
+          <li><a href="#z">地域係数 Z の意味</a></li>
+          <li><a href="#rt">振動特性係数 Rt と一次固有周期 T</a></li>
+          <li><a href="#ai">Ai分布の算定方法と意味</a></li>
+          <li><a href="#excel">Ai分布算出Excelの無料ダウンロード</a></li>
+          <li><a href="#chika">地下部分の地震力の算定方法</a></li>
+          <li><a href="#faq">よくある質問</a></li>
+          <li><a href="#matome">まとめ</a></li>
+        </ol>
+      </nav>
+
+      <h2 id="doko">地震力はどこに作用するのか（層せん断力）</h2>
+      <p>地震のとき、建物を横に揺らそうとする力は、重量の集まっている<strong>各階の床の位置</strong>に働くと考えます。ある階より上にある部分の地震力をすべて足し合わせ、その階が下の階へ伝える水平力を<strong>層せん断力 Qi</strong> と呼びます。層せん断力は次の式で求めます。</p>
+      <div class="formula">
+        Q<sub>i</sub> ＝ C<sub>i</sub> × W<sub>i</sub>
+        <span class="note">Qi：i階の層せん断力／Ci：i階の地震層せん断力係数／Wi：i階から上の地震用重量の合計</span>
+      </div>
+
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 380" role="img" aria-label="建物の各階に働く地震力と層せん断力の概念図。上階ほど地震力が大きく、層せん断力は下階へ向かうほど累積して大きくなる">
+          <defs>
+            <marker id="arS" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#e8843c"/></marker>
+          </defs>
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">各階の地震力と層せん断力 Qi</text>
+          <!-- 建物 -->
+          <rect x="250" y="55" width="200" height="285" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2"/>
+          <g stroke="#9fc0dd" stroke-width="1.5">
+            <line x1="250" y1="112" x2="450" y2="112"/><line x1="250" y1="169" x2="450" y2="169"/>
+            <line x1="250" y1="226" x2="450" y2="226"/><line x1="250" y1="283" x2="450" y2="283"/>
+          </g>
+          <rect x="235" y="340" width="230" height="12" rx="4" fill="#7d95ab"/>
+          <!-- 各階の地震力（上ほど長い） -->
+          <g stroke="#e8843c" stroke-width="7">
+            <line x1="130" y1="83" x2="244" y2="83" marker-end="url(#arS)"/>
+            <line x1="160" y1="140" x2="244" y2="140" marker-end="url(#arS)"/>
+            <line x1="185" y1="197" x2="244" y2="197" marker-end="url(#arS)"/>
+            <line x1="205" y1="254" x2="244" y2="254" marker-end="url(#arS)"/>
+            <line x1="220" y1="311" x2="244" y2="311" marker-end="url(#arS)"/>
+          </g>
+          <text x="120" y="87" font-size="13" text-anchor="end" fill="#e8843c" font-weight="bold">大</text>
+          <text x="210" y="315" font-size="13" text-anchor="end" fill="#e8843c" font-weight="bold">小</text>
+          <text x="80" y="200" font-size="14" text-anchor="middle" fill="#e8843c" font-weight="bold" transform="rotate(-90 80 200)">各階に働く地震力（上階ほど大きい）</text>
+          <!-- 層せん断力の三角形（下ほど大きい） -->
+          <path d="M470 55 L470 340 L560 340 Z" fill="#1a3a5c" opacity=".16" stroke="#1a3a5c" stroke-width="1.5"/>
+          <text x="612" y="200" font-size="13.5" text-anchor="middle" fill="#1a3a5c" font-weight="bold">層せん断力 Qi</text>
+          <text x="612" y="220" font-size="12.5" text-anchor="middle" fill="#6b7785">下階ほど累積</text>
+          <text x="350" y="372" font-size="13.5" text-anchor="middle" fill="#6b7785">地震力は各階に分かれて働き、下の階ほど上階分が積み重なって大きくなる。</text>
+        </svg>
+        <figcaption>地震力は各階に分かれて作用し、層せん断力Qiは上階分を累積するため下階ほど大きくなる。上階の地震力が相対的に大きくなる度合いを表すのがAi分布。</figcaption>
+      </figure>
+
+      <h2 id="ci">地震層せん断力係数 Ci＝Z・Rt・Ai・C0</h2>
+      <p>層せん断力の大きさを決めるのが<strong>地震層せん断力係数 Ci</strong> です。Ciは次の4つの係数の積で表されます。</p>
+      <div class="formula">
+        C<sub>i</sub> ＝ Z ・ R<sub>t</sub> ・ A<sub>i</sub> ・ C<sub>0</sub>
+        <span class="note">Z：地域係数／Rt：振動特性係数／Ai：高さ方向の分布係数／C0：標準せん断力係数</span>
+      </div>
+      <p>それぞれが独立した役割を持っており、「その土地（Z）で」「その地盤とその建物が(Rt)」「どの高さで（Ai）」「どのくらいの強さの地震（C0）」を受けるか、を表しています。以下、C0から順に見ていきましょう。</p>
+
+      <h2 id="c0">標準せん断力係数 C0 の意味</h2>
+      <p><strong>標準せん断力係数 C0</strong> は、想定する地震の強さを表す基準値です。設計の段階によって値が変わります。</p>
+      <ul>
+        <li><strong>C0 ＝ 0.2</strong>：<a href="ichiji-sekkei.html">一次設計</a>（許容応力度計算）。中規模の地震（震度5強程度）で建物が損傷しないことを確認します。</li>
+        <li><strong>C0 ＝ 1.0 以上</strong>：<a href="niji-sekkei.html">二次設計</a>（保有水平耐力計算）。大地震（震度6強〜7）で倒壊しないことを確認します。</li>
+      </ul>
+      <p>C0＝0.2は「建物重量の20％の水平力」を意味します。一次設計と二次設計でC0が5倍違うのは、想定する地震の大きさが段違いだからです。木造で必要壁量を求めるときなどにも、この考え方が根底にあります。</p>
+
+      <h2 id="w">地震用重量 W とは</h2>
+      <p>地震力は重量に比例するため、算定には建物の重量が必要です。ここで使う重量が<strong>地震用重量 W</strong> で、<a href="kajuu.html">固定荷重</a>と、地震用に定められた<strong>積載荷重</strong>を合計したものです。積載荷重は用途ごとに「床用・大梁柱地震用・地震用」の3種類が定められており、<strong>地震用がもっとも小さい値</strong>になります。これは、地震はごく短時間の現象で、そのあいだ室内の人や物がすべて最大に載っている可能性は低い、という考え方によります。Wiは「i階から上の各階の地震用重量を合計した値」で、上の階ほどWiは小さく、1階でWは最大（＝地上部分の全重量）になります。</p>
+
+      <h2 id="z">地域係数 Z の意味</h2>
+      <p><strong>地域係数 Z</strong> は、その地域で過去に起きた地震の記録や地震活動から定められた、地域ごとの割増・割引の係数です。値は<strong>0.7〜1.0</strong> の範囲で、地震活動が活発とされる多くの地域では Z＝1.0、比較的地震が少ないとされる一部地域では 0.9・0.8、沖縄県では 0.7 が定められています。同じ建物でもZが小さい地域では地震力を小さく見込めますが、あくまで法令上の係数であり「その地域は地震が来ない」という意味ではない点に注意が必要です。</p>
+
+      <h2 id="rt">振動特性係数 Rt と一次固有周期 T</h2>
+      <p><strong>振動特性係数 Rt</strong> は、<strong>建物の揺れやすさ（一次固有周期T）</strong>と<strong>地盤の硬さ（地盤種別）</strong>の関係から、地震力をどれだけ低減できるかを表す係数です（最大1.0、周期が長いほど小さくなる）。硬い地盤の上に建つ短周期の建物ではRt＝1.0のまま、軟らかい地盤や背の高い長周期の建物ではRtが小さくなり、地震力が低減されます。</p>
+      <p>まず建物の<strong>一次固有周期 T</strong>（→<a href="koyu-shuki.html">固有周期</a>）を、建物高さh（m）から略算します。</p>
+      <div class="formula">
+        T ＝ h（0.02 ＋ 0.01α）
+        <span class="note">h：建物の高さ(m)／α：鉄骨造部分の高さの割合（RC造・SRC造→0、S造→1）</span>
+      </div>
+      <p>RC造なら T＝0.02h、S造なら T＝0.03h です（S造のほうが同じ高さでも周期が長い＝ゆっくり揺れる）。次に、地盤種別ごとに定めた<strong>Tc</strong>（第1種＝硬い地盤 0.4秒、第2種 0.6秒、第3種＝軟弱地盤 0.8秒）と比較して、Rtを次式で求めます。</p>
+      <div class="formula">
+        T ＜ Tc ： R<sub>t</sub> ＝ 1.0<br>
+        Tc ≦ T ＜ 2Tc ： R<sub>t</sub> ＝ 1 − 0.2（T／Tc − 1）²<br>
+        2Tc ≦ T ： R<sub>t</sub> ＝ 1.6 Tc／T
+      </div>
+
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 340" role="img" aria-label="振動特性係数Rtと一次固有周期Tの関係グラフ。周期がTc未満ではRt=1.0で一定、それを超えると周期が長いほどRtが小さくなる">
+          <text x="350" y="24" font-size="16" text-anchor="middle" fill="#1a3a5c" font-weight="bold">Rt と一次固有周期 T の関係</text>
+          <!-- axes -->
+          <line x1="80" y1="280" x2="650" y2="280" stroke="#1a3a5c" stroke-width="2"/>
+          <line x1="80" y1="280" x2="80" y2="60" stroke="#1a3a5c" stroke-width="2"/>
+          <text x="660" y="284" font-size="13" fill="#1a3a5c">T（周期）</text>
+          <text x="52" y="72" font-size="13" fill="#1a3a5c">Rt</text>
+          <text x="60" y="95" font-size="12" fill="#6b7785" text-anchor="end">1.0</text>
+          <line x1="76" y1="90" x2="80" y2="90" stroke="#1a3a5c" stroke-width="2"/>
+          <!-- plateau then decay -->
+          <path d="M80 90 L250 90 Q360 92 430 140 Q520 200 630 245" fill="none" stroke="#e8843c" stroke-width="4"/>
+          <line x1="250" y1="90" x2="250" y2="280" stroke="#9fc0dd" stroke-width="1.5" stroke-dasharray="6 5"/>
+          <line x1="430" y1="140" x2="430" y2="280" stroke="#9fc0dd" stroke-width="1.5" stroke-dasharray="6 5"/>
+          <text x="250" y="298" font-size="13" text-anchor="middle" fill="#1a3a5c">Tc</text>
+          <text x="430" y="298" font-size="13" text-anchor="middle" fill="#1a3a5c">2Tc</text>
+          <text x="165" y="82" font-size="12.5" text-anchor="middle" fill="#6b7785">Rt=1.0</text>
+          <text x="345" y="120" font-size="12.5" text-anchor="middle" fill="#6b7785">2次曲線で低減</text>
+          <text x="545" y="205" font-size="12.5" text-anchor="middle" fill="#6b7785">1.6Tc/T</text>
+          <text x="350" y="326" font-size="13" text-anchor="middle" fill="#6b7785">短周期（硬い地盤・低い建物）はRt=1.0。長周期になるほどRtは小さく＝地震力を低減。</text>
+        </svg>
+        <figcaption>Rtは一次固有周期TがTc未満で1.0。Tc以上では周期が長いほど小さくなり、長周期の建物ほど地震力が低減される。</figcaption>
+      </figure>
+
+      <h2 id="ai">Ai分布の算定方法と意味</h2>
+      <p><strong>Ai</strong> は、地震力を<strong>高さ方向にどう分配するか</strong>を表す係数です。建物は地震時に上階ほど大きく揺れ動くため、上階に働く地震力は下階より相対的に大きくなります。この「上階への集中の度合い」を数値化したのがAi分布で、次の式で求めます。</p>
+      <div class="formula">
+        A<sub>i</sub> ＝ 1 ＋ （ 1／√α<sub>i</sub> − α<sub>i</sub> ）× 2T ／（1 ＋ 3T）<br>
+        α<sub>i</sub> ＝ W<sub>i</sub> ／ W
+        <span class="note">αi：i階から上の地震用重量Wiを、地上部分の全重量Wで割った重量比／T：一次固有周期</span>
+      </div>
+      <p>1階では αi＝1 となり Ai＝1.0、上階へ行くほど αi が小さくなって Ai は1.0より大きくなります。式のなかにTが入っているため、<strong>周期の長い（背の高い）建物ほど上階への集中が強まり</strong>、Aiが大きくなるのが特徴です。Aiに Z・Rt・C0 を掛ければ各階のCiが求まり、Wiを掛ければ層せん断力Qiが得られます。手計算では各階のαiを積み上げていくのが手間ですが、下のExcelを使えば階数と各階重量を入れるだけで一括算定できます。</p>
+
+      <h2 id="excel">Ai分布算出Excelの無料ダウンロード</h2>
+      <div class="cta-box">
+        <span class="cta-label">無料ダウンロード</span>
+        <h3>Ai分布算出 Excel（18層モデル）</h3>
+        <p>各階の階高と重量を入力すると、<strong>一次固有周期T・重量比αi・分布係数Ai・地震層せん断力係数Ci・層せん断力Qi</strong> を各階まとめて自動計算するExcelです。標準せん断力係数C0（初期値0.2）や、鉄骨造部分の高さ比αも入力でき、RC造・S造どちらにも対応します。地震力算定の流れを実際に手を動かして確認するのに便利です。</p>
+        <div class="cta-actions">
+          <a class="cta-btn" href="../assets/ai-bunpu.xlsx" download>📥 Ai分布算出Excelをダウンロード（無料）</a>
+        </div>
+        <p class="cta-note">※ Microsoft Excel（.xlsx）。計算結果は設計者ご自身の責任でご確認のうえご使用ください。</p>
+        <p class="cta-note">📂 <a href="../downloads.html">その他の無料Excel一覧はこちら ›</a></p>
+      </div>
+
+      <h2 id="chika">地下部分の地震力の算定方法</h2>
+      <p>これまでは地上部分の話でした。<strong>地下部分</strong>は周囲を地盤に囲まれ、地上とは揺れ方が異なるため、Ai分布ではなく<strong>水平震度 k</strong> を各部分の重量に直接かける方法で算定します。</p>
+      <div class="formula">
+        地下部分の地震力 ＝ k × W（地下部分の重量）<br>
+        k ≧ 0.1（1 − H／40）× Z
+        <span class="note">k：水平震度／H：地盤面からの深さ(m)。20mを超える場合は20とする／Z：地域係数</span>
+      </div>
+      <p>地表に近いほどkは大きく、深くなるほど（地盤に拘束されて揺れにくくなるため）小さくなります。地上部分の地震力とは考え方が別なので、混同しないよう注意しましょう。</p>
+
+      <div class="field-note">
+        <span class="label">実務のワンポイント</span>
+        <p>Z・Rt・Ai・C0は一貫計算プログラムが自動で算定してくれますが、私はチェックのとき必ず「Rtに使ったTと地盤種別」「Aiに使った重量」が妥当かを手計算で当たります。特に地盤種別を一つ甘く見るとRtが変わり、建物全体の地震力がずれます。地震力は設計の出発点なので、ここが狂うと以降の応力・断面がすべて狂う——という意識で最初に固めておくのが結局は近道です。</p>
+      </div>
+
+      <div class="note-box">
+        <span class="label">ご利用にあたって</span>
+        <p>本記事とExcelは、地震力の算定方法を理解するための解説資料です。係数の値や算定式は建築基準法・同施行令および関連告示に基づいていますが、実際の設計では最新の法令・条件に応じた確認が必要です。計算結果は設計者ご自身の責任でご確認のうえご使用ください。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 一次設計と二次設計で地震力はどれくらい違いますか？</h3>
+      <p>もっとも大きく効くのはC0で、一次設計の0.2に対し二次設計は1.0以上です。単純にはC0が5倍なので地震力も5倍規模になりますが、二次設計では建物の粘り（靭性）を考慮した保有水平耐力で確認するため、そのまま5倍の力に耐える必要があるわけではありません。</p>
+      <h3>Q2. Rtを小さくする（地震力を減らす）にはどうすればよいですか？</h3>
+      <p>Rtは一次固有周期Tが長いほど小さくなります。ただしTは建物の高さや構造で決まるもので、恣意的に操作するものではありません。地盤種別も地盤調査に基づいて正しく設定します。「地震力を減らすために都合よくRtをいじる」のではなく、正しいTと地盤種別を用いた結果として妥当なRtになる、と考えてください。</p>
+      <h3>Q3. Ai分布と層せん断力係数Ciはどう違いますか？</h3>
+      <p>Aiは高さ方向の分布だけを表す無次元の係数で、1階が1.0、上階ほど大きくなります。これにZ・Rt・C0を掛けたものが各階の地震層せん断力係数Ciです。Ciに各階の地震用重量Wiを掛けると、実際の水平力である層せん断力Qiになります。</p>
+
+      <h2 id="matome">まとめ</h2>
+      <ul>
+        <li>各階の地震力（層せん断力）は <strong>Qi＝Ci×Wi</strong>。Ciは <strong>Z・Rt・Ai・C0</strong> の積。</li>
+        <li><strong>Z</strong>＝地域係数（0.7〜1.0）、<strong>C0</strong>＝標準せん断力係数（一次0.2／二次1.0以上）。</li>
+        <li><strong>Rt</strong>＝一次固有周期Tと地盤種別による低減係数、<strong>Ai</strong>＝上階ほど大きくなる高さ方向の分布係数。</li>
+        <li>地下部分は水平震度 <strong>k≧0.1(1−H/40)Z</strong> で別に算定。記事末の<strong>Ai分布算出Excel</strong>で一括計算できます。</li>
+      </ul>
+
+      <div class="note-box">
+        <span class="label">あわせて読みたい</span>
+        <p>全体像は「<a href="jishin-ryoku.html">地震力の計算方法</a>」、揺れやすさは「<a href="koyu-shuki.html">固有周期とは？</a>」、重量は「<a href="kajuu.html">固定荷重・積載荷重の拾い方</a>」、設計段階は「<a href="ichiji-sekkei.html">一次設計</a>」「<a href="niji-sekkei.html">二次設計</a>」、床の役割は「<a href="goushou.html">剛床仮定と床面内せん断力</a>」をどうぞ。</p>
+      </div>
+
+      <div class="article-author">
+        <img src="../assets/profile.png" alt="監修・執筆者 ホッタ ナオト（構造設計一級建築士）" width="76" height="76" loading="lazy">
+        <div class="aa-text">
+          <p class="aa-role">この記事の監修・執筆者</p>
+          <p class="aa-name">ホッタ ナオト</p>
+          <p class="aa-cred">一級建築士・構造設計一級建築士／ゼネコン構造設計部</p>
+          <p class="aa-desc">構造設計・耐震補強・工事監理の実務に10年以上従事。<a href="../about.html#author">プロフィール詳細 ›</a></p>
+        </div>
+      </div>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>構造計算の実務</h4>
+        <ul>
+          <li><a href="jishin-ryoku.html">地震力の計算方法</a></li>
+          <li><a href="goushou.html">剛床仮定と床面内せん断力</a></li>
+          <li><a href="kyoyo-oryokudo.html">許容応力度計算とは？</a></li>
+          <li><a href="../articles.html#jitsumu">構造計算の実務 一覧</a></li>
+        </ul>
+      </div>
+      <div class="tool-banner">
+        <div class="tb-ic">📥</div>
+        <h4>無料Excelダウンロード</h4>
+        <p>Ai分布・剛度増大率・床面内せん断などの検討用Excelを無料配布中</p>
+        <a href="../downloads.html">ダウンロード一覧を見る</a>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <p style="margin-bottom:10px;"><a href="../index.html">ホーム</a>　|　<a href="../articles.html">記事一覧</a>　|　<a href="../downloads.html">無料Excel</a>　|　<a href="../about.html">このサイトについて</a>　|　<a href="../privacy.html">プライバシーポリシー</a>　|　<a href="../otoiawase.html">お問い合わせ</a></p>
+      © 2026 構造設計ナビ All Rights Reserved.
+    </div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

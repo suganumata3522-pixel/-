@@ -1392,7 +1392,7 @@
   </url>
   <url>
     <loc>https://www.kouzou-navi.com/downloads.html</loc>
-    <lastmod>2026-07-12</lastmod>
+    <lastmod>2026-07-22</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
@@ -1403,6 +1403,11 @@
   <url>
     <loc>https://www.kouzou-navi.com/articles/goudo-zoudairitsu.html</loc>
     <lastmod>2026-07-12</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.kouzou-navi.com/articles/jishin-santei.html</loc>
+    <lastmod>2026-07-22</lastmod>
     <priority>0.7</priority>
   </url>
 </urlset>
