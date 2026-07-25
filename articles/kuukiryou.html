@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/kuukiryou.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/kuukiryou.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-kuukiryou.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "空気量が規格を外れたコンクリートはどうなりますか？", "acceptedAnswer": {"@type": "Answer", "text": "許容差（±1.5%）を外れた場合、そのコンクリートは受け入れられません。返送するか、現場で調整可能な範囲であればAE剤の追加などで対応します。空気量が少なすぎると凍結融解抵抗性が確保できず、多すぎると強度が不足するため、いずれも品質上の問題になります。荷卸し地点での測定と迅速な判断が必要です。"}},
+ {"@type": "Question", "name": "エントレインドエアとエントラップトエアの違いは何ですか？", "acceptedAnswer": {"@type": "Answer", "text": "エントレインドエアはAE剤で意図的に連行した微細（0.数mm）で独立した気泡で、凍結融解抵抗性の向上に寄与する「良い空気」です。エントラップトエアは締固め不足などで残った粗大で不規則な空気で、強度を下げるだけの「悪い空気」です。品質管理で目標とするのは前者で、後者は締固めによって追い出す必要があります。"}},
+ {"@type": "Question", "name": "AE剤を使わないコンクリートもありますか？", "acceptedAnswer": {"@type": "Answer", "text": "あります。凍結融解のおそれがない屋内部材や、高強度が要求される部材では、AE剤を使わない（または空気量を抑えた）配合とすることがあります。空気量を減らせばその分強度が上がるためです。ただしワーカビリティが低下するため、減水剤で流動性を確保します。一般の建築工事では、耐久性と施工性の観点からAE剤を使うのが標準です。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">鉄筋コンクリート造（RC造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>コンクリートの空気量｜規格・許容値4〜6%</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -190,6 +197,55 @@
         <span class="label">実務のワンポイント</span>
         <p>夏場の現場では、生コン車が到着してから試験を始めるまでの時間が空くほど空気量が落ちている印象があります。規定値ぎりぎりの数値が出たときは、その日の気温と運搬時間もあわせて記録し、次の受入れ判断の材料にしています。</p>
       </div>
+
+      <h2 id="kouka">空気量と性能の関係（図解）</h2>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 270" role="img" aria-label="空気量が増えると耐久性は上がるが強度は下がることを示すグラフ">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">空気量には最適な範囲がある</text>
+          <line x1="110" y1="215" x2="640" y2="215" stroke="#1a3a5c" stroke-width="2"/>
+          <line x1="110" y1="215" x2="110" y2="56" stroke="#1a3a5c" stroke-width="2"/>
+          <text x="580" y="240" font-size="13" fill="#1a3a5c">空気量 →</text>
+          <path d="M110 76 L620 190" fill="none" stroke="#c0392b" stroke-width="4"/>
+          <text x="500" y="168" font-size="13" fill="#c0392b" font-weight="bold">圧縮強度</text>
+          <path d="M110 200 Q220 110 320 96 L620 88" fill="none" stroke="#2e7d4f" stroke-width="4"/>
+          <text x="440" y="82" font-size="13" fill="#2e7d4f" font-weight="bold">凍結融解抵抗性</text>
+          <rect x="250" y="56" width="110" height="159" fill="#e8843c" opacity=".18"/>
+          <g stroke="#e8843c" stroke-width="2" stroke-dasharray="5 4">
+            <line x1="250" y1="56" x2="250" y2="215"/><line x1="360" y1="56" x2="360" y2="215"/>
+          </g>
+          <text x="305" y="238" font-size="13" text-anchor="middle" fill="#b35309" font-weight="bold">4〜6%</text>
+          <text x="305" y="258" font-size="12" text-anchor="middle" fill="#6b7785">適正範囲</text>
+          <text x="150" y="238" font-size="12" text-anchor="middle" fill="#6b7785">少ない</text>
+          <text x="560" y="238" font-size="12" text-anchor="middle" fill="#6b7785">多い</text>
+        </svg>
+        <figcaption>空気量が増えるほど凍結融解抵抗性は向上するが、圧縮強度は低下する。両者のバランスから4〜6%が適正範囲とされる。</figcaption>
+      </figure>
+      <div class="formula">
+        空気量1%の増加 → 圧縮強度は約4〜6%低下
+        <span class="note">例：標準4.5%から6.5%へ2%増えると、強度は8〜12%程度低下する</span>
+      </div>
+
+      <h2 id="sokutei">空気量の測定方法</h2>
+      <table class="data">
+        <tr><th>方法</th><th>原理</th><th>適用</th></tr>
+        <tr><td><strong>空気室圧力法</strong></td><td>密閉容器に圧力をかけ、空気の圧縮による体積変化から求める</td><td>普通コンクリート（最も一般的）</td></tr>
+        <tr><td>質量法</td><td>実測した単位容積質量と、空気を含まない理論値の差から求める</td><td>普通コンクリート</td></tr>
+        <tr><td>容積法</td><td>水を用いて空気を追い出し、体積の変化から求める</td><td>軽量コンクリート（骨材が空気を含むため）</td></tr>
+      </table>
+      <p>軽量コンクリートで容積法を使うのは、<strong>軽量骨材自体が内部に空気を含んでいる</strong>ためです。圧力法では骨材内部の空気まで測ってしまい、正しい値が得られません。コンクリートの種類に応じた測定方法の選択が必要です。</p>
+      <div class="point-box">
+        <span class="label">空気量が変動する要因</span>
+        <p>空気量は現場で変動しやすい項目です。<strong>気温が高いと空気量は減り</strong>、逆に低いと増えます。また、練混ぜ時間が長すぎると空気が抜け、運搬時間が長いと徐々に減少します。<a href="flyash-cement.html">フライアッシュ</a>の未燃炭素分がAE剤を吸着して空気量が出ないこともあります。荷卸し地点での測定が求められるのは、こうした変動を捉えるためです。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 空気量が規格を外れたコンクリートはどうなりますか？</h3>
+      <p>許容差（±1.5%）を外れた場合、そのコンクリートは受け入れられません。返送するか、現場で調整可能な範囲であればAE剤の追加などで対応します。空気量が少なすぎると凍結融解抵抗性が確保できず、多すぎると強度が不足するため、いずれも品質上の問題になります。荷卸し地点での測定と迅速な判断が必要です。</p>
+      <h3>Q2. エントレインドエアとエントラップトエアの違いは何ですか？</h3>
+      <p>エントレインドエアはAE剤で意図的に連行した微細（0.数mm）で独立した気泡で、凍結融解抵抗性の向上に寄与する「良い空気」です。エントラップトエアは締固め不足などで残った粗大で不規則な空気で、強度を下げるだけの「悪い空気」です。品質管理で目標とするのは前者で、後者は締固めによって追い出す必要があります。</p>
+      <h3>Q3. AE剤を使わないコンクリートもありますか？</h3>
+      <p>あります。凍結融解のおそれがない屋内部材や、高強度が要求される部材では、AE剤を使わない（または空気量を抑えた）配合とすることがあります。空気量を減らせばその分強度が上がるためです。ただしワーカビリティが低下するため、減水剤で流動性を確保します。一般の建築工事では、耐久性と施工性の観点からAE剤を使うのが標準です。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

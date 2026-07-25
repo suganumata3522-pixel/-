@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/zettai-youseki.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/zettai-youseki.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-zettai-youseki.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "なぜ質量ではなく絶対容積で計算するのですか？", "acceptedAnswer": {"@type": "Answer", "text": "コンクリートの体積は、材料の体積の合計で決まるからです。材料ごとに密度が異なるため、質量で足し合わせても体積にはなりません。1m³のコンクリートを作るには、各材料が占める実質の体積（絶対容積）を合計して1,000Lになる必要があります。この考え方が配合設計の骨格になっています。"}},
+ {"@type": "Question", "name": "表面水率と絶対容積はどう関係しますか？", "acceptedAnswer": {"@type": "Answer", "text": "現場の骨材は表面が濡れているため、その水分を考慮する必要があります。配合表の骨材量は表面乾燥飽水状態（表乾状態）を前提としているので、実際に計量するときは表面水の分だけ骨材を増やし、その分の水を減らします。この調整を怠ると、実際のW/Cが設計値からずれてしまいます。絶対容積の計算自体は表乾密度で行います。"}},
+ {"@type": "Question", "name": "空気量を体積に含めるのはなぜですか？", "acceptedAnswer": {"@type": "Answer", "text": "空気も体積を占めるからです。AE剤で連行された空気は、コンクリート中に4〜6%程度の体積を占めており、これを無視すると材料を入れすぎて体積が1m³を超えてしまいます。そのため配合計算では、あらかじめ空気量分の体積を差し引いてから骨材量を決めます。空気量が変動すると実際の配合もずれるため、現場での空気量管理が重要になります。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">鉄筋コンクリート造（RC造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>絶対容積とは？計算と骨材の割合・空気量との関係</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -189,6 +196,62 @@
         <span class="label">あわせて読みたい</span>
         <p>「<a href="saikotsuzai.html">細骨材（細骨材率）</a>」、空気量は「<a href="futsuu-concrete.html">普通コンクリート</a>」、全体は「<a href="kotsuzai.html">骨材とは</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="kousei">コンクリート1m³の構成（図解）</h2>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 260" role="img" aria-label="コンクリート1立方メートルの体積構成を示す帯グラフ。水・セメント・細骨材・粗骨材・空気の割合">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">コンクリート1m³＝1,000L の内訳（例）</text>
+          <rect x="60" y="60" width="93" height="70" fill="#9fc0dd"/>
+          <rect x="153" y="60" width="60" height="70" fill="#7d95ab"/>
+          <rect x="213" y="60" width="200" height="70" fill="#e5d5b8"/>
+          <rect x="413" y="60" width="197" height="70" fill="#b9a888"/>
+          <rect x="610" y="60" width="30" height="70" fill="#fff" stroke="#c3ccd6" stroke-width="1.5"/>
+          <g font-size="12.5" text-anchor="middle" font-weight="bold">
+            <text x="106" y="100" fill="#1a3a5c">水</text>
+            <text x="183" y="100" fill="#fff">セメント</text>
+            <text x="313" y="100" fill="#4a3f2a">細骨材（砂）</text>
+            <text x="511" y="100" fill="#4a3f2a">粗骨材（砂利）</text>
+          </g>
+          <text x="625" y="52" font-size="11.5" text-anchor="middle" fill="#6b7785">空気</text>
+          <g font-size="12" text-anchor="middle" fill="#6b7785">
+            <text x="106" y="150">175 L</text><text x="183" y="150">113 L</text>
+            <text x="313" y="150">約280 L</text><text x="511" y="150">約387 L</text><text x="625" y="150">45 L</text>
+          </g>
+          <text x="350" y="186" font-size="13" text-anchor="middle" fill="#1a3a5c" font-weight="bold">合計 ＝ 1,000 L（1m³）になるように配合を決める</text>
+          <text x="350" y="216" font-size="12.5" text-anchor="middle" fill="#6b7785">※セメント113L＝350kg÷3.15（密度）。質量ではなく「絶対容積」で足し合わせる</text>
+          <text x="350" y="242" font-size="12.5" text-anchor="middle" fill="#6b7785">空気量4.5%＝45Lは、あらかじめ差し引いて骨材量を決める</text>
+        </svg>
+        <figcaption>配合設計では、各材料の絶対容積を合計して1,000L（1m³）になるよう調整する。空気量もあらかじめ体積として見込む。</figcaption>
+      </figure>
+
+      <h2 id="keisan-nagare">配合計算の流れ</h2>
+      <p>絶対容積の考え方を使って、実際に骨材量を求める手順を追ってみましょう。</p>
+      <div class="formula">
+        <strong>① 水・セメント・空気の絶対容積を求める</strong><br>
+        水：175 kg ÷ 1.00 kg/L ＝ 175 L<br>
+        セメント：350 kg ÷ 3.15 kg/L ≒ 111 L<br>
+        空気：1,000 L × 4.5% ＝ 45 L
+      </div>
+      <div class="formula">
+        <strong>② 骨材が占められる体積を求める</strong><br>
+        1,000 − (175 ＋ 111 ＋ 45) ＝ <strong>669 L</strong>
+      </div>
+      <div class="formula">
+        <strong>③ 細骨材率（s/a）で振り分ける</strong><br>
+        s/a ＝ 45% とすると<br>
+        細骨材：669 × 0.45 ≒ 301 L　→　質量 301 × 2.60 ≒ <strong>783 kg</strong><br>
+        粗骨材：669 × 0.55 ≒ 368 L　→　質量 368 × 2.65 ≒ <strong>975 kg</strong>
+      </div>
+      <p><strong>細骨材率（s/a）</strong>は、骨材の絶対容積のうち細骨材が占める割合です。この値が大きいと砂が多くなり、ワーカビリティは良くなりますが単位水量が増えます。逆に小さいと経済的ですが、ざらついて施工しにくくなります。一般に40〜50%程度で調整します。</p>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. なぜ質量ではなく絶対容積で計算するのですか？</h3>
+      <p>コンクリートの体積は、材料の体積の合計で決まるからです。材料ごとに密度が異なるため、質量で足し合わせても体積にはなりません。1m³のコンクリートを作るには、各材料が占める実質の体積（絶対容積）を合計して1,000Lになる必要があります。この考え方が配合設計の骨格になっています。</p>
+      <h3>Q2. 表面水率と絶対容積はどう関係しますか？</h3>
+      <p>現場の骨材は表面が濡れているため、その水分を考慮する必要があります。配合表の骨材量は表面乾燥飽水状態（表乾状態）を前提としているので、実際に計量するときは表面水の分だけ骨材を増やし、その分の水を減らします。この調整を怠ると、実際のW/Cが設計値からずれてしまいます。絶対容積の計算自体は表乾密度で行います。</p>
+      <h3>Q3. 空気量を体積に含めるのはなぜですか？</h3>
+      <p>空気も体積を占めるからです。AE剤で連行された空気は、コンクリート中に4〜6%程度の体積を占めており、これを無視すると材料を入れすぎて体積が1m³を超えてしまいます。そのため配合計算では、あらかじめ空気量分の体積を差し引いてから骨材量を決めます。空気量が変動すると実際の配合もずれるため、現場での空気量管理が重要になります。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/mizu-cement-hi.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/mizu-cement-hi.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-mizu-cement-hi.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "水セメント比と水結合材比は違うのですか？", "acceptedAnswer": {"@type": "Answer", "text": "違います。混和材（高炉スラグ微粉末・フライアッシュなど）を使う場合、水セメント比はセメントのみを分母としますが、水結合材比（W/B）はセメントと混和材の合計を分母とします。混合セメントや混和材を使う配合では、強度・耐久性の評価に水結合材比を用いるのが適切とされ、仕様書でどちらを指定しているか確認が必要です。"}},
+ {"@type": "Question", "name": "W/Cを50%以下にすると何が変わりますか？", "acceptedAnswer": {"@type": "Answer", "text": "耐久性が大きく向上します。組織が緻密になり、中性化・塩化物イオンの浸透・凍害に対する抵抗性が高まります。水密コンクリートでW/C50%以下が求められるのはこのためです。一方で単位セメント量が増えるため、水和熱・乾燥収縮・コストが増加します。また流動性の確保に減水剤が必須になります。"}},
+ {"@type": "Question", "name": "現場で加水されるとW/Cはどれだけ変わりますか？", "acceptedAnswer": {"@type": "Answer", "text": "わずかな加水でも大きく変わります。W＝175kg/m³、C＝350kg/m³（W/C＝50%）の配合に、1m³あたり10kgの水を加えると、W/Cは（175＋10）÷350＝52.9%に上がります。約3ポイントの上昇で、圧縮強度はおおむね2〜3N/mm²低下する計算になります。生コン車1台（4.5m³）にバケツ数杯の加水でこの影響が出るため、加水は厳禁とされています。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">鉄筋コンクリート造（RC造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>水セメント比とは？計算方法と60%以下の根拠</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -188,6 +195,53 @@
         <span class="label">実務のワンポイント</span>
         <p>現場で生コン車の荷卸しに立ち会うと、スランプを合わせるために加水したいという相談を受けることがあります。水セメント比が崩れると強度も耐久性も設計値から外れるため、その場での加水は認めず、配合計画書どおりの管理を徹底しています。</p>
       </div>
+
+      <h2 id="joukan">計画供用期間ごとのW/C上限</h2>
+      <p>水セメント比の上限は、その建物を<strong>何年使う想定か</strong>によって変わります。長く使うほど厳しい値が求められます。</p>
+      <table class="data">
+        <tr><th>計画供用期間の級</th><th>おおよその年数</th><th>W/Cの上限（普通コンクリート）</th></tr>
+        <tr><td>短期</td><td>約30年</td><td>65%以下</td></tr>
+        <tr><td>標準</td><td>約65年</td><td>65%以下</td></tr>
+        <tr><td>長期</td><td>約100年</td><td><strong>55%以下</strong></td></tr>
+        <tr><td>超長期</td><td>約200年</td><td><strong>50%以下</strong></td></tr>
+      </table>
+      <p>※JASS5に基づく代表値。使用するセメントの種類によっても変わります。</p>
+      <p>この表が示すのは、<strong>W/Cが耐久性を直接支配している</strong>という事実です。長く使う建物ほど、中性化・塩害・凍害の進行を遅らせる必要があり、そのために組織を緻密にする＝W/Cを下げるという対応をとります。強度だけを見れば65%でFc24を確保できる場合もありますが、100年もたせるなら55%以下にする、という考え方です。</p>
+
+      <h2 id="chuuseika">W/Cと中性化速度の関係</h2>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 260" role="img" aria-label="水セメント比が大きいほど中性化が速く進むことを示すグラフ">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">W/Cが大きいほど中性化は速く進む</text>
+          <line x1="110" y1="210" x2="640" y2="210" stroke="#1a3a5c" stroke-width="2"/>
+          <line x1="110" y1="210" x2="110" y2="56" stroke="#1a3a5c" stroke-width="2"/>
+          <text x="580" y="236" font-size="13" fill="#1a3a5c">経過年数 →</text>
+          <text x="86" y="70" font-size="12.5" text-anchor="end" fill="#1a3a5c">中性化</text>
+          <text x="86" y="88" font-size="12.5" text-anchor="end" fill="#1a3a5c">深さ</text>
+          <path d="M110 210 Q260 110 620 66" fill="none" stroke="#c0392b" stroke-width="4"/>
+          <text x="530" y="60" font-size="13" fill="#c0392b" font-weight="bold">W/C 65%</text>
+          <path d="M110 210 Q290 152 620 118" fill="none" stroke="#e8843c" stroke-width="4"/>
+          <text x="530" y="112" font-size="13" fill="#b35309" font-weight="bold">W/C 55%</text>
+          <path d="M110 210 Q310 184 620 164" fill="none" stroke="#2e7d4f" stroke-width="4"/>
+          <text x="530" y="158" font-size="13" fill="#2e7d4f" font-weight="bold">W/C 45%</text>
+          <line x1="110" y1="140" x2="640" y2="140" stroke="#7d95ab" stroke-width="2" stroke-dasharray="7 5"/>
+          <text x="130" y="134" font-size="12.5" fill="#3f4a55" font-weight="bold">かぶり厚さ（鉄筋位置）</text>
+          <text x="350" y="252" font-size="12.5" text-anchor="middle" fill="#6b7785">中性化が鉄筋に達すると腐食が始まる。W/Cを下げるほど到達が遅れる</text>
+        </svg>
+        <figcaption>中性化は経過年数の平方根に比例して進む。W/Cが小さいほど組織が緻密で、鉄筋位置に達するまでの年数が長くなる。</figcaption>
+      </figure>
+      <div class="point-box">
+        <span class="label">かぶり厚さとの合わせ技</span>
+        <p>鉄筋の腐食を防ぐには、<strong>「中性化を遅くする（W/Cを下げる）」</strong>と<strong>「鉄筋を深く埋める（かぶりを厚くする）」</strong>の2つの手段があります。どちらか一方ではなく、両方を適切に組み合わせることが耐久設計の基本です。JASS5でも、計画供用期間に応じてW/Cの上限とかぶり厚さの最小値がセットで規定されています。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 水セメント比と水結合材比は違うのですか？</h3>
+      <p>違います。混和材（高炉スラグ微粉末・フライアッシュなど）を使う場合、水セメント比はセメントのみを分母としますが、水結合材比（W/B）はセメントと混和材の合計を分母とします。混合セメントや混和材を使う配合では、強度・耐久性の評価に水結合材比を用いるのが適切とされ、仕様書でどちらを指定しているか確認が必要です。</p>
+      <h3>Q2. W/Cを50%以下にすると何が変わりますか？</h3>
+      <p>耐久性が大きく向上します。組織が緻密になり、中性化・塩化物イオンの浸透・凍害に対する抵抗性が高まります。水密コンクリートでW/C50%以下が求められるのはこのためです。一方で単位セメント量が増えるため、水和熱・乾燥収縮・コストが増加します。また流動性の確保に減水剤が必須になります。</p>
+      <h3>Q3. 現場で加水されるとW/Cはどれだけ変わりますか？</h3>
+      <p>わずかな加水でも大きく変わります。W＝175kg/m³、C＝350kg/m³（W/C＝50%）の配合に、1m³あたり10kgの水を加えると、W/Cは（175＋10）÷350＝52.9%に上がります。約3ポイントの上昇で、圧縮強度はおおむね2〜3N/mm²低下する計算になります。生コン車1台（4.5m³）にバケツ数杯の加水でこの影響が出るため、加水は厳禁とされています。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>
