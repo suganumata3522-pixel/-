@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/kajuu.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/kajuu.html",
    "datePublished": "2026-06-12",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-kajuu.jpg",
    "author": {
     "@type": "Person",
@@ -74,6 +74,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "スラブの荷重は必ず負担幅で振り分けるのですか？", "acceptedAnswer": {"@type": "Answer", "text": "スラブの形状によります。一方向にだけ長い（長辺／短辺が2を超える）スラブは、荷重がほぼ短辺方向にだけ流れるため、短辺方向の梁が負担幅ぶんを受けると考えます。一方、正方形に近いスラブは四方の梁に荷重が流れるため、四隅から45度の線を引いて三角形・台形に分割して各梁に振り分けます。実務では等価な等分布荷重に換算して扱うことが多いです。"}},
+ {"@type": "Question", "name": "積雪荷重はどのように扱いますか？", "acceptedAnswer": {"@type": "Answer", "text": "積雪量1cmあたり20N/m²以上を、その地域の垂直積雪量に応じて計算します。一般区域では短期荷重として扱いますが、多雪区域では長期の組み合わせにも積雪の一部（0.7倍）を含めるなど、扱いが異なります。また、屋根勾配が急な場合は雪が滑り落ちるため低減でき、逆に谷部や壁際では吹きだまりによる不均等な積雪を考慮する必要があります。"}},
+ {"@type": "Question", "name": "設備荷重はどのくらい見込めばよいですか？", "acceptedAnswer": {"@type": "Answer", "text": "用途によって大きく異なります。一般的な事務所・住宅では、天井・設備配管を含めて0.5〜1.0kN/m²程度を固定荷重に含めるのが目安です。ただし、機械室・サーバー室・厨房・図書室の書架などは特に重く、実際の機器重量を個別に拾う必要があります。設計初期に設備担当と重量物の位置・重さを共有しておかないと、後から梁の断面変更が必要になることがあります。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -105,7 +112,7 @@
       <div class="meta">
         <span class="tag">構造計算の実務</span>
         <span>公開日：2026年6月12日</span>
-        <span>更新日：2026年7月3日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>固定荷重・積載荷重の拾い方｜荷重の種類と組み合わせをわかりやすく解説</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -209,6 +216,68 @@
         <span class="label">実務のワンポイント</span>
         <p>固定荷重で見落としがちなのは、竣工後に追加される空調更新や太陽光パネルなどの重さです。私は仕上げ表だけでなく改修計画も確認し、将来の荷重増を見込んで多少の余裕を持たせて拾います。積載荷重も当初の用途どおりに使われ続けるとは限らず、テナント替えで倉庫的な使い方に変わり後年トラブルになった例も見てきました。</p>
       </div>
+
+      <h2 id="hutanhaba">負担幅の考え方（図解）</h2>
+      <p>スラブに載る荷重を梁に振り分けるとき、その梁が「どの範囲の床を支えているか」を示すのが<strong>負担幅</strong>です。荷重拾いの中心となる考え方です。</p>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 300" role="img" aria-label="梁の負担幅の考え方の図解。両側のスパンの半分ずつを負担する">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">梁が支える床の範囲（負担幅）</text>
+          <!-- スラブ -->
+          <rect x="90" y="60" width="520" height="150" fill="#eef3f8" stroke="#9fc0dd" stroke-width="1.5"/>
+          <!-- 梁3本 -->
+          <g fill="#e8843c">
+            <rect x="84" y="60" width="12" height="150"/>
+            <rect x="294" y="60" width="12" height="150"/>
+            <rect x="604" y="60" width="12" height="150"/>
+          </g>
+          <text x="90" y="234" font-size="13" text-anchor="middle" fill="#8a4b18" font-weight="bold">梁A</text>
+          <text x="300" y="234" font-size="13" text-anchor="middle" fill="#8a4b18" font-weight="bold">梁B</text>
+          <text x="610" y="234" font-size="13" text-anchor="middle" fill="#8a4b18" font-weight="bold">梁C</text>
+          <!-- 負担範囲（梁B） -->
+          <rect x="195" y="60" width="210" height="150" fill="#f5d9c2" opacity=".75"/>
+          <line x1="195" y1="52" x2="195" y2="216" stroke="#c0392b" stroke-width="2" stroke-dasharray="6 4"/>
+          <line x1="405" y1="52" x2="405" y2="216" stroke="#c0392b" stroke-width="2" stroke-dasharray="6 4"/>
+          <g stroke="#c0392b" stroke-width="2">
+            <line x1="195" y1="42" x2="405" y2="42"/>
+            <line x1="195" y1="36" x2="195" y2="48"/>
+            <line x1="405" y1="36" x2="405" y2="48"/>
+          </g>
+          <text x="300" y="30" font-size="13.5" text-anchor="middle" fill="#c0392b" font-weight="bold">梁Bの負担幅</text>
+          <text x="145" y="140" font-size="12.5" text-anchor="middle" fill="#6b7785">L1/2</text>
+          <text x="455" y="140" font-size="12.5" text-anchor="middle" fill="#6b7785">L2/2</text>
+          <text x="350" y="270" font-size="13" text-anchor="middle" fill="#6b7785">梁Bは、左右のスパンの半分ずつ（L1/2 ＋ L2/2）の床を支える</text>
+        </svg>
+        <figcaption>梁の負担幅は、両隣の梁との距離の半分ずつの合計。スラブの荷重（kN/m²）に負担幅を掛けると、梁に作用する等分布荷重（kN/m）になる。</figcaption>
+      </figure>
+
+      <h2 id="keisanrei">荷重拾いの計算例</h2>
+      <p>実際の数値で、スラブから梁への荷重の流れを追ってみましょう。</p>
+      <p><strong>条件</strong>：事務室、RCスラブ厚150mm＋仕上げ、スパン6m×6mのグリッド。梁Bの負担幅は3m（両側3m/2×2）とします。</p>
+      <table class="data">
+        <tr><th>項目</th><th>計算</th><th>値</th></tr>
+        <tr><td>スラブ自重</td><td>0.15m × 24kN/m³</td><td>3.6 kN/m²</td></tr>
+        <tr><td>仕上げ・天井・設備</td><td>（一般的な目安）</td><td>1.0 kN/m²</td></tr>
+        <tr><td><strong>固定荷重 G の小計</strong></td><td>3.6 ＋ 1.0</td><td><strong>4.6 kN/m²</strong></td></tr>
+        <tr><td>積載荷重 P（事務室・架構用）</td><td>1,800 N/m²</td><td>1.8 kN/m²</td></tr>
+        <tr><td><strong>合計（長期 G＋P）</strong></td><td>4.6 ＋ 1.8</td><td><strong>6.4 kN/m²</strong></td></tr>
+        <tr><td><strong>梁Bへの等分布荷重</strong></td><td>6.4 kN/m² × 負担幅3m</td><td><strong>19.2 kN/m</strong></td></tr>
+        <tr><td>梁自身の自重（0.4×0.7想定）</td><td>0.4 × 0.7 × 24</td><td>6.7 kN/m</td></tr>
+        <tr><td><strong>梁の設計用荷重</strong></td><td>19.2 ＋ 6.7</td><td><strong>約25.9 kN/m</strong></td></tr>
+      </table>
+      <p>ここで注意したいのが、<strong>梁自身の自重を忘れない</strong>ことです。スラブからの荷重だけを拾って梁の自重を落とすミスは、初学者にありがちな失敗です。この例では梁自重が全体の約26%を占めており、無視できない大きさであることがわかります。</p>
+      <div class="point-box">
+        <span class="label">積載荷重は「どの部材を検討するか」で使い分ける</span>
+        <p>上の例では梁の検討なので<strong>架構用（1,800N/m²）</strong>を使いました。同じ事務室でも、スラブそのものを検討するときは<strong>床用（2,900N/m²）</strong>、地震力の算定に使う建物重量には<strong>地震用（800N/m²）</strong>を用います。同じ室でも検討対象によって値が変わる点が、荷重拾いでもっとも間違えやすいポイントです。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. スラブの荷重は必ず負担幅で振り分けるのですか？</h3>
+      <p>スラブの形状によります。一方向にだけ長い（長辺／短辺が2を超える）スラブは、荷重がほぼ短辺方向にだけ流れるため、短辺方向の梁が負担幅ぶんを受けると考えます。一方、正方形に近いスラブは四方の梁に荷重が流れるため、四隅から45度の線を引いて三角形・台形に分割して各梁に振り分けます。実務では等価な等分布荷重に換算して扱うことが多いです。</p>
+      <h3>Q2. 積雪荷重はどのように扱いますか？</h3>
+      <p>積雪量1cmあたり20N/m²以上を、その地域の垂直積雪量に応じて計算します。一般区域では短期荷重として扱いますが、多雪区域では長期の組み合わせにも積雪の一部（0.7倍）を含めるなど、扱いが異なります。また、屋根勾配が急な場合は雪が滑り落ちるため低減でき、逆に谷部や壁際では吹きだまりによる不均等な積雪を考慮する必要があります。</p>
+      <h3>Q3. 設備荷重はどのくらい見込めばよいですか？</h3>
+      <p>用途によって大きく異なります。一般的な事務所・住宅では、天井・設備配管を含めて0.5〜1.0kN/m²程度を固定荷重に含めるのが目安です。ただし、機械室・サーバー室・厨房・図書室の書架などは特に重く、実際の機器重量を個別に拾う必要があります。設計初期に設備担当と重量物の位置・重さを共有しておかないと、後から梁の断面変更が必要になることがあります。</p>
+
 
       <h2>まとめ</h2>
       <ul>
