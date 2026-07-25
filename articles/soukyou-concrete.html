@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/soukyou-concrete.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/soukyou-concrete.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-02",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-soukyou-concrete.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "早強コンクリートの養生期間は短くできますか？", "acceptedAnswer": {"@type": "Answer", "text": "湿潤養生の期間は3日以上と、普通コンクリートの5日以上より短くできます。ただし、養生が不要になるわけではありません。むしろ水和反応が速い分だけ初期の水分消費が激しく、乾燥させると強度の伸びが止まるリスクは同じかそれ以上です。期間は短くても、その間の管理はより丁寧に行う必要があります。"}},
+ {"@type": "Question", "name": "早強コンクリートは最終的な強度も高いのですか？", "acceptedAnswer": {"@type": "Answer", "text": "材齢28日の強度は、同じ水セメント比なら普通コンクリートと大きく変わりません。早強セメントの特徴は「強度発現が速い」ことであり、「最終強度が高い」ことではないためです。長期的にはむしろ、初期に急速に反応した分だけ組織がやや粗くなり、長期強度の伸びは普通セメントのほうが大きい傾向があります。"}},
+ {"@type": "Question", "name": "超早強セメントというものもありますか？", "acceptedAnswer": {"@type": "Answer", "text": "あります。早強よりさらに強度発現が速く、材齢1日で早強の3日相当の強度が得られるとされます。緊急補修工事や、極めて短い工期が求められる場面で使われます。ただし水和熱・乾燥収縮がさらに大きく、可使時間も非常に短いため、適用場面は限定的です。一般の建築工事で使われることはほとんどありません。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">鉄筋コンクリート造（RC造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>早強コンクリートとは？記号H・養生期間・夏冬</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -183,6 +190,60 @@
         <span class="label">あわせて読みたい</span>
         <p>「<a href="kanchuu-concrete.html">寒中コンクリート</a>」「<a href="shochuu-concrete.html">暑中コンクリート</a>」、全体像は「<a href="concrete-shurui.html">コンクリートの種類7選</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="hikaku-graph">強度発現の比較（図解）</h2>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 250" role="img" aria-label="早強コンクリートと普通コンクリートの強度発現の比較グラフ">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">早強は材齢3日で普通の7日相当</text>
+          <line x1="110" y1="200" x2="640" y2="200" stroke="#1a3a5c" stroke-width="2"/>
+          <line x1="110" y1="200" x2="110" y2="56" stroke="#1a3a5c" stroke-width="2"/>
+          <text x="580" y="226" font-size="13" fill="#1a3a5c">材齢 →</text>
+          <text x="86" y="72" font-size="13" text-anchor="end" fill="#1a3a5c">強度</text>
+          <path d="M110 200 Q160 110 230 92 Q380 68 620 58" fill="none" stroke="#c0392b" stroke-width="4.5"/>
+          <text x="270" y="82" font-size="13.5" fill="#c0392b" font-weight="bold">早強（H）</text>
+          <path d="M110 200 Q200 148 320 118 Q460 88 620 66" fill="none" stroke="#1a3a5c" stroke-width="4"/>
+          <text x="420" y="112" font-size="13.5" fill="#1a3a5c" font-weight="bold">普通（N）</text>
+          <g stroke="#9fc0dd" stroke-width="1.5" stroke-dasharray="5 4">
+            <line x1="180" y1="100" x2="180" y2="200"/><line x1="290" y1="126" x2="290" y2="200"/>
+          </g>
+          <g font-size="12.5" fill="#6b7785" text-anchor="middle">
+            <text x="180" y="220">3日</text><text x="290" y="220">7日</text><text x="500" y="220">28日</text>
+          </g>
+          <line x1="180" y1="100" x2="290" y2="126" stroke="#2e7d4f" stroke-width="2" stroke-dasharray="4 3"/>
+          <text x="235" y="98" font-size="12" text-anchor="middle" fill="#2e7d4f" font-weight="bold">ほぼ同等</text>
+          <text x="350" y="242" font-size="12.5" text-anchor="middle" fill="#6b7785">材齢28日では両者の差は小さくなる</text>
+        </svg>
+        <figcaption>早強コンクリートは初期の強度発現が速く、材齢3日で普通コンクリートの7日相当に達する。ただし28日での差は小さくなる。</figcaption>
+      </figure>
+
+      <h2 id="tsukaidokoro">使いどころと注意点</h2>
+      <table class="data">
+        <tr><th>使いどころ</th><th>理由</th></tr>
+        <tr><td>工期短縮が必要な工事</td><td>型枠の存置期間を短縮でき、施工サイクルが速くなる</td></tr>
+        <tr><td><a href="kanchuu-concrete.html">寒中コンクリート</a></td><td>低温で遅れる強度発現を補い、初期凍害のリスクを下げる</td></tr>
+        <tr><td>プレキャスト製品</td><td>脱型を早めて型枠の回転率を上げられる</td></tr>
+        <tr><td>緊急工事・補修工事</td><td>早期に供用開始できる</td></tr>
+      </table>
+      <table class="data">
+        <tr><th>注意点</th><th>内容</th></tr>
+        <tr><td>水和熱が大きい</td><td>断面が大きい部材では温度ひび割れのリスクが高まる。マスコンクリートには不向き</td></tr>
+        <tr><td>乾燥収縮が大きい</td><td>粉末度が高くペースト量も増えるため、収縮ひび割れに注意</td></tr>
+        <tr><td>可使時間が短い</td><td>凝結も早いため、運搬・打込みの時間管理がよりシビアになる</td></tr>
+        <tr><td>コストが高い</td><td>普通ポルトランドセメントより単価が高い</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">夏の早強は要注意</span>
+        <p>早強コンクリートは、もともと凝結・硬化が速いという特性を持ちます。これに<strong>夏の高温が加わる</strong>と、可使時間が極端に短くなり、スランプ低下やコールドジョイントのリスクが跳ね上がります。早強を使うのは主に冬季や工期短縮が必要な場面ですが、夏季に使う場合は、遅延剤の併用や打込み時間帯の調整など、通常以上の時間管理が求められます。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 早強コンクリートの養生期間は短くできますか？</h3>
+      <p>湿潤養生の期間は3日以上と、普通コンクリートの5日以上より短くできます。ただし、養生が不要になるわけではありません。むしろ水和反応が速い分だけ初期の水分消費が激しく、乾燥させると強度の伸びが止まるリスクは同じかそれ以上です。期間は短くても、その間の管理はより丁寧に行う必要があります。</p>
+      <h3>Q2. 早強コンクリートは最終的な強度も高いのですか？</h3>
+      <p>材齢28日の強度は、同じ水セメント比なら普通コンクリートと大きく変わりません。早強セメントの特徴は「強度発現が速い」ことであり、「最終強度が高い」ことではないためです。長期的にはむしろ、初期に急速に反応した分だけ組織がやや粗くなり、長期強度の伸びは普通セメントのほうが大きい傾向があります。</p>
+      <h3>Q3. 超早強セメントというものもありますか？</h3>
+      <p>あります。早強よりさらに強度発現が速く、材齢1日で早強の3日相当の強度が得られるとされます。緊急補修工事や、極めて短い工期が求められる場面で使われます。ただし水和熱・乾燥収縮がさらに大きく、可使時間も非常に短いため、適用場面は限定的です。一般の建築工事で使われることはほとんどありません。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>
