@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/s-merit.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/s-merit.html",
    "datePublished": "2026-06-13",
-   "dateModified": "2026-06-13",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-s-merit.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "S造とRC造ではどちらが建築コストは安いですか？", "acceptedAnswer": {"@type": "Answer", "text": "一概には言えません。上部構造だけを比べると鋼材価格の影響でS造が高くなることもありますが、S造は建物が軽いため基礎・杭の規模を縮小でき、工期短縮による経費削減も見込めます。逆にRC造は耐火被覆が不要な分のコストが浮きます。実際の比較では、上部構造・基礎・耐火被覆・工期をすべて含めた総工事費で検討します。"}},
+ {"@type": "Question", "name": "鉄は約500℃で強度が半減するとのことですが、火災でS造は崩れるのですか？", "acceptedAnswer": {"@type": "Answer", "text": "耐火被覆がなければ危険です。鋼材は温度上昇とともに急激に強度を失い、500℃前後で常温の約半分、800℃では2割程度まで低下します。そのため耐火建築物では、吹付けロックウール・耐火板・耐火塗料などで鋼材を包み、規定時間（1〜3時間）は所定の温度を超えないようにします。RC造はコンクリートが鉄筋を覆っているため、この被覆が不要です。"}},
+ {"@type": "Question", "name": "S造は揺れを感じやすいと聞きますが、住宅には向きませんか？", "acceptedAnswer": {"@type": "Answer", "text": "居住性の検討は必要ですが、向かないわけではありません。S造は剛性が相対的に低いため、風による揺れや人の歩行による床振動を感じやすい傾向があります。設計では床の固有振動数を確認し、必要に応じて小梁を増やす、床スラブを厚くする、制振装置を設けるなどの対策をとります。広い空間や短工期のメリットが優先される用途では、S造の住宅・共同住宅も一般的です。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">鉄骨造（S造）</span>
         <span>公開日：2026年6月13日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>鉄骨造（S造）のメリット・デメリット｜RC造との違いを比較して解説</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -169,6 +176,47 @@
         <span class="label">実務のワンポイント</span>
         <p>施主にS造とRC造どちらが良いか聞かれたとき、メリット表だけで納得してもらうのは難しいと感じています。実際には杭や基礎の規模まで含めた総工事費で比較しないと、上部構造の軽さがどれだけ効いてくるかが伝わらず、後になって想定と違うと言われることがあるからです。</p>
       </div>
+
+      <h2 id="omosa">どのくらい軽いのか（重量の比較）</h2>
+      <p>S造の最大の武器は「軽さ」です。感覚的な話ではなく、設計で使う単位面積あたりの重量（<a href="kajuu.html">固定荷重</a>の目安）で比べると差がはっきりします。</p>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 280" role="img" aria-label="木造・鉄骨造・鉄筋コンクリート造の単位面積あたり重量の比較グラフ。RC造がもっとも重く、S造は約半分程度">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">構造種別ごとの重さの目安（イメージ）</text>
+          <line x1="120" y1="230" x2="640" y2="230" stroke="#1a3a5c" stroke-width="2"/>
+          <rect x="160" y="185" width="90" height="45" fill="#9fc0dd"/>
+          <text x="205" y="252" font-size="14" text-anchor="middle" fill="#1a3a5c">木造</text>
+          <text x="205" y="175" font-size="13" text-anchor="middle" fill="#6b7785">軽い</text>
+          <rect x="315" y="120" width="90" height="110" fill="#e8843c"/>
+          <text x="360" y="252" font-size="14" text-anchor="middle" fill="#e8843c" font-weight="bold">S造</text>
+          <text x="360" y="110" font-size="13" text-anchor="middle" fill="#6b7785">中間</text>
+          <rect x="470" y="60" width="90" height="170" fill="#1a3a5c"/>
+          <text x="515" y="252" font-size="14" text-anchor="middle" fill="#1a3a5c">RC造</text>
+          <text x="515" y="50" font-size="13" text-anchor="middle" fill="#6b7785">重い</text>
+          <text x="350" y="274" font-size="13" text-anchor="middle" fill="#6b7785">建物が軽い＝地震力（重量に比例）が小さい＝基礎・杭も小さくできる</text>
+        </svg>
+        <figcaption>同規模の建物ではRC造がもっとも重く、S造はその半分前後になることが多い。地震力は重量に比例するため、軽さがそのまま耐震上の有利さと基礎コストの差につながる。</figcaption>
+      </figure>
+      <p>この差は上部構造だけの話にとどまりません。建物が軽ければ<a href="jishin-ryoku.html">地震力</a>が小さくなり、柱・梁の断面が小さくなり、基礎や杭の規模も縮小できます。<strong>「S造の軽さは基礎工事費で効いてくる」</strong>と覚えておくと、コスト比較のときに説明しやすくなります。</p>
+
+      <h2 id="erabikata">用途別の選び方の目安</h2>
+      <table class="data">
+        <tr><th>建物の条件</th><th>向いている構造</th><th>理由</th></tr>
+        <tr><td>柱のない広い空間がほしい（工場・倉庫・体育館）</td><td><strong>S造</strong></td><td>大スパンを飛ばせる。RC造では梁がきわめて大きくなる</td></tr>
+        <tr><td>上下階の生活音を抑えたい（分譲マンション）</td><td><strong>RC造</strong></td><td>重量と厚みで遮音性が高い。S造は床衝撃音が伝わりやすい</td></tr>
+        <tr><td>工期を短縮したい</td><td><strong>S造</strong></td><td>工場製作＋現場組立。コンクリートの養生待ちがない</td></tr>
+        <tr><td>地盤が悪く基礎コストを抑えたい</td><td><strong>S造</strong></td><td>建物が軽く、杭の本数・長さを減らせる</td></tr>
+        <tr><td>耐火性能を確保したい（避難施設等）</td><td><strong>RC造</strong></td><td>コンクリート自体が鉄筋を保護。S造は耐火被覆が必要</td></tr>
+      </table>
+      <p>実務では、下層をRC造、上層をS造とする<strong>混構造</strong>もよく使われます。地下や低層の重い部分をRC造で固め、上層は軽いS造にすることで、それぞれの長所を組み合わせる考え方です。</p>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. S造とRC造ではどちらが建築コストは安いですか？</h3>
+      <p>一概には言えません。上部構造だけを比べると鋼材価格の影響でS造が高くなることもありますが、S造は建物が軽いため基礎・杭の規模を縮小でき、工期短縮による経費削減も見込めます。逆にRC造は耐火被覆が不要な分のコストが浮きます。実際の比較では、上部構造・基礎・耐火被覆・工期をすべて含めた総工事費で検討します。</p>
+      <h3>Q2. 鉄は約500℃で強度が半減するとのことですが、火災でS造は崩れるのですか？</h3>
+      <p>耐火被覆がなければ危険です。鋼材は温度上昇とともに急激に強度を失い、500℃前後で常温の約半分、800℃では2割程度まで低下します。そのため耐火建築物では、吹付けロックウール・耐火板・耐火塗料などで鋼材を包み、規定時間（1〜3時間）は所定の温度を超えないようにします。RC造はコンクリートが鉄筋を覆っているため、この被覆が不要です。</p>
+      <h3>Q3. S造は揺れを感じやすいと聞きますが、住宅には向きませんか？</h3>
+      <p>居住性の検討は必要ですが、向かないわけではありません。S造は剛性が相対的に低いため、風による揺れや人の歩行による床振動を感じやすい傾向があります。設計では床の固有振動数を確認し、必要に応じて小梁を増やす、床スラブを厚くする、制振装置を設けるなどの対策をとります。広い空間や短工期のメリットが優先される用途では、S造の住宅・共同住宅も一般的です。</p>
+
 
       <h2>まとめ</h2>
       <ul>

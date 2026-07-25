@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/kouzai-shurui.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/kouzai-shurui.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-06-14",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-kouzai-shurui.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "SS400とSN400はどちらも400ですが、何が違いますか？", "acceptedAnswer": {"@type": "Answer", "text": "引張強さの級は同じ400N/mm²級ですが、保証される性能が違います。SS400は化学成分の規定がゆるく、降伏点の上限や溶接性が保証されません。SN400は建築専用規格で、B種以上なら降伏点の上限・降伏比・炭素当量・シャルピー衝撃値が規定され、地震時に安定して塑性変形します。主要構造部材にはSN材を使うのが基本です。"}},
+ {"@type": "Question", "name": "SN材のC種はどんなときに指定しますか？", "acceptedAnswer": {"@type": "Answer", "text": "板の厚み方向に引張力がかかる部位に使います。代表例が柱と梁の仕口部に入る通しダイアフラムです。ここは梁フランジから引っ張られる力が板厚方向に作用するため、通常の鋼材では溶接部近くで層状に割れるラメラテアが起こる可能性があります。C種は板厚方向の絞り値が保証されており、これを防げます。"}},
+ {"@type": "Question", "name": "鋼材の記号にある「Y」や「W」は何を意味しますか？", "acceptedAnswer": {"@type": "Answer", "text": "SM490Yの「Y」は降伏点を高めたタイプ（Yield point）を表します。またSMA材の「A」は耐候性鋼（Atmospheric corrosion resisting）で、表面に緻密なさびの層をつくって内部の腐食進行を抑えるため、無塗装で使える場合があります。記号の追加文字は性能の違いを示しているので、拾い出しのときは必ず確認します。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">鉄骨造（S造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>鋼材の種類とは？用途・材質の特徴と記号（SS・SN・SM材の違い）</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -162,6 +169,61 @@
         <span class="label">あわせて読みたい</span>
         <p>規格の全体像は「<a href="jis-kouzai.html">JIS鋼材一覧</a>」、普通鋼と特殊鋼の関係は「<a href="futsuukou.html">普通鋼とは</a>」、鉄骨材料の基礎は「<a href="s-zairyo.html">鉄骨の材料・耐火被覆</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="yomikata">鋼材記号の読み方（SN490B の例）</h2>
+      <p>鋼材の記号は、規格・強度・種別が並んだ「読める情報」です。もっともよく使うSN490Bを分解してみましょう。</p>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 260" role="img" aria-label="鋼材記号SN490Bの読み方の分解図。SNは建築構造用圧延鋼材、490は引張強さ、Bは種別を表す">
+          <text x="350" y="28" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">鋼材記号の読み方</text>
+          <text x="200" y="92" font-size="46" fill="#1a3a5c" font-weight="bold" letter-spacing="2">SN</text>
+          <text x="300" y="92" font-size="46" fill="#e8843c" font-weight="bold" letter-spacing="2">490</text>
+          <text x="420" y="92" font-size="46" fill="#1a3a5c" font-weight="bold">B</text>
+          <g stroke="#9fc0dd" stroke-width="2">
+            <line x1="215" y1="105" x2="150" y2="150"/>
+            <line x1="340" y1="105" x2="350" y2="150"/>
+            <line x1="432" y1="105" x2="545" y2="150"/>
+          </g>
+          <text x="150" y="172" font-size="14" text-anchor="middle" fill="#1a3a5c" font-weight="bold">規格の種類</text>
+          <text x="150" y="194" font-size="12.5" text-anchor="middle" fill="#6b7785">建築構造用圧延鋼材</text>
+          <text x="150" y="214" font-size="12.5" text-anchor="middle" fill="#6b7785">（SS・SM もここ）</text>
+          <text x="350" y="172" font-size="14" text-anchor="middle" fill="#e8843c" font-weight="bold">引張強さ</text>
+          <text x="350" y="194" font-size="12.5" text-anchor="middle" fill="#6b7785">490 N/mm² 級</text>
+          <text x="350" y="214" font-size="12.5" text-anchor="middle" fill="#6b7785">数字が大きい＝強い</text>
+          <text x="545" y="172" font-size="14" text-anchor="middle" fill="#1a3a5c" font-weight="bold">種別（SN材のみ）</text>
+          <text x="545" y="194" font-size="12.5" text-anchor="middle" fill="#6b7785">A・B・C の3種</text>
+          <text x="545" y="214" font-size="12.5" text-anchor="middle" fill="#6b7785">B＝一般的な主要部材</text>
+          <text x="350" y="246" font-size="13" text-anchor="middle" fill="#6b7785">記号を読めば「どの規格の・どのくらい強い・どの種別の鋼材か」がわかる</text>
+        </svg>
+        <figcaption>鋼材記号は「規格＋引張強さ＋種別」の組み合わせ。SN490Bなら建築構造用・引張強さ490N/mm²級・B種となる。</figcaption>
+      </figure>
+
+      <h2 id="sn-shubetsu">SN材のA種・B種・C種の使い分け</h2>
+      <p>SN材は同じ強度でも、要求性能によってA・B・Cの3種に分かれます。図面で種別を書き間違えると、必要な性能を満たさない鋼材が入ってしまうので注意が必要です。</p>
+      <table class="data">
+        <tr><th>種別</th><th>保証される性能</th><th>使う部位</th></tr>
+        <tr><td><strong>A種</strong></td><td>降伏点・引張強さのみ。溶接性・塑性変形性能は保証されない</td><td>溶接せず、塑性化も想定しない部材（小梁・間柱など）</td></tr>
+        <tr><td><strong>B種</strong></td><td>A種に加え、降伏点の上限・降伏比・炭素当量（溶接性）・シャルピー衝撃値を規定</td><td><strong>柱・大梁など主要構造部材（もっとも一般的）</strong></td></tr>
+        <tr><td><strong>C種</strong></td><td>B種に加え、板厚方向の絞り値（ラメラテア対策）を規定</td><td>板厚方向に引張力を受ける部位（通しダイアフラム、ベースプレートなど）</td></tr>
+      </table>
+      <p>B種で規定される<strong>降伏比</strong>（降伏点÷引張強さ）は、地震時の粘り強さに直結します。降伏比が低いほど、降伏してから破断までの余裕が大きく、建物が粘って倒壊しにくくなります。C種の<strong>板厚方向の絞り</strong>は、溶接時に板が層状に割れる「ラメラテア」を防ぐための規定です。</p>
+
+      <h2 id="f-chi">設計で使う基準強度F値</h2>
+      <p>構造計算では、鋼材の種類ごとに定められた<strong>基準強度F</strong>を使って許容応力度を求めます。代表的な値は次のとおりです。</p>
+      <table class="data">
+        <tr><th>鋼材</th><th>基準強度F（N/mm²）</th><th>長期許容引張応力度（F/1.5）</th></tr>
+        <tr><td>SS400・SN400・SM400</td><td>235</td><td>約157</td></tr>
+        <tr><td>SN490・SM490</td><td>325</td><td>約217</td></tr>
+      </table>
+      <p>※板厚が40mmを超える場合はF値が低減されます。SN490はSN400に比べF値が約1.4倍で、同じ力に対して部材を細くできる一方、材料単価は高くなります。</p>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. SS400とSN400はどちらも400ですが、何が違いますか？</h3>
+      <p>引張強さの級は同じ400N/mm²級ですが、保証される性能が違います。SS400は化学成分の規定がゆるく、降伏点の上限や溶接性が保証されません。SN400は建築専用規格で、B種以上なら降伏点の上限・降伏比・炭素当量・シャルピー衝撃値が規定され、地震時に安定して塑性変形します。主要構造部材にはSN材を使うのが基本です。</p>
+      <h3>Q2. SN材のC種はどんなときに指定しますか？</h3>
+      <p>板の厚み方向に引張力がかかる部位に使います。代表例が柱と梁の仕口部に入る通しダイアフラムです。ここは梁フランジから引っ張られる力が板厚方向に作用するため、通常の鋼材では溶接部近くで層状に割れるラメラテアが起こる可能性があります。C種は板厚方向の絞り値が保証されており、これを防げます。</p>
+      <h3>Q3. 鋼材の記号にある「Y」や「W」は何を意味しますか？</h3>
+      <p>SM490Yの「Y」は降伏点を高めたタイプ（Yield point）を表します。またSMA材の「A」は耐候性鋼（Atmospheric corrosion resisting）で、表面に緻密なさびの層をつくって内部の腐食進行を抑えるため、無塗装で使える場合があります。記号の追加文字は性能の違いを示しているので、拾い出しのときは必ず確認します。</p>
+
 
       <h2>まとめ</h2>
       <ul>

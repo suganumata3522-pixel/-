@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/zairai-kouhou.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/zairai-kouhou.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-06-14",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-zairai-kouhou.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "在来工法と2×4（枠組壁工法）はどちらが地震に強いですか？", "acceptedAnswer": {"@type": "Answer", "text": "どちらが一方的に強いということはなく、基準どおりに設計・施工されていれば、いずれも必要な耐震性能を確保できます。2×4は壁・床の面で抵抗するため耐力のばらつきが小さく安定していますが、開口部の設置や間取り変更の自由度は在来工法のほうが高くなります。在来工法でも構造用合板を張った面材耐力壁を使えば、2×4に近い考え方で剛性を高められます。"}},
+ {"@type": "Question", "name": "在来工法で増改築しやすいのはなぜですか？", "acceptedAnswer": {"@type": "Answer", "text": "柱と梁で骨組みをつくる構造のため、壁の位置を比較的自由に変更できるからです。ただし「どの壁でも動かせる」わけではありません。耐力壁として計算に入っている壁を撤去すると、壁量や配置バランスが不足して耐震性が低下します。リフォームの際は、構造図で耐力壁の位置を確認し、撤去する場合は別の位置に補う設計が必要です。"}},
+ {"@type": "Question", "name": "2000年基準以前の在来工法住宅は補強が必要ですか？", "acceptedAnswer": {"@type": "Answer", "text": "一律に必要とは言えませんが、耐震診断を受けることをおすすめします。2000年以前は接合金物の規定や耐力壁のバランス確認（四分割法）が明確でなかったため、壁量は足りていても金物が不足していたり、壁の配置が偏っていたりする例があります。診断で弱点が判明した場合は、耐力壁の追加や金物の後付けで補強できます。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">木造（W造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>在来工法とは？概要・耐震性・伝統工法との違いをわかりやすく解説</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -164,6 +171,64 @@
         <span class="label">あわせて読みたい</span>
         <p>部材の役割は「<a href="jikugumi-kouhou.html">在来軸組工法の部材</a>」、2×4との違いは「<a href="jiku-waku.html">軸組と枠組の違い</a>」、木造全体は「<a href="w-zou.html">木造（W造）とは？</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="chikara">在来工法の力の流れ（図解）</h2>
+      <p>在来工法の骨組みは、役割の違う部材が積み重なってできています。どの部材がどの力を受け持つのかを押さえると、構造の全体像がつかめます。</p>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 360" role="img" aria-label="在来工法の軸組と力の流れ。屋根・床の重さは梁から柱・土台・基礎へ、地震や風の水平力は筋かいが負担する">
+          <text x="350" y="24" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">在来工法の骨組みと力の流れ</text>
+          <!-- 屋根 -->
+          <path d="M350 48 L180 128 L520 128 Z" fill="#f5d9c2" stroke="#e8843c" stroke-width="2.5"/>
+          <text x="350" y="105" font-size="13" text-anchor="middle" fill="#8a4b18">屋根</text>
+          <!-- 梁・桁 -->
+          <rect x="180" y="128" width="340" height="16" fill="#e8843c"/>
+          <text x="560" y="141" font-size="13" fill="#1a3a5c">梁・桁</text>
+          <!-- 柱 -->
+          <g fill="#9fc0dd">
+            <rect x="188" y="144" width="18" height="140"/>
+            <rect x="341" y="144" width="18" height="140"/>
+            <rect x="494" y="144" width="18" height="140"/>
+          </g>
+          <text x="560" y="215" font-size="13" fill="#1a3a5c">柱</text>
+          <!-- 筋かい -->
+          <line x1="206" y1="284" x2="341" y2="144" stroke="#1a3a5c" stroke-width="8"/>
+          <line x1="512" y1="284" x2="359" y2="144" stroke="#1a3a5c" stroke-width="8"/>
+          <text x="255" y="230" font-size="13" fill="#1a3a5c" font-weight="bold">筋かい</text>
+          <!-- 土台・基礎 -->
+          <rect x="180" y="284" width="340" height="16" fill="#e8843c"/>
+          <text x="560" y="297" font-size="13" fill="#1a3a5c">土台</text>
+          <rect x="170" y="300" width="360" height="26" fill="#b8bfc7"/>
+          <text x="350" y="318" font-size="13" text-anchor="middle" fill="#3f4a55">基礎</text>
+          <!-- 力の矢印 -->
+          <g stroke="#c0392b" stroke-width="4">
+            <line x1="80" y1="136" x2="170" y2="136"/>
+            <path d="M170 136 l-14 -7 v14 z" fill="#c0392b" stroke="none"/>
+          </g>
+          <text x="80" y="122" font-size="13" fill="#c0392b" font-weight="bold">地震・風（水平力）</text>
+          <text x="350" y="348" font-size="13" text-anchor="middle" fill="#6b7785">鉛直の重さは 梁→柱→土台→基礎 へ、水平力は筋かい（耐力壁）が受け持つ</text>
+        </svg>
+        <figcaption>在来工法では、鉛直荷重を柱・梁の軸組が、水平力を筋かいや面材耐力壁が分担する。この役割分担が構造計画の基本になる。</figcaption>
+      </figure>
+
+      <h2 id="kanamono">接合金物の役割</h2>
+      <p>2000年の基準強化で明確になったのが<strong>接合部の金物</strong>です。壁をいくら強くしても、柱が土台から引き抜けてしまえば意味がありません。代表的な金物と役割を整理します。</p>
+      <table class="data">
+        <tr><th>金物</th><th>取り付け位置</th><th>役割</th></tr>
+        <tr><td><strong>ホールダウン金物</strong></td><td>柱脚・柱頭（引き抜き力が大きい柱）</td><td>地震時に柱が浮き上がろうとする力を、基礎や上下階に直接伝えて抑える</td></tr>
+        <tr><td><strong>羽子板ボルト</strong></td><td>梁と柱の仕口</td><td>横架材が柱から抜け出すのを防ぐ</td></tr>
+        <tr><td><strong>筋かいプレート</strong></td><td>筋かいの端部</td><td>筋かいが柱・土台から外れるのを防ぐ。端部が外れると筋かいは働かない</td></tr>
+        <tr><td><strong>アンカーボルト</strong></td><td>土台と基礎</td><td>建物が基礎からずれる・浮き上がるのを防ぐ</td></tr>
+      </table>
+      <p>どの柱にどの金物が必要かは、柱に生じる引き抜き力から決めます。簡易な方法が<strong>N値計算</strong>で、柱の両側の壁倍率の差などから必要な金物の種類を選定します。壁倍率の高い耐力壁の端部ほど、大きな引き抜き力が生じるため強い金物が必要になります。</p>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 在来工法と2×4（枠組壁工法）はどちらが地震に強いですか？</h3>
+      <p>どちらが一方的に強いということはなく、基準どおりに設計・施工されていれば、いずれも必要な耐震性能を確保できます。2×4は壁・床の面で抵抗するため耐力のばらつきが小さく安定していますが、開口部の設置や間取り変更の自由度は在来工法のほうが高くなります。在来工法でも構造用合板を張った面材耐力壁を使えば、2×4に近い考え方で剛性を高められます。</p>
+      <h3>Q2. 在来工法で増改築しやすいのはなぜですか？</h3>
+      <p>柱と梁で骨組みをつくる構造のため、壁の位置を比較的自由に変更できるからです。ただし「どの壁でも動かせる」わけではありません。耐力壁として計算に入っている壁を撤去すると、壁量や配置バランスが不足して耐震性が低下します。リフォームの際は、構造図で耐力壁の位置を確認し、撤去する場合は別の位置に補う設計が必要です。</p>
+      <h3>Q3. 2000年基準以前の在来工法住宅は補強が必要ですか？</h3>
+      <p>一律に必要とは言えませんが、耐震診断を受けることをおすすめします。2000年以前は接合金物の規定や耐力壁のバランス確認（四分割法）が明確でなかったため、壁量は足りていても金物が不足していたり、壁の配置が偏っていたりする例があります。診断で弱点が判明した場合は、耐力壁の追加や金物の後付けで補強できます。</p>
+
 
       <h2>まとめ</h2>
       <ul>
