@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/mokuzai-omosa.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/mokuzai-omosa.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-mokuzai-omosa.jpg",
    "author": {
     "@type": "Person",
@@ -114,7 +114,7 @@
       <div class="meta">
         <span class="tag">木造（W造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>木材の重さ計算｜立米（m³）から重量を求める</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -194,6 +194,61 @@
         <span class="label">実務のワンポイント</span>
         <p>上棟の現場で梁材の荷揚げを見ていると、一人で持てる重さを超えた部材を無理に運ぼうとする場面に出くわすことがあります。数十kgを超える部材は台車や複数人での運搬をあらかじめ指示し、現場で判断が割れないようにしています。</p>
       </div>
+
+      <h2 id="gansuiritsu">含水率で重さはどれだけ変わるか</h2>
+      <p>木材の重さを考えるうえで見落とせないのが<strong>含水率</strong>です。同じ材でも、乾き具合で重量は大きく変わります。</p>
+      <table class="data">
+        <tr><th>状態</th><th>含水率の目安</th><th>スギ材の重量（1m³あたり）</th></tr>
+        <tr><td>生材（伐採直後）</td><td>100〜200%以上</td><td>約700〜900kg</td></tr>
+        <tr><td>気乾状態（自然乾燥）</td><td>約15%</td><td>約380kg</td></tr>
+        <tr><td>人工乾燥材（KD材）</td><td>15〜20%以下</td><td>約380〜400kg</td></tr>
+        <tr><td>全乾状態（完全乾燥）</td><td>0%</td><td>約330kg</td></tr>
+      </table>
+      <p>生材は気乾材の<strong>2倍前後の重さ</strong>になることがあります。含水率とは「水分の質量 ÷ 全乾状態の木材の質量」で表すため、100%を超えることも珍しくありません（木材の細胞内に水が満たされている状態）。現場で「思ったより重い」と感じる材は、乾燥が進んでいない可能性があります。</p>
+      <div class="point-box">
+        <span class="label">構造計算で使う値は「気乾比重」</span>
+        <p>構造設計で部材の自重を拾うときは、<strong>気乾状態</strong>の値を用いるのが標準です。建物が完成して使用される段階では、木材は室内環境と平衡した含水率（おおむね15%前後）になっているためです。ただし、施工中の仮設計画や運搬計画では、乾燥が不十分な材の重量を見込む必要があります。</p>
+      </div>
+
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 280" role="img" aria-label="樹種別の1立方メートルあたり重量の比較グラフ。スギが最も軽くナラ・カシ類が最も重い">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">樹種別の重さ（1m³あたり）</text>
+          <line x1="150" y1="240" x2="650" y2="240" stroke="#1a3a5c" stroke-width="2"/>
+          <g font-size="13" fill="#1a3a5c" text-anchor="end">
+            <text x="140" y="72">スギ</text><text x="140" y="104">ヒノキ</text>
+            <text x="140" y="136">ベイツガ</text><text x="140" y="168">ベイマツ</text>
+            <text x="140" y="200">ナラ・カシ</text>
+          </g>
+          <g fill="#9fc0dd">
+            <rect x="150" y="58" width="190" height="20"/>
+            <rect x="150" y="90" width="205" height="20"/>
+            <rect x="150" y="122" width="235" height="20"/>
+          </g>
+          <rect x="150" y="154" width="250" height="20" fill="#e8843c"/>
+          <rect x="150" y="186" width="390" height="20" fill="#1a3a5c"/>
+          <g font-size="12.5" fill="#6b7785">
+            <text x="352" y="73">約380kg</text><text x="367" y="105">約410kg</text>
+            <text x="397" y="137">約470kg</text><text x="412" y="169">約500kg</text>
+            <text x="552" y="201">約650〜900kg</text>
+          </g>
+          <text x="400" y="268" font-size="13" text-anchor="middle" fill="#6b7785">比重が大きい樹種ほど重く、一般に強度も高い（気乾状態の目安）</text>
+        </svg>
+        <figcaption>樹種によって1m³あたりの重量は2倍以上違う。梁にベイマツが使われるのは、比重が大きく曲げ強度に優れるため。</figcaption>
+      </figure>
+
+
+      <h2 id="juushu">主な樹種の気乾比重</h2>
+      <table class="data">
+        <tr><th>樹種</th><th>気乾比重の目安</th><th>1m³あたりの重量</th><th>主な用途</th></tr>
+        <tr><td>スギ</td><td>0.38</td><td>約380kg</td><td>柱・間柱・野地板</td></tr>
+        <tr><td>ヒノキ</td><td>0.41</td><td>約410kg</td><td>土台・柱（耐久性が高い）</td></tr>
+        <tr><td>ヒバ</td><td>0.41</td><td>約410kg</td><td>土台（防蟻性に優れる）</td></tr>
+        <tr><td>ベイマツ</td><td>0.50</td><td>約500kg</td><td>梁・桁（曲げ強度が高い）</td></tr>
+        <tr><td>ベイツガ</td><td>0.47</td><td>約470kg</td><td>造作材・下地材</td></tr>
+        <tr><td>ナラ・カシ類</td><td>0.65〜0.90</td><td>約650〜900kg</td><td>床材・造作（硬い広葉樹）</td></tr>
+      </table>
+      <p>一般に、<strong>比重が大きい樹種ほど強度も高い</strong>傾向があります。梁など曲げを受ける部材にベイマツが使われるのは、スギより比重が大きく曲げ強度に優れるためです。ただし重い分だけ扱いにくく、コストも上がるため、部位ごとに必要な性能で選び分けます。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

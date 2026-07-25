@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/koyazuka.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/koyazuka.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-koyazuka.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,12 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "小屋束は途中で継いでもよいですか？", "acceptedAnswer": {"@type": "Answer", "text": "小屋束は基本的に1本の材で加工し、継手を設けないことが望ましいとされます。継手を設ける場合は、荷重の伝達に支障が出ないよう、金物で補強するなどの対策が必要です。"}},
+ {"@type": "Question", "name": "洋小屋のトラス構造にも小屋束はありますか？", "acceptedAnswer": {"@type": "Answer", "text": "洋小屋のトラス構造にも束材が使われますが、和小屋の小屋束のように単純な圧縮部材として機能する場合と、トラスの一部として引張力を負担する場合があり、力の伝わり方が異なります。名称や役割の違いを区別して理解することが大切です。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +117,7 @@
       <div class="meta">
         <span class="tag">木造（W造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>小屋束とは？読み方・母屋・小屋梁との関係</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -185,6 +191,63 @@
         <span class="label">実務のワンポイント</span>
         <p>天井裏に入って小屋組を見るとき、真っ先に目がいくのは小屋束の足元です。ほぞが抜けかけていたり雲筋かいが省略された物件を何度も見てきたので、鉛直材だからと安心せず振れ止めの有無を必ず確認するようにしています。</p>
       </div>
+
+      <h2 id="zukai">小屋束の位置と役割（図解）</h2>
+      <p>小屋束が小屋組のどこに位置し、何を支えているのかを図で確認しましょう。</p>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 300" role="img" aria-label="和小屋における小屋束の位置図。小屋梁の上に立ち母屋・棟木を支え、雲筋かいで振れ止めする">
+          <text x="350" y="24" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">小屋束の位置と雲筋かい</text>
+          <!-- 屋根面 -->
+          <line x1="350" y1="52" x2="140" y2="152" stroke="#9fc0dd" stroke-width="4"/>
+          <line x1="350" y1="52" x2="560" y2="152" stroke="#9fc0dd" stroke-width="4"/>
+          <!-- 棟木・母屋 -->
+          <g fill="#e8843c">
+            <rect x="338" y="46" width="24" height="14" rx="3"/>
+            <rect x="232" y="96" width="24" height="14" rx="3"/>
+            <rect x="444" y="96" width="24" height="14" rx="3"/>
+          </g>
+          <text x="384" y="46" font-size="12.5" fill="#8a4b18">棟木</text>
+          <text x="196" y="106" font-size="12.5" fill="#8a4b18">母屋</text>
+          <!-- 小屋束（強調） -->
+          <g fill="#c0392b">
+            <rect x="343" y="60" width="14" height="150"/>
+            <rect x="237" y="110" width="14" height="100"/>
+            <rect x="449" y="110" width="14" height="100"/>
+          </g>
+          <text x="350" y="146" font-size="13" text-anchor="middle" fill="#c0392b" font-weight="bold" transform="rotate(-90 350 146)">小屋束</text>
+          <text x="290" y="176" font-size="12.5" fill="#c0392b" font-weight="bold">真束</text>
+          <line x1="330" y1="172" x2="342" y2="150" stroke="#c0392b" stroke-width="1.5"/>
+          <!-- 雲筋かい -->
+          <line x1="244" y1="200" x2="350" y2="130" stroke="#2e7d4f" stroke-width="4" stroke-dasharray="8 4"/>
+          <line x1="456" y1="200" x2="350" y2="130" stroke="#2e7d4f" stroke-width="4" stroke-dasharray="8 4"/>
+          <text x="530" y="176" font-size="12.5" fill="#2e7d4f" font-weight="bold">雲筋かい（振れ止め）</text>
+          <!-- 小屋梁 -->
+          <rect x="150" y="210" width="400" height="20" rx="3" fill="#e8843c"/>
+          <text x="350" y="225" font-size="13.5" text-anchor="middle" fill="#fff" font-weight="bold">小屋梁</text>
+          <!-- 間隔 -->
+          <g stroke="#1a3a5c" stroke-width="1.8">
+            <line x1="244" y1="248" x2="350" y2="248"/>
+            <line x1="244" y1="242" x2="244" y2="254"/>
+            <line x1="350" y1="242" x2="350" y2="254"/>
+          </g>
+          <text x="297" y="268" font-size="12.5" text-anchor="middle" fill="#1a3a5c">約909mm間隔</text>
+          <text x="350" y="292" font-size="13" text-anchor="middle" fill="#6b7785">小屋束は母屋・棟木を支え、雲筋かいが束の倒れを防ぐ</text>
+        </svg>
+        <figcaption>小屋束は小屋梁の上に立ち、母屋・棟木を支える。棟木を支える最も高い束を真束と呼ぶ。背の高い束は雲筋かいで振れ止めする。</figcaption>
+      </figure>
+
+      <h2 id="kumitate">小屋組全体の中での位置づけ</h2>
+      <p>小屋束は屋根荷重を伝える経路の一部です。各部材の役割を整理すると、小屋組の仕組みが見えてきます。</p>
+      <table class="data">
+        <tr><th>部材</th><th>役割</th><th>受ける力</th></tr>
+        <tr><td>垂木（たるき）</td><td>屋根面を直接支える</td><td>曲げ</td></tr>
+        <tr><td>母屋（もや）・棟木</td><td>垂木を受ける</td><td>曲げ</td></tr>
+        <tr><td><strong>小屋束</strong></td><td>母屋・棟木を支え、小屋梁へ伝える</td><td><strong>圧縮（軸力）</strong></td></tr>
+        <tr><td><a href="koyabari.html">小屋梁</a></td><td>小屋束からの荷重を集めて柱・桁へ</td><td>曲げ</td></tr>
+        <tr><td>雲筋かい</td><td>束どうしをつなぎ倒れを防ぐ</td><td>軸力（引張・圧縮）</td></tr>
+      </table>
+      <p>小屋束は主に<strong>圧縮（軸力）</strong>を受ける部材です。曲げを受ける垂木・母屋・小屋梁とは力の受け方が異なります。ただし、細長い圧縮材は<a href="zakutsu.html">座屈</a>のおそれがあるため、背の高い束では雲筋かいによる振れ止めが特に重要になります。屋根勾配が急で棟が高い建物では、真束が2m近くになることもあり、その場合の座屈と接合部の設計には注意が必要です。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

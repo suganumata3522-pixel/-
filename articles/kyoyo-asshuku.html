@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/kyoyo-asshuku.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/kyoyo-asshuku.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-02",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-kyoyo-asshuku.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,12 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "なぜ長期はFc/3、短期は2Fc/3という数値なのですか？", "acceptedAnswer": {"@type": "Answer", "text": "コンクリートは、破壊に至る応力度（終局的な強度）に対して十分な安全余裕を持たせるため、長期は約1/3、短期はその2倍にあたる約2/3を許容応力度としています。長期は荷重が持続することによる強度低下（クリープの影響）も考慮し、より安全側の係数が設定されています。"}},
+ {"@type": "Question", "name": "許容引張応力度とは違うのですか？", "acceptedAnswer": {"@type": "Answer", "text": "別の値です。コンクリートは圧縮には強い一方、引張には弱い材料のため、引張側は鉄筋が負担する設計が基本です。許容引張応力度は、ひび割れ発生の検討などで補助的に扱われることはありますが、主要な安全性の検討は圧縮応力度と鉄筋の引張応力度で行います。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +117,7 @@
       <div class="meta">
         <span class="tag">鉄筋コンクリート造（RC造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>コンクリートの許容圧縮応力度｜Fcと長期・短期</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -149,6 +155,25 @@
       </div>
       <p>例：Fc21なら長期7・短期14 N/mm²、Fc24なら長期8・短期16 N/mm²です。同じ部材でも、常時作用する固定荷重・積載荷重を検討する長期と、地震・暴風など短時間の荷重を検討する短期とでは、許容できる応力度の大きさが異なる点がポイントです。</p>
 
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 290" role="img" aria-label="設計基準強度に対する長期・短期許容圧縮応力度の関係図。長期はFcの1/3、短期は2/3">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">Fcと許容圧縮応力度の関係</text>
+          <rect x="120" y="60" width="460" height="46" fill="#1a3a5c"/>
+          <text x="350" y="90" font-size="15" text-anchor="middle" fill="#fff" font-weight="bold">設計基準強度 Fc（100%）</text>
+          <rect x="120" y="126" width="306" height="42" fill="#e8843c"/>
+          <rect x="426" y="126" width="154" height="42" fill="#f5d9c2" stroke="#e8843c" stroke-width="1.5"/>
+          <text x="273" y="153" font-size="14.5" text-anchor="middle" fill="#fff" font-weight="bold">短期 ＝ 2Fc/3</text>
+          <rect x="120" y="188" width="153" height="42" fill="#9fc0dd"/>
+          <rect x="273" y="188" width="307" height="42" fill="#eef3f8" stroke="#9fc0dd" stroke-width="1.5"/>
+          <text x="196" y="215" font-size="14.5" text-anchor="middle" fill="#1a3a5c" font-weight="bold">長期 ＝ Fc/3</text>
+          <text x="600" y="153" font-size="12.5" fill="#6b7785">地震・暴風時</text>
+          <text x="600" y="215" font-size="12.5" fill="#6b7785">常時（G＋P）</text>
+          <text x="350" y="266" font-size="13" text-anchor="middle" fill="#6b7785">短期は長期の2倍。短時間の荷重なので大きな応力度を許容できる</text>
+        </svg>
+        <figcaption>長期許容圧縮応力度はFcの1/3、短期はその2倍の2Fc/3。荷重の作用時間の違いが、許容できる応力度の差になっている。</figcaption>
+      </figure>
+
+
       <h2 id="tsukaiwake">長期・短期の使い分け</h2>
       <table class="data">
         <tr><th></th><th>長期（Fc/3）</th><th>短期（2Fc/3）</th></tr>
@@ -179,6 +204,34 @@
         <span class="label">実務のワンポイント</span>
         <p>耐震診断で古い柱の断面を見直すとき、長期の許容圧縮応力度に対する余裕がほとんど残っていない事例に何度も出会いました。数値上ぎりぎりでも、ひび割れや中性化の進行状況まで見て総合的に判断するよう心がけています。</p>
       </div>
+
+      <h2 id="ichiran">Fcごとの許容圧縮応力度の一覧</h2>
+      <p>設計でよく使うFcについて、長期・短期の値をまとめておきます。暗算しやすいよう、Fcを3で割るだけの単純な関係です。</p>
+      <table class="data">
+        <tr><th>設計基準強度 Fc</th><th>長期許容圧縮応力度（Fc/3）</th><th>短期許容圧縮応力度（2Fc/3）</th><th>主な用途</th></tr>
+        <tr><td>18 N/mm²</td><td>6.0 N/mm²</td><td>12.0 N/mm²</td><td>捨てコン、簡易な構造物</td></tr>
+        <tr><td>21 N/mm²</td><td>7.0 N/mm²</td><td>14.0 N/mm²</td><td>小規模建築物</td></tr>
+        <tr><td>24 N/mm²</td><td>8.0 N/mm²</td><td>16.0 N/mm²</td><td>一般的な集合住宅・事務所</td></tr>
+        <tr><td>27 N/mm²</td><td>9.0 N/mm²</td><td>18.0 N/mm²</td><td>中層建築物</td></tr>
+        <tr><td>30 N/mm²</td><td>10.0 N/mm²</td><td>20.0 N/mm²</td><td>中高層建築物</td></tr>
+        <tr><td>36 N/mm²</td><td>12.0 N/mm²</td><td>24.0 N/mm²</td><td>高層建築物の下層階</td></tr>
+      </table>
+
+      <h2 id="keisanrei">検定の計算例</h2>
+      <p>実際に、柱の圧縮応力度が許容値に収まるかを確認してみましょう。</p>
+      <p><strong>条件</strong>：断面600mm×600mmのRC柱、Fc24、長期の軸力 N＝2,000kN</p>
+      <div class="formula">
+        断面積 A ＝ 600 × 600 ＝ 360,000 mm²<br>
+        圧縮応力度 σ ＝ N ÷ A ＝ 2,000,000 N ÷ 360,000 mm² ≒ <strong>5.6 N/mm²</strong><br>
+        長期許容圧縮応力度 ＝ 24 ÷ 3 ＝ <strong>8.0 N/mm²</strong><br>
+        検定 ： 5.6 ≦ 8.0 → <strong>OK（検定比 0.70）</strong>
+      </div>
+      <p>この柱は許容値に対して7割の応力度なので、余裕があると判断できます。実際の設計では、軸力に加えて曲げモーメントも作用するため、<strong>軸力による応力度と曲げによる応力度を足し合わせて</strong>検討します。</p>
+      <div class="point-box">
+        <span class="label">検定比という考え方</span>
+        <p>実際の応力度を許容応力度で割った値を<strong>検定比</strong>といい、1.0以下であればOKです。実務では、この検定比を見て断面の妥当性を判断します。0.9台なら効率のよい設計、0.3台なら断面が過大かもしれない、といった具合です。ただし柱は、意匠上の制約や階の統一、施工性の観点から、必ずしも検定比を1.0に近づけることが最適とは限りません。</p>
+      </div>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>
