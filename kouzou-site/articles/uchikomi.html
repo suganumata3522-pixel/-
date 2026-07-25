@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/uchikomi.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/uchikomi.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-02",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-uchikomi.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "打継ぎはどこに設けるのがよいですか？", "acceptedAnswer": {"@type": "Answer", "text": "せん断力の小さい位置に設けます。梁やスラブでは中央付近、柱・壁では梁の下端やスラブの上端が一般的です。せん断力が大きい位置に打継ぎを設けると、その面がずれる方向の力を受けて弱点になります。また、打継ぎ面は打込み方向に対して直角（鉛直部材なら水平、水平部材なら鉛直）にするのが原則です。"}},
+ {"@type": "Question", "name": "打込み速度が速すぎるとどうなりますか？", "acceptedAnswer": {"@type": "Answer", "text": "型枠にかかる側圧が大きくなり、型枠の変形・破損につながります。側圧は打込み速度に比例して増大するためです。また、締固めが追いつかず空隙が残ったり、下層の沈下が収まる前に上層を打つことでひび割れが生じたりします。型枠の設計時に想定した打込み速度を守ることが重要です。"}},
+ {"@type": "Question", "name": "ポンプ圧送で品質は変わりますか？", "acceptedAnswer": {"@type": "Answer", "text": "配管内での圧力によって空気量が減少することがあります。特に長距離・高所への圧送では、荷卸し地点と打込み地点で空気量に差が出るため、必要に応じて打込み地点での確認を行います。また、圧送性を確保するためにスランプを大きくしたくなりますが、加水は厳禁で、必要なら配合段階で高性能AE減水材により流動性を確保します。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">鉄筋コンクリート造（RC造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>コンクリートの打ち込み｜時間規定・打ち重ね時間</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -189,6 +196,62 @@
         <span class="label">あわせて読みたい</span>
         <p>「<a href="shimekatame.html">締固め</a>」「<a href="uchikasane-uchitsugi.html">打ち重ねと打ち継ぎ</a>」「<a href="cold-joint.html">コールドジョイント</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="bunri">材料分離を防ぐ打込み方（図解）</h2>
+      <p>打込みでもっとも避けたいのが<strong>材料分離</strong>です。高い位置から落とす、横に流す、といった行為が原因になります。</p>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 280" role="img" aria-label="コンクリートの打込みで材料分離を防ぐ方法の図。高い位置から落とさず横流ししない">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">材料分離を防ぐ打込み</text>
+          <line x1="350" y1="44" x2="350" y2="250" stroke="#c3ccd6" stroke-width="1.5" stroke-dasharray="6 5"/>
+          <text x="175" y="64" font-size="14.5" text-anchor="middle" fill="#c0392b" font-weight="bold">悪い例：高所から落とす</text>
+          <rect x="70" y="180" width="210" height="60" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2"/>
+          <rect x="155" y="76" width="40" height="20" fill="#7d95ab"/>
+          <g stroke="#c0392b" stroke-width="3" stroke-dasharray="6 4">
+            <line x1="175" y1="96" x2="175" y2="176"/>
+          </g>
+          <g fill="#b9a888"><circle cx="120" cy="228" r="9"/><circle cx="232" cy="230" r="8"/><circle cx="150" cy="234" r="7"/></g>
+          <g fill="#9fc0dd"><circle cx="175" cy="196" r="6"/><circle cx="200" cy="200" r="5"/></g>
+          <text x="175" y="264" font-size="12.5" text-anchor="middle" fill="#c0392b">骨材だけ先に落ちて分離する</text>
+          <text x="525" y="64" font-size="14.5" text-anchor="middle" fill="#2e7d4f" font-weight="bold">良い例：低い位置から</text>
+          <rect x="420" y="180" width="210" height="60" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2"/>
+          <rect x="505" y="140" width="40" height="20" fill="#7d95ab"/>
+          <rect x="516" y="160" width="18" height="24" fill="#c3ccd6"/>
+          <g stroke="#2e7d4f" stroke-width="3">
+            <line x1="525" y1="160" x2="525" y2="178"/>
+          </g>
+          <g fill="#b9a888" opacity=".8"><circle cx="470" cy="215" r="8"/><circle cx="525" cy="212" r="8"/><circle cx="580" cy="216" r="8"/></g>
+          <g fill="#9fc0dd" opacity=".8"><circle cx="497" cy="228" r="6"/><circle cx="552" cy="226" r="6"/></g>
+          <g stroke="#2e7d4f" stroke-width="2">
+            <line x1="490" y1="172" x2="470" y2="172"/><line x1="560" y1="172" x2="580" y2="172"/>
+          </g>
+          <text x="525" y="264" font-size="12.5" text-anchor="middle" fill="#2e7d4f">均一に保たれる（落下高さ1.5m以下）</text>
+        </svg>
+        <figcaption>高い位置から落とすと重い骨材が先に落ちて分離する。筒先を打込み面に近づけ、落下高さを抑えることが基本。</figcaption>
+      </figure>
+
+      <h2 id="tejun">打込みの基本ルール</h2>
+      <table class="data">
+        <tr><th>項目</th><th>ルール</th><th>理由</th></tr>
+        <tr><td>落下高さ</td><td>できるだけ低く（1.5m以下を目安）</td><td>高いと骨材が先に落ちて分離する</td></tr>
+        <tr><td>横流し</td><td><strong>禁止</strong>。バイブレーターで流さない</td><td>ペーストだけが先に流れて分離する</td></tr>
+        <tr><td>1層の厚さ</td><td>40〜50cm以下</td><td>バイブレーターが届く範囲にする</td></tr>
+        <tr><td>打込み順序</td><td>柱・壁を先に、梁・スラブは後</td><td>柱・壁の沈下が収まってから梁を打つ</td></tr>
+        <tr><td>打継ぎ位置</td><td>せん断力の小さい位置（梁の中央付近など）</td><td>打継ぎ面は弱点になるため</td></tr>
+        <tr><td>時間</td><td>25℃以上90分・未満120分以内</td><td>凝結が進むと締固めできない</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">柱・壁を先に打つ理由</span>
+        <p>柱や壁を打った直後は、コンクリートが自重で数mm〜十数mm沈下します（沈下量は打込み高さに比例）。柱と梁を同時に打つと、柱の沈下によって梁との境目にひび割れが生じます。そのため、<strong>柱・壁を先に打ち、沈下が落ち着いてから梁・スラブを打つ</strong>のが原則です。この待ち時間を「沈み待ち」と呼びます。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 打継ぎはどこに設けるのがよいですか？</h3>
+      <p>せん断力の小さい位置に設けます。梁やスラブでは中央付近、柱・壁では梁の下端やスラブの上端が一般的です。せん断力が大きい位置に打継ぎを設けると、その面がずれる方向の力を受けて弱点になります。また、打継ぎ面は打込み方向に対して直角（鉛直部材なら水平、水平部材なら鉛直）にするのが原則です。</p>
+      <h3>Q2. 打込み速度が速すぎるとどうなりますか？</h3>
+      <p>型枠にかかる側圧が大きくなり、型枠の変形・破損につながります。側圧は打込み速度に比例して増大するためです。また、締固めが追いつかず空隙が残ったり、下層の沈下が収まる前に上層を打つことでひび割れが生じたりします。型枠の設計時に想定した打込み速度を守ることが重要です。</p>
+      <h3>Q3. ポンプ圧送で品質は変わりますか？</h3>
+      <p>配管内での圧力によって空気量が減少することがあります。特に長距離・高所への圧送では、荷卸し地点と打込み地点で空気量に差が出るため、必要に応じて打込み地点での確認を行います。また、圧送性を確保するためにスランプを大きくしたくなりますが、加水は厳禁で、必要なら配合段階で高性能AE減水材により流動性を確保します。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

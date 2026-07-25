@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/bleeding.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/bleeding.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-02",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-bleeding.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "ブリーディングはまったくないほうがよいのですか？", "acceptedAnswer": {"@type": "Answer", "text": "適度なブリーディングは有害ではありません。表面に浮いた水が急激な乾燥を防ぐ働きをする面もあるためです。問題なのは過大なブリーディングで、表面の品質低下、鉄筋との付着低下、沈みひび割れを招きます。逆にブリーディングがほとんどない高流動コンクリートなどでは、表面が急乾燥しやすく、打込み直後からの養生がより重要になります。"}},
+ {"@type": "Question", "name": "沈みひび割れとは何ですか？", "acceptedAnswer": {"@type": "Answer", "text": "ブリーディングに伴う骨材の沈降が、鉄筋などに妨げられることで生じるひび割れです。鉄筋の直上でコンクリートが沈めず、その両脇が沈むため、鉄筋に沿って線状のひび割れが表面に現れます。打込み後30分〜数時間で発生します。対策としては、単位水量の低減のほか、ひび割れ発生後にタンピング（再振動締固め）を行って埋める方法があります。"}},
+ {"@type": "Question", "name": "ブリーディング試験はどのように行いますか？", "acceptedAnswer": {"@type": "Answer", "text": "JIS A 1123に規定された方法で行います。容器にコンクリートを詰め、一定時間ごとに表面にたまった水をスポイトで採取して量を測定し、ブリーディング量（cm³/cm²）とブリーディング率（%）を求めます。試験は主に配合設計の段階で実施され、現場での日常的な品質管理項目には含まれませんが、水密性が重要な構造物では確認されることがあります。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">鉄筋コンクリート造（RC造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>ブリーディングとは？原因・試験方法とレイタンス</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -172,6 +179,61 @@
         <span class="label">あわせて読みたい</span>
         <p>「<a href="tani-suiryou.html">単位水量</a>」「<a href="workability.html">ワーカビリティ</a>」、ひび割れは「<a href="concrete-jakuten.html">コンクリートの弱点</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="shikumi">ブリーディングとレイタンス（図解）</h2>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 270" role="img" aria-label="ブリーディングで水が浮き上がりレイタンスが形成される仕組みの図">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">水が浮き上がると何が起きるか</text>
+          <rect x="150" y="60" width="400" height="150" fill="#e5e0d6" stroke="#1a3a5c" stroke-width="2"/>
+          <rect x="150" y="60" width="400" height="18" fill="#9fc0dd"/>
+          <text x="595" y="72" font-size="12.5" fill="#3c6a94" font-weight="bold">ブリーディング水</text>
+          <rect x="150" y="78" width="400" height="14" fill="#c3ccd6"/>
+          <text x="595" y="90" font-size="12.5" fill="#3f4a55" font-weight="bold">レイタンス</text>
+          <g fill="#b9a888">
+            <circle cx="200" cy="130" r="13"/><circle cx="270" cy="160" r="14"/><circle cx="340" cy="128" r="12"/>
+            <circle cx="410" cy="164" r="13"/><circle cx="480" cy="132" r="12"/><circle cx="230" cy="190" r="11"/>
+            <circle cx="380" cy="192" r="12"/><circle cx="510" cy="186" r="11"/>
+          </g>
+          <g stroke="#3c6a94" stroke-width="2.5">
+            <line x1="230" y1="150" x2="230" y2="100"/><path d="M230 94 l-5 10 h10 z" fill="#3c6a94" stroke="none"/>
+            <line x1="330" y1="170" x2="330" y2="100"/><path d="M330 94 l-5 10 h10 z" fill="#3c6a94" stroke="none"/>
+            <line x1="450" y1="150" x2="450" y2="100"/><path d="M450 94 l-5 10 h10 z" fill="#3c6a94" stroke="none"/>
+          </g>
+          <g stroke="#c0392b" stroke-width="3">
+            <line x1="150" y1="146" x2="550" y2="146" stroke-dasharray="10 6" opacity=".5"/>
+          </g>
+          <rect x="255" y="138" width="60" height="10" fill="#c0392b"/>
+          <text x="285" y="128" font-size="11.5" text-anchor="middle" fill="#c0392b" font-weight="bold">鉄筋</text>
+          <path d="M258 138 q14 -8 28 0" fill="none" stroke="#3c6a94" stroke-width="3"/>
+          <text x="350" y="238" font-size="12.5" text-anchor="middle" fill="#6b7785">上昇した水が鉄筋の下にたまると、そこが空隙になり付着が低下する</text>
+          <text x="350" y="260" font-size="12.5" text-anchor="middle" fill="#1a3a5c" font-weight="bold">表面にはレイタンス（脆弱な層）が形成される</text>
+        </svg>
+        <figcaption>骨材が沈降し水が浮き上がるのがブリーディング。表面には微細な粒子が集まったレイタンスが形成され、鉄筋の下には水がたまって空隙になる。</figcaption>
+      </figure>
+
+      <h2 id="taisaku">原因と対策</h2>
+      <table class="data">
+        <tr><th>原因</th><th>対策</th></tr>
+        <tr><td><a href="tani-suiryou.html">単位水量</a>が多い</td><td>減水剤を使い、水を減らす</td></tr>
+        <tr><td>細骨材が少ない・粗い</td><td>細骨材率を上げる、粒度を調整する</td></tr>
+        <tr><td>セメントの粉末度が低い</td><td>粉末度の高いセメント、混和材（フライアッシュ等）の使用</td></tr>
+        <tr><td>空気量が少ない</td><td><a href="ae-zai.html">AE剤</a>で適切な空気量を確保する</td></tr>
+        <tr><td>打込み速度が速い・1層が厚い</td><td>打込み速度を抑える、層を薄くする</td></tr>
+        <tr><td>過度の締固め</td><td>加振時間を適切に（表面にペーストが浮いたら止める）</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">レイタンスは必ず除去する</span>
+        <p><strong>レイタンス</strong>は、ブリーディング水とともに浮き上がった微細な粒子が表面に堆積した、強度のない脆弱な層です。この上に次のコンクリートを打つと一体化しないため、<strong>打継ぎ面では必ず除去</strong>します。方法は、硬化前ならブラシや高圧水で洗い流し、硬化後ならワイヤブラシやウォータージェットではつり取ります。ブリーディングとレイタンスは原因と結果の関係にあり、セットで理解しておく必要があります。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. ブリーディングはまったくないほうがよいのですか？</h3>
+      <p>適度なブリーディングは有害ではありません。表面に浮いた水が急激な乾燥を防ぐ働きをする面もあるためです。問題なのは過大なブリーディングで、表面の品質低下、鉄筋との付着低下、沈みひび割れを招きます。逆にブリーディングがほとんどない高流動コンクリートなどでは、表面が急乾燥しやすく、打込み直後からの養生がより重要になります。</p>
+      <h3>Q2. 沈みひび割れとは何ですか？</h3>
+      <p>ブリーディングに伴う骨材の沈降が、鉄筋などに妨げられることで生じるひび割れです。鉄筋の直上でコンクリートが沈めず、その両脇が沈むため、鉄筋に沿って線状のひび割れが表面に現れます。打込み後30分〜数時間で発生します。対策としては、単位水量の低減のほか、ひび割れ発生後にタンピング（再振動締固め）を行って埋める方法があります。</p>
+      <h3>Q3. ブリーディング試験はどのように行いますか？</h3>
+      <p>JIS A 1123に規定された方法で行います。容器にコンクリートを詰め、一定時間ごとに表面にたまった水をスポイトで採取して量を測定し、ブリーディング量（cm³/cm²）とブリーディング率（%）を求めます。試験は主に配合設計の段階で実施され、現場での日常的な品質管理項目には含まれませんが、水密性が重要な構造物では確認されることがあります。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

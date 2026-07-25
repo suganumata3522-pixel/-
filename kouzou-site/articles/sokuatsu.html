@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/sokuatsu.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/sokuatsu.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-sokuatsu.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "側圧はどのくらいの大きさになりますか？", "acceptedAnswer": {"@type": "Answer", "text": "打込み条件によりますが、壁で50〜100kN/m²程度、柱ではより大きくなることがあります。液体圧として単純計算すると、コンクリートの単位容積重量23kN/m³×高さ3mで69kN/m²ですが、実際は凝結により頭打ちになります。日本建築学会の型枠の設計・施工指針に、打込み速度・温度に応じた側圧の算定式が示されています。"}},
+ {"@type": "Question", "name": "型枠が「はらむ」とはどういう状態ですか？", "acceptedAnswer": {"@type": "Answer", "text": "側圧によって型枠が外側にふくらみ、コンクリートの断面が設計より大きくなる状態です。締付け金物の不足や間隔の広さ、桟木の剛性不足が原因です。軽微なら断面が増えるだけですが、大きくはらむと仕上げ寸法が狂い、はつり作業が必要になります。最悪の場合は型枠が破裂し、コンクリートが流出する重大事故になります。"}},
+ {"@type": "Question", "name": "柱と壁では側圧の扱いが違いますか？", "acceptedAnswer": {"@type": "Answer", "text": "柱のほうが厳しくなる傾向があります。柱は断面が小さく高さがあるため、短時間で高くまで打ち上がり、液体状態の高さが大きくなるためです。また、柱型枠は四方から締め付けるため、締付け金物の配置と本数が重要になります。壁は水平方向に長く、打込み速度を分散できるため、相対的に側圧は小さくなります。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">鉄筋コンクリート造（RC造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>側圧とは？意味・計算式とコンクリートとの関係</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -178,6 +185,53 @@
         <span class="label">実務のワンポイント</span>
         <p>型枠の施工計画書を審査する立場になると、計算上の側圧に対してセパレーターの本数は足りていても、実際の打込み速度を現場に確認すると計画より明らかに速いことがあります。私は図面上の数値合わせだけでなく、ポンプ車の圧送能力と実際の打設ペースを施工者に必ず聞くようにしています。</p>
       </div>
+
+      <h2 id="bunpu">側圧の分布（図解）</h2>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 280" role="img" aria-label="型枠にかかる側圧の分布図。深さに比例して増えるが途中で頭打ちになる">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">側圧は深いほど大きいが、頭打ちになる</text>
+          <rect x="200" y="56" width="100" height="190" fill="#e5e0d6" stroke="#1a3a5c" stroke-width="2"/>
+          <text x="250" y="150" font-size="12.5" text-anchor="middle" fill="#6b5a3f">コンクリート</text>
+          <path d="M300 56 L300 160 L420 160 L420 246 L300 246 Z" fill="#e8843c" opacity=".55" stroke="#b35309" stroke-width="2"/>
+          <text x="470" y="110" font-size="12.5" fill="#b35309" font-weight="bold">深さに比例して増加</text>
+          <text x="470" y="130" font-size="12" fill="#6b7785">P ＝ W × H</text>
+          <line x1="300" y1="160" x2="460" y2="160" stroke="#c0392b" stroke-width="2" stroke-dasharray="6 4"/>
+          <text x="470" y="182" font-size="12.5" fill="#c0392b" font-weight="bold">ここから頭打ち（最大値）</text>
+          <text x="470" y="202" font-size="12" fill="#6b7785">下部は凝結が始まり</text>
+          <text x="470" y="220" font-size="12" fill="#6b7785">液体として振る舞わない</text>
+          <g stroke="#1a3a5c" stroke-width="2">
+            <line x1="180" y1="56" x2="180" y2="246"/>
+            <line x1="174" y1="56" x2="186" y2="56"/><line x1="174" y1="246" x2="186" y2="246"/>
+          </g>
+          <text x="166" y="155" font-size="13" text-anchor="end" fill="#1a3a5c" font-weight="bold">打込み高さ H</text>
+          <text x="350" y="270" font-size="12.5" text-anchor="middle" fill="#6b7785">打込み速度が速い・気温が低いほど、頭打ちになる位置が下がり側圧は大きくなる</text>
+        </svg>
+        <figcaption>側圧は液体圧として深さに比例して増えるが、下部から凝結が進むため、ある深さで頭打ちになる。この最大値で型枠を設計する。</figcaption>
+      </figure>
+
+      <h2 id="youin">側圧を大きくする要因</h2>
+      <table class="data">
+        <tr><th>要因</th><th>側圧への影響</th><th>理由</th></tr>
+        <tr><td><strong>打込み速度が速い</strong></td><td>大きくなる</td><td>下部が固まる前に上まで打つため、液体状態の高さが増す</td></tr>
+        <tr><td><strong>気温が低い</strong></td><td>大きくなる</td><td>凝結が遅れ、液体として振る舞う時間が長い</td></tr>
+        <tr><td>スランプが大きい</td><td>大きくなる</td><td>流動性が高く液体に近い</td></tr>
+        <tr><td>単位容積質量が大きい</td><td>大きくなる</td><td>P＝W×H のWが大きい</td></tr>
+        <tr><td>バイブレーターの使用</td><td>大きくなる</td><td>振動で流動化し、液体状態に戻る</td></tr>
+        <tr><td>部材の断面が大きい</td><td>大きくなる</td><td>アーチ効果が働きにくい</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">冬の打込みは側圧に注意</span>
+        <p>意外に見落とされがちなのが<strong>気温の影響</strong>です。冬季は凝結が遅いため、下部のコンクリートがなかなか固まらず、液体として型枠を押し続けます。その結果、夏場と同じ打込み速度でも側圧が大きくなり、型枠の変形（はらみ）や最悪の場合は破裂につながります。<strong>寒い時期は打込み速度を落とす</strong>か、締付け金物を増やすといった対応が必要です。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 側圧はどのくらいの大きさになりますか？</h3>
+      <p>打込み条件によりますが、壁で50〜100kN/m²程度、柱ではより大きくなることがあります。液体圧として単純計算すると、コンクリートの単位容積重量23kN/m³×高さ3mで69kN/m²ですが、実際は凝結により頭打ちになります。日本建築学会の型枠の設計・施工指針に、打込み速度・温度に応じた側圧の算定式が示されています。</p>
+      <h3>Q2. 型枠が「はらむ」とはどういう状態ですか？</h3>
+      <p>側圧によって型枠が外側にふくらみ、コンクリートの断面が設計より大きくなる状態です。締付け金物の不足や間隔の広さ、桟木の剛性不足が原因です。軽微なら断面が増えるだけですが、大きくはらむと仕上げ寸法が狂い、はつり作業が必要になります。最悪の場合は型枠が破裂し、コンクリートが流出する重大事故になります。</p>
+      <h3>Q3. 柱と壁では側圧の扱いが違いますか？</h3>
+      <p>柱のほうが厳しくなる傾向があります。柱は断面が小さく高さがあるため、短時間で高くまで打ち上がり、液体状態の高さが大きくなるためです。また、柱型枠は四方から締め付けるため、締付け金物の配置と本数が重要になります。壁は水平方向に長く、打込み速度を分散できるため、相対的に側圧は小さくなります。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>
