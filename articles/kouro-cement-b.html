@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/kouro-cement-b.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/kouro-cement-b.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-kouro-cement-b.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "なぜB種が最も多く使われるのですか？", "acceptedAnswer": {"@type": "Answer", "text": "性能と扱いやすさのバランスがもっとも良いためです。スラグ混合率30〜60%という範囲は、低発熱性・耐久性・ASR抑制といった混合セメントの利点がはっきり得られる一方、初期強度の遅れや養生の負担がC種ほど大きくありません。加えて、生コン工場での取り扱い実績が豊富で入手しやすいことも、実務で選ばれる大きな理由です。"}},
+ {"@type": "Question", "name": "B種と普通ポルトランドはどちらを選ぶべきですか？", "acceptedAnswer": {"@type": "Answer", "text": "部材の大きさと要求性能で判断します。断面が大きく温度ひび割れが懸念される部材、地下や水に接する部位、海に近い環境ではB種が有利です。一方、工期が厳しい、初期強度が必要、中性化を特に抑えたいといった場合は普通ポルトランドが適します。なお、生コン工場によっては地域の標準がどちらかに寄っていることもあるため、事前確認が必要です。"}},
+ {"@type": "Question", "name": "B種で温度ひび割れは完全に防げますか？", "acceptedAnswer": {"@type": "Answer", "text": "完全には防げません。B種は水和熱を低減できますが、断面が非常に大きい部材では依然として温度上昇が生じます。材料面の対策としては低熱セメントの採用、施工面ではパイプクーリング・打設ブロックの分割・打込み温度の管理といった対策を組み合わせる必要があります。B種の採用は有効な一手ですが、それだけで万全とは考えないほうがよいでしょう。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">鉄筋コンクリート造（RC造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>高炉セメントB種とは？記号BB・混合率・JIS規格</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -182,6 +189,52 @@
         <span class="label">あわせて読みたい</span>
         <p>少ない「<a href="kouro-cement-a.html">A種</a>」・多い「<a href="kouro-cement-c.html">C種</a>」、全体は「<a href="kouro-cement.html">高炉セメント</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="seinou">混合率と性能の関係（図解）</h2>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 280" role="img" aria-label="スラグ混合率が増えると初期強度が下がり耐久性が上がることを示すグラフ。B種は中間のバランス点">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">混合率が増えるとどうなるか</text>
+          <line x1="110" y1="230" x2="640" y2="230" stroke="#1a3a5c" stroke-width="2"/>
+          <line x1="110" y1="230" x2="110" y2="56" stroke="#1a3a5c" stroke-width="2"/>
+          <text x="600" y="254" font-size="13" fill="#1a3a5c">スラグ混合率 →</text>
+          <path d="M110 80 L620 200" fill="none" stroke="#c0392b" stroke-width="4"/>
+          <text x="480" y="180" font-size="13.5" fill="#c0392b" font-weight="bold">初期強度・中性化抵抗</text>
+          <path d="M110 205 L620 76" fill="none" stroke="#2e7d4f" stroke-width="4"/>
+          <text x="440" y="108" font-size="13.5" fill="#2e7d4f" font-weight="bold">耐久性・低発熱性</text>
+          <g stroke="#9fc0dd" stroke-width="1.5" stroke-dasharray="5 4">
+            <line x1="230" y1="60" x2="230" y2="230"/><line x1="400" y1="60" x2="400" y2="230"/><line x1="530" y1="60" x2="530" y2="230"/>
+          </g>
+          <text x="170" y="250" font-size="12.5" text-anchor="middle" fill="#6b7785">A種</text>
+          <rect x="270" y="236" width="90" height="24" rx="5" fill="#e8843c"/>
+          <text x="315" y="253" font-size="13" text-anchor="middle" fill="#fff" font-weight="bold">B種</text>
+          <text x="470" y="250" font-size="12.5" text-anchor="middle" fill="#6b7785">C種</text>
+          <text x="350" y="274" font-size="13" text-anchor="middle" fill="#6b7785">B種は両者のバランスが取れる位置にある</text>
+        </svg>
+        <figcaption>スラグ混合率が増えると耐久性・低発熱性は向上するが、初期強度と中性化抵抗は低下する。B種は両者のバランス点に位置する。</figcaption>
+      </figure>
+
+      <h2 id="yojou-jitsumu">B種を使うときの養生・工程</h2>
+      <p>B種でもっとも注意すべきは<strong>養生</strong>です。普通ポルトランドセメントと同じ感覚で工程を組むと、強度不足や品質低下を招きます。</p>
+      <table class="data">
+        <tr><th>項目</th><th>普通ポルトランド</th><th>高炉B種</th></tr>
+        <tr><td><a href="shitsujun-yojou.html">湿潤養生</a>の期間</td><td>5日以上</td><td><strong>7日以上</strong></td></tr>
+        <tr><td>せき板の存置期間（気温15℃以上）</td><td>4日</td><td><strong>6日</strong></td></tr>
+        <tr><td>初期強度の発現</td><td>標準</td><td>やや遅い（材齢7日で差が出やすい）</td></tr>
+        <tr><td>寒中期の扱い</td><td>標準</td><td>強度発現がさらに遅れるため、保温養生の重要度が増す</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">養生不足は「後から取り返せない」</span>
+        <p>高炉セメントの長期強度は、スラグの潜在水硬性が徐々に発現することで得られます。この反応には<strong>水分が不可欠</strong>で、初期に乾燥させてしまうと反応が止まり、期待した強度・耐久性は永久に得られません。「初期強度は遅いが長期で伸びる」というメリットは、適切な湿潤養生があってはじめて成立するものだと理解しておく必要があります。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. なぜB種が最も多く使われるのですか？</h3>
+      <p>性能と扱いやすさのバランスがもっとも良いためです。スラグ混合率30〜60%という範囲は、低発熱性・耐久性・ASR抑制といった混合セメントの利点がはっきり得られる一方、初期強度の遅れや養生の負担がC種ほど大きくありません。加えて、生コン工場での取り扱い実績が豊富で入手しやすいことも、実務で選ばれる大きな理由です。</p>
+      <h3>Q2. B種と普通ポルトランドはどちらを選ぶべきですか？</h3>
+      <p>部材の大きさと要求性能で判断します。断面が大きく温度ひび割れが懸念される部材、地下や水に接する部位、海に近い環境ではB種が有利です。一方、工期が厳しい、初期強度が必要、中性化を特に抑えたいといった場合は普通ポルトランドが適します。なお、生コン工場によっては地域の標準がどちらかに寄っていることもあるため、事前確認が必要です。</p>
+      <h3>Q3. B種で温度ひび割れは完全に防げますか？</h3>
+      <p>完全には防げません。B種は水和熱を低減できますが、断面が非常に大きい部材では依然として温度上昇が生じます。材料面の対策としては低熱セメントの採用、施工面ではパイプクーリング・打設ブロックの分割・打込み温度の管理といった対策を組み合わせる必要があります。B種の採用は有効な一手ですが、それだけで万全とは考えないほうがよいでしょう。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

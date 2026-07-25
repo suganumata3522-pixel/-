@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/kouro-cement-a.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/kouro-cement-a.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-kouro-cement-a.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "高炉セメントA種はどこで入手できますか？", "acceptedAnswer": {"@type": "Answer", "text": "流通量が限られており、生コン工場が常時在庫していないことがほとんどです。使用するには事前の手配が必要で、地域によっては供給自体が難しい場合もあります。設計図書でA種を指定する場合は、あらかじめ供給可能かを確認しておく必要があります。実務ではB種か普通ポルトランドセメントで代替を検討することが多くなります。"}},
+ {"@type": "Question", "name": "A種とB種で強度に差はありますか？", "acceptedAnswer": {"@type": "Answer", "text": "同じ配合であれば、初期強度はA種のほうが出やすく、長期強度はB種のほうが伸びる傾向があります。ただしJISで規定される強度の下限値は、A種・B種ともに材齢28日で同等の水準が求められています。実際の強度は配合と養生条件で決まるため、区分の違いだけで強度が決まるわけではありません。"}},
+ {"@type": "Question", "name": "混合セメントを使うと構造計算に影響しますか？", "acceptedAnswer": {"@type": "Answer", "text": "設計基準強度が同じであれば、構造計算そのものに違いはありません。ヤング係数や許容応力度は設計基準強度から算定されるため、セメントの種類による直接の影響はないためです。ただし、強度発現が遅いことから構造体強度補正値の考え方が変わる場合があり、施工計画・工程には影響します。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">鉄筋コンクリート造（RC造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>高炉セメントA種とは？B種・C種との違い</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -186,6 +193,56 @@
         <span class="label">あわせて読みたい</span>
         <p>一般的な「<a href="kouro-cement-b.html">高炉セメントB種</a>」、低発熱・高耐久の「<a href="kouro-cement-c.html">高炉セメントC種</a>」、全体は「<a href="kouro-cement.html">高炉セメント</a>」「<a href="kongou-cement.html">混合セメント</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="ichizuke">A・B・C種の位置づけ（図解）</h2>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 250" role="img" aria-label="高炉セメントA種B種C種のスラグ混合率の帯グラフ。A種が最も少なくC種が最も多い">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">スラグ混合率による区分</text>
+          <g font-size="14" fill="#1a3a5c" text-anchor="end" font-weight="bold">
+            <text x="115" y="76">A種（BA）</text><text x="115" y="130">B種（BB）</text><text x="115" y="184">C種（BC）</text>
+          </g>
+          <g stroke="#c3ccd6" stroke-width="1.5">
+            <line x1="130" y1="52" x2="130" y2="210"/><line x1="655" y1="52" x2="655" y2="210"/>
+          </g>
+          <rect x="130" y="58" width="150" height="26" fill="#e8843c"/>
+          <rect x="280" y="58" width="375" height="26" fill="#eef3f8" stroke="#c3ccd6" stroke-width="1"/>
+          <text x="205" y="76" font-size="12.5" text-anchor="middle" fill="#fff" font-weight="bold">5〜30%</text>
+          <rect x="130" y="112" width="300" height="26" fill="#e8843c"/>
+          <rect x="430" y="112" width="225" height="26" fill="#eef3f8" stroke="#c3ccd6" stroke-width="1"/>
+          <text x="280" y="130" font-size="12.5" text-anchor="middle" fill="#fff" font-weight="bold">30〜60%（最も一般的）</text>
+          <rect x="130" y="166" width="350" height="26" fill="#e8843c"/>
+          <rect x="480" y="166" width="175" height="26" fill="#eef3f8" stroke="#c3ccd6" stroke-width="1"/>
+          <text x="305" y="184" font-size="12.5" text-anchor="middle" fill="#fff" font-weight="bold">60〜70%</text>
+          <text x="130" y="224" font-size="12" text-anchor="middle" fill="#6b7785">0%</text>
+          <text x="655" y="224" font-size="12" text-anchor="middle" fill="#6b7785">70%</text>
+          <text x="350" y="244" font-size="13" text-anchor="middle" fill="#6b7785">オレンジ部分がスラグの割合。A→C の順に多くなる</text>
+        </svg>
+        <figcaption>高炉セメントは高炉スラグ微粉末の混合率でA・B・Cの3区分に分かれる。A種がもっとも少なく、C種がもっとも多い。</figcaption>
+      </figure>
+
+      <h2 id="tsukaidokoro">A種の使いどころ</h2>
+      <p>A種は混合セメントの中でもっとも普通ポルトランドに近い性質を持ちます。この特徴が活きる場面を整理します。</p>
+      <table class="data">
+        <tr><th>場面</th><th>A種が適する理由</th></tr>
+        <tr><td>工期に余裕がなく、初期強度が必要</td><td>スラグが少ないため強度発現の遅れが小さい</td></tr>
+        <tr><td>中性化を特に抑えたい</td><td>水酸化カルシウムの減少が少なく、中性化の進行が普通ポルトランドに近い</td></tr>
+        <tr><td>寒い時期の施工</td><td>低温による強度発現の遅れが、B種・C種ほど大きくならない</td></tr>
+        <tr><td>ASR抑制もある程度期待したい</td><td>効果は限定的だが、普通ポルトランドよりは抑制が期待できる</td></tr>
+      </table>
+      <p>ただし実務では、A種は流通量が少なく、生コン工場が常時在庫していないことがほとんどです。「混合セメントを使いたいが初期強度も欲しい」という場合は、A種を探すよりも<strong>B種を使って養生期間を確保する</strong>か、普通ポルトランドセメントを選ぶほうが現実的なことが多くなります。</p>
+      <div class="point-box">
+        <span class="label">A種＝一番良いグレード、ではない</span>
+        <p>A・B・Cという記号から「A種が最上位グレード」と誤解されがちですが、これは<strong>スラグ混合率の少ない順に振られた記号</strong>にすぎません。実務でもっとも多く使われるのはB種で、性能と扱いやすさのバランスに優れているからです。用途に応じて選ぶものであり、区分に優劣はありません。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 高炉セメントA種はどこで入手できますか？</h3>
+      <p>流通量が限られており、生コン工場が常時在庫していないことがほとんどです。使用するには事前の手配が必要で、地域によっては供給自体が難しい場合もあります。設計図書でA種を指定する場合は、あらかじめ供給可能かを確認しておく必要があります。実務ではB種か普通ポルトランドセメントで代替を検討することが多くなります。</p>
+      <h3>Q2. A種とB種で強度に差はありますか？</h3>
+      <p>同じ配合であれば、初期強度はA種のほうが出やすく、長期強度はB種のほうが伸びる傾向があります。ただしJISで規定される強度の下限値は、A種・B種ともに材齢28日で同等の水準が求められています。実際の強度は配合と養生条件で決まるため、区分の違いだけで強度が決まるわけではありません。</p>
+      <h3>Q3. 混合セメントを使うと構造計算に影響しますか？</h3>
+      <p>設計基準強度が同じであれば、構造計算そのものに違いはありません。ヤング係数や許容応力度は設計基準強度から算定されるため、セメントの種類による直接の影響はないためです。ただし、強度発現が遅いことから構造体強度補正値の考え方が変わる場合があり、施工計画・工程には影響します。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>
