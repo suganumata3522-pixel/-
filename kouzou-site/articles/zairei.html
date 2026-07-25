@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/zairei.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/zairei.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-06-14",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-zairei.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "材齢28日を待たないと型枠は外せないのですか？", "acceptedAnswer": {"@type": "Answer", "text": "外せます。型枠の取り外し時期は、材齢28日の設計基準強度とは別の基準で判定します。柱・壁などの側面のせき板は、コンクリートの圧縮強度が5N/mm²以上（または材齢と平均気温による規定日数）で取り外せます。一方、スラブ下・梁下の支保工は、設計基準強度に達するか、少なくとも12N/mm²以上かつ構造計算で安全が確認できることが条件となり、より厳しい判定になります。"}},
+ {"@type": "Question", "name": "材齢28日以降も強度は伸び続けるのですか？", "acceptedAnswer": {"@type": "Answer", "text": "伸び続けます。セメントの水和反応は長期にわたって継続するため、材齢1年で28日強度の2割増し程度になることもあります。ただし設計ではこの伸びを見込まず、28日強度を基準として安全側に扱います。逆に言えば、経年による強度増加は安全率の上乗せとして働きます。ただし、これは適切に養生された場合の話で、早期に乾燥したコンクリートは強度の伸びが止まってしまいます。"}},
+ {"@type": "Question", "name": "寒い時期は材齢28日でも強度が出ないことがありますか？", "acceptedAnswer": {"@type": "Answer", "text": "あります。水和反応は温度に依存するため、気温が低いと反応が遅く、同じ材齢でも強度が低くなります。特に打込み初期に凍結すると、組織が破壊されて後から強度が回復しません（初期凍害）。このため寒中コンクリートでは、構造体強度補正値を大きく設定して呼び強度を割り増し、あわせて保温養生を行います。積算温度（温度×時間の累積）を用いて強度を推定する管理方法もあります。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">鉄筋コンクリート造（RC造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>材齢とは？読み方・数え方と28日強度</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -170,6 +177,62 @@
         <span class="label">あわせて読みたい</span>
         <p>「<a href="suichuu-yojou.html">標準水中養生</a>」「<a href="yojou.html">コンクリートの養生</a>」「<a href="concrete-kouka-jikan.html">コンクリートの硬化時間</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="curve">材齢と強度の伸び方（図解）</h2>
+      <p>コンクリートの強度が材齢とともにどう増えるかを、グラフで確認しましょう。</p>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 320" role="img" aria-label="材齢と圧縮強度の関係グラフ。初期に急速に伸び、材齢28日で設計基準強度に達し、その後は緩やかに増加する">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">材齢と強度の関係</text>
+          <line x1="95" y1="250" x2="640" y2="250" stroke="#1a3a5c" stroke-width="2"/>
+          <line x1="95" y1="250" x2="95" y2="58" stroke="#1a3a5c" stroke-width="2"/>
+          <text x="600" y="276" font-size="13" fill="#1a3a5c">材齢（日）</text>
+          <text x="72" y="72" font-size="13" text-anchor="end" fill="#1a3a5c">圧縮</text>
+          <text x="72" y="90" font-size="13" text-anchor="end" fill="#1a3a5c">強度</text>
+          <!-- 強度曲線 -->
+          <path d="M95 250 Q140 172 200 140 Q280 108 360 96 Q480 84 620 76" fill="none" stroke="#e8843c" stroke-width="4.5"/>
+          <!-- 材齢の目盛 -->
+          <g stroke="#9fc0dd" stroke-width="1.5" stroke-dasharray="5 4">
+            <line x1="160" y1="250" x2="160" y2="160"/>
+            <line x1="200" y1="250" x2="200" y2="140"/>
+            <line x1="360" y1="250" x2="360" y2="96"/>
+          </g>
+          <text x="160" y="272" font-size="12.5" text-anchor="middle" fill="#6b7785">3日</text>
+          <text x="200" y="272" font-size="12.5" text-anchor="middle" fill="#6b7785">7日</text>
+          <text x="360" y="272" font-size="13" text-anchor="middle" fill="#c0392b" font-weight="bold">28日</text>
+          <line x1="95" y1="96" x2="360" y2="96" stroke="#c0392b" stroke-width="2" stroke-dasharray="6 4"/>
+          <text x="115" y="88" font-size="12.5" fill="#c0392b" font-weight="bold">設計基準強度 Fc</text>
+          <circle cx="360" cy="96" r="7" fill="#c0392b"/>
+          <text x="440" y="130" font-size="12.5" fill="#6b7785">28日以降も緩やかに増加</text>
+          <text x="200" y="200" font-size="12.5" fill="#6b7785">初期に急速に伸びる</text>
+          <text x="350" y="304" font-size="13" text-anchor="middle" fill="#6b7785">材齢28日を基準とするのは、実用強度がほぼ得られ管理しやすいため</text>
+        </svg>
+        <figcaption>強度は打込み直後の数日で急速に立ち上がり、材齢28日でほぼ設計基準強度に達する。その後も緩やかに増加を続ける。</figcaption>
+      </figure>
+
+      <h2 id="kanri">材齢ごとの管理項目</h2>
+      <p>現場では、材齢に応じて確認すべきことが変わります。工程管理の目安として整理しておきましょう。</p>
+      <table class="data">
+        <tr><th>材齢</th><th>主な管理項目</th><th>備考</th></tr>
+        <tr><td>0日（打込み当日）</td><td>打込み・締固め・表面仕上げ、初期養生の開始</td><td>乾燥させないことが最重要</td></tr>
+        <tr><td>1〜3日</td><td><a href="katawaku-torihazushi.html">せき板の取り外し</a>（側面型枠）の判定</td><td>圧縮強度5N/mm²以上、または材齢と気温で判定</td></tr>
+        <tr><td>3日</td><td>早強セメントの湿潤養生期間の目安</td><td>早強なら3日以上</td></tr>
+        <tr><td>5日</td><td>普通セメントの湿潤養生期間の目安</td><td>普通なら5日以上</td></tr>
+        <tr><td>7日</td><td>1週強度の確認（参考値）</td><td>28日強度の6〜7割程度が目安</td></tr>
+        <tr><td>28日</td><td><strong>設計基準強度の判定（圧縮強度試験）</strong></td><td>合否判定の基準</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">なぜ7日強度も測るのか</span>
+        <p>材齢28日を待たずに、7日の時点で強度の傾向を把握するためです。7日強度が想定を大きく下回っていれば、配合や養生に問題がある可能性が高く、28日を待たずに原因調査や対策を始められます。逆に7日で十分な強度が出ていれば、後工程を安心して進められます。<strong>28日強度の6〜7割程度</strong>が一つの目安ですが、セメントの種類や気温で変わります。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 材齢28日を待たないと型枠は外せないのですか？</h3>
+      <p>外せます。型枠の取り外し時期は、材齢28日の設計基準強度とは別の基準で判定します。柱・壁などの側面のせき板は、コンクリートの圧縮強度が5N/mm²以上（または材齢と平均気温による規定日数）で取り外せます。一方、スラブ下・梁下の支保工は、設計基準強度に達するか、少なくとも12N/mm²以上かつ構造計算で安全が確認できることが条件となり、より厳しい判定になります。</p>
+      <h3>Q2. 材齢28日以降も強度は伸び続けるのですか？</h3>
+      <p>伸び続けます。セメントの水和反応は長期にわたって継続するため、材齢1年で28日強度の2割増し程度になることもあります。ただし設計ではこの伸びを見込まず、28日強度を基準として安全側に扱います。逆に言えば、経年による強度増加は安全率の上乗せとして働きます。ただし、これは適切に養生された場合の話で、早期に乾燥したコンクリートは強度の伸びが止まってしまいます。</p>
+      <h3>Q3. 寒い時期は材齢28日でも強度が出ないことがありますか？</h3>
+      <p>あります。水和反応は温度に依存するため、気温が低いと反応が遅く、同じ材齢でも強度が低くなります。特に打込み初期に凍結すると、組織が破壊されて後から強度が回復しません（初期凍害）。このため寒中コンクリートでは、構造体強度補正値を大きく設定して呼び強度を割り増し、あわせて保温養生を行います。積算温度（温度×時間の累積）を用いて強度を推定する管理方法もあります。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

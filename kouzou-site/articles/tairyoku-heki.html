@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/tairyoku-heki.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/tairyoku-heki.html",
    "datePublished": "2026-06-12",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-tairyoku-heki.jpg",
    "author": {
     "@type": "Person",
@@ -74,6 +74,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "耐力壁は撤去できないと聞きますが、リフォームで壁を抜きたい場合はどうすればよいですか？", "acceptedAnswer": {"@type": "Answer", "text": "同等以上の耐力を別の位置で確保すれば、撤去できる場合があります。たとえば撤去する壁の近くに新たな耐力壁を設ける、面材耐力壁で倍率を上げて補う、といった方法です。ただし壁量とバランス（四分割法・偏心率）の両方を再検討する必要があり、上下階の直下率にも影響します。自己判断せず、構造の分かる設計者に検討を依頼してください。"}},
+ {"@type": "Question", "name": "RC造の耐震壁に開口を設けることはできますか？", "acceptedAnswer": {"@type": "Answer", "text": "設けられますが、開口の大きさに応じて剛性・耐力を低減して評価します。この低減の程度を表すのが「開口周比」で、開口の面積や長さが壁全体に対してどの程度かを示す指標です。開口が大きくなると壁としての性能が大幅に落ち、一定を超えると耐震壁として扱えなくなります。設備開口を後から開けることは、構造検討なしには行えません。"}},
+ {"@type": "Question", "name": "耐力壁の直下率はどのくらいあればよいですか？", "acceptedAnswer": {"@type": "Answer", "text": "木造では、壁の直下率が60%以上、柱の直下率が50%以上あることが一つの目安とされています。ただしこれは法令で定められた数値ではなく、経験的な指標です。直下率が低い場合でも、2階の壁からの力を受ける床・梁を適切に設計すれば成立しますが、部材が大きくなりコストも上がります。プラン段階で上下の壁位置をそろえておくのが最も合理的です。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -105,7 +112,7 @@
       <div class="meta">
         <span class="tag">構造形式・材料</span>
         <span>公開日：2026年6月12日</span>
-        <span>更新日：2026年7月3日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>耐力壁とは？役割と配置のポイントをわかりやすく解説</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -190,6 +197,65 @@
         <span class="label">あわせて確認</span>
         <p>水平力に抵抗する仕組みの比較は「<a href="rahmen-brace.html">ラーメン構造とブレース構造</a>」、バランスの定量評価は「<a href="sokan-henkei.html">層間変形角・剛性率・偏心率</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="chokka">直下率：上下階の壁がそろっているか（図解）</h2>
+      <p>耐力壁は「その階にあればよい」というものではありません。<strong>上下階で位置がそろっている</strong>ことが、力をスムーズに基礎まで流すうえで重要です。</p>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 300" role="img" aria-label="壁の直下率の比較図。上下階の壁位置がそろっていれば力が直接基礎へ流れ、ずれていると床を介して回り込む">
+          <text x="350" y="24" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">上下階の壁位置がそろっているか</text>
+          <line x1="350" y1="42" x2="350" y2="270" stroke="#c3ccd6" stroke-width="1.5" stroke-dasharray="6 5"/>
+          <!-- 良い例 -->
+          <text x="175" y="62" font-size="14" text-anchor="middle" fill="#2e7d4f" font-weight="bold">直下率が高い（良い）</text>
+          <rect x="70" y="78" width="210" height="70" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2"/>
+          <rect x="110" y="78" width="26" height="70" fill="#1a3a5c"/>
+          <rect x="214" y="78" width="26" height="70" fill="#1a3a5c"/>
+          <rect x="70" y="148" width="210" height="70" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2"/>
+          <rect x="110" y="148" width="26" height="70" fill="#1a3a5c"/>
+          <rect x="214" y="148" width="26" height="70" fill="#1a3a5c"/>
+          <rect x="60" y="218" width="230" height="16" fill="#b8bfc7"/>
+          <g stroke="#2e7d4f" stroke-width="3">
+            <line x1="123" y1="90" x2="123" y2="212"/><line x1="227" y1="90" x2="227" y2="212"/>
+          </g>
+          <text x="175" y="256" font-size="12.5" text-anchor="middle" fill="#2e7d4f">力がまっすぐ基礎へ流れる</text>
+          <!-- 悪い例 -->
+          <text x="525" y="62" font-size="14" text-anchor="middle" fill="#c0392b" font-weight="bold">直下率が低い（悪い）</text>
+          <rect x="420" y="78" width="210" height="70" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2"/>
+          <rect x="450" y="78" width="26" height="70" fill="#1a3a5c"/>
+          <rect x="560" y="78" width="26" height="70" fill="#1a3a5c"/>
+          <rect x="420" y="148" width="210" height="70" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2"/>
+          <rect x="505" y="148" width="26" height="70" fill="#1a3a5c"/>
+          <rect x="410" y="218" width="230" height="16" fill="#b8bfc7"/>
+          <path d="M463 148 Q463 162 518 162" fill="none" stroke="#c0392b" stroke-width="3"/>
+          <path d="M573 148 Q573 162 518 162" fill="none" stroke="#c0392b" stroke-width="3"/>
+          <line x1="518" y1="162" x2="518" y2="212" stroke="#c0392b" stroke-width="3"/>
+          <text x="525" y="256" font-size="12.5" text-anchor="middle" fill="#c0392b">床を介して回り込む</text>
+          <text x="525" y="276" font-size="12" text-anchor="middle" fill="#6b7785">→ 床・梁に大きな力が生じる</text>
+        </svg>
+        <figcaption>上下階の壁位置がそろっていれば、水平力はそのまま基礎へ流れる。ずれていると床や梁を介して回り込むため、それらの部材に大きな負担がかかる。</figcaption>
+      </figure>
+      <p>2階の耐力壁の真下に1階の壁がないと、2階の壁が受けた力は<strong>床（水平構面）を経由して</strong>離れた位置の1階の壁へ伝わることになります。この経路では床や梁に大きな力が生じ、床の剛性が不足すれば変形して力が伝わりきりません。木造では<strong>壁の直下率60%以上、柱の直下率50%以上</strong>が一つの目安とされます。</p>
+
+      <h2 id="haichi-rei">配置の良い例・悪い例</h2>
+      <table class="data">
+        <tr><th>配置</th><th>問題点</th><th>改善の方向</th></tr>
+        <tr><td>南面に大開口を並べ、南側に壁がない</td><td>剛心が北に偏り、地震時に南側が大きく動いてねじれる</td><td>窓の間に袖壁を確保する、掃き出し窓の一部を腰窓にする</td></tr>
+        <tr><td>1階を駐車場にして壁がない（ピロティ）</td><td>1階だけ極端に柔らかく、そこに変形が集中して層崩壊する</td><td>柱を太くする、可能な範囲で耐力壁を確保する、門型フレームを設ける</td></tr>
+        <tr><td>建物の中央部に壁を集中</td><td>外周部がねじれに抵抗できず、四隅の変形が大きくなる</td><td>外周部・四隅に耐力壁を配置する</td></tr>
+        <tr><td>上下階で壁の位置がずれている</td><td>床を介して力が回り込み、床・梁に過大な力が生じる</td><td>プラン段階で上下の壁位置をそろえる</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">プラン段階で決まってしまう</span>
+        <p>耐力壁の配置は、間取りが決まった後から調整しようとすると選択肢が限られます。とくに「南面に大きな窓を並べる」「1階を駐車スペースにする」といった要望は、耐震上の弱点に直結しやすいものです。<strong>間取りを検討している段階で、どこに壁を確保するかを同時に考える</strong>ことが、無理のない耐震設計につながります。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 耐力壁は撤去できないと聞きますが、リフォームで壁を抜きたい場合はどうすればよいですか？</h3>
+      <p>同等以上の耐力を別の位置で確保すれば、撤去できる場合があります。たとえば撤去する壁の近くに新たな耐力壁を設ける、面材耐力壁で倍率を上げて補う、といった方法です。ただし壁量とバランス（四分割法・偏心率）の両方を再検討する必要があり、上下階の直下率にも影響します。自己判断せず、構造の分かる設計者に検討を依頼してください。</p>
+      <h3>Q2. RC造の耐震壁に開口を設けることはできますか？</h3>
+      <p>設けられますが、開口の大きさに応じて剛性・耐力を低減して評価します。この低減の程度を表すのが「開口周比」で、開口の面積や長さが壁全体に対してどの程度かを示す指標です。開口が大きくなると壁としての性能が大幅に落ち、一定を超えると耐震壁として扱えなくなります。設備開口を後から開けることは、構造検討なしには行えません。</p>
+      <h3>Q3. 耐力壁の直下率はどのくらいあればよいですか？</h3>
+      <p>木造では、壁の直下率が60%以上、柱の直下率が50%以上あることが一つの目安とされています。ただしこれは法令で定められた数値ではなく、経験的な指標です。直下率が低い場合でも、2階の壁からの力を受ける床・梁を適切に設計すれば成立しますが、部材が大きくなりコストも上がります。プラン段階で上下の壁位置をそろえておくのが最も合理的です。</p>
+
 
       <h2>まとめ</h2>
       <ul>

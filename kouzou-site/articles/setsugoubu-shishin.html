@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/setsugoubu-shishin.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/setsugoubu-shishin.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-06-14",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-setsugoubu-shishin.jpg",
    "author": {
     "@type": "Person",
@@ -114,7 +114,7 @@
       <div class="meta">
         <span class="tag">鉄骨造（S造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>鋼構造接合部設計指針とは？内容・目次・柱脚の設計を解説</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -172,6 +172,58 @@
         <span class="label">実務のワンポイント</span>
         <p>柱脚の形式を選ぶとき、指針どおりに耐力を満たせるかだけでなく、施工のしやすさまで含めて検討するようにしています。露出柱脚は施工が早い分、回転剛性の評価次第で上部架構の応力が変わってくるため、架構全体への影響を必ず確認しています。</p>
       </div>
+
+      <h2 id="chuukyaku">柱脚3形式の比較（図解）</h2>
+      <p>指針の中心テーマである柱脚は、形式によって固定度と施工性が大きく異なります。</p>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 280" role="img" aria-label="露出柱脚・根巻き柱脚・埋込み柱脚の比較図。この順に固定度が高くなる">
+          <text x="350" y="24" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">柱脚の3形式（左ほど施工が容易、右ほど固定度が高い）</text>
+          <!-- 露出柱脚 -->
+          <text x="120" y="58" font-size="14" text-anchor="middle" fill="#1a3a5c" font-weight="bold">露出柱脚</text>
+          <rect x="105" y="72" width="30" height="90" fill="#9fc0dd"/>
+          <rect x="75" y="162" width="90" height="12" fill="#1a3a5c"/>
+          <g fill="#c0392b"><rect x="86" y="174" width="6" height="34"/><rect x="148" y="174" width="6" height="34"/></g>
+          <rect x="45" y="174" width="150" height="60" fill="#e5e0d6" stroke="#7d95ab" stroke-width="1.5"/>
+          <text x="120" y="256" font-size="12" text-anchor="middle" fill="#6b7785">ベースPL＋アンカーボルト</text>
+          <text x="120" y="274" font-size="12" text-anchor="middle" fill="#6b7785">施工が容易・固定度は小さめ</text>
+          <!-- 根巻き柱脚 -->
+          <text x="350" y="58" font-size="14" text-anchor="middle" fill="#1a3a5c" font-weight="bold">根巻き柱脚</text>
+          <rect x="335" y="72" width="30" height="60" fill="#9fc0dd"/>
+          <rect x="305" y="132" width="90" height="76" fill="#c3ccd6" stroke="#7d95ab" stroke-width="1.5"/>
+          <rect x="335" y="132" width="30" height="76" fill="#9fc0dd"/>
+          <rect x="275" y="208" width="150" height="26" fill="#e5e0d6" stroke="#7d95ab" stroke-width="1.5"/>
+          <text x="350" y="256" font-size="12" text-anchor="middle" fill="#6b7785">柱脚まわりをRCで巻く</text>
+          <text x="350" y="274" font-size="12" text-anchor="middle" fill="#6b7785">剛性・耐力を高められる</text>
+          <!-- 埋込み柱脚 -->
+          <text x="580" y="58" font-size="14" text-anchor="middle" fill="#1a3a5c" font-weight="bold">埋込み柱脚</text>
+          <rect x="565" y="72" width="30" height="102" fill="#9fc0dd"/>
+          <rect x="505" y="130" width="150" height="104" fill="#e5e0d6" stroke="#7d95ab" stroke-width="1.5"/>
+          <rect x="565" y="130" width="30" height="80" fill="#9fc0dd"/>
+          <text x="580" y="256" font-size="12" text-anchor="middle" fill="#6b7785">柱を基礎に直接埋め込む</text>
+          <text x="580" y="274" font-size="12" text-anchor="middle" fill="#6b7785">固定度が最も高い</text>
+        </svg>
+        <figcaption>露出・根巻き・埋込みの順に固定度が高くなる。設計では、想定する固定度に応じた接合部の検討が必要になる。</figcaption>
+      </figure>
+
+      <h2 id="hoyuu">保有耐力接合の考え方</h2>
+      <p>この指針を貫く思想が<strong>保有耐力接合</strong>です。ひと言でいえば「<strong>つなぎ目を、つながれる部材より強くしておく</strong>」という原則です。</p>
+      <div class="point-box">
+        <span class="label">なぜ接合部を強くするのか</span>
+        <p>鉄骨造の粘り強さは、梁が降伏して大きく変形しながらエネルギーを吸収することで生まれます。ところが、その手前で溶接部やボルトが破断してしまうと、部材は本来の粘りをまったく発揮できないまま、建物が崩壊します。溶接やボルトの破壊は<strong>脆性的（前触れなく一気に）</strong>起こるため、特に危険です。そこで接合部には、部材が全塑性モーメントに達してもなお壊れない余裕を持たせます。</p>
+      </div>
+      <div class="formula">
+        接合部の最大耐力 ≧ α × 部材の全塑性耐力
+        <span class="note">α：安全率にあたる割増し係数。接合形式や鋼種に応じて定められる</span>
+      </div>
+      <p>この考え方は柱梁接合部だけでなく、梁継手・柱継手・ブレース端部・柱脚など、力を伝えるすべての箇所に適用されます。特に<strong>ブレースの端部</strong>は見落とされやすく、ブレース材自体が降伏する前に取り付けボルトが破断すると、地震時に水平力を負担する要素が突然失われることになります。</p>
+      <table class="data">
+        <tr><th>検討する箇所</th><th>基準となる部材の耐力</th></tr>
+        <tr><td>梁継手</td><td>梁の全塑性モーメント</td></tr>
+        <tr><td>柱梁接合部（ダイアフラム・溶接）</td><td>梁の全塑性モーメント</td></tr>
+        <tr><td>ブレース端部の接合</td><td>ブレース材の降伏軸力</td></tr>
+        <tr><td>柱脚（アンカーボルト）</td><td>柱の全塑性モーメント（形式による）</td></tr>
+      </table>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>
