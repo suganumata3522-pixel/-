@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/slump-chi.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/slump-chi.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-slump-chi.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "スランプが規格を外れたらどうなりますか？", "acceptedAnswer": {"@type": "Answer", "text": "許容差を超えた場合、そのコンクリートは受け入れられず返送します。ただし、1回目の測定で外れた場合に限り、同じ運搬車から再度採取して試験を行うことができ、その結果が許容差内であれば合格とする扱いがJISで定められています。2回目も外れた場合は不合格です。スランプが小さすぎる場合に現場で加水することは、いかなる場合も認められません。"}},
+ {"@type": "Question", "name": "スランプ試験はいつ行いますか？", "acceptedAnswer": {"@type": "Answer", "text": "荷卸し地点で行います。生コン工場での練混ぜ時ではなく、実際に打ち込む場所での品質を確認するためです。運搬中にスランプは低下するため、工場出荷時と現場到着時では値が異なります。試験の頻度は、圧縮強度試験用の供試体を採取するときと同じ（打込み日・工区ごと、150m³に1回程度）が目安です。"}},
+ {"@type": "Question", "name": "スランプ21cmを超えるコンクリートはどう管理しますか？", "acceptedAnswer": {"@type": "Answer", "text": "スランプフローで管理します。スランプが21cmを超えるような軟らかいコンクリートは、コーンを引き上げると完全に崩れて広がってしまい、下がり量では評価できません。そこで広がりの直径（スランプフロー）を測定します。高流動コンクリートや高強度コンクリートがこれに該当し、50〜65cm程度で管理されます。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">鉄筋コンクリート造（RC造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>コンクリートのスランプ値｜18cmの根拠と許容値</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -176,6 +183,65 @@
         <span class="label">実務のワンポイント</span>
         <p>設計段階で「スランプ18cm」と特記仕様書に書くのは簡単ですが、実際に密配筋のRC壁で打設してみると18cmでも締固めが追いつかないことがあります。私は配筋が密な部材では、事前に施工者とスランプの上限を協議し、必要なら流動化剤の使用を検討するよう伝えるようにしています。</p>
       </div>
+
+      <h2 id="shiken-zukai">スランプ試験の方法（図解）</h2>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 260" role="img" aria-label="スランプ試験の手順。スランプコーンを引き上げて下がり量を測る">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">スランプ試験：下がり量を測る</text>
+          <text x="160" y="60" font-size="13.5" text-anchor="middle" fill="#1a3a5c" font-weight="bold">① コーンに詰める</text>
+          <path d="M110 200 L210 200 L188 100 L132 100 Z" fill="#c3ccd6" stroke="#1a3a5c" stroke-width="2"/>
+          <text x="160" y="160" font-size="12" text-anchor="middle" fill="#3f4a55">3層に分け</text>
+          <text x="160" y="178" font-size="12" text-anchor="middle" fill="#3f4a55">25回ずつ突く</text>
+          <rect x="90" y="200" width="140" height="8" fill="#7d95ab"/>
+          <text x="160" y="228" font-size="12" text-anchor="middle" fill="#6b7785">高さ300mm</text>
+          <text x="350" y="60" font-size="13.5" text-anchor="middle" fill="#1a3a5c" font-weight="bold">② 引き上げる</text>
+          <g stroke="#2e7d4f" stroke-width="3">
+            <line x1="350" y1="110" x2="350" y2="80"/><path d="M350 74 l-6 10 h12 z" fill="#2e7d4f" stroke="none"/>
+          </g>
+          <path d="M300 200 L400 200 L378 118 L322 118 Z" fill="none" stroke="#9fc0dd" stroke-width="2" stroke-dasharray="5 4"/>
+          <rect x="280" y="200" width="140" height="8" fill="#7d95ab"/>
+          <text x="350" y="230" font-size="12" text-anchor="middle" fill="#6b7785">静かに垂直に</text>
+          <text x="555" y="60" font-size="13.5" text-anchor="middle" fill="#e8843c" font-weight="bold">③ 下がり量を測る</text>
+          <path d="M495 200 Q520 150 555 148 Q595 150 615 200 Z" fill="#e5e0d6" stroke="#8a7355" stroke-width="2"/>
+          <line x1="495" y1="100" x2="620" y2="100" stroke="#9fc0dd" stroke-width="2" stroke-dasharray="5 4"/>
+          <g stroke="#c0392b" stroke-width="2.5">
+            <line x1="640" y1="100" x2="640" y2="148"/>
+            <line x1="634" y1="100" x2="646" y2="100"/><line x1="634" y1="148" x2="646" y2="148"/>
+          </g>
+          <text x="662" y="130" font-size="14" fill="#c0392b" font-weight="bold">S</text>
+          <rect x="475" y="200" width="160" height="8" fill="#7d95ab"/>
+          <text x="555" y="230" font-size="12" text-anchor="middle" fill="#6b7785">この下がり量がスランプ値</text>
+          <text x="350" y="252" font-size="12.5" text-anchor="middle" fill="#6b7785">JIS A 1101。単位はcm（0.5cm単位で読む）</text>
+        </svg>
+        <figcaption>高さ300mmのスランプコーンにコンクリートを詰めて引き上げ、頂部がどれだけ下がったかをcm単位で測定する。</figcaption>
+      </figure>
+
+      <h2 id="sentei">スランプ値の選び方</h2>
+      <table class="data">
+        <tr><th>条件</th><th>スランプの目安</th><th>理由</th></tr>
+        <tr><td>一般的な柱・梁・スラブ</td><td>15〜18cm</td><td>施工性と品質のバランス</td></tr>
+        <tr><td>配筋が密な部材</td><td>18〜21cm</td><td>すき間を流れる必要がある</td></tr>
+        <tr><td>断面が大きく配筋が粗い部材（基礎など）</td><td>8〜12cm</td><td>水を減らして収縮・発熱を抑える</td></tr>
+        <tr><td>ポンプ圧送距離が長い</td><td>大きめ（18cm以上）</td><td>圧送性の確保</td></tr>
+        <tr><td>スラブなど水平部材</td><td>12〜15cm</td><td>仕上げのしやすさも考慮</td></tr>
+      </table>
+      <div class="formula">
+        スランプの許容差：<br>
+        指定8cm以上18cm以下 → ±2.5cm ／ 指定21cm → ±1.5cm
+      </div>
+      <div class="point-box">
+        <span class="label">「打ちやすさ」だけで決めない</span>
+        <p>スランプを大きくすれば確かに打ちやすくなりますが、それは<strong>単位水量が増える</strong>ことを意味します（減水剤を使わない場合）。水が増えれば強度・耐久性が下がり、乾燥収縮も大きくなります。原則は「<strong>施工が可能な範囲でできるだけ小さく</strong>」。どうしても流動性が必要なら、水ではなく<a href="konwazai.html">減水剤</a>で確保するのが正しいアプローチです。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. スランプが規格を外れたらどうなりますか？</h3>
+      <p>許容差を超えた場合、そのコンクリートは受け入れられず返送します。ただし、1回目の測定で外れた場合に限り、同じ運搬車から再度採取して試験を行うことができ、その結果が許容差内であれば合格とする扱いがJISで定められています。2回目も外れた場合は不合格です。スランプが小さすぎる場合に現場で加水することは、いかなる場合も認められません。</p>
+      <h3>Q2. スランプ試験はいつ行いますか？</h3>
+      <p>荷卸し地点で行います。生コン工場での練混ぜ時ではなく、実際に打ち込む場所での品質を確認するためです。運搬中にスランプは低下するため、工場出荷時と現場到着時では値が異なります。試験の頻度は、圧縮強度試験用の供試体を採取するときと同じ（打込み日・工区ごと、150m³に1回程度）が目安です。</p>
+      <h3>Q3. スランプ21cmを超えるコンクリートはどう管理しますか？</h3>
+      <p>スランプフローで管理します。スランプが21cmを超えるような軟らかいコンクリートは、コーンを引き上げると完全に崩れて広がってしまい、下がり量では評価できません。そこで広がりの直径（スランプフロー）を測定します。高流動コンクリートや高強度コンクリートがこれに該当し、50〜65cm程度で管理されます。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>
