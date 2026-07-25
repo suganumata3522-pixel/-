@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/portland-l.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/portland-l.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-02",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-portland-l.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,12 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "中庸熱と低熱はどう使い分けますか？", "acceptedAnswer": {"@type": "Answer", "text": "どちらも発熱を抑えたセメントですが、低熱のほうがさらに水和熱が小さく、長期強度もより高くなる傾向があります。断面が特に大きい・高強度が求められるなど、より厳しい条件では低熱を選ぶのが一般的です。"}},
+ {"@type": "Question", "name": "低熱セメントを使うと工期は延びますか？", "acceptedAnswer": {"@type": "Answer", "text": "初期強度の立ち上がりが遅いため、型枠の存置期間が長くなるなど、工程に影響することがあります。ただし温度ひび割れを防げる利点が大きいため、大断面部材では総合的に有利になる場合が多く、工程計画の段階で強度発現の遅さを織り込んでおくことが重要です。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +117,7 @@
       <div class="meta">
         <span class="tag">鉄筋コンクリート造（RC造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>低熱ポルトランドセメントとは？特徴・用途・比較</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -188,6 +194,47 @@
         <span class="label">あわせて読みたい</span>
         <p>「<a href="portland-m.html">中庸熱ポルトランド</a>」、用途の「<a href="mass-concrete.html">マスコンクリート</a>」「<a href="koukyoudo-concrete.html">高強度コンクリート</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="hatsunetsu-zukai">セメント種類別の発熱と強度（図解）</h2>
+      <p>低熱セメントの位置づけを、発熱と強度発現のグラフで確認しましょう。</p>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 300" role="img" aria-label="セメント種類別の強度発現曲線。早強は初期強度が高く、低熱は初期は遅いが長期で高い強度に達する">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">セメント種類による強度発現の違い</text>
+          <line x1="95" y1="250" x2="640" y2="250" stroke="#1a3a5c" stroke-width="2"/>
+          <line x1="95" y1="250" x2="95" y2="58" stroke="#1a3a5c" stroke-width="2"/>
+          <text x="600" y="274" font-size="13" fill="#1a3a5c">材齢 →</text>
+          <text x="72" y="74" font-size="13" text-anchor="end" fill="#1a3a5c">強度</text>
+          <!-- 早強 -->
+          <path d="M95 250 Q135 130 200 108 Q330 84 620 72" fill="none" stroke="#c0392b" stroke-width="4"/>
+          <text x="215" y="98" font-size="13" fill="#c0392b" font-weight="bold">早強（H）</text>
+          <!-- 普通 -->
+          <path d="M95 250 Q160 168 240 138 Q380 104 620 66" fill="none" stroke="#1a3a5c" stroke-width="4"/>
+          <text x="330" y="122" font-size="13" fill="#1a3a5c" font-weight="bold">普通（N）</text>
+          <!-- 低熱 -->
+          <path d="M95 250 Q200 226 300 190 Q450 140 620 58" fill="none" stroke="#e8843c" stroke-width="4.5"/>
+          <text x="440" y="180" font-size="13.5" fill="#e8843c" font-weight="bold">低熱（L）</text>
+          <line x1="200" y1="250" x2="200" y2="66" stroke="#9fc0dd" stroke-width="1.5" stroke-dasharray="5 4"/>
+          <text x="200" y="272" font-size="12.5" text-anchor="middle" fill="#6b7785">初期</text>
+          <text x="580" y="272" font-size="12.5" text-anchor="middle" fill="#6b7785">長期</text>
+          <text x="350" y="296" font-size="13" text-anchor="middle" fill="#6b7785">低熱は立ち上がりが遅いが、長期では最も高い強度に達する</text>
+        </svg>
+        <figcaption>低熱ポルトランドセメントは初期強度の立ち上がりが遅い一方、時間をかけて緻密な組織を形成し、長期では高い強度に達する。</figcaption>
+      </figure>
+
+      <h2 id="mass">マスコンクリートでの温度ひび割れ対策</h2>
+      <p>低熱セメントが最も活躍するのが、断面の大きな<a href="mass-concrete.html">マスコンクリート</a>です。なぜ発熱が問題になるのかを整理します。</p>
+      <table class="data">
+        <tr><th>段階</th><th>何が起きるか</th></tr>
+        <tr><td>① 打込み直後〜数日</td><td>水和熱で内部温度が上昇。大断面では中心部が50〜70℃に達することもある</td></tr>
+        <tr><td>② 温度上昇時</td><td>内部が膨張しようとするが、表面は冷えて拘束するため、内部に圧縮・表面に引張が生じる</td></tr>
+        <tr><td>③ 冷却時</td><td>内部が収縮するが、すでに硬化した表面や既設部分に拘束され、<strong>内部に引張</strong>が生じる</td></tr>
+        <tr><td>④ 結果</td><td>引張がコンクリートの引張強度を超えると<strong>温度ひび割れ</strong>が発生。貫通ひび割れになると漏水や耐久性低下につながる</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">対策は「発熱を減らす」か「温度差を減らす」</span>
+        <p>温度ひび割れの根本原因は、<strong>温度上昇そのものより「温度差」と「拘束」</strong>にあります。対策は大きく3つ。①低熱・中庸熱セメントで発熱量を減らす、②パイプクーリングやプレクーリングで温度を管理する、③打設ブロックを分割して拘束を減らす。低熱セメントの採用は、この中でもっとも基本的な材料面の対策にあたります。</p>
+      </div>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

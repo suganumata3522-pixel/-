@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/kyoudo-hosei.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/kyoudo-hosei.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-kyoudo-hosei.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "構造体強度補正値と温度補正値は同じものですか？", "acceptedAnswer": {"@type": "Answer", "text": "実務ではほぼ同じ意味で使われますが、厳密には構造体強度補正値（mSn）が正式な用語です。かつては温度補正値と呼ばれていたこともあり、現場では混在しています。いずれも、供試体と実際の構造体の強度差を補うための割増しを指しており、予想平均気温に応じて3N/mm²または6N/mm²を用いる点は共通しています。"}},
+ {"@type": "Question", "name": "補正値を大きくすれば安全性が上がりますか？", "acceptedAnswer": {"@type": "Answer", "text": "むやみに大きくするのは適切ではありません。補正値を大きくすると調合管理強度が上がり、必要なセメント量が増えます。その結果、水和熱による温度ひび割れのリスクが高まり、乾燥収縮も大きくなる可能性があります。またコストも上がります。補正値は規定に従って適切に設定し、必要以上に割増ししないことが原則です。"}},
+ {"@type": "Question", "name": "夏場でも補正値は必要ですか？", "acceptedAnswer": {"@type": "Answer", "text": "必要です。気温が高い時期は初期の強度発現が速い一方、長期的な強度の伸びが小さくなる傾向があります（高温履歴による強度低下）。そのため、暑い時期でも3N/mm²の補正値を見込むのが標準です。また、暑中コンクリートでは打込み時のコンクリート温度が35℃を超えないよう管理するなど、補正値とは別の対策も必要になります。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">鉄筋コンクリート造（RC造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>構造体強度補正値｜3N・6Nの使い分けと温度</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -187,6 +194,54 @@
         <span class="label">実務のワンポイント</span>
         <p>冬季施工の工程を組む打合せでは、打込み時期の平均気温を見込まずに配合を決めてしまうと、後で補正値の見直しが発生し工程に響きます。着工前に生コン工場と気温条件をすり合わせておくことを習慣にしています。</p>
       </div>
+
+      <h2 id="kankei">強度の種類と関係（図解）</h2>
+      <p>コンクリートの強度には似た名前のものが複数あり、混乱しやすい部分です。関係を整理しておきましょう。</p>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 300" role="img" aria-label="設計基準強度から調合管理強度までの関係図。品質基準強度に構造体強度補正値を加えて調合管理強度を求める">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">コンクリート強度の関係</text>
+          <rect x="60" y="60" width="180" height="56" rx="8" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2"/>
+          <text x="150" y="84" font-size="14" text-anchor="middle" fill="#1a3a5c" font-weight="bold">設計基準強度 Fc</text>
+          <text x="150" y="104" font-size="12" text-anchor="middle" fill="#6b7785">構造計算で用いる強度</text>
+          <text x="270" y="82" font-size="20" text-anchor="middle" fill="#7d95ab">＋</text>
+          <rect x="300" y="60" width="180" height="56" rx="8" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2"/>
+          <text x="390" y="84" font-size="14" text-anchor="middle" fill="#1a3a5c" font-weight="bold">耐久設計基準強度</text>
+          <text x="390" y="104" font-size="12" text-anchor="middle" fill="#6b7785">耐久性から必要な強度</text>
+          <text x="530" y="90" font-size="14" fill="#7d95ab">の大きいほう</text>
+          <g stroke="#1a3a5c" stroke-width="2"><line x1="270" y1="120" x2="270" y2="140"/><line x1="270" y1="140" x2="350" y2="140"/><line x1="350" y1="140" x2="350" y2="156"/><path d="M350 164 l-7 -14 h14 z" fill="#1a3a5c" stroke="none"/></g>
+          <rect x="235" y="166" width="230" height="52" rx="8" fill="#dce9f5" stroke="#1a3a5c" stroke-width="2"/>
+          <text x="350" y="188" font-size="14" text-anchor="middle" fill="#1a3a5c" font-weight="bold">品質基準強度 Fq</text>
+          <text x="350" y="208" font-size="12" text-anchor="middle" fill="#6b7785">構造体に確保すべき強度</text>
+          <text x="510" y="196" font-size="17" fill="#c0392b" font-weight="bold">＋ mSn</text>
+          <text x="510" y="216" font-size="12" fill="#c0392b">（3 or 6 N/mm²）</text>
+          <g stroke="#c0392b" stroke-width="2"><line x1="350" y1="218" x2="350" y2="238"/><path d="M350 246 l-7 -14 h14 z" fill="#c0392b" stroke="none"/></g>
+          <rect x="235" y="248" width="230" height="42" rx="8" fill="#e8843c"/>
+          <text x="350" y="275" font-size="14.5" text-anchor="middle" fill="#fff" font-weight="bold">調合管理強度（発注する強度）</text>
+        </svg>
+        <figcaption>構造計算で必要な設計基準強度と、耐久性から必要な強度の大きいほうが品質基準強度Fq。これに構造体強度補正値を加えたものが、実際に発注する調合管理強度になる。</figcaption>
+      </figure>
+
+      <h2 id="chuui-tenkai">補正値を扱ううえでの注意点</h2>
+      <table class="data">
+        <tr><th>注意点</th><th>内容</th></tr>
+        <tr><td>気温は「予想平均気温」で判断</td><td>打込み当日の気温ではなく、打込みから材齢28日までの期間の予想平均気温で判定する。工程表と気象データから事前に決めておく</td></tr>
+        <tr><td>セメントの種類で変わる</td><td>普通ポルトランドセメントを前提とした値。高炉セメントB種など、強度発現の傾向が異なるセメントでは別の考え方を確認する</td></tr>
+        <tr><td>施工の質を代替しない</td><td>補正値はあくまで温度差を見込んだ割増し。締固め不足や養生不良による強度低下は補えない</td></tr>
+        <tr><td>季節をまたぐ工事</td><td>低層と高層で打設時期が数か月ずれる場合、階ごとに補正値が変わることがある</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">なぜ気温で強度発現が変わるのか</span>
+        <p>コンクリートの強度は、セメントと水の化学反応（水和反応）によって発現します。この反応速度は温度に強く依存し、<strong>気温が低いほど反応が遅くなります</strong>。標準養生された供試体は約20℃の水中で管理されるため順調に強度が伸びますが、冬期の現場で外気にさらされる構造体では反応が進まず、同じ材齢28日でも強度に差が出ます。この差を埋めるのが構造体強度補正値です。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 構造体強度補正値と温度補正値は同じものですか？</h3>
+      <p>実務ではほぼ同じ意味で使われますが、厳密には構造体強度補正値（mSn）が正式な用語です。かつては温度補正値と呼ばれていたこともあり、現場では混在しています。いずれも、供試体と実際の構造体の強度差を補うための割増しを指しており、予想平均気温に応じて3N/mm²または6N/mm²を用いる点は共通しています。</p>
+      <h3>Q2. 補正値を大きくすれば安全性が上がりますか？</h3>
+      <p>むやみに大きくするのは適切ではありません。補正値を大きくすると調合管理強度が上がり、必要なセメント量が増えます。その結果、水和熱による温度ひび割れのリスクが高まり、乾燥収縮も大きくなる可能性があります。またコストも上がります。補正値は規定に従って適切に設定し、必要以上に割増ししないことが原則です。</p>
+      <h3>Q3. 夏場でも補正値は必要ですか？</h3>
+      <p>必要です。気温が高い時期は初期の強度発現が速い一方、長期的な強度の伸びが小さくなる傾向があります（高温履歴による強度低下）。そのため、暑い時期でも3N/mm²の補正値を見込むのが標準です。また、暑中コンクリートでは打込み時のコンクリート温度が35℃を超えないよう管理するなど、補正値とは別の対策も必要になります。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

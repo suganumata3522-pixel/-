@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/konwazai.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/konwazai.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-02",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-konwazai.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "混和剤と混和材はどう区別すればよいですか？", "acceptedAnswer": {"@type": "Answer", "text": "使用量と配合計算での扱いで区別します。混和剤は薬剤として少量（セメント質量の数%以下）を用い、体積が小さいため配合設計で容積に算入しません。一方、混和材はセメントの一部を置き換えるほど多量に用いるため、絶対容積として配合計算に算入します。AE剤・減水剤が混和剤、フライアッシュ・高炉スラグ微粉末が混和材の代表例です。"}},
+ {"@type": "Question", "name": "AE剤を入れると強度が下がるのに、なぜ使うのですか？", "acceptedAnswer": {"@type": "Answer", "text": "空気量の増加による強度低下を上回るメリットがあるためです。AE剤が連行する微細な空気泡は、ワーカビリティを大幅に改善するため単位水量を減らすことができ、その分の強度向上が空気による低下を相殺します。加えて、凍結融解抵抗性が飛躍的に向上し、材料分離やブリーディングも抑えられます。総合的には品質が向上するため、現在ではほぼ標準的に使用されています。"}},
+ {"@type": "Question", "name": "フライアッシュを使うと初期強度が落ちますか？", "acceptedAnswer": {"@type": "Answer", "text": "落ちます。フライアッシュは、セメントの水和で生じた水酸化カルシウムと徐々に反応して強度に寄与する（ポゾラン反応）ため、初期の強度発現は普通コンクリートより遅くなります。一方、長期的には組織が緻密になり、強度・水密性・化学抵抗性が向上します。したがって、初期強度が必要な工程では使いにくく、マスコンクリートや水密性が求められる構造物に適しています。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">鉄筋コンクリート造（RC造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>混和材料とは？AE剤・減水剤・フライアッシュの使い分け</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -190,6 +197,65 @@
         <span class="label">あわせて読みたい</span>
         <p>「<a href="ae-zai.html">AE剤</a>」「<a href="kouryuudou-concrete.html">高性能AE減水材</a>」、混和材を含むセメントは「<a href="kongou-cement.html">混合セメント</a>」をどうぞ。</p>
       </div>
+
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 280" role="img" aria-label="混和剤と混和材の違いを示す図。混和剤は少量で容積に算入せず、混和材は多量で容積に算入する">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">混和剤と混和材の違い</text>
+          <line x1="350" y1="44" x2="350" y2="250" stroke="#c3ccd6" stroke-width="1.5" stroke-dasharray="6 5"/>
+          <text x="175" y="66" font-size="15" text-anchor="middle" fill="#e8843c" font-weight="bold">混和剤（少量）</text>
+          <rect x="70" y="84" width="210" height="120" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2"/>
+          <rect x="70" y="84" width="210" height="10" fill="#e8843c"/>
+          <text x="175" y="150" font-size="13" text-anchor="middle" fill="#1a3a5c">セメント・水・骨材</text>
+          <text x="300" y="93" font-size="12" fill="#b35309">←ごく薄い層</text>
+          <text x="175" y="228" font-size="12.5" text-anchor="middle" fill="#6b7785">容積に算入しない</text>
+          <text x="175" y="248" font-size="12.5" text-anchor="middle" fill="#6b7785">例：AE剤・減水剤</text>
+          <text x="525" y="66" font-size="15" text-anchor="middle" fill="#1a3a5c" font-weight="bold">混和材（多量）</text>
+          <rect x="420" y="84" width="210" height="120" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2"/>
+          <rect x="420" y="84" width="210" height="42" fill="#9fc0dd"/>
+          <text x="525" y="110" font-size="13" text-anchor="middle" fill="#1a3a5c" font-weight="bold">混和材</text>
+          <text x="525" y="170" font-size="13" text-anchor="middle" fill="#1a3a5c">セメント・水・骨材</text>
+          <text x="525" y="228" font-size="12.5" text-anchor="middle" fill="#6b7785">容積に算入する</text>
+          <text x="525" y="248" font-size="12.5" text-anchor="middle" fill="#6b7785">例：フライアッシュ・高炉スラグ</text>
+        </svg>
+        <figcaption>混和剤は薬剤として少量を用い配合の容積に算入しない。混和材はセメントの一部を置き換えるほど多量に用いるため、絶対容積として算入する。</figcaption>
+      </figure>
+
+
+      <h2 id="tsukaiwake-hyou">目的別・混和材料の使い分け早見表</h2>
+      <p>「何をしたいか」から逆に引けるよう、目的別に整理しました。</p>
+      <table class="data">
+        <tr><th>目的</th><th>使う混和材料</th><th>効果の仕組み</th></tr>
+        <tr><td>水を減らして強度を上げたい</td><td>減水剤・AE減水剤・<a href="kouryuudou-concrete.html">高性能AE減水材</a></td><td>セメント粒子を分散させ、少ない水で同じ流動性を得る</td></tr>
+        <tr><td>凍結融解に強くしたい</td><td><a href="ae-zai.html">AE剤</a></td><td>微細な空気泡が、凍結時の水の膨張を逃がすクッションになる</td></tr>
+        <tr><td>水和熱を抑えたい</td><td>フライアッシュ・高炉スラグ微粉末</td><td>セメントの一部を置き換え、発熱量そのものを減らす</td></tr>
+        <tr><td>収縮を抑えたい</td><td>膨張材</td><td>硬化時にわずかに膨張し、乾燥収縮を相殺する</td></tr>
+        <tr><td>超高強度にしたい</td><td>シリカフューム</td><td>超微粒子がセメント粒子の隙間を充填し組織を緻密にする</td></tr>
+        <tr><td>硬化を早めたい／遅らせたい</td><td>促進剤／遅延剤</td><td>水和反応の速度を化学的に調整する</td></tr>
+        <tr><td>アルカリ骨材反応を抑えたい</td><td>高炉スラグ微粉末・フライアッシュ</td><td>コンクリート中のアルカリ量を実質的に減らす</td></tr>
+      </table>
+
+      <h2 id="chuui">使用上の注意点</h2>
+      <p>混和材料は少量で大きな効果を発揮する反面、扱いを誤ると逆効果になります。</p>
+      <table class="data">
+        <tr><th>注意点</th><th>内容</th></tr>
+        <tr><td><strong>過剰添加は逆効果</strong></td><td>AE剤を入れすぎると空気量が過大になり強度が低下する（空気量1%増で強度は4〜6%低下するとされる）。減水剤の過剰は凝結遅延や 材料分離を招く</td></tr>
+        <tr><td><strong>組み合わせの相性</strong></td><td>複数の混和剤を併用すると、想定外の凝結遅延や空気量変動が生じることがある。試験練りでの確認が必須</td></tr>
+        <tr><td><strong>温度の影響</strong></td><td>気温によって効果の出方が変わる。同じ添加量でも夏と冬でスランプや凝結時間が変わる</td></tr>
+        <tr><td><strong>計量の精度</strong></td><td>混和剤は微量なので、計量誤差の影響が大きい。生コン工場での自動計量と管理記録の確認が重要</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">現代のコンクリートは混和材料が前提</span>
+        <p>かつては「セメント・水・砂・砂利」の4材料だったコンクリートも、現在では混和材料の使用が標準です。とくにAE減水剤は、ほぼすべての生コンに使われています。高強度コンクリートや高流動コンクリートといった高性能な材料は、混和材料なしには成立しません。<strong>混和材料の進歩がコンクリート技術の進歩を支えてきた</strong>と言っても過言ではないのです。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 混和剤と混和材はどう区別すればよいですか？</h3>
+      <p>使用量と配合計算での扱いで区別します。混和剤は薬剤として少量（セメント質量の数%以下）を用い、体積が小さいため配合設計で容積に算入しません。一方、混和材はセメントの一部を置き換えるほど多量に用いるため、絶対容積として配合計算に算入します。AE剤・減水剤が混和剤、フライアッシュ・高炉スラグ微粉末が混和材の代表例です。</p>
+      <h3>Q2. AE剤を入れると強度が下がるのに、なぜ使うのですか？</h3>
+      <p>空気量の増加による強度低下を上回るメリットがあるためです。AE剤が連行する微細な空気泡は、ワーカビリティを大幅に改善するため単位水量を減らすことができ、その分の強度向上が空気による低下を相殺します。加えて、凍結融解抵抗性が飛躍的に向上し、材料分離やブリーディングも抑えられます。総合的には品質が向上するため、現在ではほぼ標準的に使用されています。</p>
+      <h3>Q3. フライアッシュを使うと初期強度が落ちますか？</h3>
+      <p>落ちます。フライアッシュは、セメントの水和で生じた水酸化カルシウムと徐々に反応して強度に寄与する（ポゾラン反応）ため、初期の強度発現は普通コンクリートより遅くなります。一方、長期的には組織が緻密になり、強度・水密性・化学抵抗性が向上します。したがって、初期強度が必要な工程では使いにくく、マスコンクリートや水密性が求められる構造物に適しています。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

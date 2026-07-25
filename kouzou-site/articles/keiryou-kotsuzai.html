@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/keiryou-kotsuzai.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/keiryou-kotsuzai.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-keiryou-kotsuzai.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "軽量コンクリートは構造体に使えますか？", "acceptedAnswer": {"@type": "Answer", "text": "使えます。JIS A 5002に適合した構造用軽量骨材を用いた「構造用軽量コンクリート」は、柱・梁・スラブなどの構造部材に使用できます。ただし、ヤング係数が小さくたわみが大きくなること、乾燥収縮が大きいことを設計で考慮する必要があります。実務では、建物全体ではなくスラブなど自重が支配的な部位に限定して使うケースが多く見られます。"}},
+ {"@type": "Question", "name": "軽量コンクリートは強度が低いのですか？", "acceptedAnswer": {"@type": "Answer", "text": "必ずしも低くはありません。構造用軽量コンクリートでもFc21〜36程度の強度は確保できます。ただし、骨材自体の強度が上限になるため、普通コンクリートのような超高強度（Fc60以上など）を実現するのは困難です。また、同じ強度でもヤング係数は小さくなるため、強度は足りていてもたわみで断面が決まることがあります。"}},
+ {"@type": "Question", "name": "ALCも軽量コンクリートの一種ですか？", "acceptedAnswer": {"@type": "Answer", "text": "考え方は近いですが別の材料です。ALC（軽量気泡コンクリート）は、原料に発泡剤を混ぜて内部に気泡をつくり、オートクレーブ養生（高温高圧蒸気養生）で硬化させたパネル製品です。骨材を軽くするのではなく、コンクリート自体を発泡させて軽量化している点が異なります。ALCは外壁・間仕切りなどの非構造部材として使われ、構造躯体には用いません。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">鉄筋コンクリート造（RC造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>軽量骨材とは？種類・密度・JISとの関係</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -177,6 +184,61 @@
         <span class="label">あわせて読みたい</span>
         <p>使う「<a href="keiryou-concrete.html">軽量コンクリート</a>」、対の「<a href="futsuu-kotsuzai.html">普通骨材</a>」、全体は「<a href="kotsuzai.html">骨材とは</a>」をどうぞ。鋼材の「軽量」については「<a href="keiryou-katakou.html">軽量形鋼</a>」も参考にしてください。</p>
       </div>
+
+      <h2 id="kouzou-zukai">なぜ軽いのか：粒の構造（図解）</h2>
+      <p>軽量骨材が軽い理由は、粒の内部構造にあります。普通骨材との違いを見てみましょう。</p>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 280" role="img" aria-label="普通骨材と人工軽量骨材の粒の断面比較図。軽量骨材は内部に多数の気泡を持つ多孔質構造">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">粒の内部構造の違い</text>
+          <!-- 普通骨材 -->
+          <text x="175" y="62" font-size="14.5" text-anchor="middle" fill="#1a3a5c" font-weight="bold">普通骨材（砂利・砕石）</text>
+          <circle cx="175" cy="150" r="62" fill="#7d95ab" stroke="#1a3a5c" stroke-width="2.5"/>
+          <text x="175" y="156" font-size="13" text-anchor="middle" fill="#fff">中まで詰まっている</text>
+          <text x="175" y="238" font-size="12.5" text-anchor="middle" fill="#6b7785">絶乾密度 2.5前後</text>
+          <text x="175" y="258" font-size="12.5" text-anchor="middle" fill="#6b7785">重いが強い・吸水しにくい</text>
+          <!-- 軽量骨材 -->
+          <text x="525" y="62" font-size="14.5" text-anchor="middle" fill="#e8843c" font-weight="bold">人工軽量骨材</text>
+          <circle cx="525" cy="150" r="62" fill="#e5e0d6" stroke="#b35309" stroke-width="4"/>
+          <g fill="#fff">
+            <circle cx="505" cy="126" r="10"/><circle cx="546" cy="132" r="8"/><circle cx="520" cy="158" r="11"/>
+            <circle cx="553" cy="168" r="9"/><circle cx="497" cy="170" r="8"/><circle cx="530" cy="188" r="7"/>
+            <circle cx="494" cy="146" r="6"/><circle cx="552" cy="150" r="6"/>
+          </g>
+          <text x="525" y="238" font-size="12.5" text-anchor="middle" fill="#6b7785">絶乾密度 2.0未満</text>
+          <text x="525" y="258" font-size="12.5" text-anchor="middle" fill="#6b7785">硬い外殻＋多孔質の内部</text>
+          <line x1="587" y1="112" x2="632" y2="94" stroke="#b35309" stroke-width="2"/>
+          <text x="640" y="92" font-size="12" fill="#b35309">硬い殻</text>
+          <line x1="520" y1="158" x2="620" y2="200" stroke="#7d95ab" stroke-width="2"/>
+          <text x="626" y="204" font-size="12" fill="#6b7785">気泡</text>
+        </svg>
+        <figcaption>人工軽量骨材は、焼成の過程で内部にガスが発生し多数の気泡ができる。表面は硬い殻に覆われるため、軽さと一定の強度を両立できる。</figcaption>
+      </figure>
+
+      <h2 id="merit">軽量コンクリートを使うメリットと注意点</h2>
+      <p>建物を軽くすることには、構造上・施工上のさまざまな利点があります。一方で、性質の違いから生じる注意点もあります。</p>
+      <table class="data">
+        <tr><th></th><th>内容</th></tr>
+        <tr><td><strong>メリット①</strong></td><td><a href="jishin-ryoku.html">地震力が小さくなる</a>。地震力は重量に比例するため、建物が軽いほど有利</td></tr>
+        <tr><td><strong>メリット②</strong></td><td>基礎・杭の規模を縮小できる。上部が軽ければ地盤への負担も減る</td></tr>
+        <tr><td><strong>メリット③</strong></td><td>部材の断面を小さくできる場合がある。長スパンのスラブなどで有効</td></tr>
+        <tr><td><strong>注意点①</strong></td><td>ヤング係数が小さい（普通コンクリートの6〜7割程度）。同じ断面でもたわみが大きくなる</td></tr>
+        <tr><td><strong>注意点②</strong></td><td><a href="concrete-jakuten.html">乾燥収縮</a>が大きい。ひび割れ対策により配慮が必要</td></tr>
+        <tr><td><strong>注意点③</strong></td><td>吸水しやすく、ポンプ圧送時に水を吸って閉塞するおそれがある。事前の吸水（プレウェッティング）が必須</td></tr>
+        <tr><td><strong>注意点④</strong></td><td>材料コストが普通コンクリートより高い</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">なぜプレウェッティングが必要なのか</span>
+        <p>軽量骨材は多孔質で吸水性が高いため、乾いた状態のまま練り混ぜると、<strong>練混ぜ水を骨材が吸ってしまいます</strong>。その結果、コンクリートが急激に硬くなってスランプが低下し、ポンプ圧送中に管内で閉塞する事故につながります。これを防ぐため、あらかじめ骨材に十分吸水させてから使用します。逆に吸水させすぎると単位水量の管理が難しくなるため、含水状態の管理が品質確保の要になります。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 軽量コンクリートは構造体に使えますか？</h3>
+      <p>使えます。JIS A 5002に適合した構造用軽量骨材を用いた「構造用軽量コンクリート」は、柱・梁・スラブなどの構造部材に使用できます。ただし、ヤング係数が小さくたわみが大きくなること、乾燥収縮が大きいことを設計で考慮する必要があります。実務では、建物全体ではなくスラブなど自重が支配的な部位に限定して使うケースが多く見られます。</p>
+      <h3>Q2. 軽量コンクリートは強度が低いのですか？</h3>
+      <p>必ずしも低くはありません。構造用軽量コンクリートでもFc21〜36程度の強度は確保できます。ただし、骨材自体の強度が上限になるため、普通コンクリートのような超高強度（Fc60以上など）を実現するのは困難です。また、同じ強度でもヤング係数は小さくなるため、強度は足りていてもたわみで断面が決まることがあります。</p>
+      <h3>Q3. ALCも軽量コンクリートの一種ですか？</h3>
+      <p>考え方は近いですが別の材料です。ALC（軽量気泡コンクリート）は、原料に発泡剤を混ぜて内部に気泡をつくり、オートクレーブ養生（高温高圧蒸気養生）で硬化させたパネル製品です。骨材を軽くするのではなく、コンクリート自体を発泡させて軽量化している点が異なります。ALCは外壁・間仕切りなどの非構造部材として使われ、構造躯体には用いません。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

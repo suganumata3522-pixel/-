@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/tawami.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/tawami.html",
    "datePublished": "2026-06-12",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-tawami.jpg",
    "author": {
     "@type": "Person",
@@ -74,6 +74,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "たわみの制限値はなぜスパンの1/250なのですか？", "acceptedAnswer": {"@type": "Answer", "text": "梁自体の安全性ではなく、使用上の支障を防ぐための制限だからです。たわみが大きいと、天井や間仕切りにひび割れが生じる、建具の開閉に支障が出る、床が波打って歩行感が悪くなる、といった不具合につながります。1/250は、これらの支障が生じにくい変形の目安として定められた値です。片持ち梁や、たわみが目立ちやすい部位では、より厳しく管理することもあります。"}},
+ {"@type": "Question", "name": "RC梁のたわみ計算で変形増大係数を掛けるのはなぜですか？", "acceptedAnswer": {"@type": "Answer", "text": "コンクリートのクリープと乾燥収縮によって、長期的にたわみが増大するためです。荷重を載せた直後の弾性たわみに対して、時間の経過とともに変形が進行し、最終的に数倍になることがあります。この長期的な増大を見込むのが変形増大係数で、一般に16程度（弾性たわみの16倍）を用いてスパンの1/250以下を確認します。鉄骨造にはこの現象がないため、係数は1.0です。"}},
+ {"@type": "Question", "name": "たわみは荷重のどの組み合わせで検討しますか？", "acceptedAnswer": {"@type": "Answer", "text": "原則として長期荷重（固定荷重＋積載荷重）に対して検討します。地震や暴風は短時間の荷重であり、その瞬間の変形は層間変形角で別途確認するため、たわみの検討には含めません。積雪については、多雪区域では長期の組み合わせに含める場合があります。なお、たわみの検討で用いる積載荷重は、床用の値を用いるのが基本です。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -105,7 +112,7 @@
       <div class="meta">
         <span class="tag">構造力学の基礎</span>
         <span>公開日：2026年6月12日</span>
-        <span>更新日：2026年7月3日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>梁のたわみの計算方法｜公式一覧と覚え方のコツ</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -211,6 +218,63 @@
         <span class="label">実務のワンポイント</span>
         <p>実務でたわみが本当に問題になるのは強度不足より先に、歩いたときの「ふわつき感」であることが多いです。計算上1/250を満たしていてもスパンの長い床は歩行振動の観点で別途確認しますし、鉄骨梁は架設時に上向きのむくり（キャンバー）を付けて長期たわみを相殺する設計も一般的です。</p>
       </div>
+
+      <h2 id="hikaku-zukai">支持条件でたわみはどれだけ変わるか（図解）</h2>
+      <p>同じ荷重・同じスパンでも、端部の支持条件によってたわみは大きく変わります。</p>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 300" role="img" aria-label="片持ち梁・単純梁・両端固定梁のたわみ比較図。拘束が強いほどたわみは小さい">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">支持条件によるたわみの違い（等分布荷重）</text>
+          <!-- 片持ち梁 -->
+          <text x="88" y="72" font-size="13.5" text-anchor="end" fill="#1a3a5c" font-weight="bold">片持ち梁</text>
+          <rect x="100" y="52" width="14" height="40" fill="#7d95ab"/>
+          <line x1="114" y1="66" x2="330" y2="66" stroke="#1a3a5c" stroke-width="4"/>
+          <path d="M114 66 Q220 78 330 130" fill="none" stroke="#c0392b" stroke-width="4"/>
+          <text x="360" y="120" font-size="13" fill="#c0392b" font-weight="bold">wL⁴/8EI</text>
+          <text x="470" y="120" font-size="12.5" fill="#6b7785">たわみ大</text>
+          <!-- 単純梁 -->
+          <text x="88" y="176" font-size="13.5" text-anchor="end" fill="#1a3a5c" font-weight="bold">単純梁</text>
+          <path d="M114 170 l-12 20 h24 z" fill="#7d95ab"/>
+          <circle cx="330" cy="180" r="8" fill="#7d95ab"/>
+          <line x1="114" y1="170" x2="330" y2="170" stroke="#1a3a5c" stroke-width="4"/>
+          <path d="M114 170 Q222 208 330 170" fill="none" stroke="#e8843c" stroke-width="4"/>
+          <text x="360" y="200" font-size="13" fill="#b35309" font-weight="bold">5wL⁴/384EI</text>
+          <text x="470" y="200" font-size="12.5" fill="#6b7785">片持ちの約1/5</text>
+          <!-- 両端固定梁 -->
+          <text x="88" y="256" font-size="13.5" text-anchor="end" fill="#1a3a5c" font-weight="bold">両端固定梁</text>
+          <rect x="100" y="236" width="14" height="40" fill="#7d95ab"/>
+          <rect x="330" y="236" width="14" height="40" fill="#7d95ab"/>
+          <line x1="114" y1="256" x2="330" y2="256" stroke="#1a3a5c" stroke-width="4"/>
+          <path d="M114 256 Q222 274 330 256" fill="none" stroke="#2e7d4f" stroke-width="4"/>
+          <text x="360" y="272" font-size="13" fill="#2e7d4f" font-weight="bold">wL⁴/384EI</text>
+          <text x="470" y="272" font-size="12.5" fill="#6b7785">単純梁の1/5</text>
+        </svg>
+        <figcaption>同じ荷重・スパンでも、端部の拘束が強いほどたわみは小さくなる。片持ち梁と両端固定梁では48倍もの差がある。</figcaption>
+      </figure>
+      <p>係数を比べると、片持ち梁（1/8）→単純梁（5/384）→両端固定梁（1/384）の順に小さくなります。片持ち梁と両端固定梁のたわみの比は<strong>48対1</strong>。端部を固定できるかどうかが、変形の大小を決定的に左右することがわかります。</p>
+
+      <h2 id="taisaku">たわみが大きいときの対処法</h2>
+      <p>たわみが制限値を超えたとき、どの手を打つのが有効かを整理します。式 δ ∝ wL⁴/EI から考えると、対策の効果が見えてきます。</p>
+      <table class="data">
+        <tr><th>対策</th><th>効果</th><th>備考</th></tr>
+        <tr><td><strong>梁せいを大きくする</strong></td><td><strong>非常に大きい</strong>（せいの3乗でIが増える）</td><td>もっとも効率的。せいを1.2倍にすればIは約1.7倍</td></tr>
+        <tr><td><strong>スパンを短くする</strong></td><td><strong>非常に大きい</strong>（4乗で効く）</td><td>小梁を追加して支持点を増やす。計画変更が必要</td></tr>
+        <tr><td>梁幅を大きくする</td><td>小さい（幅に比例するだけ）</td><td>効率が悪い。せいを増やせない場合の次善策</td></tr>
+        <tr><td>材料を高強度にする</td><td><strong>効果なし</strong></td><td>Eは鋼種によらずほぼ一定。強度を上げてもたわみは減らない</td></tr>
+        <tr><td>むくりをつける</td><td>見た目の改善</td><td>あらかじめ上に反らせておく。たわみ量自体は変わらない</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">「強度は足りているのにたわみでNG」はよくある</span>
+        <p>スパンが長い梁では、応力度の検定には余裕があるのに、たわみの制限で断面が決まることが少なくありません。とくに<strong>鉄骨梁</strong>は、高強度鋼を使っても<a href="oryokudo-hizumi.html">ヤング係数が変わらない</a>ため、この傾向が顕著です。設計の初期段階で「この梁はたわみで決まりそうか、強度で決まりそうか」を見極めておくと、断面計画の手戻りが減ります。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. たわみの制限値はなぜスパンの1/250なのですか？</h3>
+      <p>梁自体の安全性ではなく、使用上の支障を防ぐための制限だからです。たわみが大きいと、天井や間仕切りにひび割れが生じる、建具の開閉に支障が出る、床が波打って歩行感が悪くなる、といった不具合につながります。1/250は、これらの支障が生じにくい変形の目安として定められた値です。片持ち梁や、たわみが目立ちやすい部位では、より厳しく管理することもあります。</p>
+      <h3>Q2. RC梁のたわみ計算で変形増大係数を掛けるのはなぜですか？</h3>
+      <p>コンクリートのクリープと乾燥収縮によって、長期的にたわみが増大するためです。荷重を載せた直後の弾性たわみに対して、時間の経過とともに変形が進行し、最終的に数倍になることがあります。この長期的な増大を見込むのが変形増大係数で、一般に16程度（弾性たわみの16倍）を用いてスパンの1/250以下を確認します。鉄骨造にはこの現象がないため、係数は1.0です。</p>
+      <h3>Q3. たわみは荷重のどの組み合わせで検討しますか？</h3>
+      <p>原則として長期荷重（固定荷重＋積載荷重）に対して検討します。地震や暴風は短時間の荷重であり、その瞬間の変形は層間変形角で別途確認するため、たわみの検討には含めません。積雪については、多雪区域では長期の組み合わせに含める場合があります。なお、たわみの検討で用いる積載荷重は、床用の値を用いるのが基本です。</p>
+
 
       <h2>まとめ</h2>
       <ul>

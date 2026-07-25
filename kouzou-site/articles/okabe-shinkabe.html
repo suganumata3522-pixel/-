@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/okabe-shinkabe.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/okabe-shinkabe.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-okabe-shinkabe.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,12 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "リフォームで大壁を真壁に変えられますか？", "acceptedAnswer": {"@type": "Answer", "text": "可能ですが、柱の見え掛かりを綺麗に仕上げる必要があるため、既存の柱の状態（傷・変色・断面欠損など）を確認し、場合によっては柱材の交換や補修が必要になります。"}},
+ {"@type": "Question", "name": "真壁のほうが構造的に弱いのですか？", "acceptedAnswer": {"@type": "Answer", "text": "納まりの違いであり、真壁自体が構造的に弱いわけではありません。ただし面材耐力壁を使いにくいため、壁量計算では真壁専用の仕様を用いるなど、大壁とは異なる検討が必要になります。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +117,7 @@
       <div class="meta">
         <span class="tag">木造（W造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>大壁と真壁の違いとは？木造住宅での使い方</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -183,6 +189,49 @@
         <span class="label">あわせて読みたい</span>
         <p>耐力壁は「<a href="kabebairitsu.html">壁倍率</a>」、木の使い方は「<a href="kiomote-kiura.html">木表と木裏</a>」、全体は「<a href="w-zou.html">木造とは？</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="zukai">大壁と真壁の納まり（図解）</h2>
+      <p>平面で見た柱と壁面の位置関係を比べると、違いが一目でわかります。</p>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 260" role="img" aria-label="大壁と真壁の平面納まり比較図。大壁は柱を壁で覆い、真壁は柱を室内に見せる">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">柱と壁面の位置関係（平面図）</text>
+          <line x1="350" y1="44" x2="350" y2="234" stroke="#c3ccd6" stroke-width="1.5" stroke-dasharray="6 5"/>
+          <!-- 大壁 -->
+          <text x="175" y="64" font-size="14.5" text-anchor="middle" fill="#1a3a5c" font-weight="bold">大壁（柱を隠す）</text>
+          <rect x="70" y="120" width="210" height="16" fill="#c3ccd6"/>
+          <rect x="70" y="86" width="210" height="16" fill="#c3ccd6"/>
+          <rect x="150" y="86" width="50" height="50" fill="#b9a888" stroke="#8a7355" stroke-width="2"/>
+          <text x="175" y="116" font-size="12" text-anchor="middle" fill="#4a3f2a">柱</text>
+          <text x="175" y="164" font-size="12.5" text-anchor="middle" fill="#6b7785">柱の両側を壁材で覆う</text>
+          <text x="175" y="186" font-size="12.5" text-anchor="middle" fill="#6b7785">室内から柱は見えない</text>
+          <text x="175" y="214" font-size="12.5" text-anchor="middle" fill="#2e7d4f" font-weight="bold">断熱・耐震に有利</text>
+          <!-- 真壁 -->
+          <text x="525" y="64" font-size="14.5" text-anchor="middle" fill="#1a3a5c" font-weight="bold">真壁（柱を見せる）</text>
+          <rect x="420" y="94" width="80" height="34" fill="#c3ccd6"/>
+          <rect x="550" y="94" width="80" height="34" fill="#c3ccd6"/>
+          <rect x="500" y="86" width="50" height="50" fill="#b9a888" stroke="#8a7355" stroke-width="2"/>
+          <text x="525" y="116" font-size="12" text-anchor="middle" fill="#4a3f2a">柱</text>
+          <text x="525" y="164" font-size="12.5" text-anchor="middle" fill="#6b7785">柱の間に壁を納める</text>
+          <text x="525" y="186" font-size="12.5" text-anchor="middle" fill="#6b7785">室内に柱が見える</text>
+          <text x="525" y="214" font-size="12.5" text-anchor="middle" fill="#b35309" font-weight="bold">和の意匠・調湿に有利</text>
+        </svg>
+        <figcaption>大壁は柱の両側を壁材で覆って隠す納まり、真壁は柱と柱の間に壁を納めて柱を見せる納まり。断熱材の入れ方や耐力壁の仕様に違いが生じる。</figcaption>
+      </figure>
+
+      <h2 id="hikaku-seinou">大壁と真壁の性能比較（設計上の使い分け）</h2>
+      <table class="data">
+        <tr><th>項目</th><th>大壁</th><th>真壁</th></tr>
+        <tr><td>断熱材の納まり</td><td>柱の外側にも断熱材を入れられる（外張り断熱との併用も容易）</td><td>柱と柱の間のみ。柱部分が熱橋になりやすい</td></tr>
+        <tr><td>耐力壁の仕様</td><td>構造用合板を柱の外側に張れるため、高い壁倍率を取りやすい</td><td>柱の間に納めるため、真壁仕様の面材や筋かいを使う</td></tr>
+        <tr><td>配線・配管</td><td>壁の中に自由に通せる</td><td>壁厚が限られ、露出配線になることも</td></tr>
+        <tr><td>木材の品質</td><td>隠れるため、多少の傷・変色は問題ない</td><td>見え掛かりとなるため、化粧材として品質の高い材が必要</td></tr>
+        <tr><td>調湿</td><td>木部が覆われる</td><td>木部が室内に露出し調湿効果が期待できる</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">壁量計算での扱いの違い</span>
+        <p>耐力壁として使う場合、大壁仕様と真壁仕様では<strong>認められる壁倍率が異なります</strong>。たとえば同じ構造用合板でも、大壁仕様（柱の外側に張る）なら2.5、真壁仕様（柱の間に受け材を介して張る）では仕様に応じた別の値が定められています。図面に「大壁」「真壁」を明記し、それに対応した壁倍率で計算しないと、審査で指摘を受けることになります。</p>
+      </div>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

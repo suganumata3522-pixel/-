@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/henzai-shinzai.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/henzai-shinzai.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-02",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-henzai-shinzai.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "心材と辺材はどうやって見分けますか？", "acceptedAnswer": {"@type": "Answer", "text": "木口（切り口）を見れば、色の違いではっきり判別できます。中心側の色が濃い部分が心材、外周側の淡い部分が辺材です。ヒノキやスギでは特に境目が明瞭で、心材は赤みを帯び、辺材は白っぽい色をしています。製材された板でも、木口面や木裏を見れば区別できます。なお、樹種によっては色の差が小さく判別しにくいものもあります。"}},
+ {"@type": "Question", "name": "辺材は使ってはいけないのですか？", "acceptedAnswer": {"@type": "Answer", "text": "使えます。強度は心材と大きく変わらないため、腐朽や虫害のリスクが低い部位であれば問題なく使用できます。実際、建物の中で使われる木材の多くは辺材を含んでいます。ただし、土台や外部に接する部位、水回りなど湿気を受けやすい箇所では、心材を選ぶか、辺材に防腐・防蟻処理を施すことが必要です。"}},
+ {"@type": "Question", "name": "集成材やCLTでは心材・辺材の区別は関係ありますか？", "acceptedAnswer": {"@type": "Answer", "text": "製造上は選別されますが、使用者が意識する場面は限られます。集成材は小さな板（ラミナ）を接着して作るため、心材・辺材が混在するのが普通です。耐久性が求められる用途では、防腐処理を施したラミナを使う、あるいは薬剤を加圧注入した集成材を用いるといった対応がとられます。無垢材のように「心材だから安心」という選び方ではなく、製品としての性能表示（保存処理の等級など）で判断します。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">木造（W造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>辺材と心材の違い｜腐朽しやすい理由と設計への影響</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -186,6 +193,59 @@
         <span class="label">あわせて読みたい</span>
         <p>「<a href="dodai.html">土台</a>」「<a href="seware.html">背割り（心持ち材）</a>」「<a href="kikan-joutai.html">気乾状態</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="zukai">丸太の断面と製材（図解）</h2>
+      <p>1本の丸太のどこから木取りするかで、心材・辺材の割合が変わります。</p>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 280" role="img" aria-label="丸太断面における心材と辺材の位置、および製材位置による違いの図">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">丸太の断面と木取りの違い</text>
+          <!-- 丸太断面 -->
+          <circle cx="185" cy="150" r="88" fill="#e5d5b8" stroke="#8a7355" stroke-width="2.5"/>
+          <circle cx="185" cy="150" r="52" fill="#b9764a"/>
+          <g stroke="#8a7355" stroke-width="1" fill="none" opacity=".55">
+            <circle cx="185" cy="150" r="24"/><circle cx="185" cy="150" r="38"/>
+            <circle cx="185" cy="150" r="66"/><circle cx="185" cy="150" r="78"/>
+          </g>
+          <text x="185" y="156" font-size="13.5" text-anchor="middle" fill="#fff" font-weight="bold">心材（赤身）</text>
+          <line x1="255" y1="98" x2="298" y2="76" stroke="#8a7355" stroke-width="1.8"/>
+          <text x="304" y="74" font-size="13" fill="#6b5a3f" font-weight="bold">辺材（白太）</text>
+          <text x="185" y="264" font-size="12.5" text-anchor="middle" fill="#6b7785">中心が心材、外周が辺材</text>
+          <!-- 木取り -->
+          <text x="500" y="66" font-size="14" text-anchor="middle" fill="#1a3a5c" font-weight="bold">木取りの位置で性質が変わる</text>
+          <rect x="410" y="86" width="180" height="52" fill="#b9764a" stroke="#8a7355" stroke-width="2"/>
+          <text x="500" y="117" font-size="13" text-anchor="middle" fill="#fff" font-weight="bold">心持ち材（心材が多い）</text>
+          <text x="500" y="156" font-size="12.5" text-anchor="middle" fill="#6b7785">耐久性が高い → 土台向き</text>
+          <rect x="410" y="176" width="180" height="52" fill="#e5d5b8" stroke="#8a7355" stroke-width="2"/>
+          <text x="500" y="207" font-size="13" text-anchor="middle" fill="#6b5a3f" font-weight="bold">辺材主体の材</text>
+          <text x="500" y="246" font-size="12.5" text-anchor="middle" fill="#6b7785">要防腐処理 → 見えない部位など</text>
+        </svg>
+        <figcaption>丸太の中心側が心材（赤身）、外周側が辺材（白太）。中心付近から木取りした心持ち材は心材の割合が高く、耐久性が求められる土台に適する。</figcaption>
+      </figure>
+
+      <h2 id="riyuu">辺材が腐朽しやすい理由</h2>
+      <p>同じ木から取れた材なのに耐久性が違うのは、樹木の中での役割が異なるためです。</p>
+      <table class="data">
+        <tr><th>項目</th><th>心材</th><th>辺材</th></tr>
+        <tr><td>樹木内での役割</td><td>役目を終えた古い細胞。樹体を支える</td><td>生きた細胞。水分・養分を運ぶ</td></tr>
+        <tr><td>含水率</td><td>低い</td><td>高い（生木では200%を超えることも）</td></tr>
+        <tr><td>栄養分（でんぷん・糖）</td><td>ほとんどない</td><td>多く含む</td></tr>
+        <tr><td>抽出成分</td><td><strong>あり</strong>（腐朽菌・虫を寄せつけない成分が沈着）</td><td>ほとんどない</td></tr>
+        <tr><td>結果</td><td>腐りにくい・虫害に強い</td><td>腐りやすい・虫害を受けやすい</td></tr>
+      </table>
+      <p>決定的な違いは<strong>抽出成分</strong>です。樹木が成長する過程で、中心部の細胞は役目を終え、そこにフェノール類などの成分が沈着していきます。これが天然の防腐・防虫剤として働き、心材に耐久性を与えます。ヒノキの独特の香りも、この抽出成分によるものです。一方、辺材は生きた細胞として栄養分（でんぷん・糖）を含むため、<strong>腐朽菌やシロアリにとっては格好の餌</strong>になってしまいます。</p>
+      <div class="point-box">
+        <span class="label">よくある誤解</span>
+        <p>「心材は硬くて辺材は柔らかい」と思われがちですが、<strong>強度そのものには大きな差がない</strong>のが実際です。構造計算で用いる木材の許容応力度は樹種と等級で決まり、心材か辺材かでは変わりません。両者の違いは主に<strong>耐久性（腐りにくさ・虫害への強さ）</strong>にあります。したがって、土台や水回りなど劣化しやすい部位では心材を、そうでない部位では辺材を使い、必要に応じて防腐・防蟻処理を施す、という使い分けが合理的です。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 心材と辺材はどうやって見分けますか？</h3>
+      <p>木口（切り口）を見れば、色の違いではっきり判別できます。中心側の色が濃い部分が心材、外周側の淡い部分が辺材です。ヒノキやスギでは特に境目が明瞭で、心材は赤みを帯び、辺材は白っぽい色をしています。製材された板でも、木口面や木裏を見れば区別できます。なお、樹種によっては色の差が小さく判別しにくいものもあります。</p>
+      <h3>Q2. 辺材は使ってはいけないのですか？</h3>
+      <p>使えます。強度は心材と大きく変わらないため、腐朽や虫害のリスクが低い部位であれば問題なく使用できます。実際、建物の中で使われる木材の多くは辺材を含んでいます。ただし、土台や外部に接する部位、水回りなど湿気を受けやすい箇所では、心材を選ぶか、辺材に防腐・防蟻処理を施すことが必要です。</p>
+      <h3>Q3. 集成材やCLTでは心材・辺材の区別は関係ありますか？</h3>
+      <p>製造上は選別されますが、使用者が意識する場面は限られます。集成材は小さな板（ラミナ）を接着して作るため、心材・辺材が混在するのが普通です。耐久性が求められる用途では、防腐処理を施したラミナを使う、あるいは薬剤を加圧注入した集成材を用いるといった対応がとられます。無垢材のように「心材だから安心」という選び方ではなく、製品としての性能表示（保存処理の等級など）で判断します。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>
