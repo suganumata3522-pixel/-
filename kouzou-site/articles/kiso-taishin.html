@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/kiso-taishin.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/kiso-taishin.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-06-14",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-kiso-taishin.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "べた基礎なら地震に強いと考えてよいですか？", "acceptedAnswer": {"@type": "Answer", "text": "べた基礎は底面全体で建物を支えるため接地圧が小さく、不同沈下に対して有利です。ただし「べた基礎にすれば安心」とは言えません。地盤そのものが軟弱だったり液状化のおそれがある場合は、べた基礎でも建物ごと沈下・傾斜します。基礎形式の選択より先に、地盤調査で地盤の性状を把握することが重要です。"}},
+ {"@type": "Question", "name": "独立基礎を地中梁でつなぐのはなぜですか？", "acceptedAnswer": {"@type": "Answer", "text": "独立基礎はそれぞれが単独で建物を支えるため、地震時に基礎ごとにバラバラに動こうとします。地中梁で連結すると基礎全体が一体となって動き、上部構造に無理な変形が生じにくくなります。また、柱脚に生じる曲げモーメントを地中梁が負担できるため、基礎の回転も抑えられます。"}},
+ {"@type": "Question", "name": "木造住宅でも地盤調査は必要ですか？", "acceptedAnswer": {"@type": "Answer", "text": "必要です。木造は建物が軽く地盤への負担は小さいものの、軟弱地盤では不同沈下が起こります。住宅では簡易なスウェーデン式サウンディング試験（SWS試験）が広く用いられ、この結果に基づいて基礎形式や地盤改良の要否を判断します。地盤保証を付ける場合も調査は前提条件になります。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">基礎構造</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>基礎構造と耐震性｜直接基礎・杭基礎の選び方と設計の関係</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -158,6 +165,60 @@
         <span class="label">あわせて読みたい</span>
         <p>直接基礎の種類は「<a href="chokusetsu-kiso.html">べた・布・独立基礎</a>」、地盤の調べ方は「<a href="n-chi.html">N値と支持層</a>」、地震力は「<a href="jishin-ryoku.html">地震力の計算方法</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="zukai">直接基礎と杭基礎の使い分け（図解）</h2>
+      <p>どちらを選ぶかは、建物の重さを支えられる固い地盤（支持層）が<strong>どの深さにあるか</strong>で決まります。</p>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 340" role="img" aria-label="直接基礎と杭基礎の比較図。支持層が浅ければ直接基礎、深ければ杭基礎で支持層まで力を伝える">
+          <text x="350" y="24" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">支持層の深さによる基礎の使い分け</text>
+          <text x="175" y="52" font-size="14.5" text-anchor="middle" fill="#1a3a5c" font-weight="bold">直接基礎（支持層が浅い）</text>
+          <text x="525" y="52" font-size="14.5" text-anchor="middle" fill="#1a3a5c" font-weight="bold">杭基礎（支持層が深い）</text>
+          <line x1="350" y1="40" x2="350" y2="320" stroke="#c3ccd6" stroke-width="1.5" stroke-dasharray="6 5"/>
+          <!-- 左：直接基礎 -->
+          <rect x="105" y="70" width="140" height="52" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2"/>
+          <text x="175" y="102" font-size="13" text-anchor="middle" fill="#1a3a5c">建物</text>
+          <rect x="85" y="122" width="180" height="18" rx="3" fill="#e8843c"/>
+          <rect x="30" y="140" width="290" height="40" fill="#e5e0d6"/>
+          <text x="175" y="166" font-size="12" text-anchor="middle" fill="#6b7785">軟らかい層（薄い）</text>
+          <rect x="30" y="180" width="290" height="130" fill="#b9a888"/>
+          <text x="175" y="205" font-size="13" text-anchor="middle" fill="#4a3f2a" font-weight="bold">支持層（固い地盤）</text>
+          <text x="175" y="238" font-size="12.5" text-anchor="middle" fill="#4a3f2a">基礎が直接、面で支える</text>
+          <!-- 右：杭基礎 -->
+          <rect x="455" y="70" width="140" height="52" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2"/>
+          <text x="525" y="102" font-size="13" text-anchor="middle" fill="#1a3a5c">建物</text>
+          <rect x="435" y="122" width="180" height="18" rx="3" fill="#e8843c"/>
+          <rect x="380" y="140" width="290" height="115" fill="#e5e0d6"/>
+          <text x="525" y="185" font-size="12" text-anchor="middle" fill="#6b7785">軟らかい層（厚い）</text>
+          <g fill="#7d95ab">
+            <rect x="465" y="140" width="20" height="115"/>
+            <rect x="565" y="140" width="20" height="115"/>
+          </g>
+          <text x="525" y="228" font-size="12.5" text-anchor="middle" fill="#1a3a5c" font-weight="bold">杭</text>
+          <rect x="380" y="255" width="290" height="55" fill="#b9a888"/>
+          <text x="525" y="280" font-size="13" text-anchor="middle" fill="#4a3f2a" font-weight="bold">支持層（固い地盤）</text>
+          <text x="525" y="300" font-size="12" text-anchor="middle" fill="#4a3f2a">杭先端まで力を伝える</text>
+        </svg>
+        <figcaption>支持層が浅ければ直接基礎で面的に支え、深ければ杭で支持層まで力を伝える。判断材料になるのがボーリング調査のN値。</figcaption>
+      </figure>
+
+      <h2 id="ekijouka">液状化はなぜ起きるのか</h2>
+      <p>耐震上とくに怖いのが<strong>液状化</strong>です。ゆるく堆積した砂の地盤で、地下水位が高い場所に起こります。</p>
+      <ol>
+        <li>通常、砂の粒どうしが噛み合って建物を支えている。</li>
+        <li>地震の揺れで粒の噛み合いが外れ、粒の間の水（間隙水）の圧力が急上昇する。</li>
+        <li>砂粒が水に浮いた状態になり、地盤が液体のようにふるまって<strong>支持力を失う</strong>。</li>
+        <li>重い建物は沈み込み、軽い地中構造物（マンホール・タンクなど）は逆に浮き上がる。</li>
+      </ol>
+      <p>対策は、①杭で液状化層を貫いて支持層に力を伝える、②地盤改良で砂を締め固める・固化する、③地下水位を下げる、などです。液状化が想定される地域かどうかは、自治体が公表しているハザードマップである程度あたりをつけられます。</p>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. べた基礎なら地震に強いと考えてよいですか？</h3>
+      <p>べた基礎は底面全体で建物を支えるため接地圧が小さく、不同沈下に対して有利です。ただし「べた基礎にすれば安心」とは言えません。地盤そのものが軟弱だったり液状化のおそれがある場合は、べた基礎でも建物ごと沈下・傾斜します。基礎形式の選択より先に、地盤調査で地盤の性状を把握することが重要です。</p>
+      <h3>Q2. 独立基礎を地中梁でつなぐのはなぜですか？</h3>
+      <p>独立基礎はそれぞれが単独で建物を支えるため、地震時に基礎ごとにバラバラに動こうとします。地中梁で連結すると基礎全体が一体となって動き、上部構造に無理な変形が生じにくくなります。また、柱脚に生じる曲げモーメントを地中梁が負担できるため、基礎の回転も抑えられます。</p>
+      <h3>Q3. 木造住宅でも地盤調査は必要ですか？</h3>
+      <p>必要です。木造は建物が軽く地盤への負担は小さいものの、軟弱地盤では不同沈下が起こります。住宅では簡易なスウェーデン式サウンディング試験（SWS試験）が広く用いられ、この結果に基づいて基礎形式や地盤改良の要否を判断します。地盤保証を付ける場合も調査は前提条件になります。</p>
+
 
       <h2>まとめ</h2>
       <ul>

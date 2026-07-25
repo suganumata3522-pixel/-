@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/yonbunkatsu.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/yonbunkatsu.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-06-14",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-yonbunkatsu.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "四分割法と偏心率の計算は、どちらを使えばよいですか？", "acceptedAnswer": {"@type": "Answer", "text": "小規模な木造（いわゆる4号建築物）では、簡易な四分割法で確認するのが一般的です。四分割法は側端部分の壁量だけを見る簡便法で、計算が容易な反面やや安全側の判定になります。より精密に評価したい場合や、四分割法ではNGだが実質的なバランスを確認したい場合には、偏心率（木造では0.3以下）による確認を行います。"}},
+ {"@type": "Question", "name": "側端部分とは具体的にどこを指しますか？", "acceptedAnswer": {"@type": "Answer", "text": "その方向の全長を4等分したときの、両端それぞれ1/4の範囲です。たとえば東西方向の長さが12mなら、東端から3mまでと西端から3mまでの帯状の範囲がそれぞれ側端部分になります。この2つの範囲について、床面積から必要壁量を、壁の長さと壁倍率から存在壁量を求めて充足率を計算します。中央の1/2の範囲は評価に含めません。"}},
+ {"@type": "Question", "name": "壁量計算をクリアしていれば四分割法は不要ですか？", "acceptedAnswer": {"@type": "Answer", "text": "不要ではありません。壁量計算は「建物全体で壁が足りているか」を見る検討で、配置の偏りは評価していません。全体量が足りていても片側に壁が集中していると、地震時に建物がねじれて壁の少ない側から壊れます。壁量（量）と四分割法（バランス）は目的が違う検討なので、両方を確認する必要があります。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">木造（W造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>四分割法とは？壁充足率・壁率比の計算と偏心の確認方法</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -186,6 +193,61 @@
         <span class="label">あわせて読みたい</span>
         <p>壁の強さと必要量は「<a href="kabebairitsu.html">壁倍率と必要壁量</a>」、偏心の一般論は「<a href="sokan-henkei.html">層間変形角・剛性率・偏心率</a>」、軸組図は「<a href="jiku-waku.html">軸組図の読み方</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="hantei">判定の流れ（フローで整理）</h2>
+      <p>四分割法の判定は、条件分岐が少しややこしいので流れで押さえておきましょう。X方向・Y方向それぞれについて、次の順で確認します。</p>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 360" role="img" aria-label="四分割法の判定フロー。両端の壁充足率が1.0以上ならOK、そうでなければ壁率比0.5以上でOK">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">四分割法の判定フロー（各方向ごと）</text>
+          <rect x="215" y="46" width="270" height="42" rx="6" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2"/>
+          <text x="350" y="72" font-size="14" text-anchor="middle" fill="#1a3a5c">両端の側端部分で壁充足率を計算</text>
+          <line x1="350" y1="88" x2="350" y2="112" stroke="#1a3a5c" stroke-width="2"/>
+          <path d="M350 112 L470 152 L350 192 L230 152 Z" fill="#fdf1e7" stroke="#e8843c" stroke-width="2"/>
+          <text x="350" y="148" font-size="13.5" text-anchor="middle" fill="#b35309" font-weight="bold">両端とも</text>
+          <text x="350" y="166" font-size="13.5" text-anchor="middle" fill="#b35309" font-weight="bold">充足率 ≧ 1.0 ?</text>
+          <line x1="470" y1="152" x2="560" y2="152" stroke="#1a3a5c" stroke-width="2"/>
+          <text x="512" y="143" font-size="13" text-anchor="middle" fill="#1a3a5c" font-weight="bold">はい</text>
+          <rect x="560" y="131" width="110" height="42" rx="6" fill="#e6f4ea" stroke="#2e7d4f" stroke-width="2"/>
+          <text x="615" y="157" font-size="14" text-anchor="middle" fill="#2e7d4f" font-weight="bold">OK</text>
+          <line x1="350" y1="192" x2="350" y2="222" stroke="#1a3a5c" stroke-width="2"/>
+          <text x="378" y="212" font-size="13" text-anchor="middle" fill="#1a3a5c" font-weight="bold">いいえ</text>
+          <path d="M350 222 L470 262 L350 302 L230 262 Z" fill="#fdf1e7" stroke="#e8843c" stroke-width="2"/>
+          <text x="350" y="258" font-size="13.5" text-anchor="middle" fill="#b35309" font-weight="bold">壁率比</text>
+          <text x="350" y="276" font-size="13.5" text-anchor="middle" fill="#b35309" font-weight="bold">≧ 0.5 ?</text>
+          <line x1="470" y1="262" x2="560" y2="262" stroke="#1a3a5c" stroke-width="2"/>
+          <text x="512" y="253" font-size="13" text-anchor="middle" fill="#1a3a5c" font-weight="bold">はい</text>
+          <rect x="560" y="241" width="110" height="42" rx="6" fill="#e6f4ea" stroke="#2e7d4f" stroke-width="2"/>
+          <text x="615" y="267" font-size="14" text-anchor="middle" fill="#2e7d4f" font-weight="bold">OK</text>
+          <line x1="230" y1="262" x2="140" y2="262" stroke="#1a3a5c" stroke-width="2"/>
+          <text x="185" y="253" font-size="13" text-anchor="middle" fill="#1a3a5c" font-weight="bold">いいえ</text>
+          <rect x="30" y="241" width="110" height="42" rx="6" fill="#fdeaea" stroke="#c0392b" stroke-width="2"/>
+          <text x="85" y="267" font-size="14" text-anchor="middle" fill="#c0392b" font-weight="bold">NG（要改善）</text>
+          <text x="350" y="336" font-size="13" text-anchor="middle" fill="#6b7785">X方向・Y方向のそれぞれについて、この判定を行う</text>
+        </svg>
+        <figcaption>両端とも壁充足率1.0以上ならその時点でOK。満たさない場合のみ壁率比0.5以上を確認する。</figcaption>
+      </figure>
+
+      <h2 id="ng">NGになったときの改善方法</h2>
+      <p>判定を満たさない場合は、<strong>壁が少ない側の側端部分</strong>を強化します。単純に壁を増やすだけが手ではありません。</p>
+      <table class="data">
+        <tr><th>改善方法</th><th>内容</th><th>注意点</th></tr>
+        <tr><td>壁を追加する</td><td>不足している側の側端部分に耐力壁を新設</td><td>もっとも確実。ただし開口計画との調整が必要</td></tr>
+        <tr><td>壁倍率を上げる</td><td>既存の壁を、より倍率の高い仕様（構造用合板・筋かいの倍化など）に変更</td><td>柱頭・柱脚の金物が大きくなる。<a href="kabebairitsu.html">壁倍率</a>の上限にも注意</td></tr>
+        <tr><td>反対側の壁を減らす</td><td>強すぎる側を減らして比率を改善</td><td>全体の必要壁量を割らないこと。原則は不足側の強化が優先</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">よくある失敗</span>
+        <p>南面に大きな窓を並べたプランでは、南側の側端部分に壁がほとんど残らず、壁率比が0.5を大きく下回ることがあります。この場合、北側の壁をいくら増やしても<strong>比率はかえって悪化</strong>します（分母が大きくなるため）。改善するのは必ず「少ない側」です。窓の幅を少し詰めて袖壁を確保する、隅角部に耐力壁を配置するなどの調整が有効です。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 四分割法と偏心率の計算は、どちらを使えばよいですか？</h3>
+      <p>小規模な木造（いわゆる4号建築物）では、簡易な四分割法で確認するのが一般的です。四分割法は側端部分の壁量だけを見る簡便法で、計算が容易な反面やや安全側の判定になります。より精密に評価したい場合や、四分割法ではNGだが実質的なバランスを確認したい場合には、偏心率（木造では0.3以下）による確認を行います。</p>
+      <h3>Q2. 側端部分とは具体的にどこを指しますか？</h3>
+      <p>その方向の全長を4等分したときの、両端それぞれ1/4の範囲です。たとえば東西方向の長さが12mなら、東端から3mまでと西端から3mまでの帯状の範囲がそれぞれ側端部分になります。この2つの範囲について、床面積から必要壁量を、壁の長さと壁倍率から存在壁量を求めて充足率を計算します。中央の1/2の範囲は評価に含めません。</p>
+      <h3>Q3. 壁量計算をクリアしていれば四分割法は不要ですか？</h3>
+      <p>不要ではありません。壁量計算は「建物全体で壁が足りているか」を見る検討で、配置の偏りは評価していません。全体量が足りていても片側に壁が集中していると、地震時に建物がねじれて壁の少ない側から壊れます。壁量（量）と四分割法（バランス）は目的が違う検討なので、両方を確認する必要があります。</p>
+
 
       <h2>まとめ</h2>
       <ul>
