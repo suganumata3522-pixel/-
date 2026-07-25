@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/kanchuu-concrete.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/kanchuu-concrete.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-kanchuu-concrete.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "初期凍害を受けたかどうかはどう判断しますか？", "acceptedAnswer": {"@type": "Answer", "text": "外観と強度で判断します。表面がぼろぼろに崩れる、ひび割れが多数生じる、といった外観の異常があれば初期凍害が疑われます。ただし内部の損傷は外から見えないため、供試体の強度が想定を大きく下回っている場合や、テストハンマーによる反発度が低い場合は、コアを採取して実際の強度を確認します。強度が回復しないため、判明した場合は撤去・打ち直しが原則です。"}},
+ {"@type": "Question", "name": "寒中コンクリートで型枠はいつ外せますか？", "acceptedAnswer": {"@type": "Answer", "text": "所定の圧縮強度を確認してからです。気温が低いと強度発現が遅れるため、通常の材齢による判断は使えません。現場封かん養生または現場水中養生の供試体で強度を確認し、せき板であれば5N/mm²以上、支保工であればより高い強度に達していることを確かめます。積算温度による推定も併用されます。"}},
+ {"@type": "Question", "name": "暖房を使えば寒中コンクリートの対策は不要ですか？", "acceptedAnswer": {"@type": "Answer", "text": "給熱養生は有効な対策の一つですが、それだけでは不十分です。ジェットヒーターなどで加温する場合、熱風が直接当たる面が急乾燥してひび割れる、加熱範囲と非加熱範囲で温度差が生じる、燃焼排気の二酸化炭素で表面の中性化が進む、といった問題があります。保温（断熱材・シート）と組み合わせ、全体を均一に保つことが重要です。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">鉄筋コンクリート造（RC造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>寒中コンクリートとは？温度・養生方法・空気量</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -184,6 +191,58 @@
         <span class="label">実務のワンポイント</span>
         <p>冬場の現場に立ち会うときは、コンクリート温度を測るだけでなく養生シートの重なりや隙間まで見て回ります。保温養生は一見しっかり覆えているように見えても、風でめくれた角の部分だけ局所的に凍結していた例を経験しました。</p>
       </div>
+
+      <h2 id="touhai-zukai">初期凍害のメカニズム（図解）</h2>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 260" role="img" aria-label="初期凍害の仕組みの図。硬化前に凍結すると水が膨張して組織を破壊する">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">硬化前に凍るとどうなるか</text>
+          <text x="150" y="62" font-size="14" text-anchor="middle" fill="#1a3a5c" font-weight="bold">① 硬化前（水分が多い）</text>
+          <rect x="70" y="78" width="160" height="90" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2"/>
+          <g fill="#9fc0dd"><circle cx="105" cy="105" r="10"/><circle cx="160" cy="120" r="11"/><circle cx="205" cy="102" r="9"/><circle cx="120" cy="145" r="10"/><circle cx="185" cy="148" r="9"/></g>
+          <g fill="#3c6a94" opacity=".6"><circle cx="135" cy="122" r="6"/><circle cx="180" cy="98" r="5"/><circle cx="150" cy="160" r="5"/></g>
+          <text x="150" y="192" font-size="12" text-anchor="middle" fill="#6b7785">まだ組織が弱い</text>
+          <text x="270" y="128" font-size="20" text-anchor="middle" fill="#7d95ab">→</text>
+          <text x="270" y="152" font-size="11.5" text-anchor="middle" fill="#3c6a94">凍結</text>
+          <text x="420" y="62" font-size="14" text-anchor="middle" fill="#c0392b" font-weight="bold">② 水が凍って約9%膨張</text>
+          <rect x="330" y="78" width="180" height="90" fill="#eef3f8" stroke="#c0392b" stroke-width="2"/>
+          <g fill="#9fc0dd"><circle cx="368" cy="105" r="10"/><circle cx="432" cy="122" r="11"/><circle cx="482" cy="100" r="9"/><circle cx="386" cy="148" r="10"/><circle cx="460" cy="152" r="9"/></g>
+          <g fill="#fff" stroke="#3c6a94" stroke-width="2"><circle cx="402" cy="124" r="9"/><circle cx="452" cy="96" r="8"/><circle cx="418" cy="162" r="8"/></g>
+          <g stroke="#c0392b" stroke-width="2.5">
+            <line x1="390" y1="112" x2="414" y2="136"/><line x1="440" y1="108" x2="466" y2="130"/>
+          </g>
+          <text x="420" y="192" font-size="12" text-anchor="middle" fill="#c0392b">組織が押し広げられて破壊</text>
+          <text x="580" y="128" font-size="20" text-anchor="middle" fill="#7d95ab">→</text>
+          <rect x="560" y="152" width="120" height="52" rx="8" fill="#fdeaea" stroke="#c0392b" stroke-width="2"/>
+          <text x="620" y="174" font-size="13" text-anchor="middle" fill="#c0392b" font-weight="bold">強度が回復</text>
+          <text x="620" y="194" font-size="13" text-anchor="middle" fill="#c0392b" font-weight="bold">しない</text>
+          <text x="350" y="234" font-size="12.5" text-anchor="middle" fill="#6b7785">一度壊れた組織は、気温が上がっても元に戻らない</text>
+          <text x="350" y="254" font-size="12.5" text-anchor="middle" fill="#1a3a5c" font-weight="bold">初期凍害を受けたコンクリートは撤去・打ち直しになることも</text>
+        </svg>
+        <figcaption>硬化が十分でない段階で凍結すると、水が氷になる際の約9%の体積膨張が組織を内側から破壊する。この損傷は融解後も回復しない。</figcaption>
+      </figure>
+
+      <h2 id="taisaku">寒中コンクリートの対策</h2>
+      <table class="data">
+        <tr><th>段階</th><th>対策</th><th>基準・目安</th></tr>
+        <tr><td>材料</td><td>早強セメントの使用、練混ぜ水・骨材の加温</td><td>打込み時のコンクリート温度 5〜20℃</td></tr>
+        <tr><td>配合</td><td>水セメント比を下げる、AE剤で空気量を確保</td><td>W/C 60%以下、空気量 4〜6%</td></tr>
+        <tr><td>打込み</td><td>凍結した地盤・型枠・鉄筋に接して打たない</td><td>接触面の温度も確認</td></tr>
+        <tr><td>養生</td><td>保温養生（シート・断熱材）、給熱養生（ヒーター）</td><td>初期養生中は<strong>5℃以上</strong>を保つ</td></tr>
+        <tr><td>強度確認</td><td>圧縮強度<strong>5N/mm²</strong>を得るまで凍結させない</td><td>この強度に達すれば初期凍害を受けにくい</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">空気量が凍結融解にも効く</span>
+        <p>寒中コンクリートでAE剤による空気量の確保が重要なのは、<strong>硬化後の凍結融解抵抗性</strong>のためです。連行された微細な気泡が、内部の水が凍る際の膨張圧を吸収するクッションとして働きます。初期凍害の防止（保温・給熱）と、硬化後の凍結融解対策（空気量）は別の話であり、両方の対策が必要になります。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 初期凍害を受けたかどうかはどう判断しますか？</h3>
+      <p>外観と強度で判断します。表面がぼろぼろに崩れる、ひび割れが多数生じる、といった外観の異常があれば初期凍害が疑われます。ただし内部の損傷は外から見えないため、供試体の強度が想定を大きく下回っている場合や、テストハンマーによる反発度が低い場合は、コアを採取して実際の強度を確認します。強度が回復しないため、判明した場合は撤去・打ち直しが原則です。</p>
+      <h3>Q2. 寒中コンクリートで型枠はいつ外せますか？</h3>
+      <p>所定の圧縮強度を確認してからです。気温が低いと強度発現が遅れるため、通常の材齢による判断は使えません。現場封かん養生または現場水中養生の供試体で強度を確認し、せき板であれば5N/mm²以上、支保工であればより高い強度に達していることを確かめます。積算温度による推定も併用されます。</p>
+      <h3>Q3. 暖房を使えば寒中コンクリートの対策は不要ですか？</h3>
+      <p>給熱養生は有効な対策の一つですが、それだけでは不十分です。ジェットヒーターなどで加温する場合、熱風が直接当たる面が急乾燥してひび割れる、加熱範囲と非加熱範囲で温度差が生じる、燃焼排気の二酸化炭素で表面の中性化が進む、といった問題があります。保温（断熱材・シート）と組み合わせ、全体を均一に保つことが重要です。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

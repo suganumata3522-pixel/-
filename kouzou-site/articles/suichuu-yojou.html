@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/suichuu-yojou.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/suichuu-yojou.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-suichuu-yojou.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "標準水中養生の温度が20℃から外れるとどうなりますか？", "acceptedAnswer": {"@type": "Answer", "text": "強度の測定値が変わってしまい、正しい判定ができません。20±2℃という許容範囲は、この影響を実用上無視できる範囲として定められたものです。養生水槽には温度計を設置し、記録を残すのが基本です。特に夏場の屋外に水槽を置くと水温が上がりやすいため、日陰の確保や温度管理装置の使用が必要になります。"}},
+ {"@type": "Question", "name": "現場水中養生と現場封かん養生はどちらを使いますか？", "acceptedAnswer": {"@type": "Answer", "text": "部材の大きさと目的で選びます。断面が小さく水分が逃げやすい部材（スラブ・壁など）は現場水中養生、断面が大きく内部の水分が保たれる部材（柱・大梁・基礎など）は現場封かん養生が実態に近いとされます。JASS5では、構造体コンクリートの強度確認方法として、両者のいずれかを選択できるようになっています。"}},
+ {"@type": "Question", "name": "供試体を水中から出すタイミングは？", "acceptedAnswer": {"@type": "Answer", "text": "試験の直前まで水中に置くのが原則です。試験前に取り出して乾燥させると、表面の含水状態が変わって強度に影響します。JISでは、試験まで水中またはそれに準じる湿潤状態に保つこととされています。取り出してから試験までの時間が空く場合は、湿布などで湿潤状態を維持します。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">鉄筋コンクリート造（RC造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>標準水中養生とは？現場水中養生・封かん養生との違い</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -179,6 +186,49 @@
         <span class="label">あわせて読みたい</span>
         <p>「<a href="zairei.html">材齢</a>」「<a href="yojou.html">コンクリートの養生</a>」「<a href="yojou-kikan.html">養生期間</a>」「<a href="test-piece.html">コンクリートのテストピース</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="ondo">なぜ20℃なのか：温度と強度発現（図解）</h2>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 260" role="img" aria-label="養生温度による強度発現の違いを示すグラフ。高温では初期が速く低温では遅い">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">養生温度で強度の伸び方が変わる</text>
+          <line x1="110" y1="210" x2="640" y2="210" stroke="#1a3a5c" stroke-width="2"/>
+          <line x1="110" y1="210" x2="110" y2="56" stroke="#1a3a5c" stroke-width="2"/>
+          <text x="580" y="236" font-size="13" fill="#1a3a5c">材齢 →</text>
+          <text x="86" y="76" font-size="13" text-anchor="end" fill="#1a3a5c">強度</text>
+          <path d="M110 210 Q170 116 260 96 Q400 76 620 70" fill="none" stroke="#c0392b" stroke-width="4"/>
+          <text x="430" y="66" font-size="12.5" fill="#c0392b" font-weight="bold">30℃（速いが長期は伸び悩む）</text>
+          <path d="M110 210 Q200 140 320 110 Q460 86 620 62" fill="none" stroke="#e8843c" stroke-width="4.5"/>
+          <text x="300" y="132" font-size="13" fill="#b35309" font-weight="bold">20℃（標準）</text>
+          <path d="M110 210 Q240 190 380 164 Q500 142 620 116" fill="none" stroke="#3c6a94" stroke-width="4"/>
+          <text x="470" y="152" font-size="12.5" fill="#3c6a94" font-weight="bold">5℃（遅い）</text>
+          <line x1="380" y1="60" x2="380" y2="210" stroke="#9fc0dd" stroke-width="1.5" stroke-dasharray="5 4"/>
+          <text x="380" y="230" font-size="12.5" text-anchor="middle" fill="#6b7785">28日</text>
+          <text x="350" y="252" font-size="12.5" text-anchor="middle" fill="#6b7785">条件をそろえないと、配合の良し悪しが比較できない</text>
+        </svg>
+        <figcaption>養生温度によって強度の伸び方は大きく変わる。20℃という基準を定めることで、配合そのものの性能を公平に比較できる。</figcaption>
+      </figure>
+      <p>もし現場の気温のまま養生すると、真夏に打ったコンクリートは高い値、真冬に打ったものは低い値が出ます。これでは<strong>配合が良いのか悪いのか判断できません</strong>。20±2℃という基準を定めることで、季節や地域に関係なく、材料と配合そのものの品質を評価できるようになります。</p>
+
+      <h2 id="tsukaiwake">3つの養生方法の使い分け</h2>
+      <table class="data">
+        <tr><th>養生方法</th><th>条件</th><th>判定する対象</th><th>使う場面</th></tr>
+        <tr><td><strong>標準水中養生</strong></td><td>20±2℃の水中</td><td>コンクリートの<strong>配合・材料</strong>の品質</td><td>受入れ検査（呼び強度の判定）</td></tr>
+        <tr><td><strong>現場水中養生</strong></td><td>現場の気温の水中</td><td>実際の<strong>構造体</strong>の強度</td><td>構造体強度の確認、型枠取外し時期の判定</td></tr>
+        <tr><td><strong>現場封かん養生</strong></td><td>密封して現場に放置</td><td>部材<strong>内部</strong>に近い強度</td><td>構造体強度の確認（断面の大きい部材）</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">なぜ封かん養生があるのか</span>
+        <p>断面の大きい部材の内部は、水分が外に逃げない<strong>密封に近い状態</strong>にあります。現場水中養生では水を補給できてしまうため、実際の部材内部より条件が良くなります。封かん養生は、ラップやビニールで密封して水分の出入りを断つことで、部材内部の状態を再現します。柱や大梁など、断面が大きく水分が逃げにくい部材の強度確認に適しています。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 標準水中養生の温度が20℃から外れるとどうなりますか？</h3>
+      <p>強度の測定値が変わってしまい、正しい判定ができません。20±2℃という許容範囲は、この影響を実用上無視できる範囲として定められたものです。養生水槽には温度計を設置し、記録を残すのが基本です。特に夏場の屋外に水槽を置くと水温が上がりやすいため、日陰の確保や温度管理装置の使用が必要になります。</p>
+      <h3>Q2. 現場水中養生と現場封かん養生はどちらを使いますか？</h3>
+      <p>部材の大きさと目的で選びます。断面が小さく水分が逃げやすい部材（スラブ・壁など）は現場水中養生、断面が大きく内部の水分が保たれる部材（柱・大梁・基礎など）は現場封かん養生が実態に近いとされます。JASS5では、構造体コンクリートの強度確認方法として、両者のいずれかを選択できるようになっています。</p>
+      <h3>Q3. 供試体を水中から出すタイミングは？</h3>
+      <p>試験の直前まで水中に置くのが原則です。試験前に取り出して乾燥させると、表面の含水状態が変わって強度に影響します。JISでは、試験まで水中またはそれに準じる湿潤状態に保つこととされています。取り出してから試験までの時間が空く場合は、湿布などで湿潤状態を維持します。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

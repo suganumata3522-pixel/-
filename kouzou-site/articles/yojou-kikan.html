@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/yojou-kikan.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/yojou-kikan.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-yojou-kikan.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "養生期間を短縮する方法はありますか？", "acceptedAnswer": {"@type": "Answer", "text": "早強ポルトランドセメントの使用、給熱養生（加温）、促進剤の使用などがあります。特に早強セメントは、普通セメントの材齢7日相当の強度を材齢3日で得られるため、養生期間を短縮できます。ただし水和熱が大きく乾燥収縮も増えるため、部材の大きさによっては温度ひび割れのリスクが高まります。工期短縮の効果と品質のバランスを検討する必要があります。"}},
+ {"@type": "Question", "name": "養生期間と型枠の存置期間は同じですか？", "acceptedAnswer": {"@type": "Answer", "text": "別の概念です。養生期間は水和反応を進めるために湿潤状態を保つ期間、型枠の存置期間は型枠を取り外してよい時期を判断する基準です。型枠が接している面は型枠が乾燥を防ぐため、存置期間中は湿潤養生を兼ねますが、スラブ上面など型枠のない面は別途養生が必要です。また、支保工の存置期間は構造安全性の観点から別に定められています。"}},
+ {"@type": "Question", "name": "養生期間が守られたかはどう確認しますか？", "acceptedAnswer": {"@type": "Answer", "text": "施工記録での確認が基本です。散水の実施状況、シートの設置・撤去日、気温の記録などを日報や写真で残します。第三者的な確認方法としては、構造体コンクリートの強度（現場水中養生・現場封かん養生の供試体）が所定の値を満たしているかを見ることで、養生が適切だったかを間接的に評価できます。表面の状態（ひび割れの有無、テストハンマーによる反発度）も参考になります。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">鉄筋コンクリート造（RC造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>養生期間とは？日数・早強・冬の規定</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -182,6 +189,53 @@
         <span class="label">あわせて読みたい</span>
         <p>「<a href="shitsujun-yojou.html">湿潤養生</a>」「<a href="zairei.html">材齢</a>」「<a href="kanchuu-concrete.html">寒中コンクリート</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="ichiran">計画供用期間別の養生期間</h2>
+      <p>養生期間は、セメントの種類だけでなく<strong>建物を何年使う想定か</strong>によっても変わります。</p>
+      <table class="data">
+        <tr><th>セメントの種類</th><th>短期・標準<br>（約30〜65年）</th><th>長期・超長期<br>（約100〜200年）</th></tr>
+        <tr><td>早強ポルトランド</td><td>3日以上</td><td>5日以上</td></tr>
+        <tr><td>普通ポルトランド</td><td>5日以上</td><td>7日以上</td></tr>
+        <tr><td>中庸熱・低熱・高炉B種<br>フライアッシュB種</td><td>7日以上</td><td>10日以上</td></tr>
+      </table>
+      <p>※JASS5に基づく代表値。実際は仕様書で確認してください。</p>
+      <p>長く使う建物ほど養生期間が長いのは、<strong>表面の緻密さが耐久性を左右する</strong>ためです。中性化や塩害は表面から進行するため、表層のコンクリートを十分に水和させておくことが、100年もたせるための前提条件になります。</p>
+
+      <h2 id="kion">気温と養生期間の関係（図解）</h2>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 260" role="img" aria-label="気温が低いほど必要な養生期間が長くなることを示すグラフ">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">気温が低いほど養生期間は長くなる</text>
+          <line x1="110" y1="210" x2="640" y2="210" stroke="#1a3a5c" stroke-width="2"/>
+          <line x1="110" y1="210" x2="110" y2="56" stroke="#1a3a5c" stroke-width="2"/>
+          <text x="580" y="236" font-size="13" fill="#1a3a5c">気温 →</text>
+          <text x="86" y="70" font-size="12.5" text-anchor="end" fill="#1a3a5c">必要な</text>
+          <text x="86" y="88" font-size="12.5" text-anchor="end" fill="#1a3a5c">養生日数</text>
+          <path d="M140 70 Q260 150 400 178 Q520 196 620 200" fill="none" stroke="#e8843c" stroke-width="4.5"/>
+          <g stroke="#9fc0dd" stroke-width="1.5" stroke-dasharray="5 4">
+            <line x1="180" y1="90" x2="180" y2="210"/><line x1="330" y1="163" x2="330" y2="210"/><line x1="500" y1="193" x2="500" y2="210"/>
+          </g>
+          <g font-size="12.5" fill="#6b7785" text-anchor="middle">
+            <text x="180" y="230">5℃</text><text x="330" y="230">15℃</text><text x="500" y="230">25℃</text>
+          </g>
+          <text x="215" y="86" font-size="12.5" fill="#c0392b" font-weight="bold">寒いほど長く必要</text>
+          <text x="540" y="188" font-size="12.5" fill="#2e7d4f" font-weight="bold">暖かいと短くて済む</text>
+          <text x="350" y="252" font-size="12.5" text-anchor="middle" fill="#6b7785">ただし高温では急乾燥に注意。日数が短くても管理は必要</text>
+        </svg>
+        <figcaption>水和反応は温度に依存するため、気温が低いほど必要な養生期間は長くなる。ただし高温では急乾燥のリスクが増すため、期間が短くても丁寧な管理が必要。</figcaption>
+      </figure>
+      <div class="point-box">
+        <span class="label">積算温度という考え方</span>
+        <p>養生期間を「日数」ではなく<strong>温度×時間の累積（積算温度）</strong>で管理する方法もあります。たとえば「20℃で5日」と「10℃で10日」は、積算温度としてはほぼ同等と考えられます。寒冷地の工事や、季節をまたぐ工程では、単純な日数より積算温度のほうが実態に合った管理ができるため、採用されることがあります。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 養生期間を短縮する方法はありますか？</h3>
+      <p>早強ポルトランドセメントの使用、給熱養生（加温）、促進剤の使用などがあります。特に早強セメントは、普通セメントの材齢7日相当の強度を材齢3日で得られるため、養生期間を短縮できます。ただし水和熱が大きく乾燥収縮も増えるため、部材の大きさによっては温度ひび割れのリスクが高まります。工期短縮の効果と品質のバランスを検討する必要があります。</p>
+      <h3>Q2. 養生期間と型枠の存置期間は同じですか？</h3>
+      <p>別の概念です。養生期間は水和反応を進めるために湿潤状態を保つ期間、型枠の存置期間は型枠を取り外してよい時期を判断する基準です。型枠が接している面は型枠が乾燥を防ぐため、存置期間中は湿潤養生を兼ねますが、スラブ上面など型枠のない面は別途養生が必要です。また、支保工の存置期間は構造安全性の観点から別に定められています。</p>
+      <h3>Q3. 養生期間が守られたかはどう確認しますか？</h3>
+      <p>施工記録での確認が基本です。散水の実施状況、シートの設置・撤去日、気温の記録などを日報や写真で残します。第三者的な確認方法としては、構造体コンクリートの強度（現場水中養生・現場封かん養生の供試体）が所定の値を満たしているかを見ることで、養生が適切だったかを間接的に評価できます。表面の状態（ひび割れの有無、テストハンマーによる反発度）も参考になります。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>
