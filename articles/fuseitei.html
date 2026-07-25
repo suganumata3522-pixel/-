@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/fuseitei.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/fuseitei.html",
    "datePublished": "2026-06-12",
-   "dateModified": "2026-06-12",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-fuseitei.jpg",
    "author": {
     "@type": "Person",
@@ -74,6 +74,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "判別式でm＝0でも不安定になることがあるのはなぜですか？", "acceptedAnswer": {"@type": "Answer", "text": "判別式は拘束の「数」だけを見ており、「配置」を評価していないためです。たとえば3つのヒンジが一直線上に並んだ3ヒンジラーメンは、数の上では静定でも、実際にはその線を軸に回転してしまい不安定です。また、すべての支点反力が平行または一点で交わる場合も不安定になります。判別式で数を確認したうえで、必ず図で形状を確認する必要があります。"}},
+ {"@type": "Question", "name": "不静定構造はどうやって解くのですか？", "acceptedAnswer": {"@type": "Answer", "text": "つり合い式に加えて、変形の条件（適合条件）を使います。代表的な手法に、応力法（余分な拘束を取り除いて静定構造に置き換え、変形が一致する条件から未知の力を求める）と変位法（節点の変位を未知数として解く）があります。実務では変位法をコンピュータで解くマトリクス法が用いられ、一貫構造計算プログラムはこの原理で動いています。"}},
+ {"@type": "Question", "name": "不静定次数が高いほど良い構造なのですか？", "acceptedAnswer": {"@type": "Answer", "text": "耐震上は有利ですが、常に良いとは限りません。拘束が多いほど、温度変化やコンクリートの乾燥収縮、支点の不同沈下によって余計な応力（拘束応力）が生じます。長大な建物でエキスパンションジョイントを設けて構造を分割するのは、この拘束応力を逃がすためでもあります。建物の規模・用途に応じたバランスが重要です。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -105,7 +112,7 @@
       <div class="meta">
         <span class="tag">構造力学の基礎</span>
         <span>公開日：2026年6月12日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>不静定構造とは？静定・不静定の判別式をわかりやすく解説</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -174,6 +181,70 @@
         <span class="label">あわせて確認</span>
         <p>不静定構造を解く実用手法は固定モーメント法など。まずは静定の基本「<a href="hanryoku.html">反力の求め方</a>」と「<a href="qm-zu.html">Q図・M図の描き方</a>」を完璧にしておきましょう。</p>
       </div>
+
+      <h2 id="hikaku">静定・不静定・不安定の違い（図解）</h2>
+      <p>3つの状態の違いは、「拘束が足りているか、ちょうどか、余っているか」で整理できます。</p>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 280" role="img" aria-label="不安定・静定・不静定の比較図。拘束が足りない不安定、ちょうどの静定、余っている不静定">
+          <text x="350" y="24" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">拘束の数で決まる3つの状態</text>
+          <!-- 不安定 -->
+          <text x="120" y="60" font-size="14" text-anchor="middle" fill="#c0392b" font-weight="bold">不安定（m＜0）</text>
+          <line x1="45" y1="110" x2="195" y2="110" stroke="#1a3a5c" stroke-width="7"/>
+          <circle cx="60" cy="124" r="8" fill="#7d95ab"/>
+          <circle cx="180" cy="124" r="8" fill="#7d95ab"/>
+          <rect x="40" y="132" width="160" height="8" fill="#b8bfc7"/>
+          <g stroke="#c0392b" stroke-width="3">
+            <line x1="120" y1="80" x2="185" y2="80"/>
+            <path d="M189 80 l-12 -6 v12 z" fill="#c0392b" stroke="none"/>
+          </g>
+          <text x="120" y="168" font-size="12.5" text-anchor="middle" fill="#c0392b">拘束が足りない</text>
+          <text x="120" y="188" font-size="12.5" text-anchor="middle" fill="#c0392b">→ 動いてしまう</text>
+          <!-- 静定 -->
+          <text x="350" y="60" font-size="14" text-anchor="middle" fill="#2e7d4f" font-weight="bold">静定（m＝0）</text>
+          <line x1="275" y1="110" x2="425" y2="110" stroke="#1a3a5c" stroke-width="7"/>
+          <path d="M290 114 l-14 24 h28 z" fill="#7d95ab"/>
+          <circle cx="410" cy="124" r="8" fill="#7d95ab"/>
+          <rect x="270" y="138" width="160" height="8" fill="#b8bfc7"/>
+          <text x="350" y="168" font-size="12.5" text-anchor="middle" fill="#2e7d4f">拘束がちょうど</text>
+          <text x="350" y="188" font-size="12.5" text-anchor="middle" fill="#2e7d4f">→ つり合い式だけで解ける</text>
+          <text x="350" y="212" font-size="12" text-anchor="middle" fill="#6b7785">単純梁・片持ち梁など</text>
+          <!-- 不静定 -->
+          <text x="580" y="60" font-size="14" text-anchor="middle" fill="#1a3a5c" font-weight="bold">不静定（m＞0）</text>
+          <line x1="505" y1="110" x2="655" y2="110" stroke="#1a3a5c" stroke-width="7"/>
+          <rect x="495" y="88" width="14" height="44" fill="#7d95ab"/>
+          <rect x="651" y="88" width="14" height="44" fill="#7d95ab"/>
+          <text x="580" y="168" font-size="12.5" text-anchor="middle" fill="#1a3a5c">拘束が余っている</text>
+          <text x="580" y="188" font-size="12.5" text-anchor="middle" fill="#1a3a5c">→ 変形の条件が必要</text>
+          <text x="580" y="212" font-size="12" text-anchor="middle" fill="#6b7785">両端固定梁・ラーメンなど</text>
+          <text x="350" y="256" font-size="13" text-anchor="middle" fill="#6b7785">実際の建物はほぼすべて不静定。余分な拘束が「粘り」を生む</text>
+        </svg>
+        <figcaption>拘束が足りなければ不安定、ちょうどなら静定、余っていれば不静定。建物に求められるのは、余裕のある不静定構造。</figcaption>
+      </figure>
+
+      <h2 id="redundancy">冗長性（リダンダンシー）という考え方</h2>
+      <p>不静定次数が高いことは、地震や事故に対する<strong>保険</strong>になります。これを冗長性（リダンダンシー）と呼びます。</p>
+      <div class="point-box">
+        <span class="label">静定構造の怖さ</span>
+        <p>静定構造は、部材や支点が1つでも失われた瞬間に不安定になり、崩壊します。たとえば単純梁の支点が1つ壊れれば、その梁は落下します。一方、不静定構造では1か所が壊れても、残った拘束が力を肩代わりして、ただちに崩壊には至りません。この「壊れても即崩壊しない」性質が、地震時の人命保護に直結します。</p>
+      </div>
+      <table class="data">
+        <tr><th>観点</th><th>静定構造</th><th>不静定構造</th></tr>
+        <tr><td>計算</td><td>つり合い式のみで解ける（容易）</td><td>変形条件が必要（複雑）</td></tr>
+        <tr><td>1か所の損傷</td><td>即崩壊する</td><td>力が再配分され耐える</td></tr>
+        <tr><td>温度変化・沈下</td><td>余計な応力が生じない</td><td>拘束されるため応力が生じる</td></tr>
+        <tr><td>変形量</td><td>大きい</td><td>小さい（剛性が高い）</td></tr>
+        <tr><td>主な採用先</td><td>橋梁、トラス、仮設構造</td><td>建築物のほとんど</td></tr>
+      </table>
+      <p>橋梁で静定構造が好まれるのは、支点の不同沈下や温度による伸縮で余計な応力が生じないためです。長大橋では温度変化による部材の伸びが数十cmに達することもあり、拘束すると大きな応力が発生してしまいます。一方、建築物では地震時の粘り強さを優先するため、不静定構造が基本になります。</p>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 判別式でm＝0でも不安定になることがあるのはなぜですか？</h3>
+      <p>判別式は拘束の「数」だけを見ており、「配置」を評価していないためです。たとえば3つのヒンジが一直線上に並んだ3ヒンジラーメンは、数の上では静定でも、実際にはその線を軸に回転してしまい不安定です。また、すべての支点反力が平行または一点で交わる場合も不安定になります。判別式で数を確認したうえで、必ず図で形状を確認する必要があります。</p>
+      <h3>Q2. 不静定構造はどうやって解くのですか？</h3>
+      <p>つり合い式に加えて、変形の条件（適合条件）を使います。代表的な手法に、応力法（余分な拘束を取り除いて静定構造に置き換え、変形が一致する条件から未知の力を求める）と変位法（節点の変位を未知数として解く）があります。実務では変位法をコンピュータで解くマトリクス法が用いられ、一貫構造計算プログラムはこの原理で動いています。</p>
+      <h3>Q3. 不静定次数が高いほど良い構造なのですか？</h3>
+      <p>耐震上は有利ですが、常に良いとは限りません。拘束が多いほど、温度変化やコンクリートの乾燥収縮、支点の不同沈下によって余計な応力（拘束応力）が生じます。長大な建物でエキスパンションジョイントを設けて構造を分割するのは、この拘束応力を逃がすためでもあります。建物の規模・用途に応じたバランスが重要です。</p>
+
 
       <h2>まとめ</h2>
       <ul>

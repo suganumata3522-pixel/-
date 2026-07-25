@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/zakutsu.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/zakutsu.html",
    "datePublished": "2026-06-12",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-zakutsu.jpg",
    "author": {
     "@type": "Person",
@@ -74,6 +74,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "座屈しやすい部材はどうやって見分けますか？", "acceptedAnswer": {"@type": "Answer", "text": "細長比λ（＝座屈長さ÷断面二次半径）で判断します。λが大きいほど座屈しやすく、鋼構造では柱の細長比を200以下（一般部材は250以下）に制限しています。感覚的には、断面の小さい部材が長く伸びているほど危険です。特にブレースや間柱のような細い部材、そして弱軸方向に拘束のない柱は注意が必要です。"}},
+ {"@type": "Question", "name": "高強度の鋼材を使えば座屈しにくくなりますか？", "acceptedAnswer": {"@type": "Answer", "text": "なりません。オイラーの座屈荷重の式にはヤング係数Eと断面二次モーメントIしか含まれず、材料強度Fは登場しないためです。しかも鋼材のヤング係数は、SS400でもSN490でもほぼ205,000N/mm²で変わりません。座屈対策として有効なのは、断面を大きくしてIを増やすか、補剛材を入れて座屈長さLkを短くすることです。"}},
+ {"@type": "Question", "name": "実際の設計ではオイラーの式をそのまま使うのですか？", "acceptedAnswer": {"@type": "Answer", "text": "そのままは使いません。オイラーの式は、材料が弾性範囲にある細長い部材を前提とした理論値です。実際の部材には初期の曲がりや残留応力があり、また短く太い部材では座屈する前に材料が降伏します。そのため設計では、細長比λに応じて許容圧縮応力度を低減する規定を用います。λが小さい範囲では材料の降伏、大きい範囲ではオイラー座屈が支配する形になっています。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -105,7 +112,7 @@
       <div class="meta">
         <span class="tag">構造力学の基礎</span>
         <span>公開日：2026年6月12日</span>
-        <span>更新日：2026年7月3日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>座屈とは？オイラーの公式と座屈長さをわかりやすく解説</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -212,6 +219,59 @@
         <span class="label">実務のワンポイント</span>
         <p>ブレース材の座屈長さは、ガセットプレートの取り付き寸法や間柱による拘束の有無で実際の値が変わります。私は図面上のピン支持という前提だけで判断せず、接合部がどこまで回転を拘束しているかを合わせて確認するようにしています。</p>
       </div>
+
+      <h2 id="keisanrei">計算例：座屈荷重を実際に求める</h2>
+      <p>数式だけではイメージしづらいので、実際の数値を入れて計算してみましょう。</p>
+      <p><strong>条件</strong>：H-200×200×8×12（弱軸まわり I ＝ 1,600×10⁴ mm⁴）、長さ 4.0m の柱、両端ピン支持、鋼材のヤング係数 E ＝ 205,000 N/mm²</p>
+      <div class="formula">
+        Lk ＝ 4,000 mm（両端ピンなので Lk ＝ L）<br>
+        Pe ＝ π²EI / Lk² ＝ π² × 205,000 × 1,600×10⁴ ÷ 4,000²<br>
+        ＝ 3.14² × 205,000 × 16,000,000 ÷ 16,000,000<br>
+        ≒ 2,023,000 N ≒ <strong>2,023 kN</strong>
+      </div>
+      <p>次に、同じ柱の<strong>両端を固定</strong>した場合を計算します。座屈長さが Lk ＝ 0.5L ＝ 2,000mm になるので、</p>
+      <div class="formula">
+        Pe ＝ π²EI / 2,000² ＝ 2,023 kN × 4 ≒ <strong>8,092 kN</strong>
+      </div>
+      <p>端部を固定するだけで、座屈荷重が<strong>4倍</strong>になりました。座屈長さが2乗で効くという式の意味が、数値で確認できます。実務で「柱の中間を胴縁や間柱で拘束する」「ブレースの中間に補剛材を入れる」といった工夫をするのは、この効果を狙ったものです。</p>
+
+      <h2 id="yokozakutsu">横座屈：梁にも起きる座屈</h2>
+      <p>座屈は柱だけの問題ではありません。曲げを受ける梁でも、<strong>横座屈（横倒れ座屈）</strong>という現象が起こります。</p>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 280" role="img" aria-label="梁の横座屈の図解。曲げを受ける梁の圧縮側フランジが横にはらみ、梁全体がねじれるように倒れる">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">梁の横座屈</text>
+          <!-- 通常状態 -->
+          <text x="175" y="60" font-size="14" text-anchor="middle" fill="#1a3a5c" font-weight="bold">健全な状態</text>
+          <rect x="70" y="86" width="210" height="12" fill="#e8843c"/>
+          <rect x="168" y="98" width="14" height="70" fill="#9fc0dd"/>
+          <rect x="70" y="168" width="210" height="12" fill="#e8843c"/>
+          <text x="175" y="208" font-size="12.5" text-anchor="middle" fill="#6b7785">上フランジが圧縮</text>
+          <text x="175" y="228" font-size="12.5" text-anchor="middle" fill="#6b7785">下フランジが引張</text>
+          <!-- 横座屈状態 -->
+          <text x="525" y="60" font-size="14" text-anchor="middle" fill="#c0392b" font-weight="bold">横座屈した状態</text>
+          <path d="M420 86 Q525 62 630 86" fill="none" stroke="#c0392b" stroke-width="12" stroke-linecap="round"/>
+          <rect x="518" y="86" width="14" height="82" fill="#9fc0dd" transform="rotate(-8 525 127)"/>
+          <rect x="420" y="168" width="210" height="12" fill="#e8843c"/>
+          <g stroke="#c0392b" stroke-width="3">
+            <line x1="525" y1="46" x2="580" y2="46"/>
+            <path d="M584 46 l-12 -6 v12 z" fill="#c0392b" stroke="none"/>
+          </g>
+          <text x="525" y="208" font-size="12.5" text-anchor="middle" fill="#c0392b">圧縮側フランジが横にはらむ</text>
+          <text x="525" y="228" font-size="12.5" text-anchor="middle" fill="#c0392b">→ 梁がねじれて倒れる</text>
+          <text x="350" y="262" font-size="13" text-anchor="middle" fill="#6b7785">床スラブや小梁で圧縮側フランジを拘束すれば、横座屈は防げる</text>
+        </svg>
+        <figcaption>曲げを受ける梁では、圧縮側のフランジが柱と同じように座屈しようとし、梁全体がねじれて倒れる。これが横座屈。</figcaption>
+      </figure>
+      <p>梁の上フランジは圧縮を受けるため、細長い圧縮材と同じように横にはらもうとします。これを防ぐには、<strong>圧縮側フランジを横方向に拘束</strong>することが有効です。実際の建物では、床スラブが上フランジに密着している場合や、小梁が一定間隔で取り付いている場合は横座屈が生じにくくなります。逆に、屋根の梁や工事中の状態など、上フランジが拘束されていない状況では横座屈の検討が必要になります。</p>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 座屈しやすい部材はどうやって見分けますか？</h3>
+      <p>細長比λ（＝座屈長さ÷断面二次半径）で判断します。λが大きいほど座屈しやすく、鋼構造では柱の細長比を200以下（一般部材は250以下）に制限しています。感覚的には、断面の小さい部材が長く伸びているほど危険です。特にブレースや間柱のような細い部材、そして弱軸方向に拘束のない柱は注意が必要です。</p>
+      <h3>Q2. 高強度の鋼材を使えば座屈しにくくなりますか？</h3>
+      <p>なりません。オイラーの座屈荷重の式にはヤング係数Eと断面二次モーメントIしか含まれず、材料強度Fは登場しないためです。しかも鋼材のヤング係数は、SS400でもSN490でもほぼ205,000N/mm²で変わりません。座屈対策として有効なのは、断面を大きくしてIを増やすか、補剛材を入れて座屈長さLkを短くすることです。</p>
+      <h3>Q3. 実際の設計ではオイラーの式をそのまま使うのですか？</h3>
+      <p>そのままは使いません。オイラーの式は、材料が弾性範囲にある細長い部材を前提とした理論値です。実際の部材には初期の曲がりや残留応力があり、また短く太い部材では座屈する前に材料が降伏します。そのため設計では、細長比λに応じて許容圧縮応力度を低減する規定を用います。λが小さい範囲では材料の降伏、大きい範囲ではオイラー座屈が支配する形になっています。</p>
+
 
       <h2>まとめ</h2>
       <ul>

@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/heikoushihenkei-housoku.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/heikoushihenkei-housoku.html",
    "datePublished": "2026-06-15",
-   "dateModified": "2026-06-15",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-heikoushihenkei-housoku.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "平行四辺形の法則と三角形の法則は何が違いますか？", "acceptedAnswer": {"@type": "Answer", "text": "同じ結果を得るための描き方の違いです。平行四辺形の法則は、2力を同じ始点から描いて平行四辺形をつくり、その対角線を合力とします。三角形の法則は、1つ目の力の矢印の先端に2つ目の力の矢印の始点をつないで描き、始点から終点を結んだ線を合力とします。どちらも同じ合力が得られるので、状況に応じて使いやすいほうを選べばかまいません。"}},
+ {"@type": "Question", "name": "力の合成は構造設計のどこで使いますか？", "acceptedAnswer": {"@type": "Answer", "text": "斜め方向の力を扱うあらゆる場面で使います。代表例が屋根面の荷重で、勾配のある屋根に鉛直に作用する荷重を、屋根面に垂直な成分と平行な成分に分けて扱います。また、トラスの節点で複数の部材から力が集まる場合や、ブレースの軸力を水平・鉛直成分に分ける場合も、この考え方が基礎になります。"}},
+ {"@type": "Question", "name": "2力のなす角が180°を超える場合はどう計算しますか？", "acceptedAnswer": {"@type": "Answer", "text": "式はそのまま使えます。cosθは180°を超えると再び増加に転じますが、力の合成としては角度が180°から360°の範囲でも同じ式で正しい値が得られます。ただし作図では平行四辺形の向きが反転して見えるため、混乱しやすくなります。実務では成分に分解する方法を使えば、角度がどれだけ大きくても符号を含めて自動的に処理できるため確実です。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">構造力学の基礎</span>
         <span>公開日：2026年6月15日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>平行四辺形の法則とは？計算・証明と角度</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -182,6 +189,69 @@
         <span class="label">あわせて読みたい</span>
         <p>「<a href="heikoushihenkei.html">力の平行四辺形</a>」「<a href="chikara-gousei.html">力の合成</a>」「<a href="gouryoku.html">合力</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="zukai">平行四辺形の法則（図解）</h2>
+      <p>言葉で説明するより、図で見たほうが一目でわかる法則です。</p>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 320" role="img" aria-label="平行四辺形の法則の図解。2つの力を2辺とする平行四辺形の対角線が合力になる">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">2力の合成：対角線が合力になる</text>
+          <!-- 平行四辺形 -->
+          <path d="M180 250 L400 250 L520 130 L300 130 Z" fill="#eef3f8" stroke="#9fc0dd" stroke-width="2" stroke-dasharray="7 5"/>
+          <!-- F1 -->
+          <g stroke="#1a3a5c" stroke-width="5">
+            <line x1="180" y1="250" x2="390" y2="250"/>
+            <path d="M400 250 l-16 -8 v16 z" fill="#1a3a5c" stroke="none"/>
+          </g>
+          <text x="290" y="278" font-size="15" text-anchor="middle" fill="#1a3a5c" font-weight="bold">F₁</text>
+          <!-- F2 -->
+          <g stroke="#1a3a5c" stroke-width="5">
+            <line x1="180" y1="250" x2="292" y2="138"/>
+            <path d="M300 130 l-2 18 l16 -2 z" fill="#1a3a5c" stroke="none"/>
+          </g>
+          <text x="215" y="180" font-size="15" text-anchor="middle" fill="#1a3a5c" font-weight="bold">F₂</text>
+          <!-- 合力R -->
+          <g stroke="#e8843c" stroke-width="6">
+            <line x1="180" y1="250" x2="508" y2="140"/>
+            <path d="M520 130 l-8 20 l18 -6 z" fill="#e8843c" stroke="none"/>
+          </g>
+          <text x="400" y="176" font-size="17" fill="#e8843c" font-weight="bold">R（合力）</text>
+          <!-- 角度θ -->
+          <path d="M228 250 A48 48 0 0 0 214 216" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+          <text x="243" y="228" font-size="15" fill="#c0392b" font-weight="bold">θ</text>
+          <text x="350" y="308" font-size="13" text-anchor="middle" fill="#6b7785">F₁とF₂を2辺とする平行四辺形を描くと、その対角線が合力Rになる</text>
+        </svg>
+        <figcaption>同じ点に働く2力を2辺として平行四辺形を描くと、その対角線が合力を表す。矢印の長さが力の大きさ、向きが力の方向を示す。</figcaption>
+      </figure>
+
+      <h2 id="tasuu">3力以上を合成するには</h2>
+      <p>力が3つ以上ある場合も、この法則を繰り返し使えば合成できます。方法は2つあります。</p>
+      <h3>方法1：順番に2力ずつ合成する</h3>
+      <p>まずF₁とF₂を合成してR₁₂を求め、次にR₁₂とF₃を合成する、というように順に処理します。作図でも計算でも使えますが、力の数が増えると手間がかかります。</p>
+      <h3>方法2：成分に分解して足し合わせる（実務的）</h3>
+      <p>すべての力を水平成分（x）と鉛直成分（y）に分解し、それぞれを代数的に足してから合成する方法です。力の数がいくつになっても手順が変わらないため、実務や試験ではこちらが主流です。</p>
+      <div class="formula">
+        Rx ＝ ΣFx ＝ F₁cosθ₁ ＋ F₂cosθ₂ ＋ …<br>
+        Ry ＝ ΣFy ＝ F₁sinθ₁ ＋ F₂sinθ₂ ＋ …<br>
+        R ＝ √(Rx² ＋ Ry²)　　tanα ＝ Ry / Rx
+        <span class="note">θ：各力がx軸となす角／α：合力の向き</span>
+      </div>
+      <h3>計算例：3力の合成</h3>
+      <p>F₁＝30kN（x軸方向）、F₂＝40kN（x軸から90°＝鉛直方向）、F₃＝20kN（x軸から180°＝逆向き）を合成します。</p>
+      <div class="formula">
+        Rx ＝ 30 ＋ 0 − 20 ＝ 10 kN<br>
+        Ry ＝ 0 ＋ 40 ＋ 0 ＝ 40 kN<br>
+        R ＝ √(10² ＋ 40²) ＝ √1700 ≒ <strong>41.2 kN</strong>　（向き：tanα ＝ 40/10 ＝ 4 → α ≒ 76°）
+      </div>
+      <p>作図より正確で、力の数が増えても手順が変わらないため、実務や試験ではこちらが主流です。<a href="chikara-bunkai.html">力の分解</a>と組み合わせて使えるようにしておきましょう。</p>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 平行四辺形の法則と三角形の法則は何が違いますか？</h3>
+      <p>同じ結果を得るための描き方の違いです。平行四辺形の法則は、2力を同じ始点から描いて平行四辺形をつくり、その対角線を合力とします。三角形の法則は、1つ目の力の矢印の先端に2つ目の力の矢印の始点をつないで描き、始点から終点を結んだ線を合力とします。どちらも同じ合力が得られるので、状況に応じて使いやすいほうを選べばかまいません。</p>
+      <h3>Q2. 力の合成は構造設計のどこで使いますか？</h3>
+      <p>斜め方向の力を扱うあらゆる場面で使います。代表例が屋根面の荷重で、勾配のある屋根に鉛直に作用する荷重を、屋根面に垂直な成分と平行な成分に分けて扱います。また、トラスの節点で複数の部材から力が集まる場合や、ブレースの軸力を水平・鉛直成分に分ける場合も、この考え方が基礎になります。</p>
+      <h3>Q3. 2力のなす角が180°を超える場合はどう計算しますか？</h3>
+      <p>式はそのまま使えます。cosθは180°を超えると再び増加に転じますが、力の合成としては角度が180°から360°の範囲でも同じ式で正しい値が得られます。ただし作図では平行四辺形の向きが反転して見えるため、混乱しやすくなります。実務では成分に分解する方法を使えば、角度がどれだけ大きくても符号を含めて自動的に処理できるため確実です。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/h-danmen-moment.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/h-danmen-moment.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-06-14",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-h-danmen-moment.jpg",
    "author": {
     "@type": "Person",
@@ -114,7 +114,7 @@
       <div class="meta">
         <span class="tag">鉄骨造（S造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>H形鋼の断面二次モーメント｜強軸と弱軸の違い</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -172,6 +172,64 @@
         <span class="label">実務のワンポイント</span>
         <p>形鋼表を照合していて気づくのは、たわみの検討でIxとZxを取り違える若手が意外と多いことです。断面二次モーメントは変形、断面係数は応力度の話だと最初に整理しておかないと、計算書の後段で数値の意味を見失いがちです。</p>
       </div>
+
+      <h2 id="zukai">強軸と弱軸の断面（図解）</h2>
+      <p>同じH形鋼でも、どちらの向きに曲げるかで性能がまったく違います。断面図で確認しましょう。</p>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 300" role="img" aria-label="H形鋼の強軸曲げと弱軸曲げの比較図。強軸ではフランジが中立軸から離れているため断面二次モーメントが大きい">
+          <text x="350" y="24" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">曲げる向きで断面性能が変わる</text>
+          <line x1="350" y1="42" x2="350" y2="280" stroke="#c3ccd6" stroke-width="1.5" stroke-dasharray="6 5"/>
+          <!-- 強軸 -->
+          <text x="175" y="64" font-size="14.5" text-anchor="middle" fill="#2e7d4f" font-weight="bold">強軸まわりの曲げ（Ix）</text>
+          <rect x="100" y="86" width="150" height="20" fill="#e8843c"/>
+          <rect x="164" y="106" width="22" height="94" fill="#9fc0dd"/>
+          <rect x="100" y="200" width="150" height="20" fill="#e8843c"/>
+          <line x1="80" y1="153" x2="270" y2="153" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="9 5"/>
+          <text x="285" y="157" font-size="12.5" fill="#c0392b">中立軸</text>
+          <g stroke="#2e7d4f" stroke-width="2">
+            <line x1="70" y1="96" x2="70" y2="153"/>
+            <line x1="64" y1="96" x2="76" y2="96"/>
+          </g>
+          <text x="58" y="126" font-size="12.5" text-anchor="end" fill="#2e7d4f" font-weight="bold">遠い</text>
+          <text x="175" y="252" font-size="13" text-anchor="middle" fill="#2e7d4f" font-weight="bold">フランジが中立軸から遠い</text>
+          <text x="175" y="274" font-size="12.5" text-anchor="middle" fill="#6b7785">→ Ix が大きい（曲げに強い）</text>
+          <!-- 弱軸 -->
+          <text x="525" y="64" font-size="14.5" text-anchor="middle" fill="#c0392b" font-weight="bold">弱軸まわりの曲げ（Iy）</text>
+          <rect x="470" y="86" width="20" height="130" fill="#e8843c"/>
+          <rect x="490" y="140" width="70" height="22" fill="#9fc0dd"/>
+          <rect x="560" y="86" width="20" height="130" fill="#e8843c"/>
+          <line x1="525" y1="70" x2="525" y2="232" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="9 5"/>
+          <text x="525" y="248" font-size="12.5" text-anchor="middle" fill="#c0392b">中立軸</text>
+          <g stroke="#c0392b" stroke-width="2">
+            <line x1="480" y1="76" x2="525" y2="76"/>
+            <line x1="480" y1="70" x2="480" y2="82"/>
+          </g>
+          <text x="450" y="80" font-size="12.5" text-anchor="end" fill="#c0392b" font-weight="bold">近い</text>
+          <text x="525" y="274" font-size="12.5" text-anchor="middle" fill="#6b7785">材料が中立軸の近くに集まる → Iy が小さい</text>
+        </svg>
+        <figcaption>断面二次モーメントは中立軸からの距離の2乗で効く。強軸まわりではフランジが遠く離れているためIxが大きく、弱軸まわりでは材料が中立軸付近に集まるためIyは小さくなる。</figcaption>
+      </figure>
+
+      <h2 id="keisanrei">計算例：H-400×200×8×13</h2>
+      <p>公式に実際の数値を入れて、強軸・弱軸の値を求めてみましょう。</p>
+      <p><strong>寸法</strong>：H＝400mm、B＝200mm、t1（ウェブ厚）＝8mm、t2（フランジ厚）＝13mm</p>
+      <div class="formula">
+        <strong>強軸 Ix</strong> ＝ [ B·H³ − (B − t1)·(H − 2t2)³ ] / 12<br>
+        ＝ [ 200 × 400³ − (200 − 8) × (400 − 26)³ ] / 12<br>
+        ＝ [ 200 × 64,000,000 − 192 × 52,313,624 ] / 12<br>
+        ＝ [ 12,800,000,000 − 10,044,215,808 ] / 12 ≒ <strong>22,965万 mm⁴ ≒ 22,965 cm⁴</strong>
+      </div>
+      <div class="formula">
+        <strong>弱軸 Iy</strong> ＝ [ 2·t2·B³ + (H − 2t2)·t1³ ] / 12<br>
+        ＝ [ 2 × 13 × 200³ + 374 × 8³ ] / 12<br>
+        ＝ [ 208,000,000 + 191,488 ] / 12 ≒ <strong>1,733万 mm⁴ ≒ 1,733 cm⁴</strong>
+      </div>
+      <p>強軸と弱軸の比は 22,965 ÷ 1,733 ≒ <strong>13.2倍</strong>。同じ部材でも、向きを間違えると曲げ剛性が13分の1になってしまうことがわかります。梁を架けるときにウェブを鉛直にするのは、この強軸を活かすためです。</p>
+      <div class="point-box">
+        <span class="label">簡易な確認方法</span>
+        <p>実務では、上記の計算をせずとも<strong>鋼材の断面性能表</strong>からIx・Iyを直接読み取ります。ただし、表にない寸法や、板を組み合わせたビルドH（溶接組立H形鋼）では自分で計算する必要があります。当サイトの<a href="../tools/section-calculator.html">断面性能計算ツール</a>でも自動計算できます。</p>
+      </div>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>
