@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/sokan-henkei.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/sokan-henkei.html",
    "datePublished": "2026-06-12",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-sokan-henkei.jpg",
    "author": {
     "@type": "Person",
@@ -74,6 +74,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "層間変形角の制限が1/200なのはなぜですか？", "acceptedAnswer": {"@type": "Answer", "text": "骨組みそのものではなく、外壁・サッシ・間仕切りなどの二次部材を守るための制限だからです。中規模の地震（一次設計レベル）で建物が大きく変形すると、これらの仕上げ材が先に破損し、脱落すれば人身被害につながります。1/200は、一般的な仕上げ材が追従できる変形の目安です。変形に追従できる納まりであることを確認できれば、1/120まで緩和できます。"}},
+ {"@type": "Question", "name": "ピロティ形式の建物はなぜ危険なのですか？", "acceptedAnswer": {"@type": "Answer", "text": "1階だけ壁がなく柔らかいため、地震のエネルギーがその階に集中するからです。上階は壁が多く硬いのでほとんど変形せず、柔らかい1階だけが大きく変形して層崩壊に至ります。1995年の阪神・淡路大震災では、1階を駐車場としたピロティ形式のマンションで1階だけが潰れる被害が多発しました。剛性率の規定は、こうした特定階への変形集中を防ぐためのものです。"}},
+ {"@type": "Question", "name": "剛心はどうやって求めるのですか？", "acceptedAnswer": {"@type": "Answer", "text": "各耐震要素（柱・耐震壁・ブレース）の水平剛性と、その位置座標から算出します。具体的には、各要素の剛性を重みとした位置の加重平均をとります。式で表すと、X方向の剛心位置は「Σ(各要素の剛性×その要素のX座標) ÷ Σ(各要素の剛性)」となります。実務では一貫構造計算プログラムが自動計算しますが、壁の位置を大きく変更した際は、剛心がどちらに動くかを感覚的に把握しておくと設計判断が速くなります。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -105,7 +112,7 @@
       <div class="meta">
         <span class="tag">構造計算の実務</span>
         <span>公開日：2026年6月12日</span>
-        <span>更新日：2026年7月3日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>層間変形角・剛性率・偏心率とは？ルート2の検討項目をわかりやすく解説</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -182,6 +189,70 @@
         <span class="label">実務のワンポイント</span>
         <p>意匠変更で耐震壁や柱の位置がずれると、偏心率は思った以上にあっさり基準を超えます。私は計画段階から重心・剛心の位置を都度プロットしておき、壁の配置変更が出るたびに偏心率への影響を先に見積もってから構造計算に戻すようにしています。</p>
       </div>
+
+      <h2 id="henshin-zukai">偏心率：重心と剛心のずれ（図解）</h2>
+      <p>偏心率は言葉だけでは理解しにくいので、平面図でイメージをつかみましょう。</p>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 320" role="img" aria-label="偏心の図解。耐震壁が片側に寄っていると剛心が偏り、建物がねじれる">
+          <text x="350" y="24" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">重心と剛心がずれるとねじれる</text>
+          <line x1="350" y1="42" x2="350" y2="290" stroke="#c3ccd6" stroke-width="1.5" stroke-dasharray="6 5"/>
+          <!-- 左：バランスが良い -->
+          <text x="175" y="62" font-size="14" text-anchor="middle" fill="#2e7d4f" font-weight="bold">バランスが良い</text>
+          <rect x="70" y="80" width="210" height="140" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2"/>
+          <g fill="#1a3a5c">
+            <rect x="70" y="80" width="14" height="140"/>
+            <rect x="266" y="80" width="14" height="140"/>
+          </g>
+          <circle cx="175" cy="150" r="9" fill="#e8843c"/>
+          <circle cx="175" cy="150" r="15" fill="none" stroke="#2e7d4f" stroke-width="3"/>
+          <text x="175" y="244" font-size="12.5" text-anchor="middle" fill="#2e7d4f">重心＝剛心（偏心なし）</text>
+          <text x="175" y="264" font-size="12" text-anchor="middle" fill="#6b7785">壁が両側にある</text>
+          <text x="175" y="284" font-size="12" text-anchor="middle" fill="#6b7785">→ ねじれずに平行移動</text>
+          <!-- 右：偏心している -->
+          <text x="525" y="62" font-size="14" text-anchor="middle" fill="#c0392b" font-weight="bold">偏心している</text>
+          <rect x="420" y="80" width="210" height="140" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2"/>
+          <g fill="#1a3a5c">
+            <rect x="420" y="80" width="14" height="140"/>
+            <rect x="440" y="80" width="14" height="140"/>
+          </g>
+          <circle cx="525" cy="150" r="9" fill="#e8843c"/>
+          <circle cx="455" cy="150" r="15" fill="none" stroke="#c0392b" stroke-width="3"/>
+          <g stroke="#c0392b" stroke-width="2">
+            <line x1="455" y1="178" x2="525" y2="178"/>
+            <line x1="455" y1="172" x2="455" y2="184"/>
+            <line x1="525" y1="172" x2="525" y2="184"/>
+          </g>
+          <text x="490" y="200" font-size="13" text-anchor="middle" fill="#c0392b" font-weight="bold">偏心距離 e</text>
+          <text x="525" y="244" font-size="12.5" text-anchor="middle" fill="#c0392b">重心（橙）と剛心（赤）がずれる</text>
+          <text x="525" y="264" font-size="12" text-anchor="middle" fill="#6b7785">壁が左に偏っている</text>
+          <text x="525" y="284" font-size="12" text-anchor="middle" fill="#6b7785">→ 剛心を軸にねじれる</text>
+        </svg>
+        <figcaption>地震力は重心に作用し、建物は剛心を中心に回転しようとする。両者が離れているほどねじれが大きくなり、剛心から遠い柱に変形が集中する。</figcaption>
+      </figure>
+      <p>重心は<strong>重さの中心</strong>、剛心は<strong>硬さの中心</strong>です。耐震壁やブレースが片側に寄っていると剛心もそちらに寄り、地震力が作用する重心との間に距離（偏心距離 e）が生じます。この距離が大きいほど、ねじれモーメントが大きくなります。</p>
+
+      <h2 id="route">構造計算ルートとの関係</h2>
+      <p>これらの検討項目が、構造計算のどのルートで必要になるかを整理しておきましょう。</p>
+      <table class="data">
+        <tr><th>ルート</th><th>主な検討内容</th><th>層間変形角</th><th>剛性率・偏心率</th><th>保有水平耐力</th></tr>
+        <tr><td>ルート1</td><td>規模・壁量などの条件を満たす小規模建物</td><td>不要</td><td>不要</td><td>不要</td></tr>
+        <tr><td>ルート2</td><td>許容応力度計算＋バランスの確認</td><td><strong>必要</strong></td><td><strong>必要</strong></td><td>不要</td></tr>
+        <tr><td>ルート3</td><td>保有水平耐力計算</td><td><strong>必要</strong></td><td>Fes係数として反映</td><td><strong>必要</strong></td></tr>
+      </table>
+      <p>ルート2で剛性率6/10・偏心率15/100を満たせない場合、そのままでは設計できません。対応は2つあり、<strong>①壁やブレースの配置を見直して基準を満たす</strong>か、<strong>②ルート3に移行して保有水平耐力で確認する</strong>かです。ルート3では、バランスの悪さを<strong>Fes係数</strong>（形状係数）として必要保有水平耐力の割増しに反映させるため、バランスが悪いほど大きな耐力が要求される仕組みになっています。</p>
+      <div class="point-box">
+        <span class="label">設計での実践的な対処</span>
+        <p>偏心率が超過したときの改善は、<strong>剛心を重心に近づける</strong>ことです。具体的には、壁の少ない側に耐震壁やブレースを追加する、壁の多い側の壁を減らす（またはスリットを入れて構造的に切り離す）、といった調整を行います。平面計画の初期段階で耐震要素の配置を検討しておくと、後戻りが少なくなります。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 層間変形角の制限が1/200なのはなぜですか？</h3>
+      <p>骨組みそのものではなく、外壁・サッシ・間仕切りなどの二次部材を守るための制限だからです。中規模の地震（一次設計レベル）で建物が大きく変形すると、これらの仕上げ材が先に破損し、脱落すれば人身被害につながります。1/200は、一般的な仕上げ材が追従できる変形の目安です。変形に追従できる納まりであることを確認できれば、1/120まで緩和できます。</p>
+      <h3>Q2. ピロティ形式の建物はなぜ危険なのですか？</h3>
+      <p>1階だけ壁がなく柔らかいため、地震のエネルギーがその階に集中するからです。上階は壁が多く硬いのでほとんど変形せず、柔らかい1階だけが大きく変形して層崩壊に至ります。1995年の阪神・淡路大震災では、1階を駐車場としたピロティ形式のマンションで1階だけが潰れる被害が多発しました。剛性率の規定は、こうした特定階への変形集中を防ぐためのものです。</p>
+      <h3>Q3. 剛心はどうやって求めるのですか？</h3>
+      <p>各耐震要素（柱・耐震壁・ブレース）の水平剛性と、その位置座標から算出します。具体的には、各要素の剛性を重みとした位置の加重平均をとります。式で表すと、X方向の剛心位置は「Σ(各要素の剛性×その要素のX座標) ÷ Σ(各要素の剛性)」となります。実務では一貫構造計算プログラムが自動計算しますが、壁の位置を大きく変更した際は、剛心がどちらに動くかを感覚的に把握しておくと設計判断が速くなります。</p>
+
 
       <h2>まとめ</h2>
       <ul>

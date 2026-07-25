@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/concrete-jakuten.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/concrete-jakuten.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-concrete-jakuten.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "ひび割れは何mm以上なら補修が必要ですか？", "acceptedAnswer": {"@type": "Answer", "text": "一般に、幅0.3mmを超えるひび割れは補修の検討対象とされます。これは、この幅を超えると雨水や二酸化炭素が内部まで浸入しやすくなり、鉄筋の腐食を早めるためです。ただし判断は幅だけでなく、位置・方向・進行性も重要です。柱や梁に斜めに入るひび割れは構造的な要因の可能性があるため、幅が小さくても調査が必要です。"}},
+ {"@type": "Question", "name": "コンクリートは何年もつのですか？", "acceptedAnswer": {"@type": "Answer", "text": "適切に設計・施工されたRC造の計画供用期間は、標準的な仕様で65年程度、耐久性に配慮した仕様で100年程度が目安とされます。実際の寿命を左右するのは中性化や塩害による鉄筋腐食で、これはかぶり厚さと水セメント比に大きく依存します。逆に言えば、かぶりを確保し密実なコンクリートを打てば、100年を超える耐久性も現実的です。"}},
+ {"@type": "Question", "name": "アルカリ骨材反応はどう防ぎますか？", "acceptedAnswer": {"@type": "Answer", "text": "3つの方法があります。第一に、反応性のない骨材を使用すること（骨材の試験で確認）。第二に、コンクリート中のアルカリ総量を規制すること（Na₂O換算で3.0kg/m³以下）。第三に、高炉セメントやフライアッシュセメントなど、抑制効果のある混合セメントを使用することです。実務ではこれらのいずれかの対策を選択して実施します。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">鉄筋コンクリート造（RC造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月3日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>コンクリートの弱点とは？引張の弱さ・劣化とひび割れの種類・対策</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -184,6 +191,69 @@
         <span class="label">あわせて読みたい</span>
         <p>弱点を補う仕組みは「<a href="rc-tetsu-kankei.html">コンクリートと鉄筋の関係</a>」、RC造全体は「<a href="rc-zou.html">鉄筋コンクリート造（RC造）とは？</a>」、耐震性は「<a href="rc-taishin.html">RC造の耐震性と特徴</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="chuuseika">中性化の進行と鉄筋腐食（図解）</h2>
+      <p>RC造の寿命を決める最大の要因が、中性化による鉄筋の腐食です。どのように進行するのかを段階で見てみましょう。</p>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 320" role="img" aria-label="中性化の進行過程の図解。表面から中性化が進み鉄筋に到達すると腐食が始まり、膨張してコンクリートを押し割る">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">中性化が鉄筋に到達するまで</text>
+          <!-- 段階1 -->
+          <text x="120" y="62" font-size="13.5" text-anchor="middle" fill="#1a3a5c" font-weight="bold">① 健全</text>
+          <rect x="45" y="76" width="150" height="120" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2"/>
+          <circle cx="150" cy="136" r="11" fill="#7d95ab"/>
+          <text x="120" y="216" font-size="12" text-anchor="middle" fill="#6b7785">アルカリ性が</text>
+          <text x="120" y="234" font-size="12" text-anchor="middle" fill="#6b7785">鉄筋を守る</text>
+          <!-- 段階2 -->
+          <text x="350" y="62" font-size="13.5" text-anchor="middle" fill="#b35309" font-weight="bold">② 中性化の進行</text>
+          <rect x="275" y="76" width="150" height="120" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2"/>
+          <rect x="275" y="76" width="52" height="120" fill="#f5d9c2"/>
+          <circle cx="380" cy="136" r="11" fill="#7d95ab"/>
+          <g stroke="#b35309" stroke-width="2">
+            <line x1="248" y1="110" x2="272" y2="110"/><line x1="248" y1="136" x2="272" y2="136"/>
+            <line x1="248" y1="162" x2="272" y2="162"/>
+          </g>
+          <text x="240" y="102" font-size="11.5" text-anchor="end" fill="#b35309">CO₂</text>
+          <text x="350" y="216" font-size="12" text-anchor="middle" fill="#6b7785">表面から徐々に</text>
+          <text x="350" y="234" font-size="12" text-anchor="middle" fill="#6b7785">アルカリ性を失う</text>
+          <!-- 段階3 -->
+          <text x="580" y="62" font-size="13.5" text-anchor="middle" fill="#c0392b" font-weight="bold">③ 鉄筋に到達・腐食</text>
+          <rect x="505" y="76" width="150" height="120" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2"/>
+          <rect x="505" y="76" width="115" height="120" fill="#f5d9c2"/>
+          <circle cx="610" cy="136" r="15" fill="#c0392b"/>
+          <g stroke="#c0392b" stroke-width="3">
+            <line x1="622" y1="122" x2="655" y2="96"/>
+            <line x1="622" y1="150" x2="655" y2="176"/>
+          </g>
+          <text x="580" y="216" font-size="12" text-anchor="middle" fill="#c0392b">錆びて約2.5倍に膨張</text>
+          <text x="580" y="234" font-size="12" text-anchor="middle" fill="#c0392b">→ かぶりを押し割る</text>
+          <text x="350" y="280" font-size="13" text-anchor="middle" fill="#6b7785">中性化の速度は、かぶり厚さと水セメント比で大きく変わる</text>
+          <text x="350" y="304" font-size="13" text-anchor="middle" fill="#1a3a5c" font-weight="bold">かぶりが厚く密実なコンクリートほど、鉄筋に到達するまでの時間が長い</text>
+        </svg>
+        <figcaption>空気中の二酸化炭素によって表面から中性化が進み、鉄筋位置に達すると腐食が始まる。錆びた鉄筋は膨張してかぶりコンクリートを押し割る（爆裂）。</figcaption>
+      </figure>
+      <p>中性化の進行深さは、おおむね<strong>経過年数の平方根に比例</strong>して進むことが知られています。つまり最初の数年で急速に進み、その後は徐々に緩やかになります。したがって、かぶり厚さを少し増やすだけで、鉄筋に到達するまでの年数は大きく延びることになります。</p>
+
+      <h2 id="kaburi">かぶり厚さの規定</h2>
+      <p>かぶり厚さは、鉄筋の表面からコンクリート表面までの最短距離です。耐久性と耐火性を確保するため、部位ごとに最小値が定められています。</p>
+      <table class="data">
+        <tr><th>部位</th><th>最小かぶり厚さの目安</th></tr>
+        <tr><td>スラブ・耐力壁以外の壁（屋内）</td><td>20mm</td></tr>
+        <tr><td>柱・梁・耐力壁（屋内）</td><td>30mm</td></tr>
+        <tr><td>柱・梁・スラブ・壁（屋外・土に接しない）</td><td>30〜40mm</td></tr>
+        <tr><td>土に接する部分</td><td>40mm以上</td></tr>
+        <tr><td>基礎（捨てコンクリート部分を除く）</td><td>60mm以上</td></tr>
+      </table>
+      <p>※値は代表例です。実際は建築基準法施行令およびJASS5等で確認してください。</p>
+      <p>屋外や土に接する部分でかぶりが大きいのは、雨水や土中の水分・塩分といった劣化要因にさらされるためです。また、施工誤差を見込んで、設計かぶり厚さは最小かぶり厚さより10mm程度大きく設定するのが一般的です。配筋検査でスペーサー（かぶりを確保する部品）の設置状況が重視されるのは、この寸法が建物の寿命に直結するからです。</p>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. ひび割れは何mm以上なら補修が必要ですか？</h3>
+      <p>一般に、幅0.3mmを超えるひび割れは補修の検討対象とされます。これは、この幅を超えると雨水や二酸化炭素が内部まで浸入しやすくなり、鉄筋の腐食を早めるためです。ただし判断は幅だけでなく、位置・方向・進行性も重要です。柱や梁に斜めに入るひび割れは構造的な要因の可能性があるため、幅が小さくても調査が必要です。</p>
+      <h3>Q2. コンクリートは何年もつのですか？</h3>
+      <p>適切に設計・施工されたRC造の計画供用期間は、標準的な仕様で65年程度、耐久性に配慮した仕様で100年程度が目安とされます。実際の寿命を左右するのは中性化や塩害による鉄筋腐食で、これはかぶり厚さと水セメント比に大きく依存します。逆に言えば、かぶりを確保し密実なコンクリートを打てば、100年を超える耐久性も現実的です。</p>
+      <h3>Q3. アルカリ骨材反応はどう防ぎますか？</h3>
+      <p>3つの方法があります。第一に、反応性のない骨材を使用すること（骨材の試験で確認）。第二に、コンクリート中のアルカリ総量を規制すること（Na₂O換算で3.0kg/m³以下）。第三に、高炉セメントやフライアッシュセメントなど、抑制効果のある混合セメントを使用することです。実務ではこれらのいずれかの対策を選択して実施します。</p>
+
 
       <h2>まとめ</h2>
       <ul>

@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/reikan-kakukei.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/reikan-kakukei.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-06-14",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-reikan-kakukei.jpg",
    "author": {
     "@type": "Person",
@@ -114,7 +114,7 @@
       <div class="meta">
         <span class="tag">鉄骨造（S造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>冷間成形角形鋼管設計施工マニュアルとは？BCR・BCPの設計根拠と目次</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -163,6 +163,51 @@
         <span class="label">実務のワンポイント</span>
         <p>構造計算書を審査する立場になってからは、柱梁耐力比の計算に冷間成形角形鋼管の応力割増しがきちんと反映されているかを真っ先に確認します。この割増しを見落としたまま柱梁耐力比を満たしている計算書に、何度か出会ったことがあります。</p>
       </div>
+
+      <h2 id="kakou">なぜ角部が弱くなるのか（図解）</h2>
+      <p>冷間成形の角形鋼管が特別扱いされる理由は、製造の過程にあります。常温で鋼板を曲げると、曲げた部分の材質が変化します。</p>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 300" role="img" aria-label="冷間成形角形鋼管の断面図。角部が加工硬化で強度は上がるが伸び能力が低下することを示す">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">冷間成形角形鋼管の角部で起きること</text>
+          <!-- 断面 -->
+          <rect x="215" y="60" width="180" height="180" rx="26" fill="none" stroke="#1a3a5c" stroke-width="14"/>
+          <!-- 角部強調 -->
+          <g stroke="#c0392b" stroke-width="14" fill="none" stroke-linecap="round">
+            <path d="M241 60 a26 26 0 0 0 -26 26"/>
+            <path d="M369 60 a26 26 0 0 1 26 26"/>
+            <path d="M241 240 a26 26 0 0 1 -26 -26"/>
+            <path d="M369 240 a26 26 0 0 0 26 -26"/>
+          </g>
+          <line x1="215" y1="72" x2="150" y2="72" stroke="#c0392b" stroke-width="2"/>
+          <text x="145" y="76" font-size="13" text-anchor="end" fill="#c0392b" font-weight="bold">角部</text>
+          <line x1="305" y1="60" x2="305" y2="42" stroke="#1a3a5c" stroke-width="2"/>
+          <text x="305" y="36" font-size="13" text-anchor="middle" fill="#1a3a5c">平板部</text>
+          <!-- 説明 -->
+          <rect x="440" y="80" width="230" height="62" rx="8" fill="#fdeaea" stroke="#c0392b" stroke-width="2"/>
+          <text x="555" y="104" font-size="13.5" text-anchor="middle" fill="#c0392b" font-weight="bold">角部（曲げ加工した部分）</text>
+          <text x="555" y="126" font-size="12.5" text-anchor="middle" fill="#c0392b">強度は上がるが「伸び」が減る</text>
+          <rect x="440" y="158" width="230" height="62" rx="8" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2"/>
+          <text x="555" y="182" font-size="13.5" text-anchor="middle" fill="#1a3a5c" font-weight="bold">平板部</text>
+          <text x="555" y="204" font-size="12.5" text-anchor="middle" fill="#1a3a5c">元の鋼材の性質を保つ</text>
+          <text x="350" y="278" font-size="13" text-anchor="middle" fill="#6b7785">加工硬化で角部の変形能力が落ちる → 地震時に粘れない → 設計で割増しが必要</text>
+        </svg>
+        <figcaption>冷間成形では角部が加工硬化し、強度は上がる一方で伸び能力（変形性能）が低下する。この性質が設計上の割増し規定につながっている。</figcaption>
+      </figure>
+
+      <h2 id="warimashi">柱の応力割増しの考え方</h2>
+      <p>建築物の耐震設計では、大地震時に<strong>梁が先に降伏し、柱は健全なまま残る</strong>ことが望ましいとされます。柱が先に壊れると、その階全体が潰れる層崩壊につながるためです。</p>
+      <div class="point-box">
+        <span class="label">なぜ柱を先に壊してはいけないのか</span>
+        <p>梁が先に降伏する<strong>「梁降伏型」</strong>の建物は、多数の梁が順に降伏しながらエネルギーを吸収するため、粘り強く倒壊しにくくなります。逆に柱が先に降伏する<strong>「柱降伏型」</strong>では、その階の柱がすべて壊れて一気に潰れる（層崩壊）危険があります。冷間成形角形鋼管は変形能力が低いため、この危険がとくに大きくなります。</p>
+      </div>
+      <p>そこでマニュアルでは、保有水平耐力の検討などにおいて、柱に生じる応力を<strong>割り増して</strong>評価します。割増し係数は、材種（BCR/BCP）や柱梁接合部の形式、柱梁耐力比の条件に応じて定められており、これにより柱に十分な余裕を持たせて梁降伏型を確保します。</p>
+      <table class="data">
+        <tr><th>確認する項目</th><th>内容</th></tr>
+        <tr><td>柱梁耐力比</td><td>接合部において、柱の耐力の合計が梁の耐力の合計を上回っているか</td></tr>
+        <tr><td>応力の割増し</td><td>材種・接合形式に応じた係数で柱の応力を割り増す</td></tr>
+        <tr><td>ダイアフラムの検討</td><td>梁フランジの力を確実に柱へ伝えられる板厚・溶接であるか</td></tr>
+      </table>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>
