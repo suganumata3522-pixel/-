@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/kyoushitai.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/kyoushitai.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-02",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-kyoushitai.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "供試体と試験体はどう使い分けますか？", "acceptedAnswer": {"@type": "Answer", "text": "一般に、供試体は材料試験のための小さな試料、試験体は構造実験の対象となる部材そのものを指します。コンクリートの圧縮強度用の円柱は供試体、柱・梁・接合部の実大実験に用いるものは試験体と呼ぶのが通例です。ただし論文や報告書では「試験体」を供試体の意味で使うこともあり、文脈で判断する必要があります。"}},
+ {"@type": "Question", "name": "なぜ円柱の高さは直径の2倍なのですか？", "acceptedAnswer": {"@type": "Answer", "text": "端面の拘束による影響を避けるためです。圧縮試験では、供試体の上下端が載荷板との摩擦で横方向に広がるのを妨げられ、その部分だけ見かけの強度が高くなります。高さが直径の2倍あれば、中央部にこの拘束の影響が及ばない領域が確保され、材料本来の強度が測定できます。高さが不足すると強度が高めに出てしまいます。"}},
+ {"@type": "Question", "name": "供試体の強度が不足していた場合はどうなりますか？", "acceptedAnswer": {"@type": "Answer", "text": "まず判定基準を確認します。受入れ検査では、3回の試験の平均が呼び強度以上、かつ1回の値が呼び強度の85%以上であることが求められます。これを満たさない場合、構造体からのコア採取による強度確認、非破壊試験による推定、構造安全性の再検討といった手順に進みます。結果によっては補強や打ち直しが必要になるため、日々の品質管理が重要です。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">鉄筋コンクリート造（RC造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>供試体とは？試験体との違い・寸法・養生方法</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -180,6 +187,65 @@
         <span class="label">実務のワンポイント</span>
         <p>受入検査で供試体を作る場面に立ち会うと、突き固めが甘いまま型枠に詰めてしまう場面にまれに出くわします。強度不足の原因を後から供試体側の作り方に求められないよう、成形・養生の様子までその場で見届けるようにしています。</p>
       </div>
+
+      <h2 id="yojou-shurui">養生方法の使い分け（図解）</h2>
+      <p>同じ供試体でも、どう養生するかで測っている意味がまったく変わります。ここが実務で混同されやすい点です。</p>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 280" role="img" aria-label="標準水中養生・現場水中養生・現場封かん養生の3種類の比較図">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">3つの養生方法と目的の違い</text>
+          <rect x="30" y="52" width="200" height="130" rx="8" fill="#dce9f5" stroke="#1a3a5c" stroke-width="2"/>
+          <text x="130" y="78" font-size="14" text-anchor="middle" fill="#1a3a5c" font-weight="bold">標準水中養生</text>
+          <rect x="60" y="92" width="140" height="46" fill="#9fc0dd"/>
+          <rect x="105" y="98" width="50" height="34" fill="#eef3f8" stroke="#1a3a5c" stroke-width="1.5"/>
+          <text x="130" y="156" font-size="12" text-anchor="middle" fill="#6b7785">20±2℃の水中</text>
+          <text x="130" y="174" font-size="12" text-anchor="middle" fill="#6b7785">理想条件</text>
+          <text x="130" y="206" font-size="12.5" text-anchor="middle" fill="#1a3a5c" font-weight="bold">目的：受入れ検査</text>
+          <text x="130" y="226" font-size="11.5" text-anchor="middle" fill="#6b7785">納入品が呼び強度を</text>
+          <text x="130" y="244" font-size="11.5" text-anchor="middle" fill="#6b7785">満たすかの確認</text>
+          <rect x="250" y="52" width="200" height="130" rx="8" fill="#fdf1e7" stroke="#e8843c" stroke-width="2"/>
+          <text x="350" y="78" font-size="14" text-anchor="middle" fill="#b35309" font-weight="bold">現場水中養生</text>
+          <rect x="280" y="92" width="140" height="46" fill="#f5d9c2"/>
+          <rect x="325" y="98" width="50" height="34" fill="#fff" stroke="#b35309" stroke-width="1.5"/>
+          <text x="350" y="156" font-size="12" text-anchor="middle" fill="#6b7785">現場の気温の水中</text>
+          <text x="350" y="174" font-size="12" text-anchor="middle" fill="#6b7785">温度は現場と同じ</text>
+          <text x="350" y="206" font-size="12.5" text-anchor="middle" fill="#b35309" font-weight="bold">目的：構造体強度</text>
+          <text x="350" y="226" font-size="11.5" text-anchor="middle" fill="#6b7785">実際の躯体の強度を</text>
+          <text x="350" y="244" font-size="11.5" text-anchor="middle" fill="#6b7785">推定する</text>
+          <rect x="470" y="52" width="200" height="130" rx="8" fill="#eef3f8" stroke="#7d95ab" stroke-width="2"/>
+          <text x="570" y="78" font-size="14" text-anchor="middle" fill="#3f4a55" font-weight="bold">現場封かん養生</text>
+          <rect x="545" y="92" width="50" height="46" fill="#c3ccd6" stroke="#3f4a55" stroke-width="1.5"/>
+          <path d="M545 92 h50 v46 h-50 z" fill="none" stroke="#3f4a55" stroke-width="3" stroke-dasharray="4 3"/>
+          <text x="570" y="156" font-size="12" text-anchor="middle" fill="#6b7785">密封して現場に放置</text>
+          <text x="570" y="174" font-size="12" text-anchor="middle" fill="#6b7785">水分の出入りなし</text>
+          <text x="570" y="206" font-size="12.5" text-anchor="middle" fill="#3f4a55" font-weight="bold">目的：構造体強度</text>
+          <text x="570" y="226" font-size="11.5" text-anchor="middle" fill="#6b7785">部材内部に近い状態を</text>
+          <text x="570" y="244" font-size="11.5" text-anchor="middle" fill="#6b7785">再現する</text>
+        </svg>
+        <figcaption>標準水中養生は「納入されたコンクリートの品質」を、現場水中・現場封かん養生は「実際の構造体の強度」を確認するために行う。</figcaption>
+      </figure>
+
+      <h2 id="sunpou">供試体の寸法と本数</h2>
+      <table class="data">
+        <tr><th>項目</th><th>規定・目安</th><th>理由</th></tr>
+        <tr><td>形状</td><td>円柱（直径：高さ＝1：2）</td><td>端面の摩擦拘束の影響を抑え、安定した破壊性状を得るため</td></tr>
+        <tr><td>直径</td><td>粗骨材最大寸法の<strong>3倍以上</strong></td><td>骨材の大きさが結果に影響しないようにするため</td></tr>
+        <tr><td>代表寸法</td><td>φ100×200mm（最も一般的）</td><td>粗骨材最大25mmまで対応でき、扱いやすい</td></tr>
+        <tr><td>1回の試験</td><td><strong>3本</strong>の平均</td><td>ばらつきを吸収し、偶発的な異常値の影響を減らす</td></tr>
+        <tr><td>採取頻度</td><td>打込み日・工区ごと、150m³に1回など</td><td>ロットを代表するサンプルを確保するため</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">供試体は「母集団を代表する」もの</span>
+        <p>供試体の役割は、実際に打ち込まれたコンクリート全体の性質を代表することです。そのため、<strong>採取する場所・タイミング</strong>が重要になります。荷卸し地点で、1台の生コン車の中でも均質な部分から採取するといった手順がJISで定められています。手順を外れた採り方をすると、いくら丁寧に養生・試験をしても、結果は実際の躯体の品質を表しません。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 供試体と試験体はどう使い分けますか？</h3>
+      <p>一般に、供試体は材料試験のための小さな試料、試験体は構造実験の対象となる部材そのものを指します。コンクリートの圧縮強度用の円柱は供試体、柱・梁・接合部の実大実験に用いるものは試験体と呼ぶのが通例です。ただし論文や報告書では「試験体」を供試体の意味で使うこともあり、文脈で判断する必要があります。</p>
+      <h3>Q2. なぜ円柱の高さは直径の2倍なのですか？</h3>
+      <p>端面の拘束による影響を避けるためです。圧縮試験では、供試体の上下端が載荷板との摩擦で横方向に広がるのを妨げられ、その部分だけ見かけの強度が高くなります。高さが直径の2倍あれば、中央部にこの拘束の影響が及ばない領域が確保され、材料本来の強度が測定できます。高さが不足すると強度が高めに出てしまいます。</p>
+      <h3>Q3. 供試体の強度が不足していた場合はどうなりますか？</h3>
+      <p>まず判定基準を確認します。受入れ検査では、3回の試験の平均が呼び強度以上、かつ1回の値が呼び強度の85%以上であることが求められます。これを満たさない場合、構造体からのコア採取による強度確認、非破壊試験による推定、構造安全性の再検討といった手順に進みます。結果によっては補強や打ち直しが必要になるため、日々の品質管理が重要です。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

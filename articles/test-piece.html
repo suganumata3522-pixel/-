@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/test-piece.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/test-piece.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-test-piece.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "テストピースは何本採取すればよいですか？", "acceptedAnswer": {"@type": "Answer", "text": "1回の試験につき3本が基本です。採取の頻度は、打込み日ごと・打込み工区ごと、かつコンクリートの量150m³に1回程度が目安とされます。ただしこれは受入れ検査用で、これとは別に構造体コンクリートの強度確認用（現場水中養生・現場封かん養生）の供試体も必要になるため、実際の採取本数はさらに多くなります。"}},
+ {"@type": "Question", "name": "テストピースの脱型はいつ行いますか？", "acceptedAnswer": {"@type": "Answer", "text": "一般に、成形から16時間以上3日以内に行います。早すぎると供試体が変形し、遅すぎると型枠との付着で表面を傷めるおそれがあるためです。脱型後はただちに所定の養生に移し、乾燥させないよう注意します。脱型のタイミングや養生開始の遅れは、強度の測定値に直接影響します。"}},
+ {"@type": "Question", "name": "テストピースの上面はなぜ平らに仕上げるのですか？", "acceptedAnswer": {"@type": "Answer", "text": "圧縮試験で荷重が均等にかかるようにするためです。上面が傾いていたり凹凸があったりすると、一部に応力が集中して本来より低い荷重で破壊し、強度を過小評価してしまいます。そのため、試験前にキャッピング（硫黄や研磨による平滑化）を行い、上下面の平行度と平滑さを確保します。この処理を怠ると、正しい強度が測定できません。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">鉄筋コンクリート造（RC造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>コンクリートのテストピース｜サイズ・本数・養生</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -193,6 +200,63 @@
         <span class="label">あわせて読みたい</span>
         <p>「<a href="kyoushitai.html">供試体</a>」「<a href="mold.html">供試体型枠（モールド）</a>」「<a href="kouzoutai-concrete.html">構造体コンクリート</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="nagare">採取から試験までの流れ（図解）</h2>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 250" role="img" aria-label="テストピースの採取から圧縮試験までの流れ図">
+          <text x="350" y="24" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">テストピースの流れ</text>
+          <g fill="#eef3f8" stroke="#1a3a5c" stroke-width="1.8">
+            <rect x="20" y="56" width="118" height="56" rx="8"/>
+            <rect x="158" y="56" width="118" height="56" rx="8"/>
+            <rect x="296" y="56" width="118" height="56" rx="8"/>
+            <rect x="434" y="56" width="118" height="56" rx="8"/>
+          </g>
+          <rect x="572" y="56" width="108" height="56" rx="8" fill="#e8843c"/>
+          <g font-size="12.5" text-anchor="middle" font-weight="bold" fill="#1a3a5c">
+            <text x="79" y="80">① 採取</text><text x="217" y="80">② 詰める</text>
+            <text x="355" y="80">③ 締固め</text><text x="493" y="80">④ 養生</text>
+          </g>
+          <text x="626" y="80" font-size="12.5" text-anchor="middle" fill="#fff" font-weight="bold">⑤ 圧縮試験</text>
+          <g font-size="11" text-anchor="middle" fill="#6b7785">
+            <text x="79" y="100">荷卸し地点で</text><text x="217" y="100">モールドに2〜3層</text>
+            <text x="355" y="100">突き棒・振動機</text><text x="493" y="100">標準水中20±2℃</text>
+          </g>
+          <text x="626" y="100" font-size="11" text-anchor="middle" fill="#fff">材齢28日</text>
+          <g stroke="#1a3a5c" stroke-width="2">
+            <line x1="138" y1="84" x2="150" y2="84"/><path d="M158 84 l-10 -5 v10 z" fill="#1a3a5c" stroke="none"/>
+            <line x1="276" y1="84" x2="288" y2="84"/><path d="M296 84 l-10 -5 v10 z" fill="#1a3a5c" stroke="none"/>
+            <line x1="414" y1="84" x2="426" y2="84"/><path d="M434 84 l-10 -5 v10 z" fill="#1a3a5c" stroke="none"/>
+            <line x1="552" y1="84" x2="564" y2="84"/><path d="M572 84 l-10 -5 v10 z" fill="#1a3a5c" stroke="none"/>
+          </g>
+          <rect x="100" y="140" width="500" height="60" rx="8" fill="#fdf1e7" stroke="#e8843c" stroke-width="2"/>
+          <text x="350" y="164" font-size="13.5" text-anchor="middle" fill="#b35309" font-weight="bold">判定：3本の平均で評価</text>
+          <text x="350" y="186" font-size="12.5" text-anchor="middle" fill="#6b7785">3回の試験の平均 ≧ 呼び強度　かつ　1回の値 ≧ 呼び強度×0.85</text>
+          <text x="350" y="228" font-size="12.5" text-anchor="middle" fill="#6b7785">どの段階の手順を外しても、正しい品質判定ができなくなる</text>
+        </svg>
+        <figcaption>採取・成形・締固め・養生・試験の各段階に規定がある。この流れを守ることで、はじめて実際のコンクリートの品質を代表する結果が得られる。</figcaption>
+      </figure>
+
+      <h2 id="hantei">合否判定の基準</h2>
+      <p>試験結果はどう評価されるのか、判定の仕組みを整理します。</p>
+      <table class="data">
+        <tr><th>判定項目</th><th>基準</th><th>意味</th></tr>
+        <tr><td>3回の試験の平均</td><td>呼び強度の<strong>100%以上</strong></td><td>全体として所定の強度を満たしているか</td></tr>
+        <tr><td>1回の試験値</td><td>呼び強度の<strong>85%以上</strong></td><td>極端に低い値が出ていないか</td></tr>
+      </table>
+      <p>二重の基準になっているのは、<strong>平均だけでは危険な場合がある</strong>ためです。たとえば3回の値が「120%・120%・60%」なら平均は100%を満たしますが、60%の部分は明らかに問題があります。1回ごとの下限を設けることで、こうした極端なばらつきを検出できる仕組みになっています。</p>
+      <div class="point-box">
+        <span class="label">強度不足が判明したときの手順</span>
+        <p>判定基準を満たさなかった場合、ただちに打ち直しとなるわけではありません。まず<strong>構造体コンクリートからコアを採取</strong>して実際の強度を確認します。供試体の作製・養生に問題があった可能性もあるためです。コア強度が十分であれば構造上問題ないと判断されることもありますが、不足していれば構造安全性の再検討、補強、最悪の場合は撤去・再施工に至ります。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. テストピースは何本採取すればよいですか？</h3>
+      <p>1回の試験につき3本が基本です。採取の頻度は、打込み日ごと・打込み工区ごと、かつコンクリートの量150m³に1回程度が目安とされます。ただしこれは受入れ検査用で、これとは別に構造体コンクリートの強度確認用（現場水中養生・現場封かん養生）の供試体も必要になるため、実際の採取本数はさらに多くなります。</p>
+      <h3>Q2. テストピースの脱型はいつ行いますか？</h3>
+      <p>一般に、成形から16時間以上3日以内に行います。早すぎると供試体が変形し、遅すぎると型枠との付着で表面を傷めるおそれがあるためです。脱型後はただちに所定の養生に移し、乾燥させないよう注意します。脱型のタイミングや養生開始の遅れは、強度の測定値に直接影響します。</p>
+      <h3>Q3. テストピースの上面はなぜ平らに仕上げるのですか？</h3>
+      <p>圧縮試験で荷重が均等にかかるようにするためです。上面が傾いていたり凹凸があったりすると、一部に応力が集中して本来より低い荷重で破壊し、強度を過小評価してしまいます。そのため、試験前にキャッピング（硫黄や研磨による平滑化）を行い、上下面の平行度と平滑さを確保します。この処理を怠ると、正しい強度が測定できません。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

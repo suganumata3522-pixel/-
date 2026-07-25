@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/asshuku-inchou.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/asshuku-inchou.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-02",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-asshuku-inchou.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "なぜ設計でコンクリートの引張強度を無視するのですか？", "acceptedAnswer": {"@type": "Answer", "text": "値が小さくばらつきも大きいため、安全側に見て考慮しないのが原則だからです。引張強度は圧縮の1/10程度しかなく、しかも微細な欠陥の分布に左右されるため、確実に期待できる値とはいえません。曲げを受ける梁では、引張側のコンクリートは早期にひび割れて力を負担しなくなると考え、すべて鉄筋に負担させます。これが鉄筋コンクリートの基本的な設計思想です。"}},
+ {"@type": "Question", "name": "引張強度を計算で推定する式はありますか？", "acceptedAnswer": {"@type": "Answer", "text": "あります。一般に、引張強度は圧縮強度の平方根に比例する形の推定式が用いられます。日本建築学会の規準などでは、コンクリートの割裂引張強度を圧縮強度から推定する式が示されており、ひび割れ幅の検討やせん断耐力の算定などで使われます。ただし推定値であるため、重要な検討では実際に試験を行って確認します。"}},
+ {"@type": "Question", "name": "曲げ強度は引張強度と同じですか？", "acceptedAnswer": {"@type": "Answer", "text": "異なります。曲げ強度（曲げ引張強度）は、角柱供試体を曲げて求める値で、割裂引張強度より2〜3割大きく出るのが一般的です。これは曲げでは断面の縁のごく一部だけが最大応力を受けるため、内部欠陥に当たる確率が低くなるためです。無筋コンクリートの舗装など、曲げが支配的な構造物では曲げ強度が設計の基準に使われます。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">鉄筋コンクリート造（RC造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>圧縮強度と引張強度の関係｜試験方法と出題</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -180,6 +187,69 @@
         <span class="label">あわせて読みたい</span>
         <p>「<a href="inchou-kyoudo.html">引張強度</a>」「<a href="asshuku-wc.html">圧縮強度と水セメント比</a>」「<a href="rc-tetsu-kankei.html">コンクリートと鉄筋の関係</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="hikaku">圧縮と引張の破壊の違い（図解）</h2>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 260" role="img" aria-label="コンクリートの圧縮破壊と引張破壊の違いの図。内部欠陥への応力集中を示す">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">なぜ引張に弱いのか</text>
+          <line x1="350" y1="44" x2="350" y2="230" stroke="#c3ccd6" stroke-width="1.5" stroke-dasharray="6 5"/>
+          <text x="175" y="64" font-size="14.5" text-anchor="middle" fill="#2e7d4f" font-weight="bold">圧縮：欠陥がつぶれる</text>
+          <rect x="105" y="86" width="140" height="90" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2"/>
+          <g fill="#fff" stroke="#9fc0dd" stroke-width="1.5">
+            <ellipse cx="150" cy="120" rx="14" ry="7"/><ellipse cx="200" cy="142" rx="12" ry="6"/>
+          </g>
+          <g stroke="#2e7d4f" stroke-width="4">
+            <line x1="140" y1="70" x2="140" y2="82"/><path d="M140 86 l-6 -10 h12 z" fill="#2e7d4f" stroke="none"/>
+            <line x1="210" y1="70" x2="210" y2="82"/><path d="M210 86 l-6 -10 h12 z" fill="#2e7d4f" stroke="none"/>
+            <line x1="140" y1="192" x2="140" y2="180"/><path d="M140 176 l-6 10 h12 z" fill="#2e7d4f" stroke="none"/>
+            <line x1="210" y1="192" x2="210" y2="180"/><path d="M210 176 l-6 10 h12 z" fill="#2e7d4f" stroke="none"/>
+          </g>
+          <text x="175" y="216" font-size="12.5" text-anchor="middle" fill="#6b7785">空隙がつぶれる方向</text>
+          <text x="175" y="236" font-size="12.5" text-anchor="middle" fill="#2e7d4f" font-weight="bold">→ 大きな力に耐える</text>
+          <text x="525" y="64" font-size="14.5" text-anchor="middle" fill="#c0392b" font-weight="bold">引張：欠陥が広がる</text>
+          <rect x="455" y="86" width="140" height="90" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2"/>
+          <path d="M490 120 L520 118 L545 124 L570 120" fill="none" stroke="#c0392b" stroke-width="3"/>
+          <path d="M470 152 L500 148 L530 155" fill="none" stroke="#c0392b" stroke-width="3"/>
+          <g stroke="#c0392b" stroke-width="4">
+            <line x1="490" y1="82" x2="490" y2="66"/><path d="M490 62 l-6 10 h12 z" fill="#c0392b" stroke="none"/>
+            <line x1="560" y1="82" x2="560" y2="66"/><path d="M560 62 l-6 10 h12 z" fill="#c0392b" stroke="none"/>
+            <line x1="490" y1="180" x2="490" y2="196"/><path d="M490 200 l-6 -10 h12 z" fill="#c0392b" stroke="none"/>
+            <line x1="560" y1="180" x2="560" y2="196"/><path d="M560 200 l-6 -10 h12 z" fill="#c0392b" stroke="none"/>
+          </g>
+          <text x="525" y="216" font-size="12.5" text-anchor="middle" fill="#6b7785">欠陥の先端に応力集中</text>
+          <text x="525" y="236" font-size="12.5" text-anchor="middle" fill="#c0392b" font-weight="bold">→ 小さな力で割れる</text>
+        </svg>
+        <figcaption>圧縮では内部の空隙や微細ひび割れがつぶれる方向に働くが、引張では欠陥の先端に応力が集中して一気に進展する。これが引張に弱い理由。</figcaption>
+      </figure>
+
+      <h2 id="shiken">試験方法の違い</h2>
+      <table class="data">
+        <tr><th></th><th>圧縮強度試験</th><th>割裂引張試験</th></tr>
+        <tr><td>供試体の置き方</td><td>円柱を<strong>立てて</strong>載荷</td><td>円柱を<strong>横に寝かせて</strong>載荷</td></tr>
+        <tr><td>荷重のかけ方</td><td>上下から圧縮</td><td>側面の帯状の範囲を圧縮</td></tr>
+        <tr><td>破壊の様子</td><td>斜めのひび割れ・砕ける</td><td>載荷線に沿って縦に割れる</td></tr>
+        <tr><td>求める式</td><td>σ ＝ P / A</td><td>σt ＝ 2P /（π·d·L）</td></tr>
+        <tr><td>規格</td><td>JIS A 1108</td><td>JIS A 1113</td></tr>
+      </table>
+      <p>割裂引張試験は、円柱を横倒しにして押しつぶすと<strong>載荷方向と直角に引張応力が生じる</strong>という性質を利用しています。直接コンクリートを引っ張るのは、つかむ部分で先に壊れてしまい難しいため、この間接的な方法が標準になっています。</p>
+      <div class="point-box">
+        <span class="label">試験でよく問われるポイント</span>
+        <ul>
+          <li>引張強度は圧縮強度の<strong>約1/10</strong>（1/10〜1/13程度）</li>
+          <li>圧縮強度が高くなるほど、<strong>引張強度の比率はやや小さくなる</strong>傾向</li>
+          <li>割裂引張試験は<strong>円柱を横に寝かせる</strong>（立てるのは圧縮）</li>
+          <li>設計では、コンクリートの引張抵抗は<strong>原則として無視</strong>する</li>
+        </ul>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. なぜ設計でコンクリートの引張強度を無視するのですか？</h3>
+      <p>値が小さくばらつきも大きいため、安全側に見て考慮しないのが原則だからです。引張強度は圧縮の1/10程度しかなく、しかも微細な欠陥の分布に左右されるため、確実に期待できる値とはいえません。曲げを受ける梁では、引張側のコンクリートは早期にひび割れて力を負担しなくなると考え、すべて鉄筋に負担させます。これが鉄筋コンクリートの基本的な設計思想です。</p>
+      <h3>Q2. 引張強度を計算で推定する式はありますか？</h3>
+      <p>あります。一般に、引張強度は圧縮強度の平方根に比例する形の推定式が用いられます。日本建築学会の規準などでは、コンクリートの割裂引張強度を圧縮強度から推定する式が示されており、ひび割れ幅の検討やせん断耐力の算定などで使われます。ただし推定値であるため、重要な検討では実際に試験を行って確認します。</p>
+      <h3>Q3. 曲げ強度は引張強度と同じですか？</h3>
+      <p>異なります。曲げ強度（曲げ引張強度）は、角柱供試体を曲げて求める値で、割裂引張強度より2〜3割大きく出るのが一般的です。これは曲げでは断面の縁のごく一部だけが最大応力を受けるため、内部欠陥に当たる確率が低くなるためです。無筋コンクリートの舗装など、曲げが支配的な構造物では曲げ強度が設計の基準に使われます。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

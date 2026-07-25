@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/sunpou-kouka.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/sunpou-kouka.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-02",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-sunpou-kouka.jpg",
    "author": {
     "@type": "Person",
@@ -114,7 +114,7 @@
       <div class="meta">
         <span class="tag">鉄筋コンクリート造（RC造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>コンクリートの寸法効果｜圧縮強度試験での影響と補正</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -179,6 +179,43 @@
         <span class="label">あわせて読みたい</span>
         <p>「<a href="test-piece.html">テストピース</a>」「<a href="kyoushitai.html">供試体</a>」「<a href="asshuku-wc.html">圧縮強度と水セメント比</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="riyuu">寸法効果が生じる理由（図解）</h2>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 260" role="img" aria-label="供試体が大きいほど内部欠陥を含む確率が高くなり強度が低く出ることを示す図">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">大きいほど弱点を含む確率が高い</text>
+          <text x="180" y="62" font-size="14" text-anchor="middle" fill="#1a3a5c" font-weight="bold">小さい供試体（φ100）</text>
+          <rect x="130" y="80" width="100" height="120" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2"/>
+          <g fill="#c0392b"><circle cx="165" cy="130" r="5"/></g>
+          <text x="180" y="222" font-size="12.5" text-anchor="middle" fill="#6b7785">弱点が少ない</text>
+          <text x="180" y="242" font-size="12.5" text-anchor="middle" fill="#2e7d4f" font-weight="bold">強度は高めに出る</text>
+          <text x="500" y="62" font-size="14" text-anchor="middle" fill="#1a3a5c" font-weight="bold">大きい供試体（φ150）</text>
+          <rect x="425" y="66" width="150" height="150" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2"/>
+          <g fill="#c0392b">
+            <circle cx="465" cy="102" r="5"/><circle cx="520" cy="126" r="6"/><circle cx="490" cy="170" r="5"/>
+            <circle cx="545" cy="188" r="5"/><circle cx="450" cy="152" r="4"/>
+          </g>
+          <text x="500" y="238" font-size="12.5" text-anchor="middle" fill="#6b7785">弱点を含む確率が高い</text>
+          <text x="500" y="256" font-size="12.5" text-anchor="middle" fill="#c0392b" font-weight="bold">強度は低めに出る</text>
+          <text x="320" y="140" font-size="14" fill="#7d95ab">→</text>
+        </svg>
+        <figcaption>コンクリート内部には微細な空隙や欠陥が分布している。供試体が大きいほど、破壊の起点となる弱点を含む確率が高くなり、測定される強度は低めになる。</figcaption>
+      </figure>
+      <p>この現象は「最弱リンク説」で説明されます。鎖の強さが最も弱い輪で決まるように、コンクリートの強度も内部で<strong>もっとも弱い箇所</strong>で決まります。体積が大きいほど、そうした弱点が含まれる確率が高くなるため、平均的な強度は低くなるのです。</p>
+
+      <h2 id="hosei">実務での扱い方</h2>
+      <table class="data">
+        <tr><th>場面</th><th>扱い方</th></tr>
+        <tr><td>同一工事内の品質管理</td><td>供試体寸法を<strong>統一</strong>する。異なる寸法の結果を混ぜて評価しない</td></tr>
+        <tr><td>寸法が異なる結果を比較する</td><td>寸法による補正係数を用いる。またはあくまで参考値として扱う</td></tr>
+        <tr><td>構造体からのコア採取</td><td>コア径・長さ径比による補正を行う（JIS A 1107）</td></tr>
+        <tr><td>粗骨材が大きい場合</td><td>直径が粗骨材最大寸法の3倍以上となる寸法を選ぶ</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">構造体はもっと大きい</span>
+        <p>寸法効果を突き詰めると、「φ100の供試体で測った強度は、実際の柱や梁より高めなのでは」という疑問が生じます。実際、体積が桁違いに大きい構造体の強度は、供試体より低くなる傾向があります。これは、供試体の強度と構造体の強度が異なる理由の一つでもあります。ただし設計ではこうした差を含めて安全率が設定されており、供試体強度を基準とする体系全体で整合が取られています。</p>
+      </div>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

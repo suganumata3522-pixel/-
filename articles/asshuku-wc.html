@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/asshuku-wc.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/asshuku-wc.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-02",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-asshuku-wc.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "水セメント比を小さくすれば、いくらでも強度は上がりますか？", "acceptedAnswer": {"@type": "Answer", "text": "限界があります。W/Cを下げすぎると、セメントの水和に必要な水が不足して未反応のセメントが残り、それ以上強度が伸びなくなります。理論的には25%程度が水和に必要な最低量とされますが、実際にはワーカビリティが確保できず施工が不可能になります。W/C30%を下回る超高強度コンクリートでは、高性能AE減水材やシリカフュームを使って流動性を確保します。"}},
+ {"@type": "Question", "name": "同じ水セメント比なら強度は必ず同じですか？", "acceptedAnswer": {"@type": "Answer", "text": "おおむね同じになりますが、完全に同一ではありません。セメントの種類（早強・高炉など）、骨材の種類と品質、養生条件、材齢によって強度は変わります。特にセメントの種類による差は大きく、同じW/Cでも早強と高炉B種では材齢28日の強度に差が出ます。水セメント比説はあくまで「主要因は水セメント比」という原則で、他の条件を無視できるわけではありません。"}},
+ {"@type": "Question", "name": "水セメント比の上限が定められているのはなぜですか？", "acceptedAnswer": {"@type": "Answer", "text": "耐久性を確保するためです。強度だけを見ればW/Cが多少大きくても設計基準強度を満たせる場合がありますが、W/Cが大きいと組織が粗くなり、中性化・塩害・凍害の進行が早まります。そのためJASS5では、計画供用期間に応じてW/Cの上限（一般に65%以下、長期の場合はより厳しい値）が定められています。強度と耐久性の両方から判断する必要があります。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">鉄筋コンクリート造（RC造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>圧縮強度と水セメント比の関係｜計算式</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -177,6 +184,62 @@
         <span class="label">あわせて読みたい</span>
         <p>「<a href="mizu-cement-hi.html">水セメント比</a>」「<a href="asshuku-inchou.html">圧縮強度と引張強度</a>」「<a href="koukyoudo-concrete.html">高強度コンクリート</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="graph">水セメント比と強度の関係（図解）</h2>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 280" role="img" aria-label="水セメント比が小さいほど圧縮強度が高くなることを示すグラフ">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">水セメント比が小さいほど強度は高い</text>
+          <line x1="110" y1="230" x2="640" y2="230" stroke="#1a3a5c" stroke-width="2"/>
+          <line x1="110" y1="230" x2="110" y2="56" stroke="#1a3a5c" stroke-width="2"/>
+          <text x="560" y="256" font-size="13" fill="#1a3a5c">水セメント比 W/C →</text>
+          <text x="86" y="70" font-size="13" text-anchor="end" fill="#1a3a5c">圧縮</text>
+          <text x="86" y="88" font-size="13" text-anchor="end" fill="#1a3a5c">強度</text>
+          <path d="M130 74 Q250 130 380 172 Q500 204 620 218" fill="none" stroke="#e8843c" stroke-width="4.5"/>
+          <g stroke="#9fc0dd" stroke-width="1.5" stroke-dasharray="5 4">
+            <line x1="220" y1="112" x2="220" y2="230"/><line x1="380" y1="172" x2="380" y2="230"/><line x1="520" y1="208" x2="520" y2="230"/>
+          </g>
+          <g font-size="12.5" fill="#6b7785" text-anchor="middle">
+            <text x="220" y="250">40%</text><text x="380" y="250">55%</text><text x="520" y="250">65%</text>
+          </g>
+          <circle cx="220" cy="112" r="6" fill="#c0392b"/><circle cx="380" cy="172" r="6" fill="#c0392b"/>
+          <text x="248" y="104" font-size="12.5" fill="#c0392b" font-weight="bold">高強度</text>
+          <text x="406" y="166" font-size="12.5" fill="#6b7785">一般的な範囲</text>
+          <text x="560" y="200" font-size="12.5" fill="#6b7785">耐久性も低下</text>
+          <text x="350" y="274" font-size="13" text-anchor="middle" fill="#6b7785">余剰水が空隙として残るため、水が多いほど組織が粗くなる</text>
+        </svg>
+        <figcaption>水セメント比が小さいほど組織が緻密になり強度が上がる。JASS5では耐久性の観点から一般に65%以下（水密性が必要な場合は50%以下）と定められている。</figcaption>
+      </figure>
+
+      <h2 id="keisanrei">配合設計での使い方（計算例）</h2>
+      <p>目標の強度から必要な水セメント比を逆算し、単位水量から単位セメント量を求める流れを追ってみましょう。</p>
+      <p><strong>条件</strong>：調合管理強度 30N/mm²、材料から定まる定数 A＝21、B＝−12、単位水量 175kg/m³</p>
+      <div class="formula">
+        <strong>① セメント水比を求める</strong><br>
+        F ＝ A×(C/W) ＋ B より　30 ＝ 21×(C/W) − 12<br>
+        C/W ＝ (30 ＋ 12) ÷ 21 ＝ <strong>2.0</strong>
+      </div>
+      <div class="formula">
+        <strong>② 水セメント比に直す</strong><br>
+        W/C ＝ 1 ÷ 2.0 ＝ <strong>0.50 ＝ 50%</strong>
+      </div>
+      <div class="formula">
+        <strong>③ 単位セメント量を求める</strong><br>
+        C ＝ W ÷ (W/C) ＝ 175 ÷ 0.50 ＝ <strong>350 kg/m³</strong>
+      </div>
+      <p>この流れが配合設計の骨格です。ここで求めたW/Cが、耐久性から定まる上限値（一般に65%以下、水密コンクリートでは50%以下など）を超えていないかも確認します。<strong>強度から決まるW/Cと、耐久性から決まるW/Cの、小さいほう（厳しいほう）を採用</strong>するのが原則です。</p>
+      <div class="point-box">
+        <span class="label">定数A・Bは材料ごとに違う</span>
+        <p>式の定数A・Bは、使用するセメント・骨材・混和剤の組み合わせによって変わります。生コン工場では、実際に使う材料で<strong>試験練り</strong>を行い、複数のW/Cで供試体を作って強度を測定し、そのデータから自社の定数を求めています。教科書の数値をそのまま使うのではなく、材料ごとの実測データに基づく点が実務のポイントです。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 水セメント比を小さくすれば、いくらでも強度は上がりますか？</h3>
+      <p>限界があります。W/Cを下げすぎると、セメントの水和に必要な水が不足して未反応のセメントが残り、それ以上強度が伸びなくなります。理論的には25%程度が水和に必要な最低量とされますが、実際にはワーカビリティが確保できず施工が不可能になります。W/C30%を下回る超高強度コンクリートでは、高性能AE減水材やシリカフュームを使って流動性を確保します。</p>
+      <h3>Q2. 同じ水セメント比なら強度は必ず同じですか？</h3>
+      <p>おおむね同じになりますが、完全に同一ではありません。セメントの種類（早強・高炉など）、骨材の種類と品質、養生条件、材齢によって強度は変わります。特にセメントの種類による差は大きく、同じW/Cでも早強と高炉B種では材齢28日の強度に差が出ます。水セメント比説はあくまで「主要因は水セメント比」という原則で、他の条件を無視できるわけではありません。</p>
+      <h3>Q3. 水セメント比の上限が定められているのはなぜですか？</h3>
+      <p>耐久性を確保するためです。強度だけを見ればW/Cが多少大きくても設計基準強度を満たせる場合がありますが、W/Cが大きいと組織が粗くなり、中性化・塩害・凍害の進行が早まります。そのためJASS5では、計画供用期間に応じてW/Cの上限（一般に65%以下、長期の場合はより厳しい値）が定められています。強度と耐久性の両方から判断する必要があります。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>
