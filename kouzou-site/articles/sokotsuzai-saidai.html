@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/sokotsuzai-saidai.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/sokotsuzai-saidai.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-sokotsuzai-saidai.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "粗骨材最大寸法25mmと20mmはどう使い分けますか？", "acceptedAnswer": {"@type": "Answer", "text": "配筋の密度と部材寸法で決まります。制限を満たすなら25mmのほうが経済的です（ペースト量が減るため）。ただし配筋が密な部材や、部材寸法が小さい場合は20mmを選びます。実務では、生コン工場で常時扱っている寸法が20mmか25mmかによって決まることも多く、事前確認が必要です。"}},
+ {"@type": "Question", "name": "最大寸法が大きいと強度は上がりますか？", "acceptedAnswer": {"@type": "Answer", "text": "むしろ、やや下がる傾向があります。粒が大きいほど骨材とセメントペーストの界面（遷移帯）が弱点になりやすく、同じ水セメント比なら強度は若干低くなります。特に高強度コンクリートでは、最大寸法を小さくしたほうが有利です。最大寸法を大きくする利点は強度ではなく、ペースト量の削減による経済性・低発熱・低収縮にあります。"}},
+ {"@type": "Question", "name": "鉄筋の最小あきはどう決まりますか？", "acceptedAnswer": {"@type": "Answer", "text": "鉄筋径・粗骨材最大寸法・25mmのうち最大の値以上とするのが原則です（部位により規定が異なります）。つまり、粗骨材最大寸法と鉄筋のあきは互いに制約し合う関係にあります。配筋設計の段階で使用するコンクリートの骨材寸法を想定しておかないと、後から骨材寸法の変更が必要になることがあります。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">鉄筋コンクリート造（RC造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>粗骨材の最大寸法｜25mmの根拠とかぶり厚さ</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -178,6 +185,65 @@
         <span class="label">実務のワンポイント</span>
         <p>構造計算書のチェックでは断面や配筋ばかり見られがちですが、私は柱梁接合部の配筋詳細図を描く際に、鉄筋あきと粗骨材の最大寸法の整合を必ず逆算で確認します。せいの決まったあとに配筋を詰め込んで、実は骨材が通らない狭あきになっているという図面上の見落としを何度も経験しているためです。</p>
       </div>
+
+      <h2 id="seigen-zukai">3つの制限（図解）</h2>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 280" role="img" aria-label="粗骨材最大寸法の3つの制限を示す図。鉄筋のあき・部材寸法・かぶり厚さ">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">粗骨材が通れる条件</text>
+          <rect x="180" y="52" width="340" height="170" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2.5"/>
+          <g fill="#7d95ab">
+            <circle cx="230" cy="96" r="9"/><circle cx="300" cy="96" r="9"/><circle cx="370" cy="96" r="9"/><circle cx="440" cy="96" r="9"/>
+            <circle cx="230" cy="180" r="9"/><circle cx="300" cy="180" r="9"/><circle cx="370" cy="180" r="9"/><circle cx="440" cy="180" r="9"/>
+          </g>
+          <g stroke="#c0392b" stroke-width="2">
+            <line x1="239" y1="80" x2="291" y2="80"/><line x1="239" y1="74" x2="239" y2="86"/><line x1="291" y1="74" x2="291" y2="86"/>
+          </g>
+          <text x="265" y="68" font-size="12.5" text-anchor="middle" fill="#c0392b" font-weight="bold">① 鉄筋のあき</text>
+          <g stroke="#2e7d4f" stroke-width="2">
+            <line x1="196" y1="96" x2="221" y2="96"/><line x1="196" y1="90" x2="196" y2="102"/>
+          </g>
+          <text x="150" y="100" font-size="12.5" text-anchor="end" fill="#2e7d4f" font-weight="bold">③ かぶり</text>
+          <g stroke="#e8843c" stroke-width="2">
+            <line x1="180" y1="242" x2="520" y2="242"/><line x1="180" y1="236" x2="180" y2="248"/><line x1="520" y1="236" x2="520" y2="248"/>
+          </g>
+          <text x="350" y="264" font-size="12.5" text-anchor="middle" fill="#b35309" font-weight="bold">② 部材の最小寸法</text>
+          <circle cx="335" cy="138" r="20" fill="#b9a888" stroke="#8a7355" stroke-width="2"/>
+          <text x="335" y="143" font-size="12" text-anchor="middle" fill="#fff" font-weight="bold">骨材</text>
+          <text x="560" y="120" font-size="13" fill="#1a3a5c" font-weight="bold">いずれの</text>
+          <text x="560" y="140" font-size="13" fill="#1a3a5c" font-weight="bold">すき間も</text>
+          <text x="560" y="160" font-size="13" fill="#1a3a5c" font-weight="bold">通れること</text>
+        </svg>
+        <figcaption>粗骨材は、鉄筋のあき・部材の最小寸法・かぶり厚さのいずれの制限も満たす大きさでなければ、すみずみまで充填できない。</figcaption>
+      </figure>
+      <table class="data">
+        <tr><th>制限</th><th>条件</th></tr>
+        <tr><td>① 鉄筋の最小あき</td><td>その<strong>3/4以下</strong></td></tr>
+        <tr><td>② 部材の最小寸法</td><td>その<strong>1/5以下</strong></td></tr>
+        <tr><td>③ かぶり厚さ</td><td>それ<strong>以下</strong>（かぶりを通れること）</td></tr>
+      </table>
+
+      <h2 id="keisanrei">計算例：どの寸法を選ぶか</h2>
+      <p><strong>条件</strong>：梁の幅400mm、主筋D25を6本配置、鉄筋のあき40mm、かぶり厚さ40mm</p>
+      <table class="data">
+        <tr><th>制限</th><th>計算</th><th>上限値</th></tr>
+        <tr><td>鉄筋のあき</td><td>40 × 3/4</td><td>30 mm</td></tr>
+        <tr><td>部材の最小寸法</td><td>400 × 1/5</td><td>80 mm</td></tr>
+        <tr><td>かぶり厚さ</td><td>40</td><td>40 mm</td></tr>
+      </table>
+      <p>もっとも厳しいのは鉄筋のあきによる<strong>30mm</strong>です。したがって、この部材には<strong>粗骨材最大寸法25mm</strong>のコンクリートを選定します（20mmでも可）。このように、3つの制限のうち<strong>もっとも小さい値</strong>が支配することになります。</p>
+      <div class="point-box">
+        <span class="label">配筋が密になると骨材が入らない</span>
+        <p>高強度の柱や梁では主筋が太く本数も多くなり、鉄筋のあきが狭くなります。この場合、粗骨材最大寸法を小さくする（20mm→13mmなど）ことで対応しますが、骨材が小さくなるとペースト量が増えて収縮・発熱が大きくなります。<strong>配筋の密度と骨材寸法はトレードオフ</strong>の関係にあり、構造設計と材料設計の両面からの調整が必要になります。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 粗骨材最大寸法25mmと20mmはどう使い分けますか？</h3>
+      <p>配筋の密度と部材寸法で決まります。制限を満たすなら25mmのほうが経済的です（ペースト量が減るため）。ただし配筋が密な部材や、部材寸法が小さい場合は20mmを選びます。実務では、生コン工場で常時扱っている寸法が20mmか25mmかによって決まることも多く、事前確認が必要です。</p>
+      <h3>Q2. 最大寸法が大きいと強度は上がりますか？</h3>
+      <p>むしろ、やや下がる傾向があります。粒が大きいほど骨材とセメントペーストの界面（遷移帯）が弱点になりやすく、同じ水セメント比なら強度は若干低くなります。特に高強度コンクリートでは、最大寸法を小さくしたほうが有利です。最大寸法を大きくする利点は強度ではなく、ペースト量の削減による経済性・低発熱・低収縮にあります。</p>
+      <h3>Q3. 鉄筋の最小あきはどう決まりますか？</h3>
+      <p>鉄筋径・粗骨材最大寸法・25mmのうち最大の値以上とするのが原則です（部位により規定が異なります）。つまり、粗骨材最大寸法と鉄筋のあきは互いに制約し合う関係にあります。配筋設計の段階で使用するコンクリートの骨材寸法を想定しておかないと、後から骨材寸法の変更が必要になることがあります。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

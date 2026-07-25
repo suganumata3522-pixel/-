@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/saikotsuzai.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/saikotsuzai.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-saikotsuzai.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "砕砂と天然砂はどちらが良いのですか？", "acceptedAnswer": {"@type": "Answer", "text": "一長一短です。天然砂は粒が丸く流動性を確保しやすい反面、良質なものが枯渇しつつあり採取規制も進んでいます。砕砂は角張っていてセメントペーストとの付着が良く強度面で有利ですが、粒形や粒度のばらつきが大きく、微粒分も多くなりがちで単位水量が増える傾向があります。実務では両者を混合して使うことが多くなっています。"}},
+ {"@type": "Question", "name": "粗粒率が規格を外れるとどうなりますか？", "acceptedAnswer": {"@type": "Answer", "text": "配合の調整が必要になります。粗粒率が小さい（細かい）砂は表面積が大きく、必要な単位水量が増えて乾燥収縮が大きくなります。逆に大きい（粗い）砂はワーカビリティが低下し、材料分離しやすくなります。JISでは粗粒率の変動が±0.20を超える場合、配合を修正することとされています。"}},
+ {"@type": "Question", "name": "細骨材率（s/a）とは何ですか？", "acceptedAnswer": {"@type": "Answer", "text": "骨材の絶対容積のうち、細骨材が占める割合です。一般に40〜50%程度で調整します。この値を大きくすると砂が増え、ワーカビリティは良くなりますが単位水量が増えて収縮が大きくなります。小さくすると経済的ですが、ざらついて施工しにくく材料分離しやすくなります。粗骨材の最大寸法やスランプに応じて適切な値を選定します。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">鉄筋コンクリート造（RC造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>細骨材とは？粗骨材との違いと配合での役割</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -190,6 +197,65 @@
         <span class="label">実務のワンポイント</span>
         <p>配合計画書をチェックするとき、細骨材率の数値だけでなく、実際に使う砂が天然砂か砕砂かまで確認するようにしています。同じs/aの数値でも、砂の種類によって必要な単位水量の感触が変わってくるため、数字の裏側を見ないと判断を誤りやすい項目です。</p>
       </div>
+
+      <h2 id="ryuudo">粒度と粗粒率（図解）</h2>
+      <p>細骨材で重要なのは、粒の「大きさの分布」です。同じ砂でも粒度によって性質が変わります。</p>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 260" role="img" aria-label="細骨材の粒度分布の違いを示す図。粒度が良いものは大小の粒がバランスよく混ざっている">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">粒度が良い砂と悪い砂</text>
+          <text x="175" y="60" font-size="14" text-anchor="middle" fill="#2e7d4f" font-weight="bold">粒度が良い（大小が混ざる）</text>
+          <rect x="80" y="76" width="190" height="90" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2"/>
+          <g fill="#b9a888">
+            <circle cx="110" cy="100" r="11"/><circle cx="160" cy="112" r="9"/><circle cx="210" cy="98" r="12"/>
+            <circle cx="248" cy="126" r="8"/><circle cx="122" cy="140" r="10"/><circle cx="185" cy="146" r="9"/>
+            <circle cx="136" cy="118" r="5"/><circle cx="228" cy="150" r="6"/><circle cx="96" cy="122" r="5"/>
+            <circle cx="176" cy="88" r="5"/><circle cx="252" cy="98" r="5"/><circle cx="150" cy="158" r="4"/>
+            <circle cx="205" cy="122" r="4"/><circle cx="240" cy="110" r="4"/>
+          </g>
+          <text x="175" y="192" font-size="12.5" text-anchor="middle" fill="#2e7d4f">すき間が小さい</text>
+          <text x="175" y="212" font-size="12.5" text-anchor="middle" fill="#6b7785">必要なペーストが少なくて済む</text>
+          <text x="175" y="232" font-size="12.5" text-anchor="middle" fill="#6b7785">→ 経済的で施工性も良い</text>
+          <text x="525" y="60" font-size="14" text-anchor="middle" fill="#c0392b" font-weight="bold">粒度が悪い（大きさが揃う）</text>
+          <rect x="430" y="76" width="190" height="90" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2"/>
+          <g fill="#b9a888">
+            <circle cx="460" cy="100" r="11"/><circle cx="505" cy="100" r="11"/><circle cx="550" cy="100" r="11"/>
+            <circle cx="595" cy="100" r="11"/><circle cx="460" cy="142" r="11"/><circle cx="505" cy="142" r="11"/>
+            <circle cx="550" cy="142" r="11"/><circle cx="595" cy="142" r="11"/>
+          </g>
+          <text x="525" y="192" font-size="12.5" text-anchor="middle" fill="#c0392b">すき間が大きい</text>
+          <text x="525" y="212" font-size="12.5" text-anchor="middle" fill="#6b7785">埋めるペーストが多く必要</text>
+          <text x="525" y="232" font-size="12.5" text-anchor="middle" fill="#6b7785">→ 不経済・材料分離しやすい</text>
+        </svg>
+        <figcaption>大小の粒がバランスよく混ざっているほど、粒どうしのすき間が小さくなり、埋めるためのセメントペーストが少なくて済む。</figcaption>
+      </figure>
+      <div class="formula">
+        粗粒率（FM）＝ 各ふるいにとどまる質量百分率の合計 ÷ 100
+        <span class="note">細骨材のFMは2.3〜3.1程度が一般的。値が大きいほど粗い砂</span>
+      </div>
+      <p><strong>粗粒率（FM：Fineness Modulus）</strong>は、粒度を1つの数値で表す指標です。80mm・40mm・20mm・10mm・5mm・2.5mm・1.2mm・0.6mm・0.3mm・0.15mmの各ふるいにとどまった質量百分率を合計し、100で割って求めます。細骨材では2.3〜3.1程度が標準で、この範囲を外れると配合の調整が必要になります。</p>
+
+      <h2 id="hinshitsu">細骨材の品質で問題になる項目</h2>
+      <table class="data">
+        <tr><th>項目</th><th>問題</th><th>対策・規定</th></tr>
+        <tr><td><strong>塩化物量</strong></td><td>海砂に含まれる塩分が鉄筋を腐食させる</td><td>塩化物イオン量0.04%以下（NaCl換算）に除塩</td></tr>
+        <tr><td><strong>微粒分（0.075mm以下）</strong></td><td>単位水量が増え、乾燥収縮が大きくなる</td><td>天然砂3%以下、砕砂は用途により7〜9%以下</td></tr>
+        <tr><td><strong>有機不純物</strong></td><td>凝結を阻害し強度が出ない</td><td>有機不純物試験で確認</td></tr>
+        <tr><td><strong>アルカリ骨材反応性</strong></td><td>膨張してひび割れる</td><td>反応性の試験、抑制対策の実施</td></tr>
+        <tr><td><strong>粘土塊</strong></td><td>強度・耐久性の低下</td><td>1.0%以下</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">海砂の除塩がなぜ重要か</span>
+        <p>1970〜80年代、除塩が不十分な海砂を使ったコンクリートで鉄筋が早期に腐食し、ひび割れや剥落が生じる被害が各地で発生しました。これを受けて塩化物量の規制が強化され、現在は生コン工場で厳格に管理されています。細骨材の品質は、強度よりも<strong>建物の寿命</strong>に直結する要素だという教訓です。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 砕砂と天然砂はどちらが良いのですか？</h3>
+      <p>一長一短です。天然砂は粒が丸く流動性を確保しやすい反面、良質なものが枯渇しつつあり採取規制も進んでいます。砕砂は角張っていてセメントペーストとの付着が良く強度面で有利ですが、粒形や粒度のばらつきが大きく、微粒分も多くなりがちで単位水量が増える傾向があります。実務では両者を混合して使うことが多くなっています。</p>
+      <h3>Q2. 粗粒率が規格を外れるとどうなりますか？</h3>
+      <p>配合の調整が必要になります。粗粒率が小さい（細かい）砂は表面積が大きく、必要な単位水量が増えて乾燥収縮が大きくなります。逆に大きい（粗い）砂はワーカビリティが低下し、材料分離しやすくなります。JISでは粗粒率の変動が±0.20を超える場合、配合を修正することとされています。</p>
+      <h3>Q3. 細骨材率（s/a）とは何ですか？</h3>
+      <p>骨材の絶対容積のうち、細骨材が占める割合です。一般に40〜50%程度で調整します。この値を大きくすると砂が増え、ワーカビリティは良くなりますが単位水量が増えて収縮が大きくなります。小さくすると経済的ですが、ざらついて施工しにくく材料分離しやすくなります。粗骨材の最大寸法やスランプに応じて適切な値を選定します。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>
