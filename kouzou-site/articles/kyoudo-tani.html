@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/kyoudo-tani.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/kyoudo-tani.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-kyoudo-tani.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "なぜコンクリートの強度は圧縮強度で表すのですか？", "acceptedAnswer": {"@type": "Answer", "text": "コンクリートが実際に力を発揮するのが圧縮だからです。引張強度は圧縮の1/10程度しかなく、設計では原則として無視して鉄筋に負担させます。そのため、コンクリートの品質を代表する指標として圧縮強度が用いられ、設計基準強度Fcも圧縮強度で定義されています。引張強度が必要な検討では、圧縮強度から推定する式が使われます。"}},
+ {"@type": "Question", "name": "Fc21とFc24ではどのくらい違うのですか？", "acceptedAnswer": {"@type": "Answer", "text": "設計基準強度が3N/mm²、割合にして約14%の差です。許容応力度に換算すると、長期許容圧縮応力度が7.0から8.0N/mm²に上がります。同じ軸力なら断面を約12%小さくできる計算です。ただしヤング係数は強度の平方根程度でしか増えないため、剛性（変形のしにくさ）はそこまで大きく変わりません。"}},
+ {"@type": "Question", "name": "生コンの「呼び強度」も同じ単位ですか？", "acceptedAnswer": {"@type": "Answer", "text": "同じN/mm²です。呼び強度は生コンを発注する際に指定する強度で、18・21・24・27・30…といった区切りの値が用意されています。設計基準強度Fcに耐久性の要求と構造体強度補正値を加味して決まるため、Fcと呼び強度は必ずしも同じ数値になりません。たとえばFc24でも、補正値3を加えて呼び強度27を発注する、といったことが起こります。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">鉄筋コンクリート造（RC造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>コンクリートの強度の単位｜N/mm²・Fc・換算</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -184,6 +191,62 @@
         <span class="label">実務のワンポイント</span>
         <p>既存建物の古い構造図を読み解くとき、kgf/cm²表記の数値をそのままN/mm²と勘違いしそうになる場面が何度もありました。若手にチェックを頼むときは、まず単位系がどちらなのかを声に出して確認させるようにしています。</p>
       </div>
+
+      <h2 id="kigou">強度記号の関係（図解）</h2>
+      <p>Fc・Fq・Fd と似た記号が並ぶため、どれがどの段階の強度なのかを整理しておきましょう。</p>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 270" role="img" aria-label="設計基準強度Fc・耐久設計基準強度Fd・品質基準強度Fq・調合管理強度の関係図">
+          <text x="350" y="24" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">強度記号はどの段階の値か</text>
+          <rect x="50" y="52" width="200" height="56" rx="8" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2"/>
+          <text x="150" y="76" font-size="14" text-anchor="middle" fill="#1a3a5c" font-weight="bold">Fc（設計基準強度）</text>
+          <text x="150" y="96" font-size="11.5" text-anchor="middle" fill="#6b7785">構造計算の前提</text>
+          <rect x="290" y="52" width="200" height="56" rx="8" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2"/>
+          <text x="390" y="76" font-size="14" text-anchor="middle" fill="#1a3a5c" font-weight="bold">Fd（耐久設計基準強度）</text>
+          <text x="390" y="96" font-size="11.5" text-anchor="middle" fill="#6b7785">耐久性から必要な値</text>
+          <text x="530" y="86" font-size="13.5" fill="#7d95ab">大きいほう</text>
+          <g stroke="#1a3a5c" stroke-width="2">
+            <line x1="150" y1="108" x2="150" y2="124"/><line x1="390" y1="108" x2="390" y2="124"/>
+            <line x1="150" y1="124" x2="390" y2="124"/><line x1="270" y1="124" x2="270" y2="140"/>
+            <path d="M270 148 l-7 -14 h14 z" fill="#1a3a5c" stroke="none"/>
+          </g>
+          <rect x="170" y="150" width="200" height="52" rx="8" fill="#dce9f5" stroke="#1a3a5c" stroke-width="2"/>
+          <text x="270" y="172" font-size="14" text-anchor="middle" fill="#1a3a5c" font-weight="bold">Fq（品質基準強度）</text>
+          <text x="270" y="192" font-size="11.5" text-anchor="middle" fill="#6b7785">構造体に確保すべき値</text>
+          <text x="400" y="180" font-size="15" fill="#c0392b" font-weight="bold">＋ 補正値</text>
+          <g stroke="#c0392b" stroke-width="2">
+            <line x1="480" y1="176" x2="510" y2="176"/><path d="M518 176 l-12 -6 v12 z" fill="#c0392b" stroke="none"/>
+          </g>
+          <rect x="520" y="150" width="150" height="52" rx="8" fill="#e8843c"/>
+          <text x="595" y="172" font-size="13.5" text-anchor="middle" fill="#fff" font-weight="bold">調合管理強度</text>
+          <text x="595" y="192" font-size="11.5" text-anchor="middle" fill="#fff">発注する強度</text>
+          <text x="350" y="240" font-size="13" text-anchor="middle" fill="#6b7785">図面に書くのはFc、生コンに発注するのは呼び強度（調合管理強度に基づく）</text>
+          <text x="350" y="260" font-size="12.5" text-anchor="middle" fill="#6b7785">単位はすべて N/mm² で共通</text>
+        </svg>
+        <figcaption>Fc（構造計算）とFd（耐久性）の大きいほうがFq。これに構造体強度補正値を加えたものが調合管理強度になる。</figcaption>
+      </figure>
+
+      <h2 id="kansan">単位の換算と数値の感覚</h2>
+      <p>古い図面や海外資料では別の単位が使われていることがあります。換算表を持っておくと読み解きに便利です。</p>
+      <table class="data">
+        <tr><th>単位</th><th>N/mm²への換算</th><th>使われる場面</th></tr>
+        <tr><td>MPa（メガパスカル）</td><td>1 MPa ＝ <strong>1 N/mm²</strong></td><td>土木分野・海外規格。まったく同じ大きさ</td></tr>
+        <tr><td>kgf/cm²</td><td>1 kgf/cm² ≒ <strong>0.098 N/mm²</strong></td><td>1990年代以前の図面。おおよそ1/10</td></tr>
+        <tr><td>kN/m²</td><td>1,000 kN/m² ＝ <strong>1 N/mm²</strong></td><td>地耐力・荷重など面圧の表現</td></tr>
+      </table>
+      <p>旧単位の<strong>kgf/cm²は、おおよそ10倍すればN/mm²に近い値</strong>になります。たとえば旧図面の「210kgf/cm²」は、現在のFc21に相当します。実際は1kgf＝9.8Nなので厳密には20.6N/mm²ですが、規格の呼び値としてFc21が対応します。</p>
+      <div class="point-box">
+        <span class="label">数値の感覚をつかむ</span>
+        <p>Fc24のコンクリートは「1mm²あたり24N＝約2.4kgに耐える」ということです。1cm²（100mm²）なら240kg。手のひらサイズ（10cm×10cm＝1万mm²）では24トンに耐える計算になります。一方、鉄筋（SD345）は345N/mm²と14倍以上。この差が「圧縮はコンクリート、引張は鉄筋」という役割分担の背景にあります。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. なぜコンクリートの強度は圧縮強度で表すのですか？</h3>
+      <p>コンクリートが実際に力を発揮するのが圧縮だからです。引張強度は圧縮の1/10程度しかなく、設計では原則として無視して鉄筋に負担させます。そのため、コンクリートの品質を代表する指標として圧縮強度が用いられ、設計基準強度Fcも圧縮強度で定義されています。引張強度が必要な検討では、圧縮強度から推定する式が使われます。</p>
+      <h3>Q2. Fc21とFc24ではどのくらい違うのですか？</h3>
+      <p>設計基準強度が3N/mm²、割合にして約14%の差です。許容応力度に換算すると、長期許容圧縮応力度が7.0から8.0N/mm²に上がります。同じ軸力なら断面を約12%小さくできる計算です。ただしヤング係数は強度の平方根程度でしか増えないため、剛性（変形のしにくさ）はそこまで大きく変わりません。</p>
+      <h3>Q3. 生コンの「呼び強度」も同じ単位ですか？</h3>
+      <p>同じN/mm²です。呼び強度は生コンを発注する際に指定する強度で、18・21・24・27・30…といった区切りの値が用意されています。設計基準強度Fcに耐久性の要求と構造体強度補正値を加味して決まるため、Fcと呼び強度は必ずしも同じ数値になりません。たとえばFc24でも、補正値3を加えて呼び強度27を発注する、といったことが起こります。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

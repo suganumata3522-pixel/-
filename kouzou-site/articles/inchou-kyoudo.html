@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/inchou-kyoudo.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/inchou-kyoudo.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-02",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-inchou-kyoudo.jpg",
    "author": {
     "@type": "Person",
@@ -114,7 +114,7 @@
       <div class="meta">
         <span class="tag">鉄筋コンクリート造（RC造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>コンクリートの引張強度｜基準・計算式と試験</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -190,6 +190,61 @@
         <span class="label">あわせて読みたい</span>
         <p>「<a href="asshuku-inchou.html">圧縮強度と引張強度の関係</a>」「<a href="rc-tetsu-kankei.html">コンクリートと鉄筋の関係</a>」「<a href="concrete-jakuten.html">コンクリートの弱点</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="kakuretsu">割裂引張試験の仕組み（図解）</h2>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 260" role="img" aria-label="割裂引張試験の図解。円柱を横に寝かせて圧縮すると直角方向に引張応力が生じて割れる">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">割裂引張試験：押して引張強度を測る</text>
+          <rect x="180" y="66" width="340" height="14" fill="#7d95ab"/>
+          <text x="560" y="78" font-size="12.5" fill="#6b7785">載荷板</text>
+          <ellipse cx="350" cy="150" rx="110" ry="62" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2.5"/>
+          <text x="350" y="196" font-size="12.5" text-anchor="middle" fill="#6b7785">円柱供試体（横倒し）</text>
+          <rect x="180" y="220" width="340" height="14" fill="#7d95ab"/>
+          <g stroke="#c0392b" stroke-width="5">
+            <line x1="350" y1="40" x2="350" y2="60"/><path d="M350 66 l-8 -14 h16 z" fill="#c0392b" stroke="none"/>
+            <line x1="350" y1="256" x2="350" y2="240"/><path d="M350 234 l-8 14 h16 z" fill="#c0392b" stroke="none"/>
+          </g>
+          <text x="392" y="50" font-size="13.5" fill="#c0392b" font-weight="bold">圧縮荷重 P</text>
+          <line x1="350" y1="88" x2="350" y2="212" stroke="#c0392b" stroke-width="3" stroke-dasharray="8 5"/>
+          <g stroke="#e8843c" stroke-width="4">
+            <line x1="300" y1="150" x2="256" y2="150"/><path d="M250 150 l12 -6 v12 z" fill="#e8843c" stroke="none"/>
+            <line x1="400" y1="150" x2="444" y2="150"/><path d="M450 150 l-12 -6 v12 z" fill="#e8843c" stroke="none"/>
+          </g>
+          <text x="350" y="134" font-size="13" text-anchor="middle" fill="#e8843c" font-weight="bold">直角方向に引張</text>
+          <text x="130" y="155" font-size="12.5" text-anchor="end" fill="#6b7785">この線に沿って割れる</text>
+          <text x="350" y="252" font-size="12.5" text-anchor="middle" fill="#6b7785">σt ＝ 2P /（π·d·L）</text>
+        </svg>
+        <figcaption>円柱を横倒しにして圧縮すると、載荷方向と直角に引張応力が生じ、その線に沿って割れる。この破壊荷重から引張強度を算出する。</figcaption>
+      </figure>
+      <div class="formula">
+        引張強度 σt ＝ 2P ／（π × d × L）
+        <span class="note">P：破壊荷重（N）／d：供試体の直径（mm）／L：供試体の長さ（mm）</span>
+      </div>
+      <p>φ100×200mmの供試体が破壊荷重50kNで割れた場合、σt ＝ 2×50,000 ÷（3.14×100×200）≒ <strong>1.6 N/mm²</strong> となります。圧縮強度が24N/mm²程度のコンクリートなら、おおむね1/15という妥当な値です。</p>
+
+      <h2 id="sekkei">設計での引張強度の扱い</h2>
+      <p>設計では引張抵抗を無視するのが原則ですが、引張強度がまったく無関係というわけではありません。次の場面で間接的に関わってきます。</p>
+      <table class="data">
+        <tr><th>場面</th><th>引張強度の関わり</th></tr>
+        <tr><td>ひび割れ発生の検討</td><td>ひび割れが生じ始める荷重（ひび割れモーメント）の算定に引張強度を用いる</td></tr>
+        <tr><td>せん断耐力の算定</td><td>コンクリートが負担するせん断力は、斜め引張への抵抗として引張強度に関係する</td></tr>
+        <tr><td>付着強度</td><td>鉄筋とコンクリートの付着は、引張強度と相関する</td></tr>
+        <tr><td>温度・収縮ひび割れ</td><td>拘束による引張応力が引張強度を超えるとひび割れる</td></tr>
+        <tr><td>無筋コンクリート</td><td>鉄筋がないため、曲げ引張強度が直接の設計指標になる（舗装など）</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">ひび割れは「起きる前提」で設計する</span>
+        <p>RC造では、使用時にひび割れが生じることを前提に設計します。引張側のコンクリートがひび割れても、その力を鉄筋が引き継ぐため構造的には問題ありません。ただし、<strong>ひび割れ幅が大きくなると鉄筋が腐食</strong>するため、幅を一定以下（一般に0.3mm程度）に抑えることが求められます。ひび割れをゼロにするのではなく、幅を制御するという考え方です。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 引張強度は圧縮強度から計算できますか？</h3>
+      <p>推定できます。一般に引張強度は圧縮強度の平方根に比例するとされ、日本建築学会の規準などに推定式が示されています。おおまかには圧縮強度の1/10〜1/13程度が目安です。ただしこれは推定値であり、骨材の種類や配合によってばらつきます。重要な検討では割裂引張試験を実施して実測します。</p>
+      <h3>Q2. プレストレストコンクリートは引張の弱さをどう解決していますか？</h3>
+      <p>あらかじめ圧縮力を導入しておくことで解決します。PC鋼材で断面に圧縮力を与えておけば、外力による引張応力が生じても、導入した圧縮力と相殺されてコンクリートには引張が生じません。結果としてひび割れが発生せず、断面全体を有効に使えるため、長いスパンに対応できます。これがプレストレスト（あらかじめ応力を与えた）コンクリートの原理です。</p>
+      <h3>Q3. 繊維補強コンクリートは引張に強いのですか？</h3>
+      <p>引張強度そのものが大きく上がるわけではありませんが、ひび割れ後の挙動が改善されます。鋼繊維や合成繊維を混入すると、ひび割れが生じた後も繊維が架橋して力を伝えるため、急激に耐力を失わず粘り強くなります（じん性の向上）。ひび割れ幅の抑制にも効果があり、床の乾燥収縮ひび割れ対策や、吹付けコンクリートなどで用いられます。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>
