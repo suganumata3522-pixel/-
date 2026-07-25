@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/jikugumi-kouhou.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/jikugumi-kouhou.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-06-14",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-jikugumi-kouhou.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "通し柱は必ず必要ですか？", "acceptedAnswer": {"@type": "Answer", "text": "法令上、2階建て以上の木造では原則として建物の隅角部に通し柱を設けることとされていますが、接合部を通し柱と同等以上の耐力を持つ方法で補強すれば、管柱とすることも認められています。実際には、大断面の通し柱は仕口の欠損が大きくなるため、金物工法で管柱を確実に接合するほうが有利な場合もあります。"}},
+ {"@type": "Question", "name": "間柱は構造的に意味がないのですか？", "acceptedAnswer": {"@type": "Answer", "text": "壁量計算では耐力壁の要素として直接は数えませんが、意味がないわけではありません。間柱は石膏ボードや構造用合板を張るための下地となり、面材耐力壁の性能を成立させるために不可欠です。また、外壁面の柱の座屈を抑える補剛の役割も担っています。構造計算上の主役ではないものの、実際の性能には関与している部材です。"}},
+ {"@type": "Question", "name": "火打ちは何のために入れるのですか？", "acceptedAnswer": {"@type": "Answer", "text": "床面や小屋面が水平方向にゆがむのを防ぐためです。地震や風の水平力は耐力壁が負担しますが、その力を各耐力壁へ分配するのは床面の役割です。床が変形してしまうと力が均等に伝わらず、一部の壁に力が集中します。火打ち梁や火打ち土台は、隅角部に斜めに入れて床面を三角形に固め、水平構面としての剛性を確保します。近年は厚合板を張る剛床工法で代替することも増えています。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">木造（W造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>在来軸組工法とは？部材の種類と役割・枠組壁工法との違い</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -174,6 +181,74 @@
         <span class="label">実務のワンポイント</span>
         <p>現場に入って真っ先に目がいくのは筋かいの向きです。図面の指示と逆勾配で取り付けられ、引張材のはずが圧縮側になっていた例を実際に見たことがあります。軸組図と現物を照合する癖をつけておくと安心です。</p>
       </div>
+
+      <h2 id="haichi">軸組の部材配置（図解）</h2>
+      <p>部材名だけを覚えても、どこに使われるのかがわからないと図面が読めません。2階建ての軸組を例に、主要部材の位置関係を確認しましょう。</p>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 380" role="img" aria-label="在来軸組工法の部材配置図。基礎・土台・通し柱・管柱・胴差・梁・桁・小屋組の位置関係を示す">
+          <text x="350" y="24" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">在来軸組工法の主要部材の位置</text>
+          <!-- 小屋組 -->
+          <path d="M350 46 L170 118 L530 118 Z" fill="none" stroke="#9fc0dd" stroke-width="3"/>
+          <line x1="350" y1="46" x2="350" y2="118" stroke="#9fc0dd" stroke-width="4"/>
+          <text x="350" y="40" font-size="12" text-anchor="middle" fill="#3c6a94">棟木</text>
+          <text x="392" y="90" font-size="12" fill="#3c6a94">小屋束</text>
+          <!-- 桁 -->
+          <rect x="165" y="118" width="370" height="14" fill="#e8843c"/>
+          <text x="560" y="130" font-size="12.5" fill="#8a4b18">軒桁</text>
+          <!-- 2階柱 -->
+          <g fill="#9fc0dd">
+            <rect x="178" y="132" width="16" height="76"/>
+            <rect x="342" y="132" width="16" height="76"/>
+            <rect x="506" y="132" width="16" height="76"/>
+          </g>
+          <text x="392" y="176" font-size="12.5" fill="#3c6a94">管柱（2階）</text>
+          <!-- 胴差 -->
+          <rect x="165" y="208" width="370" height="14" fill="#e8843c"/>
+          <text x="560" y="220" font-size="12.5" fill="#8a4b18">胴差</text>
+          <!-- 1階柱 -->
+          <g fill="#9fc0dd">
+            <rect x="342" y="222" width="16" height="80"/>
+            <rect x="506" y="222" width="16" height="80"/>
+          </g>
+          <rect x="178" y="132" width="16" height="170" fill="#c0392b" opacity=".75"/>
+          <text x="120" y="270" font-size="12.5" text-anchor="end" fill="#c0392b" font-weight="bold">通し柱</text>
+          <line x1="125" y1="266" x2="176" y2="266" stroke="#c0392b" stroke-width="1.5"/>
+          <text x="392" y="270" font-size="12.5" fill="#3c6a94">管柱（1階）</text>
+          <!-- 筋かい -->
+          <line x1="358" y1="302" x2="506" y2="222" stroke="#1a3a5c" stroke-width="6"/>
+          <text x="440" y="292" font-size="12.5" fill="#1a3a5c" font-weight="bold">筋かい</text>
+          <!-- 土台・基礎 -->
+          <rect x="165" y="302" width="370" height="14" fill="#e8843c"/>
+          <text x="560" y="314" font-size="12.5" fill="#8a4b18">土台</text>
+          <rect x="155" y="316" width="390" height="24" fill="#b8bfc7"/>
+          <text x="350" y="333" font-size="12.5" text-anchor="middle" fill="#3f4a55">基礎</text>
+          <text x="350" y="364" font-size="13" text-anchor="middle" fill="#6b7785">通し柱は1階から2階まで1本で通り、胴差が2階床の高さで外周をまわる</text>
+        </svg>
+        <figcaption>通し柱は1階から2階まで通し、管柱は各階ごとに立てる。胴差は2階床の高さで外周をまわり、上下階をつなぐ役割を果たす。</figcaption>
+      </figure>
+
+      <h2 id="shiguchi">継手と仕口の違い</h2>
+      <p>木材どうしのつなぎ方には、目的の違う2種類があります。図面や現場で頻繁に出てくる用語なので、区別して覚えましょう。</p>
+      <table class="data">
+        <tr><th></th><th>継手（つぎて）</th><th>仕口（しぐち）</th></tr>
+        <tr><td>目的</td><td>同じ方向の材を<strong>長さ方向につなぐ</strong></td><td>異なる方向の材を<strong>交差させて組む</strong></td></tr>
+        <tr><td>使う場所</td><td>土台・梁・桁を延長するとき</td><td>柱と梁、土台と柱の接合部</td></tr>
+        <tr><td>代表的な形</td><td>腰掛けあり継ぎ、追掛け大栓継ぎ、そぎ継ぎ</td><td>ほぞ差し、渡りあご、大入れ</td></tr>
+        <tr><td>注意点</td><td>力のかかる位置を避けて設ける（柱の近くに寄せるなど）</td><td>断面欠損が大きくなりすぎないようにする</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">継手の位置に注意</span>
+        <p>継手はどうしても断面が弱くなるため、<strong>曲げモーメントが大きい位置（スパン中央付近）を避け、柱に近い位置に設ける</strong>のが原則です。また、隣り合う横架材の継手位置を同じ場所にそろえると、その通りが弱点になるため、位置をずらして配置します。現代の木造では、継手・仕口の加工は工場でのプレカットが主流で、金物と併用して耐力を確保します。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 通し柱は必ず必要ですか？</h3>
+      <p>法令上、2階建て以上の木造では原則として建物の隅角部に通し柱を設けることとされていますが、接合部を通し柱と同等以上の耐力を持つ方法で補強すれば、管柱とすることも認められています。実際には、大断面の通し柱は仕口の欠損が大きくなるため、金物工法で管柱を確実に接合するほうが有利な場合もあります。</p>
+      <h3>Q2. 間柱は構造的に意味がないのですか？</h3>
+      <p>壁量計算では耐力壁の要素として直接は数えませんが、意味がないわけではありません。間柱は石膏ボードや構造用合板を張るための下地となり、面材耐力壁の性能を成立させるために不可欠です。また、外壁面の柱の座屈を抑える補剛の役割も担っています。構造計算上の主役ではないものの、実際の性能には関与している部材です。</p>
+      <h3>Q3. 火打ちは何のために入れるのですか？</h3>
+      <p>床面や小屋面が水平方向にゆがむのを防ぐためです。地震や風の水平力は耐力壁が負担しますが、その力を各耐力壁へ分配するのは床面の役割です。床が変形してしまうと力が均等に伝わらず、一部の壁に力が集中します。火打ち梁や火打ち土台は、隅角部に斜めに入れて床面を三角形に固め、水平構面としての剛性を確保します。近年は厚合板を張る剛床工法で代替することも増えています。</p>
+
 
       <h2>まとめ</h2>
       <ul>

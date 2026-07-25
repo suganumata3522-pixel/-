@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/kiso-kouzou.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/kiso-kouzou.html",
    "datePublished": "2026-06-13",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-kiso-kouzou.jpg",
    "author": {
     "@type": "Person",
@@ -74,6 +74,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "べた基礎と布基礎はどちらが優れていますか？", "acceptedAnswer": {"@type": "Answer", "text": "地盤条件によります。べた基礎は底面全体で支えるため接地圧が小さく、軟弱地盤や不同沈下が懸念される場合に有利です。一方、地盤が良好であれば布基礎で十分な支持力が得られ、コンクリート量が少ないため経済的です。近年の木造住宅ではべた基礎が主流ですが、これは防湿性や施工性の面でも利点があるためで、常にべた基礎が構造的に優れているわけではありません。"}},
+ {"@type": "Question", "name": "支持杭と摩擦杭はどう使い分けますか？", "acceptedAnswer": {"@type": "Answer", "text": "支持層の深さで決まります。杭の届く範囲に固い支持層があれば、先端で支える支持杭とするのが原則で、支持力が確実に得られます。しかし支持層が極端に深く、そこまで杭を打つのが現実的でない場合に、杭の側面と地盤との摩擦力で支える摩擦杭を採用します。摩擦杭は支持力の評価が難しく、沈下量の検討がより重要になります。"}},
+ {"@type": "Question", "name": "地盤改良と杭基礎はどちらを選ぶべきですか？", "acceptedAnswer": {"@type": "Answer", "text": "軟弱層の厚さと建物規模で判断します。軟弱層が比較的浅い（数メートル程度）場合は、表層改良や柱状改良で地盤自体を強くするほうが経済的です。軟弱層が厚く支持層が深い場合や、建物が重い場合は杭基礎が確実です。また、液状化のおそれがある場合は、液状化層を貫いて支持層に達する杭が有効な対策になります。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -105,7 +112,7 @@
       <div class="meta">
         <span class="tag">構造形式・材料</span>
         <span>公開日：2026年6月13日</span>
-        <span>更新日：2026年7月3日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>基礎構造とは？直接基礎と杭基礎の違い・地盤との関係を解説</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -200,6 +207,61 @@
         <span class="label">あわせて読みたい</span>
         <p>基礎に伝わる荷重の拾い方は「<a href="kajuu.html">固定荷重・積載荷重の拾い方</a>」、地震力は「<a href="jishin-ryoku.html">地震力の計算方法</a>」、上部構造の種類は「<a href="kouzou-shurui.html">RC造・S造・SRC造・木造の違い</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="shurui-zukai">直接基礎3種類の形（図解）</h2>
+      <p>直接基礎は「どの範囲で荷重を地盤に伝えるか」で3種類に分かれます。形を見比べると違いがはっきりします。</p>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 260" role="img" aria-label="独立基礎・布基礎・べた基礎の形状比較図。点で支える独立基礎、線で支える布基礎、面で支えるべた基礎">
+          <text x="350" y="24" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">直接基礎の3種類</text>
+          <!-- 独立基礎 -->
+          <text x="120" y="58" font-size="14" text-anchor="middle" fill="#1a3a5c" font-weight="bold">独立基礎</text>
+          <g fill="#9fc0dd"><rect x="105" y="72" width="30" height="52"/></g>
+          <path d="M75 124 L165 124 L150 152 L90 152 Z" fill="#e8843c"/>
+          <rect x="40" y="152" width="160" height="46" fill="#e5e0d6"/>
+          <text x="120" y="180" font-size="12.5" text-anchor="middle" fill="#6b7785">「点」で支える</text>
+          <text x="120" y="220" font-size="12" text-anchor="middle" fill="#6b7785">柱ごとに独立</text>
+          <text x="120" y="238" font-size="12" text-anchor="middle" fill="#6b7785">地盤が良い場合</text>
+          <!-- 布基礎 -->
+          <text x="350" y="58" font-size="14" text-anchor="middle" fill="#1a3a5c" font-weight="bold">布基礎</text>
+          <g fill="#9fc0dd"><rect x="335" y="72" width="30" height="52"/></g>
+          <rect x="330" y="100" width="40" height="52" fill="#e8843c"/>
+          <path d="M290 152 L410 152 L410 168 L290 168 Z" fill="#e8843c"/>
+          <rect x="270" y="168" width="160" height="30" fill="#e5e0d6"/>
+          <text x="350" y="190" font-size="12.5" text-anchor="middle" fill="#6b7785">「線」で支える</text>
+          <text x="350" y="220" font-size="12" text-anchor="middle" fill="#6b7785">壁の下を連続</text>
+          <text x="350" y="238" font-size="12" text-anchor="middle" fill="#6b7785">木造戸建の定番</text>
+          <!-- べた基礎 -->
+          <text x="580" y="58" font-size="14" text-anchor="middle" fill="#1a3a5c" font-weight="bold">べた基礎</text>
+          <g fill="#9fc0dd"><rect x="565" y="72" width="30" height="52"/></g>
+          <rect x="500" y="124" width="160" height="28" fill="#e8843c"/>
+          <rect x="500" y="152" width="160" height="46" fill="#e5e0d6"/>
+          <text x="580" y="180" font-size="12.5" text-anchor="middle" fill="#6b7785">「面」で支える</text>
+          <text x="580" y="220" font-size="12" text-anchor="middle" fill="#6b7785">底面全体が一枚板</text>
+          <text x="580" y="238" font-size="12" text-anchor="middle" fill="#6b7785">軟弱地盤に有利</text>
+        </svg>
+        <figcaption>独立基礎は点、布基礎は線、べた基礎は面で荷重を地盤に伝える。接地面積が広いほど地盤にかかる圧力（接地圧）は小さくなる。</figcaption>
+      </figure>
+      <p>同じ建物重量でも、支える面積が広いほど地盤にかかる<strong>接地圧</strong>は小さくなります。地盤が弱い場合にべた基礎が選ばれるのはこのためです。ただしべた基礎は使用するコンクリート・鉄筋の量が増えるため、地盤が良好であれば布基礎や独立基礎のほうが経済的になります。</p>
+
+      <h2 id="kui">杭の施工方法の種類</h2>
+      <p>杭基礎は、杭の材料と施工方法によって細かく分類されます。騒音・振動・支持力・コストのバランスで選定します。</p>
+      <table class="data">
+        <tr><th>分類</th><th>工法</th><th>特徴</th></tr>
+        <tr><td rowspan="2"><strong>既製杭</strong><br>（工場製の杭を使う）</td><td>打込み杭（打撃工法）</td><td>ハンマーで打ち込む。支持力は高いが騒音・振動が大きく、市街地では使いにくい</td></tr>
+        <tr><td>埋込み杭（プレボーリング・中掘り）</td><td>先行して地盤を掘削し杭を挿入。騒音・振動が小さく、現在の主流</td></tr>
+        <tr><td rowspan="2"><strong>場所打ち杭</strong><br>（現場で造る）</td><td>アースドリル工法</td><td>掘削機で穴を掘り、鉄筋かごを建て込んでコンクリートを打設。大口径に対応</td></tr>
+        <tr><td>オールケーシング・リバース工法</td><td>孔壁の保護方法が異なる。地盤条件や深さで使い分ける</td></tr>
+      </table>
+      <p>既製杭は工場製品なので品質が安定し工期も短い一方、運搬できる長さ・径に制約があります。場所打ち杭は大口径・長尺に対応でき、高層建築で多く採用されますが、現場でコンクリートを打つため品質管理が重要になります。<strong>市街地の中低層建築では埋込み杭、大規模建築では場所打ち杭</strong>という使い分けが一般的です。</p>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. べた基礎と布基礎はどちらが優れていますか？</h3>
+      <p>地盤条件によります。べた基礎は底面全体で支えるため接地圧が小さく、軟弱地盤や不同沈下が懸念される場合に有利です。一方、地盤が良好であれば布基礎で十分な支持力が得られ、コンクリート量が少ないため経済的です。近年の木造住宅ではべた基礎が主流ですが、これは防湿性や施工性の面でも利点があるためで、常にべた基礎が構造的に優れているわけではありません。</p>
+      <h3>Q2. 支持杭と摩擦杭はどう使い分けますか？</h3>
+      <p>支持層の深さで決まります。杭の届く範囲に固い支持層があれば、先端で支える支持杭とするのが原則で、支持力が確実に得られます。しかし支持層が極端に深く、そこまで杭を打つのが現実的でない場合に、杭の側面と地盤との摩擦力で支える摩擦杭を採用します。摩擦杭は支持力の評価が難しく、沈下量の検討がより重要になります。</p>
+      <h3>Q3. 地盤改良と杭基礎はどちらを選ぶべきですか？</h3>
+      <p>軟弱層の厚さと建物規模で判断します。軟弱層が比較的浅い（数メートル程度）場合は、表層改良や柱状改良で地盤自体を強くするほうが経済的です。軟弱層が厚く支持層が深い場合や、建物が重い場合は杭基礎が確実です。また、液状化のおそれがある場合は、液状化層を貫いて支持層に達する杭が有効な対策になります。</p>
+
 
       <h2>まとめ</h2>
       <ul>

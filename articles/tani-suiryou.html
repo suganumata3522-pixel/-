@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/tani-suiryou.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/tani-suiryou.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-02",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-tani-suiryou.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "単位水量185kg/m³は法律で決まっているのですか？", "acceptedAnswer": {"@type": "Answer", "text": "建築基準法で直接定められた数値ではなく、日本建築学会の建築工事標準仕様書（JASS5）で示されている値です。JASS5では単位水量の上限を185kg/m³とし、できるだけ少なくすることを求めています。ただし公共工事の仕様書など、発注者によってはより厳しい値（175kg/m³以下など）を要求される場合もあるため、案件ごとの仕様書を確認する必要があります。"}},
+ {"@type": "Question", "name": "単位水量を減らすと施工しづらくなりませんか？", "acceptedAnswer": {"@type": "Answer", "text": "水だけを減らせば確かに硬く打ちにくくなります。そこで用いるのが減水剤・AE減水剤・高性能AE減水剤です。これらはセメント粒子どうしの凝集をほぐして分散させるため、水を増やさずに流動性を高められます。高性能AE減水剤なら、同じスランプを保ったまま単位水量を大幅に減らすことも可能で、高強度コンクリートの実現に不可欠な材料になっています。"}},
+ {"@type": "Question", "name": "単位水量と単位セメント量はどちらを先に決めますか？", "acceptedAnswer": {"@type": "Answer", "text": "実際の配合設計では、まず設計基準強度と耐久性から水セメント比（W/C）の上限が決まります。次に、施工に必要なスランプを確保できる単位水量を設定し、その2つから単位セメント量（C＝W÷(W/C)）が決まる、という順序になります。単位水量を小さくできれば、同じW/Cでもセメント量を減らせるため、水和熱によるひび割れの抑制やコスト面でも有利になります。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">鉄筋コンクリート造（RC造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>単位水量とは？185kg/m³以下の規準</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -159,6 +166,82 @@
         <span class="label">あわせて読みたい</span>
         <p>「<a href="mizu-cement-hi.html">水セメント比</a>」「<a href="tani-cement-ryou.html">単位セメント量</a>」「<a href="ae-zai.html">AE剤</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="eikyou">単位水量が品質に与える影響（図解）</h2>
+      <p>「水を増やすと打ちやすいが品質が落ちる」という関係を、影響の連鎖で整理すると理解しやすくなります。</p>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 320" role="img" aria-label="単位水量が多いことによる品質への影響の連鎖図。強度低下・乾燥収縮ひび割れ・ブリーディング・耐久性低下につながる">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">単位水量が多いと何が起きるか</text>
+          <rect x="255" y="48" width="190" height="46" rx="8" fill="#fdeaea" stroke="#c0392b" stroke-width="2.5"/>
+          <text x="350" y="70" font-size="15" text-anchor="middle" fill="#c0392b" font-weight="bold">単位水量が多い</text>
+          <text x="350" y="88" font-size="12.5" text-anchor="middle" fill="#c0392b">（軟らかく打ちやすい）</text>
+          <g stroke="#c0392b" stroke-width="2">
+            <line x1="350" y1="94" x2="350" y2="112"/>
+            <line x1="130" y1="112" x2="570" y2="112"/>
+            <line x1="130" y1="112" x2="130" y2="138"/>
+            <line x1="277" y1="112" x2="277" y2="138"/>
+            <line x1="423" y1="112" x2="423" y2="138"/>
+            <line x1="570" y1="112" x2="570" y2="138"/>
+          </g>
+          <g fill="#eef3f8" stroke="#1a3a5c" stroke-width="1.8">
+            <rect x="60" y="138" width="140" height="52" rx="6"/>
+            <rect x="207" y="138" width="140" height="52" rx="6"/>
+            <rect x="353" y="138" width="140" height="52" rx="6"/>
+            <rect x="500" y="138" width="140" height="52" rx="6"/>
+          </g>
+          <text x="130" y="160" font-size="13" text-anchor="middle" fill="#1a3a5c" font-weight="bold">余分な水が</text>
+          <text x="130" y="178" font-size="13" text-anchor="middle" fill="#1a3a5c" font-weight="bold">空隙として残る</text>
+          <text x="277" y="160" font-size="13" text-anchor="middle" fill="#1a3a5c" font-weight="bold">乾燥収縮が</text>
+          <text x="277" y="178" font-size="13" text-anchor="middle" fill="#1a3a5c" font-weight="bold">大きくなる</text>
+          <text x="423" y="160" font-size="13" text-anchor="middle" fill="#1a3a5c" font-weight="bold">ブリーディング</text>
+          <text x="423" y="178" font-size="13" text-anchor="middle" fill="#1a3a5c" font-weight="bold">が増える</text>
+          <text x="570" y="160" font-size="13" text-anchor="middle" fill="#1a3a5c" font-weight="bold">材料分離が</text>
+          <text x="570" y="178" font-size="13" text-anchor="middle" fill="#1a3a5c" font-weight="bold">起きやすい</text>
+          <g stroke="#7d95ab" stroke-width="2">
+            <line x1="130" y1="190" x2="130" y2="220"/><line x1="277" y1="190" x2="277" y2="220"/>
+            <line x1="423" y1="190" x2="423" y2="220"/><line x1="570" y1="190" x2="570" y2="220"/>
+            <line x1="130" y1="220" x2="570" y2="220"/><line x1="350" y1="220" x2="350" y2="242"/>
+          </g>
+          <rect x="215" y="242" width="270" height="46" rx="8" fill="#1a3a5c"/>
+          <text x="350" y="262" font-size="15" text-anchor="middle" fill="#fff" font-weight="bold">強度・耐久性の低下</text>
+          <text x="350" y="280" font-size="12.5" text-anchor="middle" fill="#c9d8e8">ひび割れ・中性化・鉄筋腐食の進行</text>
+        </svg>
+        <figcaption>単位水量が多いと、空隙の増加・乾燥収縮・ブリーディング・材料分離を通じて、最終的に強度と耐久性の低下につながる。</figcaption>
+      </figure>
+
+      <h2 id="sokutei">現場での単位水量の管理</h2>
+      <p>単位水量は配合計画で決まりますが、実際に打ち込まれるコンクリートが計画どおりかを現場で確認することも重要です。</p>
+      <table class="data">
+        <tr><th>管理の方法</th><th>内容</th></tr>
+        <tr><td>納入書の確認</td><td>配合計画書と照合し、単位水量・スランプ・呼び強度が指定どおりか確認する</td></tr>
+        <tr><td><a href="slump-shiken.html">スランプ試験</a></td><td>荷卸し地点でスランプを測る。指定値より大きい場合、加水が疑われる</td></tr>
+        <tr><td>単位水量測定</td><td>専用の測定器（エアメータ法・静電容量法など）で直接測る。重要構造物で実施</td></tr>
+        <tr><td>加水の禁止徹底</td><td>ポンプの詰まりや流動性の低下を理由とした現場加水を認めない。運搬時間の管理も重要</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">なぜ現場加水がいけないのか</span>
+        <p>1m³あたりわずか10kgの加水でも、<a href="mizu-cement-hi.html">水セメント比</a>は数%上昇し、圧縮強度は数N/mm²低下します。トラック1台（約4.5m³）に対してバケツ数杯の水を足すだけで、設計基準強度を割り込む可能性があるのです。しかも加水は記録に残らないため、後から原因を特定することが難しく、構造体の品質を根本から損ないます。</p>
+      </div>
+
+      <h2 id="haigou">配合の例で見る単位水量</h2>
+      <p>実際の配合表では、単位水量は次のように他の材料と並んで記載されます。</p>
+      <table class="data">
+        <tr><th>項目</th><th>値の例</th><th>意味</th></tr>
+        <tr><td>単位水量 W</td><td>175 kg/m³</td><td>1m³中の水（185以下に収める）</td></tr>
+        <tr><td>単位セメント量 C</td><td>318 kg/m³</td><td>1m³中のセメント</td></tr>
+        <tr><td><a href="mizu-cement-hi.html">水セメント比</a> W/C</td><td>175 ÷ 318 ＝ 55.0%</td><td>強度・耐久性を左右する最重要値</td></tr>
+        <tr><td>スランプ</td><td>18 cm</td><td>軟らかさ（施工性）</td></tr>
+      </table>
+      <p>この例で、施工性を上げたいからと単位水量を185kg/m³に増やすと、セメント量を変えなければW/Cは58.2%まで上昇し、強度・耐久性が低下します。同じ軟らかさを保ちながら水を減らすには、<a href="ae-zai.html">AE減水剤</a>や高性能AE減水剤の使用が有効です。</p>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 単位水量185kg/m³は法律で決まっているのですか？</h3>
+      <p>建築基準法で直接定められた数値ではなく、日本建築学会の建築工事標準仕様書（JASS5）で示されている値です。JASS5では単位水量の上限を185kg/m³とし、できるだけ少なくすることを求めています。ただし公共工事の仕様書など、発注者によってはより厳しい値（175kg/m³以下など）を要求される場合もあるため、案件ごとの仕様書を確認する必要があります。</p>
+      <h3>Q2. 単位水量を減らすと施工しづらくなりませんか？</h3>
+      <p>水だけを減らせば確かに硬く打ちにくくなります。そこで用いるのが減水剤・AE減水剤・高性能AE減水剤です。これらはセメント粒子どうしの凝集をほぐして分散させるため、水を増やさずに流動性を高められます。高性能AE減水剤なら、同じスランプを保ったまま単位水量を大幅に減らすことも可能で、高強度コンクリートの実現に不可欠な材料になっています。</p>
+      <h3>Q3. 単位水量と単位セメント量はどちらを先に決めますか？</h3>
+      <p>実際の配合設計では、まず設計基準強度と耐久性から水セメント比（W/C）の上限が決まります。次に、施工に必要なスランプを確保できる単位水量を設定し、その2つから単位セメント量（C＝W÷(W/C)）が決まる、という順序になります。単位水量を小さくできれば、同じW/Cでもセメント量を減らせるため、水和熱によるひび割れの抑制やコスト面でも有利になります。</p>
+
 
       <h2>まとめ</h2>
       <ul>

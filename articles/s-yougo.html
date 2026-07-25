@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/s-yougo.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/s-yougo.html",
    "datePublished": "2026-06-13",
-   "dateModified": "2026-06-13",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-s-yougo.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "ダイアフラムには種類がありますか？", "acceptedAnswer": {"@type": "Answer", "text": "主に3種類あります。通しダイアフラム形式は、柱を接合部で切断してダイアフラムを挟み込む方式で、力の伝達が確実なため現在もっとも一般的です。内ダイアフラム形式は角形鋼管の内部に板を入れる方式で、外観がすっきりしますが製作が難しくなります。外ダイアフラム形式は柱の外周に板を回す方式で、柱を切断せずに済みます。それぞれ製作性と力の伝達性のバランスで使い分けられます。"}},
+ {"@type": "Question", "name": "スチフナーは何のために入れるのですか？", "acceptedAnswer": {"@type": "Answer", "text": "ウェブなどの薄い板が局部的に座屈するのを防ぐための補剛材です。梁に集中荷重がかかる位置や、支点部でウェブがつぶれるおそれがある箇所に、板を垂直に溶接して入れます。板が薄く高さのある部材ほど座屈しやすいため、幅厚比の検討結果に応じて必要な位置と間隔を決めます。"}},
+ {"@type": "Question", "name": "デッキプレートは構造材として計算に入れられますか？", "acceptedAnswer": {"@type": "Answer", "text": "使い方によります。型枠としてのみ使い、コンクリート硬化後は考慮しない場合（型枠デッキ）と、デッキ自体を引張材として構造耐力に算入する場合（合成デッキ・鉄筋トラス付きデッキ）があります。後者は認定を取得した製品を、認定条件どおりの仕様で使うことが前提になります。また、梁とスラブを一体化させて合成梁とする場合は、頭付きスタッドによるずれ止めが必要です。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">鉄骨造（S造）</span>
         <span>公開日：2026年6月13日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>鉄骨造の基礎用語まとめ｜H形鋼・ダイアフラム・デッキなどをやさしく解説</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -176,6 +183,66 @@
         <span class="label">実務のワンポイント</span>
         <p>若手の担当者と現場に行くと、図面の「仕口」と「継手」を混同したまま打合せに臨んでしまうことがあります。同じ接合部でも、部材が交わるのか同じ部材をつなぐのかで検討の中身がまったく違うので、用語の意味を体で覚えてもらうところから指導しています。</p>
       </div>
+
+      <h2 id="zukai">H形鋼と柱梁接合部の各部名称（図解）</h2>
+      <p>用語は図と結びつけて覚えると定着します。もっとも登場頻度の高いH形鋼と、柱梁接合部の構成を図で確認しましょう。</p>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 330" role="img" aria-label="H形鋼の各部名称と柱梁接合部の構成図。フランジ・ウェブ・ダイアフラム・スチフナーの位置を示す">
+          <text x="350" y="24" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">H形鋼の各部と柱梁接合部</text>
+          <line x1="330" y1="42" x2="330" y2="300" stroke="#c3ccd6" stroke-width="1.5" stroke-dasharray="6 5"/>
+          <!-- 左：H形鋼断面 -->
+          <text x="165" y="62" font-size="14.5" text-anchor="middle" fill="#1a3a5c" font-weight="bold">H形鋼の断面</text>
+          <rect x="85" y="85" width="160" height="22" fill="#e8843c"/>
+          <rect x="150" y="107" width="30" height="110" fill="#9fc0dd"/>
+          <rect x="85" y="217" width="160" height="22" fill="#e8843c"/>
+          <text x="272" y="100" font-size="13" fill="#8a4b18" font-weight="bold">フランジ</text>
+          <text x="272" y="118" font-size="11.5" fill="#6b7785">曲げに効く</text>
+          <text x="272" y="168" font-size="13" fill="#3c6a94" font-weight="bold">ウェブ</text>
+          <text x="272" y="186" font-size="11.5" fill="#6b7785">せん断に効く</text>
+          <text x="272" y="232" font-size="13" fill="#8a4b18" font-weight="bold">フランジ</text>
+          <text x="165" y="268" font-size="12.5" text-anchor="middle" fill="#6b7785">上下に離れた板ほど</text>
+          <text x="165" y="286" font-size="12.5" text-anchor="middle" fill="#6b7785">曲げに有効に働く</text>
+          <!-- 右：柱梁接合部 -->
+          <text x="520" y="62" font-size="14.5" text-anchor="middle" fill="#1a3a5c" font-weight="bold">柱梁接合部</text>
+          <rect x="490" y="80" width="60" height="180" fill="#dce9f5" stroke="#1a3a5c" stroke-width="2"/>
+          <text x="520" y="252" font-size="12.5" text-anchor="middle" fill="#1a3a5c">柱</text>
+          <rect x="550" y="140" width="110" height="12" fill="#e8843c"/>
+          <rect x="550" y="188" width="110" height="12" fill="#e8843c"/>
+          <rect x="598" y="152" width="14" height="36" fill="#9fc0dd"/>
+          <text x="640" y="130" font-size="12.5" fill="#8a4b18">梁</text>
+          <g fill="#c0392b">
+            <rect x="486" y="140" width="68" height="12"/>
+            <rect x="486" y="188" width="68" height="12"/>
+          </g>
+          <text x="415" y="146" font-size="12.5" fill="#c0392b" font-weight="bold">ダイアフラム</text>
+          <text x="415" y="196" font-size="12.5" fill="#c0392b" font-weight="bold">（梁の力を柱へ）</text>
+          <text x="520" y="290" font-size="12.5" text-anchor="middle" fill="#6b7785">梁フランジの力を柱に伝えるため</text>
+          <text x="520" y="308" font-size="12.5" text-anchor="middle" fill="#6b7785">フランジと同じ高さに板を入れる</text>
+        </svg>
+        <figcaption>H形鋼はフランジ（曲げ担当）とウェブ（せん断担当）で構成される。柱梁接合部では、梁フランジと同じ高さにダイアフラムを設けて力を柱へ伝える。</figcaption>
+      </figure>
+
+      <h2 id="zumen">図面での鋼材の表記の読み方</h2>
+      <p>構造図では鋼材を記号と寸法で表記します。表記を読めると、図面から断面がイメージできるようになります。</p>
+      <table class="data">
+        <tr><th>表記の例</th><th>意味</th></tr>
+        <tr><td><strong>H-400×200×8×13</strong></td><td>H形鋼。せい400mm × 幅200mm × ウェブ厚8mm × フランジ厚13mm</td></tr>
+        <tr><td><strong>□-400×400×16</strong></td><td>角形鋼管。400mm角 × 板厚16mm（柱によく使う）</td></tr>
+        <tr><td><strong>φ-267.4×9</strong></td><td>円形鋼管。外径267.4mm × 板厚9mm</td></tr>
+        <tr><td><strong>L-75×75×6</strong></td><td>山形鋼（アングル）。75mm × 75mm × 厚6mm</td></tr>
+        <tr><td><strong>PL-12</strong></td><td>プレート（鋼板）。板厚12mm</td></tr>
+        <tr><td><strong>M22（F10T）</strong></td><td>高力ボルト。呼び径22mm、強度区分F10T</td></tr>
+      </table>
+      <p>寸法の並びは「せい×幅×ウェブ厚×フランジ厚」の順です。H-400×200なら、せい（高さ）が400mmで幅が200mmの細長い断面。梁として使うときは、このせいの方向を鉛直にして曲げに抵抗させます。もし横倒しに使うと、<a href="h-danmen-moment.html">断面二次モーメント</a>が大幅に小さくなり、まったく性能が出ません。</p>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. ダイアフラムには種類がありますか？</h3>
+      <p>主に3種類あります。通しダイアフラム形式は、柱を接合部で切断してダイアフラムを挟み込む方式で、力の伝達が確実なため現在もっとも一般的です。内ダイアフラム形式は角形鋼管の内部に板を入れる方式で、外観がすっきりしますが製作が難しくなります。外ダイアフラム形式は柱の外周に板を回す方式で、柱を切断せずに済みます。それぞれ製作性と力の伝達性のバランスで使い分けられます。</p>
+      <h3>Q2. スチフナーは何のために入れるのですか？</h3>
+      <p>ウェブなどの薄い板が局部的に座屈するのを防ぐための補剛材です。梁に集中荷重がかかる位置や、支点部でウェブがつぶれるおそれがある箇所に、板を垂直に溶接して入れます。板が薄く高さのある部材ほど座屈しやすいため、幅厚比の検討結果に応じて必要な位置と間隔を決めます。</p>
+      <h3>Q3. デッキプレートは構造材として計算に入れられますか？</h3>
+      <p>使い方によります。型枠としてのみ使い、コンクリート硬化後は考慮しない場合（型枠デッキ）と、デッキ自体を引張材として構造耐力に算入する場合（合成デッキ・鉄筋トラス付きデッキ）があります。後者は認定を取得した製品を、認定条件どおりの仕様で使うことが前提になります。また、梁とスラブを一体化させて合成梁とする場合は、頭付きスタッドによるずれ止めが必要です。</p>
+
 
       <h2>まとめ</h2>
       <ul>
