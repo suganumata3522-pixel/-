@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/kabebairitsu.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/kabebairitsu.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-06-14",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-kabebairitsu.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "壁倍率が同じなら、どの仕様の壁を使っても同じですか？", "acceptedAnswer": {"@type": "Answer", "text": "計算上の耐力は同じですが、性質は異なります。筋かいは軸力で抵抗するため変形が進むと急激に耐力が落ちる傾向があり、面材耐力壁（構造用合板など）は釘が徐々に効きながら粘り強く変形する特徴があります。また、面材は壁全体で力を受けるため、施工のばらつきが出にくい利点もあります。同じ倍率でも、粘り強さや施工性を考慮して選定します。"}},
+ {"@type": "Question", "name": "石膏ボードも耐力壁として数えられるのですか？", "acceptedAnswer": {"@type": "Answer", "text": "定められた仕様で施工されていれば数えられます。石膏ボードを所定の釘・ビスで規定のピッチで留め付けた大壁仕様は、0.9〜1.1程度の壁倍率が認められています。ただし、ボードの厚さ・留め付け間隔・下地の条件が仕様どおりでなければ性能は出ません。内装材としてただ張っただけのボードを耐力壁として算入することはできません。"}},
+ {"@type": "Question", "name": "耐力壁の長さは何cm以上必要ですか？", "acceptedAnswer": {"@type": "Answer", "text": "一般に、耐力壁として算入できる最小の壁長は90cm程度とされています（仕様により異なります）。これより短い壁は、地震時に十分な耐力を発揮できず、また柱の引き抜き力が過大になるためです。プランの都合で細い壁しか取れない場合は、壁量として数えず、別の位置に有効な耐力壁を確保する必要があります。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">木造（W造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>壁倍率とは？筋かい・石膏ボードの値一覧と必要壁量の計算方法</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -169,6 +176,54 @@
         <span class="label">実務のワンポイント</span>
         <p>壁量計算の審査対応で指摘を受けやすいのは、開口部まわりの垂れ壁・腰壁を耐力壁として数えてしまう誤りです。壁倍率表の数値だけでなく、その仕様が本当にその壁で成立しているか、納まり図まで確認するようにしています。</p>
       </div>
+
+      <h2 id="imeji">壁倍率のイメージ（図解）</h2>
+      <p>壁倍率は「同じ抵抗力を得るのに、どれだけの壁長が必要か」を表していると考えると直感的にわかります。</p>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 300" role="img" aria-label="壁倍率の違いによる必要な壁長の比較図。倍率が高いほど短い壁で同じ抵抗力を得られる">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">同じ抵抗力を得るのに必要な壁の長さ</text>
+          <!-- 倍率1.0 -->
+          <text x="90" y="72" font-size="14" fill="#1a3a5c" font-weight="bold">倍率1.0</text>
+          <rect x="180" y="54" width="400" height="30" fill="#c3ccd6" stroke="#7d95ab" stroke-width="1.5"/>
+          <text x="380" y="75" font-size="13" text-anchor="middle" fill="#3f4a55">壁長 4.0 m 必要</text>
+          <!-- 倍率2.0 -->
+          <text x="90" y="132" font-size="14" fill="#1a3a5c" font-weight="bold">倍率2.0</text>
+          <rect x="180" y="114" width="200" height="30" fill="#9fc0dd" stroke="#3c6a94" stroke-width="1.5"/>
+          <text x="280" y="135" font-size="13" text-anchor="middle" fill="#1a3a5c">壁長 2.0 m</text>
+          <!-- 倍率4.0 -->
+          <text x="90" y="192" font-size="14" fill="#1a3a5c" font-weight="bold">倍率4.0</text>
+          <rect x="180" y="174" width="100" height="30" fill="#e8843c" stroke="#b35309" stroke-width="1.5"/>
+          <text x="230" y="195" font-size="13" text-anchor="middle" fill="#fff">1.0 m</text>
+          <text x="350" y="240" font-size="13.5" text-anchor="middle" fill="#6b7785">倍率が2倍になれば、必要な壁の長さは半分で済む</text>
+          <text x="350" y="266" font-size="13" text-anchor="middle" fill="#c0392b" font-weight="bold">ただし強い壁ほど、端部の柱に大きな引き抜き力が生じる</text>
+          <text x="350" y="288" font-size="12.5" text-anchor="middle" fill="#6b7785">→ ホールダウン金物などの接合部設計とセットで考える</text>
+        </svg>
+        <figcaption>壁倍率が高いほど短い壁長で必要な耐力を確保できる。ただし強い壁の端部には大きな引き抜き力が生じるため、接合部の設計が重要になる。</figcaption>
+      </figure>
+
+      <h2 id="keisuu">必要壁量の係数（早見表）</h2>
+      <p>地震に対する必要壁量は、階数と屋根の重さで係数が変わります。代表的な値は次のとおりです（単位：cm/m²）。</p>
+      <table class="data">
+        <tr><th>建物</th><th>調べる階</th><th>軽い屋根<br>（金属板・スレート）</th><th>重い屋根<br>（瓦など）</th></tr>
+        <tr><td>平屋</td><td>1階</td><td>11</td><td>15</td></tr>
+        <tr><td rowspan="2">2階建て</td><td>1階</td><td>29</td><td>33</td></tr>
+        <tr><td>2階</td><td>15</td><td>21</td></tr>
+      </table>
+      <p>※値は代表例です。実際は法令・告示に基づいて確認してください。</p>
+      <p>屋根が重いと係数が大きくなるのは、<a href="jishin-ryoku.html">地震力が建物重量に比例する</a>ためです。瓦屋根の2階建て1階なら33cm/m²、金属屋根なら29cm/m²と、必要な壁量に1割以上の差が出ます。リフォームで屋根を軽い材料に葺き替えると、それだけで耐震性が相対的に向上するのはこのためです。</p>
+      <div class="point-box">
+        <span class="label">風に対する検討も忘れずに</span>
+        <p>壁量計算は地震用と風用の2種類を行い、<strong>どちらも満たす</strong>必要があります。風用は「見付面積 × 係数（50cm/m²など）」で求めます。見付面積とは、その方向から見たときの風を受ける面の面積です。細長い建物や、屋根が大きく張り出した建物では、風用のほうが厳しくなることがあります。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 壁倍率が同じなら、どの仕様の壁を使っても同じですか？</h3>
+      <p>計算上の耐力は同じですが、性質は異なります。筋かいは軸力で抵抗するため変形が進むと急激に耐力が落ちる傾向があり、面材耐力壁（構造用合板など）は釘が徐々に効きながら粘り強く変形する特徴があります。また、面材は壁全体で力を受けるため、施工のばらつきが出にくい利点もあります。同じ倍率でも、粘り強さや施工性を考慮して選定します。</p>
+      <h3>Q2. 石膏ボードも耐力壁として数えられるのですか？</h3>
+      <p>定められた仕様で施工されていれば数えられます。石膏ボードを所定の釘・ビスで規定のピッチで留め付けた大壁仕様は、0.9〜1.1程度の壁倍率が認められています。ただし、ボードの厚さ・留め付け間隔・下地の条件が仕様どおりでなければ性能は出ません。内装材としてただ張っただけのボードを耐力壁として算入することはできません。</p>
+      <h3>Q3. 耐力壁の長さは何cm以上必要ですか？</h3>
+      <p>一般に、耐力壁として算入できる最小の壁長は90cm程度とされています（仕様により異なります）。これより短い壁は、地震時に十分な耐力を発揮できず、また柱の引き抜き力が過大になるためです。プランの都合で細い壁しか取れない場合は、壁量として数えず、別の位置に有効な耐力壁を確保する必要があります。</p>
+
 
       <h2>まとめ</h2>
       <ul>
