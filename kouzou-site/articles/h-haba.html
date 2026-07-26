@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/h-haba.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/h-haba.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-02",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-h-haba.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "柱に細幅H形鋼を使ってはいけないのですか？", "acceptedAnswer": {"@type": "Answer", "text": "使えないわけではありませんが、注意が必要です。細幅は弱軸方向の断面二次モーメントが小さいため、その方向に大きな地震力が作用すると変形が大きくなり、座屈のリスクも高まります。小規模な建物や、弱軸方向にブレースや壁があって水平力を負担しない場合は、細幅を柱に使うこともあります。一般的な中低層のラーメン構造では、広幅H形鋼か角形鋼管を使います。"}},
+ {"@type": "Question", "name": "H-294×200のような半端な数字はなぜあるのですか？", "acceptedAnswer": {"@type": "Answer", "text": "フランジ厚が異なっても、内法寸法（フランジ内側の距離）を揃えるためです。同じシリーズ内で内法を統一しておくと、スチフナーや接合部の部材を共通化でき、製作が効率化されます。その結果、外形寸法であるせいが294mmといった半端な値になります。図面では呼称で表記しますが、実際の寸法は形鋼表で確認します。"}},
+ {"@type": "Question", "name": "広幅・中幅・細幅はJISで定められていますか？", "acceptedAnswer": {"@type": "Answer", "text": "JIS G 3192では、H形鋼の寸法が系列ごとに規定されており、実務ではこれを広幅・中幅・細幅と呼び分けています。ただし、JISの規格票そのものにこの3つの呼称が明記されているわけではなく、慣用的な分類です。形鋼表では通常、この3系列に分けて掲載されており、設計時にはどの系列から選ぶかを最初に判断します。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">鉄骨造（S造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>H形鋼の広幅・中幅・細幅とは？違いと使い方</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -190,6 +197,51 @@
         <span class="label">実務のワンポイント</span>
         <p>系列を選ぶ理由を説明するとき、私がいつも付け加えるのは断面性能だけの話ではないということです。柱頭・柱脚で高力ボルトを並べる余地を考えると、Ix・Iyの数値以上に広幅の方が接合部の納まりが良く、結果的に選ばれることが実務では多くあります。</p>
       </div>
+
+      <h2 id="hikaku-zukai">3系列の断面比較（図解）</h2>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 250" role="img" aria-label="細幅・中幅・広幅H形鋼の断面形状の比較図">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">同じ「せい300」でも幅が違う</text>
+          <text x="130" y="60" font-size="14" text-anchor="middle" fill="#1a3a5c" font-weight="bold">細幅</text>
+          <g fill="#e8843c"><rect x="100" y="76" width="60" height="12"/><rect x="100" y="184" width="60" height="12"/></g>
+          <rect x="124" y="88" width="12" height="96" fill="#9fc0dd"/>
+          <text x="130" y="212" font-size="12" text-anchor="middle" fill="#6b7785">H-300×150</text>
+          <text x="130" y="232" font-size="12.5" text-anchor="middle" fill="#2e7d4f" font-weight="bold">梁向き</text>
+          <text x="350" y="60" font-size="14" text-anchor="middle" fill="#1a3a5c" font-weight="bold">中幅</text>
+          <g fill="#e8843c"><rect x="310" y="76" width="80" height="12"/><rect x="310" y="184" width="80" height="12"/></g>
+          <rect x="344" y="88" width="12" height="96" fill="#9fc0dd"/>
+          <text x="350" y="212" font-size="12" text-anchor="middle" fill="#6b7785">H-294×200</text>
+          <text x="350" y="232" font-size="12.5" text-anchor="middle" fill="#b35309" font-weight="bold">梁・柱の両方</text>
+          <text x="570" y="60" font-size="14" text-anchor="middle" fill="#1a3a5c" font-weight="bold">広幅</text>
+          <g fill="#e8843c"><rect x="510" y="76" width="120" height="14"/><rect x="510" y="182" width="120" height="14"/></g>
+          <rect x="562" y="90" width="16" height="92" fill="#9fc0dd"/>
+          <text x="570" y="212" font-size="12" text-anchor="middle" fill="#6b7785">H-300×300</text>
+          <text x="570" y="232" font-size="12.5" text-anchor="middle" fill="#3c6a94" font-weight="bold">柱向き</text>
+        </svg>
+        <figcaption>せいが同じでもフランジ幅が異なる3系列がある。細幅は梁、広幅は柱に適し、中幅はその中間の性格を持つ。</figcaption>
+      </figure>
+
+      <h2 id="riyuu">なぜ用途が分かれるのか</h2>
+      <table class="data">
+        <tr><th>系列</th><th>Ix / Iy の比</th><th>性格</th><th>適する部材</th></tr>
+        <tr><td>細幅</td><td>約10〜14倍</td><td>強軸に特化。弱軸は弱い</td><td><strong>梁</strong>（一方向の曲げのみ受ける）</td></tr>
+        <tr><td>中幅</td><td>約5〜7倍</td><td>中間的</td><td>小規模な柱、大きめの梁</td></tr>
+        <tr><td>広幅</td><td>約3倍</td><td>2方向とも比較的強い</td><td><strong>柱</strong>（どの方向の地震にも抵抗）</td></tr>
+      </table>
+      <p>梁は基本的に<strong>鉛直荷重による一方向の曲げ</strong>しか受けないため、強軸方向にだけ材料を集中させた細幅が効率的です。一方、柱は<strong>地震がどの方向から来るかわからない</strong>ため、2方向とも一定の強さが必要で、広幅が適します。ただし、柱には角形鋼管を使うことも多く、その場合は2方向が完全に同等になります。</p>
+      <div class="point-box">
+        <span class="label">呼称と実寸のずれに注意</span>
+        <p>H形鋼の呼称は<strong>実際の寸法と一致しないことがあります</strong>。たとえば「H-300×300」の実寸は300×300ですが、「H-294×200」のように中途半端な数字も存在します。これは、フランジ厚が変わってもボルト孔の位置などを揃えるため、内法寸法を統一した結果です。図面を描くときや納まりを検討するときは、呼称ではなく<strong>形鋼表の実寸</strong>を確認する必要があります。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 柱に細幅H形鋼を使ってはいけないのですか？</h3>
+      <p>使えないわけではありませんが、注意が必要です。細幅は弱軸方向の断面二次モーメントが小さいため、その方向に大きな地震力が作用すると変形が大きくなり、座屈のリスクも高まります。小規模な建物や、弱軸方向にブレースや壁があって水平力を負担しない場合は、細幅を柱に使うこともあります。一般的な中低層のラーメン構造では、広幅H形鋼か角形鋼管を使います。</p>
+      <h3>Q2. H-294×200のような半端な数字はなぜあるのですか？</h3>
+      <p>フランジ厚が異なっても、内法寸法（フランジ内側の距離）を揃えるためです。同じシリーズ内で内法を統一しておくと、スチフナーや接合部の部材を共通化でき、製作が効率化されます。その結果、外形寸法であるせいが294mmといった半端な値になります。図面では呼称で表記しますが、実際の寸法は形鋼表で確認します。</p>
+      <h3>Q3. 広幅・中幅・細幅はJISで定められていますか？</h3>
+      <p>JIS G 3192では、H形鋼の寸法が系列ごとに規定されており、実務ではこれを広幅・中幅・細幅と呼び分けています。ただし、JISの規格票そのものにこの3つの呼称が明記されているわけではなく、慣用的な分類です。形鋼表では通常、この3系列に分けて掲載されており、設計時にはどの系列から選ぶかを最初に判断します。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

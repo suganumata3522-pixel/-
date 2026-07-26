@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/kouro-zai.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/kouro-zai.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-kouro-zai.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,12 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "高炉材と電炉材はどちらが強いのですか？", "acceptedAnswer": {"@type": "Answer", "text": "JIS規格を満たしていれば、設計上の強度は同じです。SN400BであればどちらでもF値は235N/mm²で扱います。違いは不純物の量や成分の制御しやすさで、厚板や大断面、高い靭性が求められる部材では高炉材が有利とされています。"}},
+ {"@type": "Question", "name": "実務でどちらを使うか指定できますか？", "acceptedAnswer": {"@type": "Answer", "text": "特記仕様書で指定することは可能ですが、一般的な建築ではJIS適合品であればメーカーを問わないのが通例です。ただし超高層や特殊な部材で製造実績・板厚方向特性が重要な場合は、メーカーや製造法を指定することがあります。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +117,7 @@
       <div class="meta">
         <span class="tag">鉄骨造（S造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>高炉材とは？電炉材との違い・製造メーカー3社と仕組み</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -192,6 +198,70 @@
         <span class="label">実務のワンポイント</span>
         <p>重要な柱・梁のミルシートを開くとき、私がまず見るのは製造元と製鋼方法の欄です。電炉材そのものが劣るわけではありませんが、厚板や特殊性能を要求する部材では成分のばらつきが後工程の溶接性に響くことがあり、出所を把握したうえで施工者と情報を共有するようにしています。</p>
       </div>
+
+      <h2 id="process-zu">高炉と電炉、つくり方の違い（図解）</h2>
+      <figure class="diagram">
+        <svg viewBox="0 0 760 300" role="img" aria-label="高炉法と電炉法の製造プロセスを比較した図">
+          <title>高炉法と電炉法の製造プロセス比較</title>
+          <rect x="0" y="0" width="760" height="300" fill="#ffffff"/>
+          <text x="190" y="30" text-anchor="middle" font-size="17" font-weight="bold" fill="#1a3a5c">高炉法</text>
+          <text x="570" y="30" text-anchor="middle" font-size="17" font-weight="bold" fill="#e8843c">電炉法</text>
+          <g font-size="13" fill="#333">
+            <rect x="60" y="48" width="120" height="40" rx="5" fill="#eef3f8" stroke="#1a3a5c"/>
+            <text x="120" y="66" text-anchor="middle">鉄鉱石</text>
+            <text x="120" y="82" text-anchor="middle" font-size="11" fill="#666">＋コークス・石灰石</text>
+            <rect x="200" y="48" width="120" height="40" rx="5" fill="#eef3f8" stroke="#1a3a5c"/>
+            <text x="260" y="72" text-anchor="middle">高炉で還元</text>
+            <rect x="60" y="112" width="120" height="40" rx="5" fill="#eef3f8" stroke="#1a3a5c"/>
+            <text x="120" y="136" text-anchor="middle">転炉で精錬</text>
+            <rect x="200" y="112" width="120" height="40" rx="5" fill="#1a3a5c"/>
+            <text x="260" y="130" text-anchor="middle" fill="#fff">鋼（不純物少）</text>
+            <text x="260" y="146" text-anchor="middle" fill="#fff" font-size="11">厚板・H形鋼</text>
+          </g>
+          <path d="M182,68 L196,68" stroke="#1a3a5c" stroke-width="2"/>
+          <path d="M260,90 L260,104 L124,104 L124,108" fill="none" stroke="#1a3a5c" stroke-width="2"/>
+          <path d="M182,132 L196,132" stroke="#1a3a5c" stroke-width="2"/>
+          <g font-size="13" fill="#333">
+            <rect x="440" y="48" width="120" height="40" rx="5" fill="#fdf1e8" stroke="#e8843c"/>
+            <text x="500" y="66" text-anchor="middle">鉄スクラップ</text>
+            <text x="500" y="82" text-anchor="middle" font-size="11" fill="#666">（リサイクル鉄）</text>
+            <rect x="580" y="48" width="120" height="40" rx="5" fill="#fdf1e8" stroke="#e8843c"/>
+            <text x="640" y="72" text-anchor="middle">電気で溶かす</text>
+            <rect x="510" y="112" width="140" height="40" rx="5" fill="#e8843c"/>
+            <text x="580" y="130" text-anchor="middle" fill="#fff">鋼（不純物やや多）</text>
+            <text x="580" y="146" text-anchor="middle" fill="#fff" font-size="11">鉄筋・小形鋼</text>
+          </g>
+          <path d="M562,68 L576,68" stroke="#e8843c" stroke-width="2"/>
+          <path d="M640,90 L640,104 L584,104 L584,108" fill="none" stroke="#e8843c" stroke-width="2"/>
+          <rect x="60" y="182" width="260" height="90" rx="6" fill="#f4f7fa" stroke="#9fc0dd"/>
+          <g font-size="12.5" fill="#1a3a5c">
+            <text x="74" y="203">・不純物（銅・すず）が少ない</text>
+            <text x="74" y="223">・成分を細かく制御できる</text>
+            <text x="74" y="243">・大型設備＝連続生産が前提</text>
+            <text x="74" y="263">・厚板や大断面が得意</text>
+          </g>
+          <rect x="440" y="182" width="260" height="90" rx="6" fill="#fdf6f0" stroke="#e8843c"/>
+          <g font-size="12.5" fill="#8a4b16">
+            <text x="454" y="203">・CO₂排出が少ない（約1/4）</text>
+            <text x="454" y="223">・小回りが利き短納期</text>
+            <text x="454" y="243">・スクラップ由来の不純物が残る</text>
+            <text x="454" y="263">・棒鋼・小形鋼が得意</text>
+          </g>
+        </svg>
+        <figcaption>高炉は鉄鉱石から鉄をつくる「一から製造」、電炉はスクラップを溶かし直す「リサイクル製造」。この違いが得意な製品の違いにつながる。</figcaption>
+      </figure>
+
+      <h2 id="kankyou">脱炭素の流れと今後</h2>
+      <p>鉄鋼業は日本のCO₂排出量の約14％を占め、その大半が高炉のコークス（石炭）由来です。鉄鉱石は酸化鉄なので、鉄を取り出すには酸素を奪う<strong>還元</strong>が必要で、その還元剤に炭素を使う限りCO₂が出るという構造的な問題があります。</p>
+      <table class="data">
+        <tr><th>取り組み</th><th>内容</th><th>状況</th></tr>
+        <tr><td>電炉への転換</td><td>スクラップを電気で溶かす。CO₂は高炉の約1/4</td><td>大手も大型電炉へ投資を進行中</td></tr>
+        <tr><td>水素還元製鉄</td><td>還元剤をコークスから水素に置き換え、出るのは水</td><td>実証段階。2030年代の実用化を目標</td></tr>
+        <tr><td>高炉のCO₂回収</td><td>排ガスからCO₂を分離・貯留（CCS）</td><td>コストと貯留地が課題</td></tr>
+        <tr><td>スクラップの高度利用</td><td>不純物を除去して高級鋼に使う技術</td><td>研究・実装が進行中</td></tr>
+      </table>
+      <p>構造設計者としては、当面「主要構造部の厚板・大断面は高炉材、鉄筋・小形鋼は電炉材」という実態は変わりません。ただし今後は<strong>電炉材でも高性能な建築構造用鋼材</strong>が増える見込みで、環境配慮を評価する建物（ZEB・LEED認証など）では鋼材の由来が設計条件になる場面も出てきます。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

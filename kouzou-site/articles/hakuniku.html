@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/hakuniku.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/hakuniku.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-02",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-hakuniku.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "薄肉と軽量鉄骨は同じ意味ですか？", "acceptedAnswer": {"@type": "Answer", "text": "違います。「薄肉」は鋼材の板が薄いという<strong>材料側の状態</strong>を表す言葉で、「軽量鉄骨造」は薄い鋼材を主体につくる<strong>構造の種類</strong>を指します。重量鉄骨造の建物でも、母屋・胴縁・天井下地などには薄肉の軽量形鋼が使われるので、薄肉＝軽量鉄骨造とは限りません。"}},
+ {"@type": "Question", "name": "薄肉の鋼材は溶接してはいけないのですか？", "acceptedAnswer": {"@type": "Answer", "text": "禁止ではありませんが、実務では避けるのが基本です。板厚が薄いと溶け落ち（穴あき）や過大な熱変形が起きやすく、めっき層も焼失して腐食の起点になります。そのためドリルビス・タッピングねじ・ボルト接合が標準で、どうしても溶接する場合は低電流の専用施工と防錆補修が必要です。"}},
+ {"@type": "Question", "name": "薄肉だと建物の強度は足りないのでしょうか？", "acceptedAnswer": {"@type": "Answer", "text": "板厚が薄いこと自体は問題ではなく、薄さに応じた設計をすれば十分な強度が確保できます。2〜3階建ての住宅規模であれば、軽量形鋼にブレース（筋かい）を組み合わせた構造で必要な耐力は満たせます。ただしスパンが大きい建物や大きな地震力を負担する部材には向かないため、重量鉄骨を選びます。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">鉄骨造（S造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>薄肉とは？厚み・軽量鉄骨・薄肉断面の種類</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -170,6 +177,66 @@
         <span class="label">あわせて読みたい</span>
         <p>軽量形鋼は「<a href="keiryou-katakou.html">軽量形鋼</a>」、材質は「<a href="ssc400.html">軽量形鋼SSC400</a>」、座屈は「<a href="zakutsu.html">座屈とは？</a>」、板の薄さの指標は「<a href="h-habaatsuhi.html">幅厚比</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="atsusa-hikaku">板厚でこれだけ変わる：薄肉と厚肉の違い</h2>
+      <p>「薄いか厚いか」は見た目の話ではなく、<strong>設計のやり方そのものが変わる境目</strong>です。板が薄いと、部材全体が折れる前に板そのものがベコッとへこむ（局部座屈）ため、鋼材が持っている強度を最後まで使い切れません。厚板ではまず起きない現象なので、薄肉には専用の考え方が必要になります。</p>
+      <table class="data">
+        <tr><th>比較項目</th><th>薄肉（1.6〜3.2mm程度）</th><th>厚肉（6mm以上）</th></tr>
+        <tr><td>つくり方</td><td>冷間成形（常温でロール曲げ）</td><td>熱間圧延（赤熱させて圧延）</td></tr>
+        <tr><td>代表的な材</td><td><a href="keiryou-katakou.html">軽量形鋼</a>・角形鋼管（小径）・デッキプレート</td><td><a href="h-katako.html">H形鋼</a>・厚板・大径鋼管</td></tr>
+        <tr><td>主な弱点</td><td><strong>局部座屈</strong>（板がへこむ）</td><td>全体座屈・<a href="zakutsu.html">横座屈</a></td></tr>
+        <tr><td>接合方法</td><td>ボルト・ドリルビス・タッピングが基本</td><td>溶接・高力ボルト</td></tr>
+        <tr><td>さび対策</td><td>肉厚の余裕がなく厳しい（めっき必須）</td><td>塗装・耐火被覆と併用</td></tr>
+        <tr><td>使いどころ</td><td>住宅・下地材・二次部材</td><td>主要な柱・梁</td></tr>
+      </table>
+      <p>とくに<strong>さび（腐食）</strong>は薄肉の泣きどころです。厚さ9mmの材が0.5mmさびても余力がありますが、厚さ1.6mmの材が0.5mmさびると断面の3割が失われます。そのため軽量形鋼は溶融亜鉛めっきや電気亜鉛めっき品を使い、切断面・孔あけ部にも防錆処理をするのが基本です。</p>
+
+      <h2 id="kyokubu-zakutsu-zu">局部座屈のイメージ（図解）</h2>
+      <figure class="diagram">
+        <svg viewBox="0 0 720 280" role="img" aria-label="薄肉断面の局部座屈と厚肉断面の比較図">
+          <title>薄肉断面では板がへこむ局部座屈が先行する</title>
+          <rect x="0" y="0" width="720" height="280" fill="#ffffff"/>
+          <text x="180" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#c0392b">薄肉：板がへこんで先に壊れる</text>
+          <text x="540" y="28" text-anchor="middle" font-size="17" font-weight="bold" fill="#2e7d4f">厚肉：断面の強度を使い切れる</text>
+          <g transform="translate(120,60)">
+            <path d="M0,0 L0,150 M0,0 L46,0 M0,150 L46,150" fill="none" stroke="#9fc0dd" stroke-width="7"/>
+            <path d="M0,20 Q22,40 0,60 Q-22,80 0,100 Q22,120 0,140" fill="none" stroke="#c0392b" stroke-width="4"/>
+            <text x="34" y="86" font-size="13" fill="#c0392b">波打つ</text>
+          </g>
+          <g transform="translate(480,60)">
+            <path d="M0,0 L0,150 M0,0 L46,0 M0,150 L46,150" fill="none" stroke="#1a3a5c" stroke-width="16"/>
+            <line x1="0" y1="18" x2="0" y2="132" stroke="#2e7d4f" stroke-width="4" stroke-dasharray="0"/>
+            <text x="32" y="86" font-size="13" fill="#2e7d4f">まっすぐ保つ</text>
+          </g>
+          <g transform="translate(60,70)">
+            <line x1="0" y1="0" x2="0" y2="34" stroke="#e8843c" stroke-width="3"/>
+            <polygon points="0,40 -6,28 6,28" fill="#e8843c"/>
+            <line x1="0" y1="130" x2="0" y2="96" stroke="#e8843c" stroke-width="3"/>
+            <polygon points="0,90 -6,102 6,102" fill="#e8843c"/>
+            <text x="-10" y="70" text-anchor="end" font-size="13" fill="#e8843c">圧縮</text>
+          </g>
+          <g transform="translate(420,70)">
+            <line x1="0" y1="0" x2="0" y2="34" stroke="#e8843c" stroke-width="3"/>
+            <polygon points="0,40 -6,28 6,28" fill="#e8843c"/>
+            <line x1="0" y1="130" x2="0" y2="96" stroke="#e8843c" stroke-width="3"/>
+            <polygon points="0,90 -6,102 6,102" fill="#e8843c"/>
+            <text x="-10" y="70" text-anchor="end" font-size="13" fill="#e8843c">圧縮</text>
+          </g>
+          <text x="180" y="252" text-anchor="middle" font-size="13" fill="#333">同じ材質でも、薄いと材料の力を出し切る前に座屈する</text>
+          <text x="540" y="252" text-anchor="middle" font-size="13" fill="#333">板厚に余裕があれば降伏まで持ちこたえる</text>
+        </svg>
+        <figcaption>局部座屈は「部材が折れる」のではなく「板がへこむ」現象。薄肉ではこれが先に起こるため、<a href="h-habaatsuhi.html">幅厚比</a>の制限で板の薄さを管理する。</figcaption>
+      </figure>
+      <p>この「へこみやすさ」を数値で管理するのが<a href="h-habaatsuhi.html">幅厚比（板の幅÷板厚）</a>です。幅厚比が大きい（＝相対的に薄い）ほど局部座屈しやすいため、告示や規準で上限値が定められています。軽量形鋼にリップ（縁の折り返し）が付いているのは、この幅厚比を実質的に小さくして、板がへこみにくくするための工夫です。</p>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 薄肉と軽量鉄骨は同じ意味ですか？</h3>
+      <p>違います。「薄肉」は鋼材の板が薄いという<strong>材料側の状態</strong>を表す言葉で、「軽量鉄骨造」は薄い鋼材を主体につくる<strong>構造の種類</strong>を指します。重量鉄骨造の建物でも、母屋・胴縁・天井下地などには薄肉の軽量形鋼が使われるので、薄肉＝軽量鉄骨造とは限りません。</p>
+      <h3>Q2. 薄肉の鋼材は溶接してはいけないのですか？</h3>
+      <p>禁止ではありませんが、実務では避けるのが基本です。板厚が薄いと溶け落ち（穴あき）や過大な熱変形が起きやすく、めっき層も焼失して腐食の起点になります。そのためドリルビス・タッピングねじ・ボルト接合が標準で、どうしても溶接する場合は低電流の専用施工と防錆補修が必要です。</p>
+      <h3>Q3. 薄肉だと建物の強度は足りないのでしょうか？</h3>
+      <p>板厚が薄いこと自体は問題ではなく、薄さに応じた設計をすれば十分な強度が確保できます。2〜3階建ての住宅規模であれば、軽量形鋼にブレース（筋かい）を組み合わせた構造で必要な耐力は満たせます。ただしスパンが大きい建物や大きな地震力を負担する部材には向かないため、重量鉄骨を選びます。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

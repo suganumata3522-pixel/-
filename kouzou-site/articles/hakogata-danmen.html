@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/hakogata-danmen.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/hakogata-danmen.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-02",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-hakogata-danmen.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "箱型断面と角形鋼管は同じものですか？", "acceptedAnswer": {"@type": "Answer", "text": "角形鋼管は箱型断面の一種です。箱型断面は「4枚の板で矩形に囲んだ断面」という形状の総称で、それを既製品として製造したものが角形鋼管（STKR・BCR・BCPなど）、厚板を溶接して現場ごとに組み立てたものがビルドボックス柱です。"}},
+ {"@type": "Question", "name": "箱型断面の断面二次モーメントは引き算だけでよいのですか？", "acceptedAnswer": {"@type": "Answer", "text": "外形と内空の図心（中心）が一致している場合は、引き算だけで求められます。□-200×200×9のように上下左右対称な断面はこれに当てはまります。ただし非対称な箱型では、図心を求めたうえで平行軸の定理を使う必要があります。"}},
+ {"@type": "Question", "name": "計算値と規格値がずれるのはなぜですか？", "acceptedAnswer": {"@type": "Answer", "text": "角形鋼管には製造上どうしてもコーナーR（角の丸み）があり、その分だけ断面積が実際には小さくなるためです。単純な引き算では角が直角として計算されるので、5〜10％ほど大きめの値になります。設計では必ずメーカー規格値を使ってください。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">鉄骨造（S造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>箱型断面とは？断面係数・断面二次モーメントの計算</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -168,6 +175,66 @@
         <span class="label">あわせて読みたい</span>
         <p>計算の基礎は「<a href="danmen-niji-moment.html">断面二次モーメントとは？</a>」「<a href="danmen-keisu.html">断面係数とは？</a>」、中空の効果は「<a href="chuukuu-danmen.html">中空断面</a>」、開断面との違いは「<a href="kai-danmen.html">開断面</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="keisan-zu">箱型断面の計算：中実から中空を引く（図解）</h2>
+      <figure class="diagram">
+        <svg viewBox="0 0 720 280" role="img" aria-label="箱型断面の断面二次モーメントを外形から内空を引いて求める図">
+          <title>箱型断面の断面二次モーメントの求め方</title>
+          <rect x="0" y="0" width="720" height="280" fill="#ffffff"/>
+          <g transform="translate(60,60)">
+            <rect x="0" y="0" width="130" height="150" fill="#1a3a5c"/>
+            <text x="65" y="180" text-anchor="middle" font-size="14" fill="#1a3a5c">外形 B×H</text>
+            <text x="65" y="200" text-anchor="middle" font-size="12" fill="#666">中身の詰まった矩形</text>
+          </g>
+          <text x="228" y="140" text-anchor="middle" font-size="34" fill="#333">−</text>
+          <g transform="translate(270,60)">
+            <rect x="0" y="0" width="130" height="150" fill="none" stroke="#ccc" stroke-width="1" stroke-dasharray="4 3"/>
+            <rect x="14" y="14" width="102" height="122" fill="#e8843c"/>
+            <text x="65" y="180" text-anchor="middle" font-size="14" fill="#e8843c">内空 b×h</text>
+            <text x="65" y="200" text-anchor="middle" font-size="12" fill="#666">B−2t、H−2t</text>
+          </g>
+          <text x="438" y="140" text-anchor="middle" font-size="34" fill="#333">＝</text>
+          <g transform="translate(480,60)">
+            <rect x="0" y="0" width="130" height="150" fill="none" stroke="#1a3a5c" stroke-width="14"/>
+            <text x="65" y="180" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a3a5c">箱型断面</text>
+            <text x="65" y="200" text-anchor="middle" font-size="12" fill="#666">板厚 t の4枚の板</text>
+          </g>
+          <rect x="60" y="222" width="600" height="44" rx="6" fill="#f4f7fa" stroke="#9fc0dd"/>
+          <text x="360" y="242" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a3a5c">I ＝ BH³/12 − bh³/12　　Z ＝ I ÷ (H/2)</text>
+          <text x="360" y="260" text-anchor="middle" font-size="12.5" fill="#333">「大きい矩形の値」から「内側の空洞の値」を引くだけ。難しい公式は要らない。</text>
+        </svg>
+        <figcaption>箱型断面の計算は引き算がすべて。外形を中実の矩形とみなして求めた値から、内空の矩形の値を引く。</figcaption>
+      </figure>
+
+      <h2 id="keisanrei">計算例：□-200×200×9</h2>
+      <p>角形鋼管□-200×200×9（外形200mm角、板厚9mm）で実際に計算してみます。角の丸み（コーナーR）は無視した概算です。</p>
+      <div class="formula">
+        外形：B ＝ H ＝ 200mm<br>
+        内空：b ＝ h ＝ 200 − 9×2 ＝ 182mm<br>
+        I ＝ 200×200³/12 − 182×182³/12<br>
+        　＝ 133.3×10⁶ − 91.5×10⁶ ＝ <strong>41.8×10⁶ mm⁴（＝4180cm⁴）</strong><br>
+        Z ＝ I ÷ (200/2) ＝ 41.8×10⁶ ÷ 100 ＝ <strong>418×10³ mm³（＝418cm³）</strong>
+      </div>
+      <p>規格値（コーナーRを考慮した実際の値）はI＝3890cm⁴、Z＝389cm³なので、概算値は約7％大きめに出ます。<strong>検討の当たりをつける段階では概算で十分</strong>ですが、最終的な断面算定では必ず<a href="koukou-handbook.html">鋼材ハンドブック</a>の規格値を使ってください。</p>
+
+      <h2 id="tokuchou-hikaku">同じ重さのH形鋼と比べると</h2>
+      <table class="data">
+        <tr><th>比較項目</th><th>□-200×200×9（54.1kg/m）</th><th>H-200×200×8×12（49.9kg/m）</th></tr>
+        <tr><td>強軸まわりのI</td><td>3890cm⁴</td><td>4720cm⁴</td></tr>
+        <tr><td>弱軸まわりのI</td><td><strong>3890cm⁴（同じ）</strong></td><td>1600cm⁴（1/3に落ちる）</td></tr>
+        <tr><td>ねじり剛性</td><td><strong>非常に高い</strong></td><td>非常に低い</td></tr>
+        <tr><td>向きの影響</td><td>なし（正方形なので）</td><td>大きい（<a href="jakujiku-kyoujiku.html">強軸・弱軸</a>の管理が必要）</td></tr>
+      </table>
+      <p>強軸だけを見ればH形鋼のほうが効率的です。しかし柱は<strong>どの方向から地震が来るかわからない</strong>ため、弱軸のない箱型断面が有利になります。逆に梁は曲げの向きが決まっているので、強軸を効率よく使えるH形鋼が経済的です。この違いが「柱は角形鋼管、梁はH形鋼」という定番の組み合わせを生んでいます。</p>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 箱型断面と角形鋼管は同じものですか？</h3>
+      <p>角形鋼管は箱型断面の一種です。箱型断面は「4枚の板で矩形に囲んだ断面」という形状の総称で、それを既製品として製造したものが角形鋼管（STKR・BCR・BCPなど）、厚板を溶接して現場ごとに組み立てたものがビルドボックス柱です。</p>
+      <h3>Q2. 箱型断面の断面二次モーメントは引き算だけでよいのですか？</h3>
+      <p>外形と内空の図心（中心）が一致している場合は、引き算だけで求められます。□-200×200×9のように上下左右対称な断面はこれに当てはまります。ただし非対称な箱型では、図心を求めたうえで平行軸の定理を使う必要があります。</p>
+      <h3>Q3. 計算値と規格値がずれるのはなぜですか？</h3>
+      <p>角形鋼管には製造上どうしてもコーナーR（角の丸み）があり、その分だけ断面積が実際には小さくなるためです。単純な引き算では角が直角として計算されるので、5〜10％ほど大きめの値になります。設計では必ずメーカー規格値を使ってください。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

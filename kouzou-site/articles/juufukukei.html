@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/juufukukei.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/juufukukei.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-02",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-juufukukei.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "充腹形と非充腹形はどちらが強いのですか？", "acceptedAnswer": {"@type": "Answer", "text": "同じせい・同じ重量で比べれば、非充腹形（トラス梁）のほうが曲げに対して有利です。材料を上下の弦材に集中させられるためです。ただし充腹形はせん断に強く、変形も小さく、製作も単純です。「強い／弱い」ではなくスパンと条件で使い分けます。"}},
+ {"@type": "Question", "name": "H形鋼は充腹形ですか、非充腹形ですか？", "acceptedAnswer": {"@type": "Answer", "text": "充腹形です。ウェブ（腹板）が1枚の板で詰まっているためこう呼びます。逆に、ウェブ部分を斜材や格子で組み立てたトラス梁・ラチス梁が非充腹形です。"}},
+ {"@type": "Question", "name": "ウェブに配管用の孔をあけたら非充腹形になりますか？", "acceptedAnswer": {"@type": "Answer", "text": "なりません。孔をあけても構造の考え方は充腹形のままで、孔の周囲の応力集中を検討したうえで補強リングを入れて対応します。非充腹形は最初から斜材で力を伝える設計になっている点が根本的に違います。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">鉄骨造（S造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>充腹形とは？非充腹形・鉄骨との関係</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -177,6 +184,66 @@
         <span class="label">実務のワンポイント</span>
         <p>非充腹形のトラス屋根を検査に行くと、いつも見るのは弦材どうしの接合部の施工精度です。部材数が多い分だけ製作誤差が積み重なりやすく、現場合わせのシム調整が必要になる場面は教科書には出てきません。</p>
       </div>
+
+      <h2 id="hikaku-zu">充腹形と非充腹形（図解）</h2>
+      <figure class="diagram">
+        <svg viewBox="0 0 720 260" role="img" aria-label="充腹形のH形鋼梁と非充腹形のトラス梁を比較した図">
+          <title>充腹形と非充腹形の比較</title>
+          <rect x="0" y="0" width="720" height="260" fill="#ffffff"/>
+          <text x="180" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a3a5c">充腹形（H形鋼の梁）</text>
+          <text x="540" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#e8843c">非充腹形（トラス梁）</text>
+          <g transform="translate(50,60)">
+            <rect x="0" y="0" width="260" height="12" fill="#1a3a5c"/>
+            <rect x="0" y="12" width="260" height="64" fill="#9fc0dd"/>
+            <rect x="0" y="76" width="260" height="12" fill="#1a3a5c"/>
+            <text x="130" y="54" text-anchor="middle" font-size="14" fill="#1a3a5c">ウェブが1枚の板で詰まっている</text>
+          </g>
+          <g transform="translate(410,60)" stroke="#e8843c" stroke-width="7" fill="none">
+            <line x1="0" y1="6" x2="260" y2="6"/>
+            <line x1="0" y1="82" x2="260" y2="82"/>
+            <path d="M0,6 L52,82 L104,6 L156,82 L208,6 L260,82"/>
+          </g>
+          <text x="540" y="54" text-anchor="middle" font-size="14" fill="#e8843c">斜材でつないだ「すきま」のある構成</text>
+          <rect x="50" y="170" width="260" height="76" rx="6" fill="#f4f7fa" stroke="#9fc0dd"/>
+          <g font-size="12.5" fill="#1a3a5c">
+            <text x="64" y="192">・製作が単純で安い</text>
+            <text x="64" y="212">・せいを抑えられる＝階高が低い</text>
+            <text x="64" y="232">・スパンが大きいと重くなる</text>
+          </g>
+          <rect x="410" y="170" width="260" height="76" rx="6" fill="#fdf6f0" stroke="#e8843c"/>
+          <g font-size="12.5" fill="#8a4b16">
+            <text x="424" y="192">・大スパンでも軽くできる</text>
+            <text x="424" y="212">・すきまに設備配管を通せる</text>
+            <text x="424" y="232">・製作手間が多く、せいが大きい</text>
+          </g>
+        </svg>
+        <figcaption>力を伝えるのに必要な材料だけを残し、いらない部分を抜いたのが非充腹形。軽くできる代わりに、部材数が増えて手間がかかる。</figcaption>
+      </figure>
+      <p>なぜ「抜いてよい」のかというと、<a href="h-web.html">ウェブ</a>が負担しているのは主に<strong>せん断力</strong>だからです。せん断力は斜め方向の圧縮と引張に分解できるため、その方向に斜材を入れれば、板がなくても力は伝わります。トラス梁の斜材は、まさにこの「せん断力の通り道」だけを部材で置き換えたものです。</p>
+
+      <h2 id="tsukaiwake">どちらを選ぶか</h2>
+      <table class="data">
+        <tr><th>条件</th><th>向いている形式</th><th>理由</th></tr>
+        <tr><td>スパン10m程度まで</td><td><strong>充腹形</strong></td><td>H形鋼1本で成立し、製作費が圧倒的に安い</td></tr>
+        <tr><td>スパン20m以上</td><td><strong>非充腹形</strong></td><td>充腹形では自重が増えすぎて不経済になる</td></tr>
+        <tr><td>階高を抑えたい</td><td>充腹形</td><td>非充腹形は同じ性能でもせいが大きくなる</td></tr>
+        <tr><td>設備配管を梁に通したい</td><td>非充腹形</td><td>斜材のすきまをそのまま配管ルートに使える</td></tr>
+        <tr><td>意匠として見せたい</td><td>非充腹形</td><td>体育館・駅舎など、架構を見せる空間で採用例が多い</td></tr>
+        <tr><td>耐火被覆が必要</td><td>充腹形</td><td>非充腹形は部材数が多く、被覆の面積と手間が増える</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">中間解として「ハニカム梁」もある</span>
+        <p>H形鋼のウェブを六角形の波線で切断し、ずらして溶接し直すと、せいが1.5倍でウェブに穴が並んだ<strong>ハニカム梁（ビーム）</strong>ができます。材料を足さずにせいを大きくできるため、充腹形の手軽さと非充腹形の軽さを両立できます。穴の位置に設備配管を通せる利点もありますが、せん断力が大きい支点付近では穴周りの応力集中に注意が必要です。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 充腹形と非充腹形はどちらが強いのですか？</h3>
+      <p>同じせい・同じ重量で比べれば、非充腹形（トラス梁）のほうが曲げに対して有利です。材料を上下の弦材に集中させられるためです。ただし充腹形はせん断に強く、変形も小さく、製作も単純です。「強い／弱い」ではなくスパンと条件で使い分けます。</p>
+      <h3>Q2. H形鋼は充腹形ですか、非充腹形ですか？</h3>
+      <p>充腹形です。ウェブ（腹板）が1枚の板で詰まっているためこう呼びます。逆に、ウェブ部分を斜材や格子で組み立てたトラス梁・ラチス梁が非充腹形です。</p>
+      <h3>Q3. ウェブに配管用の孔をあけたら非充腹形になりますか？</h3>
+      <p>なりません。孔をあけても構造の考え方は充腹形のままで、孔の周囲の応力集中を検討したうえで補強リングを入れて対応します。非充腹形は最初から斜材で力を伝える設計になっている点が根本的に違います。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

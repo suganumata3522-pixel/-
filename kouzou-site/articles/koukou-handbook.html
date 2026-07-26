@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/koukou-handbook.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/koukou-handbook.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-koukou-handbook.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "鋼材ハンドブックは無料で入手できますか？", "acceptedAnswer": {"@type": "Answer", "text": "日本製鉄・JFEスチールなど各メーカーが、製品カタログや技術資料をWebサイトでPDF公開しています。断面性能表・寸法・単位質量といった実務で使う情報の多くはここで確認できます。より網羅的なものが必要なら、日本鋼構造協会や日本建築学会の刊行物を利用します。"}},
+ {"@type": "Question", "name": "ハンドブックの数値と自分の計算値が合いません。なぜですか？", "acceptedAnswer": {"@type": "Answer", "text": "多くの場合、①単位の換算ミス（cm系とmm系）、②角の丸み（フィレットR）の扱い、③x軸とy軸の取り違えのいずれかです。とくに角形鋼管やH形鋼のフィレットは手計算では無視されるため、手計算値のほうが5〜10％大きく出ます。設計にはハンドブックの規格値を使ってください。"}},
+ {"@type": "Question", "name": "断面を選ぶとき、まずZとIのどちらを見ればよいですか？", "acceptedAnswer": {"@type": "Answer", "text": "スパンが短めの梁（おおむね6m以下）は強度で決まることが多いのでZから、スパンが長い梁や許容たわみが厳しい部位はたわみで決まるのでIから探すと効率的です。どちらの場合も、最後に必ず両方を確認してください。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">鉄骨造（S造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>鋼材ハンドブックとは？主要メーカー（日本製鉄・JFE）の使い方と活用法</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -191,6 +198,102 @@
         <span class="label">あわせて読みたい</span>
         <p>鉄骨に使う材料は「<a href="s-zairyo.html">鉄骨造に使う鋼材の種類</a>」、設計の基本は「<a href="koukouzou-kijun.html">鋼構造設計規準</a>」、断面性能の基礎は「<a href="danmen-niji-moment.html">断面二次モーメントとは？</a>」をどうぞ。</p>
       </div>
+
+
+      <figure class="diagram">
+        <svg viewBox="0 0 760 300" role="img" aria-label="鋼材ハンドブックの断面性能表の見方を示した図">
+          <title>断面性能表のどこを見るか</title>
+          <rect x="0" y="0" width="760" height="300" fill="#ffffff"/>
+          <text x="380" y="28" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a3a5c">断面性能表で実際に使う欄はこの3つ</text>
+          <rect x="50" y="48" width="660" height="34" fill="#1a3a5c"/>
+          <g font-size="13" fill="#ffffff" text-anchor="middle">
+            <text x="130" y="70">呼び寸法</text>
+            <text x="270" y="70">単位質量</text>
+            <text x="380" y="70">断面積 A</text>
+            <text x="500" y="70">Ix</text>
+            <text x="610" y="70">Zx</text>
+            <text x="690" y="70">ix</text>
+          </g>
+          <g font-size="13" fill="#333" text-anchor="middle">
+            <rect x="50" y="82" width="660" height="32" fill="#f7f9fb"/>
+            <text x="130" y="103">H-300×150×6.5×9</text>
+            <text x="270" y="103">36.7 kg/m</text>
+            <text x="380" y="103">46.78 cm²</text>
+            <text x="500" y="103">7210 cm⁴</text>
+            <text x="610" y="103">481 cm³</text>
+            <text x="690" y="103">12.4 cm</text>
+            <rect x="50" y="114" width="660" height="32" fill="#ffffff"/>
+            <text x="130" y="135">H-350×175×7×11</text>
+            <text x="270" y="135">49.6 kg/m</text>
+            <text x="380" y="135">63.14 cm²</text>
+            <text x="500" y="135">13500 cm⁴</text>
+            <text x="610" y="135">771 cm³</text>
+            <text x="690" y="135">14.6 cm</text>
+            <rect x="50" y="146" width="660" height="32" fill="#f7f9fb"/>
+            <text x="130" y="167">H-400×200×8×13</text>
+            <text x="270" y="167">66.0 kg/m</text>
+            <text x="380" y="167">84.12 cm²</text>
+            <text x="500" y="167">23700 cm⁴</text>
+            <text x="610" y="167">1190 cm³</text>
+            <text x="690" y="167">16.8 cm</text>
+          </g>
+          <rect x="50" y="82" width="660" height="96" fill="none" stroke="#ccc"/>
+          <rect x="222" y="46" width="96" height="134" fill="none" stroke="#e8843c" stroke-width="3"/>
+          <rect x="440" y="46" width="120" height="134" fill="none" stroke="#c0392b" stroke-width="3"/>
+          <rect x="560" y="46" width="100" height="134" fill="none" stroke="#2e7d4f" stroke-width="3"/>
+          <g font-size="13">
+            <text x="60" y="212" fill="#c0392b" font-weight="bold">Ix</text>
+            <text x="82" y="212" fill="#333">… たわみの検討に使う（δ ＝ 5wL⁴/384EI）</text>
+            <text x="60" y="236" fill="#2e7d4f" font-weight="bold">Zx</text>
+            <text x="82" y="236" fill="#333">… 曲げ強度の検討に使う（σ ＝ M/Z ≦ fb）</text>
+            <text x="60" y="260" fill="#e8843c" font-weight="bold">単位質量</text>
+            <text x="132" y="260" fill="#333">… コストの比較に使う。条件を満たす中で最軽量を選ぶ</text>
+          </g>
+          <rect x="50" y="272" width="660" height="24" rx="5" fill="#f4f7fa" stroke="#9fc0dd"/>
+          <text x="380" y="289" text-anchor="middle" font-size="12.5" fill="#1a3a5c">単位はcm系。計算はmm系なので 1cm³＝10³mm³、1cm⁴＝10⁴mm⁴ の換算を忘れずに</text>
+        </svg>
+        <figcaption>断面性能表には十数個の数値が並ぶが、日常の断面選定で使うのはIx・Zx・単位質量の3つがほとんど。まずここだけ押さえれば実務は回る。</figcaption>
+      </figure>
+
+      <h2 id="mikata-tejun">断面を選ぶまでの手順（実務の流れ）</h2>
+      <p>ハンドブックは「見る」ものではなく「引く」ものです。実務では次の順に使います。</p>
+      <table class="data">
+        <tr><th>手順</th><th>やること</th><th>ハンドブックで見る欄</th></tr>
+        <tr><td>① 必要な性能を出す</td><td>応力（M・Q・N）と許容たわみを算出</td><td>—</td></tr>
+        <tr><td>② 必要なZを求める</td><td>Z<sub>必要</sub> ＝ M ÷ f<sub>b</sub></td><td>—</td></tr>
+        <tr><td>③ 候補を拾う</td><td>Z<sub>必要</sub>を上回る断面を探す</td><td>断面係数 Z<sub>x</sub></td></tr>
+        <tr><td>④ たわみを確認</td><td>δ ＝ 5wL⁴/(384EI) が許容内か</td><td>断面二次モーメント I<sub>x</sub></td></tr>
+        <tr><td>⑤ 重量を比較</td><td>候補の中で最軽量のものを選ぶ</td><td>単位質量（kg/m）</td></tr>
+        <tr><td>⑥ 座屈をチェック</td><td>横補剛の間隔・幅厚比ランクを確認</td><td>断面二次半径 i、板厚</td></tr>
+        <tr><td>⑦ 納まりを確認</td><td>接合部・仕上げとの取り合い</td><td>寸法（H・B・t1・t2・r）</td></tr>
+      </table>
+      <p>③と⑤が特に重要です。<strong>Zを満たす断面はいくつもある</strong>ので、その中から単位質量が最小のものを選ぶと、そのままコストの最小化につながります。ただし④のたわみで決まることも多く、その場合はZではなくIで探し直すことになります。</p>
+
+      <h2 id="hikaku-rei">実例：Zは足りてもたわみでNGになるケース</h2>
+      <div class="formula">
+        条件：等分布荷重 w＝12kN/m、スパン L＝8m、単純梁、許容たわみ L/300<br>
+        M ＝ wL²/8 ＝ 12×8²/8 ＝ 96kN・m　→　Z<sub>必要</sub> ＝ 96×10⁶ / 156 ≒ <strong>615×10³mm³（615cm³）</strong>
+      </div>
+      <p>ハンドブックでZ≧615cm³を探すと、H-350×175×7×11（Z＝771cm³、49.6kg/m）が候補になります。ところが、たわみを確認すると——</p>
+      <div class="formula">
+        I ＝ 13,500cm⁴ ＝ 13,500×10⁴mm⁴<br>
+        δ ＝ 5×12×8000⁴ / (384×205,000×13,500×10⁴) ≒ <strong>23.1mm</strong><br>
+        許容値 ＝ 8000/300 ≒ 26.7mm　→　ぎりぎりOK（比0.87）
+      </div>
+      <p>この例ではぎりぎり成立しますが、許容たわみがL/400になれば20.0mmとなりNGです。<strong>スパンが長い梁は、強度ではなくたわみで断面が決まる</strong>——これはハンドブックを引くうえでの鉄則です。長スパンの場合は最初からIの欄を見て候補を絞ると、無駄な手戻りがありません。</p>
+      <div class="point-box">
+        <span class="label">ハンドブックを引くときの注意</span>
+        <p><strong>①単位を必ず変換する</strong>：ハンドブックはcm系（cm³・cm⁴）、計算はmm系（N・mm）が普通です。1cm³＝10³mm³、1cm⁴＝10⁴mm⁴の換算を機械的に行う癖をつけてください。<br><strong>②x軸とy軸を取り違えない</strong>：Z<sub>x</sub>は<a href="jakujiku-kyoujiku.html">強軸</a>、Z<sub>y</sub>は弱軸です。梁を横向きに使う場合はy軸の値を見ます。<br><strong>③版が古いと規格が違う</strong>：JISは改訂されるため、既存建物の検証では当時の版を参照する必要があります。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 鋼材ハンドブックは無料で入手できますか？</h3>
+      <p>日本製鉄・JFEスチールなど各メーカーが、製品カタログや技術資料をWebサイトでPDF公開しています。断面性能表・寸法・単位質量といった実務で使う情報の多くはここで確認できます。より網羅的なものが必要なら、日本鋼構造協会や日本建築学会の刊行物を利用します。</p>
+      <h3>Q2. ハンドブックの数値と自分の計算値が合いません。なぜですか？</h3>
+      <p>多くの場合、①単位の換算ミス（cm系とmm系）、②角の丸み（フィレットR）の扱い、③x軸とy軸の取り違えのいずれかです。とくに角形鋼管やH形鋼のフィレットは手計算では無視されるため、手計算値のほうが5〜10％大きく出ます。設計にはハンドブックの規格値を使ってください。</p>
+      <h3>Q3. 断面を選ぶとき、まずZとIのどちらを見ればよいですか？</h3>
+      <p>スパンが短めの梁（おおむね6m以下）は強度で決まることが多いのでZから、スパンが長い梁や許容たわみが厳しい部位はたわみで決まるのでIから探すと効率的です。どちらの場合も、最後に必ず両方を確認してください。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

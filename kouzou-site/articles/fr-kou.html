@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/fr-kou.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/fr-kou.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-fr-kou.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "FR鋼を使えば耐火被覆は必ず不要になりますか？", "acceptedAnswer": {"@type": "Answer", "text": "いいえ。省略できるのは、火災時に鋼材温度が許容値（一般に600℃）を超えないことを<strong>耐火性能検証法などで確認できた場合</strong>に限られます。可燃物の量、開口の大きさ、階数、部材の位置によって温度は変わるため、条件によっては被覆の低減にとどまることも、通常どおり必要になることもあります。"}},
+ {"@type": "Question", "name": "FR鋼は普通鋼より常温でも強いのですか？", "acceptedAnswer": {"@type": "Answer", "text": "常温の強度は同等です。FR鋼はモリブデンやニオブなどを添加して<strong>高温での強度低下を抑えた</strong>鋼材であり、常温での降伏点・引張強さはSN490などと同じ水準に設計されています。設計上の常温許容応力度は普通鋼と同じ扱いです。"}},
+ {"@type": "Question", "name": "FR鋼は溶接や加工に特別な配慮が要りますか？", "acceptedAnswer": {"@type": "Answer", "text": "建築構造用として溶接性を確保した成分設計になっており、基本的には通常のSN材と同様に施工できます。ただし予熱条件や溶接材料の選定はメーカーの施工指針に従う必要があるため、採用前にメーカーの技術資料と大臣認定の内容を確認してください。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">鉄骨造（S造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>FR鋼（耐火鋼）とは？特徴・耐火被覆省略の条件と建築基準法での扱い</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -183,6 +190,57 @@
         <span class="label">あわせて読みたい</span>
         <p>耐火被覆の基礎は「<a href="s-zairyo.html">鉄骨の材料・耐火被覆</a>」、特殊鋼の分類は「<a href="tokushukou.html">特殊鋼とは</a>」、鋼材の種類は「<a href="kouzai-shurui.html">鋼材の種類</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="ondo-graph">温度が上がると鋼はどれだけ弱くなるか（図解）</h2>
+      <figure class="diagram">
+        <svg viewBox="0 0 720 330" role="img" aria-label="普通鋼とFR鋼の高温時の強度低下を比較したグラフ">
+          <title>普通鋼とFR鋼の高温強度の比較</title>
+          <rect x="0" y="0" width="720" height="330" fill="#ffffff"/>
+          <line x1="90" y1="260" x2="670" y2="260" stroke="#333" stroke-width="2"/>
+          <line x1="90" y1="260" x2="90" y2="40" stroke="#333" stroke-width="2"/>
+          <text x="380" y="298" text-anchor="middle" font-size="14" fill="#333">鋼材の温度（℃）</text>
+          <text x="34" y="160" font-size="14" fill="#333" transform="rotate(-90 34 160)">常温時に対する強度の割合</text>
+          <g font-size="12" fill="#666">
+            <text x="80" y="278">20</text><text x="230" y="278">300</text>
+            <text x="380" y="278">600</text><text x="530" y="278">800</text><text x="650" y="278">1000</text>
+            <text x="80" y="46" text-anchor="end">100%</text>
+            <text x="80" y="150" text-anchor="end">50%</text>
+            <text x="80" y="264" text-anchor="end">0%</text>
+          </g>
+          <line x1="90" y1="150" x2="670" y2="150" stroke="#ccc" stroke-width="1" stroke-dasharray="5 4"/>
+          <path d="M95,42 L200,52 L300,90 L360,150 L430,200 L530,238 L660,256" fill="none" stroke="#c0392b" stroke-width="3.5"/>
+          <text x="250" y="112" font-size="14" font-weight="bold" fill="#c0392b">普通鋼</text>
+          <path d="M95,42 L230,48 L330,60 L420,88 L470,150 L560,220 L660,254" fill="none" stroke="#2e7d4f" stroke-width="3.5"/>
+          <text x="470" y="122" font-size="14" font-weight="bold" fill="#2e7d4f">FR鋼（耐火鋼）</text>
+          <line x1="360" y1="40" x2="360" y2="260" stroke="#e8843c" stroke-width="2" stroke-dasharray="6 4"/>
+          <text x="368" y="60" font-size="13" fill="#e8843c">600℃</text>
+          <circle cx="360" cy="150" r="6" fill="#c0392b"/>
+          <circle cx="360" cy="72" r="6" fill="#2e7d4f"/>
+          <text x="380" y="320" text-anchor="middle" font-size="13" fill="#1a3a5c">600℃で普通鋼は約半分に落ちるが、FR鋼は常温の2/3以上を保つ</text>
+        </svg>
+        <figcaption>普通鋼は約350℃を超えると急に弱くなり、600℃で常温の半分程度に。FR鋼は600℃でも常温の2/3以上の降伏強度を保つように成分を調整した鋼材。</figcaption>
+      </figure>
+      <p>建築基準法の耐火設計では、鋼材が<strong>常温の2/3の強度を保てる温度</strong>を許容温度の目安にします。普通鋼はこれが約350℃なので、火災でその温度を超えないよう耐火被覆で守る必要があります。FR鋼はこの温度が600℃まで引き上げられているため、同じ火災でも「被覆が薄くて済む」または「被覆なしで成立する」場面が出てくるわけです。</p>
+
+      <h2 id="cost">コストと採用判断</h2>
+      <table class="data">
+        <tr><th>比較項目</th><th>普通鋼＋耐火被覆</th><th>FR鋼（被覆省略・低減）</th></tr>
+        <tr><td>鋼材単価</td><td>標準</td><td>1.2〜1.5倍程度（メーカー・時期による）</td></tr>
+        <tr><td>耐火被覆工事</td><td>必要（吹付け・巻付け・塗料）</td><td>省略または薄くできる</td></tr>
+        <tr><td>工期</td><td>被覆工事の分だけ長い</td><td><strong>短縮できる</strong></td></tr>
+        <tr><td>意匠</td><td>鉄骨が隠れる</td><td><strong>鉄骨をあらわしにできる</strong></td></tr>
+        <tr><td>メンテナンス</td><td>被覆の劣化・欠損の補修が必要</td><td>塗装のみで済む場合がある</td></tr>
+      </table>
+      <p>鋼材単価だけを見ると割高ですが、<strong>耐火被覆工事の費用と工期がまるごと減る</strong>ため、トータルでは競争力が出ることがあります。とくに鉄骨をあらわしで見せたい駅舎・体育館・アトリウムのような空間では、意匠的価値が決め手になります。逆に、天井裏に隠れてしまう部材にFR鋼を使ってもメリットは薄く、通常の被覆のほうが経済的です。</p>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. FR鋼を使えば耐火被覆は必ず不要になりますか？</h3>
+      <p>いいえ。省略できるのは、火災時に鋼材温度が許容値（一般に600℃）を超えないことを<strong>耐火性能検証法などで確認できた場合</strong>に限られます。可燃物の量、開口の大きさ、階数、部材の位置によって温度は変わるため、条件によっては被覆の低減にとどまることも、通常どおり必要になることもあります。</p>
+      <h3>Q2. FR鋼は普通鋼より常温でも強いのですか？</h3>
+      <p>常温の強度は同等です。FR鋼はモリブデンやニオブなどを添加して<strong>高温での強度低下を抑えた</strong>鋼材であり、常温での降伏点・引張強さはSN490などと同じ水準に設計されています。設計上の常温許容応力度は普通鋼と同じ扱いです。</p>
+      <h3>Q3. FR鋼は溶接や加工に特別な配慮が要りますか？</h3>
+      <p>建築構造用として溶接性を確保した成分設計になっており、基本的には通常のSN材と同様に施工できます。ただし予熱条件や溶接材料の選定はメーカーの施工指針に従う必要があるため、採用前にメーカーの技術資料と大臣認定の内容を確認してください。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

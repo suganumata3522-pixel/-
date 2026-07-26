@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/keiryou-katakou.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/keiryou-katakou.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-keiryou-katakou.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "軽量形鋼と一般の形鋼（H形鋼など）は何が違うのですか？", "acceptedAnswer": {"@type": "Answer", "text": "つくり方と板厚が違います。軽量形鋼は常温で薄い鋼板を折り曲げる<strong>冷間成形</strong>で、板厚は1.6〜4.5mm程度。H形鋼などは赤熱させて圧延する<strong>熱間圧延</strong>で、板厚は6mm以上が中心です。軽量形鋼は軽くて安く加工しやすい反面、局部座屈と腐食に弱いという性格の違いがあります。"}},
+ {"@type": "Question", "name": "Cチャンの「C-100×50×20×2.3」はどう読みますか？", "acceptedAnswer": {"@type": "Answer", "text": "順に「高さ100mm × 幅50mm × リップ長さ20mm × 板厚2.3mm」です。最後の数字が板厚で、同じ100×50でも板厚1.6と2.3では強度がかなり変わります。発注時は板厚の指定を忘れないでください。"}},
+ {"@type": "Question", "name": "軽量形鋼は溶接できますか？", "acceptedAnswer": {"@type": "Answer", "text": "板が薄いため溶け落ちや変形が起きやすく、実務ではボルト・ドリルビス接合が基本です。またJIS G 3350のSSC400は<strong>溶接性を保証していない</strong>鋼種なので、溶接前提の設計は避けます。溶接が必要な部位には、溶接性を保証したSS400以上の材や専用金物を使うのが安全です。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">鉄骨造（S造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>軽量形鋼とは？種類・規格と溶接性・Cチャンとの違い</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -180,6 +187,61 @@
         <span class="label">あわせて読みたい</span>
         <p>材質規格は「<a href="ssc400.html">一般構造用軽量形鋼SSC400</a>」、薄板の特性は「<a href="hakuniku.html">薄肉と軽量鉄骨</a>」、形鋼全体は「<a href="katakou.html">形鋼とは</a>」をどうぞ。なお「軽量」を含む用語には、コンクリート用の「<a href="keiryou-kotsuzai.html">軽量骨材</a>」「<a href="keiryou-concrete.html">軽量コンクリート</a>」もありますが、これらは鋼材ではなく別分野の用語なので混同しないよう注意してください。</p>
       </div>
+
+      <h2 id="danmen-zu">断面形状を図で見る</h2>
+      <figure class="diagram">
+        <svg viewBox="0 0 760 250" role="img" aria-label="軽量形鋼の代表的な断面形状（リップ溝形鋼・溝形鋼・ハット形鋼・Z形鋼・軽Z形鋼）">
+          <title>軽量形鋼の代表的な断面形状</title>
+          <rect x="0" y="0" width="760" height="250" fill="#ffffff"/>
+          <g stroke="#1a3a5c" stroke-width="7" fill="none" stroke-linecap="square">
+            <path d="M100,60 L60,60 L60,170 L100,170 M60,60 L60,60"/>
+            <path d="M100,60 L60,60 L60,170 L100,170 M100,60 L100,82 M100,170 L100,148"/>
+            <path d="M250,60 L210,60 L210,170 L250,170"/>
+            <path d="M360,150 L390,150 L390,80 L450,80 L450,150 L480,150"/>
+            <path d="M580,60 L620,60 L620,170 L660,170"/>
+            <path d="M580,60 L580,80 M660,170 L660,150"/>
+          </g>
+          <text x="82" y="205" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a3a5c">リップ溝形鋼</text>
+          <text x="82" y="226" text-anchor="middle" font-size="12" fill="#666">通称：Cチャン</text>
+          <text x="228" y="205" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a3a5c">溝形鋼</text>
+          <text x="228" y="226" text-anchor="middle" font-size="12" fill="#666">リップなし</text>
+          <text x="420" y="205" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a3a5c">ハット形鋼</text>
+          <text x="420" y="226" text-anchor="middle" font-size="12" fill="#666">下地・母屋に</text>
+          <text x="620" y="205" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a3a5c">リップZ形鋼</text>
+          <text x="620" y="226" text-anchor="middle" font-size="12" fill="#666">母屋の連続梁に</text>
+          <g fill="#e8843c">
+            <circle cx="100" cy="71" r="6"/><circle cx="100" cy="159" r="6"/>
+            <circle cx="580" cy="70" r="6"/><circle cx="660" cy="160" r="6"/>
+          </g>
+          <text x="130" y="40" font-size="13" fill="#e8843c">● ＝リップ（縁の折り返し）</text>
+          <text x="30" y="30" font-size="15" font-weight="bold" fill="#1a3a5c">薄い鋼板を冷間で折り曲げてつくる</text>
+        </svg>
+        <figcaption>軽量形鋼はすべて「薄い鋼板の折り曲げ」でできている。折り曲げの回数と向きが違うだけで、断面の性能と用途が変わる。</figcaption>
+      </figure>
+      <p>図のオレンジの丸が<strong>リップ</strong>です。板の端をもう一度内側に折り返しただけの小さな出っ張りですが、これがあるだけで断面の縁がへこみにくくなり、曲げにも圧縮にも強くなります。だからリップ付きのCチャンは柱にも梁にも使える万能材、リップのない溝形鋼は主に軽い下地材、という使い分けになります。</p>
+
+      <h2 id="site-erabikata">現場での選び方の目安</h2>
+      <table class="data">
+        <tr><th>用途</th><th>よく使う断面</th><th>選定のポイント</th></tr>
+        <tr><td>軽量鉄骨造の柱・梁</td><td>リップ溝形鋼（C-100×50×20×2.3 など）</td><td>2本を背中合わせにして「箱」にすると座屈に強くなる</td></tr>
+        <tr><td>母屋（屋根の下地）</td><td>リップ溝形鋼・リップZ形鋼</td><td>Z形は連続梁として重ねられ、継手が納まりやすい</td></tr>
+        <tr><td>胴縁（外壁の下地）</td><td>リップ溝形鋼・ハット形鋼</td><td>風圧に対する曲げで決まる。スパンとたわみを確認</td></tr>
+        <tr><td>天井・間仕切下地</td><td>軽天材（スタッド・ランナー）</td><td>構造材ではなく仕上げ下地。厚さ0.5mm前後</td></tr>
+        <tr><td>ブレース受け・小口</td><td>山形鋼（アングル）</td><td>ボルト接合しやすく、部分的な補強に便利</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">現場でありがちな失敗</span>
+        <p>Cチャンは<strong>断面が左右非対称</strong>です。重心（図心）と、ねじれの中心（せん断中心）がずれているため、まっすぐ荷重をかけたつもりでも<strong>ねじれながら曲がる</strong>ことがあります。単材で長いスパンを飛ばすと想定よりたわむので、2本を組んで対称断面にする、または横方向の振れ止め（振止め・ブレース）を入れるのが基本です。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 軽量形鋼と一般の形鋼（H形鋼など）は何が違うのですか？</h3>
+      <p>つくり方と板厚が違います。軽量形鋼は常温で薄い鋼板を折り曲げる<strong>冷間成形</strong>で、板厚は1.6〜4.5mm程度。H形鋼などは赤熱させて圧延する<strong>熱間圧延</strong>で、板厚は6mm以上が中心です。軽量形鋼は軽くて安く加工しやすい反面、局部座屈と腐食に弱いという性格の違いがあります。</p>
+      <h3>Q2. Cチャンの「C-100×50×20×2.3」はどう読みますか？</h3>
+      <p>順に「高さ100mm × 幅50mm × リップ長さ20mm × 板厚2.3mm」です。最後の数字が板厚で、同じ100×50でも板厚1.6と2.3では強度がかなり変わります。発注時は板厚の指定を忘れないでください。</p>
+      <h3>Q3. 軽量形鋼は溶接できますか？</h3>
+      <p>板が薄いため溶け落ちや変形が起きやすく、実務ではボルト・ドリルビス接合が基本です。またJIS G 3350のSSC400は<strong>溶接性を保証していない</strong>鋼種なので、溶接前提の設計は避けます。溶接が必要な部位には、溶接性を保証したSS400以上の材や専用金物を使うのが安全です。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

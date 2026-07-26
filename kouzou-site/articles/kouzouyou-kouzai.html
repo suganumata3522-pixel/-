@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/kouzouyou-kouzai.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/kouzouyou-kouzai.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-02",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-kouzouyou-kouzai.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "SN材のA・B・Cはどう使い分けますか？", "acceptedAnswer": {"@type": "Answer", "text": "A種は溶接しない二次部材向け、B種は溶接性を保証した主要な柱・梁の標準、C種はB種に加えて板厚方向の特性を保証したもので、通しダイアフラムのように板厚方向に引張力を受ける部材に使います。迷ったらB種、板厚方向に引っ張られるならC種と覚えてください。"}},
+ {"@type": "Question", "name": "STKRとBCR・BCPはどう違うのですか？", "acceptedAnswer": {"@type": "Answer", "text": "STKRは一般構造用の角形鋼管で、冷間成形による角部の性能低下が規格で管理されていません。BCR・BCPは建築構造用に開発された角形鋼管で、加工硬化を織り込んだうえで性能が保証されています。STKRを柱に使うと構造特性係数Dsの割増しが必要になるため、実務ではBCR295などを選ぶのが標準です。"}},
+ {"@type": "Question", "name": "SS400とSN400Bは何が違うのですか？", "acceptedAnswer": {"@type": "Answer", "text": "引張強さはどちらも400N/mm²以上で同等ですが、SN400Bは降伏点の<strong>上限</strong>と降伏比（80％以下）、溶接性（炭素当量など）が規定されている点が決定的に違います。耐震設計では「狙った順番で降伏させる」ことが重要なため、主要構造部にはSN材を使います。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">鉄骨造（S造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>構造用鋼材とは？種類・規格とSTKRの意味</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -178,6 +185,62 @@
         <span class="label">実務のワンポイント</span>
         <p>鉄骨図をチェックしていると、主要な柱にSTKRが指定されたまま応力割増しの検討が抜けていることがあります。BCR・BCPへの変更で済む場合もあるので、記号だけを見て流さず、その部材がラーメン構造の主要な柱かどうかを必ず確認しています。</p>
       </div>
+
+      <h2 id="kigou-yomitoki">記号の読み解き方（図解）</h2>
+      <figure class="diagram">
+        <svg viewBox="0 0 720 310" role="img" aria-label="鋼材記号の構成と代表的な規格記号の一覧図">
+          <title>鋼材記号の読み解き方</title>
+          <rect x="0" y="0" width="720" height="310" fill="#ffffff"/>
+          <text x="360" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a3a5c">記号＝「用途を表す文字」＋「強さの数字」</text>
+          <g font-size="40" font-weight="bold">
+            <text x="230" y="90" fill="#1a3a5c">SN</text>
+            <text x="320" y="90" fill="#c0392b">400</text>
+            <text x="440" y="90" fill="#e8843c">B</text>
+          </g>
+          <g stroke="#bbb" stroke-width="1.5">
+            <line x1="255" y1="102" x2="255" y2="126"/>
+            <line x1="360" y1="102" x2="360" y2="152"/>
+            <line x1="452" y1="102" x2="452" y2="178"/>
+          </g>
+          <g font-size="14">
+            <text x="150" y="144" fill="#1a3a5c">S＝Steel、N＝New（建築構造用）</text>
+            <text x="150" y="170" fill="#c0392b">引張強さ 400N/mm² 以上</text>
+            <text x="150" y="196" fill="#e8843c">種別（A／B／C）＝ 性能のランク</text>
+          </g>
+          <rect x="60" y="216" width="600" height="80" rx="6" fill="#f4f7fa" stroke="#9fc0dd"/>
+          <g font-size="13" fill="#1a3a5c">
+            <text x="76" y="238">A種：溶接を前提としない部材（二次部材向け）</text>
+            <text x="76" y="260">B種：溶接性を保証。<tspan font-weight="bold">主要な柱・梁の標準</tspan></text>
+            <text x="76" y="282">C種：B種＋<tspan font-weight="bold">板厚方向の特性（Z方向）</tspan>を保証。通しダイアフラム等に使う</text>
+          </g>
+        </svg>
+        <figcaption>SN材の末尾のA・B・Cは「性能のランク」。溶接する部材にはB種以上、板厚方向に引っ張られる部材にはC種を指定する。</figcaption>
+      </figure>
+      <p>とくに<strong>C種</strong>は見落としやすいポイントです。鋼板は圧延によって層状の組織になっているため、板の面と垂直な方向（板厚方向）に強く引っ張られると、層がはがれるように割れることがあります（ラメラテア）。柱梁接合部の<strong>通しダイアフラム</strong>のように、板厚方向へ引張力が作用する部材にはC種を指定するのが原則です。</p>
+
+      <h2 id="erabi-flow">どの鋼材を選ぶか：判断の流れ</h2>
+      <table class="data">
+        <tr><th>部材</th><th>推奨される鋼材</th><th>選定理由</th></tr>
+        <tr><td>主要な梁（H形鋼）</td><td>SN400B / SN490B</td><td>溶接性と降伏点上限が保証される</td></tr>
+        <tr><td>角形鋼管柱（冷間ロール成形）</td><td>BCR295</td><td>建築専用。角部の加工硬化を織り込んだ規格</td></tr>
+        <tr><td>角形鋼管柱（冷間プレス成形）</td><td>BCP235 / BCP325</td><td>板厚が厚い大断面に対応</td></tr>
+        <tr><td>通しダイアフラム</td><td>SN400C / SN490C</td><td>板厚方向の引張に対する保証が必要</td></tr>
+        <tr><td>ブレース・二次部材</td><td>SS400 / STKR400</td><td>溶接量が少なくコスト優先でよい</td></tr>
+        <tr><td>母屋・胴縁</td><td><a href="ssc400.html">SSC400</a></td><td>軽量形鋼。ボルト・ビス接合が前提</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">STKRを柱に使うときの落とし穴</span>
+        <p>STKR400は「一般構造用角形鋼管」で、建築専用に開発された鋼材ではありません。冷間成形の角部は加工硬化して<strong>硬く粘りが低下</strong>しますが、STKRはその影響が規格で管理されていません。そのため、STKRを柱に使う場合は<strong>構造特性係数Dsを割り増す</strong>など、告示による割増し規定が適用されます。建築用に開発されたBCR・BCPを使えばこの割増しは不要なので、実務では最初からBCR295を選ぶのが一般的です。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. SN材のA・B・Cはどう使い分けますか？</h3>
+      <p>A種は溶接しない二次部材向け、B種は溶接性を保証した主要な柱・梁の標準、C種はB種に加えて板厚方向の特性を保証したもので、通しダイアフラムのように板厚方向に引張力を受ける部材に使います。迷ったらB種、板厚方向に引っ張られるならC種と覚えてください。</p>
+      <h3>Q2. STKRとBCR・BCPはどう違うのですか？</h3>
+      <p>STKRは一般構造用の角形鋼管で、冷間成形による角部の性能低下が規格で管理されていません。BCR・BCPは建築構造用に開発された角形鋼管で、加工硬化を織り込んだうえで性能が保証されています。STKRを柱に使うと構造特性係数Dsの割増しが必要になるため、実務ではBCR295などを選ぶのが標準です。</p>
+      <h3>Q3. SS400とSN400Bは何が違うのですか？</h3>
+      <p>引張強さはどちらも400N/mm²以上で同等ですが、SN400Bは降伏点の<strong>上限</strong>と降伏比（80％以下）、溶接性（炭素当量など）が規定されている点が決定的に違います。耐震設計では「狙った順番で降伏させる」ことが重要なため、主要構造部にはSN材を使います。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>
