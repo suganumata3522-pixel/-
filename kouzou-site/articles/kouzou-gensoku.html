@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/kouzou-gensoku.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/kouzou-gensoku.html",
    "datePublished": "2026-06-15",
-   "dateModified": "2026-07-02",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-kouzou-gensoku.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "施行令36条の3には具体的な数値が書かれていないのに、なぜ重要なのですか？", "acceptedAnswer": {"@type": "Answer", "text": "数値規定のない場面で判断のよりどころになるからです。個別の条文がカバーしていない納まりや接合部について、「安全性・一体性・耐久性の3つの視点で説明できるか」を問う枠組みとして機能します。実務では、柱の位置変更や増築の可否を説明する際の根拠として日常的に使われます。"}},
+ {"@type": "Question", "name": "「一体となるようにすること」とは具体的に何を指しますか？", "acceptedAnswer": {"@type": "Answer", "text": "構造耐力上主要な部分どうしが、確実に応力（力）を伝え合える状態にすることを指します。具体的には柱梁接合部の設計、柱脚と基礎の緊結、床から耐力壁への力の伝達（水平構面）などです。とくに増築では、完全に一体化するかエキスパンションジョイントで完全に分離するかのどちらかに徹する必要があります。"}},
+ {"@type": "Question", "name": "耐久性への措置は構造計算で代替できますか？", "acceptedAnswer": {"@type": "Answer", "text": "できません。腐食・腐朽・摩損は時間とともに進む現象で、構造計算では表現できないためです。防腐・防蟻処理、コンクリートのかぶり厚さの確保、鋼材の防錆処理などは、耐久性等関係規定として計算による代替が認められていません。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">構造計算の実務</span>
         <span>公開日：2026年6月15日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>構造設計の原則とは？施行令36条の3</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -179,6 +186,64 @@
         <span class="label">実務のワンポイント</span>
         <p>耐力壁の配置図を描き終えた段階で、私は一度手を止めて偏心の目算をします。壁量が足りていても四隅の配置が片側に寄っていると後工程の剛性率計算でやり直しになることが多く、初期段階での目算が結局いちばんの近道だと感じています。</p>
       </div>
+
+      <h2 id="mittsu-zu">構造設計の原則が求める3つのこと（図解）</h2>
+      <figure class="diagram">
+        <svg viewBox="0 0 740 300" role="img" aria-label="構造設計の原則が求める安全性・耐久性・一体性の3つの要素の図">
+          <title>施行令36条の3が求める3つの原則</title>
+          <rect x="0" y="0" width="740" height="300" fill="#ffffff"/>
+          <text x="370" y="28" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a3a5c">「計算が合っていればよい」ではない、という条文</text>
+          <rect x="40" y="52" width="210" height="170" rx="10" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2.5"/>
+          <text x="145" y="82" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a3a5c">① 安全性</text>
+          <text x="145" y="110" text-anchor="middle" font-size="13" fill="#333">自重・積載荷重・積雪</text>
+          <text x="145" y="132" text-anchor="middle" font-size="13" fill="#333">風圧・土圧・水圧・地震</text>
+          <text x="145" y="154" text-anchor="middle" font-size="13" fill="#333">振動・衝撃</text>
+          <text x="145" y="186" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">に対して安全であること</text>
+          <rect x="265" y="52" width="210" height="170" rx="10" fill="#fdf6f0" stroke="#e8843c" stroke-width="2.5"/>
+          <text x="370" y="82" text-anchor="middle" font-size="16" font-weight="bold" fill="#e8843c">② 一体性</text>
+          <text x="370" y="110" text-anchor="middle" font-size="13" fill="#333">構造耐力上主要な部分が</text>
+          <text x="370" y="132" text-anchor="middle" font-size="13" fill="#333">相互に<tspan font-weight="bold">応力を伝えて</tspan></text>
+          <text x="370" y="154" text-anchor="middle" font-size="13" fill="#333">一体となること</text>
+          <text x="370" y="186" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">＝接合部が要</text>
+          <rect x="490" y="52" width="210" height="170" rx="10" fill="#eef8f2" stroke="#2e7d4f" stroke-width="2.5"/>
+          <text x="595" y="82" text-anchor="middle" font-size="16" font-weight="bold" fill="#2e7d4f">③ 耐久性</text>
+          <text x="595" y="110" text-anchor="middle" font-size="13" fill="#333">腐食・腐朽・摩損の</text>
+          <text x="595" y="132" text-anchor="middle" font-size="13" fill="#333">おそれのある部分に</text>
+          <text x="595" y="154" text-anchor="middle" font-size="13" fill="#333">有効な措置を講じる</text>
+          <text x="595" y="186" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">＝時間への備え</text>
+          <rect x="40" y="240" width="660" height="52" rx="6" fill="#f4f7fa" stroke="#9fc0dd"/>
+          <text x="370" y="262" text-anchor="middle" font-size="13.5" fill="#1a3a5c">この3つは互いに補い合う関係。どれか1つでも欠ければ建物は安全といえない。</text>
+          <text x="370" y="282" text-anchor="middle" font-size="13" fill="#666">とくに②の「一体性」は数値の規定がないため、設計者の判断が問われる。</text>
+        </svg>
+        <figcaption>36条の3は数値を定めない「理念条文」だが、実務では接合部の設計や納まりの判断根拠として日常的に効いてくる。</figcaption>
+      </figure>
+
+      <h2 id="ittaisei">「一体性」がなぜ重要なのか</h2>
+      <p>3つの原則の中で、実務でもっとも判断が難しいのが<strong>②の一体性</strong>です。部材ごとの計算は数値で確かめられますが、「一体になっているか」には決まった数値基準がありません。</p>
+      <table class="data">
+        <tr><th>一体性が問われる場面</th><th>問題になること</th><th>対処</th></tr>
+        <tr><td>柱と梁の接合部</td><td>ピンなのか剛接合なのか</td><td>モデル化と実際の納まりを一致させる</td></tr>
+        <tr><td>基礎と上部構造</td><td>アンカーボルト・柱脚が力を伝えられるか</td><td>柱脚形式の選定と定着長さの確保</td></tr>
+        <tr><td>床と耐力壁</td><td>地震力が壁まで届くか</td><td><a href="suihei-koumen.html">水平構面</a>の確保、剛床化</td></tr>
+        <tr><td>増築部と既存部</td><td>別々に揺れて衝突しないか</td><td>構造的に一体化するか、エキスパンションで分離するか</td></tr>
+        <tr><td>異種構造の併用</td><td>RC部分とS部分の変形の差</td><td>接合部で変形差を吸収する設計</td></tr>
+      </table>
+      <p>とくに<strong>増築</strong>では、この条文の意味が鮮明になります。既存建物に増築部を「くっつけただけ」にすると、地震時に別々に揺れて接合部が破壊されます。だから設計では「完全に一体化する」か「エキスパンションジョイントで完全に分離する」かの<strong>どちらかに徹する</strong>必要があり、中途半端が一番危険です。</p>
+
+      <h2 id="jitsumu-hanei">日常設計への活かし方</h2>
+      <div class="point-box">
+        <span class="label">条文がない場面での判断根拠になる</span>
+        <p>実務では、法令に具体的な規定がない状況に頻繁に出会います。「この納まりで力は伝わるのか」「この程度の隙間は許容されるか」——そうしたとき、判断のよりどころになるのが36条の3の考え方です。<br>たとえば意匠設計者から「この柱を抜きたい」と言われたとき、単に「計算が成立しない」と答えるのではなく、<strong>「力の伝達経路が途切れる（一体性が損なわれる）」</strong>という説明ができれば、代替案（梁を大きくする、別の位置に柱を立てる）の議論に進めます。<br>条文の暗記としてではなく、<strong>「安全・一体・耐久の3つの視点でこの設計は説明できるか」</strong>という自問のフレームとして持っておくと、日々の判断が一貫します。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 施行令36条の3には具体的な数値が書かれていないのに、なぜ重要なのですか？</h3>
+      <p>数値規定のない場面で判断のよりどころになるからです。個別の条文がカバーしていない納まりや接合部について、「安全性・一体性・耐久性の3つの視点で説明できるか」を問う枠組みとして機能します。実務では、柱の位置変更や増築の可否を説明する際の根拠として日常的に使われます。</p>
+      <h3>Q2. 「一体となるようにすること」とは具体的に何を指しますか？</h3>
+      <p>構造耐力上主要な部分どうしが、確実に応力（力）を伝え合える状態にすることを指します。具体的には柱梁接合部の設計、柱脚と基礎の緊結、床から耐力壁への力の伝達（水平構面）などです。とくに増築では、完全に一体化するかエキスパンションジョイントで完全に分離するかのどちらかに徹する必要があります。</p>
+      <h3>Q3. 耐久性への措置は構造計算で代替できますか？</h3>
+      <p>できません。腐食・腐朽・摩損は時間とともに進む現象で、構造計算では表現できないためです。防腐・防蟻処理、コンクリートのかぶり厚さの確保、鋼材の防錆処理などは、耐久性等関係規定として計算による代替が認められていません。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/shiyoujou-shishou.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/shiyoujou-shishou.html",
    "datePublished": "2026-06-15",
-   "dateModified": "2026-07-02",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-shiyoujou-shishou.jpg",
    "author": {
     "@type": "Person",
@@ -114,7 +114,7 @@
       <div class="meta">
         <span class="tag">構造計算の実務</span>
         <span>公開日：2026年6月15日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>使用上の支障とは？たわみの制限・告示とスラブ</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -176,6 +176,59 @@
         <span class="label">実務のワンポイント</span>
         <p>構造計算書のチェックでは強度の判定比ばかりに目が行きがちですが、若手の計算をレビューするとたわみの検討が長期荷重のみで短期を見落としていたり、変形増大係数を掛け忘れているケースに時々出会います。私はスラブ設計の照査では、たわみの項だけ別途印を付けて必ず単独で見直すようにしています。</p>
       </div>
+
+      <h2 id="tawami-zu">たわみ制限の考え方（図解）</h2>
+      <figure class="diagram">
+        <svg viewBox="0 0 740 300" role="img" aria-label="梁のたわみとスパンの比で使用上の支障を判定することを示す図">
+          <title>たわみ制限 δ/ℓ ≦ 1/250</title>
+          <rect x="0" y="0" width="740" height="300" fill="#ffffff"/>
+          <text x="370" y="28" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a3a5c">「壊れないこと」とは別に「使いやすいこと」も求められる</text>
+          <line x1="110" y1="90" x2="630" y2="90" stroke="#ccc" stroke-width="3" stroke-dasharray="7 5"/>
+          <path d="M110,90 Q370,178 630,90" fill="none" stroke="#1a3a5c" stroke-width="7"/>
+          <polygon points="110,90 96,120 124,120" fill="#666"/>
+          <polygon points="630,90 616,120 644,120" fill="#666"/>
+          <line x1="370" y1="90" x2="370" y2="156" stroke="#c0392b" stroke-width="3"/>
+          <line x1="358" y1="90" x2="382" y2="90" stroke="#c0392b" stroke-width="2"/>
+          <line x1="358" y1="156" x2="382" y2="156" stroke="#c0392b" stroke-width="2"/>
+          <text x="392" y="128" font-size="16" font-weight="bold" fill="#c0392b">δ</text>
+          <text x="392" y="148" font-size="12" fill="#c0392b">たわみ</text>
+          <line x1="110" y1="196" x2="630" y2="196" stroke="#e8843c" stroke-width="2"/>
+          <line x1="110" y1="188" x2="110" y2="204" stroke="#e8843c" stroke-width="2"/>
+          <line x1="630" y1="188" x2="630" y2="204" stroke="#e8843c" stroke-width="2"/>
+          <text x="370" y="218" text-anchor="middle" font-size="16" font-weight="bold" fill="#e8843c">ℓ（スパン）</text>
+          <rect x="110" y="238" width="520" height="52" rx="6" fill="#f4f7fa" stroke="#9fc0dd"/>
+          <text x="370" y="260" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a3a5c">δ / ℓ ≦ 1/250　（変形増大係数を考慮した値で）</text>
+          <text x="370" y="280" text-anchor="middle" font-size="12.5" fill="#666">スパン6mなら、たわみは24mm以下。壊れなくてもこれを超えると「使用上の支障あり」</text>
+        </svg>
+        <figcaption>たわみは絶対値ではなくスパンとの比で評価する。長いスパンほど大きなたわみが許容されるのは、視覚的な違和感が比率で決まるため。</figcaption>
+      </figure>
+
+      <h2 id="naze-seigen">なぜたわみを制限するのか</h2>
+      <table class="data">
+        <tr><th>たわみが大きいと起きること</th><th>具体的な症状</th></tr>
+        <tr><td>視覚的な違和感</td><td>床や天井が波打って見える、建具のラインが歪む</td></tr>
+        <tr><td>建具の不具合</td><td>ドアが閉まらない、引き戸が動かない、サッシが開かない</td></tr>
+        <tr><td>仕上げ材の損傷</td><td>クロスの割れ、タイルの浮き・剥落、天井ボードの目地割れ</td></tr>
+        <tr><td>設備の不具合</td><td>排水勾配が逆になる、配管に無理な力がかかる</td></tr>
+        <tr><td>居住者の不安</td><td>歩くと揺れる、物を落とすと振動する（振動障害）</td></tr>
+        <tr><td>水がたまる</td><td>陸屋根・バルコニーで排水不良、雨漏りの原因に</td></tr>
+      </table>
+      <p>どれも<strong>「壊れる」わけではない</strong>という点が共通しています。構造安全上は問題なくても、住む人・使う人にとっては明確な不具合です。だから「使用上の支障が起こらないこと」という別の観点の規定が設けられています。</p>
+
+      <h2 id="hendou-zoudai">変形増大係数の意味</h2>
+      <table class="data">
+        <tr><th>構造種別</th><th>変形増大係数</th><th>理由</th></tr>
+        <tr><td>木造</td><td>2</td><td>クリープ（長期荷重による継続的な変形）が大きい</td></tr>
+        <tr><td>鉄骨造</td><td>1</td><td>クリープがほぼない</td></tr>
+        <tr><td>鉄筋コンクリート造</td><td>16/(1＋α)　※αは仕上げ等の条件による</td><td>クリープと乾燥収縮、ひび割れによる剛性低下</td></tr>
+        <tr><td>デッキ合成スラブ</td><td>個別に検討</td><td>認定内容による</td></tr>
+      </table>
+      <p><strong>変形増大係数</strong>とは、計算で求めた瞬間的なたわみに掛けて「長い年月のあいだに進む変形」を見込むための係数です。木造で2、RC造でさらに大きな値になるのは、<strong>クリープ</strong>——一定の荷重が長期間かかり続けると、時間とともに変形が進んでいく現象——の影響が大きいためです。</p>
+      <div class="point-box">
+        <span class="label">スパン6mのRC梁を例に考える</span>
+        <p>仮に瞬間のたわみが5mmと計算されたRC梁があったとします。変形増大係数を8とすると、長期的なたわみは5×8＝40mm。スパン6,000mmに対して 40/6,000 ＝ 1/150 となり、制限値の1/250を超えてしまいます。<br>ここで重要なのは、<strong>「計算上5mmだから大丈夫」と判断すると実際には2倍近い変形が生じる</strong>ということです。竣工直後は問題がなくても、数年後に建具が閉まらなくなる、天井のクロスが割れる——といった不具合はこうして生まれます。<br>長スパンの梁やスラブでは、強度（曲げ・せん断）ではなくこのたわみで断面が決まることが非常に多く、実務では最初からたわみを起点に断面を仮定することもよくあります。</p>
+      </div>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

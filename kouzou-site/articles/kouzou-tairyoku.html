@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/kouzou-tairyoku.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/kouzou-tairyoku.html",
    "datePublished": "2026-06-15",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-kouzou-tairyoku.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "階段は構造耐力上主要な部分に含まれますか？", "acceptedAnswer": {"@type": "Answer", "text": "原則として含まれません。建築基準法施行令1条三号の列挙に階段は入っていないためです。ただし主要構造部（法2条五号）には含まれるので、防火上の規制は受けます。なお、RC造の階段が耐力壁に直接取り付いて建物の剛性に影響する場合など、実態として構造耐力を担う場合は設計上必ず考慮します。"}},
+ {"@type": "Question", "name": "間仕切壁はどちらに含まれますか？", "acceptedAnswer": {"@type": "Answer", "text": "耐力壁でない間仕切壁は、構造耐力上主要な部分には含まれません。主要構造部には含まれますが、防火上主要でない間仕切壁は除外される規定があります。逆に、構造用合板を張った耐力壁であれば、間仕切位置にあっても構造耐力上主要な部分です。"}},
+ {"@type": "Question", "name": "構造耐力上主要な部分と主要構造部はなぜ紛らわしい名前なのですか？", "acceptedAnswer": {"@type": "Answer", "text": "定めている法令と目的が違うためです。構造耐力上主要な部分は施行令1条三号で定義され、建物が壊れないための構造安全が目的。主要構造部は法2条五号で定義され、火災で燃え広がらないための防火が目的です。「構造の話か、防火の話か」で見分けると混乱しません。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">構造計算の実務</span>
         <span>公開日：2026年6月15日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>構造耐力上主要な部分とは？主要構造部との違い</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -188,6 +195,72 @@
         <span class="label">実務のワンポイント</span>
         <p>確認申請の質疑対応をしていると、審査側から「主要構造部」と「構造耐力上主要な部分」を混同した指摘を受けることがあります。私は回答書で必ず根拠条文（施行令1条3号か法2条5号か）を明記し、どちらの話をしているのかをその都度はっきりさせるようにしています。</p>
       </div>
+
+      <h2 id="benn-zu">3つの用語の関係（図解）</h2>
+      <figure class="diagram">
+        <svg viewBox="0 0 740 320" role="img" aria-label="構造耐力上主要な部分と主要構造部の範囲の違いを示すベン図">
+          <title>構造耐力上主要な部分と主要構造部の関係</title>
+          <rect x="0" y="0" width="740" height="320" fill="#ffffff"/>
+          <text x="370" y="28" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a3a5c">名前は似ているが、目的も範囲も違う</text>
+          <ellipse cx="270" cy="150" rx="180" ry="92" fill="#9fc0dd" fill-opacity="0.35" stroke="#1a3a5c" stroke-width="2.5"/>
+          <ellipse cx="470" cy="150" rx="180" ry="92" fill="#e8843c" fill-opacity="0.28" stroke="#e8843c" stroke-width="2.5"/>
+          <text x="150" y="82" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a3a5c">構造耐力上主要な部分</text>
+          <text x="150" y="102" text-anchor="middle" font-size="12" fill="#1a3a5c">（令1条三号）目的＝<tspan font-weight="bold">構造安全</tspan></text>
+          <text x="600" y="82" text-anchor="middle" font-size="15" font-weight="bold" fill="#8a4b16">主要構造部</text>
+          <text x="600" y="102" text-anchor="middle" font-size="12" fill="#8a4b16">（法2条五号）目的＝<tspan font-weight="bold">防火</tspan></text>
+          <g font-size="13" fill="#1a3a5c">
+            <text x="160" y="142" text-anchor="middle">基礎・基礎ぐい</text>
+            <text x="160" y="164" text-anchor="middle">土台・斜材（筋かい）</text>
+            <text x="160" y="186" text-anchor="middle">小屋組・火打材</text>
+          </g>
+          <g font-size="13" fill="#333" font-weight="bold">
+            <text x="370" y="142" text-anchor="middle">壁・柱・床</text>
+            <text x="370" y="164" text-anchor="middle">はり・屋根</text>
+            <text x="370" y="186" text-anchor="middle">階段</text>
+            <text x="370" y="210" text-anchor="middle" font-size="11.5" font-weight="normal" fill="#666">（重なる部分）</text>
+          </g>
+          <g font-size="13" fill="#8a4b16">
+            <text x="592" y="152" text-anchor="middle">間仕切壁・間柱</text>
+            <text x="592" y="174" text-anchor="middle">（防火上は対象、</text>
+            <text x="592" y="194" text-anchor="middle">構造上は非対象の部分）</text>
+          </g>
+          <rect x="60" y="262" width="620" height="50" rx="6" fill="#f4f7fa" stroke="#9fc0dd"/>
+          <text x="80" y="284" font-size="13.5" fill="#1a3a5c">・構造耐力上主要な部分 ＝ 建物が<tspan font-weight="bold">壊れないため</tspan>に必要な部分（構造の話）</text>
+          <text x="80" y="304" font-size="13.5" fill="#8a4b16">・主要構造部 ＝ 火災で<tspan font-weight="bold">燃え広がらないため</tspan>に規制する部分（防火の話）</text>
+        </svg>
+        <figcaption>基礎・土台・筋かいは「構造耐力上主要な部分」だが「主要構造部」ではない。防火の規制対象は地上部の延焼経路になる部分だから。</figcaption>
+      </figure>
+
+      <h2 id="ichiran">それぞれに含まれるものの一覧</h2>
+      <table class="data">
+        <tr><th>部位</th><th>構造耐力上主要な部分</th><th>主要構造部</th></tr>
+        <tr><td>基礎・基礎ぐい</td><td><strong>○</strong></td><td>×</td></tr>
+        <tr><td>壁</td><td>○（耐力壁）</td><td>○（間仕切壁は除外規定あり）</td></tr>
+        <tr><td>柱</td><td><strong>○</strong></td><td>○（間柱は除く）</td></tr>
+        <tr><td>小屋組</td><td><strong>○</strong></td><td>×</td></tr>
+        <tr><td>土台</td><td><strong>○</strong></td><td>×</td></tr>
+        <tr><td>斜材（筋かい・方杖・火打材）</td><td><strong>○</strong></td><td>×</td></tr>
+        <tr><td>床版</td><td><strong>○</strong></td><td>○（最下階の床は除く）</td></tr>
+        <tr><td>屋根版</td><td><strong>○</strong></td><td>○（ひさしは除く）</td></tr>
+        <tr><td>横架材（はり・けた等）</td><td><strong>○</strong></td><td>○（小ばりは除く）</td></tr>
+        <tr><td>階段</td><td>×（原則）</td><td>○（屋外階段は除外規定あり）</td></tr>
+      </table>
+      <p>この表で注目してほしいのは、<strong>「階段」が構造耐力上主要な部分に含まれない</strong>という点です。階段は人が歩く重要な部分ですが、建物全体の骨組み（自重・積載荷重・地震力を支える系統）とは切り離せる場合が多いためです。ただし、RC造の階段が耐力壁に直接取り付いていて建物の剛性に影響する場合など、実態として構造耐力を担っているなら設計上は当然考慮します。</p>
+
+      <h2 id="jitsumu-imi">この区分が実務でどう効くか</h2>
+      <table class="data">
+        <tr><th>場面</th><th>どちらの用語が効くか</th><th>具体的な影響</th></tr>
+        <tr><td>構造計算の対象範囲</td><td>構造耐力上主要な部分</td><td>この範囲の部材は許容応力度計算等が必要</td></tr>
+        <tr><td>大規模の修繕・模様替の判定</td><td><strong>主要構造部</strong></td><td>過半の修繕は確認申請が必要になる</td></tr>
+        <tr><td>耐火建築物の要求</td><td>主要構造部</td><td>耐火構造・準耐火構造の適用範囲</td></tr>
+        <tr><td>10年間の瑕疵担保責任</td><td><strong>構造耐力上主要な部分</strong>＋雨水浸入</td><td>住宅品質確保法で新築住宅に義務づけ</td></tr>
+        <tr><td>既存不適格の判定</td><td>両方</td><td>改修内容によって適用条文が変わる</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">住宅の10年保証は「構造耐力上主要な部分」の話</span>
+        <p>新築住宅の売主・請負人には、<strong>引渡しから10年間の瑕疵担保責任</strong>が法律で義務づけられています（住宅の品質確保の促進等に関する法律）。その対象は「<strong>構造耐力上主要な部分</strong>」と「雨水の浸入を防止する部分」の2つです。<br>つまり、基礎にひび割れが生じて構造耐力に影響する場合や、土台が腐朽した場合は10年保証の対象になります。一方、内装のクロスの剥がれや設備機器の故障は対象外です。この線引きを決めているのが、まさにこの用語の定義なのです。<br>用語の定義を「試験のための暗記事項」と捉えると退屈ですが、実際には<strong>誰がどこまで責任を負うか</strong>という実務上の重い意味を持っています。</p>
+      </div>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

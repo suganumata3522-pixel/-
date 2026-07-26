@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/kouzou-kyoudo.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/kouzou-kyoudo.html",
    "datePublished": "2026-06-15",
-   "dateModified": "2026-07-02",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-kouzou-kyoudo.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "構造計算をすれば仕様規定は守らなくてよいのですか？", "acceptedAnswer": {"@type": "Answer", "text": "いいえ。構造計算で代替できるのは一部の仕様規定だけで、耐久性等関係規定（防腐・防蟻処理、コンクリートのかぶり厚さ、基礎の形式など）は、どれだけ高度な構造計算をしても省略できません。時間とともに進む劣化は計算では確かめられないためです。"}},
+ {"@type": "Question", "name": "施行令の条文を読んでも具体的な数値が書かれていません。どこを見ればよいですか？", "acceptedAnswer": {"@type": "Answer", "text": "告示を確認してください。施行令には「国土交通大臣が定める基準による」という委任規定が多く、具体的な数値や計算式は告示に書かれています。たとえば地震力のRtやAi分布の式は告示1793号にあります。令の条文→告示→学会規準の順に調べるのが実務の基本です。"}},
+ {"@type": "Question", "name": "構造強度の規定は施行令のどこにありますか？", "acceptedAnswer": {"@type": "Answer", "text": "建築基準法施行令の第3章（36条〜99条）が「構造強度」です。第1節が総則、第2〜7節が構造種別ごとの仕様規定（木造・組積造・補強CB造・鉄骨造・RC造・SRC造）、第8節が構造計算の方法という構成になっています。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">構造計算の実務</span>
         <span>公開日：2026年6月15日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>構造強度とは？建築基準法施行令との関係</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -172,6 +179,94 @@
         <span class="label">実務のワンポイント</span>
         <p>計算ルートが決まると気が緩みがちですが、耐久性等関係規定（かぶり厚さなど）はどのルートでも別枠で必ず満たす必要があります。私は計算書のチェックリストにこの項目を独立させて置き、計算が通ったことと仕様規定を満たすことを混同しないようにしています。</p>
       </div>
+
+      <h2 id="shikourei-map">施行令第3章の全体地図（図解）</h2>
+      <figure class="diagram">
+        <svg viewBox="0 0 740 340" role="img" aria-label="建築基準法施行令第3章の構成を示す図">
+          <title>施行令第3章「構造強度」の構成</title>
+          <rect x="0" y="0" width="740" height="340" fill="#ffffff"/>
+          <rect x="220" y="34" width="300" height="42" rx="8" fill="#1a3a5c"/>
+          <text x="370" y="60" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">施行令 第3章「構造強度」</text>
+          <line x1="370" y1="76" x2="370" y2="96" stroke="#666" stroke-width="2"/>
+          <line x1="150" y1="96" x2="590" y2="96" stroke="#666" stroke-width="2"/>
+          <g stroke="#666" stroke-width="2">
+            <line x1="150" y1="96" x2="150" y2="116"/>
+            <line x1="370" y1="96" x2="370" y2="116"/>
+            <line x1="590" y1="96" x2="590" y2="116"/>
+          </g>
+          <rect x="46" y="116" width="208" height="180" rx="8" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2"/>
+          <text x="150" y="140" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a3a5c">第1節 総則</text>
+          <g font-size="12.5" fill="#333">
+            <text x="62" y="164">36条：構造方法に関する</text>
+            <text x="62" y="182">　　　技術的基準</text>
+            <text x="62" y="204">36条の2：地階を除く階数</text>
+            <text x="62" y="226">36条の3：<tspan font-weight="bold">構造設計の原則</tspan></text>
+            <text x="62" y="250">37〜39条：材料の品質、</text>
+            <text x="62" y="268">　荷重・外力、屋根ふき材</text>
+          </g>
+          <rect x="266" y="116" width="208" height="180" rx="8" fill="#fdf6f0" stroke="#e8843c" stroke-width="2"/>
+          <text x="370" y="140" text-anchor="middle" font-size="14" font-weight="bold" fill="#e8843c">第2〜7節 構造種別</text>
+          <g font-size="12.5" fill="#333">
+            <text x="282" y="164">第3節：木造（40〜50条）</text>
+            <text x="282" y="186">第4節：組積造</text>
+            <text x="282" y="208">第4節の2：補強CB造</text>
+            <text x="282" y="230">第5節：鉄骨造（63〜70条）</text>
+            <text x="282" y="252">第6節：RC造（71〜79条）</text>
+            <text x="282" y="274">第7節：SRC造</text>
+          </g>
+          <rect x="486" y="116" width="208" height="180" rx="8" fill="#eef8f2" stroke="#2e7d4f" stroke-width="2"/>
+          <text x="590" y="140" text-anchor="middle" font-size="14" font-weight="bold" fill="#2e7d4f">第8節 構造計算</text>
+          <g font-size="12.5" fill="#333">
+            <text x="502" y="164">81条：構造計算の適用</text>
+            <text x="502" y="186">82条：許容応力度等計算</text>
+            <text x="502" y="208">82条の2：層間変形角</text>
+            <text x="502" y="230">82条の3：保有水平耐力</text>
+            <text x="502" y="252">82条の6：剛性率・偏心率</text>
+            <text x="502" y="274">83〜99条：荷重・材料強度</text>
+          </g>
+          <rect x="46" y="308" width="648" height="26" rx="5" fill="#f4f7fa" stroke="#9fc0dd"/>
+          <text x="370" y="326" text-anchor="middle" font-size="13" fill="#1a3a5c">左と中央が「仕様規定」、右が「構造計算」。どちらか一方ではなく、両方を満たす必要がある。</text>
+        </svg>
+        <figcaption>条文を探すときは、まずこの3ブロックのどれに当たるかを考えると早い。構造種別ごとの規定は第2〜7節、計算方法は第8節。</figcaption>
+      </figure>
+
+      <h2 id="shiyou-vs-keisan">仕様規定と構造計算の関係を正しく理解する</h2>
+      <table class="data">
+        <tr><th></th><th>仕様規定</th><th>構造計算</th></tr>
+        <tr><td>性格</td><td>「こうつくりなさい」という<strong>方法の指定</strong></td><td>「安全を数値で確かめなさい」という<strong>検証</strong></td></tr>
+        <tr><td>条文</td><td>令36〜80条の3（構造種別ごと）</td><td>令81〜99条（第8節）</td></tr>
+        <tr><td>例</td><td>基礎の形式、壁量、柱の小径、かぶり厚さ</td><td>許容応力度計算、保有水平耐力計算</td></tr>
+        <tr><td>計算で代替できるか</td><td>一部は可能。ただし<strong>耐久性等関係規定は不可</strong></td><td>—</td></tr>
+        <tr><td>4号建築物（小規模木造）</td><td><strong>これだけで確認申請が通る場合がある</strong></td><td>省略できる場合がある</td></tr>
+      </table>
+      <p>よくある誤解が「構造計算をすれば仕様規定は無視できる」というものです。<strong>これは正しくありません。</strong>計算で代替できるのは一部の規定だけで、<a href="taikyuusei-kitei.html">耐久性等関係規定</a>（防腐・防蟻、コンクリートのかぶり厚さ、基礎の形式など）は、どれだけ高度な構造計算をしても省略できません。<strong>耐久性は計算では確かめられない</strong>——時間とともに進む劣化は、計算式では表現できないからです。</p>
+
+      <h2 id="sagashikata">条文の探し方（実務のコツ）</h2>
+      <table class="data">
+        <tr><th>知りたいこと</th><th>見る条文</th></tr>
+        <tr><td>木造の必要壁量</td><td>令46条（構造耐力上必要な軸組等）</td></tr>
+        <tr><td>木造の柱の小径</td><td>令43条</td></tr>
+        <tr><td>基礎の形式・仕様</td><td>令38条</td></tr>
+        <tr><td>荷重・外力の種類</td><td>令83条（積載荷重は85条、地震力は88条）</td></tr>
+        <tr><td>鉄骨の柱の脚部</td><td>令66条</td></tr>
+        <tr><td>コンクリートのかぶり厚さ</td><td>令79条</td></tr>
+        <tr><td>層間変形角の制限</td><td>令82条の2（1/200以内）</td></tr>
+        <tr><td>剛性率・偏心率</td><td>令82条の6（剛性率0.6以上、偏心率0.15以下）</td></tr>
+        <tr><td>材料の許容応力度</td><td>令89〜94条（木材・鋼材・コンクリート等）</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">告示までセットで確認する</span>
+        <p>施行令の条文には、しばしば「国土交通大臣が定める基準による」という書き方が出てきます。この「大臣が定める基準」の中身は<strong>告示</strong>に書かれており、条文だけを読んでも具体的な数値はわかりません。<br>たとえば地震力の計算で使うRt（振動特性係数）やAi分布の式は、令88条ではなく<strong>告示1793号</strong>に書かれています。実務では、令の条文 → 該当する告示 → 学会規準（RC規準・鋼構造設計規準など）という順に降りていくのが基本の調べ方です。<a href="jishin-santei.html">地震力の算定</a>のように、告示まで含めて理解して初めて計算できる項目は多くあります。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 構造計算をすれば仕様規定は守らなくてよいのですか？</h3>
+      <p>いいえ。構造計算で代替できるのは一部の仕様規定だけで、耐久性等関係規定（防腐・防蟻処理、コンクリートのかぶり厚さ、基礎の形式など）は、どれだけ高度な構造計算をしても省略できません。時間とともに進む劣化は計算では確かめられないためです。</p>
+      <h3>Q2. 施行令の条文を読んでも具体的な数値が書かれていません。どこを見ればよいですか？</h3>
+      <p>告示を確認してください。施行令には「国土交通大臣が定める基準による」という委任規定が多く、具体的な数値や計算式は告示に書かれています。たとえば地震力のRtやAi分布の式は告示1793号にあります。令の条文→告示→学会規準の順に調べるのが実務の基本です。</p>
+      <h3>Q3. 構造強度の規定は施行令のどこにありますか？</h3>
+      <p>建築基準法施行令の第3章（36条〜99条）が「構造強度」です。第1節が総則、第2〜7節が構造種別ごとの仕様規定（木造・組積造・補強CB造・鉄骨造・RC造・SRC造）、第8節が構造計算の方法という構成になっています。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>
