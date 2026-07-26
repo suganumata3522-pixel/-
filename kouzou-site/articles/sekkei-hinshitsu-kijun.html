@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/sekkei-hinshitsu-kijun.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/sekkei-hinshitsu-kijun.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-sekkei-hinshitsu-kijun.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "なぜ図面のFcより高い強度を発注するのですか？", "acceptedAnswer": {"@type": "Answer", "text": "2つの上乗せがあるためです。まず、耐久性の観点から必要な強度（Fd）がFcより高い場合、Fdを採用します。次に、供試体と実際の構造体の強度差を補うため、構造体強度補正値（3または6N/mm²）を加えます。この2段階により、図面のFcより高い呼び強度を発注することになります。差の理由を説明できることが、品質管理上重要です。"}},
+ {"@type": "Question", "name": "呼び強度に中間の値はありますか？", "acceptedAnswer": {"@type": "Answer", "text": "JISで定められた区切りの値（18・21・24・27・30・33・36・40…）から選びます。したがって、計算した調合管理強度が32N/mm²であれば、それ以上の区切りである33を発注します。中間の値を指定することは通常できません。生コン工場によっては特注対応が可能な場合もありますが、標準的には規格値から選定します。"}},
+ {"@type": "Question", "name": "Fq（品質基準強度）は誰が決めるのですか？", "acceptedAnswer": {"@type": "Answer", "text": "設計者が決めます。構造計算からFcを、計画供用期間の設定からFdを定め、その大きいほうをFqとして構造図に明記します。施工者はこのFqをもとに、施工時期に応じた構造体強度補正値を加えて調合管理強度を算出し、生コンを発注します。設計と施工の役割分担が明確になっている部分です。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">鉄筋コンクリート造（RC造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>設計基準強度と品質基準強度の違い</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -196,6 +203,61 @@
         <span class="label">実務のワンポイント</span>
         <p>生コンの発注書を確認するとき、品質基準強度Fqの数字だけを見て終わらせないようにしています。そこに構造体強度補正値がどう乗っているかまで追わないと、現場で打ち込んだコンクリートが本当に必要な強度を満たしているかの判断がつかないためです。</p>
       </div>
+
+      <h2 id="nagare">発注までの流れ（図解）</h2>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 260" role="img" aria-label="設計基準強度から生コン発注までの流れ図">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">図面のFcから発注までの流れ</text>
+          <rect x="30" y="56" width="180" height="52" rx="8" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2"/>
+          <text x="120" y="78" font-size="13.5" text-anchor="middle" fill="#1a3a5c" font-weight="bold">Fc（設計基準強度）</text>
+          <text x="120" y="96" font-size="11.5" text-anchor="middle" fill="#6b7785">構造計算から決まる</text>
+          <rect x="240" y="56" width="180" height="52" rx="8" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2"/>
+          <text x="330" y="78" font-size="13.5" text-anchor="middle" fill="#1a3a5c" font-weight="bold">Fd（耐久設計基準強度）</text>
+          <text x="330" y="96" font-size="11.5" text-anchor="middle" fill="#6b7785">計画供用期間から決まる</text>
+          <text x="470" y="86" font-size="13" fill="#7d95ab" font-weight="bold">大きいほう</text>
+          <g stroke="#1a3a5c" stroke-width="2">
+            <line x1="120" y1="108" x2="120" y2="124"/><line x1="330" y1="108" x2="330" y2="124"/>
+            <line x1="120" y1="124" x2="330" y2="124"/><line x1="225" y1="124" x2="225" y2="140"/>
+            <path d="M225 148 l-7 -14 h14 z" fill="#1a3a5c" stroke="none"/>
+          </g>
+          <rect x="135" y="150" width="180" height="52" rx="8" fill="#dce9f5" stroke="#1a3a5c" stroke-width="2"/>
+          <text x="225" y="172" font-size="13.5" text-anchor="middle" fill="#1a3a5c" font-weight="bold">Fq（品質基準強度）</text>
+          <text x="225" y="190" font-size="11.5" text-anchor="middle" fill="#6b7785">構造体に必要な強度</text>
+          <text x="345" y="170" font-size="14" fill="#c0392b" font-weight="bold">＋ mSn</text>
+          <text x="345" y="190" font-size="11.5" fill="#c0392b">（3 or 6）</text>
+          <g stroke="#c0392b" stroke-width="2">
+            <line x1="425" y1="176" x2="460" y2="176"/><path d="M468 176 l-12 -6 v12 z" fill="#c0392b" stroke="none"/>
+          </g>
+          <rect x="475" y="150" width="195" height="52" rx="8" fill="#e8843c"/>
+          <text x="572" y="172" font-size="13.5" text-anchor="middle" fill="#fff" font-weight="bold">調合管理強度</text>
+          <text x="572" y="190" font-size="11.5" text-anchor="middle" fill="#fff">→ 呼び強度を決めて発注</text>
+          <text x="350" y="238" font-size="12.5" text-anchor="middle" fill="#6b7785">図面のFc24が、発注時には呼び強度27になることもある</text>
+        </svg>
+        <figcaption>構造計算から決まるFcと、計画供用期間から決まるFdの大きいほうがFq。これに構造体強度補正値を加えて発注する強度が決まる。</figcaption>
+      </figure>
+
+      <h2 id="keisanrei">計算例で確認する</h2>
+      <p><strong>条件</strong>：Fc＝24N/mm²、計画供用期間＝長期（Fd＝30N/mm²）、冬期施工（mSn＝6N/mm²）</p>
+      <table class="data">
+        <tr><th>ステップ</th><th>計算</th><th>結果</th></tr>
+        <tr><td>① FcとFdを比較</td><td>Fc 24 と Fd 30 の大きいほう</td><td>Fq ＝ <strong>30 N/mm²</strong></td></tr>
+        <tr><td>② 構造体強度補正値を加算</td><td>30 ＋ 6</td><td>調合管理強度 ＝ <strong>36 N/mm²</strong></td></tr>
+        <tr><td>③ 呼び強度を選定</td><td>36以上の区切りの値</td><td>呼び強度 <strong>36</strong> を発注</td></tr>
+      </table>
+      <p>この例では、図面に「Fc24」と書かれていても、実際に発注するのは<strong>呼び強度36</strong>です。構造計算上の必要強度から12N/mm²も高い値になっており、その差は「耐久性の要求」と「季節による強度発現の遅れ」を見込んだものだとわかります。</p>
+      <div class="point-box">
+        <span class="label">なぜ差が生まれるのかを説明できるように</span>
+        <p>現場で「図面はFc24なのに、なぜ36を頼むのか」と問われることがあります。答えは<strong>①長く使う建物なので耐久性からFd30が必要、②冬季施工で構造体強度が出にくいため補正値6を加算</strong>です。この2段階を理解していれば、発注の妥当性を説明できます。逆に、これを理解せずFc24のまま発注すると、耐久性不足と冬季の強度不足という二重の問題を招きます。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. なぜ図面のFcより高い強度を発注するのですか？</h3>
+      <p>2つの上乗せがあるためです。まず、耐久性の観点から必要な強度（Fd）がFcより高い場合、Fdを採用します。次に、供試体と実際の構造体の強度差を補うため、構造体強度補正値（3または6N/mm²）を加えます。この2段階により、図面のFcより高い呼び強度を発注することになります。差の理由を説明できることが、品質管理上重要です。</p>
+      <h3>Q2. 呼び強度に中間の値はありますか？</h3>
+      <p>JISで定められた区切りの値（18・21・24・27・30・33・36・40…）から選びます。したがって、計算した調合管理強度が32N/mm²であれば、それ以上の区切りである33を発注します。中間の値を指定することは通常できません。生コン工場によっては特注対応が可能な場合もありますが、標準的には規格値から選定します。</p>
+      <h3>Q3. Fq（品質基準強度）は誰が決めるのですか？</h3>
+      <p>設計者が決めます。構造計算からFcを、計画供用期間の設定からFdを定め、その大きいほうをFqとして構造図に明記します。施工者はこのFqをもとに、施工時期に応じた構造体強度補正値を加えて調合管理強度を算出し、生コンを発注します。設計と施工の役割分担が明確になっている部分です。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

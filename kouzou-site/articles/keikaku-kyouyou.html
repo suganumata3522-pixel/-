@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/keikaku-kyouyou.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/keikaku-kyouyou.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-keikaku-kyouyou.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "計画供用期間と法定耐用年数は違うのですか？", "acceptedAnswer": {"@type": "Answer", "text": "まったく別のものです。法定耐用年数は税法上の減価償却の期間で、RC造の事務所なら50年などと定められていますが、これは建物の物理的な寿命とは無関係です。計画供用期間は、建築の技術的な観点から「何年間性能を維持する設計にするか」を定めるもので、JASS5に基づく設計上の概念です。両者を混同しないよう注意が必要です。"}},
+ {"@type": "Question", "name": "標準（約65年）を選ぶことが多いのはなぜですか？", "acceptedAnswer": {"@type": "Answer", "text": "コストと性能のバランスが取れているためです。一般的な事務所や共同住宅では、65年程度の供用が現実的な想定であり、これに対応するFd24・W/C65%以下という仕様は、標準的な生コンで十分に実現できます。長期以上を選ぶとFd30・W/C55%以下となり、材料費と施工管理の負担が増えるため、建物の性格に応じた判断が必要になります。"}},
+ {"@type": "Question", "name": "長期優良住宅では計画供用期間はどうなりますか？", "acceptedAnswer": {"@type": "Answer", "text": "RC造の場合、劣化対策等級3を満たすために、水セメント比の低減やかぶり厚さの増加といった措置が求められます。これは実質的に、長期（約100年）に相当する耐久性を確保する考え方に近いものです。木造では、防腐・防蟻措置や床下の換気・点検口の設置といった項目で対応します。構造種別によって要求される内容が異なります。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">鉄筋コンクリート造（RC造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>計画供用期間とは？区分・年数と強度との関係</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -179,6 +186,59 @@
         <span class="label">あわせて読みたい</span>
         <p>「<a href="taikyuu-kijun.html">耐久設計基準強度</a>」「<a href="sekkei-hinshitsu-kijun.html">設計基準強度と品質基準強度</a>」「<a href="taikyuusei.html">耐久性と耐久年数</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="kettei">計画供用期間が決めるもの（図解）</h2>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 270" role="img" aria-label="計画供用期間が耐久設計基準強度・水セメント比・かぶり厚さを決めることを示す図">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">計画供用期間が仕様を決める</text>
+          <rect x="230" y="50" width="240" height="46" rx="8" fill="#1a3a5c"/>
+          <text x="350" y="70" font-size="15" text-anchor="middle" fill="#fff" font-weight="bold">計画供用期間の級</text>
+          <text x="350" y="88" font-size="12" text-anchor="middle" fill="#c9d8e8">短期/標準/長期/超長期</text>
+          <g stroke="#1a3a5c" stroke-width="2">
+            <line x1="350" y1="96" x2="350" y2="112"/><line x1="130" y1="112" x2="570" y2="112"/>
+            <line x1="130" y1="112" x2="130" y2="132"/><line x1="350" y1="112" x2="350" y2="132"/><line x1="570" y1="112" x2="570" y2="132"/>
+          </g>
+          <g fill="#eef3f8" stroke="#1a3a5c" stroke-width="1.8">
+            <rect x="40" y="132" width="180" height="76" rx="8"/>
+            <rect x="260" y="132" width="180" height="76" rx="8"/>
+            <rect x="480" y="132" width="180" height="76" rx="8"/>
+          </g>
+          <text x="130" y="158" font-size="13.5" text-anchor="middle" fill="#1a3a5c" font-weight="bold">耐久設計基準強度</text>
+          <text x="130" y="180" font-size="12.5" text-anchor="middle" fill="#6b7785">18 / 24 / 30 / 36</text>
+          <text x="130" y="198" font-size="12" text-anchor="middle" fill="#6b7785">N/mm²</text>
+          <text x="350" y="158" font-size="13.5" text-anchor="middle" fill="#1a3a5c" font-weight="bold">水セメント比の上限</text>
+          <text x="350" y="180" font-size="12.5" text-anchor="middle" fill="#6b7785">65% / 55% / 50%</text>
+          <text x="350" y="198" font-size="12" text-anchor="middle" fill="#6b7785">長いほど厳しく</text>
+          <text x="570" y="158" font-size="13.5" text-anchor="middle" fill="#1a3a5c" font-weight="bold">かぶり厚さ</text>
+          <text x="570" y="180" font-size="12.5" text-anchor="middle" fill="#6b7785">部位ごとの最小値</text>
+          <text x="570" y="198" font-size="12" text-anchor="middle" fill="#6b7785">長いほど厚く</text>
+          <text x="350" y="240" font-size="13" text-anchor="middle" fill="#6b7785">「何年使うか」を決めることが、材料と納まりの仕様を決める</text>
+          <text x="350" y="262" font-size="12.5" text-anchor="middle" fill="#c0392b" font-weight="bold">設計初期に建築主と合意しておくべき項目</text>
+        </svg>
+        <figcaption>計画供用期間の設定が、耐久設計基準強度・水セメント比の上限・かぶり厚さという3つの仕様を連動して決める。</figcaption>
+      </figure>
+
+      <h2 id="sentei">級の選び方</h2>
+      <table class="data">
+        <tr><th>級</th><th>年数の目安</th><th>選ばれる建物の例</th></tr>
+        <tr><td>短期</td><td>約30年</td><td>仮設的な建物、短期間の使用を前提とした施設</td></tr>
+        <tr><td><strong>標準</strong></td><td>約65年</td><td>一般的な事務所・共同住宅・店舗（もっとも多い）</td></tr>
+        <tr><td>長期</td><td>約100年</td><td>庁舎・病院・学校など公共性の高い建物、長期優良住宅</td></tr>
+        <tr><td>超長期</td><td>約200年</td><td>文化施設・記念建造物など特に長期の保存を意図する建物</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">後から変更するのは難しい</span>
+        <p>計画供用期間は、コンクリートの配合・かぶり厚さ・部材寸法にまで影響します。設計が進んでから「やはり長期にしたい」となると、<strong>躯体の設計をやり直す</strong>ことになりかねません。特にかぶり厚さが増えると部材が太くなり、意匠計画にも波及します。基本設計の早い段階で、建築主と建物の使用年数について合意しておくことが重要です。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 計画供用期間と法定耐用年数は違うのですか？</h3>
+      <p>まったく別のものです。法定耐用年数は税法上の減価償却の期間で、RC造の事務所なら50年などと定められていますが、これは建物の物理的な寿命とは無関係です。計画供用期間は、建築の技術的な観点から「何年間性能を維持する設計にするか」を定めるもので、JASS5に基づく設計上の概念です。両者を混同しないよう注意が必要です。</p>
+      <h3>Q2. 標準（約65年）を選ぶことが多いのはなぜですか？</h3>
+      <p>コストと性能のバランスが取れているためです。一般的な事務所や共同住宅では、65年程度の供用が現実的な想定であり、これに対応するFd24・W/C65%以下という仕様は、標準的な生コンで十分に実現できます。長期以上を選ぶとFd30・W/C55%以下となり、材料費と施工管理の負担が増えるため、建物の性格に応じた判断が必要になります。</p>
+      <h3>Q3. 長期優良住宅では計画供用期間はどうなりますか？</h3>
+      <p>RC造の場合、劣化対策等級3を満たすために、水セメント比の低減やかぶり厚さの増加といった措置が求められます。これは実質的に、長期（約100年）に相当する耐久性を確保する考え方に近いものです。木造では、防腐・防蟻措置や床下の換気・点検口の設置といった項目で対応します。構造種別によって要求される内容が異なります。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

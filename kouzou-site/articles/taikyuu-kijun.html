@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/taikyuu-kijun.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/taikyuu-kijun.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-taikyuu-kijun.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "Fdが定められた背景は何ですか？", "acceptedAnswer": {"@type": "Answer", "text": "かつては構造計算上の強度（Fc）だけでコンクリートを発注していましたが、それだけでは耐久性が確保できないことが明らかになったためです。1980年代以降、鉄筋腐食による早期劣化事例が問題化し、耐久性の観点から独立して強度の下限を定める考え方が導入されました。JASS5に計画供用期間の概念とともに規定され、現在の耐久設計の基礎になっています。"}},
+ {"@type": "Question", "name": "Fdは水セメント比で規定しても同じではないですか？", "acceptedAnswer": {"@type": "Answer", "text": "本質的には同じことを指していますが、強度で規定するほうが現場での確認が容易です。水セメント比は配合計画書で確認するしかありませんが、強度は供試体の圧縮試験という客観的な方法で検証できます。実際にはFdとあわせて水セメント比の上限も規定されており、両面から耐久性を担保する仕組みになっています。"}},
+ {"@type": "Question", "name": "耐久設計基準強度を満たせば補修は不要ですか？", "acceptedAnswer": {"@type": "Answer", "text": "不要にはなりません。Fdは計画供用期間にわたって大規模な補修をせずに使用できることを目標とした値ですが、日常的な点検や部分的な補修は前提となっています。特に、ひび割れの補修、シーリングの打ち替え、仕上げ材の更新などは定期的に必要です。「メンテナンスフリー」を意味するものではない点に注意が必要です。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">鉄筋コンクリート造（RC造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>耐久設計基準強度とは？設計基準強度との違い</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -181,6 +188,58 @@
         <span class="label">あわせて読みたい</span>
         <p>「<a href="sekkei-hinshitsu-kijun.html">設計基準強度と品質基準強度</a>」「<a href="keikaku-kyouyou.html">計画供用期間</a>」「<a href="taikyuusei.html">耐久性と耐久年数</a>」「<a href="taikyuusei-kitei.html">耐久性等関係規定</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="hikaku">FcとFdの関係（図解）</h2>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 250" role="img" aria-label="設計基準強度Fcと耐久設計基準強度Fdのうち大きい方が品質基準強度Fqになることを示す図">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">2つの基準の「大きいほう」を採用する</text>
+          <text x="140" y="60" font-size="13.5" text-anchor="middle" fill="#1a3a5c" font-weight="bold">例A：構造で決まる場合</text>
+          <rect x="60" y="76" width="70" height="90" fill="#e8843c"/>
+          <text x="95" y="126" font-size="13" text-anchor="middle" fill="#fff" font-weight="bold">Fc</text>
+          <text x="95" y="144" font-size="12" text-anchor="middle" fill="#fff">30</text>
+          <rect x="150" y="112" width="70" height="54" fill="#9fc0dd"/>
+          <text x="185" y="140" font-size="13" text-anchor="middle" fill="#1a3a5c" font-weight="bold">Fd</text>
+          <text x="185" y="158" font-size="12" text-anchor="middle" fill="#1a3a5c">24</text>
+          <rect x="60" y="186" width="160" height="34" rx="6" fill="#fdf1e7" stroke="#e8843c" stroke-width="2"/>
+          <text x="140" y="208" font-size="13" text-anchor="middle" fill="#b35309" font-weight="bold">Fq ＝ 30（Fc採用）</text>
+          <line x1="350" y1="50" x2="350" y2="230" stroke="#c3ccd6" stroke-width="1.5" stroke-dasharray="6 5"/>
+          <text x="530" y="60" font-size="13.5" text-anchor="middle" fill="#1a3a5c" font-weight="bold">例B：耐久性で決まる場合</text>
+          <rect x="450" y="130" width="70" height="36" fill="#e8843c"/>
+          <text x="485" y="148" font-size="13" text-anchor="middle" fill="#fff" font-weight="bold">Fc</text>
+          <text x="485" y="164" font-size="12" text-anchor="middle" fill="#fff">21</text>
+          <rect x="540" y="94" width="70" height="72" fill="#9fc0dd"/>
+          <text x="575" y="126" font-size="13" text-anchor="middle" fill="#1a3a5c" font-weight="bold">Fd</text>
+          <text x="575" y="144" font-size="12" text-anchor="middle" fill="#1a3a5c">30</text>
+          <rect x="450" y="186" width="160" height="34" rx="6" fill="#eef3f8" stroke="#3c6a94" stroke-width="2"/>
+          <text x="530" y="208" font-size="13" text-anchor="middle" fill="#3c6a94" font-weight="bold">Fq ＝ 30（Fd採用）</text>
+          <text x="350" y="244" font-size="12.5" text-anchor="middle" fill="#6b7785">構造上は足りていても、長く使う建物では耐久性が強度を決めることがある</text>
+        </svg>
+        <figcaption>品質基準強度Fqは、構造から必要なFcと耐久性から必要なFdの大きいほうを採用する。長期・超長期の建物ではFdが支配することが多い。</figcaption>
+      </figure>
+
+      <h2 id="imi">なぜ耐久性に「強度」が必要なのか</h2>
+      <p>耐久性の話なのに強度で規定されるのは、一見わかりにくいかもしれません。理由は<strong>強度と組織の緻密さが連動している</strong>ためです。</p>
+      <table class="data">
+        <tr><th>強度が高い</th><th>→</th><th>結果</th></tr>
+        <tr><td>水セメント比が小さい</td><td>→</td><td>余剰水による空隙が少ない</td></tr>
+        <tr><td>組織が緻密</td><td>→</td><td>CO₂・塩分・水が浸透しにくい</td></tr>
+        <tr><td>浸透が遅い</td><td>→</td><td>中性化・塩害の進行が遅い</td></tr>
+        <tr><td>鉄筋が長く守られる</td><td>→</td><td><strong>耐久性が高い</strong></td></tr>
+      </table>
+      <p>つまり、Fdという「強度」の規定は、実質的には<strong>水セメント比の上限を定めている</strong>のと同じ意味を持ちます。強度を指定するほうが、現場で試験によって確認しやすいという実務的な利点があるため、この形で規定されています。</p>
+      <div class="point-box">
+        <span class="label">超長期はFd36＝相当に緻密</span>
+        <p>計画供用期間が超長期（約200年）の場合、Fd＝36N/mm²が求められます。これは一般的な事務所建築のFc24と比べてかなり高い水準で、必要な水セメント比も50%以下と厳しくなります。200年もたせるには、それだけ緻密なコンクリートが必要だということです。文化施設や記念性の高い建物で採用されますが、コストも相応に上がるため、建築主との合意が前提になります。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. Fdが定められた背景は何ですか？</h3>
+      <p>かつては構造計算上の強度（Fc）だけでコンクリートを発注していましたが、それだけでは耐久性が確保できないことが明らかになったためです。1980年代以降、鉄筋腐食による早期劣化事例が問題化し、耐久性の観点から独立して強度の下限を定める考え方が導入されました。JASS5に計画供用期間の概念とともに規定され、現在の耐久設計の基礎になっています。</p>
+      <h3>Q2. Fdは水セメント比で規定しても同じではないですか？</h3>
+      <p>本質的には同じことを指していますが、強度で規定するほうが現場での確認が容易です。水セメント比は配合計画書で確認するしかありませんが、強度は供試体の圧縮試験という客観的な方法で検証できます。実際にはFdとあわせて水セメント比の上限も規定されており、両面から耐久性を担保する仕組みになっています。</p>
+      <h3>Q3. 耐久設計基準強度を満たせば補修は不要ですか？</h3>
+      <p>不要にはなりません。Fdは計画供用期間にわたって大規模な補修をせずに使用できることを目標とした値ですが、日常的な点検や部分的な補修は前提となっています。特に、ひび割れの補修、シーリングの打ち替え、仕上げ材の更新などは定期的に必要です。「メンテナンスフリー」を意味するものではない点に注意が必要です。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

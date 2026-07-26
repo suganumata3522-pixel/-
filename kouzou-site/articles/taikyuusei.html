@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/taikyuusei.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/taikyuusei.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-02",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-taikyuusei.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "コンクリートの寿命は何年ですか？", "acceptedAnswer": {"@type": "Answer", "text": "設計上の目安として、計画供用期間の級で短期約30年・標準約65年・長期約100年・超長期約200年が示されています。ただしこれは目標であり、実際の寿命は施工品質・維持管理・使用環境で大きく変わります。適切なかぶり厚さと水セメント比が確保され、定期的な点検・補修が行われれば、100年を超える供用も現実的です。逆に管理が不十分なら、標準仕様でも数十年で大規模補修が必要になることがあります。"}},
+ {"@type": "Question", "name": "中性化はどのくらいの速さで進みますか？", "acceptedAnswer": {"@type": "Answer", "text": "経過年数の平方根に比例して進むとされ、最初の数年で急速に、その後は徐々に緩やかになります。速度は水セメント比に強く依存し、W/Cが小さいほど遅くなります。屋外より屋内のほうが速く進む（乾燥していて二酸化炭素が入りやすい）という特徴もあります。実際の建物では、コア採取してフェノールフタレイン溶液を噴霧し、変色しない範囲を測ることで中性化深さを調べます。"}},
+ {"@type": "Question", "name": "既存建物の耐久性はどう評価しますか？", "acceptedAnswer": {"@type": "Answer", "text": "調査によって判断します。代表的なのは、中性化深さの測定（フェノールフタレイン法）、塩化物イオン量の測定、圧縮強度の推定（テストハンマー・コア採取）、ひび割れ・剥落の目視調査です。これらの結果から残存供用年数を推定し、必要に応じて断面修復・表面被覆・電気防食などの補修工法を選定します。劣化が進む前の予防保全のほうが、コストは大幅に抑えられます。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">鉄筋コンクリート造（RC造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>コンクリートの耐久性と耐久年数｜劣化機構</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -166,6 +173,58 @@
         <span class="label">あわせて読みたい</span>
         <p>「<a href="keikaku-kyouyou.html">計画供用期間</a>」「<a href="taikyuu-kijun.html">耐久設計基準強度</a>」「<a href="concrete-jakuten.html">コンクリートの弱点</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="rekka">4つの劣化機構（図解）</h2>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 280" role="img" aria-label="コンクリートの4つの劣化機構を示す図。中性化・塩害・凍害・アルカリ骨材反応">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">コンクリートを劣化させる4つの要因</text>
+          <rect x="35" y="52" width="310" height="98" rx="10" fill="#fdf1e7" stroke="#e8843c" stroke-width="2"/>
+          <text x="190" y="78" font-size="15" text-anchor="middle" fill="#b35309" font-weight="bold">① 中性化</text>
+          <text x="190" y="102" font-size="12.5" text-anchor="middle" fill="#6b7785">空気中のCO₂でアルカリ性を失う</text>
+          <text x="190" y="124" font-size="12.5" text-anchor="middle" fill="#6b7785">→ 鉄筋が錆びて膨張・かぶりを押し割る</text>
+          <text x="190" y="142" font-size="12" text-anchor="middle" fill="#c0392b">対策：かぶり厚さ・W/Cを小さく</text>
+          <rect x="355" y="52" width="310" height="98" rx="10" fill="#eef3f8" stroke="#3c6a94" stroke-width="2"/>
+          <text x="510" y="78" font-size="15" text-anchor="middle" fill="#3c6a94" font-weight="bold">② 塩害</text>
+          <text x="510" y="102" font-size="12.5" text-anchor="middle" fill="#6b7785">塩化物イオンが鉄筋を腐食させる</text>
+          <text x="510" y="124" font-size="12.5" text-anchor="middle" fill="#6b7785">→ 海岸部・凍結防止剤を使う地域で顕著</text>
+          <text x="510" y="142" font-size="12" text-anchor="middle" fill="#c0392b">対策：塩化物量の規制・高炉セメント</text>
+          <rect x="35" y="162" width="310" height="98" rx="10" fill="#eef3f8" stroke="#3c6a94" stroke-width="2"/>
+          <text x="190" y="188" font-size="15" text-anchor="middle" fill="#3c6a94" font-weight="bold">③ 凍害</text>
+          <text x="190" y="212" font-size="12.5" text-anchor="middle" fill="#6b7785">内部の水の凍結・融解の繰り返し</text>
+          <text x="190" y="234" font-size="12.5" text-anchor="middle" fill="#6b7785">→ 表面がぼろぼろに剥がれる（スケーリング）</text>
+          <text x="190" y="252" font-size="12" text-anchor="middle" fill="#c0392b">対策：AE剤で空気量を確保</text>
+          <rect x="355" y="162" width="310" height="98" rx="10" fill="#fdeaea" stroke="#c0392b" stroke-width="2"/>
+          <text x="510" y="188" font-size="15" text-anchor="middle" fill="#c0392b" font-weight="bold">④ アルカリ骨材反応</text>
+          <text x="510" y="212" font-size="12.5" text-anchor="middle" fill="#6b7785">骨材とアルカリが反応し内部から膨張</text>
+          <text x="510" y="234" font-size="12.5" text-anchor="middle" fill="#6b7785">→ 亀甲状のひび割れ。補修が困難</text>
+          <text x="510" y="252" font-size="12" text-anchor="middle" fill="#c0392b">対策：無害な骨材・アルカリ総量規制</text>
+        </svg>
+        <figcaption>コンクリートの主な劣化機構は4つ。いずれも「鉄筋を守れなくなる」ことが最終的な問題につながる。</figcaption>
+      </figure>
+
+      <h2 id="taisaku">耐久性を高める設計上の手段</h2>
+      <table class="data">
+        <tr><th>手段</th><th>効果</th><th>根拠となる考え方</th></tr>
+        <tr><td><a href="mizu-cement-hi.html">水セメント比</a>を小さくする</td><td>組織が緻密になり、劣化因子の侵入を防ぐ</td><td>計画供用期間ごとにW/Cの上限が規定される</td></tr>
+        <tr><td>かぶり厚さを確保する</td><td>劣化が鉄筋に到達するまでの時間を延ばす</td><td>部位・環境ごとに最小値が規定される</td></tr>
+        <tr><td>ひび割れを制御する</td><td>劣化因子の侵入経路を断つ</td><td>誘発目地・配筋・収縮低減</td></tr>
+        <tr><td>適切なセメントを選ぶ</td><td>塩害・ASRへの抵抗性が高まる</td><td>高炉・フライアッシュセメントの活用</td></tr>
+        <tr><td>空気量を確保する</td><td>凍結融解に抵抗する</td><td>AE剤で4〜6%を連行</td></tr>
+        <tr><td>仕上げ材で保護する</td><td>外部環境から直接さらされない</td><td>塗装・タイル・防水層など</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">耐久性はすべて「鉄筋を守る」ため</span>
+        <p>4つの劣化機構を見ると、共通しているのは<strong>最終的に鉄筋の腐食につながる</strong>という点です（凍害・ASRはコンクリート自体の劣化ですが、ひび割れを通じて鉄筋腐食を促進します）。鉄筋が錆びると体積が約2.5倍に膨張してかぶりを押し割り、そこからさらに劣化が加速する悪循環に陥ります。<strong>耐久設計とは、鉄筋を何年守り続けられるかの設計</strong>だと理解すると、各対策の意味がつながって見えてきます。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. コンクリートの寿命は何年ですか？</h3>
+      <p>設計上の目安として、計画供用期間の級で短期約30年・標準約65年・長期約100年・超長期約200年が示されています。ただしこれは目標であり、実際の寿命は施工品質・維持管理・使用環境で大きく変わります。適切なかぶり厚さと水セメント比が確保され、定期的な点検・補修が行われれば、100年を超える供用も現実的です。逆に管理が不十分なら、標準仕様でも数十年で大規模補修が必要になることがあります。</p>
+      <h3>Q2. 中性化はどのくらいの速さで進みますか？</h3>
+      <p>経過年数の平方根に比例して進むとされ、最初の数年で急速に、その後は徐々に緩やかになります。速度は水セメント比に強く依存し、W/Cが小さいほど遅くなります。屋外より屋内のほうが速く進む（乾燥していて二酸化炭素が入りやすい）という特徴もあります。実際の建物では、コア採取してフェノールフタレイン溶液を噴霧し、変色しない範囲を測ることで中性化深さを調べます。</p>
+      <h3>Q3. 既存建物の耐久性はどう評価しますか？</h3>
+      <p>調査によって判断します。代表的なのは、中性化深さの測定（フェノールフタレイン法）、塩化物イオン量の測定、圧縮強度の推定（テストハンマー・コア採取）、ひび割れ・剥落の目視調査です。これらの結果から残存供用年数を推定し、必要に応じて断面修復・表面被覆・電気防食などの補修工法を選定します。劣化が進む前の予防保全のほうが、コストは大幅に抑えられます。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>
