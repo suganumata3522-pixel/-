@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/yukagumi.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/yukagumi.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-yukagumi.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "根太レス工法と従来の根太工法はどちらが良いのですか？", "acceptedAnswer": {"@type": "Answer", "text": "耐震性の面では根太レス工法（厚さ24〜28mmの構造用合板を梁・大引に直接留める）が有利です。床が一体の面として働き、水平構面の強さが大幅に向上するためです。一方、従来の根太工法は部材が細く運びやすい、部分的な改修がしやすいといった利点があります。新築では根太レスが主流です。"}},
+ {"@type": "Question", "name": "床がふわふわするのは構造上問題がありますか？", "acceptedAnswer": {"@type": "Answer", "text": "すぐに倒壊する危険があるわけではありませんが、根太や大引の断面不足、床束の沈下といった原因が隠れていることがあります。とくに部分的に沈む場合は床束や地盤側の問題が疑われるため、床下点検口から束と束石の状態を確認することをおすすめします。"}},
+ {"@type": "Question", "name": "床組の部材はなぜ303mmや455mmという半端な間隔なのですか？", "acceptedAnswer": {"@type": "Answer", "text": "尺モジュール（1尺＝約303mm）に由来します。1間＝1,820mm（6尺）を基準として、その1/6が303mm、1/4が455mm、1/2が910mmです。構造用合板が910×1,820mmで流通しているため、この寸法体系だと材料がぴったり納まり、無駄が出ません。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">木造（W造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>床組とは？木造・RC造の構造と根太・梁との関係</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -180,6 +187,81 @@
         <span class="label">あわせて読みたい</span>
         <p>「<a href="oobiki-neda.html">大引と根太の違い</a>」「<a href="yukazuka.html">床束</a>」「<a href="suihei-koumen.html">水平構面</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="chikara-nagare-zu">床組の力の流れ（図解）</h2>
+      <figure class="diagram">
+        <svg viewBox="0 0 740 330" role="img" aria-label="木造1階床組で荷重が床板から根太・大引・床束・束石へ伝わる流れの図">
+          <title>木造1階床組の荷重の流れ</title>
+          <rect x="0" y="0" width="740" height="330" fill="#ffffff"/>
+          <text x="370" y="26" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a3a5c">荷重は「細い材から太い材へ」順番に渡っていく</text>
+          <g stroke="#c0392b" stroke-width="3" fill="none">
+            <line x1="180" y1="44" x2="180" y2="62"/><polygon points="180,68 173,54 187,54" fill="#c0392b"/>
+            <line x1="330" y1="44" x2="330" y2="62"/><polygon points="330,68 323,54 337,54" fill="#c0392b"/>
+            <line x1="480" y1="44" x2="480" y2="62"/><polygon points="480,68 473,54 487,54" fill="#c0392b"/>
+          </g>
+          <text x="580" y="58" font-size="13" fill="#c0392b">人・家具の重さ</text>
+          <rect x="100" y="70" width="460" height="14" fill="#c8a97e"/>
+          <text x="580" y="82" font-size="13.5" font-weight="bold" fill="#8a6a3a">床板（構造用合板）</text>
+          <g fill="#9fc0dd">
+            <rect x="130" y="84" width="14" height="34"/><rect x="200" y="84" width="14" height="34"/>
+            <rect x="270" y="84" width="14" height="34"/><rect x="340" y="84" width="14" height="34"/>
+            <rect x="410" y="84" width="14" height="34"/><rect x="480" y="84" width="14" height="34"/>
+          </g>
+          <text x="580" y="106" font-size="13.5" font-weight="bold" fill="#1a3a5c">根太（@303〜455）</text>
+          <rect x="100" y="118" width="460" height="24" fill="#1a3a5c"/>
+          <text x="580" y="136" font-size="13.5" font-weight="bold" fill="#1a3a5c">大引（@900程度）</text>
+          <g fill="#e8843c">
+            <rect x="160" y="142" width="22" height="70"/><rect x="320" y="142" width="22" height="70"/>
+            <rect x="480" y="142" width="22" height="70"/>
+          </g>
+          <text x="580" y="182" font-size="13.5" font-weight="bold" fill="#e8843c">床束（@900程度）</text>
+          <g fill="#888">
+            <rect x="150" y="212" width="42" height="18"/><rect x="310" y="212" width="42" height="18"/>
+            <rect x="470" y="212" width="42" height="18"/>
+          </g>
+          <text x="580" y="228" font-size="13.5" font-weight="bold" fill="#666">束石・鋼製束のベース</text>
+          <rect x="100" y="230" width="460" height="24" fill="#d8d8d8"/>
+          <text x="580" y="248" font-size="13.5" font-weight="bold" fill="#666">土間コンクリート・地盤</text>
+          <rect x="100" y="272" width="540" height="46" rx="6" fill="#f4f7fa" stroke="#9fc0dd"/>
+          <text x="370" y="292" text-anchor="middle" font-size="13.5" fill="#1a3a5c">床板 → 根太 → 大引 → 床束 → 束石 → 地盤</text>
+          <text x="370" y="310" text-anchor="middle" font-size="12.5" fill="#666">各段階で「支える間隔」が広がるので、部材は下へ行くほど太くなる</text>
+        </svg>
+        <figcaption>床組は荷重のリレー。上の材ほど細かい間隔で並び、下の材ほど太く間隔が広い。この順番を理解すれば各部材の寸法の意味がわかる。</figcaption>
+      </figure>
+
+      <h2 id="sunpou-meyasu">部材寸法と間隔の目安</h2>
+      <table class="data">
+        <tr><th>部材</th><th>一般的な寸法</th><th>間隔</th><th>決まる理由</th></tr>
+        <tr><td>床板（構造用合板）</td><td>厚24〜28mm（根太レス）／12〜15mm（根太あり）</td><td>—</td><td>下の材の間隔でたわみが決まる</td></tr>
+        <tr><td><a href="oobiki-neda.html">根太</a></td><td>45×45〜45×105mm</td><td>@303〜455mm</td><td>床板の厚さとのバランス</td></tr>
+        <tr><td><a href="oobiki-neda.html">大引</a></td><td>90×90mm程度</td><td>@900mm程度</td><td>床束の間隔（3尺グリッド）</td></tr>
+        <tr><td><a href="yukazuka.html">床束</a></td><td>90×90mm／鋼製束</td><td>@900mm程度</td><td>大引のたわみと座屈</td></tr>
+        <tr><td>根太掛け</td><td>厚24mm以上</td><td>—</td><td>土台際の根太を受ける</td></tr>
+      </table>
+      <p>間隔がどれも「303・455・900」と半端に見えますが、これは<strong>尺モジュール</strong>（1尺＝303mm）に由来します。1間＝1,820mm（6尺）を基準に、その1/2が910mm、1/4が455mm、1/6が303mm。日本の在来木造はこの寸法体系でできているため、合板（910×1,820mm）もぴったり納まるようになっています。</p>
+
+      <h2 id="mondai">床組でよく起きる不具合</h2>
+      <table class="data">
+        <tr><th>症状</th><th>主な原因</th><th>対策</th></tr>
+        <tr><td>歩くとふわふわする</td><td>根太・大引の断面不足、間隔が広すぎる</td><td>根太の追加、大引下に束を増設</td></tr>
+        <tr><td>床鳴り（きしみ）</td><td>釘の緩み、木材の乾燥収縮、束の沈下</td><td>ビス増し打ち、鋼製束の再調整</td></tr>
+        <tr><td>局所的に沈む</td><td>床束の沈下、束石の不同沈下</td><td>束の高さ再調整、地盤の確認</td></tr>
+        <tr><td>床下がカビ臭い</td><td>換気不足、防湿層の不備</td><td>基礎パッキン・換気口の確認、防湿シート</td></tr>
+        <tr><td>大地震で建物がねじれた</td><td>水平構面（床の面としての強さ）不足</td><td><a href="goushou.html">剛床</a>化、火打ちの追加</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">床組には2つの役割がある</span>
+        <p>床組というと「人や家具を支える」という鉛直荷重の役割ばかり意識されますが、耐震上はもう一つ、<strong>「地震の水平力を耐力壁に伝える」</strong>という役割が決定的に重要です。床が面としてしっかりしていないと、地震力が耐力壁まで届かず、壁がいくら強くても効果が出ません。<br>この「面としての強さ」を<strong>水平構面</strong>といい、根太レス工法（厚合板を直接梁に留める）が主流になった最大の理由がここにあります。詳しくは<a href="goushou.html">剛床仮定と床面内せん断力</a>で解説しています。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 根太レス工法と従来の根太工法はどちらが良いのですか？</h3>
+      <p>耐震性の面では根太レス工法（厚さ24〜28mmの構造用合板を梁・大引に直接留める）が有利です。床が一体の面として働き、水平構面の強さが大幅に向上するためです。一方、従来の根太工法は部材が細く運びやすい、部分的な改修がしやすいといった利点があります。新築では根太レスが主流です。</p>
+      <h3>Q2. 床がふわふわするのは構造上問題がありますか？</h3>
+      <p>すぐに倒壊する危険があるわけではありませんが、根太や大引の断面不足、床束の沈下といった原因が隠れていることがあります。とくに部分的に沈む場合は床束や地盤側の問題が疑われるため、床下点検口から束と束石の状態を確認することをおすすめします。</p>
+      <h3>Q3. 床組の部材はなぜ303mmや455mmという半端な間隔なのですか？</h3>
+      <p>尺モジュール（1尺＝約303mm）に由来します。1間＝1,820mm（6尺）を基準として、その1/6が303mm、1/4が455mm、1/2が910mmです。構造用合板が910×1,820mmで流通しているため、この寸法体系だと材料がぴったり納まり、無駄が出ません。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

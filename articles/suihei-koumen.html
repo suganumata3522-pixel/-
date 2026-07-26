@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/suihei-koumen.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/suihei-koumen.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-suihei-koumen.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "水平構面と耐力壁はどちらが重要ですか？", "acceptedAnswer": {"@type": "Answer", "text": "どちらも必要で、片方だけでは機能しません。耐力壁は地震力に抵抗する「柱」、水平構面はその壁まで力を運ぶ「道路」です。道路が弱ければ壁に力が届かず、壁の性能が発揮されません。逆に床がいくら強くても、抵抗する壁がなければ建物は倒れます。"}},
+ {"@type": "Question", "name": "床倍率はどのくらいあればよいですか？", "acceptedAnswer": {"@type": "Answer", "text": "必要な床倍率は建物の形状・耐力壁の配置・階数によって変わるため、一律の目安はありません。ただし根太レス工法（厚24mmの構造用合板を落とし込み）なら床倍率3.0が得られ、一般的な木造住宅では十分な水準です。吹き抜けが大きい場合や平面が細長い場合は、個別の検討が必要です。"}},
+ {"@type": "Question", "name": "吹き抜けをつくると耐震性は必ず下がりますか？", "acceptedAnswer": {"@type": "Answer", "text": "位置と大きさ次第です。建物中央にあって周囲を十分な幅の床が回っていれば影響は限定的ですが、外壁側に寄って床が細い帯状にしか残らない場合は、そこがボトルネックになり力が伝わりません。面積比だけでなく「残った床がつながっているか」で判断してください。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">木造（W造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>水平構面とは？役割と屋根・吹き抜けとの関係</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -180,6 +187,81 @@
         <span class="label">あわせて読みたい</span>
         <p>「<a href="hiuchi.html">火打ち</a>」「<a href="kabebairitsu.html">壁倍率・壁量</a>」「<a href="yonbunkatsu.html">四分割法</a>」「<a href="sujikai-tekkin.html">筋交いの鉄筋（鉄筋ブレース）</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="yakuwari-zu">水平構面がないとどうなるか（図解）</h2>
+      <figure class="diagram">
+        <svg viewBox="0 0 740 320" role="img" aria-label="水平構面が弱い建物と強い建物の地震時の変形を比較した図">
+          <title>水平構面の有無による地震時の挙動の違い</title>
+          <rect x="0" y="0" width="740" height="320" fill="#ffffff"/>
+          <text x="185" y="28" text-anchor="middle" font-size="16" font-weight="bold" fill="#c0392b">水平構面が弱い</text>
+          <text x="555" y="28" text-anchor="middle" font-size="16" font-weight="bold" fill="#2e7d4f">水平構面が強い（剛床）</text>
+          <g transform="translate(70,54)">
+            <path d="M0,100 L40,60 L230,60 L190,100 Z" fill="#fdeaea" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="6 4"/>
+            <path d="M0,100 L0,20 M190,100 L190,20 M40,60 L40,-20 M230,60 L230,-20" stroke="#ccc" stroke-width="1.5"/>
+            <rect x="0" y="100" width="190" height="14" fill="#1a3a5c"/>
+            <rect x="40" y="60" width="190" height="14" fill="#1a3a5c" fill-opacity="0.4"/>
+            <text x="115" y="86" text-anchor="middle" font-size="13" fill="#c0392b">床がゆがむ</text>
+            <g stroke="#e8843c" stroke-width="4">
+              <line x1="0" y1="114" x2="0" y2="174"/>
+              <line x1="190" y1="114" x2="190" y2="174"/>
+            </g>
+            <text x="-8" y="150" text-anchor="end" font-size="12" fill="#e8843c">耐力壁</text>
+            <text x="115" y="200" text-anchor="middle" font-size="13" fill="#c0392b">力が壁に届かず、床が先に壊れる</text>
+            <text x="115" y="220" text-anchor="middle" font-size="13" fill="#c0392b">建物がねじれる</text>
+          </g>
+          <g transform="translate(440,54)">
+            <path d="M0,100 L26,74 L216,74 L190,100 Z" fill="#eef8f2" stroke="#2e7d4f" stroke-width="2.5"/>
+            <rect x="0" y="100" width="190" height="14" fill="#1a3a5c"/>
+            <rect x="26" y="74" width="190" height="14" fill="#1a3a5c" fill-opacity="0.4"/>
+            <text x="108" y="94" text-anchor="middle" font-size="13" fill="#2e7d4f">床は変形しない</text>
+            <g stroke="#e8843c" stroke-width="4">
+              <line x1="0" y1="114" x2="0" y2="174"/>
+              <line x1="190" y1="114" x2="190" y2="174"/>
+            </g>
+            <text x="108" y="200" text-anchor="middle" font-size="13" fill="#2e7d4f">力が確実に耐力壁へ伝わる</text>
+            <text x="108" y="220" text-anchor="middle" font-size="13" fill="#2e7d4f">建物全体が一体で動く</text>
+          </g>
+          <rect x="60" y="284" width="620" height="30" rx="6" fill="#f4f7fa" stroke="#9fc0dd"/>
+          <text x="370" y="304" text-anchor="middle" font-size="13.5" fill="#1a3a5c">耐力壁をいくら増やしても、床が弱ければ力が届かない ＝ 壁の性能が発揮されない</text>
+        </svg>
+        <figcaption>水平構面は「地震力を耐力壁まで運ぶ道路」。道路が弱ければ、どんなに強い壁があっても機能しない。</figcaption>
+      </figure>
+
+      <h2 id="yukabairitsu-hyou">床倍率の目安一覧</h2>
+      <p>水平構面の強さは<strong>床倍率</strong>という数値で表します。壁の強さを表す壁倍率と同じ考え方で、数字が大きいほど強い床です。</p>
+      <table class="data">
+        <tr><th>仕様</th><th>床倍率の目安</th><th>特徴</th></tr>
+        <tr><td>構造用合板24mm・落とし込み・N75@150</td><td><strong>3.0</strong></td><td>もっとも強い。根太レス（剛床）の標準</td></tr>
+        <tr><td>構造用合板24mm・直張り・N75@150</td><td>1.2〜1.8</td><td>留め方で大きく変わる</td></tr>
+        <tr><td>構造用合板12mm・根太@303・転ばし</td><td>0.7</td><td>従来の根太工法</td></tr>
+        <tr><td>火打ち材（平均負担面積2.5m²以下・梁せい240以上）</td><td>0.8</td><td><a href="hiuchi.html">火打ち</a>のみで面をつくる場合</td></tr>
+        <tr><td>火打ち材（平均負担面積5.0m²以下・梁せい150）</td><td>0.3</td><td>効果は限定的</td></tr>
+        <tr><td>勾配屋根・野地板12mm（垂木@500）</td><td>0.5〜0.7</td><td>屋根面の水平構面</td></tr>
+      </table>
+      <p>数値を見比べると、<strong>厚合板を落とし込んだ剛床（3.0）と、火打ちだけの床（0.3）では10倍の差</strong>があることがわかります。同じ「床」でも仕様次第で耐震性能はまるで違うのです。</p>
+
+      <h2 id="fukinuke-taisaku">吹き抜け・スキップフロアの注意点</h2>
+      <table class="data">
+        <tr><th>状況</th><th>問題</th><th>対策</th></tr>
+        <tr><td>大きな吹き抜け</td><td>床面が分断され、力が伝わらない</td><td>吹き抜け周囲に火打ち・梁の補強、周辺の床倍率を上げる</td></tr>
+        <tr><td>階段＋吹き抜けが並ぶ</td><td>開口が連続して床が細くなる</td><td>開口を分散させる、水平ブレースを入れる</td></tr>
+        <tr><td>スキップフロア</td><td>床レベルが違い、力の伝達経路が複雑</td><td>各レベルごとに構面を確保、専門的な検討が必要</td></tr>
+        <tr><td>細長い平面（うなぎの寝床）</td><td>床がしなり、両端の壁に力が届かない</td><td>中間に耐力壁を設ける、床倍率を上げる</td></tr>
+        <tr><td>L字・コの字の平面</td><td>入隅部分に応力が集中</td><td>入隅に火打ちを入れる、平面を分割して検討</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">吹き抜けは「面積」ではなく「つながり」で判断する</span>
+        <p>吹き抜けが構造上問題になるかどうかは、単純な面積比だけでは判断できません。重要なのは<strong>「残った床が、力を伝える経路としてつながっているか」</strong>です。<br>たとえば同じ面積の吹き抜けでも、建物の中央にあって周囲がぐるりと床で囲まれている場合と、外壁側に寄っていて床が細い帯状にしか残らない場合とでは、耐震性能はまったく違います。後者では床の細い部分が「ボトルネック」になり、そこで力が詰まってしまいます。<br>間取りの検討段階で吹き抜けの位置を決めるときは、面積よりも<strong>「四周に十分な幅の床が回っているか」</strong>を確認してください。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 水平構面と耐力壁はどちらが重要ですか？</h3>
+      <p>どちらも必要で、片方だけでは機能しません。耐力壁は地震力に抵抗する「柱」、水平構面はその壁まで力を運ぶ「道路」です。道路が弱ければ壁に力が届かず、壁の性能が発揮されません。逆に床がいくら強くても、抵抗する壁がなければ建物は倒れます。</p>
+      <h3>Q2. 床倍率はどのくらいあればよいですか？</h3>
+      <p>必要な床倍率は建物の形状・耐力壁の配置・階数によって変わるため、一律の目安はありません。ただし根太レス工法（厚24mmの構造用合板を落とし込み）なら床倍率3.0が得られ、一般的な木造住宅では十分な水準です。吹き抜けが大きい場合や平面が細長い場合は、個別の検討が必要です。</p>
+      <h3>Q3. 吹き抜けをつくると耐震性は必ず下がりますか？</h3>
+      <p>位置と大きさ次第です。建物中央にあって周囲を十分な幅の床が回っていれば影響は限定的ですが、外壁側に寄って床が細い帯状にしか残らない場合は、そこがボトルネックになり力が伝わりません。面積比だけでなく「残った床がつながっているか」で判断してください。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

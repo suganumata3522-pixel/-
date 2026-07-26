@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/h-katako-yomikata.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/h-katako-yomikata.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-h-katako-yomikata.jpg",
    "author": {
     "@type": "Person",
@@ -114,7 +114,7 @@
       <div class="meta">
         <span class="tag">鉄骨造（S造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>H形鋼の読み方・寸法表記の読み方</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -190,6 +190,56 @@
         <span class="label">実務のワンポイント</span>
         <p>詳細図を描く若手によく言うのは、呼称寸法をそのまま鵜呑みにしないでほしいということです。中幅・広幅の系列では呼称と実せいが数mmずれることがあり、そのわずかな差が他部材との取り合いで納まらない原因になります。</p>
       </div>
+
+      <h2 id="kigou-zu">4つの数字は断面のどこを指すか（図解）</h2>
+      <figure class="diagram">
+        <svg viewBox="0 0 700 320" role="img" aria-label="H形鋼の寸法記号H・B・t1・t2の位置を示す断面図">
+          <title>H形鋼の寸法記号（H・B・t1・t2）の位置</title>
+          <rect x="0" y="0" width="700" height="320" fill="#ffffff"/>
+          <g transform="translate(250,50)">
+            <rect x="0" y="0" width="200" height="22" fill="#1a3a5c"/>
+            <rect x="87" y="22" width="26" height="176" fill="#9fc0dd"/>
+            <rect x="0" y="198" width="200" height="22" fill="#1a3a5c"/>
+          </g>
+          <g stroke="#e8843c" stroke-width="2" fill="none">
+            <line x1="200" y1="50" x2="200" y2="270"/>
+            <line x1="192" y1="50" x2="208" y2="50"/>
+            <line x1="192" y1="270" x2="208" y2="270"/>
+            <line x1="250" y1="296" x2="450" y2="296"/>
+            <line x1="250" y1="288" x2="250" y2="304"/>
+            <line x1="450" y1="288" x2="450" y2="304"/>
+          </g>
+          <text x="190" y="164" text-anchor="end" font-size="20" font-weight="bold" fill="#e8843c">H</text>
+          <text x="150" y="186" text-anchor="end" font-size="12" fill="#666">せい（高さ）</text>
+          <text x="350" y="318" text-anchor="middle" font-size="20" font-weight="bold" fill="#e8843c">B</text>
+          <text x="470" y="300" font-size="12" fill="#666">幅</text>
+          <g stroke="#c0392b" stroke-width="2">
+            <line x1="337" y1="150" x2="200" y2="120"/>
+            <line x1="350" y1="60" x2="520" y2="45"/>
+          </g>
+          <text x="120" y="118" font-size="18" font-weight="bold" fill="#c0392b">t1</text>
+          <text x="120" y="138" font-size="12" fill="#666">ウェブ厚</text>
+          <text x="528" y="49" font-size="18" font-weight="bold" fill="#c0392b">t2</text>
+          <text x="528" y="69" font-size="12" fill="#666">フランジ厚</text>
+          <text x="350" y="30" text-anchor="middle" font-size="17" font-weight="bold" fill="#1a3a5c">H − 400 × 200 × 8 × 13</text>
+          <text x="60" y="230" font-size="13" fill="#333">外形（大きい寸法）</text>
+          <text x="60" y="250" font-size="13" fill="#333">→ 先に書く</text>
+          <text x="540" y="230" font-size="13" fill="#333">板厚（小さい寸法）</text>
+          <text x="540" y="250" font-size="13" fill="#333">→ 後に書く</text>
+        </svg>
+        <figcaption>大きい寸法（外形）から小さい寸法（板厚）へ、というのが読み方の原則。t1がウェブ、t2がフランジで、必ずt1＜t2になる。</figcaption>
+      </figure>
+
+      <h2 id="machigaeyasui">間違えやすいポイント</h2>
+      <table class="data">
+        <tr><th>まちがい</th><th>正しい理解</th></tr>
+        <tr><td>t1がフランジ厚だと思う</td><td>t1は<a href="h-web.html">ウェブ</a>厚。数字が小さいほうがt1と覚えると確実</td></tr>
+        <tr><td>H-200×200は正方形の鋼管</td><td>せい200・幅200の<strong>広幅H形鋼</strong>。中身は詰まっていない</td></tr>
+        <tr><td>H-400×200と400×200×8×13は別物</td><td>同じ。板厚を省略しているだけ（標準品はサイズごとに板厚が決まっている）</td></tr>
+        <tr><td>数字が大きいほど必ず強い</td><td>向きが重要。<a href="h-jiku.html">強軸・弱軸</a>を取り違えると性能は数分の一になる</td></tr>
+      </table>
+      <p>もう一つ実務で効くのが<strong>「同じせいでも重さが違う」</strong>という点です。H-400×200×8×13は66.0kg/m、H-390×300×10×16は107kg/mで、せいはほぼ同じでも重量は1.6倍。鉄骨は重量で積算するため、必要な性能を満たす中で<strong>もっとも軽い断面</strong>を選ぶのがコスト設計の基本になります。断面性能と単位重量は<a href="h-danmenseinou.html">断面性能一覧</a>で確認してください。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

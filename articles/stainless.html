@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/stainless.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/stainless.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-02",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-stainless.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "ステンレスは本当にさびないのですか？", "acceptedAnswer": {"@type": "Answer", "text": "条件が整えばさびません。表面の不動態皮膜（酸化クロム膜）が酸素と結びついて自己修復するためです。ただし酸素が届かない隙間や、塩分・塩素が滞留する環境では皮膜が再生できず、孔食やすきま腐食が起こります。海沿いではSUS304ではなくSUS316を選ぶなど、環境に応じた鋼種選定が必要です。"}},
+ {"@type": "Question", "name": "SUS304とSUS316の違いは何ですか？", "acceptedAnswer": {"@type": "Answer", "text": "SUS316はSUS304にモリブデンを2〜3％加えた鋼種で、塩分に対する耐食性が大幅に高くなっています。海岸から近い場所、プール、温泉地などの塩素・塩分環境ではSUS316（またはSUS316L）を選ぶのが標準です。そのぶん単価は上がります。"}},
+ {"@type": "Question", "name": "ステンレスを主要な柱や梁に使うことはありますか？", "acceptedAnswer": {"@type": "Answer", "text": "特殊な用途を除きほとんどありません。単価が普通鋼の5〜10倍と高く、設計に使える規準・認定も限られるためです。耐久性が問題になる部位だけステンレスにし、主要構造部は普通鋼＋適切な防錆処理とするのが一般的な考え方です。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">鉄骨造（S造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>ステンレス鋼とは？意味・特徴と線膨張係数・降伏点・引張強度</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -181,6 +188,66 @@
         <span class="label">あわせて読みたい</span>
         <p>合金鋼の位置づけは「<a href="tokushukou.html">特殊鋼とは</a>」、普通鋼との関係は「<a href="futsuukou.html">普通鋼とは</a>」、鋼材の種類は「<a href="kouzai-shurui.html">鋼材の種類</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="naze-sabinai">なぜさびないのか（不動態皮膜のしくみ）</h2>
+      <figure class="diagram">
+        <svg viewBox="0 0 720 280" role="img" aria-label="ステンレス鋼の不動態皮膜が傷ついても自己修復するしくみの図">
+          <title>不動態皮膜の自己修復</title>
+          <rect x="0" y="0" width="720" height="280" fill="#ffffff"/>
+          <text x="360" y="28" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a3a5c">ステンレスの表面には目に見えない「バリア」がある</text>
+          <g transform="translate(60,60)">
+            <rect x="0" y="30" width="170" height="90" fill="#9fc0dd"/>
+            <rect x="0" y="22" width="170" height="8" fill="#2e7d4f"/>
+            <text x="85" y="140" text-anchor="middle" font-size="13" fill="#333">① 通常の状態</text>
+            <text x="85" y="160" text-anchor="middle" font-size="12" fill="#2e7d4f">クロムが酸素と結びつき</text>
+            <text x="85" y="177" text-anchor="middle" font-size="12" fill="#2e7d4f">緻密な皮膜が表面を覆う</text>
+          </g>
+          <g transform="translate(275,60)">
+            <rect x="0" y="30" width="170" height="90" fill="#9fc0dd"/>
+            <rect x="0" y="22" width="70" height="8" fill="#2e7d4f"/>
+            <rect x="100" y="22" width="70" height="8" fill="#2e7d4f"/>
+            <path d="M78,20 L92,42 M92,20 L78,42" stroke="#c0392b" stroke-width="3"/>
+            <text x="85" y="140" text-anchor="middle" font-size="13" fill="#333">② 傷がついた</text>
+            <text x="85" y="160" text-anchor="middle" font-size="12" fill="#c0392b">皮膜が破れて</text>
+            <text x="85" y="177" text-anchor="middle" font-size="12" fill="#c0392b">地の鋼が露出</text>
+          </g>
+          <g transform="translate(490,60)">
+            <rect x="0" y="30" width="170" height="90" fill="#9fc0dd"/>
+            <rect x="0" y="22" width="170" height="8" fill="#2e7d4f"/>
+            <circle cx="85" cy="12" r="7" fill="#2e7d4f" fill-opacity="0.4"/>
+            <text x="85" y="140" text-anchor="middle" font-size="13" fill="#333">③ すぐ再生する</text>
+            <text x="85" y="160" text-anchor="middle" font-size="12" fill="#2e7d4f">空気中の酸素と再結合し</text>
+            <text x="85" y="177" text-anchor="middle" font-size="12" fill="#2e7d4f">数秒〜数分で皮膜が復活</text>
+          </g>
+          <rect x="60" y="242" width="600" height="30" rx="6" fill="#f4f7fa" stroke="#9fc0dd"/>
+          <text x="360" y="262" text-anchor="middle" font-size="13.5" fill="#1a3a5c">塗装と違い「はがれても自分で直る」——これがステンレスの本質</text>
+        </svg>
+        <figcaption>クロムを約11％以上含むと、表面に厚さ数nmの不動態皮膜（酸化クロム膜）ができる。傷ついても酸素があれば自己修復するため、塗り直しが要らない。</figcaption>
+      </figure>
+      <p>ここで大事なのは<strong>「酸素があること」が前提</strong>だという点です。酸素が届かない隙間や、塩分が滞留する場所では皮膜が再生できず、局部的にさびが進みます（すきま腐食・孔食）。海沿いの建物や、プールなど塩素環境では、ステンレスでも腐食が起きるのはこのためです。「ステンレス＝絶対にさびない」ではなく、<strong>「条件が整えばさびない」</strong>と理解しておくと、設計での判断を誤りません。</p>
+
+      <h2 id="kouzou-riyou">建築構造への使いどころとコスト</h2>
+      <table class="data">
+        <tr><th>使いどころ</th><th>理由</th><th>注意点</th></tr>
+        <tr><td>海沿い・温泉地の外部露出部材</td><td>塗装の維持管理が困難な環境</td><td>SUS304では不足。SUS316（モリブデン入り）を検討</td></tr>
+        <tr><td>屋外階段・手すり・ルーバー</td><td>意匠性と耐久性の両立</td><td>普通鋼と接触させると<strong>異種金属接触腐食</strong>が起きる</td></tr>
+        <tr><td>プール・浴場まわり</td><td>高湿・塩素環境</td><td>応力腐食割れに注意。適切な鋼種選定が必須</td></tr>
+        <tr><td>アンカーボルト・ビス類</td><td>取り替えが困難な埋込部</td><td>母材との電位差を絶縁材で切る</td></tr>
+        <tr><td>主要な柱・梁</td><td>基本的に採用されない</td><td>単価が普通鋼の5〜10倍。<a href="fr-kou.html">耐火性</a>も普通鋼と同等以下</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">見落としがちな2つの落とし穴</span>
+        <p><strong>①線膨張係数が大きい</strong>：SUS304の線膨張係数は17.3×10⁻⁶/℃で、普通鋼（11.2×10⁻⁶/℃）の約1.5倍。長い部材を普通鋼に固定すると、温度変化で大きな応力が生じます。ルーバーや手すりでは伸縮を逃がすディテールが必要です。<br><strong>②熱伝導率が低く耐火性は高くない</strong>：ステンレスは高温で強度が落ちにくい面もありますが、耐火構造としては普通鋼と同様に被覆が必要です。「ステンレスだから火に強い」という考えは誤りです。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. ステンレスは本当にさびないのですか？</h3>
+      <p>条件が整えばさびません。表面の不動態皮膜（酸化クロム膜）が酸素と結びついて自己修復するためです。ただし酸素が届かない隙間や、塩分・塩素が滞留する環境では皮膜が再生できず、孔食やすきま腐食が起こります。海沿いではSUS304ではなくSUS316を選ぶなど、環境に応じた鋼種選定が必要です。</p>
+      <h3>Q2. SUS304とSUS316の違いは何ですか？</h3>
+      <p>SUS316はSUS304にモリブデンを2〜3％加えた鋼種で、塩分に対する耐食性が大幅に高くなっています。海岸から近い場所、プール、温泉地などの塩素・塩分環境ではSUS316（またはSUS316L）を選ぶのが標準です。そのぶん単価は上がります。</p>
+      <h3>Q3. ステンレスを主要な柱や梁に使うことはありますか？</h3>
+      <p>特殊な用途を除きほとんどありません。単価が普通鋼の5〜10倍と高く、設計に使える規準・認定も限られるためです。耐久性が問題になる部位だけステンレスにし、主要構造部は普通鋼＋適切な防錆処理とするのが一般的な考え方です。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

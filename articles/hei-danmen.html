@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/hei-danmen.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/hei-danmen.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-hei-danmen.jpg",
    "author": {
     "@type": "Person",
@@ -114,7 +114,7 @@
       <div class="meta">
         <span class="tag">鉄骨造（S造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>閉断面とは？開断面との違い・座屈抵抗性</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -190,6 +190,60 @@
         <span class="label">あわせて読みたい</span>
         <p>対になる断面は「<a href="kai-danmen.html">開断面</a>」、箱形は「<a href="hakogata-danmen.html">箱型断面</a>」、中空の効果は「<a href="chuukuu-danmen.html">中空断面</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="nejire-zu">開断面と閉断面、ねじれ方の違い（図解）</h2>
+      <figure class="diagram">
+        <svg viewBox="0 0 720 320" role="img" aria-label="開断面と閉断面のねじりに対する抵抗の違いを示す図">
+          <title>開断面と閉断面のねじり抵抗の違い</title>
+          <rect x="0" y="0" width="720" height="320" fill="#ffffff"/>
+          <text x="180" y="30" text-anchor="middle" font-size="17" font-weight="bold" fill="#c0392b">開断面（H形鋼）</text>
+          <text x="540" y="30" text-anchor="middle" font-size="17" font-weight="bold" fill="#2e7d4f">閉断面（角形鋼管）</text>
+          <g transform="translate(120,60)">
+            <rect x="0" y="0" width="120" height="16" fill="#9fc0dd"/>
+            <rect x="52" y="16" width="16" height="98" fill="#9fc0dd"/>
+            <rect x="0" y="114" width="120" height="16" fill="#9fc0dd"/>
+            <path d="M-14,8 Q60,-16 134,8" fill="none" stroke="#c0392b" stroke-width="3"/>
+            <path d="M134,122 Q60,146 -14,122" fill="none" stroke="#c0392b" stroke-width="3"/>
+            <text x="60" y="-18" text-anchor="middle" font-size="13" fill="#c0392b">上下がバラバラに動く</text>
+          </g>
+          <g transform="translate(480,60)">
+            <rect x="0" y="0" width="120" height="130" fill="none" stroke="#2e7d4f" stroke-width="16"/>
+            <path d="M20,65 A45,45 0 1,1 100,65" fill="none" stroke="#2e7d4f" stroke-width="3" stroke-dasharray="7 5"/>
+            <text x="60" y="70" text-anchor="middle" font-size="13" fill="#2e7d4f">せん断流が</text>
+            <text x="60" y="88" text-anchor="middle" font-size="13" fill="#2e7d4f">一周する</text>
+          </g>
+          <rect x="60" y="212" width="240" height="86" rx="6" fill="#fdf2f0" stroke="#c0392b"/>
+          <g font-size="13" fill="#8c2b21">
+            <text x="74" y="234">板が「開いて」いるため、ねじると</text>
+            <text x="74" y="254">板ごとに別々に変形してしまう</text>
+            <text x="74" y="278" font-weight="bold">→ ねじり剛性が極端に低い</text>
+          </g>
+          <rect x="420" y="212" width="240" height="86" rx="6" fill="#eef8f2" stroke="#2e7d4f"/>
+          <g font-size="13" fill="#1f5c39">
+            <text x="434" y="234">板が輪になっているので、ねじり力が</text>
+            <text x="434" y="254">断面を一周する流れで受け止められる</text>
+            <text x="434" y="278" font-weight="bold">→ ねじり剛性は数十〜数百倍</text>
+          </g>
+        </svg>
+        <figcaption>同じ断面積でも、板が閉じているかどうかでねじり剛性は桁違いに変わる。柱に角形鋼管が多いのはこのため。</figcaption>
+      </figure>
+      <p>身近な例でいうと、開断面は<strong>丸めた紙</strong>、閉断面は<strong>のりしろを貼って輪にした紙</strong>です。同じ紙でも、輪にしてしまえばねじろうとしてもびくともしません。断面が閉じているかどうかだけで、こんなに違うのです。</p>
+
+      <h2 id="tsukaiwake">開断面と閉断面の使い分け</h2>
+      <table class="data">
+        <tr><th>部位・条件</th><th>向いている断面</th><th>理由</th></tr>
+        <tr><td>ラーメン構造の柱</td><td><strong>閉断面</strong>（角形鋼管）</td><td>2方向とも同等に強く、ねじれにも強い。<a href="h-jiku.html">弱軸</a>ができない</td></tr>
+        <tr><td>一般的な梁</td><td><strong>開断面</strong>（H形鋼）</td><td>ボルト・溶接がしやすく、内部の検査もできる。安価</td></tr>
+        <tr><td>片持ち梁・キャンチ</td><td>閉断面を検討</td><td>ねじれが生じやすく、<a href="zakutsu.html">横座屈</a>も起きやすい</td></tr>
+        <tr><td>曲線状・偏心荷重の梁</td><td>閉断面</td><td>荷重の作用線が断面の中心を通らずねじれが生じる</td></tr>
+        <tr><td>ブレース</td><td>閉断面（鋼管）も多い</td><td>圧縮時の座屈長さに対して有利</td></tr>
+        <tr><td>母屋・胴縁など二次部材</td><td>開断面（<a href="keiryou-katakou.html">軽量形鋼</a>）</td><td>軽く安く、取り付けが容易</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">閉断面の弱点は「中が見えない・触れない」こと</span>
+        <p>閉断面は内部の溶接部を目視で確認できず、塗装や防錆処理もできません。柱梁接合部では内部に<strong>ダイアフラム</strong>という補強板を入れる必要があり、そのために通しダイアフラム形式（柱を切ってプレートを挟む）が採られます。加工手間が増えるぶんコストは上がるので、性能とコストの両面で判断します。</p>
+      </div>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

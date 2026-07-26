@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/h-katako.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/h-katako.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-h-katako.jpg",
    "author": {
     "@type": "Person",
@@ -114,7 +114,7 @@
       <div class="meta">
         <span class="tag">鉄骨造（S造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>H形鋼（H鋼）とは？規格・寸法・材質・用途</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -188,6 +188,52 @@
         <span class="label">実務のワンポイント</span>
         <p>発注書を確認するとき欠かさず見るのは、材質欄がSS400のままになっていないかという点です。主要な柱・梁にはSN材を指定するのが基本ですが、汎用品と混同した記載がそのまま流れてしまう場面を何度か見てきました。</p>
       </div>
+
+      <h2 id="seizou">H形鋼はどうつくられるか（図解）</h2>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 240" role="img" aria-label="熱間圧延によるH形鋼の製造工程の図">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">熱間圧延でつくられる</text>
+          <g fill="#eef3f8" stroke="#1a3a5c" stroke-width="1.8">
+            <rect x="30" y="60" width="140" height="60" rx="8"/>
+            <rect x="205" y="60" width="140" height="60" rx="8"/>
+            <rect x="380" y="60" width="140" height="60" rx="8"/>
+          </g>
+          <rect x="555" y="60" width="115" height="60" rx="8" fill="#e8843c"/>
+          <g font-size="13" text-anchor="middle" font-weight="bold" fill="#1a3a5c">
+            <text x="100" y="84">① 加熱</text><text x="275" y="84">② 圧延</text><text x="450" y="84">③ 冷却・矯正</text>
+          </g>
+          <text x="612" y="84" font-size="13" text-anchor="middle" fill="#fff" font-weight="bold">④ 製品</text>
+          <g font-size="11.5" text-anchor="middle" fill="#6b7785">
+            <text x="100" y="104">1200℃程度に</text><text x="275" y="104">ロールで成形</text><text x="450" y="104">形状を整える</text>
+          </g>
+          <text x="612" y="104" font-size="11.5" text-anchor="middle" fill="#fff">H形鋼</text>
+          <g stroke="#1a3a5c" stroke-width="2">
+            <line x1="170" y1="90" x2="196" y2="90"/><path d="M205 90 l-12 -6 v12 z" fill="#1a3a5c" stroke="none"/>
+            <line x1="345" y1="90" x2="371" y2="90"/><path d="M380 90 l-12 -6 v12 z" fill="#1a3a5c" stroke="none"/>
+            <line x1="520" y1="90" x2="546" y2="90"/><path d="M555 90 l-12 -6 v12 z" fill="#1a3a5c" stroke="none"/>
+          </g>
+          <rect x="120" y="150" width="460" height="60" rx="8" fill="#fdf1e7" stroke="#e8843c" stroke-width="2"/>
+          <text x="350" y="174" font-size="13.5" text-anchor="middle" fill="#b35309" font-weight="bold">熱間圧延だから一体成形＝溶接部がない</text>
+          <text x="350" y="196" font-size="12.5" text-anchor="middle" fill="#6b7785">寸法・品質が安定し、コストも抑えられる</text>
+        </svg>
+        <figcaption>H形鋼は加熱した鋼片をロールで連続的に成形する熱間圧延でつくられる。一体成形のため溶接部がなく、品質が安定している。</figcaption>
+      </figure>
+
+      <h2 id="build-h">ビルドH（溶接組立H形鋼）との違い</h2>
+      <table class="data">
+        <tr><th></th><th>圧延H形鋼（ロールH）</th><th><a href="build-h.html">ビルドH</a>（溶接組立）</th></tr>
+        <tr><td>製法</td><td>熱間圧延による一体成形</td><td>鋼板を切り出して溶接で組み立てる</td></tr>
+        <tr><td>寸法の自由度</td><td>JIS規格のサイズに限られる</td><td><strong>自由に設定できる</strong></td></tr>
+        <tr><td>コスト</td><td>安い（大量生産品）</td><td>高い（製作手間がかかる）</td></tr>
+        <tr><td>納期</td><td>短い（在庫があることが多い）</td><td>長い（製作が必要）</td></tr>
+        <tr><td>品質</td><td>安定（溶接部がない）</td><td>溶接部の品質管理が必要</td></tr>
+        <tr><td>使いどころ</td><td>一般的な柱・梁</td><td>規格外の大断面、テーパー梁、特殊形状</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">まずは規格品で成立させる</span>
+        <p>設計では、<strong>できるだけJIS規格のH形鋼で成立させる</strong>のが基本です。コスト・納期・品質のいずれでも有利だからです。ビルドHを使うのは、規格品ではせいが足りない大スパン、部位ごとに断面を変えたいテーパー梁など、規格品では対応できない場合に限られます。安易にビルドHを指定すると、コストと工期に大きく影響します。</p>
+      </div>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

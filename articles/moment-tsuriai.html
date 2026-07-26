@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/moment-tsuriai.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/moment-tsuriai.html",
    "datePublished": "2026-06-15",
-   "dateModified": "2026-07-02",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-moment-tsuriai.jpg",
    "author": {
     "@type": "Person",
@@ -114,7 +114,7 @@
       <div class="meta">
         <span class="tag">構造力学の基礎</span>
         <span>公開日：2026年6月15日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>モーメントのつり合い｜意味・計算と重心</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -187,6 +187,57 @@
         <span class="label">あわせて読みたい</span>
         <p>「<a href="juushin-moment.html">つり合いから重心を求める</a>」「<a href="hanryoku.html">反力の求め方</a>」「<a href="moment-seifu.html">正負</a>」「<a href="moment.html">力のモーメント</a>」「<a href="moment-ude.html">腕の長さ</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="hanryoku-zu">反力を求める手順（図解）</h2>
+      <figure class="diagram">
+        <svg viewBox="0 0 720 320" role="img" aria-label="単純梁の反力をモーメントのつり合いから求める手順の図">
+          <title>モーメントのつり合いによる反力の求め方</title>
+          <rect x="0" y="0" width="720" height="320" fill="#ffffff"/>
+          <line x1="110" y1="120" x2="610" y2="120" stroke="#1a3a5c" stroke-width="10"/>
+          <polygon points="110,120 92,150 128,150" fill="#666"/>
+          <circle cx="610" cy="136" r="14" fill="none" stroke="#666" stroke-width="3"/>
+          <line x1="580" y1="152" x2="640" y2="152" stroke="#666" stroke-width="3"/>
+          <text x="110" y="176" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a3a5c">A</text>
+          <text x="610" y="182" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a3a5c">B</text>
+          <line x1="360" y1="40" x2="360" y2="108" stroke="#c0392b" stroke-width="4"/>
+          <polygon points="360,116 350,98 370,98" fill="#c0392b"/>
+          <text x="360" y="32" text-anchor="middle" font-size="15" font-weight="bold" fill="#c0392b">P ＝ 20kN</text>
+          <line x1="110" y1="200" x2="360" y2="200" stroke="#e8843c" stroke-width="2"/>
+          <line x1="110" y1="192" x2="110" y2="208" stroke="#e8843c" stroke-width="2"/>
+          <line x1="360" y1="192" x2="360" y2="208" stroke="#e8843c" stroke-width="2"/>
+          <text x="235" y="222" text-anchor="middle" font-size="14" fill="#e8843c">a ＝ 4m</text>
+          <line x1="360" y1="200" x2="610" y2="200" stroke="#e8843c" stroke-width="2"/>
+          <line x1="610" y1="192" x2="610" y2="208" stroke="#e8843c" stroke-width="2"/>
+          <text x="485" y="222" text-anchor="middle" font-size="14" fill="#e8843c">b ＝ 6m</text>
+          <line x1="110" y1="140" x2="110" y2="98" stroke="#2e7d4f" stroke-width="4"/>
+          <polygon points="110,90 100,108 120,108" fill="#2e7d4f"/>
+          <text x="76" y="106" text-anchor="end" font-size="14" font-weight="bold" fill="#2e7d4f">R</text>
+          <text x="76" y="122" text-anchor="end" font-size="11" fill="#2e7d4f">A</text>
+          <line x1="610" y1="140" x2="610" y2="98" stroke="#2e7d4f" stroke-width="4"/>
+          <polygon points="610,90 600,108 620,108" fill="#2e7d4f"/>
+          <text x="648" y="106" font-size="14" font-weight="bold" fill="#2e7d4f">R</text>
+          <text x="648" y="122" font-size="11" fill="#2e7d4f">B</text>
+          <rect x="90" y="244" width="540" height="62" rx="6" fill="#f4f7fa" stroke="#9fc0dd"/>
+          <text x="106" y="266" font-size="13.5" fill="#1a3a5c">A点まわりでΣM＝0 ： R<tspan font-size="10" dy="3">B</tspan><tspan dy="-3">×10 − 20×4 ＝ 0 → R</tspan><tspan font-size="10" dy="3">B</tspan><tspan dy="-3"> ＝ 8kN</tspan></text>
+          <text x="106" y="292" font-size="13.5" fill="#1a3a5c">鉛直方向でΣY＝0 ： R<tspan font-size="10" dy="3">A</tspan><tspan dy="-3"> ＝ 20 − 8 ＝ 12kN</tspan></text>
+        </svg>
+        <figcaption>未知の反力が2つあるとき、片方の支点まわりでモーメントを取ると、その反力の腕の長さがゼロになって式から消える。だから残り1つを直接求められる。</figcaption>
+      </figure>
+      <p>ポイントは<strong>「求めたくない力が消える点を選ぶ」</strong>ことです。A点まわりでモーメントを取れば、A点の反力R<sub>A</sub>は腕の長さがゼロなのでモーメントを生みません。つまり式に登場しないので、未知数がR<sub>B</sub>だけになり、一発で解けます。これが実務でも試験でも使う定番のテクニックです。</p>
+
+      <h2 id="tejun">つり合い計算の3ステップ</h2>
+      <table class="data">
+        <tr><th>手順</th><th>やること</th><th>使う式</th></tr>
+        <tr><td>① 図に力を書き込む</td><td>荷重と、未知の反力を仮の向き（上向き）で描く</td><td>—</td></tr>
+        <tr><td>② 片方の支点まわりでΣM＝0</td><td>もう片方の反力が求まる</td><td>ΣM ＝ 0</td></tr>
+        <tr><td>③ 鉛直・水平のつり合い</td><td>残りの反力が求まる</td><td>ΣX ＝ 0、ΣY ＝ 0</td></tr>
+      </table>
+      <p>③で計算した結果が<strong>マイナスになったら、仮定した向きが逆だった</strong>という意味です。計算をやり直す必要はなく、「実際は下向き（あるいは逆向き）だった」と読み替えれば正解になります。最初に向きを当てる必要がないのが、つり合い式の便利なところです。</p>
+      <div class="point-box">
+        <span class="label">つり合い式は3つだけ</span>
+        <p>平面の静定構造で使える式は<strong>ΣX＝0、ΣY＝0、ΣM＝0の3つだけ</strong>です。だから未知数が3つまでなら解ける（静定）、4つ以上なら解けない（<a href="fuseitei.html">不静定</a>）という区分けが生まれます。単純梁は反力が3つ（ピン支点の水平・鉛直、ローラー支点の鉛直）なのでちょうど解け、両端固定梁は6つあるので解けません。この「数を数える」感覚が身につくと、構造力学の見通しが一気に良くなります。</p>
+      </div>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

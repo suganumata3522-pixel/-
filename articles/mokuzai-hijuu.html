@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/mokuzai-hijuu.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/mokuzai-hijuu.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-mokuzai-hijuu.jpg",
    "author": {
     "@type": "Person",
@@ -114,7 +114,7 @@
       <div class="meta">
         <span class="tag">木造（W造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>木材の比重と密度｜樹種別一覧と荷重計算</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -202,6 +202,62 @@
         <span class="label">実務のワンポイント</span>
         <p>木造の自重を拾うとき、カタログに載っている比重の数値が気乾比重か全乾比重かを確認せずに使うと、荷重を過小評価してしまうことがあります。樹種選定の打合せでは、必ずどちらの基準の数値かを聞き返すようにしています。</p>
       </div>
+
+      <h2 id="hijuu-kyoudo-zu">比重と強度の関係（図解）</h2>
+      <figure class="diagram">
+        <svg viewBox="0 0 720 300" role="img" aria-label="木材の比重が大きいほど強度が高くなる傾向を示すグラフ">
+          <title>木材の比重と強度の関係</title>
+          <rect x="0" y="0" width="720" height="300" fill="#ffffff"/>
+          <line x1="90" y1="240" x2="650" y2="240" stroke="#333" stroke-width="2"/>
+          <line x1="90" y1="240" x2="90" y2="40" stroke="#333" stroke-width="2"/>
+          <text x="370" y="276" text-anchor="middle" font-size="14" fill="#333">気乾比重</text>
+          <text x="34" y="150" font-size="14" fill="#333" transform="rotate(-90 34 150)">強度</text>
+          <path d="M110,224 L560,66" fill="none" stroke="#9fc0dd" stroke-width="14" stroke-opacity="0.5"/>
+          <g font-size="12" fill="#666">
+            <text x="106" y="258">0.3</text><text x="242" y="258">0.4</text>
+            <text x="378" y="258">0.5</text><text x="514" y="258">0.6</text><text x="620" y="258">0.7</text>
+          </g>
+          <g>
+            <circle cx="160" cy="204" r="8" fill="#e8843c"/>
+            <text x="160" y="192" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a3a5c">スギ 0.38</text>
+            <circle cx="290" cy="160" r="8" fill="#e8843c"/>
+            <text x="290" y="148" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a3a5c">ヒノキ 0.44</text>
+            <circle cx="378" cy="130" r="8" fill="#e8843c"/>
+            <text x="378" y="118" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a3a5c">ベイマツ 0.50</text>
+            <circle cx="466" cy="100" r="8" fill="#e8843c"/>
+            <text x="466" y="88" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a3a5c">ナラ 0.65</text>
+            <circle cx="556" cy="70" r="8" fill="#e8843c"/>
+            <text x="556" y="58" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a3a5c">ケヤキ 0.69</text>
+          </g>
+          <rect x="90" y="284" width="560" height="12" fill="none"/>
+          <text x="370" y="294" text-anchor="middle" font-size="12.5" fill="#666">比重が大きい＝細胞壁が詰まっている＝強い、というおおよその関係がある</text>
+        </svg>
+        <figcaption>比重は木材の「中身の詰まり具合」を表す。細胞壁の物質そのものの比重はどの樹種でも約1.5で、違いは隙間（空隙）の量から生まれる。</figcaption>
+      </figure>
+      <p>木材の細胞壁をつくっている物質（セルロース・リグニン）の比重は、<strong>樹種を問わずほぼ1.5</strong>で一定です。ではなぜスギ（0.38）とケヤキ（0.69）で差が出るのかというと、<strong>細胞の中の空洞がどれだけ多いか</strong>が違うからです。スギは空洞が多くスカスカ、ケヤキは細胞壁が厚く詰まっている——この違いがそのまま比重と強度の差になります。</p>
+
+      <h2 id="kajuu-keisan">荷重計算での具体的な使い方</h2>
+      <p>構造計算で木材の比重が必要になるのは、<strong>建物の自重（固定荷重）</strong>を計算するときです。</p>
+      <div class="formula">
+        <strong>計算例：スギ集成材の梁 105×300×4,000mm の重さ</strong><br>
+        体積 ＝ 0.105 × 0.300 × 4.000 ＝ 0.126 m³<br>
+        密度（気乾比重0.38）＝ 380 kg/m³<br>
+        質量 ＝ 0.126 × 380 ＝ <strong>約48 kg</strong><br>
+        重量（荷重）＝ 48 × 9.8 ≒ <strong>約470 N ＝ 0.47 kN</strong>
+      </div>
+      <table class="data">
+        <tr><th>用途</th><th>使う値</th><th>備考</th></tr>
+        <tr><td>固定荷重の算定</td><td>気乾比重（含水率15％）</td><td>木造の床・屋根の自重に含める</td></tr>
+        <tr><td>木造の重量拾い</td><td>簡易的に 600 N/m²程度</td><td>木造の軸組の自重の目安</td></tr>
+        <tr><td>運搬・積算</td><td>生材の比重（気乾の1.3〜1.8倍）</td><td>乾いていない材は重い</td></tr>
+        <tr><td>クレーンの揚重計画</td><td>実重量（安全側に生材で）</td><td>過小評価は事故につながる</td></tr>
+        <tr><td>耐火・断熱の検討</td><td>密度が熱伝導率に影響</td><td>比重が小さいほど断熱性は高い</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">「軽いこと」は木造の最大の武器</span>
+        <p>スギの密度は約380kg/m³で、コンクリート（2,400kg/m³）の約1/6、鋼材（7,850kg/m³）の約1/20です。地震力は<strong>建物の重さに比例</strong>するため、軽い木造は同じ地震でも受ける力が小さくて済みます。<br>木造住宅が細い柱で成立するのは、木が特別に強いからではなく、<strong>そもそも支えるべき重さが小さいから</strong>です。強度／重量の比（比強度）で見れば、木材は鋼材に匹敵する優れた材料といえます。<br>逆にいえば、木造に重い屋根（瓦）を載せると地震力が増え、必要な壁量も増えます。屋根の軽量化が耐震改修の定番メニューになっているのはこのためです。</p>
+      </div>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

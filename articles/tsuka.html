@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/tsuka.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/tsuka.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-tsuka.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "束はどのくらいの間隔で設置しますか？", "acceptedAnswer": {"@type": "Answer", "text": "床束は大引の下に900mm（3尺）程度の間隔で設置するのが一般的です。小屋束は母屋の下に、母屋の間隔（900mm前後）に合わせて立てます。いずれも上の材のたわみと、その材が受ける荷重の大きさで決まるため、積雪の多い地域や重い屋根では間隔を詰めることがあります。"}},
+ {"@type": "Question", "name": "束が傾いたり沈んだりするとどうなりますか？", "acceptedAnswer": {"@type": "Answer", "text": "その束が負担するはずだった荷重が隣の束や梁に回り、床のたわみ・床鳴り・屋根の波打ちにつながります。とくに束と上の材の間にわずかな隙間ができると、見た目には立っていても荷重をまったく負担しない状態になります。床下・小屋裏の点検口から接触状態を確認してください。"}},
+ {"@type": "Question", "name": "束と柱はどう違うのですか？", "acceptedAnswer": {"@type": "Answer", "text": "最大の違いは水平力を負担するかどうかです。柱は地震や風の水平力を受け、耐力壁の端部として引き抜き力にも耐える必要があります。束は上から下へ鉛直荷重を渡すだけの短い部材で、水平力の伝達経路には入っていません。だから短くて細くても成立します。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">木造（W造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>束（つか）とは？小屋束・床束の役割と種類</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -183,6 +190,71 @@
         <span class="label">あわせて読みたい</span>
         <p>「<a href="yukazuka.html">床束</a>」「<a href="koyazuka.html">小屋束</a>」「<a href="yukagumi.html">床組</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="basho-zu">束が立つ場所（図解）</h2>
+      <figure class="diagram">
+        <svg viewBox="0 0 740 320" role="img" aria-label="小屋束と床束が建物のどこに立つかを示す断面図">
+          <title>小屋束と床束の位置</title>
+          <rect x="0" y="0" width="740" height="320" fill="#ffffff"/>
+          <path d="M110,120 L370,32 L630,120" fill="none" stroke="#8a6a3a" stroke-width="7"/>
+          <rect x="110" y="120" width="520" height="14" fill="#1a3a5c"/>
+          <text x="660" y="132" font-size="12.5" fill="#1a3a5c">小屋梁</text>
+          <g fill="#c0392b">
+            <rect x="196" y="92" width="16" height="28"/>
+            <rect x="282" y="63" width="16" height="57"/>
+            <rect x="362" y="34" width="16" height="86"/>
+            <rect x="442" y="63" width="16" height="57"/>
+            <rect x="528" y="92" width="16" height="28"/>
+          </g>
+          <text x="370" y="24" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">小屋束（屋根を支える）</text>
+          <rect x="110" y="134" width="14" height="86" fill="#9fc0dd"/>
+          <rect x="616" y="134" width="14" height="86" fill="#9fc0dd"/>
+          <text x="90" y="182" text-anchor="end" font-size="12.5" fill="#1a3a5c">柱</text>
+          <rect x="110" y="220" width="520" height="14" fill="#1a3a5c"/>
+          <text x="660" y="232" font-size="12.5" fill="#1a3a5c">土台・大引</text>
+          <g fill="#e8843c">
+            <rect x="196" y="234" width="16" height="42"/>
+            <rect x="282" y="234" width="16" height="42"/>
+            <rect x="362" y="234" width="16" height="42"/>
+            <rect x="442" y="234" width="16" height="42"/>
+            <rect x="528" y="234" width="16" height="42"/>
+          </g>
+          <text x="370" y="300" text-anchor="middle" font-size="14" font-weight="bold" fill="#e8843c">床束（床を支える）</text>
+          <rect x="110" y="276" width="520" height="12" fill="#d8d8d8"/>
+          <rect x="60" y="146" width="46" height="60" rx="4" fill="#f4f7fa" stroke="#9fc0dd"/>
+          <text x="83" y="172" text-anchor="middle" font-size="11" fill="#1a3a5c">階を</text>
+          <text x="83" y="188" text-anchor="middle" font-size="11" fill="#1a3a5c">通す</text>
+        </svg>
+        <figcaption>束は屋根の中と床下という、人が普段見ない場所に立っている。柱と違って階をまたがず、その場の荷重だけを短く受け渡す。</figcaption>
+      </figure>
+
+      <h2 id="hashira-tono-chigai">柱との違いを整理する</h2>
+      <table class="data">
+        <tr><th>比較項目</th><th>束</th><th>柱</th></tr>
+        <tr><td>長さ</td><td>短い（30cm〜1m程度）</td><td>長い（階高分＝2.8m前後）</td></tr>
+        <tr><td>階をまたぐか</td><td>またがない</td><td>通し柱はまたぐ</td></tr>
+        <tr><td>負担する力</td><td><strong>鉛直力のみ</strong></td><td>鉛直力＋水平力＋曲げ</td></tr>
+        <tr><td>座屈の心配</td><td>短いのでほぼない</td><td>あり（<a href="zakutsu.html">座屈長さ</a>の検討が必要）</td></tr>
+        <tr><td>耐力壁との関係</td><td>関係しない</td><td>耐力壁の端部として重要</td></tr>
+        <tr><td>引き抜きの検討</td><td>不要（原則）</td><td>必要（ホールダウン金物）</td></tr>
+        <tr><td>断面の目安</td><td>90角程度／鋼製束</td><td>105角・120角</td></tr>
+      </table>
+      <p>もっとも本質的な違いは<strong>「水平力を負担するかどうか」</strong>です。柱は地震や風の水平力を受け、耐力壁の端部として引き抜き力にも耐える必要があります。一方、束は上から下へ鉛直荷重を渡すだけの部材で、水平力の伝達経路には入っていません。だから短くて細くても成立するのです。</p>
+
+      <h2 id="fuguai">束にまつわる不具合と点検</h2>
+      <table class="data">
+        <tr><th>症状</th><th>考えられる原因</th><th>確認する場所</th></tr>
+        <tr><td>床がきしむ・鳴る</td><td>木製束の乾燥収縮による隙間</td><td>床下点検口から<a href="yukazuka.html">床束</a>と大引の接触</td></tr>
+        <tr><td>部分的に床が沈む</td><td>束石の沈下、束の腐朽・シロアリ</td><td>束の根元、束石まわりの湿り</td></tr>
+        <tr><td>天井にひび・たわみ</td><td>小屋束の緩み、小屋梁のたわみ</td><td>小屋裏点検口から小屋束の垂直</td></tr>
+        <tr><td>屋根が部分的に波打つ</td><td>小屋束の沈み、母屋のたわみ</td><td>小屋裏の母屋と束の接合</td></tr>
+        <tr><td>束が傾いている</td><td>施工不良、地盤の変動</td><td>下げ振り・水平器で垂直を確認</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">束は「効いていない」ことがある</span>
+        <p>束は上下の材に挟まれているだけの部材なので、<strong>わずかな隙間があると荷重をまったく負担しません</strong>。上の材が乾燥で縮んだり、束自体が縮んだりすると、見た目には立っているのに実は浮いている、という状態が起こります。<br>この場合、その束が負担するはずだった荷重は隣の束や梁に回り、床のたわみや鳴りにつながります。木造住宅の床鳴りの多くはこれが原因です。<br>だからこそ、乾燥収縮しない<strong>鋼製束</strong>が新築で主流になりました。小屋束についても、金物（ホゾパイプ・かすがい）で梁としっかり緊結し、浮きが生じないようにするのが現在の標準です。</p>
+      </div>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

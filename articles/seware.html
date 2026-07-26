@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/seware.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/seware.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-02",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-seware.jpg",
    "author": {
     "@type": "Person",
@@ -114,7 +114,7 @@
       <div class="meta">
         <span class="tag">木造（W造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>木材の背割りとは？心持ち材・心去り材との違いと効果</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -187,6 +187,71 @@
         <span class="label">実務のワンポイント</span>
         <p>背割りを入れる面を現場で指示するとき、意匠上目立たない面というだけでなく、金物のビス孔と重ならないかを必ず確認しています。背割りにビス孔がかかると、そこから割れが思わぬ方向に広がってしまうことがあるため、位置の調整には毎回気を使います。</p>
       </div>
+
+      <h2 id="warekata-zu">背割りがひび割れを防ぐしくみ（図解）</h2>
+      <figure class="diagram">
+        <svg viewBox="0 0 740 300" role="img" aria-label="背割りなしでは表面に不規則な割れが入り、背割りありでは一本の溝に割れが集中することを示す図">
+          <title>背割りによるひび割れの誘導</title>
+          <rect x="0" y="0" width="740" height="300" fill="#ffffff"/>
+          <text x="185" y="28" text-anchor="middle" font-size="16" font-weight="bold" fill="#c0392b">背割りなし</text>
+          <text x="555" y="28" text-anchor="middle" font-size="16" font-weight="bold" fill="#2e7d4f">背割りあり</text>
+          <g transform="translate(105,52)">
+            <rect x="0" y="0" width="160" height="160" fill="#e8d5b8" stroke="#8a6a3a" stroke-width="3"/>
+            <circle cx="80" cy="80" r="7" fill="#8a6a3a"/>
+            <g stroke="#8a6a3a" stroke-width="1.2" fill="none" stroke-opacity="0.5">
+              <circle cx="80" cy="80" r="24"/><circle cx="80" cy="80" r="42"/><circle cx="80" cy="80" r="60"/>
+            </g>
+            <g stroke="#c0392b" stroke-width="3.5">
+              <line x1="80" y1="80" x2="14" y2="24"/>
+              <line x1="80" y1="80" x2="152" y2="46"/>
+              <line x1="80" y1="80" x2="52" y2="156"/>
+            </g>
+            <text x="80" y="192" text-anchor="middle" font-size="13" fill="#c0392b">表面のどこに割れるかわからない</text>
+            <text x="80" y="212" text-anchor="middle" font-size="13" fill="#c0392b">見える面に大きな割れが出ることも</text>
+          </g>
+          <g transform="translate(475,52)">
+            <rect x="0" y="0" width="160" height="160" fill="#e8d5b8" stroke="#8a6a3a" stroke-width="3"/>
+            <circle cx="80" cy="80" r="7" fill="#8a6a3a"/>
+            <g stroke="#8a6a3a" stroke-width="1.2" fill="none" stroke-opacity="0.5">
+              <circle cx="80" cy="80" r="24"/><circle cx="80" cy="80" r="42"/><circle cx="80" cy="80" r="60"/>
+            </g>
+            <rect x="74" y="80" width="12" height="80" fill="#2e7d4f"/>
+            <text x="96" y="150" font-size="13" font-weight="bold" fill="#2e7d4f">背割り</text>
+            <text x="80" y="192" text-anchor="middle" font-size="13" fill="#2e7d4f">あらかじめ溝を入れておくと</text>
+            <text x="80" y="212" text-anchor="middle" font-size="13" fill="#2e7d4f">割れがそこに集中し、他面はきれい</text>
+          </g>
+          <rect x="60" y="256" width="620" height="36" rx="6" fill="#f4f7fa" stroke="#9fc0dd"/>
+          <text x="370" y="279" text-anchor="middle" font-size="13.5" fill="#1a3a5c">「割れを防ぐ」のではなく「割れる場所を指定する」——これが背割りの発想</text>
+        </svg>
+        <figcaption>木は乾くと外周が内部より大きく縮むため、必ずどこかが割れる。それなら見えない面にまとめてしまおう、というのが背割り。</figcaption>
+      </figure>
+      <p>なぜ心持ち材は必ず割れるのでしょうか。木の断面は年輪の方向（接線方向）に大きく縮み、中心に向かう方向（半径方向）にはあまり縮まないという性質があります。この<strong>縮み方の差</strong>が引張応力を生み、外周のどこかが必ず裂けます。物理的に避けられない現象なので、「割れないようにする」のではなく「割れる場所を決める」というのが合理的な対処なのです。</p>
+
+      <h2 id="kyoudo-eikyou">背割りは強度を落とすのか</h2>
+      <table class="data">
+        <tr><th>力の種類</th><th>背割りの影響</th><th>理由</th></tr>
+        <tr><td>圧縮（柱の軸力）</td><td><strong>ほとんど影響なし</strong></td><td>断面積の減少がわずかで、隙間は閉じる方向に働く</td></tr>
+        <tr><td>曲げ</td><td>小さい（背割りを圧縮側または中立軸付近にすれば）</td><td>引張側に来ないよう向きを管理する</td></tr>
+        <tr><td>せん断</td><td>やや低下</td><td>断面が分断されるため。仕口部では注意</td></tr>
+        <tr><td>めり込み</td><td>影響なし</td><td>圧縮方向なので隙間は閉じる</td></tr>
+        <tr><td>接合部の耐力</td><td><strong>注意が必要</strong></td><td>ボルト・金物の位置に背割りが来ると効きが落ちる</td></tr>
+      </table>
+      <p>柱として使う分には、背割りによる強度低下はほぼ問題にならないというのが一般的な理解です。実際、和室の化粧柱では古くから背割り材が標準的に使われてきました。<strong>ただし接合部だけは別</strong>で、ホゾ・ボルト・金物の位置と背割りが重なると、その部分の耐力が確実に落ちます。設計・施工では「背割りを壁の中に向ける」だけでなく、<strong>金物位置と干渉しないか</strong>も確認してください。</p>
+
+      <h2 id="genzai-douko">現在の主流はどうなっているか</h2>
+      <table class="data">
+        <tr><th>材の種類</th><th>背割り</th><th>特徴</th></tr>
+        <tr><td>心持ち材の天然乾燥材</td><td><strong>必要</strong></td><td>伝統的な和室の化粧柱など</td></tr>
+        <tr><td>KD材（人工乾燥材）</td><td>不要な場合が多い</td><td>含水率20％以下まで乾燥済みで、収縮がほぼ終わっている</td></tr>
+        <tr><td>高温乾燥（高温セット）材</td><td>不要</td><td>表面に圧縮層をつくり割れを抑える</td></tr>
+        <tr><td>集成材</td><td><strong>不要</strong></td><td>ひき板を貼り合わせるため、そもそも大きく割れない</td></tr>
+        <tr><td>心去り材</td><td>不要</td><td>木の中心を含まないので割れが発生しにくい</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">「背割りのない柱」が増えた理由</span>
+        <p>近年の木造住宅では、背割りのない柱が主流になりました。KD材（人工乾燥材）や集成材が普及したためです。KD材は工場の乾燥室で含水率20％以下まで乾かしてから出荷されるので、現場に入った後の収縮がほとんどありません。集成材にいたっては、薄いひき板を貼り合わせた構成なので、大きな割れが生じる構造そのものがありません。<br>とはいえ、背割りが「古い技術」というわけではありません。<strong>天然乾燥の心持ち材を使う場合には今も必要</strong>で、伝統構法や和室の造作、神社仏閣の修繕では現役の技術です。材料の性質に合わせて選ぶ、というのが正しい理解です。</p>
+      </div>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

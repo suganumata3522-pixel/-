@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/mittsu-gouryoku.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/mittsu-gouryoku.html",
    "datePublished": "2026-06-15",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-mittsu-gouryoku.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "力が4つ、5つと増えても同じ方法で求められますか？", "acceptedAnswer": {"@type": "Answer", "text": "はい。示力図なら力を順につないでいき、最後に始点と終点を結ぶだけです。成分計算なら表の行が増えるだけで手順は変わりません。力の数が増えるほど、作図より成分計算のほうが確実で速くなります。"}},
+ {"@type": "Question", "name": "作図と成分計算で答えが違う場合はどうすればよいですか？", "acceptedAnswer": {"@type": "Answer", "text": "成分計算のほうを信頼してください。作図は縮尺・線の引き方・読み取りの誤差が積み重なるため、数％のずれは避けられません。作図は「答えのおおよその向きと大きさを確認する検算」として使うのが実務的な使い方です。"}},
+ {"@type": "Question", "name": "示力図が閉じるとどういう意味になりますか？", "acceptedAnswer": {"@type": "Answer", "text": "力の合力がゼロ、つまりつり合っているという意味です。トラスの節点に集まる力や、静止している物体に働く力は必ず閉じた多角形になります。逆に閉じない場合は、始点と終点を結んだ矢印が合力（不つり合い力）です。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">構造力学の基礎</span>
         <span>公開日：2026年6月15日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>3つの力の合力の求め方と作図手順</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -189,6 +196,77 @@
         <span class="label">実務のワンポイント</span>
         <p>構造計算ソフトの出力を検算するとき、私はまず示力図で大まかな向きの見当をつけてから成分計算の符号を追います。試験では作図だけで済むことも多いですが、実務では符号の取り違えが一番怖いミスだと感じています。</p>
       </div>
+
+      <h2 id="shiryokuzu">示力図（力の多角形）を図で理解する</h2>
+      <figure class="diagram">
+        <svg viewBox="0 0 740 300" role="img" aria-label="3つの力を示力図でつないで合力を求める作図の図">
+          <title>示力図による3力の合成</title>
+          <rect x="0" y="0" width="740" height="300" fill="#ffffff"/>
+          <text x="180" y="28" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a3a5c">元の3つの力</text>
+          <text x="540" y="28" text-anchor="middle" font-size="15" font-weight="bold" fill="#e8843c">示力図（順につなぐ）</text>
+          <g transform="translate(180,160)">
+            <circle cx="0" cy="0" r="7" fill="#1a3a5c"/>
+            <line x1="0" y1="0" x2="100" y2="0" stroke="#c0392b" stroke-width="5"/>
+            <polygon points="110,0 92,-8 92,8" fill="#c0392b"/>
+            <text x="60" y="24" font-size="14" font-weight="bold" fill="#c0392b">P₁</text>
+            <line x1="0" y1="0" x2="52" y2="-90" stroke="#2e7d4f" stroke-width="5"/>
+            <polygon points="58,-100 48,-82 62,-78" fill="#2e7d4f"/>
+            <text x="12" y="-60" font-size="14" font-weight="bold" fill="#2e7d4f">P₂</text>
+            <line x1="0" y1="0" x2="-80" y2="-46" stroke="#1a3a5c" stroke-width="5"/>
+            <polygon points="-90,-52 -72,-58 -76,-42" fill="#1a3a5c"/>
+            <text x="-58" y="-40" font-size="14" font-weight="bold" fill="#1a3a5c">P₃</text>
+          </g>
+          <g transform="translate(440,230)">
+            <circle cx="0" cy="0" r="7" fill="#1a3a5c"/>
+            <text x="-6" y="24" text-anchor="end" font-size="13" fill="#666">始点</text>
+            <line x1="0" y1="0" x2="100" y2="0" stroke="#c0392b" stroke-width="5"/>
+            <polygon points="108,0 92,-7 92,7" fill="#c0392b"/>
+            <text x="50" y="22" font-size="13" font-weight="bold" fill="#c0392b">P₁</text>
+            <line x1="100" y1="0" x2="152" y2="-90" stroke="#2e7d4f" stroke-width="5"/>
+            <polygon points="157,-99 148,-82 161,-78" fill="#2e7d4f"/>
+            <text x="140" y="-40" font-size="13" font-weight="bold" fill="#2e7d4f">P₂</text>
+            <line x1="152" y1="-90" x2="72" y2="-136" stroke="#1a3a5c" stroke-width="5"/>
+            <polygon points="63,-141 81,-146 77,-131" fill="#1a3a5c"/>
+            <text x="118" y="-124" font-size="13" font-weight="bold" fill="#1a3a5c">P₃</text>
+            <circle cx="72" cy="-136" r="6" fill="#1a3a5c"/>
+            <text x="60" y="-146" text-anchor="end" font-size="13" fill="#666">終点</text>
+            <line x1="0" y1="0" x2="64" y2="-128" stroke="#e8843c" stroke-width="6" stroke-dasharray="0"/>
+            <polygon points="72,-140 56,-124 72,-118" fill="#e8843c"/>
+            <text x="-4" y="-76" text-anchor="end" font-size="16" font-weight="bold" fill="#e8843c">R</text>
+          </g>
+          <rect x="60" y="264" width="620" height="30" rx="6" fill="#f4f7fa" stroke="#9fc0dd"/>
+          <text x="370" y="284" text-anchor="middle" font-size="13.5" fill="#1a3a5c">力を「向きと長さを変えずに」順につなぎ、始点と終点を結ぶ ＝ 合力R</text>
+        </svg>
+        <figcaption>示力図は平行四辺形を何度も描く手間を省く方法。力がいくつあっても、順につないで始点と終点を結ぶだけでよい。</figcaption>
+      </figure>
+      <p>示力図の便利な点は、<strong>力が閉じたら合力ゼロ＝つり合っている</strong>と一目でわかることです。始点と終点が重なる（多角形が閉じる）とき、その力の集まりはつり合っています。トラスの節点法で「節点に集まる力がつり合う」ことを確認するのに、この考え方がそのまま使えます。</p>
+
+      <h2 id="hyou-keisan">表で整理する成分計算（実務向き）</h2>
+      <p>力の数が3つ以上になったら、次のように<strong>表にして整理する</strong>のが最も確実です。計算過程が残るので、後から見直すときもミスを見つけやすくなります。</p>
+      <table class="data">
+        <tr><th>力</th><th>大きさ P</th><th>角度 θ<br>（水平から反時計回り）</th><th>P<sub>x</sub> ＝ Pcosθ</th><th>P<sub>y</sub> ＝ Psinθ</th></tr>
+        <tr><td>P₁</td><td>50 kN</td><td>0°</td><td>＋50.0</td><td>0.0</td></tr>
+        <tr><td>P₂</td><td>40 kN</td><td>60°</td><td>＋20.0</td><td>＋34.6</td></tr>
+        <tr><td>P₃</td><td>30 kN</td><td>150°</td><td>−26.0</td><td>＋15.0</td></tr>
+        <tr><td><strong>合計</strong></td><td>—</td><td>—</td><td><strong>＋44.0</strong></td><td><strong>＋49.6</strong></td></tr>
+      </table>
+      <div class="formula">
+        R ＝ √(44.0² ＋ 49.6²) ＝ √(1,936 ＋ 2,460) ≒ <strong>66.3 kN</strong><br>
+        θ ＝ tan⁻¹(49.6 / 44.0) ≒ <strong>48.4°</strong>（水平から反時計回り）
+      </div>
+      <div class="point-box">
+        <span class="label">角度は「必ず同じ基準」で測る</span>
+        <p>成分計算で最も多いミスは、角度の基準がバラバラになることです。<strong>「水平右向きを0°として反時計回りに測る」</strong>と決めてしまえば、cos・sinの符号は自動的に正しくなり、自分で「これは左向きだからマイナス」と判断する必要がなくなります。表の見出しに基準を書いておくのが、ミスを減らす一番の方法です。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 力が4つ、5つと増えても同じ方法で求められますか？</h3>
+      <p>はい。示力図なら力を順につないでいき、最後に始点と終点を結ぶだけです。成分計算なら表の行が増えるだけで手順は変わりません。力の数が増えるほど、作図より成分計算のほうが確実で速くなります。</p>
+      <h3>Q2. 作図と成分計算で答えが違う場合はどうすればよいですか？</h3>
+      <p>成分計算のほうを信頼してください。作図は縮尺・線の引き方・読み取りの誤差が積み重なるため、数％のずれは避けられません。作図は「答えのおおよその向きと大きさを確認する検算」として使うのが実務的な使い方です。</p>
+      <h3>Q3. 示力図が閉じるとどういう意味になりますか？</h3>
+      <p>力の合力がゼロ、つまりつり合っているという意味です。トラスの節点に集まる力や、静止している物体に働く力は必ず閉じた多角形になります。逆に閉じない場合は、始点と終点を結んだ矢印が合力（不つり合い力）です。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/moment-ude.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/moment-ude.html",
    "datePublished": "2026-06-15",
-   "dateModified": "2026-07-02",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-moment-ude.jpg",
    "author": {
     "@type": "Person",
@@ -114,7 +114,7 @@
       <div class="meta">
         <span class="tag">構造力学の基礎</span>
         <span>公開日：2026年6月15日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>力のモーメントの腕の長さ｜求め方と作用点との違い</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -198,6 +198,64 @@
         <span class="label">あわせて読みたい</span>
         <p>「<a href="moment.html">力のモーメント</a>」「<a href="chikara-bunkai.html">力の分解</a>」「<a href="moment-seifu.html">正負</a>」「<a href="moment-tsuriai.html">モーメントのつり合い</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="ude-zu">腕の長さは「垂線の長さ」（図解）</h2>
+      <figure class="diagram">
+        <svg viewBox="0 0 720 300" role="img" aria-label="力のモーメントの腕の長さが回転中心から作用線に下ろした垂線であることを示す図">
+          <title>腕の長さ＝回転中心から力の作用線に下ろした垂線</title>
+          <rect x="0" y="0" width="720" height="300" fill="#ffffff"/>
+          <text x="180" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#2e7d4f">○ 正しい：垂線の長さ</text>
+          <text x="540" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#c0392b">× 誤り：作用点までの距離</text>
+          <g transform="translate(80,60)">
+            <circle cx="0" cy="160" r="8" fill="#1a3a5c"/>
+            <text x="-14" y="186" text-anchor="end" font-size="14" fill="#1a3a5c">O</text>
+            <line x1="120" y1="30" x2="260" y2="170" stroke="#c0392b" stroke-width="2" stroke-dasharray="6 5"/>
+            <line x1="150" y1="60" x2="220" y2="130" stroke="#c0392b" stroke-width="5"/>
+            <polygon points="228,138 206,132 214,124" fill="#c0392b"/>
+            <text x="176" y="52" font-size="15" font-weight="bold" fill="#c0392b">P</text>
+            <circle cx="185" cy="95" r="5" fill="#c0392b"/>
+            <text x="196" y="88" font-size="12" fill="#666">作用点</text>
+            <line x1="0" y1="160" x2="88" y2="72" stroke="#2e7d4f" stroke-width="4"/>
+            <rect x="80" y="72" width="12" height="12" fill="none" stroke="#2e7d4f" stroke-width="2" transform="rotate(45 86 78)"/>
+            <text x="20" y="106" font-size="15" font-weight="bold" fill="#2e7d4f">L</text>
+            <text x="-6" y="128" font-size="12" fill="#2e7d4f">＝腕の長さ</text>
+          </g>
+          <g transform="translate(440,60)">
+            <circle cx="0" cy="160" r="8" fill="#1a3a5c"/>
+            <text x="-14" y="186" text-anchor="end" font-size="14" fill="#1a3a5c">O</text>
+            <line x1="120" y1="30" x2="260" y2="170" stroke="#c0392b" stroke-width="2" stroke-dasharray="6 5"/>
+            <line x1="150" y1="60" x2="220" y2="130" stroke="#c0392b" stroke-width="5"/>
+            <polygon points="228,138 206,132 214,124" fill="#c0392b"/>
+            <circle cx="185" cy="95" r="5" fill="#c0392b"/>
+            <line x1="0" y1="160" x2="185" y2="95" stroke="#c0392b" stroke-width="3" stroke-dasharray="8 5"/>
+            <text x="60" y="140" font-size="14" fill="#c0392b">この距離ではない</text>
+          </g>
+          <rect x="60" y="248" width="600" height="42" rx="6" fill="#f4f7fa" stroke="#9fc0dd"/>
+          <text x="360" y="266" text-anchor="middle" font-size="13.5" fill="#1a3a5c">腕の長さ ＝ 回転中心Oから、力の<tspan font-weight="bold">作用線（力を無限に伸ばした線）</tspan>に下ろした垂線の長さ</text>
+          <text x="360" y="284" text-anchor="middle" font-size="13" fill="#666">作用点がどこにあっても、作用線が同じなら腕の長さは変わらない</text>
+        </svg>
+        <figcaption>力を「線」として捉えるのがコツ。作用点はその線上のどこでもよく、腕の長さは中心から線への最短距離で決まる。</figcaption>
+      </figure>
+      <p>力は作用線に沿って好きなだけスライドさせても効果が変わりません（力の伝達性）。だから作用点の位置は本質的ではなく、<strong>「作用線がどこを通るか」</strong>だけが問題になります。この考え方に慣れると、斜めの力が出てきても迷わなくなります。</p>
+
+      <h2 id="naname-toki">斜めの力はどう扱うか</h2>
+      <p>斜めの力の腕の長さを直接測るのが難しいときは、<strong>力を水平成分と鉛直成分に分解する</strong>方法が確実です。分解してしまえば、それぞれの腕の長さは図の座標差そのままになります。</p>
+      <div class="formula">
+        M ＝ P × L　（垂線を使う方法）<br>
+        M ＝ P<sub>x</sub> × y ＋ P<sub>y</sub> × x　（分解する方法）※どちらも同じ答えになる
+      </div>
+      <table class="data">
+        <tr><th>状況</th><th>おすすめの方法</th><th>理由</th></tr>
+        <tr><td>力が水平・鉛直</td><td>垂線をそのまま使う</td><td>座標差がそのまま腕の長さになる</td></tr>
+        <tr><td>力が斜め・角度が分かる</td><td>成分に分解する</td><td>三角関数を1回使うだけで確実</td></tr>
+        <tr><td>力が斜め・図から読める</td><td>垂線を使う</td><td>作図で腕の長さが直接測れる</td></tr>
+        <tr><td>力が複数ある</td><td>分解してから合計</td><td>符号のミスが起きにくい</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">腕の長さゼロ＝モーメントゼロ</span>
+        <p>作用線が回転中心を通るとき、腕の長さはゼロなのでモーメントも必ずゼロです。<a href="moment-tsuriai.html">つり合い計算</a>で「支点まわりでモーメントを取る」のは、この性質を使ってその支点の反力を式から消すためです。逆にいえば、<strong>どんなに大きな力でも中心を通っていれば回転させられない</strong>——ドアの蝶番を押しても開かないのと同じ理屈です。</p>
+      </div>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

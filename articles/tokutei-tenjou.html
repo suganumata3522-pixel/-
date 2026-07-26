@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/tokutei-tenjou.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/tokutei-tenjou.html",
    "datePublished": "2026-06-15",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-tokutei-tenjou.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "特定天井の対象は新築だけですか？", "acceptedAnswer": {"@type": "Answer", "text": "新築・増築・大規模の修繕や模様替えが対象です。既存建物の天井をそのまま使い続ける場合は遡及適用されませんが、天井を張り替える工事を行う際には現行基準への適合が求められます。なお、既存の特定天井相当の天井については、耐震診断・改修が努力義務とされています。"}},
+ {"@type": "Question", "name": "住宅の天井も特定天井になりますか？", "acceptedAnswer": {"@type": "Answer", "text": "通常はなりません。特定天井は「高さ6m超」かつ「面積200m²超」という条件があり、一般的な住宅の天井（高さ2.4m前後、各室の面積も小さい）はこれに該当しないためです。対象となるのは体育館、ホール、大規模な店舗、空港ターミナルなどの大空間です。"}},
+ {"@type": "Question", "name": "特定天井の規制を避ける設計は認められますか？", "acceptedAnswer": {"@type": "Answer", "text": "認められます。天井を張らずに構造をあらわしにする、単位質量2kg/m²以下の膜材やメッシュを使う、天井を分割して200m²以下にする、といった方法で対象外にできます。実務でも広く採用されている手法です。ただし対象外であっても、落下による危険がないよう安全性を検討することは設計者の責務です。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">構造計算の実務</span>
         <span>公開日：2026年6月15日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>特定天井とは？定義・適用条件とルートの選び方</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -187,6 +194,68 @@
         <span class="label">あわせて読みたい</span>
         <p>「<a href="kyoyo-oryokudo.html">構造計算ルート</a>」「<a href="taishin-menshin.html">耐震・制震・免震</a>」「<a href="kouzou-kyoudo.html">構造強度</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="teigi-zu">特定天井の4条件（図解）</h2>
+      <figure class="diagram">
+        <svg viewBox="0 0 740 300" role="img" aria-label="特定天井に該当する4つの条件を示す図">
+          <title>特定天井の該当条件</title>
+          <rect x="0" y="0" width="740" height="300" fill="#ffffff"/>
+          <text x="370" y="28" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a3a5c">4つの条件を<tspan fill="#c0392b">すべて</tspan>満たすと「特定天井」になる</text>
+          <g>
+            <rect x="40" y="52" width="158" height="120" rx="8" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2"/>
+            <text x="119" y="80" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a3a5c">① 吊り天井</text>
+            <text x="119" y="108" text-anchor="middle" font-size="12.5" fill="#333">吊りボルトで</text>
+            <text x="119" y="128" text-anchor="middle" font-size="12.5" fill="#333">上から吊る構造</text>
+            <text x="119" y="154" text-anchor="middle" font-size="12" fill="#666">直天井は対象外</text>
+            <rect x="212" y="52" width="158" height="120" rx="8" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2"/>
+            <text x="291" y="80" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a3a5c">② 高さ6m超</text>
+            <text x="291" y="108" text-anchor="middle" font-size="12.5" fill="#333">居室等の床面から</text>
+            <text x="291" y="128" text-anchor="middle" font-size="12.5" fill="#333">天井までが6m超</text>
+            <text x="291" y="154" text-anchor="middle" font-size="12" fill="#666">落下時の衝撃が大</text>
+            <rect x="384" y="52" width="158" height="120" rx="8" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2"/>
+            <text x="463" y="80" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a3a5c">③ 面積200m²超</text>
+            <text x="463" y="108" text-anchor="middle" font-size="12.5" fill="#333">水平投影面積が</text>
+            <text x="463" y="128" text-anchor="middle" font-size="12.5" fill="#333">200m²を超える</text>
+            <text x="463" y="154" text-anchor="middle" font-size="12" fill="#666">広い空間が危険</text>
+            <rect x="556" y="52" width="158" height="120" rx="8" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2"/>
+            <text x="635" y="80" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a3a5c">④ 質量2kg/m²超</text>
+            <text x="635" y="108" text-anchor="middle" font-size="12.5" fill="#333">単位面積あたり</text>
+            <text x="635" y="128" text-anchor="middle" font-size="12.5" fill="#333">天井材が重い</text>
+            <text x="635" y="154" text-anchor="middle" font-size="12" fill="#666">石膏ボードは該当</text>
+          </g>
+          <text x="370" y="200" text-anchor="middle" font-size="30" font-weight="bold" fill="#c0392b">↓</text>
+          <rect x="150" y="212" width="440" height="52" rx="8" fill="#fdf2f0" stroke="#c0392b" stroke-width="3"/>
+          <text x="370" y="234" text-anchor="middle" font-size="15" font-weight="bold" fill="#c0392b">＋ 人が日常的に立ち入る場所 ＝ 特定天井</text>
+          <text x="370" y="255" text-anchor="middle" font-size="12.5" fill="#666">告示771号に基づく脱落防止措置が必要になる</text>
+          <text x="370" y="288" text-anchor="middle" font-size="12.5" fill="#666">1つでも外れれば特定天井には該当しない（ただし安全性の検討は必要）</text>
+        </svg>
+        <figcaption>4条件すべてを満たすことが要件。逆にいえば、天井を軽くする・面積を分割する・直天井にするといった方法で規制の対象外にできる。</figcaption>
+      </figure>
+
+      <h2 id="taiou">3つの対応ルート</h2>
+      <table class="data">
+        <tr><th>ルート</th><th>方法</th><th>特徴</th></tr>
+        <tr><td><strong>ルートA</strong><br>仕様ルート</td><td>告示771号の仕様どおりにつくる（斜め部材の配置、クリアランス6cm以上、吊り長さ3m以下など）</td><td>もっとも一般的。計算不要だが仕様の制約が多い</td></tr>
+        <tr><td><strong>ルートB</strong><br>計算ルート</td><td>水平震度法により天井面の地震力を計算し、部材と接合部を検証する</td><td>仕様に収まらない形状で使う。天井面構成部材の応力度検討が必要</td></tr>
+        <tr><td><strong>ルートC</strong><br>大臣認定</td><td>時刻歴応答解析等により性能を検証し、大臣認定を取得</td><td>大規模・特殊な天井。コストと期間がかかる</td></tr>
+        <tr><td>（対象外化）</td><td>膜天井・グリッド天井など軽量な仕様、天井を張らない（あらわし）、直天井にする</td><td><strong>実務でよく採用される</strong>。規制自体を回避</td></tr>
+      </table>
+      <p>実務では、ルートAで納めるか、そもそも<strong>特定天井にしない設計</strong>を選ぶかが主流です。とくに体育館やホールでは、天井を張らずに構造をあらわしにする、あるいは膜材やメッシュなど2kg/m²以下の軽量材を使うことで、規制の対象外にする設計が広く採られています。</p>
+
+      <h2 id="haikei">この規制ができた背景</h2>
+      <div class="point-box">
+        <span class="label">2011年東日本大震災の教訓</span>
+        <p>2011年の東日本大震災では、体育館・ホール・空港ターミナル・プールなど<strong>大空間の吊り天井が広範囲に脱落</strong>し、多数の負傷者と死者が出ました。建物の構造体自体は無事だったのに、天井が落ちて被害が出たのです。<br>それまでの建築基準法は、柱・梁・壁といった<strong>構造体の安全</strong>を中心に規定していました。天井は「仕上げ」であり、構造の対象外という扱いだったのです。しかし震災の実態は、構造体が健全でも<strong>非構造部材（天井・照明・設備）の落下</strong>で人命が失われることを示しました。<br>これを受けて2013年に告示771号が制定され、2014年4月から特定天井の規制が施行されました。<strong>「建物が壊れない」だけでは不十分で、「中にいる人が安全である」ことまで確保する</strong>——この考え方の転換が、特定天井規制の本質です。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 特定天井の対象は新築だけですか？</h3>
+      <p>新築・増築・大規模の修繕や模様替えが対象です。既存建物の天井をそのまま使い続ける場合は遡及適用されませんが、天井を張り替える工事を行う際には現行基準への適合が求められます。なお、既存の特定天井相当の天井については、耐震診断・改修が努力義務とされています。</p>
+      <h3>Q2. 住宅の天井も特定天井になりますか？</h3>
+      <p>通常はなりません。特定天井は「高さ6m超」かつ「面積200m²超」という条件があり、一般的な住宅の天井（高さ2.4m前後、各室の面積も小さい）はこれに該当しないためです。対象となるのは体育館、ホール、大規模な店舗、空港ターミナルなどの大空間です。</p>
+      <h3>Q3. 特定天井の規制を避ける設計は認められますか？</h3>
+      <p>認められます。天井を張らずに構造をあらわしにする、単位質量2kg/m²以下の膜材やメッシュを使う、天井を分割して200m²以下にする、といった方法で対象外にできます。実務でも広く採用されている手法です。ただし対象外であっても、落下による危険がないよう安全性を検討することは設計者の責務です。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

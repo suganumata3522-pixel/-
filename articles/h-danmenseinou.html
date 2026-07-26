@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/h-danmenseinou.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/h-danmenseinou.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-h-danmenseinou.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "形鋼表はどこで入手できますか？", "acceptedAnswer": {"@type": "Answer", "text": "鋼材メーカーや商社のウェブサイト、日本鉄鋼連盟の資料、建築構造の設計資料集などに掲載されています。また、JIS G 3192（熱間圧延形鋼）に寸法・断面積・単位質量・断面性能が規定されています。実務では、構造設計者は手元に形鋼表を常備しており、断面の検討時に頻繁に参照します。近年はウェブ上の計算ツールも利用されています。"}},
+ {"@type": "Question", "name": "断面性能は自分で計算する必要がありますか？", "acceptedAnswer": {"@type": "Answer", "text": "JIS規格品であれば形鋼表から読み取れるため、通常は計算しません。ただし、ビルドH（溶接組立H形鋼）のように規格外の断面を使う場合や、補強プレートを追加した断面では自分で計算する必要があります。その場合は、長方形の集合として分解し、平行軸の定理を使って合成します。"}},
+ {"@type": "Question", "name": "同じせいでも断面性能が違うのはなぜですか？", "acceptedAnswer": {"@type": "Answer", "text": "フランジ幅と板厚が異なるためです。たとえばH-400×200×8×13とH-400×400×13×21では、せいは同じ400mmでも、後者はフランジが幅広く厚いため、断面積・断面二次モーメントともに大幅に大きくなります。細幅・中幅・広幅という系列の違いがこれにあたり、用途（梁向き・柱向き）に応じて選択します。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">鉄骨造（S造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>H鋼の断面性能・単位重量一覧（代表サイズ）</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -181,6 +188,76 @@
         <span class="label">実務のワンポイント</span>
         <p>早見表を渡すたびに念を押しているのが、掲載値をそのまま仕様書に転記しないでほしいということです。JISの改正やメーカーの違いで数値が微妙に変わることがあるため、断面決定の最終段階では必ず最新の形鋼表で裏を取るようにしています。</p>
       </div>
+
+      <h2 id="mikata">断面性能の記号の意味（図解）</h2>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 260" role="img" aria-label="断面性能の各記号が何の検討に使われるかを示す図">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">どの記号を何に使うか</text>
+          <g fill="#eef3f8" stroke="#1a3a5c" stroke-width="1.8">
+            <rect x="30" y="56" width="150" height="86" rx="8"/>
+            <rect x="205" y="56" width="150" height="86" rx="8"/>
+            <rect x="380" y="56" width="150" height="86" rx="8"/>
+            <rect x="555" y="56" width="115" height="86" rx="8"/>
+          </g>
+          <g font-size="17" text-anchor="middle" fill="#e8843c" font-weight="bold">
+            <text x="105" y="86">A</text><text x="280" y="86">I</text><text x="455" y="86">Z</text><text x="612" y="86">i</text>
+          </g>
+          <g font-size="12.5" text-anchor="middle" fill="#1a3a5c" font-weight="bold">
+            <text x="105" y="110">断面積</text><text x="280" y="110">断面二次モーメント</text>
+            <text x="455" y="110">断面係数</text><text x="612" y="110">断面二次半径</text>
+          </g>
+          <g font-size="11.5" text-anchor="middle" fill="#6b7785">
+            <text x="105" y="130">cm²</text><text x="280" y="130">cm⁴</text><text x="455" y="130">cm³</text><text x="612" y="130">cm</text>
+          </g>
+          <g stroke="#7d95ab" stroke-width="1.8">
+            <line x1="105" y1="142" x2="105" y2="166"/><line x1="280" y1="142" x2="280" y2="166"/>
+            <line x1="455" y1="142" x2="455" y2="166"/><line x1="612" y1="142" x2="612" y2="166"/>
+          </g>
+          <g fill="#fdf1e7" stroke="#e8843c" stroke-width="1.8">
+            <rect x="30" y="166" width="150" height="56" rx="8"/>
+            <rect x="205" y="166" width="150" height="56" rx="8"/>
+            <rect x="380" y="166" width="150" height="56" rx="8"/>
+            <rect x="555" y="166" width="115" height="56" rx="8"/>
+          </g>
+          <g font-size="12.5" text-anchor="middle" fill="#b35309" font-weight="bold">
+            <text x="105" y="190">軸力の検討</text><text x="280" y="190">たわみの計算</text>
+            <text x="455" y="190">曲げ応力度</text><text x="612" y="190">座屈の検討</text>
+          </g>
+          <g font-size="11" text-anchor="middle" fill="#6b7785">
+            <text x="105" y="210">σ＝N/A</text><text x="280" y="210">δ∝1/EI</text>
+            <text x="455" y="210">σ＝M/Z</text><text x="612" y="210">λ＝Lk/i</text>
+          </g>
+          <text x="350" y="248" font-size="12.5" text-anchor="middle" fill="#6b7785">形鋼表を引けば、これらの値はすべて記載されている</text>
+        </svg>
+        <figcaption>断面性能の各値は使う場面が決まっている。A＝軸力、I＝たわみ、Z＝曲げ応力度、i＝座屈の検討に用いる。</figcaption>
+      </figure>
+
+      <h2 id="tan'i">単位重量の使い方</h2>
+      <table class="data">
+        <tr><th>用途</th><th>計算</th></tr>
+        <tr><td><strong>鉄骨の自重</strong></td><td>単位重量（kg/m）× 部材長さ（m）＝ その部材の重量</td></tr>
+        <tr><td><strong>数量拾い・積算</strong></td><td>全部材の重量を合計 → 鉄骨のトン数（材料費の基礎）</td></tr>
+        <tr><td><strong>揚重計画</strong></td><td>1本あたりの重量からクレーンの能力・台数を決める</td></tr>
+        <tr><td><strong>荷重拾い</strong></td><td>床の固定荷重に鉄骨の重量を加算する</td></tr>
+      </table>
+      <div class="formula">
+        例：H-400×200×8×13（66.0 kg/m）の梁、長さ8m<br>
+        重量 ＝ 66.0 × 8 ＝ <strong>528 kg（約0.53トン）</strong>
+      </div>
+      <p>単位重量は<strong>断面積 × 鋼材の密度（7.85 g/cm³）</strong>で計算できます。H-400×200×8×13なら、断面積84.1cm² × 7.85 ÷ 1000 × 100 ≒ 66.0kg/m となり、形鋼表の値と一致します。表がない場合でも、断面積がわかれば自分で計算できます。</p>
+      <div class="point-box">
+        <span class="label">鉄骨のトン数は工事費に直結する</span>
+        <p>鉄骨造の工事費は、<strong>鉄骨のトン数</strong>にほぼ比例します。そのため、断面を1サイズ落とせるかどうかが、コストに直接跳ね返ります。設計段階で「この梁をH-400からH-390に変えると何トン減るか」を単位重量から即座に見積もれると、コスト意識のある断面計画ができます。ただし、部材の種類を増やしすぎると製作・管理の手間が増えるため、ある程度は統一するほうが有利な場合もあります。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 形鋼表はどこで入手できますか？</h3>
+      <p>鋼材メーカーや商社のウェブサイト、日本鉄鋼連盟の資料、建築構造の設計資料集などに掲載されています。また、JIS G 3192（熱間圧延形鋼）に寸法・断面積・単位質量・断面性能が規定されています。実務では、構造設計者は手元に形鋼表を常備しており、断面の検討時に頻繁に参照します。近年はウェブ上の計算ツールも利用されています。</p>
+      <h3>Q2. 断面性能は自分で計算する必要がありますか？</h3>
+      <p>JIS規格品であれば形鋼表から読み取れるため、通常は計算しません。ただし、ビルドH（溶接組立H形鋼）のように規格外の断面を使う場合や、補強プレートを追加した断面では自分で計算する必要があります。その場合は、長方形の集合として分解し、平行軸の定理を使って合成します。</p>
+      <h3>Q3. 同じせいでも断面性能が違うのはなぜですか？</h3>
+      <p>フランジ幅と板厚が異なるためです。たとえばH-400×200×8×13とH-400×400×13×21では、せいは同じ400mmでも、後者はフランジが幅広く厚いため、断面積・断面二次モーメントともに大幅に大きくなります。細幅・中幅・広幅という系列の違いがこれにあたり、用途（梁向き・柱向き）に応じて選択します。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/moment.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/moment.html",
    "datePublished": "2026-06-15",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-moment.jpg",
    "author": {
     "@type": "Person",
@@ -114,7 +114,7 @@
       <div class="meta">
         <span class="tag">構造力学の基礎</span>
         <span>公開日：2026年6月15日</span>
-        <span>更新日：2026年7月3日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>力のモーメントとは？意味・計算方法と応用</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -219,6 +219,52 @@
         <span class="label">実務のワンポイント</span>
         <p>手計算でモーメントを求めるとき一番間違えやすいのは、斜めに作用する力の腕の長さを部材の実長そのまま使ってしまうケースです。私は必ず回転中心から作用線に垂線を下ろした図を描き、その垂直距離だけを腕の長さとして拾うようにしています。</p>
       </div>
+
+      <h2 id="kenchiku-tenkei">建築で出てくるモーメントの典型例</h2>
+      <table class="data">
+        <tr><th>場面</th><th>力P</th><th>腕の長さL</th><th>モーメントが意味すること</th></tr>
+        <tr><td>片持ち梁（バルコニー）</td><td>先端の荷重</td><td>付け根までの距離</td><td>付け根に生じる曲げモーメント。ここが最も危険</td></tr>
+        <tr><td>建物の転倒</td><td>地震の水平力</td><td>建物の高さ（重心位置）</td><td>転倒モーメント。基礎の浮き上がりを検討する</td></tr>
+        <tr><td>擁壁の安定</td><td>背面の土圧</td><td>底版までの高さ</td><td>転倒モーメント。自重による抵抗モーメントと比べる</td></tr>
+        <tr><td>柱の偏心</td><td>柱にかかる軸力</td><td>柱心からのずれ</td><td>偏心曲げ。設計で見落としやすい</td></tr>
+        <tr><td>基礎の偏心</td><td>建物荷重</td><td>基礎中心からのずれ</td><td>接地圧の偏り。不同沈下の原因</td></tr>
+        <tr><td>看板・広告塔</td><td>風圧力</td><td>取付部までの距離</td><td>取付部の曲げ。台風時の脱落原因</td></tr>
+      </table>
+      <p>共通しているのは、<strong>「力が離れたところに作用するほど危険が増す」</strong>という点です。同じ荷重でもバルコニーが深いほど付け根が厳しくなり、同じ地震でも建物が高いほど転倒しやすくなります。M＝P×Lという式は、この直感を数式にしたものです。</p>
+
+      <h2 id="teikou-moment">「抵抗するモーメント」という視点</h2>
+      <figure class="diagram">
+        <svg viewBox="0 0 720 280" role="img" aria-label="転倒モーメントと抵抗モーメントのつり合いを示す図">
+          <title>転倒モーメントと抵抗モーメント</title>
+          <rect x="0" y="0" width="720" height="280" fill="#ffffff"/>
+          <text x="360" y="28" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a3a5c">建物が倒れるかどうかは、2つのモーメントの大小で決まる</text>
+          <g transform="translate(240,54)">
+            <rect x="0" y="0" width="140" height="150" fill="#9fc0dd" stroke="#1a3a5c" stroke-width="3"/>
+            <rect x="-24" y="150" width="188" height="18" fill="#888"/>
+            <circle cx="164" cy="168" r="8" fill="#c0392b"/>
+            <text x="180" y="190" font-size="13" fill="#c0392b">回転の中心</text>
+            <line x1="-70" y1="40" x2="-10" y2="40" stroke="#c0392b" stroke-width="5"/>
+            <polygon points="-2,40 -20,32 -20,48" fill="#c0392b"/>
+            <text x="-78" y="44" text-anchor="end" font-size="14" font-weight="bold" fill="#c0392b">地震力</text>
+            <line x1="70" y1="80" x2="70" y2="140" stroke="#2e7d4f" stroke-width="5"/>
+            <polygon points="70,148 62,130 78,130" fill="#2e7d4f"/>
+            <text x="82" y="112" font-size="14" font-weight="bold" fill="#2e7d4f">自重W</text>
+          </g>
+          <rect x="60" y="222" width="290" height="50" rx="6" fill="#fdf2f0" stroke="#c0392b" stroke-width="2"/>
+          <text x="205" y="243" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#c0392b">転倒モーメント ＝ 地震力 × 高さ</text>
+          <text x="205" y="263" text-anchor="middle" font-size="12" fill="#666">建物を倒そうとする働き</text>
+          <rect x="370" y="222" width="290" height="50" rx="6" fill="#eef8f2" stroke="#2e7d4f" stroke-width="2"/>
+          <text x="515" y="243" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#2e7d4f">抵抗モーメント ＝ 自重 × 幅/2</text>
+          <text x="515" y="263" text-anchor="middle" font-size="12" fill="#666">倒れまいとする働き</text>
+        </svg>
+        <figcaption>モーメントは「倒そうとする側」と「踏みとどまる側」の両方に生じる。安全とは、抵抗モーメントが転倒モーメントを上回っている状態。</figcaption>
+      </figure>
+      <p>モーメントというと「建物を壊そうとする悪者」のイメージがありますが、<strong>抵抗する側にもモーメントが生じます</strong>。建物の自重は、回転中心（転倒する側の端部）から見れば「倒れまいとするモーメント」を生んでいます。<strong>安全率 ＝ 抵抗モーメント ÷ 転倒モーメント</strong>で、この値が1.5以上あることを確認するのが、擁壁や独立基礎の転倒検討です。</p>
+      <div class="point-box">
+        <span class="label">「幅が広いと倒れにくい」を式で理解する</span>
+        <p>抵抗モーメントは 自重W × 幅の半分 で決まります。つまり<strong>幅が2倍になれば抵抗モーメントも2倍</strong>です。塔状の細長い建物が転倒しやすく、平べったい建物が安定しているのは、まさにこの式のとおりです。<br>建築基準法で「塔状比（高さ÷幅）が4を超える建物」に特別な検討を求めているのは、抵抗モーメントの元になる幅が小さいためです。逆にいえば、独立基礎の転倒が心配なときは、<strong>基礎を深くするより幅を広げるほうが直接的に効く</strong>——という判断も、この式から導けます。</p>
+      </div>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

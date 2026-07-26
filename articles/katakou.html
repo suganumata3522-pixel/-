@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/katakou.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/katakou.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-katakou.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "形鋼とはどういう鋼材ですか？", "acceptedAnswer": {"@type": "Answer", "text": "あらかじめ一定の断面形状に圧延・成形された棒状の鋼材のことです。H形鋼・I形鋼・溝形鋼・山形鋼・T形鋼などがあり、鉄骨造の柱や梁はこれらを組み合わせてつくります。板から現場で組み立てるのではなく、既製の形状をそのまま使えるのが最大の利点です。"}},
+ {"@type": "Question", "name": "形鋼の読み方は「かたこう」で合っていますか？", "acceptedAnswer": {"@type": "Answer", "text": "はい、「かたこう」と読みます。「けいこう」と読まれることもありますが、実務では「かたこう」が一般的です。H形鋼は「エイチがたこう」、山形鋼は「やまがたこう（アングル）」と呼びます。"}},
+ {"@type": "Question", "name": "I形鋼は今でも使われていますか？", "acceptedAnswer": {"@type": "Answer", "text": "建築の主要構造部ではほとんど使われず、H形鋼に置き換わっています。ただしクレーンの走行レール（走行桁）や、既存建物の改修・耐震診断では今も登場します。図面にI形鋼が出てきたときは、当時の断面性能表で数値を確認してください。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">鉄骨造（S造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>形鋼とは？意味・読み方・種類と規格、I形鋼の用途</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -186,6 +193,70 @@
         <span class="label">あわせて読みたい</span>
         <p>各形鋼の読み方は「<a href="katakou-yomikata.html">形鋼の読み方</a>」、薄板の形鋼は「<a href="keiryou-katakou.html">軽量形鋼</a>」、断面性能は「<a href="danmen-niji-moment.html">断面二次モーメントとは？</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="shurui-zu">主な形鋼の断面（図解）</h2>
+      <figure class="diagram">
+        <svg viewBox="0 0 760 250" role="img" aria-label="H形鋼・I形鋼・溝形鋼・山形鋼・T形鋼の断面形状を並べた図">
+          <title>代表的な形鋼の断面形状</title>
+          <rect x="0" y="0" width="760" height="250" fill="#ffffff"/>
+          <g fill="#1a3a5c">
+            <rect x="30" y="50" width="110" height="16"/><rect x="77" y="66" width="16" height="88"/><rect x="30" y="154" width="110" height="16"/>
+            <path d="M180,50 L280,50 L280,64 L244,72 L244,148 L280,156 L280,170 L180,170 L180,156 L216,148 L216,72 L180,64 Z"/>
+            <rect x="330" y="50" width="90" height="16"/><rect x="330" y="66" width="16" height="88"/><rect x="330" y="154" width="90" height="16"/>
+            <rect x="480" y="50" width="16" height="120"/><rect x="480" y="154" width="90" height="16"/>
+            <rect x="620" y="50" width="110" height="16"/><rect x="667" y="66" width="16" height="72"/>
+          </g>
+          <g font-size="14.5" font-weight="bold" fill="#1a3a5c" text-anchor="middle">
+            <text x="85" y="196">H形鋼</text>
+            <text x="230" y="196">I形鋼</text>
+            <text x="375" y="196">溝形鋼</text>
+            <text x="525" y="196">山形鋼</text>
+            <text x="675" y="196">T形鋼</text>
+          </g>
+          <g font-size="12" fill="#666" text-anchor="middle">
+            <text x="85" y="218">柱・梁の主役</text>
+            <text x="230" y="218">現在は限定的</text>
+            <text x="375" y="218">チャンネル</text>
+            <text x="525" y="218">アングル</text>
+            <text x="675" y="218">カットティー</text>
+          </g>
+          <g font-size="12" fill="#999" text-anchor="middle">
+            <text x="85" y="238">フランジ平行</text>
+            <text x="230" y="238">フランジが傾斜</text>
+            <text x="375" y="238">ブレース受け等</text>
+            <text x="525" y="238">補強・小物</text>
+            <text x="675" y="238">H形鋼を半割り</text>
+          </g>
+        </svg>
+        <figcaption>H形鋼とI形鋼の違いはフランジの内側。I形鋼は内側が傾斜しているためボルト接合がしにくく、現在の建築ではH形鋼が主流。</figcaption>
+      </figure>
+
+      <h2 id="h-vs-i">H形鋼とI形鋼はどこが違うのか</h2>
+      <table class="data">
+        <tr><th></th><th>H形鋼</th><th>I形鋼</th></tr>
+        <tr><td>フランジ内面</td><td><strong>平行</strong></td><td>内側に向かって傾斜（テーパー）</td></tr>
+        <tr><td>ボルト接合</td><td>座金が密着し容易</td><td>テーパー座金が必要でやりにくい</td></tr>
+        <tr><td>フランジ幅</td><td>広い（せいと同寸のものもある）</td><td>相対的に狭い</td></tr>
+        <tr><td>断面性能</td><td>効率が良い</td><td>同じ重量ではH形鋼に劣る</td></tr>
+        <tr><td>現在の使われ方</td><td>建築の柱・梁の標準</td><td>クレーンレール・既存建物の改修など</td></tr>
+      </table>
+      <p>かつては圧延技術の制約からI形鋼が主流でしたが、フランジ内面を平行に圧延できるようになってH形鋼が普及し、現在では建築用の形鋼といえばH形鋼を指します。ただし既存建物の改修や耐震診断では、図面に「I-300×130」のようなI形鋼の表記が出てくることがあり、その場合は当時の断面性能表を参照する必要があります。</p>
+
+      <h2 id="hacchuu">発注・積算での基礎知識</h2>
+      <div class="point-box">
+        <span class="label">形鋼は「重さ」で買う</span>
+        <p>鉄骨のコストは、断面の種類ではなく<strong>総重量（トン単価）</strong>で決まるのが基本です。同じ性能を満たすなら軽い断面を選ぶほど安くなります。ただし例外もあり、①流通量の少ないサイズは割高、②断面の種類を減らすと施工・管理が楽でトータルは安い、③加工手間（孔あけ・溶接）が多い部材は重量以上にコストがかかる、といった要素が絡みます。設計では<strong>断面の種類を絞りつつ、必要な性能を満たす最軽量の断面</strong>を選ぶのがセオリーです。</p>
+      </div>
+      <p>また、形鋼には<strong>定尺（ていじゃく）</strong>という標準的な長さがあり、一般に6m・12mが流通しています。これを超える長さや中途半端な長さは、切断ロスや継手が発生して割高になります。スパン割りを決める段階で定尺を意識すると、材料ロスの少ない計画になります。</p>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 形鋼とはどういう鋼材ですか？</h3>
+      <p>あらかじめ一定の断面形状に圧延・成形された棒状の鋼材のことです。H形鋼・I形鋼・溝形鋼・山形鋼・T形鋼などがあり、鉄骨造の柱や梁はこれらを組み合わせてつくります。板から現場で組み立てるのではなく、既製の形状をそのまま使えるのが最大の利点です。</p>
+      <h3>Q2. 形鋼の読み方は「かたこう」で合っていますか？</h3>
+      <p>はい、「かたこう」と読みます。「けいこう」と読まれることもありますが、実務では「かたこう」が一般的です。H形鋼は「エイチがたこう」、山形鋼は「やまがたこう（アングル）」と呼びます。</p>
+      <h3>Q3. I形鋼は今でも使われていますか？</h3>
+      <p>建築の主要構造部ではほとんど使われず、H形鋼に置き換わっています。ただしクレーンの走行レール（走行桁）や、既存建物の改修・耐震診断では今も登場します。図面にI形鋼が出てきたときは、当時の断面性能表で数値を確認してください。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

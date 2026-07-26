@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/nankou.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/nankou.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-nankou.jpg",
    "author": {
     "@type": "Person",
@@ -114,7 +114,7 @@
       <div class="meta">
         <span class="tag">鉄骨造（S造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>軟鋼とは？硬鋼との違い・炭素量と引張強さ</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -190,6 +190,49 @@
         <span class="label">あわせて読みたい</span>
         <p>強い鋼は「<a href="kouchouryokukou.html">高張力鋼</a>」、鋼材の分類は「<a href="futsuukou.html">普通鋼とは</a>」、記号は「<a href="kouzai-shurui.html">鋼材の種類</a>」、変形の基礎は「<a href="oryokudo-hizumi.html">応力度とひずみ</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="tanso-zu">炭素量と性質の関係（図解）</h2>
+      <figure class="diagram">
+        <svg viewBox="0 0 720 320" role="img" aria-label="炭素量が増えると強度が上がり粘りが減ることを示すグラフ">
+          <title>炭素量と強度・粘り（延性）の関係</title>
+          <rect x="0" y="0" width="720" height="320" fill="#ffffff"/>
+          <line x1="80" y1="250" x2="660" y2="250" stroke="#333" stroke-width="2"/>
+          <line x1="80" y1="250" x2="80" y2="40" stroke="#333" stroke-width="2"/>
+          <text x="370" y="288" text-anchor="middle" font-size="14" fill="#333">炭素量（％）→ 多い</text>
+          <text x="30" y="150" font-size="14" fill="#333" transform="rotate(-90 30 150)">性能</text>
+          <path d="M90,235 L300,175 L470,120 L640,80" fill="none" stroke="#c0392b" stroke-width="3.5"/>
+          <text x="560" y="70" font-size="14" font-weight="bold" fill="#c0392b">強度（硬さ）</text>
+          <path d="M90,70 L300,130 L470,190 L640,235" fill="none" stroke="#2e7d4f" stroke-width="3.5"/>
+          <text x="500" y="222" font-size="14" font-weight="bold" fill="#2e7d4f">粘り（延性・溶接性）</text>
+          <rect x="90" y="40" width="180" height="210" fill="#e8843c" fill-opacity="0.12"/>
+          <text x="180" y="62" text-anchor="middle" font-size="15" font-weight="bold" fill="#e8843c">建築が使う範囲</text>
+          <text x="180" y="82" text-anchor="middle" font-size="13" fill="#e8843c">軟鋼（C 0.3％以下）</text>
+          <g font-size="12" fill="#666">
+            <text x="90" y="270">0.1</text>
+            <text x="265" y="270">0.3</text>
+            <text x="440" y="270">0.6</text>
+            <text x="620" y="270">1.0</text>
+          </g>
+          <text x="360" y="308" text-anchor="middle" font-size="13" fill="#1a3a5c">建築は「強さ」より「粘り」を優先するので、炭素の少ない軟鋼を使う</text>
+        </svg>
+        <figcaption>炭素を増やせば硬く強くなるが、そのぶん粘りと溶接性が失われる。建築構造は地震で変形しながら耐えることが前提なので、あえて炭素の少ない軟鋼を選ぶ。</figcaption>
+      </figure>
+
+      <h2 id="kenchiku-kouzai">建築で使う軟鋼の一覧</h2>
+      <table class="data">
+        <tr><th>規格記号</th><th>正式名称</th><th>特徴と使いどころ</th></tr>
+        <tr><td><strong>SN400B / SN400C</strong></td><td>建築構造用圧延鋼材</td><td>建築専用。降伏点の<strong>上限も規定</strong>され、溶接性・板厚方向特性が保証される。主要な柱・梁の標準</td></tr>
+        <tr><td>SN490B / SN490C</td><td>建築構造用圧延鋼材</td><td>SN400より強い（F＝325）。大スパン・高層で使う</td></tr>
+        <tr><td>SS400</td><td>一般構造用圧延鋼材</td><td>もっとも一般的だが<strong>溶接性の保証がない</strong>。二次部材・小物向き</td></tr>
+        <tr><td>SM490A</td><td>溶接構造用圧延鋼材</td><td>溶接性を保証。橋梁など土木で多用</td></tr>
+        <tr><td><a href="ssc400.html">SSC400</a></td><td>一般構造用軽量形鋼</td><td>薄板の冷間成形材。溶接性の保証なし</td></tr>
+        <tr><td>STKR400 / 490</td><td>一般構造用角形鋼管</td><td>柱に多用。<a href="kouzouyou-kouzai.html">BCR・BCPとの違い</a>に注意</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">なぜSNには「降伏点の上限」があるのか</span>
+        <p>耐震設計では「柱より梁が先に降伏する」「母材より接合部が強い」といった<strong>壊れる順番</strong>を設計者が決めています。ところが鋼材が想定より強すぎると、この順番が入れ替わって、粘り強く壊れるはずが脆く壊れてしまいます。そこで建築用のSN材だけは、降伏点の下限だけでなく<strong>上限も規定</strong>し、さらに降伏比（降伏点÷引張強さ）を80％以下に抑えて、確実に狙い通りの順番で降伏するようにしています。</p>
+      </div>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/moment-tani.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/moment-tani.html",
    "datePublished": "2026-06-15",
-   "dateModified": "2026-07-02",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-moment-tani.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "昔はkgf·m（重量キログラムメートル）も使われていたと聞きますが？", "acceptedAnswer": {"@type": "Answer", "text": "1990年代以前の構造計算書では重力単位系のkgf·m・tf·mが標準でした。現在の構造計算はSI単位系のN·m・kN·mが標準です。1kgf≒9.80665Nなので、実務では「1tf≒10kN」という感覚で規模をつかみ、最終的な検証では正確な係数を使います。"}},
+ {"@type": "Question", "name": "どの単位を使えばよいか迷ったら？", "acceptedAnswer": {"@type": "Answer", "text": "梁・柱にかかる荷重や設計用モーメントはkN·m、断面係数（mm³）を使う応力度計算はN·mmを基本と考えると迷いません。応力図・計算書の入口はkN·m、断面算定の出口はN·mm、という流れで覚えると実務に直結します。"}},
+ {"@type": "Question", "name": "MPaとN/mm²は違う単位ですか？", "acceptedAnswer": {"@type": "Answer", "text": "同じ値です。1MPa＝10⁶Pa＝1N/mm²なので、Fc24は24N/mm²とも24MPaとも書けます。土木・材料分野ではMPa、建築の構造計算ではN/mm²が使われるという慣習の違いにすぎません。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">構造力学の基礎</span>
         <span>公開日：2026年6月15日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>力のモーメントの単位｜N・m・kN・mと曲げモーメント</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -184,6 +191,66 @@
         <span class="label">あわせて読みたい</span>
         <p>「<a href="moment-tani-kansan.html">モーメントの単位換算</a>」「<a href="bending-tani-kansan.html">曲げモーメントの単位換算</a>」「<a href="moment.html">力のモーメント</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="tani-keitou">単位の「形」で量の種類がわかる（図解）</h2>
+      <figure class="diagram">
+        <svg viewBox="0 0 740 300" role="img" aria-label="集中荷重・分布荷重・モーメント・応力度の単位の違いを示す系統図">
+          <title>構造計算に出てくる主な量と単位の関係</title>
+          <rect x="0" y="0" width="740" height="300" fill="#ffffff"/>
+          <text x="370" y="28" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a3a5c">単位の形を見れば、その数値が何を表しているかがわかる</text>
+          <rect x="40" y="50" width="150" height="90" rx="8" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2"/>
+          <text x="115" y="76" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a3a5c">力</text>
+          <text x="115" y="102" text-anchor="middle" font-size="17" fill="#c0392b">N ・ kN</text>
+          <text x="115" y="126" text-anchor="middle" font-size="12" fill="#666">柱にかかる軸力など</text>
+          <rect x="215" y="50" width="150" height="90" rx="8" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2"/>
+          <text x="290" y="76" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a3a5c">分布荷重</text>
+          <text x="290" y="102" text-anchor="middle" font-size="17" fill="#c0392b">N/m ・ kN/m</text>
+          <text x="290" y="126" text-anchor="middle" font-size="12" fill="#666">力 ÷ 長さ</text>
+          <rect x="390" y="50" width="150" height="90" rx="8" fill="#fdf6f0" stroke="#e8843c" stroke-width="2"/>
+          <text x="465" y="76" text-anchor="middle" font-size="15" font-weight="bold" fill="#e8843c">モーメント</text>
+          <text x="465" y="102" text-anchor="middle" font-size="17" fill="#c0392b">N·m ・ kN·m</text>
+          <text x="465" y="126" text-anchor="middle" font-size="12" fill="#666">力 × 長さ</text>
+          <rect x="565" y="50" width="150" height="90" rx="8" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2"/>
+          <text x="640" y="76" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a3a5c">応力度</text>
+          <text x="640" y="102" text-anchor="middle" font-size="17" fill="#c0392b">N/mm²</text>
+          <text x="640" y="126" text-anchor="middle" font-size="12" fill="#666">力 ÷ 面積</text>
+          <rect x="40" y="166" width="675" height="52" rx="6" fill="#f4f7fa" stroke="#9fc0dd"/>
+          <text x="60" y="188" font-size="13.5" fill="#1a3a5c">「/（割る）」があれば長さや面積で割った量 ＝ 荷重の密度や応力度</text>
+          <text x="60" y="210" font-size="13.5" fill="#1a3a5c">「·（掛ける）」があれば長さを掛けた量 ＝ 回転させる働き（モーメント）</text>
+          <rect x="40" y="234" width="675" height="52" rx="6" fill="#fdf2f0" stroke="#c0392b"/>
+          <text x="60" y="256" font-size="13.5" fill="#8c2b21">だから「kN/m」と「kN·m」は1文字違いでもまったく別の量。</text>
+          <text x="60" y="278" font-size="13.5" fill="#8c2b21">手書きの計算書では、この読み違いが最も多い単位ミスの原因になる。</text>
+        </svg>
+        <figcaption>単位は「その数値が何を表しているか」を示すラベル。掛け算か割り算かを見れば、モーメントなのか荷重なのかが判別できる。</figcaption>
+      </figure>
+
+      <h2 id="si-settougo">SI接頭語と読み替えの一覧</h2>
+      <p>Nやmの前に付く「k（キロ）」などの文字を<strong>SI接頭語</strong>といいます。数の大きさを桁でまとめて表すための記号で、これを知っていれば見慣れない単位が出てきても意味を読み取れます。</p>
+      <table class="data">
+        <tr><th>接頭語</th><th>記号</th><th>倍率</th><th>構造での使用例</th></tr>
+        <tr><td>メガ</td><td>M</td><td>10⁶（100万倍）</td><td>MPa（＝N/mm²）※コンクリート強度</td></tr>
+        <tr><td><strong>キロ</strong></td><td><strong>k</strong></td><td>10³（1,000倍）</td><td><strong>kN、kN·m、kN/m</strong>（最頻出）</td></tr>
+        <tr><td>—</td><td>—</td><td>1</td><td>N、N·m、N/mm²</td></tr>
+        <tr><td>ミリ</td><td>m</td><td>10⁻³（1/1,000）</td><td>mm（断面寸法）</td></tr>
+        <tr><td>マイクロ</td><td>μ</td><td>10⁻⁶（1/100万）</td><td>μ（ひずみ・マイクロストレイン）</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">MPaとN/mm²は同じもの</span>
+        <p>コンクリートの設計基準強度は「Fc24（24N/mm²）」とも「24MPa」とも書かれます。これは<strong>まったく同じ値</strong>です。1MPa＝10⁶Pa＝10⁶N/m²＝1N/mm²だからです。土木分野や材料メーカーの資料ではMPa表記が、建築の構造計算ではN/mm²表記が多いという慣習の違いにすぎません。「単位が違う＝別の数値」と早合点しないよう注意してください。</p>
+      </div>
+
+      <h2 id="kyuutani">古い図書に出てくる重力単位系</h2>
+      <p>1990年代以前の構造計算書・設計図には、SI単位ではなく<strong>重力単位系（kgf・tf系）</strong>が使われています。既存建物の耐震診断や改修では必ず遭遇するので、読み替えができるようにしておくと役に立ちます。</p>
+      <table class="data">
+        <tr><th>旧単位</th><th>SI単位への換算</th><th>実務での目安</th></tr>
+        <tr><td>1 kgf</td><td>≒ 9.80665 N</td><td><strong>約10Nと覚える</strong></td></tr>
+        <tr><td>1 tf（トンフォース）</td><td>≒ 9.80665 kN</td><td><strong>約10kN</strong></td></tr>
+        <tr><td>1 tf·m</td><td>≒ 9.80665 kN·m</td><td>約10kN·m</td></tr>
+        <tr><td>1 kgf/cm²</td><td>≒ 0.0980665 N/mm²</td><td>約0.1N/mm²</td></tr>
+        <tr><td>Fc210（kgf/cm²）</td><td>≒ 20.6 N/mm²</td><td>今のFc21相当</td></tr>
+      </table>
+      <p>「1tf ≒ 10kN」という感覚を持っておくと、古い図面の数値もすぐにイメージできます。たとえば旧図の「梁の設計曲げモーメント 8.5tf·m」は、いまの単位でおよそ85kN·mです。厳密には9.80665倍ですが、規模感をつかむ段階では10倍で十分です。<strong>ただし最終的な検証計算では必ず正確な係数を使ってください。</strong></p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

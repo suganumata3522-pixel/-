@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/oryokudo-hizumi.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/oryokudo-hizumi.html",
    "datePublished": "2026-06-12",
-   "dateModified": "2026-06-12",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-oryokudo-hizumi.jpg",
    "author": {
     "@type": "Person",
@@ -74,6 +74,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "ヤング係数が大きいとどうなりますか？", "acceptedAnswer": {"@type": "Answer", "text": "同じ力をかけても変形しにくくなります。ヤング係数Eは「材料の硬さ」を表す値で、鋼材はE＝205,000N/mm²、コンクリートはその約1/8、木材は約1/25です。たわみの計算式（δ＝5wL⁴/384EI）にEが分母で入るため、Eが大きい材料ほどたわみが小さくなります。"}},
+ {"@type": "Question", "name": "強い鋼材に変えればたわみは減りますか？", "acceptedAnswer": {"@type": "Answer", "text": "減りません。鋼材のヤング係数はSN400でもSN490でもE＝205,000N/mm²で同じです。強度が上がるのは許容応力度であり、変形しやすさは変わりません。たわみを減らすには断面二次モーメントI（せい）を大きくする必要があります。実務で見落としやすいポイントです。"}},
+ {"@type": "Question", "name": "応力度とひずみ度はどう違うのですか？", "acceptedAnswer": {"@type": "Answer", "text": "応力度σは「単位面積あたりに生じている力」（N/mm²）、ひずみ度εは「元の長さに対する変形の割合」（無単位）です。力の大きさを表すのが応力度、変形の程度を表すのがひずみ度で、両者はフックの法則 σ＝E×ε で結ばれています。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -105,7 +112,7 @@
       <div class="meta">
         <span class="tag">構造力学の基礎</span>
         <span>公開日：2026年6月12日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>応力度とひずみ度とは？ヤング係数と応力ひずみ曲線をわかりやすく解説</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -228,6 +235,59 @@
         <span class="label">実務のワンポイント</span>
         <p>若手の構造計算書をチェックしていると、鋼材のグレードを上げてたわみ計算をやり直している例をよく見かけます。ヤング係数は強度によらず一定なので、たわみを抑えたいなら断面を大きくするしかありません。この勘違いは指導のたびに必ず説明しています。</p>
       </div>
+
+      <h2 id="zairyou-hikaku">材料ごとのヤング係数と特徴</h2>
+      <table class="data">
+        <tr><th>材料</th><th>ヤング係数 E（N/mm²）</th><th>特徴</th></tr>
+        <tr><td>鋼材（すべての鋼種共通）</td><td><strong>205,000</strong></td><td>強度が違っても<strong>Eは同じ</strong>。変形しやすさは鋼種によらない</td></tr>
+        <tr><td>コンクリート Fc21</td><td>約 21,500</td><td>強度が高いほどEも大きくなる</td></tr>
+        <tr><td>コンクリート Fc36</td><td>約 27,500</td><td>鋼材の約1/8</td></tr>
+        <tr><td>木材（スギ）</td><td>約 7,000</td><td>繊維方向。直交方向は1/20以下</td></tr>
+        <tr><td>木材（ベイマツ）</td><td>約 10,000</td><td>樹種による差が大きい</td></tr>
+        <tr><td>集成材（E105）</td><td>約 10,500</td><td>等級の数字がそのままEを表す（E105＝10.5kN/mm²）</td></tr>
+        <tr><td>アルミニウム</td><td>約 70,000</td><td>鋼の約1/3。同じ断面なら3倍たわむ</td></tr>
+      </table>
+      <p>とくに重要なのが<strong>「鋼材はSN400でもSN490でもE＝205,000で同じ」</strong>という点です。強い鋼材に変えれば強度は上がりますが、<strong>たわみはまったく改善しません</strong>。たわみが問題になっている梁で鋼種をSN490に変えても無駄で、断面二次モーメントIを大きくする（せいを増やす）しかありません。実務で意外に見落とされるポイントです。</p>
+
+      <h2 id="kyokusen-hikaku">応力ひずみ曲線を材料ごとに比べる</h2>
+      <figure class="diagram">
+        <svg viewBox="0 0 720 320" role="img" aria-label="鋼材・コンクリート・木材の応力ひずみ曲線を比較したグラフ">
+          <title>材料ごとの応力ひずみ曲線の違い</title>
+          <rect x="0" y="0" width="720" height="320" fill="#ffffff"/>
+          <line x1="90" y1="250" x2="660" y2="250" stroke="#333" stroke-width="2"/>
+          <line x1="90" y1="250" x2="90" y2="40" stroke="#333" stroke-width="2"/>
+          <text x="375" y="286" text-anchor="middle" font-size="14" fill="#333">ひずみ ε（変形の割合）→</text>
+          <text x="36" y="150" font-size="14" fill="#333" transform="rotate(-90 36 150)">応力度 σ</text>
+          <path d="M92,248 L188,96 L360,88 L500,60 L560,120" fill="none" stroke="#1a3a5c" stroke-width="4"/>
+          <text x="380" y="72" font-size="14" font-weight="bold" fill="#1a3a5c">鋼材</text>
+          <text x="380" y="90" font-size="11.5" fill="#666">降伏後も伸びる＝粘り強い</text>
+          <path d="M92,248 Q150,190 200,178 Q216,176 226,196" fill="none" stroke="#e8843c" stroke-width="4"/>
+          <text x="238" y="182" font-size="14" font-weight="bold" fill="#e8843c">コンクリート</text>
+          <text x="238" y="200" font-size="11.5" fill="#666">ピーク後すぐ壊れる＝脆い</text>
+          <path d="M92,248 L182,150 L196,192" fill="none" stroke="#2e7d4f" stroke-width="4"/>
+          <text x="120" y="132" font-size="14" font-weight="bold" fill="#2e7d4f">木材</text>
+          <text x="120" y="150" font-size="11.5" fill="#666">ほぼ直線のまま破断</text>
+          <circle cx="188" cy="96" r="6" fill="#c0392b"/>
+          <text x="150" y="88" text-anchor="end" font-size="12" fill="#c0392b">降伏点</text>
+          <rect x="90" y="296" width="570" height="20" fill="none"/>
+          <text x="375" y="312" text-anchor="middle" font-size="12.5" fill="#666">曲線の「形」が、その材料を構造にどう使うかを決めている</text>
+        </svg>
+        <figcaption>鋼材は降伏後も大きく伸びるため地震のエネルギーを吸収できる。コンクリートと木材は脆く、変形能力に乏しい。</figcaption>
+      </figure>
+      <p>この曲線の形の違いが、そのまま構造設計の考え方を決めています。<strong>鋼材が耐震設計の主役なのは、強いからではなく粘り強いから</strong>です。降伏した後も破断せずに伸び続けるため、地震のエネルギーを変形に変えて吸収できます。<br>一方コンクリートは圧縮に強い反面、ピークを超えると急激に壊れます。RC造で<strong>帯筋・あばら筋</strong>を密に入れるのは、コンクリートを横から拘束して「脆い壊れ方」を「粘りのある壊れ方」に変えるためです。</p>
+      <div class="point-box">
+        <span class="label">「E＝一定」が成り立つ範囲を意識する</span>
+        <p>σ＝E×ε（フックの法則）が成立するのは、<strong>降伏点までの弾性範囲だけ</strong>です。降伏を超えると応力がほとんど増えないのにひずみだけが大きくなるため、この式は使えなくなります。<br>許容応力度計算（一次設計）が弾性範囲での検討であるのは、この式が成り立つ範囲に収めているからです。<strong>保有水平耐力計算（二次設計）では、あえて降伏を超えた領域を扱う</strong>ため、まったく別の考え方（塑性理論）が必要になります。<br>「一次設計は弾性、二次設計は塑性」という区分けの根拠は、この応力ひずみ曲線のどこを使っているかにあります。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. ヤング係数が大きいとどうなりますか？</h3>
+      <p>同じ力をかけても変形しにくくなります。ヤング係数Eは「材料の硬さ」を表す値で、鋼材はE＝205,000N/mm²、コンクリートはその約1/8、木材は約1/25です。たわみの計算式（δ＝5wL⁴/384EI）にEが分母で入るため、Eが大きい材料ほどたわみが小さくなります。</p>
+      <h3>Q2. 強い鋼材に変えればたわみは減りますか？</h3>
+      <p>減りません。鋼材のヤング係数はSN400でもSN490でもE＝205,000N/mm²で同じです。強度が上がるのは許容応力度であり、変形しやすさは変わりません。たわみを減らすには断面二次モーメントI（せい）を大きくする必要があります。実務で見落としやすいポイントです。</p>
+      <h3>Q3. 応力度とひずみ度はどう違うのですか？</h3>
+      <p>応力度σは「単位面積あたりに生じている力」（N/mm²）、ひずみ度εは「元の長さに対する変形の割合」（無単位）です。力の大きさを表すのが応力度、変形の程度を表すのがひずみ度で、両者はフックの法則 σ＝E×ε で結ばれています。</p>
+
 
       <h2>まとめ</h2>
       <ul>

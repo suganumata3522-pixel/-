@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/h-web.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/h-web.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-02",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-h-web.jpg",
    "author": {
     "@type": "Person",
@@ -114,7 +114,7 @@
       <div class="meta">
         <span class="tag">鉄骨造（S造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>H形鋼のウェブ｜サイズの見方とせん断力の役割</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -168,6 +168,51 @@
         <span class="label">あわせて読みたい</span>
         <p>フランジとの役割分担は「<a href="h-flange-web.html">フランジとウェブ</a>」、強度計算は「<a href="h-kyoudo.html">H形鋼の強度</a>」、薄さの限界は「<a href="h-habaatsuhi.html">幅厚比</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="ichi-zu">ウェブとフランジの位置関係（図解）</h2>
+      <figure class="diagram">
+        <svg viewBox="0 0 720 300" role="img" aria-label="H形鋼のウェブとフランジの位置および力の分担を示す図">
+          <title>ウェブとフランジの位置と役割分担</title>
+          <rect x="0" y="0" width="720" height="300" fill="#ffffff"/>
+          <g transform="translate(90,60)">
+            <rect x="0" y="0" width="180" height="20" fill="#1a3a5c"/>
+            <rect x="78" y="20" width="24" height="150" fill="#e8843c"/>
+            <rect x="0" y="170" width="180" height="20" fill="#1a3a5c"/>
+            <text x="90" y="-14" text-anchor="middle" font-size="14" fill="#1a3a5c">上フランジ</text>
+            <text x="90" y="212" text-anchor="middle" font-size="14" fill="#1a3a5c">下フランジ</text>
+            <text x="118" y="100" font-size="15" font-weight="bold" fill="#e8843c">ウェブ</text>
+            <text x="118" y="120" font-size="12" fill="#666">＝web（クモの巣・幕）</text>
+          </g>
+          <line x1="330" y1="40" x2="330" y2="260" stroke="#ddd" stroke-width="2"/>
+          <text x="380" y="70" font-size="16" font-weight="bold" fill="#1a3a5c">役割分担</text>
+          <g font-size="14" fill="#333">
+            <rect x="380" y="90" width="20" height="20" fill="#1a3a5c"/>
+            <text x="412" y="105">フランジ → <tspan font-weight="bold" fill="#1a3a5c">曲げモーメント</tspan>を負担</text>
+            <text x="412" y="128" font-size="12" fill="#666">中立軸から遠いほど効くので外側に配置</text>
+            <rect x="380" y="150" width="20" height="20" fill="#e8843c"/>
+            <text x="412" y="165">ウェブ → <tspan font-weight="bold" fill="#e8843c">せん断力</tspan>を負担</text>
+            <text x="412" y="188" font-size="12" fill="#666">Aw ≒ H × t1、τ＝Q/Aw で検討する</text>
+          </g>
+          <rect x="380" y="210" width="300" height="56" rx="6" fill="#f4f7fa" stroke="#9fc0dd"/>
+          <text x="394" y="232" font-size="13" fill="#1a3a5c">ウェブは薄くてよい＝軽くできる。</text>
+          <text x="394" y="253" font-size="13" fill="#1a3a5c">これがH形鋼が経済的な理由。</text>
+        </svg>
+        <figcaption>フランジは曲げ、ウェブはせん断。役割が分かれているから、ウェブは薄くして重量を減らせる。</figcaption>
+      </figure>
+
+      <h2 id="atsusa-kettei">ウェブ厚はどう決まるか</h2>
+      <p>H形鋼は規格品なので、設計者がウェブ厚を自由に指定するわけではありません。<strong>断面を選ぶ＝ウェブ厚も一緒に決まる</strong>という関係です。そのうえで、ウェブが効いてくる場面は次の3つです。</p>
+      <table class="data">
+        <tr><th>検討項目</th><th>効いてくる場面</th><th>足りないときの対応</th></tr>
+        <tr><td>せん断応力度</td><td>スパンが短く荷重が大きい梁、片持ち梁の根元</td><td>ウェブが厚い断面に変える</td></tr>
+        <tr><td>ウェブの局部座屈</td><td>せいが大きくウェブが薄い（<a href="h-habaatsuhi.html">幅厚比</a>が大きい）梁</td><td>中間スチフナを入れる</td></tr>
+        <tr><td>集中荷重による圧壊</td><td>柱と梁の仕口、支点、大きな集中荷重の位置</td><td>水平スチフナ（ダイアフラム）を入れる</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">貫通孔は「中央付近・小さく・補強付き」</span>
+        <p>設備配管でウェブに孔をあけるときは、<strong>せん断力が小さいスパン中央寄り</strong>に、径はせいの1/3程度以下、間隔は径の3倍以上あけるのが一般的な目安です。ただし孔の周囲は応力が集中するため、リング状の補強プレートを溶接するのが原則。<strong>支点（せん断力が最大の位置）付近の孔は厳禁</strong>で、独断であけず必ず構造設計者の確認を取ってください。</p>
+      </div>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

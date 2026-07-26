@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/ssc400.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/ssc400.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-02",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-ssc400.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "SSC400とSS400は同じものですか？", "acceptedAnswer": {"@type": "Answer", "text": "違います。SSC400はJIS G 3350の<strong>軽量形鋼</strong>（薄い鋼板を冷間で折り曲げた材）、SS400はJIS G 3101の<strong>熱間圧延鋼材</strong>です。引張強さはどちらも400N/mm²以上ですが、板厚も製法も用途も異なります。"}},
+ {"@type": "Question", "name": "SSC400は主要な柱や梁に使えますか？", "acceptedAnswer": {"@type": "Answer", "text": "小規模な軽量鉄骨造では柱・梁に使われます。ただし溶接性の保証がなく局部座屈しやすいため、中規模以上の建物の主要構造部にはSN400B以上の熱間圧延材を使うのが標準です。"}},
+ {"@type": "Question", "name": "SSC400の「C」は何の略ですか？", "acceptedAnswer": {"@type": "Answer", "text": "Cold（冷間）に由来し、冷間成形された軽量形鋼であることを表します。SS（Steel Structure）に対して、軽量形鋼を区別するための記号です。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">鉄骨造（S造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>一般構造用軽量形鋼（SSC400）とは？SS400との違い</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -183,6 +190,69 @@
         <span class="label">あわせて読みたい</span>
         <p>軽量形鋼の種類は「<a href="keiryou-katakou.html">軽量形鋼</a>」、SS400など材質は「<a href="kouzai-shurui.html">鋼材の種類</a>」、薄板の特性は「<a href="hakuniku.html">薄肉と軽量鉄骨</a>」をどうぞ。</p>
       </div>
+
+
+      <figure class="diagram">
+        <svg viewBox="0 0 720 300" role="img" aria-label="SSC400という記号の意味を分解した図">
+          <title>SSC400の記号の意味</title>
+          <rect x="0" y="0" width="720" height="300" fill="#ffffff"/>
+          <text x="360" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a3a5c">記号を分解すると意味がわかる</text>
+          <g font-size="46" font-weight="bold" font-family="sans-serif">
+            <text x="150" y="100" fill="#1a3a5c">S</text>
+            <text x="215" y="100" fill="#1a3a5c">S</text>
+            <text x="280" y="100" fill="#e8843c">C</text>
+            <text x="360" y="100" fill="#c0392b">400</text>
+          </g>
+          <g stroke="#bbb" stroke-width="1.5">
+            <line x1="163" y1="112" x2="163" y2="140"/>
+            <line x1="228" y1="112" x2="228" y2="168"/>
+            <line x1="293" y1="112" x2="293" y2="196"/>
+            <line x1="405" y1="112" x2="405" y2="224"/>
+          </g>
+          <g font-size="14.5">
+            <text x="163" y="158" fill="#1a3a5c">Steel ＝ 鋼</text>
+            <text x="228" y="186" fill="#1a3a5c">Structure ＝ 構造用</text>
+            <text x="293" y="214" fill="#e8843c" font-weight="bold">Cold ＝ 冷間成形（軽量形鋼）</text>
+            <text x="405" y="242" fill="#c0392b" font-weight="bold">引張強さ 400N/mm² 以上</text>
+          </g>
+          <rect x="60" y="258" width="600" height="34" rx="6" fill="#f4f7fa" stroke="#9fc0dd"/>
+          <text x="360" y="280" text-anchor="middle" font-size="14" fill="#1a3a5c">「C」が付いていたら薄板を折り曲げた軽量形鋼、と覚えれば取り違えない</text>
+        </svg>
+        <figcaption>SS400との違いは「C（Cold＝冷間成形）」の有無。記号1文字で製法と板厚の範囲がまったく変わる。</figcaption>
+      </figure>
+
+      <h2 id="hikaku-hyou">SSC400・SS400・SN400の比較</h2>
+      <p>名前が似ていて混同しやすい3つを整理します。ポイントは<strong>「S＋C」がついたら軽量形鋼（薄板の冷間成形）</strong>、<strong>「SN」がついたら建築専用の高品質材</strong>ということです。</p>
+      <table class="data">
+        <tr><th></th><th>SSC400</th><th>SS400</th><th>SN400B</th></tr>
+        <tr><td>JIS規格</td><td>G 3350</td><td>G 3101</td><td>G 3136</td></tr>
+        <tr><td>正式名称</td><td>一般構造用軽量形鋼</td><td>一般構造用圧延鋼材</td><td>建築構造用圧延鋼材</td></tr>
+        <tr><td>つくり方</td><td><strong>冷間成形</strong>（常温で折り曲げ）</td><td>熱間圧延</td><td>熱間圧延</td></tr>
+        <tr><td>板厚</td><td>1.6〜4.5mm程度（<a href="hakuniku.html">薄肉</a>）</td><td>6mm以上が中心</td><td>6mm以上が中心</td></tr>
+        <tr><td>引張強さ</td><td>400N/mm²以上</td><td>400N/mm²以上</td><td>400〜510N/mm²</td></tr>
+        <tr><td>降伏点の上限</td><td>規定なし</td><td>規定なし</td><td><strong>規定あり</strong></td></tr>
+        <tr><td>溶接性の保証</td><td>なし</td><td>なし</td><td><strong>あり</strong></td></tr>
+        <tr><td>主な用途</td><td>胴縁・母屋・軽鉄骨造の柱梁</td><td>二次部材・金物・ブレース</td><td>主要な柱・梁</td></tr>
+      </table>
+      <p>数字の「400」はいずれも<strong>引張強さ400N/mm²以上</strong>を意味します。つまり素材としての強さは同等ですが、<strong>品質の保証範囲</strong>がまったく違います。主要な構造部材にSSC400やSS400を使うのは避け、SN材を使うのが現在の実務の標準です。</p>
+
+      <h2 id="jitsumu-chuui">実務で気をつける3点</h2>
+      <table class="data">
+        <tr><th>注意点</th><th>理由と対処</th></tr>
+        <tr><td>溶接を前提にしない</td><td>化学成分（炭素量など）の上限規定がなく、溶接部が脆くなる恐れがある。ドリルビス・ボルト接合が基本</td></tr>
+        <tr><td>防錆処理を必ず行う</td><td>板厚1.6mmの材が0.5mmさびると断面の3割が消える。溶融亜鉛めっき品を選び、切断面・孔あけ部はタッチアップする</td></tr>
+        <tr><td>ねじれを見込む</td><td>リップ溝形鋼（Cチャン）は非対称断面で、曲げるとねじれる。2本を組んで対称にするか、振れ止めを入れる</td></tr>
+      </table>
+      <p>また、SSC400は<strong>局部座屈</strong>が設計を支配することが多い材です。板が薄いため、材料の強度に達する前に板がへこんでしまいます。設計では<a href="h-habaatsuhi.html">幅厚比</a>の制限を確認し、有効断面（座屈を考慮して低減した断面）で検討するのが原則です。</p>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. SSC400とSS400は同じものですか？</h3>
+      <p>違います。SSC400はJIS G 3350の<strong>軽量形鋼</strong>（薄い鋼板を冷間で折り曲げた材）、SS400はJIS G 3101の<strong>熱間圧延鋼材</strong>です。引張強さはどちらも400N/mm²以上ですが、板厚も製法も用途も異なります。</p>
+      <h3>Q2. SSC400は主要な柱や梁に使えますか？</h3>
+      <p>小規模な軽量鉄骨造では柱・梁に使われます。ただし溶接性の保証がなく局部座屈しやすいため、中規模以上の建物の主要構造部にはSN400B以上の熱間圧延材を使うのが標準です。</p>
+      <h3>Q3. SSC400の「C」は何の略ですか？</h3>
+      <p>Cold（冷間）に由来し、冷間成形された軽量形鋼であることを表します。SS（Steel Structure）に対して、軽量形鋼を区別するための記号です。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

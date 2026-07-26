@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/moment-tani-kansan.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/moment-tani-kansan.html",
    "datePublished": "2026-06-15",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-moment-tani-kansan.jpg",
    "author": {
     "@type": "Person",
@@ -114,7 +114,7 @@
       <div class="meta">
         <span class="tag">構造力学の基礎</span>
         <span>公開日：2026年6月15日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>モーメントの単位換算｜N・m・kN・m・N・mm</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -198,6 +198,63 @@
         <span class="label">あわせて読みたい</span>
         <p>「<a href="moment-tani.html">力のモーメントの単位</a>」「<a href="bending-tani-kansan.html">曲げモーメントの単位換算</a>」「<a href="danmen-keisu.html">断面係数</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="hayamihyou">換算早見表（そのまま使える）</h2>
+      <table class="data">
+        <tr><th>変換</th><th>操作</th><th>例</th></tr>
+        <tr><td>kN·m → N·m</td><td>× 10³（3桁ずらす）</td><td>15 → 15,000</td></tr>
+        <tr><td><strong>kN·m → N·mm</strong></td><td><strong>× 10⁶（6桁ずらす）</strong></td><td>15 → 15,000,000</td></tr>
+        <tr><td>N·m → N·mm</td><td>× 10³</td><td>15,000 → 15,000,000</td></tr>
+        <tr><td>N·mm → kN·m</td><td>÷ 10⁶</td><td>15,000,000 → 15</td></tr>
+        <tr><td>tf·m → kN·m</td><td>× 9.80665（≒10）</td><td>8.5 → 83.4</td></tr>
+        <tr><td>kgf·cm → N·mm</td><td>× 98.0665</td><td>100 → 9,807</td></tr>
+        <tr><td>cm³ → mm³（断面係数Z）</td><td>× 10³</td><td>1,190 → 1,190,000</td></tr>
+        <tr><td>cm⁴ → mm⁴（断面二次モーメントI）</td><td>× 10⁴</td><td>23,700 → 237,000,000</td></tr>
+      </table>
+      <p>下2行は<strong>モーメントの単位ではありませんが、同じ計算の中で必ずセットで出てくる</strong>ため一緒に載せています。σ＝M/Z の計算で桁を間違える原因は、Mの換算よりもむしろ<strong>Zの換算（cm³→mm³）</strong>にあることが多いからです。「体積系は3乗、断面二次モーメントは4乗」と覚えてください。</p>
+
+      <h2 id="hashigo-zu">換算のはしご図</h2>
+      <figure class="diagram">
+        <svg viewBox="0 0 720 280" role="img" aria-label="kN・m、N・m、N・mmの換算関係を示すはしご図">
+          <title>モーメントの単位換算のはしご</title>
+          <rect x="0" y="0" width="720" height="280" fill="#ffffff"/>
+          <text x="360" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a3a5c">上に行くほど数字は小さく、下に行くほど数字は大きくなる</text>
+          <rect x="240" y="52" width="240" height="46" rx="8" fill="#1a3a5c"/>
+          <text x="360" y="74" text-anchor="middle" font-size="18" font-weight="bold" fill="#ffffff">kN·m</text>
+          <text x="360" y="92" text-anchor="middle" font-size="11.5" fill="#cfe0ee">応力図・構造計算書はこれ</text>
+          <rect x="240" y="132" width="240" height="46" rx="8" fill="#9fc0dd"/>
+          <text x="360" y="154" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a3a5c">N·m</text>
+          <text x="360" y="172" text-anchor="middle" font-size="11.5" fill="#33556f">SIの基本形。実務での登場は少ない</text>
+          <rect x="240" y="212" width="240" height="46" rx="8" fill="#e8843c"/>
+          <text x="360" y="234" text-anchor="middle" font-size="18" font-weight="bold" fill="#ffffff">N·mm</text>
+          <text x="360" y="252" text-anchor="middle" font-size="11.5" fill="#fdeadb">応力度計算 σ＝M/Z はこれ</text>
+          <g stroke="#c0392b" stroke-width="3" fill="none">
+            <line x1="200" y1="98" x2="200" y2="126"/><polygon points="200,132 193,118 207,118" fill="#c0392b"/>
+            <line x1="200" y1="178" x2="200" y2="206"/><polygon points="200,212 193,198 207,198" fill="#c0392b"/>
+          </g>
+          <text x="188" y="118" text-anchor="end" font-size="14" font-weight="bold" fill="#c0392b">×10³</text>
+          <text x="188" y="198" text-anchor="end" font-size="14" font-weight="bold" fill="#c0392b">×10³</text>
+          <g stroke="#2e7d4f" stroke-width="3" fill="none">
+            <line x1="530" y1="212" x2="530" y2="104"/><polygon points="530,98 523,112 537,112" fill="#2e7d4f"/>
+          </g>
+          <text x="542" y="160" font-size="14" font-weight="bold" fill="#2e7d4f">÷10⁶</text>
+          <text x="542" y="180" font-size="12" fill="#2e7d4f">まとめて戻す</text>
+        </svg>
+        <figcaption>上下1段の移動が3桁、上下2段の移動が6桁。この「段数×3桁」の感覚を持てば、電卓を叩かなくても桁数の当たりがつく。</figcaption>
+      </figure>
+
+      <h2 id="check">桁ミスを自分で見つける3つのチェック</h2>
+      <table class="data">
+        <tr><th>チェック</th><th>やり方</th><th>判定の目安</th></tr>
+        <tr><td>① オーダー確認</td><td>計算前に「だいたい何kN·mになるはず」と見積もる</td><td>住宅の梁：10〜50kN·m／事務所の大梁：100〜300kN·m</td></tr>
+        <tr><td>② 応力度の常識値</td><td>出てきたσが妥当な範囲か見る</td><td>鋼材なら数十〜200N/mm²程度。1,000を超えたら換算ミス</td></tr>
+        <tr><td>③ 検定比の桁</td><td>検定比が極端でないか見る</td><td>0.3〜0.95が普通。0.001や500なら1,000倍単位のミス</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">「答えが0.0001」「答えが1,200,000」は換算ミスのサイン</span>
+        <p>構造計算に出てくる値には、それぞれ<strong>妥当な範囲（相場）</strong>があります。曲げ応力度なら数十〜200N/mm²、検定比なら0.3〜0.95、たわみなら数mm〜数十mm。この相場から3桁以上外れた答えが出たら、まず単位換算を疑ってください。<strong>計算式そのものが間違っていることより、単位の桁がずれていることのほうが圧倒的に多い</strong>のが実務の実感です。</p>
+      </div>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

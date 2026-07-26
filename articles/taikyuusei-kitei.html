@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/taikyuusei-kitei.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/taikyuusei-kitei.html",
    "datePublished": "2026-06-15",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-taikyuusei-kitei.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "耐久性等関係規定は構造計算で省略できますか？", "acceptedAnswer": {"@type": "Answer", "text": "できません。防腐・防蟻措置、コンクリートのかぶり厚さ、基礎の形式などは、どれだけ高度な構造計算を行っても省略が認められていません。構造計算は竣工時点の力のつり合いを確かめるもので、時間とともに進む劣化を確認できないためです。"}},
+ {"@type": "Question", "name": "4号建築物でも耐久性等関係規定は適用されますか？", "acceptedAnswer": {"@type": "Answer", "text": "適用されます。小規模な木造建築物で構造計算が省略できる場合でも、地面から1m以内の防腐・防蟻措置、基礎の形式、木材の品質といった耐久性等関係規定は規模にかかわらず守る必要があります。"}},
+ {"@type": "Question", "name": "耐久性等関係規定にはどんな条文が含まれますか？", "acceptedAnswer": {"@type": "Answer", "text": "施行令36条1項で列挙されており、37条（構造部材の耐久）、38条（基礎）、39条（屋根ふき材等の緊結）、41条（木材の品質）、49条（木造の防腐・防蟻）、72条・74条・75条（コンクリートの材料・強度・養生）、79条（かぶり厚さ）などが該当します。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">構造計算の実務</span>
         <span>公開日：2026年6月15日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>耐久性等関係規定とは？施行令36条・仕様規定との違い</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -176,6 +183,70 @@
         <span class="label">あわせて読みたい</span>
         <p>「<a href="shiyou-kitei.html">仕様規定</a>」「<a href="kouzou-kyoudo.html">構造強度</a>」「<a href="kyoyo-oryokudo.html">許容応力度計算（計算ルート）</a>」「<a href="taikyuu-kijun.html">耐久設計基準強度</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="ichizuke-zu">仕様規定の中での位置づけ（図解）</h2>
+      <figure class="diagram">
+        <svg viewBox="0 0 740 300" role="img" aria-label="仕様規定のうち耐久性等関係規定だけが構造計算で代替できないことを示す図">
+          <title>耐久性等関係規定の位置づけ</title>
+          <rect x="0" y="0" width="740" height="300" fill="#ffffff"/>
+          <text x="370" y="28" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a3a5c">計算で置き換えられる規定と、置き換えられない規定</text>
+          <rect x="50" y="52" width="640" height="164" rx="10" fill="#f7f9fb" stroke="#999" stroke-width="2"/>
+          <text x="70" y="76" font-size="14" font-weight="bold" fill="#666">仕様規定（令36〜80条の3）</text>
+          <rect x="76" y="92" width="290" height="106" rx="8" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2"/>
+          <text x="221" y="118" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#1a3a5c">一般の仕様規定</text>
+          <text x="221" y="144" text-anchor="middle" font-size="12.5" fill="#333">壁量、柱の小径、筋かいの寸法…</text>
+          <text x="221" y="172" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#2e7d4f">→ 構造計算で代替できる</text>
+          <text x="221" y="190" text-anchor="middle" font-size="12" fill="#666">（ルート2・3等の高度な計算をすれば）</text>
+          <rect x="386" y="92" width="290" height="106" rx="8" fill="#fdf2f0" stroke="#c0392b" stroke-width="3"/>
+          <text x="531" y="118" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#c0392b">耐久性等関係規定</text>
+          <text x="531" y="144" text-anchor="middle" font-size="12.5" fill="#333">防腐・防蟻、かぶり厚さ、基礎…</text>
+          <text x="531" y="172" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#c0392b">→ 絶対に省略できない</text>
+          <text x="531" y="190" text-anchor="middle" font-size="12" fill="#666">（どんな計算をしても不可）</text>
+          <rect x="50" y="234" width="640" height="56" rx="6" fill="#f4f7fa" stroke="#9fc0dd"/>
+          <text x="370" y="256" text-anchor="middle" font-size="13.5" fill="#1a3a5c">理由：耐久性は「時間とともに進む劣化」への備え。</text>
+          <text x="370" y="278" text-anchor="middle" font-size="13.5" fill="#1a3a5c">竣工時の力のつり合いを確かめる構造計算では、確認しようがない。</text>
+        </svg>
+        <figcaption>構造計算は「今この瞬間、力に耐えられるか」を確かめるもの。20年後に土台が腐っていないかは計算では答えられない。</figcaption>
+      </figure>
+
+      <h2 id="rei-ichiran">耐久性等関係規定の主な内容</h2>
+      <table class="data">
+        <tr><th>条文</th><th>内容</th><th>何を防ぐか</th></tr>
+        <tr><td>令36条1項</td><td>耐久性等関係規定の定義（どの条文が該当するか）</td><td>—</td></tr>
+        <tr><td>令37条</td><td>構造部材の耐久（腐食・腐朽・摩損しにくい材料）</td><td>材料そのものの劣化</td></tr>
+        <tr><td>令38条</td><td>基礎（地盤に応じた形式、鉄筋コンクリート造の布基礎等）</td><td>不同沈下・基礎の破壊</td></tr>
+        <tr><td>令39条</td><td>屋根ふき材等の緊結</td><td>台風での飛散</td></tr>
+        <tr><td>令41条</td><td>木材の品質（節・腐れ・繊維の傾斜等の欠点がないこと）</td><td>強度不足</td></tr>
+        <tr><td>令49条</td><td>木造の外壁内部の防腐措置、地面から1m以内の防腐・防蟻</td><td><strong>腐朽・シロアリ</strong></td></tr>
+        <tr><td>令70条</td><td>鉄骨造の柱の防火被覆（一定条件下）</td><td>火災時の急激な耐力低下</td></tr>
+        <tr><td>令72条</td><td>コンクリートの材料（塩化物量等）</td><td>鉄筋の腐食</td></tr>
+        <tr><td>令74条</td><td>コンクリートの強度</td><td>強度不足</td></tr>
+        <tr><td>令75条</td><td>コンクリートの養生</td><td>強度発現不良・ひび割れ</td></tr>
+        <tr><td>令79条</td><td>鉄筋の<a href="concrete-jakuten.html">かぶり厚さ</a></td><td><strong>鉄筋の腐食（中性化）</strong></td></tr>
+      </table>
+
+      <h2 id="naze-daitai-fuka">なぜ計算では代替できないのか</h2>
+      <table class="data">
+        <tr><th>構造計算でわかること</th><th>耐久性の規定が守ること</th></tr>
+        <tr><td>竣工時点の力のつり合い</td><td>10年後・30年後の状態</td></tr>
+        <tr><td>設計した断面の強度</td><td>断面が減らないこと（腐食・腐朽で痩せない）</td></tr>
+        <tr><td>材料の設計基準強度</td><td>実際にその強度が発現し、保たれること</td></tr>
+        <tr><td>想定した荷重への抵抗</td><td>想定外の劣化が進まないこと</td></tr>
+      </table>
+      <p>表を見比べると違いが明確です。構造計算は<strong>「設計時に仮定した状態が保たれている」ことを前提に</strong>成り立っています。その前提が崩れる原因——鉄筋が錆びて断面が減る、土台が腐って支持力を失う、コンクリートが中性化して鉄筋を守れなくなる——を防ぐのが耐久性等関係規定なのです。つまり<strong>構造計算の土台を支えている規定</strong>だといえます。</p>
+      <div class="point-box">
+        <span class="label">4号建築物でも耐久性等関係規定は必ず適用される</span>
+        <p>小規模な木造建築物（いわゆる4号建築物）では構造計算が省略できる場合がありますが、<strong>耐久性等関係規定は必ず適用されます</strong>。地面から1m以内の防腐・防蟻措置、基礎の形式、木材の品質——これらは規模にかかわらず守らなければなりません。<br>実際、既存木造住宅の劣化事例で最も多いのは、構造計算の不備ではなく<strong>土台・柱脚の腐朽とシロアリ被害</strong>です。床下換気の不足、外壁からの雨水浸入、給排水管の漏水——原因はさまざまですが、いずれも「時間の経過」が効いています。耐久性等関係規定が計算による代替を認めていないのは、この実態を反映したものです。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 耐久性等関係規定は構造計算で省略できますか？</h3>
+      <p>できません。防腐・防蟻措置、コンクリートのかぶり厚さ、基礎の形式などは、どれだけ高度な構造計算を行っても省略が認められていません。構造計算は竣工時点の力のつり合いを確かめるもので、時間とともに進む劣化を確認できないためです。</p>
+      <h3>Q2. 4号建築物でも耐久性等関係規定は適用されますか？</h3>
+      <p>適用されます。小規模な木造建築物で構造計算が省略できる場合でも、地面から1m以内の防腐・防蟻措置、基礎の形式、木材の品質といった耐久性等関係規定は規模にかかわらず守る必要があります。</p>
+      <h3>Q3. 耐久性等関係規定にはどんな条文が含まれますか？</h3>
+      <p>施行令36条1項で列挙されており、37条（構造部材の耐久）、38条（基礎）、39条（屋根ふき材等の緊結）、41条（木材の品質）、49条（木造の防腐・防蟻）、72条・74条・75条（コンクリートの材料・強度・養生）、79条（かぶり厚さ）などが該当します。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/moment-seifu.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/moment-seifu.html",
    "datePublished": "2026-06-15",
-   "dateModified": "2026-07-02",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-moment-seifu.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "モーメントの正負はどちらを正にすべきですか？", "acceptedAnswer": {"@type": "Answer", "text": "どちらでも構いません。一般には反時計回りを正とすることが多いですが、時計回りを正としても最終的な答えの意味は変わりません。絶対のルールは「1つの計算の中で一貫させること」だけです。計算を始める前に紙の隅に決めた向きを書いておくと、ミスを防げます。"}},
+ {"@type": "Question", "name": "答えがマイナスになったら計算ミスですか？", "acceptedAnswer": {"@type": "Answer", "text": "いいえ。マイナスは「仮定した向きと逆向きに回っている」という意味であり、計算ミスではありません。そのまま「反時計回りを正としたので、実際は時計回りに◯kN·m」と読み替えれば正解です。"}},
+ {"@type": "Question", "name": "力のモーメントの正負と曲げモーメントの正負は同じですか？", "acceptedAnswer": {"@type": "Answer", "text": "違う約束事です。力のモーメントの正負は回転の向きを表す計算上の取り決めですが、曲げモーメントの正負は部材のどちら側が引張になるかを表します。RC造では曲げモーメントの符号が主筋を入れる位置に直結するため、物理的な意味を持ちます。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">構造力学の基礎</span>
         <span>公開日：2026年6月15日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>力のモーメントの正負｜公式とモーメントの和の例題</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -189,6 +196,60 @@
         <span class="label">あわせて読みたい</span>
         <p>「<a href="moment-muki.html">モーメントの向き</a>」「<a href="moment-tsuriai.html">モーメントのつり合い</a>」「<a href="kaiten-houkou.html">回転方向の覚え方</a>」「<a href="moment-tani-kansan.html">モーメントの単位換算</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="seifu-zu">正負の決め方（図解）</h2>
+      <figure class="diagram">
+        <svg viewBox="0 0 720 280" role="img" aria-label="モーメントの正負を時計回り・反時計回りで区別する図">
+          <title>モーメントの正負の決め方</title>
+          <rect x="0" y="0" width="720" height="280" fill="#ffffff"/>
+          <text x="360" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a3a5c">大切なのは「どちらを正にしたか」を最後まで変えないこと</text>
+          <g transform="translate(180,150)">
+            <circle cx="0" cy="0" r="8" fill="#1a3a5c"/>
+            <path d="M-62,0 A62,62 0 0,1 0,-62" fill="none" stroke="#2e7d4f" stroke-width="5"/>
+            <polygon points="0,-62 -12,-50 4,-44" fill="#2e7d4f"/>
+            <line x1="0" y1="0" x2="90" y2="0" stroke="#666" stroke-width="2" stroke-dasharray="5 4"/>
+            <line x1="90" y1="0" x2="90" y2="-56" stroke="#c0392b" stroke-width="5"/>
+            <polygon points="90,-64 80,-46 100,-46" fill="#c0392b"/>
+            <text x="0" y="96" text-anchor="middle" font-size="16" font-weight="bold" fill="#2e7d4f">反時計回り</text>
+          </g>
+          <g transform="translate(540,150)">
+            <circle cx="0" cy="0" r="8" fill="#1a3a5c"/>
+            <path d="M0,-62 A62,62 0 0,1 62,0" fill="none" stroke="#c0392b" stroke-width="5"/>
+            <polygon points="62,0 50,-12 44,4" fill="#c0392b"/>
+            <line x1="0" y1="0" x2="90" y2="0" stroke="#666" stroke-width="2" stroke-dasharray="5 4"/>
+            <line x1="90" y1="0" x2="90" y2="56" stroke="#c0392b" stroke-width="5"/>
+            <polygon points="90,64 80,46 100,46" fill="#c0392b"/>
+            <text x="0" y="96" text-anchor="middle" font-size="16" font-weight="bold" fill="#c0392b">時計回り</text>
+          </g>
+          <text x="180" y="122" text-anchor="middle" font-size="20" font-weight="bold" fill="#2e7d4f">＋</text>
+          <text x="540" y="122" text-anchor="middle" font-size="20" font-weight="bold" fill="#c0392b">−</text>
+          <rect x="60" y="222" width="600" height="46" rx="6" fill="#f4f7fa" stroke="#9fc0dd"/>
+          <text x="360" y="242" text-anchor="middle" font-size="13.5" fill="#1a3a5c">この図は「反時計回りを正」とした場合。逆に決めても答えは同じになる。</text>
+          <text x="360" y="262" text-anchor="middle" font-size="13" fill="#666">最初に決めた向きを、1つの計算の中で一貫させることだけが絶対のルール。</text>
+        </svg>
+        <figcaption>正負は「絶対の決まり」ではなく「自分で決める約束」。教科書によって反時計回りを正とするものと、時計回りを正とするものがある。</figcaption>
+      </figure>
+      <p>初学者がつまずくのは「どっちが正なのか」を暗記しようとするからです。実は<strong>どちらを正にしても構いません</strong>。反時計回りを正にすればモーメントの合計が＋10kN·mになる問題も、時計回りを正にすれば−10kN·mになるだけで、「反時計回りに10kN·m回そうとする」という物理的な意味は変わりません。混乱を避けるコツは、<strong>計算用紙の隅に「反時計＋」と書いてから始める</strong>ことです。</p>
+
+      <h2 id="magemoment-seifu">曲げモーメントの正負は別ルール</h2>
+      <p>ややこしいのは、<strong>力のモーメントの正負</strong>と<strong>曲げモーメントの正負</strong>がまったく違う約束事だという点です。</p>
+      <table class="data">
+        <tr><th></th><th>力のモーメント</th><th><a href="ouryoku.html">曲げモーメント</a></th></tr>
+        <tr><td>何を区別する？</td><td>回転させようとする<strong>向き</strong></td><td>部材の<strong>変形の向き（どちらが引張か）</strong></td></tr>
+        <tr><td>正の定義</td><td>反時計回り（慣用）</td><td>下に凸に曲がる（下側が引張）</td></tr>
+        <tr><td>符号を変えると</td><td>答えの符号が反転するだけ</td><td>引張側が逆になる＝配筋位置が変わる</td></tr>
+        <tr><td>実務での意味</td><td>計算過程での約束</td><td><strong>鉄筋を入れる位置に直結</strong></td></tr>
+      </table>
+      <p>RC造では、曲げモーメントの符号は<strong>「どちらに主筋を入れるか」</strong>という設計判断そのものです。単純梁の中央は下側が引張になるので下端に主筋を密に入れ、連続梁の支点上は上側が引張になるので上端に入れます。力のモーメントの正負が「計算上の便宜」であるのに対し、曲げモーメントの正負は<strong>物理的な意味を持つ</strong>——この違いを押さえておくと、混同しなくなります。</p>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. モーメントの正負はどちらを正にすべきですか？</h3>
+      <p>どちらでも構いません。一般には反時計回りを正とすることが多いですが、時計回りを正としても最終的な答えの意味は変わりません。絶対のルールは「1つの計算の中で一貫させること」だけです。計算を始める前に紙の隅に決めた向きを書いておくと、ミスを防げます。</p>
+      <h3>Q2. 答えがマイナスになったら計算ミスですか？</h3>
+      <p>いいえ。マイナスは「仮定した向きと逆向きに回っている」という意味であり、計算ミスではありません。そのまま「反時計回りを正としたので、実際は時計回りに◯kN·m」と読み替えれば正解です。</p>
+      <h3>Q3. 力のモーメントの正負と曲げモーメントの正負は同じですか？</h3>
+      <p>違う約束事です。力のモーメントの正負は回転の向きを表す計算上の取り決めですが、曲げモーメントの正負は部材のどちら側が引張になるかを表します。RC造では曲げモーメントの符号が主筋を入れる位置に直結するため、物理的な意味を持ちます。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

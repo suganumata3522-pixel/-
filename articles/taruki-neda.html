@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/taruki-neda.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/taruki-neda.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-06-14",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-taruki-neda.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "垂木と根太の違いは何ですか？", "acceptedAnswer": {"@type": "Answer", "text": "使う場所が違います。垂木は屋根で、母屋の上に斜めに並べて野地板を受けます。根太は床で、大引や梁の上に水平に並べて床板を受けます。どちらも「細い材を一定間隔で並べて面材を受ける」という役割は共通ですが、屋根用か床用かで呼び名が変わります。"}},
+ {"@type": "Question", "name": "垂木の間隔はなぜ455mmが多いのですか？", "acceptedAnswer": {"@type": "Answer", "text": "構造用合板が910×1,820mmで流通しているためです。455mm間隔なら合板の910mm幅がちょうど3本の垂木にかかり、継ぎ目が必ず垂木の上に載ります。材料寸法に合わせることで、切り無駄がなく、留め付けも確実になります。"}},
+ {"@type": "Question", "name": "胴縁は構造材ではないのですか？", "acceptedAnswer": {"@type": "Answer", "text": "原則として下地材です。外壁の仕上げ材を留めるためのもので、建物の重さや地震力は負担しません。ただし外壁材の風圧力は胴縁を経由して構造体に伝わるため、風圧に対する留め付けの検討は必要です。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">木造（W造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>垂木と根太の違い｜役割・寸法・配置・胴縁との違い</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -187,6 +194,72 @@
         <span class="label">あわせて読みたい</span>
         <p>「<a href="oobiki-neda.html">大引と根太の違い</a>」「<a href="wagoya.html">和小屋</a>」「<a href="yukagumi.html">床組</a>」「<a href="suihei-koumen.html">水平構面</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="ichi-zu">垂木・根太・胴縁の位置関係（図解）</h2>
+      <figure class="diagram">
+        <svg viewBox="0 0 740 300" role="img" aria-label="垂木は屋根、根太は床、胴縁は壁に使われることを示す図">
+          <title>垂木・根太・胴縁の使われる場所</title>
+          <rect x="0" y="0" width="740" height="300" fill="#ffffff"/>
+          <text x="370" y="26" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a3a5c">同じ「細かく並ぶ下地材」でも、使う場所が違う</text>
+          <g transform="translate(150,50)">
+            <path d="M0,120 L220,120 L220,40 L110,-10 L0,40 Z" fill="#fafafa" stroke="#ccc" stroke-width="2"/>
+            <g stroke="#c0392b" stroke-width="5">
+              <line x1="20" y1="36" x2="26" y2="14"/><line x1="50" y1="22" x2="56" y2="0"/>
+              <line x1="80" y1="8" x2="86" y2="-14"/>
+              <line x1="140" y1="-14" x2="146" y2="8"/><line x1="170" y1="0" x2="176" y2="22"/>
+              <line x1="200" y1="14" x2="206" y2="36"/>
+            </g>
+            <g stroke="#2e7d4f" stroke-width="5">
+              <line x1="4" y1="60" x2="4" y2="118"/><line x1="30" y1="52" x2="30" y2="118"/>
+              <line x1="190" y1="52" x2="190" y2="118"/><line x1="216" y1="60" x2="216" y2="118"/>
+            </g>
+            <g stroke="#1a3a5c" stroke-width="5">
+              <line x1="40" y1="112" x2="180" y2="112"/>
+              <line x1="40" y1="98" x2="180" y2="98"/>
+            </g>
+          </g>
+          <g font-size="14">
+            <rect x="440" y="66" width="18" height="18" fill="#c0392b"/>
+            <text x="468" y="80" font-weight="bold" fill="#c0392b">垂木</text>
+            <text x="520" y="80" fill="#333">… 屋根。母屋の上に斜めに並べる</text>
+            <rect x="440" y="106" width="18" height="18" fill="#1a3a5c"/>
+            <text x="468" y="120" font-weight="bold" fill="#1a3a5c">根太</text>
+            <text x="520" y="120" fill="#333">… 床。水平に並べて床板を受ける</text>
+            <rect x="440" y="146" width="18" height="18" fill="#2e7d4f"/>
+            <text x="468" y="160" font-weight="bold" fill="#2e7d4f">胴縁</text>
+            <text x="520" y="160" fill="#333">… 壁。仕上げ材の下地</text>
+          </g>
+          <rect x="60" y="216" width="620" height="72" rx="6" fill="#f4f7fa" stroke="#9fc0dd"/>
+          <text x="80" y="240" font-size="13.5" fill="#1a3a5c">共通点：どれも「細い材を一定間隔で並べて面材を受ける」二次部材。</text>
+          <text x="80" y="262" font-size="13.5" fill="#1a3a5c">違い：垂木と根太は<tspan font-weight="bold">構造材（荷重を支える）</tspan>、胴縁は原則<tspan font-weight="bold">下地材</tspan>。</text>
+          <text x="80" y="282" font-size="13" fill="#666">胴縁は仕上げを留めるためのもので、建物の重さや地震力は負担しない。</text>
+        </svg>
+        <figcaption>3つとも「細かく並ぶ材」だが、屋根・床・壁と役割が分かれている。構造材か下地材かの区別も重要。</figcaption>
+      </figure>
+
+      <h2 id="taruki-sunpou">垂木の寸法と間隔の決め方</h2>
+      <p>垂木の断面は、<strong>①屋根の重さ（瓦かガルバリウムか）②積雪量 ③母屋の間隔（＝垂木のスパン）</strong>の3つで決まります。</p>
+      <table class="data">
+        <tr><th>条件</th><th>垂木の断面</th><th>間隔</th><th>備考</th></tr>
+        <tr><td>金属屋根・一般地域</td><td>45×60mm</td><td>@455mm</td><td>もっとも一般的</td></tr>
+        <tr><td>瓦屋根・一般地域</td><td>45×75〜45×90mm</td><td>@455mm</td><td>屋根が重いぶん断面増</td></tr>
+        <tr><td>多雪区域（積雪1m）</td><td>45×105mm以上</td><td>@303〜455mm</td><td>積雪荷重が支配的になる</td></tr>
+        <tr><td>母屋間隔が広い（1,820mm）</td><td>45×105mm程度</td><td>@455mm</td><td>スパンに応じて断面増</td></tr>
+      </table>
+      <p>垂木の間隔が455mmに集中しているのは、野地板（構造用合板）が910×1,820mmで流通しているためです。455mm間隔なら合板の910mm幅がちょうど3本の垂木にかかり、継ぎ目が必ず垂木の上にきます。<strong>材料の寸法が部材の間隔を決めている</strong>という、木造ならではの合理性です。</p>
+      <div class="point-box">
+        <span class="label">垂木は「吹き上げ」で決まることもある</span>
+        <p>垂木というと「屋根の重さを支える材」と思われがちですが、台風時に問題になるのは逆向きの力——<strong>風による吹き上げ（負圧）</strong>です。屋根の上を風が流れると揚力が生じ、屋根を持ち上げようとします。とくに軒先や棟、けらば（妻側の端部）では負圧が大きくなります。<br>このため垂木と母屋の接合には<strong>ひねり金物</strong>を必ず使います。釘打ちだけでは引き抜きに抵抗できず、台風で屋根が飛ぶ原因になります。断面計算だけでなく、<strong>接合部の引き抜き対策</strong>が垂木の設計では同じくらい重要です。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 垂木と根太の違いは何ですか？</h3>
+      <p>使う場所が違います。垂木は屋根で、母屋の上に斜めに並べて野地板を受けます。根太は床で、大引や梁の上に水平に並べて床板を受けます。どちらも「細い材を一定間隔で並べて面材を受ける」という役割は共通ですが、屋根用か床用かで呼び名が変わります。</p>
+      <h3>Q2. 垂木の間隔はなぜ455mmが多いのですか？</h3>
+      <p>構造用合板が910×1,820mmで流通しているためです。455mm間隔なら合板の910mm幅がちょうど3本の垂木にかかり、継ぎ目が必ず垂木の上に載ります。材料寸法に合わせることで、切り無駄がなく、留め付けも確実になります。</p>
+      <h3>Q3. 胴縁は構造材ではないのですか？</h3>
+      <p>原則として下地材です。外壁の仕上げ材を留めるためのもので、建物の重さや地震力は負担しません。ただし外壁材の風圧力は胴縁を経由して構造体に伝わるため、風圧に対する留め付けの検討は必要です。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

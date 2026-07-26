@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/katakou-yomikata.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/katakou-yomikata.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-katakou-yomikata.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "なぜ形鋼はアルファベットの記号で表すのですか？", "acceptedAnswer": {"@type": "Answer", "text": "断面を正面から見た形が、そのままアルファベットの形に見えるためです。H形鋼はH、山形鋼はL、溝形鋼は[（角括弧）、角形鋼管は□。形と記号が一致しているので、図面上で一目で断面の種類がわかります。"}},
+ {"@type": "Question", "name": "H-400×200と書かれていて板厚がありません。どう読めばよいですか？", "acceptedAnswer": {"@type": "Answer", "text": "標準品ではサイズごとに板厚が決まっているため、板厚を省略した略記です。H-400×200であればウェブ厚8mm・フランジ厚13mmを指します。正式な図面や発注では、H-400×200×8×13のように4つとも明記するのが原則です。"}},
+ {"@type": "Question", "name": "L-75×75×6の数字は何を表していますか？", "acceptedAnswer": {"@type": "Answer", "text": "順に「辺の長さ75mm × もう一方の辺の長さ75mm × 板厚6mm」です。両辺が同じ長さのものを等辺山形鋼、L-100×75×7のように異なるものを不等辺山形鋼と呼びます。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">鉄骨造（S造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>形鋼の読み方｜H形鋼・山形鋼・C形鋼の表記</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -186,6 +193,52 @@
         <span class="label">あわせて読みたい</span>
         <p>形鋼の全体像は「<a href="katakou.html">形鋼とは</a>」、薄板の形鋼は「<a href="keiryou-katakou.html">軽量形鋼</a>」、梁サイズの目安は「<a href="hari-sunpou.html">梁の寸法</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="ichiran">形鋼の記号と読み方の早見表</h2>
+      <table class="data">
+        <tr><th>記号</th><th>名称（通称）</th><th>表記例</th><th>数字の意味</th></tr>
+        <tr><td><strong>H</strong></td><td><a href="h-katako.html">H形鋼</a></td><td>H-400×200×8×13</td><td>せい×幅×ウェブ厚×フランジ厚</td></tr>
+        <tr><td>I</td><td>I形鋼</td><td>I-300×130×10×18</td><td>同上（フランジ内面が傾斜）</td></tr>
+        <tr><td><strong>L</strong></td><td>山形鋼（アングル）</td><td>L-75×75×6</td><td>辺長×辺長×板厚</td></tr>
+        <tr><td><strong>[</strong> または C</td><td>溝形鋼（チャンネル）</td><td>[-150×75×6.5×10</td><td>せい×幅×ウェブ厚×フランジ厚</td></tr>
+        <tr><td>C</td><td>リップ溝形鋼（Cチャン）</td><td>C-100×50×20×2.3</td><td>せい×幅×リップ×板厚</td></tr>
+        <tr><td>T</td><td>T形鋼（カットティー）</td><td>T-200×200×8×12</td><td>H形鋼を半割りした寸法</td></tr>
+        <tr><td>□ / □-</td><td>角形鋼管</td><td>□-200×200×9</td><td>せい×幅×板厚</td></tr>
+        <tr><td>○ / φ</td><td>円形鋼管</td><td>φ-216.3×8</td><td>外径×板厚</td></tr>
+        <tr><td>PL</td><td>鋼板（プレート）</td><td>PL-9</td><td>板厚</td></tr>
+        <tr><td>FB</td><td>平鋼（フラットバー）</td><td>FB-50×9</td><td>幅×板厚</td></tr>
+      </table>
+      <p>共通するルールは<strong>「大きい寸法（外形）→ 小さい寸法（板厚）」の順に書く</strong>ことです。この原則さえ押さえておけば、初めて見る記号でも数字の意味はだいたい推測できます。</p>
+
+      <h2 id="kigou-zu">記号の由来を知ると忘れない</h2>
+      <figure class="diagram">
+        <svg viewBox="0 0 720 220" role="img" aria-label="形鋼の記号が断面形状の見た目に由来することを示す図">
+          <title>形鋼の記号は断面の形そのもの</title>
+          <rect x="0" y="0" width="720" height="220" fill="#ffffff"/>
+          <text x="360" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a3a5c">記号は「断面の見た目」そのもの</text>
+          <g fill="#9fc0dd">
+            <rect x="60" y="60" width="80" height="12"/><rect x="94" y="72" width="12" height="60"/><rect x="60" y="132" width="80" height="12"/>
+            <rect x="240" y="60" width="12" height="84"/><rect x="240" y="132" width="70" height="12"/>
+            <rect x="420" y="60" width="70" height="12"/><rect x="420" y="72" width="12" height="60"/><rect x="420" y="132" width="70" height="12"/>
+            <rect x="600" y="60" width="80" height="84" fill="none" stroke="#9fc0dd" stroke-width="12"/>
+          </g>
+          <g font-size="40" font-weight="bold" fill="#e8843c" text-anchor="middle">
+            <text x="100" y="188">H</text>
+            <text x="270" y="188">L</text>
+            <text x="450" y="188">[</text>
+            <text x="640" y="188">□</text>
+          </g>
+          <g font-size="12.5" fill="#666" text-anchor="middle">
+            <text x="100" y="210">H形鋼</text>
+            <text x="270" y="210">山形鋼</text>
+            <text x="450" y="210">溝形鋼</text>
+            <text x="640" y="210">角形鋼管</text>
+          </g>
+        </svg>
+        <figcaption>H・L・[・□はすべて断面をそのまま文字にしたもの。丸暗記するより「形を見れば記号がわかる」と考えたほうが確実。</figcaption>
+      </figure>
+      <p>形鋼の記号は、断面を正面から見た形をそのままアルファベットや記号に置き換えたものです。Hは上下2枚のフランジと中央のウェブ、Lは直角に曲がった2枚の板、[は片側だけ開いた溝、□は閉じた四角。記号を暗記するのではなく、<strong>形を思い浮かべれば記号が出てくる</strong>という順番で覚えると、実務でも試験でも忘れません。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

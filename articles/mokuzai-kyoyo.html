@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/mokuzai-kyoyo.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/mokuzai-kyoyo.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-mokuzai-kyoyo.jpg",
    "author": {
     "@type": "Person",
@@ -114,7 +114,7 @@
       <div class="meta">
         <span class="tag">木造（W造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>木材の許容応力度｜基準強度と長期・短期の計算</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -197,6 +197,72 @@
         <span class="label">実務のワンポイント</span>
         <p>木造の許容応力度計算をチェックするとき、無等級材の数値をそのまま使っている図面に出会うことがあります。プレカット材や機械等級区分材を使う設計では、割増しできる余地がないか確認するだけで断面に無理のない設計になることがあります。</p>
       </div>
+
+      <h2 id="keisan-flow">許容応力度を求める流れ（図解）</h2>
+      <figure class="diagram">
+        <svg viewBox="0 0 740 300" role="img" aria-label="木材の基準強度から長期・短期の許容応力度を求める流れの図">
+          <title>木材の許容応力度の求め方</title>
+          <rect x="0" y="0" width="740" height="300" fill="#ffffff"/>
+          <text x="370" y="28" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a3a5c">基準強度Fに「係数」を掛けるだけ</text>
+          <rect x="40" y="52" width="170" height="70" rx="8" fill="#1a3a5c"/>
+          <text x="125" y="78" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">基準強度 F</text>
+          <text x="125" y="100" text-anchor="middle" font-size="12" fill="#cfe0ee">樹種・等級で決まる</text>
+          <text x="125" y="116" text-anchor="middle" font-size="12" fill="#cfe0ee">例：スギ Fb＝22.2</text>
+          <g stroke="#666" stroke-width="2" fill="none">
+            <path d="M212,74 L250,74"/><polygon points="256,74 244,68 244,80" fill="#666"/>
+            <path d="M212,102 L250,102"/><polygon points="256,102 244,96 244,108" fill="#666"/>
+          </g>
+          <rect x="258" y="46" width="200" height="48" rx="8" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2"/>
+          <text x="358" y="66" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a3a5c">長期 ＝ F × 1.1/3</text>
+          <text x="358" y="85" text-anchor="middle" font-size="12" fill="#666">（常時の荷重に対して）</text>
+          <rect x="258" y="102" width="200" height="48" rx="8" fill="#fdf6f0" stroke="#e8843c" stroke-width="2"/>
+          <text x="358" y="122" text-anchor="middle" font-size="14" font-weight="bold" fill="#e8843c">短期 ＝ F × 2/3</text>
+          <text x="358" y="141" text-anchor="middle" font-size="12" fill="#666">（地震・暴風に対して）</text>
+          <g stroke="#666" stroke-width="2" fill="none">
+            <path d="M460,70 L498,70"/><polygon points="504,70 492,64 492,76" fill="#666"/>
+            <path d="M460,126 L498,126"/><polygon points="504,126 492,120 492,132" fill="#666"/>
+          </g>
+          <rect x="506" y="46" width="200" height="48" rx="8" fill="#1a3a5c"/>
+          <text x="606" y="66" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">f ＝ 8.14 N/mm²</text>
+          <text x="606" y="85" text-anchor="middle" font-size="12" fill="#cfe0ee">22.2 × 1.1 ÷ 3</text>
+          <rect x="506" y="102" width="200" height="48" rx="8" fill="#e8843c"/>
+          <text x="606" y="122" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">f ＝ 14.8 N/mm²</text>
+          <text x="606" y="141" text-anchor="middle" font-size="12" fill="#fdeadb">22.2 × 2 ÷ 3</text>
+          <rect x="40" y="176" width="666" height="112" rx="6" fill="#f4f7fa" stroke="#9fc0dd"/>
+          <text x="60" y="200" font-size="13.5" font-weight="bold" fill="#1a3a5c">なぜ長期は1/3近くまで下げるのか</text>
+          <text x="60" y="224" font-size="13" fill="#333">・木材は長期間力がかかり続けると、同じ荷重でもじわじわ変形が進む（クリープ）</text>
+          <text x="60" y="246" font-size="13" fill="#333">・自然素材なので個体差が大きく、含水率・節・目切れの影響を受ける</text>
+          <text x="60" y="268" font-size="13" fill="#333">・地震のような短時間の力に対しては、この心配が小さいので2/3まで使える</text>
+        </svg>
+        <figcaption>鋼材の許容応力度が長期F/1.5・短期Fであるのに対し、木材は長期F×1.1/3と大きく低減される。木材特有のクリープと個体差を見込んだ安全率。</figcaption>
+      </figure>
+
+      <h2 id="juushu-hyou">主な樹種・等級の基準強度</h2>
+      <table class="data">
+        <tr><th>樹種・等級</th><th>Fc（圧縮）</th><th>Ft（引張）</th><th>Fb（曲げ）</th><th>Fs（せん断）</th></tr>
+        <tr><td>スギ（無等級材）</td><td>17.7</td><td>13.5</td><td>22.2</td><td>1.8</td></tr>
+        <tr><td>ヒノキ（無等級材）</td><td>20.7</td><td>16.2</td><td>26.7</td><td>2.1</td></tr>
+        <tr><td>ベイマツ（無等級材）</td><td>22.2</td><td>17.7</td><td>28.2</td><td>2.4</td></tr>
+        <tr><td>カラマツ（無等級材）</td><td>20.7</td><td>16.2</td><td>26.7</td><td>2.1</td></tr>
+        <tr><td>集成材（E105-F300）</td><td>27.0</td><td>20.4</td><td>30.0</td><td>3.0</td></tr>
+        <tr><td>集成材（E120-F330）</td><td>30.6</td><td>23.4</td><td>33.0</td><td>3.6</td></tr>
+      </table>
+      <p>単位はすべてN/mm²です。表からわかるのは、<strong>せん断強度Fsが極端に小さい</strong>ということ。曲げ強度の1/10程度しかありません。木は繊維の束なので、繊維に沿って裂ける方向にはとても弱いのです。梁の端部（せん断力が最大の位置）に大きな欠き込みを入れてはいけない、というのはこの性質が理由です。</p>
+
+      <h2 id="teigen-youin">許容応力度を下げる要因</h2>
+      <table class="data">
+        <tr><th>要因</th><th>低減の考え方</th><th>実務での扱い</th></tr>
+        <tr><td>積雪時（多雪区域）</td><td>長期と短期の中間の係数を使う</td><td>長期×1.3程度（積雪の継続期間による）</td></tr>
+        <tr><td>高含水率（未乾燥材）</td><td>強度が大きく低下</td><td>使用時の含水率が20％を超える場合は低減</td></tr>
+        <tr><td>高温環境</td><td>常時50℃を超えると低下</td><td>特殊な用途以外はあまり問題にならない</td></tr>
+        <tr><td>細長い柱（座屈）</td><td>座屈長さ比λに応じて低減</td><td>λ＝ℓk/i で判定し、座屈低減係数ηを乗じる</td></tr>
+        <tr><td>接合部の欠損</td><td>ボルト孔・ホゾ穴の分だけ有効断面が減る</td><td>有効断面積で応力度を計算する</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">木材の設計は「接合部で決まる」</span>
+        <p>木材そのものの許容応力度を丁寧に計算しても、実際の木造住宅で耐力を決めるのは、多くの場合<strong>接合部（仕口・継手・金物）</strong>です。木は繊維方向には強いのに、繊維に直交する方向（めり込み）と繊維方向のせん断には弱いという性質があり、力を受け渡す接合部ではまさにその弱い方向に力がかかるためです。<br>だから木造の構造設計では、部材断面の検討と同じかそれ以上に、<strong>接合部の金物選定と配置</strong>が重要になります。「柱を太くしたのに接合部が同じ」では、建物の耐力はほとんど上がりません。</p>
+      </div>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>
