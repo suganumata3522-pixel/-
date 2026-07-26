@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/juushin-moment.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/juushin-moment.html",
    "datePublished": "2026-06-15",
-   "dateModified": "2026-07-02",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-juushin-moment.jpg",
    "author": {
     "@type": "Person",
@@ -114,7 +114,7 @@
       <div class="meta">
         <span class="tag">構造力学の基礎</span>
         <span>公開日：2026年6月15日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>モーメントのつりあいから重心を求める計算方法</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -189,6 +189,56 @@
         <span class="label">実務のワンポイント</span>
         <p>重心の計算問題は試験だと数値がきれいに割り切れますが、実務の建物では階ごとの重さの分布が複雑で、簡単には求まりません。偏心率の検討では、この地道な集計作業の精度がそのまま結果の信頼性を左右します。</p>
       </div>
+
+      <h2 id="zushin-zu">L形断面の図心を求める（図解）</h2>
+      <figure class="diagram">
+        <svg viewBox="0 0 720 300" role="img" aria-label="L形断面を2つの長方形に分けて図心を求める図">
+          <title>L形断面の図心の求め方</title>
+          <rect x="0" y="0" width="720" height="300" fill="#ffffff"/>
+          <text x="360" y="28" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a3a5c">複雑な形は「単純な長方形の集まり」に分けて考える</text>
+          <g transform="translate(120,55)">
+            <rect x="0" y="0" width="40" height="160" fill="#9fc0dd" stroke="#1a3a5c" stroke-width="2"/>
+            <rect x="40" y="120" width="120" height="40" fill="#e8843c" fill-opacity="0.45" stroke="#e8843c" stroke-width="2"/>
+            <text x="20" y="66" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a3a5c">A₁</text>
+            <text x="100" y="146" text-anchor="middle" font-size="14" font-weight="bold" fill="#8a4b16">A₂</text>
+            <circle cx="20" cy="80" r="5" fill="#1a3a5c"/>
+            <circle cx="100" cy="140" r="5" fill="#e8843c"/>
+            <line x1="-24" y1="160" x2="180" y2="160" stroke="#666" stroke-width="1.5"/>
+            <line x1="0" y1="184" x2="0" y2="-20" stroke="#666" stroke-width="1.5"/>
+            <text x="-30" y="180" font-size="13" fill="#666">O</text>
+            <text x="80" y="192" text-anchor="middle" font-size="12" fill="#666">x</text>
+            <text x="-16" y="-10" font-size="12" fill="#666">y</text>
+          </g>
+          <g font-size="13.5" fill="#333">
+            <text x="360" y="70" font-weight="bold" fill="#1a3a5c">① 2つの長方形に分ける</text>
+            <text x="376" y="92">A₁ ＝ 40×160 ＝ 6,400mm²（重心 x₁＝20）</text>
+            <text x="376" y="112">A₂ ＝ 120×40 ＝ 4,800mm²（重心 x₂＝100）</text>
+            <text x="360" y="146" font-weight="bold" fill="#1a3a5c">② 面積×距離の合計を面積の合計で割る</text>
+          </g>
+          <rect x="360" y="158" width="330" height="52" rx="6" fill="#f4f7fa" stroke="#9fc0dd"/>
+          <text x="376" y="182" font-size="14" fill="#1a3a5c">x̄ ＝ (A₁x₁ ＋ A₂x₂) / (A₁ ＋ A₂)</text>
+          <text x="376" y="202" font-size="14" fill="#1a3a5c">　＝ (6,400×20 ＋ 4,800×100) / 11,200</text>
+          <rect x="360" y="220" width="330" height="34" rx="6" fill="#fdf6f0" stroke="#e8843c" stroke-width="2"/>
+          <text x="525" y="243" text-anchor="middle" font-size="16" font-weight="bold" fill="#e8843c">x̄ ≒ 54.3 mm</text>
+          <text x="360" y="278" font-size="12.5" fill="#666">y方向も同じ手順。分けた図形の重心位置さえ分かれば計算できる。</text>
+        </svg>
+        <figcaption>面積を「重さ」に置き換えれば、重心の計算とまったく同じ式で図心が求まる。分割した各図形の重心が既知であることがポイント。</figcaption>
+      </figure>
+
+      <h2 id="jitsumu-basho">この計算が実務のどこで効くか</h2>
+      <table class="data">
+        <tr><th>場面</th><th>何を求めるか</th><th>その先に使うもの</th></tr>
+        <tr><td>T形・L形断面の設計</td><td>断面の図心位置</td><td><a href="danmen-niji-moment.html">断面二次モーメント</a>（平行軸の定理の基準）</td></tr>
+        <tr><td>建物の重心</td><td>各階の質量中心</td><td>地震力の作用位置、<a href="ichiji-sekkei.html">偏心率</a></td></tr>
+        <tr><td>剛心の算定</td><td>耐力壁の剛性の中心</td><td>重心とのずれ＝偏心距離</td></tr>
+        <tr><td>基礎の設計</td><td>建物荷重の合力位置</td><td>接地圧の分布、偏心基礎の検討</td></tr>
+        <tr><td>不整形な床の設計</td><td>床の重心</td><td>スラブの支持条件と応力</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">「引き算」で解くテクニック</span>
+        <p>中空の断面（箱型・中に穴のあるもの）では、<strong>穴の面積をマイナスの面積として扱う</strong>と一気に楽になります。たとえば200×300の長方形の中央に100×100の穴がある断面なら、A₁＝＋60,000mm²（外形）、A₂＝−10,000mm²（穴）として同じ式に代入するだけです。対称な形なら図心は中央のままですが、穴が偏っている場合はこの方法でずれを正確に求められます。<br>この「足りない部分をマイナスで足す」という発想は、<a href="hakogata-danmen.html">箱型断面の断面二次モーメント</a>でも同じように使われます。</p>
+      </div>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/bending-tani-kansan.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/bending-tani-kansan.html",
    "datePublished": "2026-06-15",
-   "dateModified": "2026-07-02",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-bending-tani-kansan.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "kN·mからN·mmへの換算はなぜ100万倍になるのですか？", "acceptedAnswer": {"@type": "Answer", "text": "力の換算（kN→Nで1,000倍）と距離の換算（m→mmで1,000倍）が掛け合わさるためです。1,000×1,000＝1,000,000で10⁶倍になります。「6桁ずらす」と覚えると素早く換算できます。"}},
+ {"@type": "Question", "name": "断面係数がcm³で書かれています。どう直せばよいですか？", "acceptedAnswer": {"@type": "Answer", "text": "1cm³＝10³mm³（1,000mm³）なので1,000倍します。長さの換算（1cm＝10mm）につられて10倍にする間違いが多いので注意してください。断面二次モーメントは1cm⁴＝10⁴mm⁴（10,000倍）です。体積は3乗、断面二次モーメントは4乗で換算する、と覚えます。"}},
+ {"@type": "Question", "name": "単位換算ミスに気づくコツはありますか？", "acceptedAnswer": {"@type": "Answer", "text": "答えのオーダー（桁）を常識値と比べることです。鋼材の曲げ応力度は数十〜200N/mm²、検定比は0.3〜0.95が普通の範囲です。0.0001や500といった値が出たら、計算式ではなく単位換算を疑ってください。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">構造力学の基礎</span>
         <span>公開日：2026年6月15日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>曲げモーメントの単位換算と構造設計での使い分け</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -184,6 +191,82 @@
         <span class="label">あわせて読みたい</span>
         <p>「<a href="moment-tani-kansan.html">モーメントの単位換算</a>」「<a href="danmen-keisu.html">断面係数（σ＝M/Z）</a>」「<a href="h-danmen-keisu.html">H形鋼の断面係数</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="flow">構造計算書の中で単位はこう流れる（図解）</h2>
+      <figure class="diagram">
+        <svg viewBox="0 0 740 330" role="img" aria-label="構造計算の各工程で使われる単位の流れを示す図">
+          <title>構造計算の工程ごとの単位</title>
+          <rect x="0" y="0" width="740" height="330" fill="#ffffff"/>
+          <text x="370" y="28" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a3a5c">「入口はkN系、断面算定でmm系に切り替える」が計算書の流れ</text>
+          <g font-size="13">
+            <rect x="40" y="50" width="140" height="58" rx="7" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2"/>
+            <text x="110" y="72" text-anchor="middle" font-weight="bold" fill="#1a3a5c">① 荷重拾い</text>
+            <text x="110" y="94" text-anchor="middle" fill="#c0392b">kN/m²、kN/m</text>
+            <rect x="205" y="50" width="140" height="58" rx="7" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2"/>
+            <text x="275" y="72" text-anchor="middle" font-weight="bold" fill="#1a3a5c">② 応力解析</text>
+            <text x="275" y="94" text-anchor="middle" fill="#c0392b">kN、kN·m</text>
+            <rect x="370" y="50" width="140" height="58" rx="7" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2"/>
+            <text x="440" y="72" text-anchor="middle" font-weight="bold" fill="#1a3a5c">③ 応力図（M図）</text>
+            <text x="440" y="94" text-anchor="middle" fill="#c0392b">kN·m</text>
+            <rect x="535" y="50" width="165" height="58" rx="7" fill="#fdf6f0" stroke="#e8843c" stroke-width="3"/>
+            <text x="617" y="72" text-anchor="middle" font-weight="bold" fill="#e8843c">④ 単位換算</text>
+            <text x="617" y="94" text-anchor="middle" fill="#e8843c">kN·m → N·mm</text>
+          </g>
+          <g stroke="#1a3a5c" stroke-width="2" fill="none">
+            <line x1="182" y1="79" x2="200" y2="79"/><polygon points="205,79 195,73 195,85" fill="#1a3a5c"/>
+            <line x1="347" y1="79" x2="365" y2="79"/><polygon points="370,79 360,73 360,85" fill="#1a3a5c"/>
+            <line x1="512" y1="79" x2="530" y2="79"/><polygon points="535,79 525,73 525,85" fill="#e8843c"/>
+            <line x1="617" y1="110" x2="617" y2="136"/><polygon points="617,142 610,128 624,128" fill="#e8843c"/>
+          </g>
+          <g font-size="13">
+            <rect x="535" y="146" width="165" height="58" rx="7" fill="#fdf6f0" stroke="#e8843c" stroke-width="2"/>
+            <text x="617" y="168" text-anchor="middle" font-weight="bold" fill="#e8843c">⑤ 断面性能を拾う</text>
+            <text x="617" y="190" text-anchor="middle" fill="#c0392b">Z：cm³ → mm³</text>
+            <rect x="330" y="146" width="165" height="58" rx="7" fill="#fdf6f0" stroke="#e8843c" stroke-width="2"/>
+            <text x="412" y="168" text-anchor="middle" font-weight="bold" fill="#e8843c">⑥ 応力度 σ＝M/Z</text>
+            <text x="412" y="190" text-anchor="middle" fill="#c0392b">N/mm²</text>
+            <rect x="125" y="146" width="165" height="58" rx="7" fill="#eef8f2" stroke="#2e7d4f" stroke-width="2"/>
+            <text x="207" y="168" text-anchor="middle" font-weight="bold" fill="#2e7d4f">⑦ 検定 σ/f ≦ 1.0</text>
+            <text x="207" y="190" text-anchor="middle" fill="#2e7d4f">単位なし（比）</text>
+          </g>
+          <g stroke="#e8843c" stroke-width="2" fill="none">
+            <line x1="532" y1="175" x2="500" y2="175"/><polygon points="495,175 505,169 505,181" fill="#e8843c"/>
+            <line x1="327" y1="175" x2="295" y2="175"/><polygon points="290,175 300,169 300,181" fill="#2e7d4f"/>
+          </g>
+          <rect x="40" y="228" width="660" height="88" rx="6" fill="#f4f7fa" stroke="#9fc0dd"/>
+          <text x="60" y="252" font-size="13.5" fill="#1a3a5c">④が単位系の切り替え点。ここを飛ばすと、以降の数値がすべて10⁶倍ずれる。</text>
+          <text x="60" y="276" font-size="13.5" fill="#1a3a5c">⑤も要注意。断面性能表はcm系で書かれているので、mm系への換算が必要。</text>
+          <text x="60" y="300" font-size="13.5" fill="#c0392b">→ 単位が変わるのは④と⑤の2か所だけ。ここさえ守れば桁ミスは起きない。</text>
+        </svg>
+        <figcaption>構造計算書全体を通して、単位が切り替わる場所は限られている。その2か所を意識すればチェックの効率が上がる。</figcaption>
+      </figure>
+
+      <h2 id="tsuranuki-rei">検定比まで通した計算例</h2>
+      <p>実際の断面算定で、単位がどこでどう変わるかを1つの例で追いかけます。梁：H-400×200×8×13（SN400B）、長期荷重による曲げモーメント M＝100kN·m の場合です。</p>
+      <div class="formula">
+        <strong>③ 応力図から</strong>　M ＝ 100 kN·m<br>
+        <strong>④ 単位換算</strong>　M ＝ 100 × 10⁶ ＝ 1.00×10⁸ N·mm<br>
+        <strong>⑤ 断面性能表から</strong>　Z<sub>x</sub> ＝ 1,190 cm³ ＝ 1,190 × 10³ ＝ 1.19×10⁶ mm³<br>
+        <strong>⑥ 曲げ応力度</strong>　σ ＝ M / Z ＝ 1.00×10⁸ / 1.19×10⁶ ≒ <strong>84.0 N/mm²</strong><br>
+        <strong>⑦ 検定</strong>　長期許容曲げ応力度 f<sub>b</sub> ＝ F/1.5 ＝ 235/1.5 ≒ 156.7 N/mm²<br>
+        　　　　σ / f<sub>b</sub> ＝ 84.0 / 156.7 ≒ <strong>0.54 ≦ 1.0 → OK</strong>
+      </div>
+      <p>もし④の換算を忘れて M＝100（kN·m のまま）で計算すると、σ ＝ 100 / 1.19×10⁶ ＝ 0.000084 N/mm² となり、検定比は0.0000005。<strong>「異常に安全」な答え</strong>が出ます。逆に⑤でZをcm³のまま使うと σ ＝ 1.00×10⁸/1,190 ＝ 84,034N/mm² となり、検定比は536。<strong>「異常に危険」な答え</strong>です。どちらも常識の範囲から大きく外れるので、答えの桁を見た瞬間に気づけます。</p>
+
+      <h2 id="cad-soft">一貫計算プログラムを使う場合の注意</h2>
+      <div class="point-box">
+        <span class="label">ソフトが自動でやってくれても、確認は人の仕事</span>
+        <p>一貫構造計算プログラムは内部で単位を統一して処理するため、通常は換算ミスが起こりません。問題は<strong>ソフトの外</strong>で発生します。手計算で追加検討した結果を入力するとき、Excelの補助シートから数値を転記するとき、既存不適格建物の旧図（tf·m系）の数値を入力するとき——ここで桁が飛びます。<br>実務では、①入力値の単位をプログラムの入力画面で必ず確認する、②Excelシートの列見出しに単位を必ず書く、③出力された応力度・検定比のオーダーを常識値と照合する、の3点を習慣にしておくと事故を防げます。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. kN·mからN·mmへの換算はなぜ100万倍になるのですか？</h3>
+      <p>力の換算（kN→Nで1,000倍）と距離の換算（m→mmで1,000倍）が掛け合わさるためです。1,000×1,000＝1,000,000で10⁶倍になります。「6桁ずらす」と覚えると素早く換算できます。</p>
+      <h3>Q2. 断面係数がcm³で書かれています。どう直せばよいですか？</h3>
+      <p>1cm³＝10³mm³（1,000mm³）なので1,000倍します。長さの換算（1cm＝10mm）につられて10倍にする間違いが多いので注意してください。断面二次モーメントは1cm⁴＝10⁴mm⁴（10,000倍）です。体積は3乗、断面二次モーメントは4乗で換算する、と覚えます。</p>
+      <h3>Q3. 単位換算ミスに気づくコツはありますか？</h3>
+      <p>答えのオーダー（桁）を常識値と比べることです。鋼材の曲げ応力度は数十〜200N/mm²、検定比は0.3〜0.95が普通の範囲です。0.0001や500といった値が出たら、計算式ではなく単位換算を疑ってください。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

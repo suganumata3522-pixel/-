@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/guuryoku-moment.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/guuryoku-moment.html",
    "datePublished": "2026-06-15",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-guuryoku-moment.jpg",
    "author": {
     "@type": "Person",
@@ -114,7 +114,7 @@
       <div class="meta">
         <span class="tag">構造力学の基礎</span>
         <span>公開日：2026年6月15日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>偶力のモーメントとは？公式と力のモーメントとの違い</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -199,6 +199,53 @@
         <span class="label">実務のワンポイント</span>
         <p>若手に教えるとき、いちばん誤解されやすいのが「回転中心をどこに取っても同じ」という性質です。単なる便利な近道ではなく、ボルト群にモーメントが作用する際の力の分布を偶力に置き換えて考える場面で実際に効いてくる考え方だと伝えています。</p>
       </div>
+
+      <h2 id="guuryoku-zu">偶力とは何か（図解）</h2>
+      <figure class="diagram">
+        <svg viewBox="0 0 720 300" role="img" aria-label="偶力のモーメントがどの点まわりでも一定になることを示す図">
+          <title>偶力のモーメントは回転中心によらず一定</title>
+          <rect x="0" y="0" width="720" height="300" fill="#ffffff"/>
+          <text x="360" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a3a5c">大きさが等しく向きが逆・作用線が平行な2力＝偶力</text>
+          <line x1="140" y1="90" x2="580" y2="90" stroke="#ddd" stroke-width="2" stroke-dasharray="6 4"/>
+          <line x1="140" y1="190" x2="580" y2="190" stroke="#ddd" stroke-width="2" stroke-dasharray="6 4"/>
+          <line x1="240" y1="90" x2="440" y2="90" stroke="#c0392b" stroke-width="6"/>
+          <polygon points="452,90 428,80 428,100" fill="#c0392b"/>
+          <text x="340" y="76" text-anchor="middle" font-size="15" font-weight="bold" fill="#c0392b">P</text>
+          <line x1="440" y1="190" x2="240" y2="190" stroke="#c0392b" stroke-width="6"/>
+          <polygon points="228,190 252,180 252,200" fill="#c0392b"/>
+          <text x="340" y="212" text-anchor="middle" font-size="15" font-weight="bold" fill="#c0392b">P</text>
+          <line x1="620" y1="90" x2="620" y2="190" stroke="#e8843c" stroke-width="2"/>
+          <line x1="612" y1="90" x2="628" y2="90" stroke="#e8843c" stroke-width="2"/>
+          <line x1="612" y1="190" x2="628" y2="190" stroke="#e8843c" stroke-width="2"/>
+          <text x="638" y="145" font-size="15" font-weight="bold" fill="#e8843c">L</text>
+          <g fill="#1a3a5c">
+            <circle cx="200" cy="140" r="7"/><circle cx="360" cy="140" r="7"/><circle cx="520" cy="140" r="7"/>
+          </g>
+          <g font-size="13" fill="#1a3a5c" text-anchor="middle">
+            <text x="200" y="164">O₁</text><text x="360" y="164">O₂</text><text x="520" y="164">O₃</text>
+          </g>
+          <rect x="90" y="234" width="540" height="56" rx="6" fill="#f4f7fa" stroke="#9fc0dd"/>
+          <text x="360" y="256" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a3a5c">M ＝ P × L</text>
+          <text x="360" y="278" text-anchor="middle" font-size="13" fill="#333">O₁でもO₂でもO₃でも、どこで計算しても答えは同じ P×L になる</text>
+        </svg>
+        <figcaption>2力の合力はゼロなので移動はしないが、回転させる作用だけが残る。しかもその大きさは、どの点まわりで計算しても2力の間隔Lだけで決まる。</figcaption>
+      </figure>
+      <p>「どこで計算しても同じ」というのが偶力の最大の特徴です。普通の力のモーメントは、回転中心を変えると値が変わります。しかし偶力は<strong>2力の間隔Lだけで決まる</strong>ため、中心をどこに置いても P×L のまま変わりません。この性質があるので、偶力は「大きさ M の純粋な回転作用」として扱えます。</p>
+
+      <h2 id="kenchiku-rei">建築のどこに偶力が出てくるか</h2>
+      <table class="data">
+        <tr><th>場面</th><th>偶力になっている2力</th><th>間隔L</th></tr>
+        <tr><td>梁の曲げ抵抗</td><td>圧縮縁の圧縮力C と 引張鉄筋の引張力T</td><td>応力中心間距離 j（≒0.875d）</td></tr>
+        <tr><td>柱脚のアンカーボルト</td><td>引き抜き力T と ベースプレート下の支圧力C</td><td>ボルト位置〜支圧中心の距離</td></tr>
+        <tr><td>基礎の転倒抵抗</td><td>建物の自重W と 地反力の偏り</td><td>偏心距離</td></tr>
+        <tr><td>耐力壁の押さえ</td><td>ホールダウン金物の引張 と 柱脚の圧縮</td><td>壁の長さ</td></tr>
+        <tr><td>柱梁接合部のパネルゾーン</td><td>上下フランジに生じる逆向きの力</td><td>梁せい</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">「梁が曲げに耐える」＝偶力をつくること</span>
+        <p>RC梁が曲げモーメントに抵抗するしくみは、まさに偶力です。上端が圧縮されて圧縮力Cが、下端の鉄筋が引っ張られて引張力Tが生じます。CとTは大きさが等しく向きが逆——つまり偶力です。この偶力のモーメント M ＝ T × j が、外力の曲げモーメントとつり合っています。<br>ここから重要な設計上の帰結が出ます。<strong>「梁せいを大きくすればjが大きくなり、同じ鉄筋量でも耐えられるモーメントが増える」</strong>。鉄筋を増やすよりも梁せいを増やすほうが効率が良い、という実務の感覚は、この偶力の式から来ています。</p>
+      </div>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

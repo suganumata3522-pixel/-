@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/gouryoku.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/gouryoku.html",
    "datePublished": "2026-06-15",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-gouryoku.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "3つ以上の力の合力はどう求めますか？", "acceptedAnswer": {"@type": "Answer", "text": "成分計算が最も確実です。各力を水平成分と鉛直成分に分け、それぞれ合計してから、R＝√(ΣPx²＋ΣPy²)で大きさを、θ＝tan⁻¹(ΣPy/ΣPx)で向きを求めます。作図なら示力図（力の多角形）を使い、力を順につないだ始点と終点を結んだ矢印が合力になります。"}},
+ {"@type": "Question", "name": "合力の作用位置はどう決まりますか？", "acceptedAnswer": {"@type": "Answer", "text": "モーメントのつり合いから決まります。任意の基準点まわりで、元の各力のモーメントの合計と、合力のモーメントが等しくなる位置が合力の作用線です。この考え方が重心・図心の計算の原理になっています。"}},
+ {"@type": "Question", "name": "合力と分力はどういう関係ですか？", "acceptedAnswer": {"@type": "Answer", "text": "逆の操作です。複数の力を1つにまとめたものが合力、1つの力を複数の方向に分けたものが分力です。どちらも力の平行四辺形の法則にもとづいており、同じ図を逆から見ているだけと考えるとわかりやすくなります。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">構造力学の基礎</span>
         <span>公開日：2026年6月15日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>合力とは？読み方・求め方と角度計算</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -191,6 +198,58 @@
         <span class="label">実務のワンポイント</span>
         <p>検算のとき、真っ先に疑うのは「作用点をそろえずに力を足していないか」という点です。図が複雑な架構ほど、合力の大きさだけ合わせてモーメントのつり合いを見落とすミスが起きやすく、必ず作用点を図示してから計算に入るようにしています。</p>
       </div>
+
+      <h2 id="seibun-keisan">成分計算で解く一般的な手順</h2>
+      <p>作図は直感的でわかりやすい反面、力の数が増えると精度が落ちます。実務や試験では<strong>成分計算</strong>が主役です。手順は次の4ステップで、力がいくつあっても変わりません。</p>
+      <table class="data">
+        <tr><th>手順</th><th>やること</th><th>式</th></tr>
+        <tr><td>① 各力を分解</td><td>水平成分と鉛直成分に分ける</td><td>P<sub>x</sub>＝Pcosθ、P<sub>y</sub>＝Psinθ</td></tr>
+        <tr><td>② 成分ごとに合計</td><td>符号（右＋／上＋）に注意して足す</td><td>ΣP<sub>x</sub>、ΣP<sub>y</sub></td></tr>
+        <tr><td>③ 大きさを求める</td><td>三平方の定理</td><td>R ＝ √(ΣP<sub>x</sub>² ＋ ΣP<sub>y</sub>²)</td></tr>
+        <tr><td>④ 向きを求める</td><td>逆正接（アークタンジェント）</td><td>θ ＝ tan⁻¹(ΣP<sub>y</sub> / ΣP<sub>x</sub>)</td></tr>
+      </table>
+      <div class="formula">
+        <strong>計算例</strong>　P₁＝40kN（水平右向き）、P₂＝30kN（鉛直上向き）、P₃＝20kN（水平左から30°上向き）<br>
+        ΣP<sub>x</sub> ＝ 40 ＋ 0 ＋ (−20cos30°) ＝ 40 − 17.3 ＝ 22.7kN<br>
+        ΣP<sub>y</sub> ＝ 0 ＋ 30 ＋ 20sin30° ＝ 30 ＋ 10 ＝ 40.0kN<br>
+        R ＝ √(22.7² ＋ 40.0²) ＝ √(515 ＋ 1600) ≒ <strong>46.0kN</strong><br>
+        θ ＝ tan⁻¹(40.0 / 22.7) ≒ <strong>60.4°</strong>（水平から反時計回り）
+      </div>
+
+      <h2 id="sayouichi">合力は「どこに作用するか」も重要</h2>
+      <figure class="diagram">
+        <svg viewBox="0 0 720 280" role="img" aria-label="合力の大きさだけでなく作用位置も決まることを示す図">
+          <title>合力の作用位置はモーメントのつり合いで決まる</title>
+          <rect x="0" y="0" width="720" height="280" fill="#ffffff"/>
+          <text x="360" y="28" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a3a5c">大きさが同じでも、作用位置が違えば建物の挙動は変わる</text>
+          <line x1="80" y1="180" x2="640" y2="180" stroke="#666" stroke-width="2"/>
+          <line x1="180" y1="80" x2="180" y2="168" stroke="#c0392b" stroke-width="5"/>
+          <polygon points="180,176 170,158 190,158" fill="#c0392b"/>
+          <text x="180" y="70" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">P₁＝30kN</text>
+          <line x1="380" y1="110" x2="380" y2="168" stroke="#c0392b" stroke-width="5"/>
+          <polygon points="380,176 370,158 390,158" fill="#c0392b"/>
+          <text x="380" y="100" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">P₂＝20kN</text>
+          <line x1="80" y1="212" x2="180" y2="212" stroke="#999" stroke-width="1.5"/>
+          <line x1="180" y1="212" x2="380" y2="212" stroke="#999" stroke-width="1.5"/>
+          <text x="130" y="230" text-anchor="middle" font-size="12" fill="#666">2m</text>
+          <text x="280" y="230" text-anchor="middle" font-size="12" fill="#666">4m</text>
+          <line x1="260" y1="60" x2="260" y2="168" stroke="#e8843c" stroke-width="7"/>
+          <polygon points="260,178 246,156 274,156" fill="#e8843c"/>
+          <text x="260" y="50" text-anchor="middle" font-size="15" font-weight="bold" fill="#e8843c">R＝50kN</text>
+          <rect x="80" y="242" width="560" height="32" rx="6" fill="#f4f7fa" stroke="#9fc0dd"/>
+          <text x="360" y="263" text-anchor="middle" font-size="13.5" fill="#1a3a5c">左端まわりのΣM：30×2 ＋ 20×6 ＝ 50×x → x ＝ 3.6m の位置に作用する</text>
+        </svg>
+        <figcaption>合力の大きさは単純な足し算だが、どこに作用するかはモーメントのつり合いから決まる。これが重心や図心の計算の原理になっている。</figcaption>
+      </figure>
+      <p>建築で合力が本当に効いてくるのは、この<strong>「作用位置」</strong>のほうです。たとえば地震力の合力の作用位置と、建物の耐力の重心（剛心）がずれていると<strong>ねじれ</strong>が生じます。これが<a href="ichiji-sekkei.html">偏心率</a>の検討の中身です。</p>
+      <table class="data">
+        <tr><th>建築での場面</th><th>何の合力か</th><th>作用位置が意味するもの</th></tr>
+        <tr><td>地震力</td><td>各階の慣性力の合力</td><td>重心。剛心とのずれが偏心＝ねじれの原因</td></tr>
+        <tr><td>風圧力</td><td>受圧面の風圧の合力</td><td>受圧面の中心。高い建物ほど転倒モーメントが大きい</td></tr>
+        <tr><td>基礎の接地圧</td><td>地反力の合力</td><td>建物荷重の合力と一致する位置。偏れば不同沈下の原因</td></tr>
+        <tr><td>断面の応力</td><td>圧縮応力・引張応力の合力</td><td>応力の中心。梁の<a href="guuryoku-moment.html">偶力</a>の腕になる</td></tr>
+      </table>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>
