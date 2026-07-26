@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/mokuzai-m3-t.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/mokuzai-m3-t.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-mokuzai-m3-t.jpg",
    "author": {
     "@type": "Person",
@@ -114,7 +114,7 @@
       <div class="meta">
         <span class="tag">木造（W造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>木材のm³（立米）をt（トン）に換算する方法</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -195,6 +195,63 @@
         <span class="label">実務のワンポイント</span>
         <p>上棟前の搬入計画を立てるとき、材木店の見積書に才単価とm³単価が混在していて換算を間違えそうになったことがあります。トラックの積載重量を確認する際は、含水状態も含めて重さを見積もるようにしています。</p>
       </div>
+
+      <h2 id="kansan-zu">換算の考え方（図解）</h2>
+      <figure class="diagram">
+        <svg viewBox="0 0 720 280" role="img" aria-label="木材の体積に密度を掛けて重量を求める換算の流れの図">
+          <title>木材の体積から重量への換算</title>
+          <rect x="0" y="0" width="720" height="280" fill="#ffffff"/>
+          <text x="360" y="28" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a3a5c">体積 × 密度 ＝ 重量　という掛け算だけ</text>
+          <rect x="40" y="56" width="170" height="80" rx="8" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2"/>
+          <text x="125" y="82" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a3a5c">体積</text>
+          <text x="125" y="106" text-anchor="middle" font-size="17" fill="#c0392b">1 m³</text>
+          <text x="125" y="126" text-anchor="middle" font-size="12" fill="#666">＝ 1立米（りゅうべい）</text>
+          <text x="230" y="102" text-anchor="middle" font-size="26" fill="#333">×</text>
+          <rect x="250" y="56" width="200" height="80" rx="8" fill="#fdf6f0" stroke="#e8843c" stroke-width="2"/>
+          <text x="350" y="82" text-anchor="middle" font-size="15" font-weight="bold" fill="#e8843c">密度（気乾）</text>
+          <text x="350" y="106" text-anchor="middle" font-size="17" fill="#c0392b">380〜690 kg/m³</text>
+          <text x="350" y="126" text-anchor="middle" font-size="12" fill="#666">樹種によって大きく変わる</text>
+          <text x="470" y="102" text-anchor="middle" font-size="26" fill="#333">＝</text>
+          <rect x="490" y="56" width="190" height="80" rx="8" fill="#1a3a5c"/>
+          <text x="585" y="82" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffffff">重量</text>
+          <text x="585" y="106" text-anchor="middle" font-size="17" fill="#ffffff">0.38〜0.69 t</text>
+          <text x="585" y="126" text-anchor="middle" font-size="12" fill="#cfe0ee">＝ 380〜690 kg</text>
+          <rect x="40" y="164" width="640" height="100" rx="6" fill="#f4f7fa" stroke="#9fc0dd"/>
+          <text x="60" y="188" font-size="13.5" font-weight="bold" fill="#1a3a5c">つまずきやすいのは「どの密度を使うか」</text>
+          <text x="60" y="212" font-size="13" fill="#333">・気乾（含水率15％）… 建材として流通する乾いた状態。<tspan font-weight="bold">設計計算はこれ</tspan></text>
+          <text x="60" y="234" font-size="13" fill="#333">・生材（伐採直後）… 水を多く含み、気乾の1.3〜1.8倍。<tspan font-weight="bold">運搬計画はこれ</tspan></text>
+          <text x="60" y="256" font-size="13" fill="#c0392b">生材を気乾の値で計算すると、トラックが積載オーバーになる恐れがある</text>
+        </svg>
+        <figcaption>換算式そのものは単純だが、「乾いた材か、まだ濡れている材か」で答えが1.5倍近く変わる。用途に応じて使い分ける。</figcaption>
+      </figure>
+
+      <h2 id="tani-ichiran">木材の単位・換算まとめ</h2>
+      <table class="data">
+        <tr><th>単位</th><th>読み方</th><th>換算</th><th>使われる場面</th></tr>
+        <tr><td>m³</td><td>立米（りゅうべい）</td><td>基準</td><td>製材・集成材の取引、積算</td></tr>
+        <tr><td>才（さい）</td><td>さい</td><td>1才 ＝ 1寸角×1丈 ＝ 約0.00334m³<br>（1m³ ≒ <strong>約299.5才</strong>）</td><td>造作材・和室材の取引</td></tr>
+        <tr><td>石（こく）</td><td>こく</td><td>1石 ＝ 10立方尺 ≒ 0.278m³</td><td>古い資料・原木の取引</td></tr>
+        <tr><td>坪（面積）</td><td>つぼ</td><td>1坪 ＝ 約3.306m²</td><td>合板・面材の取引</td></tr>
+        <tr><td>枚</td><td>まい</td><td>合板910×1,820mm ＝ 約1.656m²</td><td>合板・ボードの発注</td></tr>
+      </table>
+      <p>実務では「1m³ ≒ 300才」と覚えておくと、才単価とm³単価の比較が暗算でできます。たとえば才単価200円なら、m³単価は200×300＝60,000円。逆にm³単価90,000円の材は、才単価にすると300円です。</p>
+
+      <h2 id="jitsurei">実務での計算例</h2>
+      <div class="formula">
+        <strong>例1：木造住宅1棟分の構造材（スギ・気乾）</strong><br>
+        延べ床面積120m²の在来木造 → 構造材の使用量は<strong>約20m³</strong>が目安<br>
+        重量 ＝ 20 × 380 ＝ <strong>約7,600kg ＝ 約7.6t</strong>
+      </div>
+      <div class="formula">
+        <strong>例2：4tトラックに何m³積めるか（スギ生材）</strong><br>
+        生材の密度（気乾の1.5倍と仮定）＝ 380 × 1.5 ＝ 570kg/m³<br>
+        4,000 ÷ 570 ≒ <strong>約7.0m³</strong>　※気乾材なら 4,000÷380 ≒ 10.5m³
+      </div>
+      <div class="point-box">
+        <span class="label">積算では「歩留まり」も見込む</span>
+        <p>設計図から拾った正味の材積（ネット）と、実際に発注する量（グロス）は一致しません。切り無駄、定尺（3m・4m・6m）との差、加工代、予備分が必要だからです。<strong>一般に1割前後の割増し</strong>を見込むのが実務の慣習で、複雑な形状や特殊な長さが多い場合はさらに増えます。<br>逆にプレカット工場に発注する場合は、工場側で材の取り都合を最適化してくれるため、現場での歩留まりロスは小さくなります。この差が、プレカットが普及した理由の一つでもあります。</p>
+      </div>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>
