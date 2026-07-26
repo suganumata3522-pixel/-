@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/mortar-grout.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/mortar-grout.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-mortar-grout.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "まんじゅうとは何ですか？", "acceptedAnswer": {"@type": "Answer", "text": "鉄骨柱の建方前に、ベースプレートの高さを決めるために基礎上に作る、小さなモルタルの山のことです。形が饅頭に似ていることからこう呼ばれます。天端を正確なレベルに仕上げ、この上にベースプレートを載せて柱の高さを決めます。まんじゅうはあくまでレベル調整用で、最終的な荷重伝達は周囲に充填するグラウトが担います。"}},
+ {"@type": "Question", "name": "グラウトの充填が不十分だとどうなりますか？", "acceptedAnswer": {"@type": "Answer", "text": "柱の軸力が確実に基礎へ伝わらず、応力集中による基礎コンクリートの損傷や、地震時の柱脚のがたつきにつながります。また、隙間に水が浸入するとベースプレートやアンカーボルトが腐食します。充填後は打診（叩いて音を確認）や、必要に応じて内視鏡による確認を行い、充填状況を検査します。"}},
+ {"@type": "Question", "name": "無収縮モルタルとグラウトは同じですか？", "acceptedAnswer": {"@type": "Answer", "text": "重なる部分が多く、実務ではほぼ同義で使われます。厳密には、グラウトは「隙間に流し込んで充填する材料」という用途を表す言葉、無収縮モルタルは「収縮しないよう調整されたモルタル」という性質を表す言葉です。柱脚に使う材料は、流動性が高く（グラウト性）かつ収縮しない（無収縮）ものであり、両方の性質を備えた製品が使われます。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">鉄筋コンクリート造（RC造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>モルタルとグラウトの違い｜無収縮モルタル・まんじゅう</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -185,6 +192,56 @@
         <span class="label">あわせて読みたい</span>
         <p>モルタル全般は「<a href="mortar-concrete.html">モルタルとコンクリート</a>」、柱脚は「<a href="setsugoubu-shishin.html">鋼構造接合部設計指針</a>」、3者比較は「<a href="cement-mortar-concrete.html">セメント・モルタル・コンクリート</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="hikaku-zukai">モルタルとグラウトの違い（図解）</h2>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 250" role="img" aria-label="モルタルとグラウトの流動性と収縮性の違いを示す図">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">流動性と収縮性が違う</text>
+          <line x1="350" y1="44" x2="350" y2="220" stroke="#c3ccd6" stroke-width="1.5" stroke-dasharray="6 5"/>
+          <text x="175" y="66" font-size="14.5" text-anchor="middle" fill="#1a3a5c" font-weight="bold">モルタル</text>
+          <rect x="90" y="86" width="170" height="24" fill="#7d95ab"/>
+          <path d="M100 110 Q140 122 175 116 Q215 124 250 112 L250 140 L100 140 Z" fill="#e5d5b8" stroke="#8a7355" stroke-width="2"/>
+          <rect x="90" y="140" width="170" height="20" fill="#c3ccd6"/>
+          <g fill="#fff" stroke="#c0392b" stroke-width="1.5"><circle cx="130" cy="126" r="6"/><circle cx="215" cy="128" r="5"/></g>
+          <text x="175" y="182" font-size="12.5" text-anchor="middle" fill="#6b7785">硬めで自分では流れない</text>
+          <text x="175" y="202" font-size="12.5" text-anchor="middle" fill="#c0392b">硬化時に収縮 → すき間が残ることも</text>
+          <text x="525" y="66" font-size="14.5" text-anchor="middle" fill="#b35309" font-weight="bold">グラウト（無収縮）</text>
+          <rect x="440" y="86" width="170" height="24" fill="#7d95ab"/>
+          <rect x="440" y="110" width="170" height="30" fill="#e8843c"/>
+          <rect x="440" y="140" width="170" height="20" fill="#c3ccd6"/>
+          <g stroke="#b35309" stroke-width="2.5">
+            <line x1="420" y1="98" x2="420" y2="122"/><path d="M420 128 l-5 -10 h10 z" fill="#b35309" stroke="none"/>
+          </g>
+          <text x="404" y="96" font-size="11.5" text-anchor="end" fill="#b35309">流し込む</text>
+          <text x="525" y="182" font-size="12.5" text-anchor="middle" fill="#6b7785">流動性が高く自ら隅々まで充填</text>
+          <text x="525" y="202" font-size="12.5" text-anchor="middle" fill="#2e7d4f">膨張材で収縮を相殺 → 密着を保つ</text>
+        </svg>
+        <figcaption>モルタルはこてで施工する硬さで収縮するが、グラウトは流し込めるほど流動性が高く、膨張材によって収縮しないよう調整されている。</figcaption>
+      </figure>
+
+      <h2 id="chuukyaku">柱脚での使われ方</h2>
+      <p>グラウトがもっとも重要な役割を果たすのが、<strong>鉄骨の露出柱脚</strong>です。</p>
+      <table class="data">
+        <tr><th>手順</th><th>内容</th></tr>
+        <tr><td>① まんじゅう（レベル調整用モルタル）</td><td>ベースプレートの高さを決めるため、基礎上に小さなモルタルの山を作る</td></tr>
+        <tr><td>② 柱の建方</td><td>まんじゅうの上にベースプレートを載せ、レベル・倒れを調整してアンカーボルトで固定</td></tr>
+        <tr><td>③ 型枠の設置</td><td>ベースプレート周囲に型枠を設け、グラウトを流し込む空間をつくる</td></tr>
+        <tr><td>④ グラウト充填</td><td>無収縮グラウトを一方向から流し込み、空気を追い出しながら隙間なく充填する</td></tr>
+        <tr><td>⑤ 養生</td><td>所定の強度が出るまで養生。この間は柱に大きな力を加えない</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">なぜ無収縮でなければならないか</span>
+        <p>柱脚のグラウトは、<strong>柱の軸力を基礎に伝える</strong>という構造上きわめて重要な役割を持ちます。もしグラウトが収縮してベースプレートとの間に隙間ができると、荷重が一部にしか伝わらず応力集中が生じたり、地震時に柱脚ががたついたりします。そのため、膨張材を含み硬化時に収縮しない<strong>無収縮グラウト</strong>を使い、確実に充填することが求められます。充填後に叩いて音を確認するなど、充填状況の検査も行われます。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. まんじゅうとは何ですか？</h3>
+      <p>鉄骨柱の建方前に、ベースプレートの高さを決めるために基礎上に作る、小さなモルタルの山のことです。形が饅頭に似ていることからこう呼ばれます。天端を正確なレベルに仕上げ、この上にベースプレートを載せて柱の高さを決めます。まんじゅうはあくまでレベル調整用で、最終的な荷重伝達は周囲に充填するグラウトが担います。</p>
+      <h3>Q2. グラウトの充填が不十分だとどうなりますか？</h3>
+      <p>柱の軸力が確実に基礎へ伝わらず、応力集中による基礎コンクリートの損傷や、地震時の柱脚のがたつきにつながります。また、隙間に水が浸入するとベースプレートやアンカーボルトが腐食します。充填後は打診（叩いて音を確認）や、必要に応じて内視鏡による確認を行い、充填状況を検査します。</p>
+      <h3>Q3. 無収縮モルタルとグラウトは同じですか？</h3>
+      <p>重なる部分が多く、実務ではほぼ同義で使われます。厳密には、グラウトは「隙間に流し込んで充填する材料」という用途を表す言葉、無収縮モルタルは「収縮しないよう調整されたモルタル」という性質を表す言葉です。柱脚に使う材料は、流動性が高く（グラウト性）かつ収縮しない（無収縮）ものであり、両方の性質を備えた製品が使われます。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

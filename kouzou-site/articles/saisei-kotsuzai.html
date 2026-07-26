@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/saisei-kotsuzai.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/saisei-kotsuzai.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-saisei-kotsuzai.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "再生骨材を使うと強度は下がりますか？", "acceptedAnswer": {"@type": "Answer", "text": "同じ配合なら下がる傾向があります。付着モルタルの分だけ骨材自体が弱く、また吸水率が高いためです。ただし再生骨材Hであれば、天然骨材と同等の品質が確保されており、構造用コンクリートとして必要な強度を発揮できます。M・Lについては、強度・耐久性の要求が低い部位に用途が限定されています。"}},
+ {"@type": "Question", "name": "再生骨材はなぜ普及が進まないのですか？", "acceptedAnswer": {"@type": "Answer", "text": "主にコストと品質のばらつきが理由です。高品質な再生骨材Hを製造するには、すりもみや加熱といった処理が必要で、天然骨材より製造コストが高くなることがあります。また、原料となる解体コンクリートの品質が一定でないため、製品の品質管理が難しい面もあります。一方で、路盤材（再生クラッシャラン）としての再利用はすでに広く定着しています。"}},
+ {"@type": "Question", "name": "再生骨材コンクリートの乾燥収縮はどのくらい大きいですか？", "acceptedAnswer": {"@type": "Answer", "text": "付着モルタルの量に比例して大きくなります。再生骨材Hでは天然骨材と同等程度に抑えられていますが、M・Lでは明らかに大きくなります。そのため、乾燥収縮が問題になりにくい部位（地中の基礎、土間コンクリートなど）に用途が限定されています。設計にあたっては、ひび割れ対策として配筋や誘発目地の検討が重要になります。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">鉄筋コンクリート造（RC造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>再生骨材とは？種類・JISと再生骨材Hとの関係</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -180,6 +187,48 @@
         <span class="label">実務のワンポイント</span>
         <p>再生骨材Hを構造体に使う計画を見ると、まず現場に届く実際の骨材のロットで試験成績書を確認するようにしています。同じH等級でも製造プラントによって品質のばらつきがあり、図面上の等級表記だけで安心せず、現物の裏付けを取ることが欠かせません。</p>
       </div>
+
+      <h2 id="grade">再生骨材の3つの等級</h2>
+      <table class="data">
+        <tr><th>等級</th><th>処理の程度</th><th>使用できる用途</th><th>規格</th></tr>
+        <tr><td><strong>再生骨材H</strong></td><td>高度な処理（すりもみ・加熱など）でモルタル分を十分除去</td><td><strong>構造用コンクリート</strong>に使用可能</td><td>JIS A 5021</td></tr>
+        <tr><td><strong>再生骨材M</strong></td><td>中程度の処理</td><td>杭・基礎・土間コンクリートなど（乾燥・凍結融解の影響が小さい部位）</td><td>JIS A 5022</td></tr>
+        <tr><td><strong>再生骨材L</strong></td><td>破砕・分級のみの簡易な処理</td><td>捨てコン・均しコンなど（構造耐力を期待しない部位）</td><td>JIS A 5023</td></tr>
+      </table>
+
+      <h2 id="seishitsu">再生骨材の性質（図解）</h2>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 240" role="img" aria-label="再生骨材には旧コンクリートのモルタル分が付着していることを示す図">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">付着モルタルが性質を左右する</text>
+          <text x="175" y="62" font-size="14" text-anchor="middle" fill="#1a3a5c" font-weight="bold">天然骨材</text>
+          <circle cx="175" cy="130" r="52" fill="#7d95ab" stroke="#3f4a55" stroke-width="2"/>
+          <text x="175" y="136" font-size="13" text-anchor="middle" fill="#fff" font-weight="bold">岩石のみ</text>
+          <text x="175" y="204" font-size="12.5" text-anchor="middle" fill="#6b7785">吸水率が低い・密度が高い</text>
+          <text x="350" y="135" font-size="20" text-anchor="middle" fill="#7d95ab">vs</text>
+          <text x="525" y="62" font-size="14" text-anchor="middle" fill="#b35309" font-weight="bold">再生骨材</text>
+          <circle cx="525" cy="130" r="52" fill="#e5d5b8" stroke="#8a7355" stroke-width="2"/>
+          <circle cx="525" cy="130" r="32" fill="#7d95ab" stroke="#3f4a55" stroke-width="2"/>
+          <text x="525" y="136" font-size="12" text-anchor="middle" fill="#fff" font-weight="bold">岩石</text>
+          <line x1="570" y1="98" x2="612" y2="82" stroke="#8a7355" stroke-width="1.8"/>
+          <text x="618" y="80" font-size="12" fill="#6b5a3f" font-weight="bold">付着モルタル</text>
+          <text x="525" y="204" font-size="12.5" text-anchor="middle" fill="#c0392b">吸水率が高い・密度が低い</text>
+          <text x="350" y="230" font-size="12.5" text-anchor="middle" fill="#6b7785">処理の程度＝どこまでモルタル分を除去できたか</text>
+        </svg>
+        <figcaption>再生骨材には旧コンクリートのモルタル分が付着している。この量が吸水率・密度・乾燥収縮に影響し、等級の違いになる。</figcaption>
+      </figure>
+      <div class="point-box">
+        <span class="label">なぜ処理が必要なのか</span>
+        <p>付着したモルタル分は多孔質で吸水しやすく、乾燥収縮も大きくなります。そのまま使うと、単位水量が増え、収縮ひび割れが生じやすく、耐久性も低下します。<strong>再生骨材H</strong>では、すりもみ処理や加熱処理によってこのモルタル分を除去し、天然骨材に近い品質まで高めています。ただし処理に手間とエネルギーがかかるため、コストは天然骨材より高くなることがあり、普及の課題になっています。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 再生骨材を使うと強度は下がりますか？</h3>
+      <p>同じ配合なら下がる傾向があります。付着モルタルの分だけ骨材自体が弱く、また吸水率が高いためです。ただし再生骨材Hであれば、天然骨材と同等の品質が確保されており、構造用コンクリートとして必要な強度を発揮できます。M・Lについては、強度・耐久性の要求が低い部位に用途が限定されています。</p>
+      <h3>Q2. 再生骨材はなぜ普及が進まないのですか？</h3>
+      <p>主にコストと品質のばらつきが理由です。高品質な再生骨材Hを製造するには、すりもみや加熱といった処理が必要で、天然骨材より製造コストが高くなることがあります。また、原料となる解体コンクリートの品質が一定でないため、製品の品質管理が難しい面もあります。一方で、路盤材（再生クラッシャラン）としての再利用はすでに広く定着しています。</p>
+      <h3>Q3. 再生骨材コンクリートの乾燥収縮はどのくらい大きいですか？</h3>
+      <p>付着モルタルの量に比例して大きくなります。再生骨材Hでは天然骨材と同等程度に抑えられていますが、M・Lでは明らかに大きくなります。そのため、乾燥収縮が問題になりにくい部位（地中の基礎、土間コンクリートなど）に用途が限定されています。設計にあたっては、ひび割れ対策として配筋や誘発目地の検討が重要になります。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>
