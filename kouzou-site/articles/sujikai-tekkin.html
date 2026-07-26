@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/sujikai-tekkin.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/sujikai-tekkin.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-sujikai-tekkin.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "鉄筋ブレースはなぜ引張しか負担しないのですか？", "acceptedAnswer": {"@type": "Answer", "text": "細長い部材は圧縮を受けるとすぐ座屈して曲がってしまい、力を伝えられないためです。そのため設計では圧縮側の抵抗を期待せず、引張のみで検討します。どちらの向きの地震にも対応できるよう、必ず2本を交差させたたすき掛けで配置します。"}},
+ {"@type": "Question", "name": "ターンバックルはどのくらい締めればよいですか？", "acceptedAnswer": {"@type": "Answer", "text": "たるみが取れて、わずかに張っている状態が適正です。締めすぎると柱・梁に不要な力が入って建物が歪み、緩いと地震の初期に効きません。設計図に初期張力の指定がある場合はそれに従い、必ず柱・梁の建入れ直しを完了してから締めます。"}},
+ {"@type": "Question", "name": "木造で鉄筋ブレースの壁倍率が低いのはなぜですか？", "acceptedAnswer": {"@type": "Answer", "text": "丸鋼は細いため引張時の伸びが大きく、建物がある程度変形しないと力を発揮しないこと、そして木材に留める金物部分の耐力で全体が決まってしまうことが理由です。材料としての鋼の強さではなく、接合部を含めた壁全体の性能で評価されるためです。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">木造（W造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>筋交いの鉄筋（鉄筋ブレース）とは？意味・倍率</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -181,6 +188,70 @@
         <span class="label">あわせて読みたい</span>
         <p>「<a href="sujikai.html">筋交い</a>」「<a href="kabebairitsu.html">壁倍率</a>」「<a href="suihei-koumen.html">水平構面</a>」、鉄骨は「<a href="kai-danmen.html">開断面・閉断面</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="hikaku-zu">鉄筋ブレースが引張だけを負担する理由（図解）</h2>
+      <figure class="diagram">
+        <svg viewBox="0 0 740 300" role="img" aria-label="細い鉄筋ブレースが圧縮ではたわみ引張でのみ抵抗することを示す図">
+          <title>鉄筋ブレースの引張抵抗</title>
+          <rect x="0" y="0" width="740" height="300" fill="#ffffff"/>
+          <text x="185" y="28" text-anchor="middle" font-size="16" font-weight="bold" fill="#c0392b">圧縮側：すぐ座屈してたわむ</text>
+          <text x="555" y="28" text-anchor="middle" font-size="16" font-weight="bold" fill="#2e7d4f">引張側：まっすぐ効く</text>
+          <g transform="translate(80,56)">
+            <path d="M0,0 L190,0 L190,150 L0,150 Z" fill="none" stroke="#1a3a5c" stroke-width="5"/>
+            <path d="M0,150 Q60,84 95,74 Q130,64 190,0" fill="none" stroke="#c0392b" stroke-width="3"/>
+            <line x1="200" y1="-20" x2="160" y2="-20" stroke="#c0392b" stroke-width="4"/>
+            <polygon points="150,-20 168,-28 168,-12" fill="#c0392b"/>
+            <text x="95" y="196" text-anchor="middle" font-size="13" fill="#c0392b">細長い材は圧縮に耐えられない</text>
+          </g>
+          <g transform="translate(450,56)">
+            <path d="M0,0 L190,0 L190,150 L0,150 Z" fill="none" stroke="#1a3a5c" stroke-width="5"/>
+            <line x1="0" y1="150" x2="190" y2="0" stroke="#2e7d4f" stroke-width="5"/>
+            <line x1="-10" y1="-20" x2="30" y2="-20" stroke="#2e7d4f" stroke-width="4"/>
+            <polygon points="40,-20 22,-28 22,-12" fill="#2e7d4f"/>
+            <text x="95" y="196" text-anchor="middle" font-size="13" fill="#2e7d4f">引っ張られる向きなら断面積いっぱいまで効く</text>
+          </g>
+          <rect x="60" y="222" width="620" height="70" rx="6" fill="#f4f7fa" stroke="#9fc0dd"/>
+          <text x="80" y="246" font-size="13.5" fill="#1a3a5c">→ だから鉄筋ブレースは必ず<tspan font-weight="bold">たすき掛け（2本1組）</tspan>で使う。</text>
+          <text x="80" y="268" font-size="13.5" fill="#1a3a5c">地震が右から来れば片方が引張、左から来ればもう片方が引張。</text>
+          <text x="80" y="288" font-size="13" fill="#666">どちらの向きの揺れにも、必ずどちらか1本が引張で抵抗する。</text>
+        </svg>
+        <figcaption>細長い部材は圧縮では座屈してしまうので、引張だけを期待する。だから必ず2本を交差させて配置する。</figcaption>
+      </figure>
+
+      <h2 id="turnbuckle">ターンバックルと初期張力の実務</h2>
+      <table class="data">
+        <tr><th>項目</th><th>内容</th></tr>
+        <tr><td>ターンバックルの役割</td><td>ねじで長さを微調整し、ブレースのたるみを取る金物</td></tr>
+        <tr><td>初期張力の目的</td><td>たるみをなくし、地震の初期から確実に効くようにする</td></tr>
+        <tr><td>締めすぎの弊害</td><td>柱・梁に不要な圧縮力が生じ、建方が引っ張られて歪む</td></tr>
+        <tr><td>適正の目安</td><td>指で押してわずかに動く程度。設計図に張力指定がある場合はそれに従う</td></tr>
+        <tr><td>建方の順序</td><td>柱・梁の建入れ直し（垂直の調整）を完了してから締める</td></tr>
+        <tr><td>再確認のタイミング</td><td>外装取付け後・引渡し前。緩みがないか点検する</td></tr>
+      </table>
+      <p>ブレースは<strong>たるんでいるとまったく効きません</strong>。地震で建物が変形し、たるみが取れて初めて力を負担し始めるため、その分だけ他の部材に余計な変形が生じます。逆に締めすぎると、地震が来る前から柱・梁に無駄な力が入り、建物が歪みます。「ちょうど張っている」状態が正解です。</p>
+
+      <h2 id="tsukaidokoro">どこで使われるか</h2>
+      <table class="data">
+        <tr><th>用途</th><th>使われ方</th><th>特徴</th></tr>
+        <tr><td>木造の耐力壁</td><td>丸鋼ブレース＋筋かいプレート</td><td>壁倍率1.0程度。木の筋交いより低い</td></tr>
+        <tr><td>鉄骨造の壁面ブレース</td><td>丸鋼・ターンバックル付き</td><td>倉庫・工場の外壁面に多用</td></tr>
+        <tr><td>鉄骨造の屋根面ブレース</td><td>水平ブレース</td><td>屋根の水平構面をつくる</td></tr>
+        <tr><td>仮設（建方時）</td><td>ワイヤー・仮ブレース</td><td>建方中の転倒防止。本設とは別</td></tr>
+        <tr><td>耐震補強</td><td>鉄骨ブレース増設</td><td>既存RC造の窓面に外付けすることも</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">木造で鉄筋ブレースの壁倍率が低い理由</span>
+        <p>鉄筋ブレース（丸鋼9mm程度）の壁倍率は1.0前後で、木の筋交い（45×90mmのたすき掛けで4.0）よりずっと低く評価されます。鉄のほうが強い材料なのに、なぜでしょうか。<br>理由は<strong>接合部と剛性</strong>にあります。丸鋼は細いため、引張力が同じでも伸びが大きく、建物の変形が進んでからでないと力を発揮しません。また、丸鋼を木材に留める金物部分の耐力が先に決まってしまいます。つまり「材料の強さ」ではなく「接合部を含めた壁全体の性能」で評価されるため、この数値になるのです。<strong>構造は必ず一番弱いところで決まる</strong>——この原則がよく表れた例といえます。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 鉄筋ブレースはなぜ引張しか負担しないのですか？</h3>
+      <p>細長い部材は圧縮を受けるとすぐ座屈して曲がってしまい、力を伝えられないためです。そのため設計では圧縮側の抵抗を期待せず、引張のみで検討します。どちらの向きの地震にも対応できるよう、必ず2本を交差させたたすき掛けで配置します。</p>
+      <h3>Q2. ターンバックルはどのくらい締めればよいですか？</h3>
+      <p>たるみが取れて、わずかに張っている状態が適正です。締めすぎると柱・梁に不要な力が入って建物が歪み、緩いと地震の初期に効きません。設計図に初期張力の指定がある場合はそれに従い、必ず柱・梁の建入れ直しを完了してから締めます。</p>
+      <h3>Q3. 木造で鉄筋ブレースの壁倍率が低いのはなぜですか？</h3>
+      <p>丸鋼は細いため引張時の伸びが大きく、建物がある程度変形しないと力を発揮しないこと、そして木材に留める金物部分の耐力で全体が決まってしまうことが理由です。材料としての鋼の強さではなく、接合部を含めた壁全体の性能で評価されるためです。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

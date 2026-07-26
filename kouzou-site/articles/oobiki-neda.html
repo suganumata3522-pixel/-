@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/oobiki-neda.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/oobiki-neda.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-oobiki-neda.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "大引と根太はどちらが上ですか？", "acceptedAnswer": {"@type": "Answer", "text": "根太が上、大引が下です。床板の直下に細かい間隔で並ぶのが根太（45角程度、@303〜455mm）、その根太を下から受ける太い材が大引（90角程度、@900mm程度）です。両者は必ず直交して配置されます。"}},
+ {"@type": "Question", "name": "2階の床にも大引はありますか？", "acceptedAnswer": {"@type": "Answer", "text": "ありません。大引は床束で下から支える部材なので、地面に接する1階の床にしか使いません。2階では梁（床梁・小梁）が同じ役割を果たします。柱から柱まで飛ばす必要があるため、断面は大引よりはるかに大きくなります。"}},
+ {"@type": "Question", "name": "根太レス工法では大引は不要になりますか？", "acceptedAnswer": {"@type": "Answer", "text": "1階では引き続き必要です。根太レス工法は根太を省き、厚さ24〜28mmの構造用合板を直接大引や梁に留める工法なので、合板を受ける大引そのものは残ります。ただし合板の支持間隔に応じて大引の間隔を詰める（@455mm程度）ことがあります。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">木造（W造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>大引と根太の違い｜床組・支保工での役割</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -180,6 +187,83 @@
         <span class="label">あわせて読みたい</span>
         <p>「<a href="oobiki.html">大引</a>」「<a href="taruki-neda.html">垂木と根太の違い</a>」「<a href="yukagumi.html">床組</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="hairi-zu">大引と根太の直交関係（図解）</h2>
+      <figure class="diagram">
+        <svg viewBox="0 0 720 300" role="img" aria-label="大引と根太が直交して配置される平面図と断面図">
+          <title>大引と根太の配置関係</title>
+          <rect x="0" y="0" width="720" height="300" fill="#ffffff"/>
+          <text x="180" y="28" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a3a5c">平面（上から見る）</text>
+          <text x="530" y="28" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a3a5c">断面（横から見る）</text>
+          <g transform="translate(50,46)">
+            <rect x="0" y="0" width="260" height="200" fill="#fafafa" stroke="#ccc"/>
+            <g fill="#1a3a5c">
+              <rect x="0" y="30" width="260" height="12"/>
+              <rect x="0" y="94" width="260" height="12"/>
+              <rect x="0" y="158" width="260" height="12"/>
+            </g>
+            <g fill="#9fc0dd">
+              <rect x="24" y="0" width="8" height="200"/><rect x="62" y="0" width="8" height="200"/>
+              <rect x="100" y="0" width="8" height="200"/><rect x="138" y="0" width="8" height="200"/>
+              <rect x="176" y="0" width="8" height="200"/><rect x="214" y="0" width="8" height="200"/>
+            </g>
+            <g fill="#e8843c">
+              <circle cx="40" cy="36" r="7"/><circle cx="130" cy="36" r="7"/><circle cx="220" cy="36" r="7"/>
+              <circle cx="40" cy="100" r="7"/><circle cx="130" cy="100" r="7"/><circle cx="220" cy="100" r="7"/>
+              <circle cx="40" cy="164" r="7"/><circle cx="130" cy="164" r="7"/><circle cx="220" cy="164" r="7"/>
+            </g>
+            <text x="130" y="222" text-anchor="middle" font-size="12.5" fill="#1a3a5c">■大引　■根太　●床束</text>
+          </g>
+          <g transform="translate(390,70)">
+            <rect x="0" y="0" width="290" height="12" fill="#c8a97e"/>
+            <text x="298" y="10" font-size="12" fill="#8a6a3a">床板</text>
+            <g fill="#9fc0dd">
+              <rect x="20" y="12" width="12" height="28"/><rect x="70" y="12" width="12" height="28"/>
+              <rect x="120" y="12" width="12" height="28"/><rect x="170" y="12" width="12" height="28"/>
+              <rect x="220" y="12" width="12" height="28"/>
+            </g>
+            <text x="298" y="32" font-size="12" fill="#1a3a5c">根太（細かく）</text>
+            <rect x="0" y="40" width="290" height="22" fill="#1a3a5c"/>
+            <text x="298" y="56" font-size="12" fill="#1a3a5c">大引（太く）</text>
+            <rect x="60" y="62" width="20" height="60" fill="#e8843c"/>
+            <rect x="200" y="62" width="20" height="60" fill="#e8843c"/>
+            <text x="298" y="98" font-size="12" fill="#e8843c">床束</text>
+            <rect x="50" y="122" width="40" height="14" fill="#888"/>
+            <rect x="190" y="122" width="40" height="14" fill="#888"/>
+            <rect x="0" y="136" width="290" height="16" fill="#d8d8d8"/>
+            <text x="298" y="148" font-size="12" fill="#666">地盤</text>
+          </g>
+          <rect x="50" y="272" width="620" height="24" rx="5" fill="#f4f7fa" stroke="#9fc0dd"/>
+          <text x="360" y="289" text-anchor="middle" font-size="13" fill="#1a3a5c">根太は細かい間隔で床板を受け、大引は根太を受けて床束に渡す。必ず直交する。</text>
+        </svg>
+        <figcaption>上下の階層関係が視覚的に見えると混同しなくなる。根太が上（細い・密）、大引が下（太い・粗い）。</figcaption>
+      </figure>
+
+      <h2 id="miwakekata">現場での見分け方</h2>
+      <table class="data">
+        <tr><th>見分けるポイント</th><th>根太</th><th>大引</th></tr>
+        <tr><td>上下の位置</td><td>上（床板の直下）</td><td>下（根太の下）</td></tr>
+        <tr><td>断面の大きさ</td><td>細い（45角〜45×105）</td><td>太い（90角が標準）</td></tr>
+        <tr><td>並ぶ間隔</td><td>密（@303〜455mm）</td><td>粗い（@900mm程度）</td></tr>
+        <tr><td>何に載っているか</td><td>大引・土台・根太掛け</td><td><a href="yukazuka.html">床束</a>・土台・大引受け</td></tr>
+        <tr><td>2階では</td><td>2階根太（または根太レス）</td><td><strong>存在しない</strong>（梁が受ける）</td></tr>
+      </table>
+      <p>迷ったときは<strong>「太いほうが大引、細いほうが根太」</strong>で判断すればほぼ間違いません。もう一つ確実なのは、床束が付いているのが大引だという点です。根太に床束が付くことはありません。</p>
+
+      <h2 id="niikai-chigai">1階と2階で構成が変わる</h2>
+      <div class="point-box">
+        <span class="label">大引があるのは1階だけ</span>
+        <p>大引は床束で下から支えられる部材なので、<strong>地面に接する1階の床にしか存在しません</strong>。2階の床では下から支える束が立てられないため、代わりに<strong>梁（床梁・小梁）</strong>が根太や床板を受けます。<br>つまり役割の対応は「1階の大引 ＝ 2階の床梁」です。ただし大引は床束で細かく支えられているため90角で足りるのに対し、2階の梁は柱から柱まで飛ばす必要があるため、105×240のようにはるかに大きな断面になります。同じ「根太を受ける材」でも、支え方が違うと必要な断面が何倍も変わる——これは構造の考え方そのものです。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 大引と根太はどちらが上ですか？</h3>
+      <p>根太が上、大引が下です。床板の直下に細かい間隔で並ぶのが根太（45角程度、@303〜455mm）、その根太を下から受ける太い材が大引（90角程度、@900mm程度）です。両者は必ず直交して配置されます。</p>
+      <h3>Q2. 2階の床にも大引はありますか？</h3>
+      <p>ありません。大引は床束で下から支える部材なので、地面に接する1階の床にしか使いません。2階では梁（床梁・小梁）が同じ役割を果たします。柱から柱まで飛ばす必要があるため、断面は大引よりはるかに大きくなります。</p>
+      <h3>Q3. 根太レス工法では大引は不要になりますか？</h3>
+      <p>1階では引き続き必要です。根太レス工法は根太を省き、厚さ24〜28mmの構造用合板を直接大引や梁に留める工法なので、合板を受ける大引そのものは残ります。ただし合板の支持間隔に応じて大引の間隔を詰める（@455mm程度）ことがあります。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

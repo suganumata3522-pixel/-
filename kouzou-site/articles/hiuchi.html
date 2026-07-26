@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/hiuchi.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/hiuchi.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-03",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-hiuchi.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "火打ちはすべての建物で必要ですか？", "acceptedAnswer": {"@type": "Answer", "text": "必ずしも必要ではありません。厚さ24〜28mmの構造用合板を梁に直接留める根太レス工法（剛床）なら、合板だけで床倍率3.0が確保でき、床面の火打ちは省略できます。ただし勾配屋根の小屋組、吹き抜けまわり、耐震改修では今も重要な部材です。"}},
+ {"@type": "Question", "name": "火打ち金物と木製火打ちはどちらが優れていますか？", "acceptedAnswer": {"@type": "Answer", "text": "性能は認定値によるため一概に言えません。金物火打ちは薄く納まって施工が速く、寸法のばらつきも少ない利点があります。木製火打ちは伝統的で入手しやすく、現場での加工にも対応できます。いずれも認定品の性能値を確認したうえで、床倍率の計算に用いてください。"}},
+ {"@type": "Question", "name": "火打ちと筋交いはどう違いますか？", "acceptedAnswer": {"@type": "Answer", "text": "向きが違います。筋交いは垂直面（壁）に入れて水平力に抵抗する部材、火打ちは水平面（床面・小屋面）に入れて床の変形を防ぐ部材です。どちらも「四角形を三角形にして変形を防ぐ」という原理は同じで、入れる面が違うだけと考えるとわかりやすくなります。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">木造（W造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>火打ちとは？意味・筋交いとの違いと目的</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -183,6 +190,63 @@
         <span class="label">あわせて読みたい</span>
         <p>「<a href="suihei-koumen.html">水平構面</a>」「<a href="sujikai.html">筋交い</a>」「<a href="oukazai.html">横架材</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="haichi-zu">火打ちはどこに入れるか（図解）</h2>
+      <figure class="diagram">
+        <svg viewBox="0 0 720 300" role="img" aria-label="火打ち材を建物の隅角部に斜めに入れる平面配置の図">
+          <title>火打ち材の配置</title>
+          <rect x="0" y="0" width="720" height="300" fill="#ffffff"/>
+          <text x="360" y="26" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a3a5c">隅（角）に斜めの材を入れて、四角形を三角形に固める</text>
+          <g transform="translate(180,50)">
+            <rect x="0" y="0" width="360" height="200" fill="#fafafa" stroke="#1a3a5c" stroke-width="6"/>
+            <line x1="180" y1="0" x2="180" y2="200" stroke="#1a3a5c" stroke-width="4"/>
+            <g stroke="#e8843c" stroke-width="7" stroke-linecap="round">
+              <line x1="0" y1="55" x2="55" y2="0"/>
+              <line x1="125" y1="0" x2="180" y2="55"/>
+              <line x1="180" y1="55" x2="235" y2="0"/>
+              <line x1="305" y1="0" x2="360" y2="55"/>
+              <line x1="0" y1="145" x2="55" y2="200"/>
+              <line x1="125" y1="200" x2="180" y2="145"/>
+              <line x1="180" y1="145" x2="235" y2="200"/>
+              <line x1="305" y1="200" x2="360" y2="145"/>
+            </g>
+            <text x="90" y="110" text-anchor="middle" font-size="13" fill="#666">床面</text>
+            <text x="270" y="110" text-anchor="middle" font-size="13" fill="#666">床面</text>
+          </g>
+          <g font-size="13.5">
+            <rect x="60" y="264" width="600" height="30" rx="6" fill="#f4f7fa" stroke="#9fc0dd"/>
+            <text x="360" y="284" text-anchor="middle" fill="#1a3a5c">■ 火打ち材（土台・梁の隅角部に45度で入れる）　■ 土台・梁</text>
+          </g>
+        </svg>
+        <figcaption>火打ちは水平面（床面・小屋面）を固める部材。垂直面を固める筋交いと向きが違うだけで、「三角形にする」という原理は同じ。</figcaption>
+      </figure>
+
+      <h2 id="genzai">現在の実務での位置づけ</h2>
+      <table class="data">
+        <tr><th>時代・工法</th><th>水平構面のつくり方</th><th>火打ちの役割</th></tr>
+        <tr><td>従来の根太工法（〜2000年代）</td><td>根太＋薄い床板（12mm程度）</td><td><strong>主役</strong>。火打ちがないと面が成立しない</td></tr>
+        <tr><td>根太レス工法（現在の主流）</td><td>厚合板24〜28mmを直接梁に留める</td><td><strong>補助</strong>。合板だけで床倍率3.0が確保できる</td></tr>
+        <tr><td>小屋組（現在も）</td><td>勾配屋根で床面がつくれない</td><td><strong>今も重要</strong>。小屋梁の隅に火打ち梁が必要</td></tr>
+        <tr><td>吹き抜けまわり</td><td>床が分断される</td><td><strong>重要</strong>。周囲の梁を固める</td></tr>
+        <tr><td>耐震改修</td><td>既存の床を壊さず補強したい</td><td><strong>有効</strong>。床下・小屋裏から後付けできる</td></tr>
+      </table>
+      <p>新築の1階・2階床では、厚合板の剛床化によって火打ちが省略されるケースが増えました。ただし<strong>小屋組・吹き抜けまわり・改修</strong>では今も欠かせません。「もう不要な部材」ではなく、<strong>「床面がつくれない場所で使う部材」</strong>と理解するのが正確です。</p>
+
+      <h2 id="sekou-chuui">施工と設計の注意点</h2>
+      <table class="data">
+        <tr><th>注意点</th><th>内容</th></tr>
+        <tr><td>負担面積を守る</td><td>床倍率0.8を確保するには、火打ち1本あたりの平均負担面積2.5m²以下・梁せい240mm以上が必要</td></tr>
+        <tr><td>梁せいが効く</td><td>同じ火打ちでも、取り付く梁が細いと床倍率は下がる（せい150で0.3、せい240で0.8）</td></tr>
+        <tr><td>ボルト・金物を確実に</td><td>火打ちは引張・圧縮を受けるため、接合部が緩いとまったく効かない</td></tr>
+        <tr><td>設備との干渉</td><td>小屋裏のダクト・配線と当たりやすい。位置を事前に調整する</td></tr>
+        <tr><td>天井高さへの影響</td><td>火打ち梁は天井内に出るため、勾配天井や高天井では納まりの検討が必要</td></tr>
+        <tr><td>金物火打ちの選択</td><td>木製より薄く納まり、施工も速い。認定品の性能値を確認して使う</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">火打ちは「隅」に入れないと意味がない</span>
+        <p>火打ちの効果は、四角形の隅を三角形に固めることで生まれます。したがって<strong>できるだけ隅の近くに、45度に近い角度で</strong>入れるのが原則です。設備との干渉を避けようとして隅から離れた位置にずらすと、三角形が小さくなり、期待した効果が得られません。<br>また、火打ちが取り付く梁が細いと、火打ちからの力で梁自体が曲がってしまい、やはり効果が落ちます。床倍率の算定表で梁せいごとに数値が分かれているのはこのためです。<strong>火打ちの性能は「火打ち材そのもの」ではなく「取り付く梁を含めた仕組み全体」で決まる</strong>と考えてください。</p>
+      </div>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

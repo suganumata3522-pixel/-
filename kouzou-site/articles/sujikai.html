@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/sujikai.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/sujikai.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-02",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-sujikai.jpg",
    "author": {
     "@type": "Person",
@@ -114,7 +114,7 @@
       <div class="meta">
         <span class="tag">木造（W造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>筋交いとは？役割・効果・寸法とブレースとの違い</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -195,6 +195,56 @@
         <span class="label">あわせて読みたい</span>
         <p>「<a href="sujikai-tekkin.html">筋交いの鉄筋（鉄筋ブレース）</a>」「<a href="kabebairitsu.html">壁倍率</a>」「<a href="hiuchi.html">火打ち</a>」をどうぞ。</p>
       </div>
+
+      <h2 id="mekanizumu-zu">筋交いが効くしくみ（図解）</h2>
+      <figure class="diagram">
+        <svg viewBox="0 0 740 300" role="img" aria-label="筋交いのない軸組が変形し、筋交いを入れると三角形になって変形しないことを示す図">
+          <title>筋交いによる変形の抑制</title>
+          <rect x="0" y="0" width="740" height="300" fill="#ffffff"/>
+          <text x="185" y="28" text-anchor="middle" font-size="16" font-weight="bold" fill="#c0392b">筋交いなし＝四角形</text>
+          <text x="555" y="28" text-anchor="middle" font-size="16" font-weight="bold" fill="#2e7d4f">筋交いあり＝三角形</text>
+          <g transform="translate(90,58)">
+            <rect x="0" y="0" width="190" height="150" fill="none" stroke="#ccc" stroke-width="3" stroke-dasharray="6 4"/>
+            <path d="M40,0 L230,0 L190,150 L0,150 Z" fill="#fdeaea" stroke="#c0392b" stroke-width="5"/>
+            <line x1="230" y1="-20" x2="270" y2="-20" stroke="#c0392b" stroke-width="4"/>
+            <polygon points="280,-20 262,-28 262,-12" fill="#c0392b"/>
+            <text x="115" y="196" text-anchor="middle" font-size="13.5" fill="#c0392b">四角形は角度が自由に変わる</text>
+            <text x="115" y="216" text-anchor="middle" font-size="13.5" fill="#c0392b">→ 簡単にひしゃげる</text>
+          </g>
+          <g transform="translate(450,58)">
+            <path d="M0,0 L190,0 L190,150 L0,150 Z" fill="#eef8f2" stroke="#2e7d4f" stroke-width="5"/>
+            <line x1="0" y1="150" x2="190" y2="0" stroke="#e8843c" stroke-width="8"/>
+            <line x1="220" y1="-20" x2="260" y2="-20" stroke="#2e7d4f" stroke-width="4"/>
+            <polygon points="270,-20 252,-28 252,-12" fill="#2e7d4f"/>
+            <text x="150" y="90" font-size="14" font-weight="bold" fill="#e8843c">筋交い</text>
+            <text x="95" y="196" text-anchor="middle" font-size="13.5" fill="#2e7d4f">三角形は辺の長さが決まれば</text>
+            <text x="95" y="216" text-anchor="middle" font-size="13.5" fill="#2e7d4f">形が一つに定まる → 変形しない</text>
+          </g>
+          <rect x="60" y="248" width="620" height="44" rx="6" fill="#f4f7fa" stroke="#9fc0dd"/>
+          <text x="370" y="268" text-anchor="middle" font-size="13.5" fill="#1a3a5c">「三角形は変形しない」——これが筋交い・ブレース・トラスに共通する原理</text>
+          <text x="370" y="286" text-anchor="middle" font-size="12.5" fill="#666">面材耐力壁（構造用合板）は、面全体のせん断抵抗で同じ効果を得ている</text>
+        </svg>
+        <figcaption>筋交いは四角形の軸組を三角形に分割する部材。三角形は3辺の長さが決まれば形が一つに定まるため、変形しない。</figcaption>
+      </figure>
+
+      <h2 id="hairi-genzoku">配置の原則：バランスが最重要</h2>
+      <table class="data">
+        <tr><th>原則</th><th>内容</th><th>守らないとどうなるか</th></tr>
+        <tr><td>① 量を確保する</td><td>必要壁量（建築基準法施行令46条）を満たす</td><td>絶対的な耐力不足で倒壊</td></tr>
+        <tr><td>② 両方向に配置</td><td>X方向・Y方向の両方に必要量を確保</td><td>片方向にだけ弱く、その向きの地震で崩れる</td></tr>
+        <tr><td>③ 平面的にバランス</td><td>4分割法または偏心率で確認</td><td>建物が<strong>ねじれて</strong>壊れる</td></tr>
+        <tr><td>④ たすき掛けを意識</td><td>片筋交いは向きを対にする</td><td>押す向きと引く向きで耐力が違う</td></tr>
+        <tr><td>⑤ 上下階で揃える</td><td>できるだけ同じ位置に耐力壁を配置</td><td>力の伝達が途切れ、その階に変形が集中</td></tr>
+        <tr><td>⑥ 接合部を確実に</td><td>筋かいプレート・ホールダウン金物</td><td>筋交いが外れて<strong>まったく効かない</strong></td></tr>
+      </table>
+      <p>とくに③のバランスは見落とされがちです。<strong>南側に大きな窓、北側に壁が多い</strong>という一般的な住宅の間取りは、そのままだと耐力壁が北に偏ります。地震のとき建物は壁の少ない南側が大きく動き、ねじれるように壊れます。総量が足りていても倒壊するのはこのパターンです。</p>
+
+      <h2 id="kongou-chuui">壁倍率の加算と上限</h2>
+      <div class="point-box">
+        <span class="label">「合板＋筋交い」で足せるのは5.0まで</span>
+        <p>構造用合板（壁倍率2.5）と筋交い（同2.0）を同じ壁に併用すると、壁倍率は2.5＋2.0＝4.5として扱えます。ただし<strong>加算後の上限は5.0</strong>と定められており、それ以上いくら重ねても評価されません。<br>これは、壁倍率が高くなるほど<strong>柱脚に生じる引き抜き力が大きくなり</strong>、接合部や基礎が先に壊れてしまうためです。壁の強さだけを追求しても、それを支える柱・土台・基礎が追いつかなければ意味がありません。<br>実務では、壁倍率5.0の壁を数か所つくるより、<strong>倍率2.5〜3.0の壁をバランスよく多く配置する</strong>ほうが、接合部の負担が分散されて確実です。</p>
+      </div>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>
