@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/mass-concrete.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/mass-concrete.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-02",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-mass-concrete.jpg",
    "author": {
     "@type": "Person",
@@ -114,7 +114,7 @@
       <div class="meta">
         <span class="tag">鉄筋コンクリート造（RC造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>マスコンクリートとは？温度ひび割れと対策</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -184,6 +184,53 @@
         <span class="label">実務のワンポイント</span>
         <p>大型の基礎スラブを担当するたびに、温度応力解析を省略したくなる誘惑と隣り合わせになります。断面が目安をわずかに下回るくらいの部材でも、拘束条件次第でひび割れが出た経験があるので、判断は寸法の数値だけに頼らないようにしています。</p>
       </div>
+
+      <h2 id="ondo-zukai">温度ひび割れが生じる仕組み（図解）</h2>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 280" role="img" aria-label="マスコンクリートの内部と表面の温度差によりひび割れが生じる仕組みの図">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">内部と表面の温度差がひび割れを生む</text>
+          <text x="175" y="62" font-size="14" text-anchor="middle" fill="#c0392b" font-weight="bold">① 温度上昇時</text>
+          <rect x="70" y="78" width="210" height="100" fill="#f5d9c2" stroke="#1a3a5c" stroke-width="2"/>
+          <rect x="105" y="98" width="140" height="60" fill="#e8843c"/>
+          <text x="175" y="134" font-size="13" text-anchor="middle" fill="#fff" font-weight="bold">内部 高温</text>
+          <text x="175" y="90" font-size="11.5" text-anchor="middle" fill="#8a4b18">表面は冷える</text>
+          <g stroke="#c0392b" stroke-width="2.5">
+            <line x1="80" y1="112" x2="98" y2="112"/><line x1="252" y1="112" x2="270" y2="112"/>
+          </g>
+          <text x="175" y="200" font-size="12.5" text-anchor="middle" fill="#6b7785">内部が膨張しようとするが</text>
+          <text x="175" y="220" font-size="12.5" text-anchor="middle" fill="#6b7785">表面が拘束 → 表面に引張</text>
+          <text x="350" y="130" font-size="20" text-anchor="middle" fill="#7d95ab">→</text>
+          <text x="525" y="62" font-size="14" text-anchor="middle" fill="#c0392b" font-weight="bold">② 冷却時</text>
+          <rect x="420" y="78" width="210" height="100" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2"/>
+          <rect x="455" y="98" width="140" height="60" fill="#dce9f5"/>
+          <text x="525" y="134" font-size="13" text-anchor="middle" fill="#1a3a5c" font-weight="bold">内部も冷える</text>
+          <g stroke="#c0392b" stroke-width="3">
+            <line x1="490" y1="98" x2="500" y2="158"/><line x1="560" y1="100" x2="552" y2="158"/>
+          </g>
+          <text x="525" y="200" font-size="12.5" text-anchor="middle" fill="#6b7785">内部が収縮するが</text>
+          <text x="525" y="220" font-size="12.5" text-anchor="middle" fill="#c0392b" font-weight="bold">既に固まった部分が拘束 → 貫通ひび割れ</text>
+          <text x="350" y="262" font-size="12.5" text-anchor="middle" fill="#1a3a5c" font-weight="bold">問題は最高温度そのものより「温度差」と「拘束」</text>
+        </svg>
+        <figcaption>温度上昇時は表面に、冷却時は内部に引張が生じる。特に冷却時の貫通ひび割れは、漏水や耐久性低下につながる。</figcaption>
+      </figure>
+
+      <h2 id="taisaku">温度ひび割れの対策</h2>
+      <table class="data">
+        <tr><th>分類</th><th>対策</th><th>効果</th></tr>
+        <tr><td rowspan="3"><strong>材料</strong></td><td><a href="portland-l.html">低熱</a>・<a href="portland-m.html">中庸熱</a>セメントの使用</td><td>発熱量そのものを減らす</td></tr>
+        <tr><td><a href="kouro-cement-b.html">高炉</a>・<a href="flyash-cement.html">フライアッシュ</a>セメント</td><td>セメント量を置き換えて発熱を抑える</td></tr>
+        <tr><td>単位セメント量の低減</td><td>粗骨材を多く、W/Cを大きめに（強度が許す範囲で）</td></tr>
+        <tr><td rowspan="3"><strong>施工</strong></td><td>プレクーリング（材料の冷却）</td><td>打込み温度を下げる</td></tr>
+        <tr><td>パイプクーリング</td><td>内部に配管して水を通し、内部温度の上昇を抑える</td></tr>
+        <tr><td>打設ブロックの分割</td><td>1回の打込み量を減らし、拘束を小さくする</td></tr>
+        <tr><td rowspan="2"><strong>設計</strong></td><td>ひび割れ誘発目地</td><td>ひび割れ位置を制御する</td></tr>
+        <tr><td>温度ひび割れ指数による検討</td><td>解析でひび割れ発生確率を評価し対策を決める</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">温度ひび割れ指数</span>
+        <p>マスコンクリートの検討では、<strong>温度ひび割れ指数</strong>（コンクリートの引張強度÷発生する引張応力）を用いて評価します。この値が大きいほどひび割れにくく、目安として1.85以上でひび割れをほぼ防止、1.2以上で有害なひび割れを制限、0.7以上でひび割れの発生を許容しつつ幅を制御、といった水準が示されています。要求される水密性・耐久性に応じて目標値を設定し、対策の程度を決めます。</p>
+      </div>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

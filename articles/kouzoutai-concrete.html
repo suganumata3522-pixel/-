@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/kouzoutai-concrete.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/kouzoutai-concrete.html",
    "datePublished": "2026-06-14",
-   "dateModified": "2026-07-02",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-kouzoutai-concrete.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "コア採取はどのように行いますか？", "acceptedAnswer": {"@type": "Answer", "text": "コアドリルで構造体から円柱状にコンクリートを切り出し、圧縮試験を行います。直径は粗骨材最大寸法の3倍以上（一般に100mm程度）、長さは直径の2倍が標準です。採取位置は構造上の影響が小さい箇所を選び、鉄筋を切断しないよう鉄筋探査を行ってから実施します。採取後の穴は無収縮モルタルで確実に埋め戻します。長さと直径の比が2でない場合は補正が必要です。"}},
+ {"@type": "Question", "name": "テストハンマーでどこまで正確に強度がわかりますか？", "acceptedAnswer": {"@type": "Answer", "text": "あくまで推定値であり、参考程度と考えるべきです。テストハンマー（シュミットハンマー）は表面の反発度から強度を推定する方法で、簡便に広範囲を調べられる利点があります。しかし、表面の含水状態・中性化・仕上げ材の有無・打撃方向などの影響を受けやすく、誤差が大きくなります。判定が必要な場合はコア採取による確認が原則です。"}},
+ {"@type": "Question", "name": "構造体強度が不足していた場合はどうしますか？", "acceptedAnswer": {"@type": "Answer", "text": "まず原因の究明と、範囲の特定を行います。養生不良か、材料・配合の問題か、供試体の作製ミスかによって対応が変わります。次にコア採取で実際の強度を確認し、構造安全性の再検討を行います。設計強度を下回っていても、実際の応力に対して余裕があれば許容される場合もあります。安全性が確保できない場合は、炭素繊維シートや鋼板巻きによる補強、最悪の場合は該当部分の解体・打ち直しとなります。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">鉄筋コンクリート造（RC造）</span>
         <span>公開日：2026年6月14日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>構造体コンクリート｜強度・標準養生・受入検査</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -182,6 +189,56 @@
         <span class="label">実務のワンポイント</span>
         <p>受入検査に合格した生コンでも、冬場の現場で養生シートの管理が甘いと構造体強度が不足することがあります。私は配合承認の書類だけで安心せず、実際の養生状況を現場立会いで目視確認することを欠かさないようにしています。</p>
       </div>
+
+      <h2 id="sa">供試体と構造体の強度差（図解）</h2>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 260" role="img" aria-label="標準養生の供試体と現場の構造体で強度に差が生じることを示す図">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">同じ配合でも強度に差が出る</text>
+          <line x1="350" y1="44" x2="350" y2="230" stroke="#c3ccd6" stroke-width="1.5" stroke-dasharray="6 5"/>
+          <text x="175" y="66" font-size="14.5" text-anchor="middle" fill="#2e7d4f" font-weight="bold">供試体（標準養生）</text>
+          <rect x="120" y="84" width="110" height="46" fill="#9fc0dd"/>
+          <rect x="155" y="90" width="40" height="34" fill="#eef3f8" stroke="#1a3a5c" stroke-width="1.5"/>
+          <text x="175" y="150" font-size="12.5" text-anchor="middle" fill="#6b7785">20±2℃の水中</text>
+          <text x="175" y="170" font-size="12.5" text-anchor="middle" fill="#6b7785">理想的な条件</text>
+          <rect x="105" y="186" width="140" height="34" rx="6" fill="#e6f4ea" stroke="#2e7d4f" stroke-width="2"/>
+          <text x="175" y="208" font-size="13" text-anchor="middle" fill="#2e7d4f" font-weight="bold">強度が出やすい</text>
+          <text x="525" y="66" font-size="14.5" text-anchor="middle" fill="#c0392b" font-weight="bold">構造体（現場の柱・梁）</text>
+          <rect x="470" y="80" width="110" height="70" fill="#e5e0d6" stroke="#1a3a5c" stroke-width="2"/>
+          <text x="525" y="120" font-size="12.5" text-anchor="middle" fill="#6b5a3f">実際の柱</text>
+          <g stroke="#3c6a94" stroke-width="2">
+            <line x1="440" y1="90" x2="462" y2="98"/><line x1="440" y1="120" x2="462" y2="120"/>
+          </g>
+          <text x="430" y="94" font-size="11.5" text-anchor="end" fill="#3c6a94">外気温</text>
+          <text x="430" y="124" font-size="11.5" text-anchor="end" fill="#3c6a94">風・乾燥</text>
+          <text x="525" y="170" font-size="12.5" text-anchor="middle" fill="#6b7785">現場の気温・湿度に左右される</text>
+          <rect x="455" y="186" width="140" height="34" rx="6" fill="#fdeaea" stroke="#c0392b" stroke-width="2"/>
+          <text x="525" y="208" font-size="13" text-anchor="middle" fill="#c0392b" font-weight="bold">強度が出にくい</text>
+          <text x="350" y="248" font-size="12.5" text-anchor="middle" fill="#1a3a5c" font-weight="bold">この差を見込むのが構造体強度補正値（3または6N/mm²）</text>
+        </svg>
+        <figcaption>理想条件で養生する供試体と、現場条件で硬化する構造体では強度に差が生じる。特に低温期はこの差が大きくなる。</figcaption>
+      </figure>
+
+      <h2 id="kakunin">構造体コンクリート強度の確認方法</h2>
+      <table class="data">
+        <tr><th>方法</th><th>内容</th><th>使う場面</th></tr>
+        <tr><td><a href="suichuu-yojou.html">現場水中養生</a>供試体</td><td>現場の気温の水中で養生した供試体で確認</td><td>断面が小さく水分が逃げやすい部材</td></tr>
+        <tr><td>現場封かん養生供試体</td><td>密封して現場に置いた供試体で確認</td><td>断面が大きく水分が保たれる部材</td></tr>
+        <tr><td>コア採取</td><td>硬化した構造体から円柱状に切り出して試験</td><td>疑義が生じた場合の確認、既存建物の調査</td></tr>
+        <tr><td>非破壊試験</td><td>テストハンマー（反発度法）、超音波法など</td><td>広範囲のスクリーニング、概略の推定</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">受入れ検査と構造体強度の確認は別</span>
+        <p>混同されやすいのですが、この2つは<strong>目的がまったく違います</strong>。受入れ検査（標準水中養生）は「納入されたコンクリートが呼び強度どおりか」を生コン工場に対して確認するもの。構造体強度の確認（現場養生）は「実際の建物のコンクリートが必要な強度を持つか」を施工者が確認するものです。前者が合格でも後者が不合格ということは起こり得ます（養生不良など）。両方を実施して初めて品質が担保されます。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. コア採取はどのように行いますか？</h3>
+      <p>コアドリルで構造体から円柱状にコンクリートを切り出し、圧縮試験を行います。直径は粗骨材最大寸法の3倍以上（一般に100mm程度）、長さは直径の2倍が標準です。採取位置は構造上の影響が小さい箇所を選び、鉄筋を切断しないよう鉄筋探査を行ってから実施します。採取後の穴は無収縮モルタルで確実に埋め戻します。長さと直径の比が2でない場合は補正が必要です。</p>
+      <h3>Q2. テストハンマーでどこまで正確に強度がわかりますか？</h3>
+      <p>あくまで推定値であり、参考程度と考えるべきです。テストハンマー（シュミットハンマー）は表面の反発度から強度を推定する方法で、簡便に広範囲を調べられる利点があります。しかし、表面の含水状態・中性化・仕上げ材の有無・打撃方向などの影響を受けやすく、誤差が大きくなります。判定が必要な場合はコア採取による確認が原則です。</p>
+      <h3>Q3. 構造体強度が不足していた場合はどうしますか？</h3>
+      <p>まず原因の究明と、範囲の特定を行います。養生不良か、材料・配合の問題か、供試体の作製ミスかによって対応が変わります。次にコア採取で実際の強度を確認し、構造安全性の再検討を行います。設計強度を下回っていても、実際の応力に対して余裕があれば許容される場合もあります。安全性が確保できない場合は、炭素繊維シートや鋼板巻きによる補強、最悪の場合は該当部分の解体・打ち直しとなります。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>

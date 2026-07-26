@@ -36,7 +36,7 @@
    "url": "https://www.kouzou-navi.com/articles/tekkin-yousetsu.html",
    "mainEntityOfPage": "https://www.kouzou-navi.com/articles/tekkin-yousetsu.html",
    "datePublished": "2026-06-20",
-   "dateModified": "2026-06-20",
+   "dateModified": "2026-07-22",
    "image": "https://www.kouzou-navi.com/assets/eyecatch-tekkin-yousetsu.jpg",
    "author": {
     "@type": "Person",
@@ -80,6 +80,13 @@
  ]
 }
 </script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "鉄筋の溶接に資格は必要ですか？", "acceptedAnswer": {"@type": "Answer", "text": "必要です。鉄筋の溶接作業は、日本鉄筋継手協会などが認定する技量資格を有する技能者が行います。溶接する鉄筋の径や溶接姿勢に応じて資格の区分があり、有効期限もあります。施工計画書には、従事する技能者の資格証の写しを添付するのが一般的です。無資格者による施工は認められません。"}},
+ {"@type": "Question", "name": "溶接継手の検査はどのように行いますか？", "acceptedAnswer": {"@type": "Answer", "text": "外観検査と非破壊検査を組み合わせます。外観検査では、余盛りの形状・寸法、アンダーカットや割れの有無を目視で確認します。内部欠陥については超音波探傷試験が用いられますが、鉄筋は形状が複雑で探傷が難しいため、抜取りによる引張試験で確認することもあります。検査の方法と頻度は、施工計画で定めておきます。"}},
+ {"@type": "Question", "name": "杭頭補強筋に溶接が使われるのはなぜですか？", "acceptedAnswer": {"@type": "Answer", "text": "杭の鉄筋かごと基礎の鉄筋を接合する部位で、圧接が困難な納まりになることが多いためです。杭頭では、既に打設された杭から突出した鉄筋に対して、限られたスペースで接合作業を行う必要があります。ガス圧接には所定の作業空間と鉄筋の軸合わせが必要ですが、これが確保しにくいため、溶接継手や機械式継手が選ばれます。"}}
+]}
+</script>
 </head>
 <body>
 
@@ -111,7 +118,7 @@
       <div class="meta">
         <span class="tag">鉄筋コンクリート造</span>
         <span>公開日：2026年6月20日</span>
-        <span>更新日：2026年7月6日</span>
+        <span>更新日：2026年7月22日</span>
       </div>
       <h1>鉄筋の溶接とは？種類（エンクローズ・フレア）の特徴と適用場面</h1>
       <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
@@ -192,6 +199,52 @@
         <span class="label">実務のワンポイント</span>
         <p>鉄筋の溶接に立ち会う機会は、圧接や機械式継手に比べて実務ではかなり少ないというのが実感です。だからこそ杭頭補強筋のフレア溶接が図面に出てきたときは、施工者の資格・実績を普段以上に丁寧に確認します。</p>
       </div>
+
+      <h2 id="shurui-zukai">2種類の溶接継手（図解）</h2>
+      <figure class="article-fig">
+        <svg viewBox="0 0 700 250" role="img" aria-label="エンクローズ溶接とフレア溶接の違いを示す図">
+          <text x="350" y="26" font-size="17" text-anchor="middle" fill="#1a3a5c" font-weight="bold">2つの溶接継手</text>
+          <line x1="350" y1="44" x2="350" y2="220" stroke="#c3ccd6" stroke-width="1.5" stroke-dasharray="6 5"/>
+          <text x="175" y="66" font-size="14.5" text-anchor="middle" fill="#1a3a5c" font-weight="bold">エンクローズ溶接（突合せ）</text>
+          <rect x="70" y="100" width="90" height="20" rx="10" fill="#7d95ab"/>
+          <rect x="190" y="100" width="90" height="20" rx="10" fill="#7d95ab"/>
+          <rect x="158" y="92" width="34" height="36" fill="#e8843c"/>
+          <rect x="150" y="86" width="50" height="48" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="4 3"/>
+          <text x="175" y="156" font-size="12.5" text-anchor="middle" fill="#6b7785">端部どうしを突き合わせ</text>
+          <text x="175" y="176" font-size="12.5" text-anchor="middle" fill="#6b7785">銅当て金で囲って溶接</text>
+          <text x="175" y="200" font-size="12.5" text-anchor="middle" fill="#2e7d4f" font-weight="bold">全断面を接合・高い強度</text>
+          <text x="525" y="66" font-size="14.5" text-anchor="middle" fill="#1a3a5c" font-weight="bold">フレア溶接（重ね）</text>
+          <rect x="420" y="94" width="140" height="20" rx="10" fill="#7d95ab"/>
+          <rect x="480" y="118" width="140" height="20" rx="10" fill="#7d95ab"/>
+          <path d="M482 114 L558 114 L558 120 L482 120 Z" fill="#e8843c"/>
+          <text x="525" y="164" font-size="12.5" text-anchor="middle" fill="#6b7785">鉄筋を重ねて、すき間（フレア）を</text>
+          <text x="525" y="182" font-size="12.5" text-anchor="middle" fill="#6b7785">溶接で埋める</text>
+          <text x="525" y="206" font-size="12.5" text-anchor="middle" fill="#b35309" font-weight="bold">径25mm以下に限定</text>
+        </svg>
+        <figcaption>エンクローズ溶接は端部を突き合わせて全断面を接合する方法。フレア溶接は鉄筋を重ねてすき間を溶接する方法で、適用径に制限がある。</figcaption>
+      </figure>
+
+      <h2 id="hikaku">他の継手との比較</h2>
+      <table class="data">
+        <tr><th>継手の種類</th><th>特徴</th><th>主な用途</th></tr>
+        <tr><td><a href="tekkin-tsugite.html">重ね継手</a></td><td>鉄筋を重ねて付着で力を伝える。最も簡便</td><td>D25以下が中心。一般的な部位</td></tr>
+        <tr><td>ガス圧接継手</td><td>加熱・加圧して接合。全断面を確実に接合できる</td><td>D19以上の主筋。もっとも一般的な機械的継手</td></tr>
+        <tr><td><strong>溶接継手</strong></td><td>アーク溶接で接合。技量への依存度が高い</td><td>杭頭補強筋、圧接が困難な狭あい部</td></tr>
+        <tr><td>機械式継手</td><td>カプラーやスリーブで機械的に接合</td><td>プレキャスト部材、太径鉄筋、狭い場所</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">なぜ鉄筋の溶接は主流でないのか</span>
+        <p>鉄骨では溶接が標準なのに、鉄筋ではほとんど使われないのには理由があります。①<strong>鉄筋は炭素当量が高く溶接性が良くない</strong>（急冷で硬化・脆化しやすい）、②<strong>現場の姿勢・環境が悪い</strong>（狭く、上向き・横向き溶接が多い）、③<strong>品質の確認が難しい</strong>（内部欠陥を非破壊で検査しにくい）——といった点です。そのため、確実性の高いガス圧接や重ね継手が主流となり、溶接はそれらが使えない特殊な納まりに限定されています。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 鉄筋の溶接に資格は必要ですか？</h3>
+      <p>必要です。鉄筋の溶接作業は、日本鉄筋継手協会などが認定する技量資格を有する技能者が行います。溶接する鉄筋の径や溶接姿勢に応じて資格の区分があり、有効期限もあります。施工計画書には、従事する技能者の資格証の写しを添付するのが一般的です。無資格者による施工は認められません。</p>
+      <h3>Q2. 溶接継手の検査はどのように行いますか？</h3>
+      <p>外観検査と非破壊検査を組み合わせます。外観検査では、余盛りの形状・寸法、アンダーカットや割れの有無を目視で確認します。内部欠陥については超音波探傷試験が用いられますが、鉄筋は形状が複雑で探傷が難しいため、抜取りによる引張試験で確認することもあります。検査の方法と頻度は、施工計画で定めておきます。</p>
+      <h3>Q3. 杭頭補強筋に溶接が使われるのはなぜですか？</h3>
+      <p>杭の鉄筋かごと基礎の鉄筋を接合する部位で、圧接が困難な納まりになることが多いためです。杭頭では、既に打設された杭から突出した鉄筋に対して、限られたスペースで接合作業を行う必要があります。ガス圧接には所定の作業空間と鉄筋の軸合わせが必要ですが、これが確保しにくいため、溶接継手や機械式継手が選ばれます。</p>
+
 
       <h2 id="matome">まとめ</h2>
       <ul>
