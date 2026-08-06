@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>図面差分抽出ツール</title>
+<style>
+  :root{
+    --ink:#1b2733; --sub:#5b6b7a; --line:#dde4ea; --bg:#f4f7f9;
+    --accent:#0b6fb4; --old:#d32f2f; --new:#1565c0;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font-family:"Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;
+       line-height:1.7;font-size:15px}
+  header{background:#12222f;color:#fff;padding:16px 24px}
+  header h1{margin:0;font-size:18px;letter-spacing:.04em}
+  header p{margin:4px 0 0;font-size:12.5px;color:#9db4c6}
+  .wrap{max-width:1280px;margin:0 auto;padding:24px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:20px;margin-bottom:20px}
+  .card h2{margin:0 0 14px;font-size:15px;letter-spacing:.03em;
+           border-left:4px solid var(--accent);padding-left:10px}
+
+  /* --- ファイル選択 --- */
+  .zones{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:center}
+  .zone{border:2px dashed #c3d0da;border-radius:10px;padding:22px 16px;text-align:center;
+        cursor:pointer;background:#fafcfd;transition:.15s}
+  .zone:hover,.zone.over{border-color:var(--accent);background:#eef6fc}
+  .zone.filled{border-style:solid;border-color:var(--accent);background:#f2f9ff}
+  .zone-label{font-weight:700;font-size:14px}
+  .zone-label .tag{display:inline-block;font-size:11px;padding:2px 8px;border-radius:10px;
+                   margin-right:8px;color:#fff;vertical-align:2px}
+  .zone-old .tag{background:var(--old)} .zone-new .tag{background:var(--new)}
+  .zone-hint{font-size:12px;color:var(--sub);margin-top:6px}
+  .zone-file{font-size:13px;margin-top:8px;word-break:break-all;font-weight:500}
+  .zone-size{font-size:11.5px;color:var(--sub)}
+  .zone input{display:none}
+  #btn-swap{border:1px solid var(--line);background:#fff;border-radius:8px;cursor:pointer;
+            padding:10px 8px;font-size:16px;color:var(--sub)}
+  #btn-swap:hover{background:#eef6fc;color:var(--accent)}
+
+  .actions{margin-top:16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+  button.primary{background:var(--accent);color:#fff;border:0;border-radius:8px;
+                 padding:11px 26px;font-size:14.5px;font-weight:700;cursor:pointer}
+  button.primary:disabled{background:#b9c6d1;cursor:not-allowed}
+  button.ghost{background:#fff;color:var(--accent);border:1px solid var(--accent);
+               border-radius:8px;padding:9px 18px;font-size:13.5px;font-weight:700;cursor:pointer}
+  button.ghost:hover{background:#eef6fc}
+  .note{font-size:12.5px;color:var(--sub)}
+
+  /* --- 進捗 --- */
+  #progress-wrap{margin-top:14px}
+  #progress-track{height:6px;background:#e6edf2;border-radius:3px;overflow:hidden}
+  #progress-bar{height:100%;width:0;background:var(--accent);transition:width .2s}
+  #progress-text{font-size:12.5px;color:var(--sub);margin-top:6px}
+
+  /* --- 結果 --- */
+  .sum-row{display:flex;gap:12px;padding:5px 0;border-bottom:1px dotted var(--line);font-size:13.5px}
+  .sum-k{min-width:150px;color:var(--sub)}
+  .sum-v{font-weight:500}
+  .warn{margin-top:10px;background:#fff6e5;border:1px solid #f0d9a8;border-radius:6px;
+        padding:8px 12px;font-size:12.5px}
+
+  .split{display:grid;grid-template-columns:360px 1fr;gap:18px;align-items:start}
+  @media(max-width:900px){.split{grid-template-columns:1fr}.zones{grid-template-columns:1fr}}
+
+  #region-list{max-height:70vh;overflow:auto;display:flex;flex-direction:column;gap:8px;padding-right:4px}
+  .region{display:block;width:100%;text-align:left;background:#fff;border:1px solid var(--line);
+          border-radius:8px;padding:10px 12px;cursor:pointer;font-family:inherit;font-size:13px}
+  .region:hover{border-color:var(--accent);background:#f7fbfe}
+  .region.sel{border-color:var(--accent);background:#eef6fc;box-shadow:0 0 0 2px #cfe6f7 inset}
+  .region-head{display:flex;gap:8px;align-items:center;margin-bottom:4px}
+  .badge{background:var(--accent);color:#fff;border-radius:4px;padding:1px 7px;font-size:11.5px;font-weight:700}
+  .loc{font-size:12px;color:var(--sub)}
+  .txt{font-size:12.5px;word-break:break-all;padding-left:2px}
+  .txt.old{color:var(--old)} .txt.new{color:var(--new)} .txt.none{color:var(--sub)}
+
+  #preview{background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px;min-height:320px}
+  .preview-cap{font-size:13px;font-weight:700;margin-bottom:10px}
+  .preview-img{max-width:100%;height:auto;border:1px solid var(--line);border-radius:4px;display:block}
+  .empty{color:var(--sub);font-size:13.5px;text-align:center;padding:60px 0;margin:0}
+
+  footer{color:var(--sub);font-size:12px;text-align:center;padding:10px 0 30px}
+  code{background:#eef2f5;padding:1px 5px;border-radius:3px;font-size:12px}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>図面差分抽出ツール</h1>
+  <p>2枚のPDF図面を比較して、変更された箇所を自動で抽出します。ファイルはこのパソコンの中だけで処理され、外部には送信されません。</p>
+</header>
+
+<div class="wrap">
+
+  <div class="card">
+    <h2>図面を選ぶ</h2>
+    <div class="zones">
+      <div class="zone zone-old" id="zone-old">
+        <div class="zone-label"><span class="tag">旧</span>改訂前の図面</div>
+        <div class="zone-hint">クリックまたはドラッグ＆ドロップ</div>
+        <div class="zone-file"></div><div class="zone-size"></div>
+        <input type="file" accept="application/pdf,.pdf">
+      </div>
+      <button id="btn-swap" type="button" title="旧・新を入れ替える">⇄</button>
+      <div class="zone zone-new" id="zone-new">
+        <div class="zone-label"><span class="tag">新</span>改訂後の図面</div>
+        <div class="zone-hint">クリックまたはドラッグ＆ドロップ</div>
+        <div class="zone-file"></div><div class="zone-size"></div>
+        <input type="file" accept="application/pdf,.pdf">
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="primary" id="btn-run" disabled>差分を抽出する</button>
+      <span class="note">図面の版が新しい方を「新」に入れてください。A1サイズで1ページあたり数秒かかります。</span>
+    </div>
+
+    <div id="progress-wrap" hidden>
+      <div id="progress-track"><div id="progress-bar"></div></div>
+      <div id="progress-text"></div>
+    </div>
+  </div>
+
+  <div id="results" hidden>
+    <div class="card">
+      <h2>結果</h2>
+      <div id="summary"></div>
+      <div class="actions">
+        <button class="ghost" id="btn-pdf">変更箇所マーキングPDFを保存</button>
+        <button class="ghost" id="btn-img">新旧比較画像を保存（ZIP）</button>
+        <label class="note"><input type="checkbox" id="chk-showall"> 軽微な差（作図しなおしの誤差など）も表示する</label>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>変更箇所 <span id="region-count"></span> 件</h2>
+      <div class="split">
+        <div id="region-list"></div>
+        <div id="preview"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    このファイル1つで動作します。社内の共有フォルダに置いてそのまま配布できます。
+  </footer>
+</div>
+
+<script>/*__PDFJS__*/</script>
+<script>/*__PDFLIB__*/</script>
+<script>/*__JSZIP__*/</script>
+<script>
+  // pdf.js のワーカーをファイル内から起動する（外部ファイル不要）
+  (function(){
+    var src = window.__PDFJS_WORKER__;
+    var blob = new Blob([src], {type:'application/javascript'});
+    window.pdfjsLib.GlobalWorkerOptions.workerSrc = URL.createObjectURL(blob);
+  })();
+</script>
+<script>/*__DIFFCORE__*/</script>
+<script>/*__APP__*/</script>
+</body>
+</html>
