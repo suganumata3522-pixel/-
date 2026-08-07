@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
+<title>S造とRC造の剛度増大率の違い｜目安・設定方法と注意点【無料Excel】｜構造設計ナビ</title>
+<meta name="description" content="剛度増大率とは、床スラブなどの寄与を織り込んで解析モデルの剛性を補正する係数です。S造（合成梁・スタッド）で片側1.2〜1.4倍・両側1.4〜1.6倍、RC造（協力幅）で片側1.5倍・両側2.0倍という目安の違いと根拠、設定手順、過大に設定した場合のリスクを、現役の構造設計一級建築士が図解で解説。スラブ付きRC梁の剛度増大率計算Excelを無料ダウンロードできます。">
+<meta property="og:title" content="S造とRC造の剛度増大率の違い｜目安・設定方法と注意点【無料Excel】｜構造設計ナビ">
+<meta property="og:description" content="S造は合成梁（スタッド）、RC造は協力幅と、剛度増大率の根拠は構造種別で異なります。目安の値・設定手順・過大設定のリスクを図解で解説。計算Excelを無料配布。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kouzou-navi.com/articles/goudo-zoudairitsu-s-rc.html">
+<meta property="og:image" content="https://www.kouzou-navi.com/assets/eyecatch-goudo-zoudairitsu-s-rc.jpg">
+<meta property="og:site_name" content="構造設計ナビ">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.kouzou-navi.com/assets/eyecatch-goudo-zoudairitsu-s-rc.jpg">
+<link rel="canonical" href="https://www.kouzou-navi.com/articles/goudo-zoudairitsu-s-rc.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "TechArticle",
+   "headline": "S造とRC造の剛度増大率の違い｜目安・設定方法と注意点",
+   "description": "S造は合成梁（スタッド）、RC造は協力幅と、剛度増大率の根拠は構造種別で異なります。目安の値・設定手順・過大設定のリスクを図解で解説。計算Excelを無料配布。",
+   "inLanguage": "ja",
+   "url": "https://www.kouzou-navi.com/articles/goudo-zoudairitsu-s-rc.html",
+   "mainEntityOfPage": "https://www.kouzou-navi.com/articles/goudo-zoudairitsu-s-rc.html",
+   "datePublished": "2026-08-07",
+   "dateModified": "2026-08-07",
+   "image": "https://www.kouzou-navi.com/assets/eyecatch-goudo-zoudairitsu-s-rc.jpg",
+   "author": {
+    "@type": "Person",
+    "name": "ホッタ ナオト",
+    "jobTitle": "構造設計一級建築士",
+    "url": "https://www.kouzou-navi.com/about.html#author"
+   },
+   "publisher": {
+    "@type": "Organization",
+    "name": "構造設計ナビ",
+    "url": "https://www.kouzou-navi.com/",
+    "logo": { "@type": "ImageObject", "url": "https://www.kouzou-navi.com/assets/apple-touch-icon.png" }
+   }
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://www.kouzou-navi.com/" },
+    { "@type": "ListItem", "position": 2, "name": "構造計算の実務", "item": "https://www.kouzou-navi.com/articles.html#jitsumu" },
+    { "@type": "ListItem", "position": 3, "name": "S造とRC造の剛度増大率の違い｜目安・設定方法と注意点", "item": "https://www.kouzou-navi.com/articles/goudo-zoudairitsu-s-rc.html" }
+   ]
+  }
+ ]
+}
+</script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "剛度増大率はすべての構造で必要ですか？", "acceptedAnswer": {"@type": "Answer", "text": "いいえ。剛性への寄与が無視できないと判断される場合に用いる係数です。スラブが取り付かない小梁、スタッドで一体化されていない鉄骨梁、構造スリットで縁を切った雑壁などは、増大を見込まずφ＝1.0とします。"}},
+ {"@type": "Question", "name": "スタッドがない鉄骨梁でもスラブの剛性は使えますか？", "acceptedAnswer": {"@type": "Answer", "text": "使えません。ずれ止めがなければ鋼梁とスラブの境界が滑ってしまい、一体の断面として曲げに抵抗しないためです。非合成梁として扱い、φ＝1.0とします。RC造の略算値をそのまま鉄骨梁に当てはめるのは誤りです。"}},
+ {"@type": "Question", "name": "設定した剛度増大率が妥当かどうかはどう判断しますか？", "acceptedAnswer": {"@type": "Answer", "text": "RC造ならRC規準の協力幅から詳算し、略算値と食い違わないかを確認します。あわせて増大率の「あり・なし」両方で解析し、どちらでも部材が成立することを確認するのが実務の定石です。確認申請で根拠を問われたときも、この比較検討がそのまま回答になります。"}},
+ {"@type": "Question", "name": "剛度増大率を使うとコストは下がりますか？", "acceptedAnswer": {"@type": "Answer", "text": "下がる場合もありますが、必ずではありません。剛性を高く評価した部材にはより多くの応力が集まるため、その部材の断面はかえって大きくなることもあります。コスト削減ではなく、実際の挙動に近づけることが本来の目的です。"}}
+]}
+</script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="../articles.html#kiso">構造力学の基礎</a></li>
+        <li><a href="../articles.html#jitsumu">構造計算の実務</a></li>
+        <li><a href="../tools/index.html">計算ツール</a></li>
+        <li><a href="../downloads.html">無料Excel</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › <a href="../articles.html#jitsumu">構造計算の実務</a> › S造とRC造の剛度増大率の違い</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">構造計算の実務</span>
+        <span>公開日：2026年8月7日</span>
+        <span>更新日：2026年8月7日</span>
+      </div>
+      <h1>S造とRC造の剛度増大率の違い｜目安・設定方法と注意点【無料Excel】</h1>
+      <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
+
+      <figure class="article-fig" style="margin:14px 0 22px;">
+        <img src="../assets/eyecatch-goudo-zoudairitsu.jpg" alt="S造とRC造の剛度増大率の違い｜目安・設定方法と注意点【無料Excel】" width="1200" height="630" style="max-width:100%;" fetchpriority="high">
+      </figure>
+
+      <p><strong>剛度増大率</strong>とは、部材の実際の挙動を考慮して、弾性解析モデルの剛性を上方に補正するための係数です。建物には床スラブ・雑壁・接合部の半剛性など変形を抑える要素が数多くありますが、柱と梁を線材に置き換えた解析モデルにはこれらが反映されません。この記事では、<strong>S造とRC造で増大率の根拠と目安がどう違うのか</strong>、どう設定するのか、大きく設定しすぎると何が起きるのかを、現役の構造設計一級建築士が実務目線で解説します。記事末では<strong>剛度増大率計算Excel</strong>を無料配布しています。</p>
+
+      <div class="point-box">
+        <span class="label">この記事の要点</span>
+        <ul>
+          <li>剛度増大率は<strong>解析モデルを実際の挙動に近づける</strong>ための補正係数（φ＝I'／I）。</li>
+          <li><strong>S造</strong>はスタッドで一体化した合成梁が条件で、片側1.2〜1.4倍・両側1.4〜1.6倍が目安。<strong>スタッドがなければ1.0</strong>。</li>
+          <li><strong>RC造</strong>は一体打設のため常に一体で働き、片側1.5倍・両側2.0倍が目安。詳算はRC規準の協力幅から。</li>
+          <li>大きく設定すれば安全とは限らない。<strong>「あり・なし」両方の検証</strong>が実務の定石。</li>
+        </ul>
+      </div>
+
+      <nav class="toc" aria-label="目次">
+        <div class="toc-ttl">目次</div>
+        <ol>
+          <li><a href="#riyuu">なぜ剛度増大率が必要なのか</a></li>
+          <li><a href="#s-zou">S造の場合：合成梁として評価する</a></li>
+          <li><a href="#rc-zou">RC造の場合：協力幅で評価する</a></li>
+          <li><a href="#hikaku">S造とRC造の比較</a></li>
+          <li><a href="#settei">剛度増大率の設定手順</a></li>
+          <li><a href="#chuui">注意点：大きく設定すればよいわけではない</a></li>
+          <li><a href="#excel">剛度増大率計算Excelの無料ダウンロード</a></li>
+          <li><a href="#faq">よくある質問</a></li>
+          <li><a href="#matome">まとめ</a></li>
+        </ol>
+      </nav>
+
+      <h2 id="riyuu">なぜ剛度増大率が必要なのか</h2>
+      <p>構造解析のモデルは、柱と梁を線材（棒）に置き換えた単純なものです。しかし実際の建物には、床スラブ・雑壁・接合部の半剛性など<strong>変形を抑える方向に働く要素</strong>が数多くあります。これらを無視すると、モデル上の建物は実物より柔らかくなり、たわみや層間変形角を過大に評価することになります。</p>
+      <p>過大な見積もりは「安全側だから問題ない」と思われがちですが、そうとは限りません。剛性の評価は<strong>応力がどの部材に流れるか</strong>を左右するため、実際とかけ離れたモデルでは力が集まる場所を読み違える恐れがあるからです。</p>
+
+      <figure class="diagram">
+        <svg viewBox="0 0 740 300" role="img" aria-label="解析モデルの梁単独断面と、実際にスラブと一体で働く断面の違いを示す図">
+          <title>解析モデルと実際の梁断面の違い</title>
+          <rect x="0" y="0" width="740" height="300" fill="#ffffff"/>
+          <text x="185" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#c0392b">補正しないモデル</text>
+          <text x="555" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#2e7d4f">実際の挙動</text>
+          <g transform="translate(120,58)">
+            <rect x="0" y="40" width="130" height="150" fill="#9fc0dd" stroke="#1a3a5c" stroke-width="2.5"/>
+            <rect x="-90" y="16" width="310" height="24" fill="none" stroke="#ccc" stroke-width="2" stroke-dasharray="6 4"/>
+            <text x="65" y="122" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a3a5c">梁のみ</text>
+            <text x="65" y="222" text-anchor="middle" font-size="13" fill="#c0392b">スラブを無視 → 柔らかすぎる</text>
+            <text x="65" y="244" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#1a3a5c">I（原剛性）</text>
+          </g>
+          <g transform="translate(490,58)">
+            <rect x="-90" y="16" width="310" height="24" fill="#e8843c" fill-opacity="0.5" stroke="#e8843c" stroke-width="2.5"/>
+            <rect x="0" y="40" width="130" height="150" fill="#9fc0dd" stroke="#1a3a5c" stroke-width="2.5"/>
+            <text x="65" y="122" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a3a5c">梁</text>
+            <text x="-100" y="34" text-anchor="end" font-size="13" font-weight="bold" fill="#8a4b16">スラブ</text>
+            <text x="65" y="222" text-anchor="middle" font-size="13" fill="#2e7d4f">スラブが一緒に曲げに抵抗</text>
+            <text x="65" y="244" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#1a3a5c">I' ＝ φ × I</text>
+          </g>
+          <rect x="80" y="264" width="580" height="28" rx="6" fill="#f4f7fa" stroke="#9fc0dd"/>
+          <text x="370" y="283" text-anchor="middle" font-size="13.5" fill="#1a3a5c">剛度増大率φ ＝ I' ／ I　（原剛性を何倍にするかを表す係数）</text>
+        </svg>
+        <figcaption>解析モデルは梁を長方形断面として扱うが、実際にはスラブが一緒に曲げに抵抗する。この差を係数φで埋めるのが剛度増大率。</figcaption>
+      </figure>
+
+      <h2 id="s-zou">S造の場合：合成梁として評価する</h2>
+      <p>鉄骨造では、鋼梁の上のコンクリートスラブが<strong>頭付きスタッド（ずれ止め）</strong>で連結された<strong>合成梁</strong>のときに、剛性の増大を考慮します。実務での目安は<strong>片側スラブ付きで1.2〜1.4倍、両側スラブ付きで1.4〜1.6倍</strong>程度です。決定的に重要なのが<strong>スタッドの有無</strong>で、これがなければ鋼梁とスラブの境界面が滑り、一体の断面として働きません。その場合は<strong>非合成梁</strong>として扱い、剛度増大率は1.0（増大なし）とします。</p>
+
+      <figure class="diagram">
+        <svg viewBox="0 0 740 280" role="img" aria-label="スタッドがある合成梁とスタッドがない非合成梁で、境界面のずれが生じるかどうかの違いを示す図">
+          <title>スタッドの有無による合成効果の違い</title>
+          <rect x="0" y="0" width="740" height="280" fill="#ffffff"/>
+          <text x="185" y="28" text-anchor="middle" font-size="16" font-weight="bold" fill="#2e7d4f">スタッドあり＝合成梁</text>
+          <text x="555" y="28" text-anchor="middle" font-size="16" font-weight="bold" fill="#c0392b">スタッドなし＝非合成梁</text>
+          <g transform="translate(60,52)">
+            <rect x="0" y="0" width="250" height="26" fill="#c8c8c8" stroke="#999" stroke-width="1.5"/>
+            <g fill="#2e7d4f">
+              <rect x="46" y="-6" width="7" height="32"/><rect x="96" y="-6" width="7" height="32"/>
+              <rect x="146" y="-6" width="7" height="32"/><rect x="196" y="-6" width="7" height="32"/>
+              <rect x="42" y="-10" width="15" height="7"/><rect x="92" y="-10" width="15" height="7"/>
+              <rect x="142" y="-10" width="15" height="7"/><rect x="192" y="-10" width="15" height="7"/>
+            </g>
+            <rect x="0" y="26" width="250" height="12" fill="#1a3a5c"/>
+            <rect x="119" y="38" width="12" height="72" fill="#1a3a5c"/>
+            <rect x="0" y="110" width="250" height="12" fill="#1a3a5c"/>
+            <text x="125" y="152" text-anchor="middle" font-size="13" fill="#2e7d4f">境界がずれない</text>
+            <text x="125" y="174" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#2e7d4f">→ 一体の断面として働く</text>
+            <text x="125" y="198" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a3a5c">φ ＝ 1.2〜1.6</text>
+          </g>
+          <g transform="translate(430,52)">
+            <rect x="14" y="0" width="250" height="26" fill="#c8c8c8" stroke="#999" stroke-width="1.5"/>
+            <rect x="0" y="26" width="250" height="12" fill="#1a3a5c"/>
+            <rect x="119" y="38" width="12" height="72" fill="#1a3a5c"/>
+            <rect x="0" y="110" width="250" height="12" fill="#1a3a5c"/>
+            <g stroke="#c0392b" stroke-width="2.5">
+              <line x1="200" y1="14" x2="228" y2="14"/>
+              <polygon points="236,14 220,7 220,21" fill="#c0392b"/>
+              <line x1="60" y1="32" x2="32" y2="32"/>
+              <polygon points="24,32 40,25 40,39" fill="#c0392b"/>
+            </g>
+            <text x="125" y="152" text-anchor="middle" font-size="13" fill="#c0392b">境界面が滑ってずれる</text>
+            <text x="125" y="174" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#c0392b">→ 別々に曲がる</text>
+            <text x="125" y="198" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a3a5c">φ ＝ 1.0</text>
+          </g>
+          <rect x="60" y="242" width="620" height="28" rx="6" fill="#f4f7fa" stroke="#9fc0dd"/>
+          <text x="370" y="261" text-anchor="middle" font-size="13.5" fill="#1a3a5c">S造で剛度増大を見込めるかどうかは、スタッドが施工されているかで決まる</text>
+        </svg>
+        <figcaption>スタッドは鋼梁とスラブの間のずれを止める部材。これがあって初めて両者が一体の断面として曲げに抵抗する。</figcaption>
+      </figure>
+
+      <h2 id="rc-zou">RC造の場合：協力幅で評価する</h2>
+      <p><a href="rc-zou.html">鉄筋コンクリート造</a>では梁とスラブが一体で打設されるため、接合材がなくても必ず一体で働きます。そのため増大率はS造より大きく、実務の略算値は<strong>片側で約1.5倍、両側で約2.0倍</strong>です。</p>
+      <p>ただしこれは略算値で、実際の寄与はスパン・梁せい・スラブ厚・スラブの内法距離によって変わります。詳しく評価する場合はRC規準に基づいて<strong>協力幅</strong>（梁の剛性に寄与するとみなせるスラブの有効な幅）を算定し、T形断面として剛性を求め直します。その計算手順は「<a href="goudo-zoudairitsu.html">剛度増大率とは？スラブ付きRC梁の剛性倍率と協力幅の計算方法</a>」で詳しく解説しています。</p>
+      <p>なおRC造では、スラブ以外にも<strong>増し打ち</strong>、柱に連続する<strong>地中梁</strong>、構造スリットで縁を切っていない<strong>腰壁・垂れ壁・袖壁</strong>が剛性を増やす要因になります。</p>
+
+      <h2 id="hikaku">S造とRC造の比較</h2>
+      <table class="data">
+        <tr><th>項目</th><th>S造（鉄骨造）</th><th>RC造（鉄筋コンクリート造）</th></tr>
+        <tr><td>主な増大要因</td><td>コンクリートスラブ（スタッド連結による合成効果）</td><td>協力幅を持つ床スラブ、増し打ち、雑壁、地中梁</td></tr>
+        <tr><td>一体化の条件</td><td><strong>スタッドが必要</strong></td><td>一体打設のため<strong>常に一体</strong></td></tr>
+        <tr><td>増大率の目安</td><td>片側：1.2〜1.4倍<br>両側：1.4〜1.6倍</td><td>片側：約1.5倍<br>両側：約2.0倍</td></tr>
+        <tr><td>増大なしとする場合</td><td>スタッド未施工＝非合成梁</td><td>スラブが取り付かない小梁など</td></tr>
+        <tr><td>とくに注意する点</td><td>スタッドの数量・配置が図面どおりか</td><td>梁サイズ・スラブ配置に応じた調整、雑壁の扱い</td></tr>
+      </table>
+      <p>RC造の増大率が大きいのは、<strong>スラブが梁せいに対して占める割合が大きく、かつ確実に一体化しているから</strong>です。S造の鋼梁はせいが大きいぶん、スラブが加わっても断面全体に占める比率が相対的に小さく、増大率は控えめになります。</p>
+
+      <h2 id="settei">剛度増大率の設定手順</h2>
+      <table class="data">
+        <tr><th>手順</th><th>やること</th><th>確認するもの</th></tr>
+        <tr><td>① 寄与要素の洗い出し</td><td>スラブ・増し打ち・雑壁を特定する</td><td>意匠図の断面・展開図</td></tr>
+        <tr><td>② 一体化の判定</td><td>S造はスタッド、RC造は構造スリットの有無</td><td>鉄骨詳細図、スリット位置図</td></tr>
+        <tr><td>③ 増大率の算定</td><td>略算値か、協力幅・換算断面による詳算か</td><td>RC規準、合成梁の規準</td></tr>
+        <tr><td>④ 反映と記録</td><td>プログラムに入力し、根拠を計算書に明記</td><td>入力データ、設計方針書</td></tr>
+      </table>
+      <p>多くの一貫構造計算プログラムに入力項目や自動算定機能がありますが、<strong>初期値のまま提出すると確認申請で根拠を問われることがあります。</strong>②と③の判断を計算書に残しておくと質疑が一往復で済みます。</p>
+
+      <h2 id="chuui">注意点：大きく設定すればよいわけではない</h2>
+      <p>剛度増大率をむやみに大きく設定すると、モデル上の剛性が過大になり、実際の変形量を過小評価する恐れがあります。<strong>これは安全側とは限りません。</strong></p>
+      <table class="data">
+        <tr><th>過大に設定すると</th><th>結果</th></tr>
+        <tr><td>層間変形角を小さく見積もる</td><td>実際にはより大きく変形し、非構造部材が損傷する</td></tr>
+        <tr><td>剛性の高い部材に応力が集中する</td><td>その部材の断面がかえって大きくなる</td></tr>
+        <tr><td>剛性率・偏心率の判定が変わる</td><td>構造計算ルートの選択に影響する</td></tr>
+        <tr><td>固有周期を短く評価する</td><td>地震力の算定（<a href="jishin-santei.html">Rt</a>）に影響する</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">迷ったら「あり・なし」の両方で検証する</span>
+        <p>剛性を高く見れば変形は小さくなりますが応力は集まり、低く見れば変形は大きくなりますが応力は分散します。<strong>どちらか一方だけが安全側になるわけではない</strong>ため、増大率を用いた場合は「φ＝1.0」との比較検証を行い、どちらでも部材が成立することを確認するのが実務の定石です。とくに接合部が剛接合か半剛か、スラブが本当に一体化されているかといった<strong>施工条件に依存する要素</strong>は慎重に扱ってください。</p>
+      </div>
+
+      <h2 id="excel">剛度増大率計算Excelの無料ダウンロード</h2>
+      <div class="cta-box">
+        <span class="cta-label">無料ダウンロード</span>
+        <h3>スラブ付きRC梁 剛度増大率（剛性倍率）計算 Excel</h3>
+        <p>RC規準の協力幅に基づき、T形梁の剛度増大率φを算定するExcelです。<strong>「単純梁」「連続梁」「単純梁・スラブ段差あり」の3シート構成</strong>で、梁幅B・梁せいD・スパンl・スラブ厚t・スラブ内法距離a（左右別）を入力すると、協力幅ba、係数α・β・γ、φ、増大後の剛性I'を自動計算します。略算値が妥当かどうかを数分で検証できます。</p>
+        <div class="cta-actions">
+          <a class="cta-btn" href="../assets/goudo-zoudairitsu.xlsx" download>📥 剛度増大率計算Excelをダウンロード（無料）</a>
+        </div>
+        <p class="cta-note">※ Microsoft Excel（.xlsx）。計算結果は設計者ご自身の責任でご確認のうえご使用ください。</p>
+        <p class="cta-note">📂 <a href="../downloads.html">その他の無料Excel一覧はこちら ›</a></p>
+      </div>
+
+      <div class="note-box">
+        <span class="label">ご利用にあたって</span>
+        <p>記事中の増大率の値はいずれも一般的な目安であり、個別の建物条件によって変わります。Excelの協力幅・剛性倍率の式は日本建築学会「鉄筋コンクリート構造計算規準」に基づいていますが、実際の設計では採用する基準・指針に応じた確認が必要です。計算結果は設計者ご自身の責任でご確認のうえご使用ください。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 剛度増大率はすべての構造で必要ですか？</h3>
+      <p>いいえ。剛性への寄与が無視できないと判断される場合に用いる係数です。スラブが取り付かない小梁、スタッドで一体化されていない鉄骨梁、構造スリットで縁を切った雑壁などは、増大を見込まずφ＝1.0とします。</p>
+      <h3>Q2. スタッドがない鉄骨梁でもスラブの剛性は使えますか？</h3>
+      <p>使えません。ずれ止めがなければ鋼梁とスラブの境界が滑ってしまい、一体の断面として曲げに抵抗しないためです。非合成梁として扱い、φ＝1.0とします。RC造の略算値をそのまま鉄骨梁に当てはめるのは誤りです。</p>
+      <h3>Q3. 設定した剛度増大率が妥当かどうかはどう判断しますか？</h3>
+      <p>RC造ならRC規準の協力幅から詳算し、略算値と食い違わないかを確認します。あわせて増大率の「あり・なし」両方で解析し、どちらでも部材が成立することを確認するのが実務の定石です。確認申請で根拠を問われたときも、この比較検討がそのまま回答になります。</p>
+      <h3>Q4. 剛度増大率を使うとコストは下がりますか？</h3>
+      <p>下がる場合もありますが、必ずではありません。剛性を高く評価した部材にはより多くの応力が集まるため、その部材の断面はかえって大きくなることもあります。コスト削減ではなく、実際の挙動に近づけることが本来の目的です。</p>
+
+      <h2 id="matome">まとめ</h2>
+      <ul>
+        <li>剛度増大率は<strong>解析モデルを実際の挙動に近づける</strong>ための補正係数（φ＝I'／I）。</li>
+        <li><strong>S造</strong>はスタッドで一体化した合成梁が条件。片側1.2〜1.4倍・両側1.4〜1.6倍。<strong>スタッドがなければ1.0</strong>。</li>
+        <li><strong>RC造</strong>は一体打設のため常に一体。片側1.5倍・両側2.0倍。詳算はRC規準の協力幅から。</li>
+        <li>大きく設定すれば安全とは限らない。<strong>「あり・なし」両方の検証</strong>と根拠の記録が実務の定石。</li>
+      </ul>
+
+      <div class="note-box">
+        <span class="label">あわせて読みたい</span>
+        <p>RC造の協力幅と計算手順は「<a href="goudo-zoudairitsu.html">剛度増大率とは？スラブ付きRC梁の剛性倍率と協力幅の計算方法</a>」、剛性の基本は「<a href="danmen-niji-moment.html">断面二次モーメントとは？</a>」、床の役割は「<a href="goushou.html">剛床仮定と床面内せん断力</a>」、計算の全体像は「<a href="kyoyo-oryokudo.html">許容応力度計算とは？</a>」をどうぞ。</p>
+      </div>
+
+      <div class="article-author">
+        <img src="../assets/profile.png" alt="監修・執筆者 ホッタ ナオト（構造設計一級建築士）" width="76" height="76" loading="lazy">
+        <div class="aa-text">
+          <p class="aa-role">この記事の監修・執筆者</p>
+          <p class="aa-name">ホッタ ナオト</p>
+          <p class="aa-cred">一級建築士・構造設計一級建築士／ゼネコン構造設計部</p>
+          <p class="aa-desc">構造設計・耐震補強・工事監理の実務に10年以上従事。<a href="../about.html#author">プロフィール詳細 ›</a></p>
+        </div>
+      </div>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>構造計算の実務</h4>
+        <ul>
+          <li><a href="goudo-zoudairitsu.html">剛度増大率と協力幅の計算方法</a></li>
+          <li><a href="goushou.html">剛床仮定と床面内せん断力</a></li>
+          <li><a href="kyoyo-oryokudo.html">許容応力度計算とは？</a></li>
+          <li><a href="danmen-niji-moment.html">断面二次モーメントとは？</a></li>
+          <li><a href="../articles.html#jitsumu">構造計算の実務 一覧</a></li>
+        </ul>
+      </div>
+      <div class="tool-banner">
+        <div class="tb-ic">📥</div>
+        <h4>無料Excelダウンロード</h4>
+        <p>剛度増大率・床面内せん断・RC設計ルートなどの検討用Excelを無料配布中</p>
+        <a href="../downloads.html">ダウンロード一覧を見る</a>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <p style="margin-bottom:10px;"><a href="../index.html">ホーム</a>　|　<a href="../articles.html">記事一覧</a>　|　<a href="../downloads.html">無料Excel</a>　|　<a href="../about.html">このサイトについて</a>　|　<a href="../privacy.html">プライバシーポリシー</a>　|　<a href="../otoiawase.html">お問い合わせ</a></p>
+      © 2026 構造設計ナビ All Rights Reserved.
+    </div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
