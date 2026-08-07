@@ -81,20 +81,30 @@
         const pOld = await docOld.getPage(i);
         const pNew = await docNew.getPage(i);
 
-        const rawPrimsOld = await DiffCore.extractPrims(pOld, OPS);
-        const rawPrimsNew = await DiffCore.extractPrims(pNew, OPS);
-        const rawTextOld = await DiffCore.extractTexts(pOld);
-        const rawTextNew = await DiffCore.extractTexts(pNew);
+        // 同じ図面でも、回転して保存されたPDFと回転していないPDFがある。
+        // 表示上の向きに揃えてから比較する。
+        const mOld = pOld.getViewport({ scale: 1 }).transform;
+        const mNew = pNew.getViewport({ scale: 1 }).transform;
+
+        const rawPrimsOld = await DiffCore.extractPrims(pOld, OPS, mOld);
+        const rawPrimsNew = await DiffCore.extractPrims(pNew, OPS, mNew);
+        const rawTextOld = await DiffCore.extractTexts(pOld, mOld);
+        const rawTextNew = await DiffCore.extractTexts(pNew, mNew);
         await idle();
 
         // 図枠の外に置かれた要素は比較の対象から外す
-        const clipOld = DiffCore.clipToView(rawPrimsOld, rawTextOld, pOld.view);
-        const clipNew = DiffCore.clipToView(rawPrimsNew, rawTextNew, pNew.view);
+        const viewOld = DiffCore.transformRect(mOld, pOld.view[0], pOld.view[1], pOld.view[2], pOld.view[3]);
+        const viewNew = DiffCore.transformRect(mNew, pNew.view[0], pNew.view[1], pNew.view[2], pNew.view[3]);
+        const clipOld = DiffCore.clipToView(rawPrimsOld, rawTextOld, viewOld);
+        const clipNew = DiffCore.clipToView(rawPrimsNew, rawTextNew, viewNew);
         const primsOld = clipOld.prims, primsNew = clipNew.prims;
         const textOld = clipOld.texts, textNew = clipNew.texts;
 
         const off = DiffCore.estimateOffset(primsNew, primsOld);
-        const pd = DiffCore.matchPrims(primsNew, primsOld, off.dx, off.dy);
+        const pdRaw = DiffCore.matchPrims(primsNew, primsOld, off.dx, off.dy);
+        // 極小図形だけの差はPDFの作り手の違いなので落とす
+        const pd = { added: DiffCore.filterTiny(pdRaw.added),
+                     deleted: DiffCore.filterTiny(pdRaw.deleted) };
         const td = DiffCore.diffTexts(textNew, textOld, off.dx, off.dy);
         const regions = DiffCore.buildRegions(i, pd, td, textNew, {});
 
@@ -104,7 +114,9 @@
                     added: pd.added.length, deleted: pd.deleted.length,
                     outside: clipOld.dropped + clipNew.dropped },
           regions,
-          viewBox: pNew.view, rotate: pNew.rotate
+          viewBox: pNew.view, rotate: pNew.rotate,
+          // マーキングPDFを書き出すときに、表示座標をPDF座標へ戻すのに使う
+          toPdf: DiffCore.invert(mNew)
         });
       }
 
@@ -256,20 +268,15 @@
     return state.canvases;
   }
 
-  // 変更箇所(PDF座標)を、描画済みキャンバス上の矩形に直す
-  function regionRect(vp, r, padPt) {
+  // 変更箇所をキャンバス上の矩形に直す。
+  // 変更箇所の座標は既に「表示上の向き・倍率1」に揃えてあるので、
+  // 描画倍率を掛けるだけでよい。
+  function regionRect(scale, r, padPt) {
     const pad = padPt == null ? 26 : padPt;
-    const pts = [
-      vp.convertToViewportPoint(r.x0 - pad, r.y0 - pad),
-      vp.convertToViewportPoint(r.x1 + pad, r.y1 + pad),
-      vp.convertToViewportPoint(r.x0 - pad, r.y1 + pad),
-      vp.convertToViewportPoint(r.x1 + pad, r.y0 - pad)
-    ];
-    const xs = pts.map(p => p[0]), ys = pts.map(p => p[1]);
     return {
-      x: Math.min(...xs), y: Math.min(...ys),
-      w: Math.max(...xs) - Math.min(...xs),
-      h: Math.max(...ys) - Math.min(...ys)
+      x: (r.x0 - pad) * scale, y: (r.y0 - pad) * scale,
+      w: (r.x1 - r.x0 + pad * 2) * scale,
+      h: (r.y1 - r.y0 + pad * 2) * scale
     };
   }
 
@@ -277,7 +284,7 @@
     const c = await ensureCanvases();
     const pi = r.page - 1;
     const oldE = c.old[pi], newE = c.new[pi];
-    const rc = regionRect(newE.vp, r);
+    const rc = regionRect(c.scale, r);
 
     // 小さすぎる箇所は周囲を足して見やすくする
     const want = minPx || 420;
@@ -361,19 +368,21 @@
         regions.forEach((r, i) => {
           total++;
           const pad = 12;
+          // 変更箇所は「表示上の向き」で持っているので、
+          // 描き込む前にこのPDF本来の座標へ戻す。
+          const b = DiffCore.transformRect(p.toPdf, r.x0 - pad, r.y0 - pad, r.x1 + pad, r.y1 + pad);
           page.drawRectangle({
-            x: r.x0 - pad, y: r.y0 - pad,
-            width: (r.x1 - r.x0) + pad * 2, height: (r.y1 - r.y0) + pad * 2,
+            x: b[0], y: b[1], width: b[2] - b[0], height: b[3] - b[1],
             borderColor: rgb(0.85, 0.1, 0.1), borderWidth: 2.5, opacity: 0
           });
           // 通し番号（図面が90°回転していても読める向きに置く）
-          const rot = page.getRotation().angle % 360;
+          const rot = ((page.getRotation().angle % 360) + 360) % 360;
           const label = `${p.index}P-${i + 1}`;
           const opt = { size: 13, font, color: rgb(0.85, 0.1, 0.1) };
           if (rot === 90 || rot === 270) {
-            page.drawText(label, { x: r.x0 - pad - 4, y: r.y0 - pad, rotate: window.PDFLib.degrees(90), ...opt });
+            page.drawText(label, { x: b[0] - 4, y: b[1], rotate: window.PDFLib.degrees(90), ...opt });
           } else {
-            page.drawText(label, { x: r.x0 - pad, y: r.y1 + pad + 4, ...opt });
+            page.drawText(label, { x: b[0], y: b[3] + 4, ...opt });
           }
         });
       }

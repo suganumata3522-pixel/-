@@ -23,6 +23,8 @@ const DiffCore = (() => {
   const MIN_PRIMS = 25;    // テキスト変更が無い場合に「有意」とみなす図形数
   const MAX_REGION = 300;  // 1つの変更箇所の最大の広がり(pt)。長い寸法線対策
   const MIN_GAP = 4;       // 再分割するときの下限の距離(pt)
+  const MERGE_GAP = 0.5;   // 文字を1つにつなぐ許容の隙間（字の高さに対する割合）
+  const MIN_PRIM = 1.0;    // これ未満の極小図形は変更箇所として扱わない(pt)
 
   // ---- 行列ユーティリティ --------------------------------------------
   const mul = (a, b) => [
@@ -31,17 +33,44 @@ const DiffCore = (() => {
     a[0] * b[4] + a[2] * b[5] + a[4], a[1] * b[4] + a[3] * b[5] + a[5]
   ];
   const apply = (m, x, y) => [x * m[0] + y * m[2] + m[4], x * m[1] + y * m[3] + m[5]];
+  const IDENT = [1, 0, 0, 1, 0, 0];
+
+  // 逆変換（マーキングPDFを書き出すとき、表示上の座標を
+  // PDF本来の座標に戻すのに使う）
+  function invert(m) {
+    const det = m[0] * m[3] - m[1] * m[2];
+    if (!det) return IDENT.slice();
+    return [
+      m[3] / det, -m[1] / det,
+      -m[2] / det, m[0] / det,
+      (m[2] * m[5] - m[3] * m[4]) / det,
+      (m[1] * m[4] - m[0] * m[5]) / det
+    ];
+  }
+
+  // 矩形を変換する（回転すると角の対応が変わるので4隅から取り直す）
+  function transformRect(m, x0, y0, x1, y1) {
+    const p = [apply(m, x0, y0), apply(m, x1, y0), apply(m, x1, y1), apply(m, x0, y1)];
+    const xs = p.map(q => q[0]), ys = p.map(q => q[1]);
+    return [Math.min(...xs), Math.min(...ys), Math.max(...xs), Math.max(...ys)];
+  }
 
   // =====================================================================
   // 1. ページからベクター図形を取り出す
   //    pdf.js の operator list を辿り、CTM(変換行列)を追跡して
-  //    PDF ユーザ空間(左下原点・回転前)の座標に直す。
+  //    PDF ユーザ空間の座標に直したうえで、N を掛けて
+  //    「画面に表示されるときの向き」に揃える。
   // =====================================================================
-  async function extractPrims(page, OPS) {
+  async function extractPrims(page, OPS, M) {
+    const N = M || IDENT;
     const ol = await page.getOperatorList();
     let ctm = [1, 0, 0, 1, 0, 0];
     const stack = [];
     const out = [];
+    // CTM で PDF 座標に直したあと、さらに N で「表示上の向き」に揃える。
+    // 同じ図面でも回転して保存されたPDFがあるため、向きを合わせないと
+    // 全要素が別物になってしまう。
+    const P = (x, y) => { const q = apply(ctm, x, y); return apply(N, q[0], q[1]); };
 
     for (let i = 0; i < ol.fnArray.length; i++) {
       const fn = ol.fnArray[i];
@@ -58,23 +87,23 @@ const DiffCore = (() => {
         let k = 0, cx = 0, cy = 0, sx = 0, sy = 0;
         for (const op of ops) {
           if (op === OPS.moveTo) {
-            const p = apply(ctm, c[k], c[k + 1]); k += 2;
+            const p = P(c[k], c[k + 1]); k += 2;
             cx = p[0]; cy = p[1]; sx = cx; sy = cy;
           } else if (op === OPS.lineTo) {
-            const p = apply(ctm, c[k], c[k + 1]); k += 2;
+            const p = P(c[k], c[k + 1]); k += 2;
             out.push(['l', cx, cy, p[0], p[1]]); cx = p[0]; cy = p[1];
           } else if (op === OPS.curveTo) {
-            const p1 = apply(ctm, c[k], c[k + 1]),
-                  p2 = apply(ctm, c[k + 2], c[k + 3]),
-                  p3 = apply(ctm, c[k + 4], c[k + 5]); k += 6;
+            const p1 = P(c[k], c[k + 1]),
+                  p2 = P(c[k + 2], c[k + 3]),
+                  p3 = P(c[k + 4], c[k + 5]); k += 6;
             out.push(['c', cx, cy, p1[0], p1[1], p2[0], p2[1], p3[0], p3[1]]);
             cx = p3[0]; cy = p3[1];
           } else if (op === OPS.curveTo2) {
-            const p1 = apply(ctm, c[k], c[k + 1]), p2 = apply(ctm, c[k + 2], c[k + 3]); k += 4;
+            const p1 = P(c[k], c[k + 1]), p2 = P(c[k + 2], c[k + 3]); k += 4;
             out.push(['c', cx, cy, cx, cy, p1[0], p1[1], p2[0], p2[1]]);
             cx = p2[0]; cy = p2[1];
           } else if (op === OPS.curveTo3) {
-            const p1 = apply(ctm, c[k], c[k + 1]), p2 = apply(ctm, c[k + 2], c[k + 3]); k += 4;
+            const p1 = P(c[k], c[k + 1]), p2 = P(c[k + 2], c[k + 3]); k += 4;
             out.push(['c', cx, cy, p1[0], p1[1], p2[0], p2[1], p2[0], p2[1]]);
             cx = p2[0]; cy = p2[1];
           } else if (op === OPS.closePath) {
@@ -82,8 +111,8 @@ const DiffCore = (() => {
             cx = sx; cy = sy;
           } else if (op === OPS.rectangle) {
             const x = c[k], y = c[k + 1], w = c[k + 2], h = c[k + 3]; k += 4;
-            const p0 = apply(ctm, x, y), p1 = apply(ctm, x + w, y),
-                  p2 = apply(ctm, x + w, y + h), p3 = apply(ctm, x, y + h);
+            const p0 = P(x, y), p1 = P(x + w, y),
+                  p2 = P(x + w, y + h), p3 = P(x, y + h);
             out.push(['l', p0[0], p0[1], p1[0], p1[1]], ['l', p1[0], p1[1], p2[0], p2[1]],
                      ['l', p2[0], p2[1], p3[0], p3[1]], ['l', p3[0], p3[1], p0[0], p0[1]]);
             cx = p0[0]; cy = p0[1]; sx = cx; sy = cy;
@@ -97,7 +126,8 @@ const DiffCore = (() => {
   // =====================================================================
   // 2. ページからテキストを取り出す（位置つき）
   // =====================================================================
-  async function extractTexts(page) {
+  async function extractTexts(page, M) {
+    const N = M || IDENT;
     const tc = await page.getTextContent();
     const out = [];
     for (const it of tc.items) {
@@ -111,18 +141,74 @@ const DiffCore = (() => {
       const la = Math.hypot(a, b) || 1, lc = Math.hypot(c, d) || 1;
       const ax = a / la * w, ay = b / la * w;   // 文字送りの向き
       const cx_ = c / lc * h, cy_ = d / lc * h; // 字の高さの向き
-      const xs = [e, e + ax, e + ax + cx_, e + cx_];
-      const ys = [f, f + ay, f + ay + cy_, f + cy_];
+      const corners = [[e, f], [e + ax, f + ay],
+                       [e + ax + cx_, f + ay + cy_], [e + cx_, f + cy_]]
+                       .map(q => apply(N, q[0], q[1]));
+      const xs = corners.map(q => q[0]);
+      const ys = corners.map(q => q[1]);
+      const org = apply(N, e, f);
+
+      // 文字送りの向き（正規化後）。行のまとまりを判定するのに使う。
+      const dirv = [corners[1][0] - corners[0][0], corners[1][1] - corners[0][1]];
+      const dl = Math.hypot(dirv[0], dirv[1]) || 1;
 
       out.push({
-        s, x: e, y: f, w, h,
+        s, x: org[0], y: org[1], w, h,
+        _dx: dirv[0] / dl, _dy: dirv[1] / dl,
         x0: Math.min(...xs), y0: Math.min(...ys),
         x1: Math.max(...xs), y1: Math.max(...ys),
         cx: (Math.min(...xs) + Math.max(...xs)) / 2,
         cy: (Math.min(...ys) + Math.max(...ys)) / 2
       });
     }
+    return mergeTextRuns(out);
+  }
+
+  // =====================================================================
+  // 2.2 バラバラに切れたテキストを1つにつなぎ直す
+  //     PDFの作り手によって、同じ「SL-2150芯」が
+  //     ["SL-2150","芯"] と分かれていたり 1つだったりする。
+  //     このままだと同じ文字が「変更」に見えてしまうので、
+  //     両方を同じ規則でつなぎ直してから比べる。
+  // =====================================================================
+  function mergeTextRuns(items) {
+    const groups = new Map();
+    for (const t of items) {
+      // 文字送りの向きと、その向きに直交する位置（行の位置）で仕分ける
+      const dx = t._dx, dy = t._dy;
+      const along = t.x * dx + t.y * dy;          // 行に沿った位置
+      const across = -t.x * dy + t.y * dx;        // 行と直交する位置
+      const key = Math.round(dx * 100) / 100 + ',' + Math.round(dy * 100) / 100 +
+                  ',' + Math.round(across / 1.5);
+      let g = groups.get(key); if (!g) { g = []; groups.set(key, g); }
+      g.push({ t, along });
+    }
+
+    const out = [];
+    for (const g of groups) {
+      const arr = g[1].sort((p, q) => p.along - q.along);
+      let cur = null, curEnd = 0;
+      for (const { t, along } of arr) {
+        const h = t.h || 8;
+        if (cur && along - curEnd <= h * MERGE_GAP) {
+          cur.s += t.s;
+          cur.x0 = Math.min(cur.x0, t.x0); cur.y0 = Math.min(cur.y0, t.y0);
+          cur.x1 = Math.max(cur.x1, t.x1); cur.y1 = Math.max(cur.y1, t.y1);
+        } else {
+          if (cur) out.push(finishRun(cur));
+          cur = { s: t.s, x: t.x, y: t.y, w: t.w, h: t.h,
+                  x0: t.x0, y0: t.y0, x1: t.x1, y1: t.y1 };
+        }
+        curEnd = along + (t.w || 0);
+      }
+      if (cur) out.push(finishRun(cur));
+    }
     return out;
+  }
+  function finishRun(r) {
+    r.cx = (r.x0 + r.x1) / 2;
+    r.cy = (r.y0 + r.y1) / 2;
+    return r;
   }
 
   // =====================================================================
@@ -252,6 +338,22 @@ const DiffCore = (() => {
     const deleted = [];
     for (let i = 0; i < Bs.length; i++) if (!used[i]) deleted.push(Bs[i]);
     return { added, deleted };
+  }
+
+  // --- 極小の図形を落とす ---------------------------------------------
+  //     PDFの作り手が違うと、寸法点のドットのような小さな印が
+  //     別の描き方（微小なベジェ曲線の集まりなど）で出力される。
+  //     1pt未満の図形だけの差は図面の変更ではないので対象から外す。
+  function filterTiny(prims, minLen) {
+    const lim = minLen == null ? MIN_PRIM : minLen;
+    return prims.filter(p => {
+      let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
+      for (let i = 1; i < p.length; i += 2) {
+        if (p[i] < x0) x0 = p[i]; if (p[i] > x1) x1 = p[i];
+        if (p[i + 1] < y0) y0 = p[i + 1]; if (p[i + 1] > y1) y1 = p[i + 1];
+      }
+      return Math.hypot(x1 - x0, y1 - y0) >= lim;
+    });
   }
 
   // =====================================================================
@@ -499,21 +601,41 @@ const DiffCore = (() => {
     for (const r of regions) {
       const pad = 8;
       const inBox = t => t.cx >= r.x0 - pad && t.cx <= r.x1 + pad && t.cy >= r.y0 - pad && t.cy <= r.y1 + pad;
-      r.addedText = textDiff.added.filter(inBox).map(t => t.s);
-      r.deletedText = textDiff.deleted.filter(inBox).map(t => t.s);
+      const addI = textDiff.added.filter(inBox);
+      const delI = textDiff.deleted.filter(inBox);
+      r.addedText = addI.map(t => t.s);
+      r.deletedText = delI.map(t => t.s);
       r.grid = nearestGrid(gridIdx, (r.x0 + r.x1) / 2, (r.y0 + r.y1) / 2);
 
+      // 同じ場所の文字を「読む順」につないで比べる。
+      // PDFの作り手によって文字の区切り方が違うだけの場合
+      // （"通"＋"SL-950芯" と "通SL-950芯" など）はここで一致するので、
+      // 変更ではないと判定できる。
+      const norm = items => items.map(t => t.s).join('').replace(/[\s　]+/g, '');
+      const seq = items => norm(items.slice().sort((a, b) => (a.cy - b.cy) || (a.cx - b.cx)));
+      const chars = items => norm(items).split('').sort().join('');
+      // 縦書きラベルなどでは並び順が読み順と一致しないことがあるため、
+      // 「区切りの個数が違う＋使われている文字が同じ」も区切り差とみなす。
+      // 値の入れ替え（1,030→1,300 など）は個数が変わらないので誤判定しない。
+      r.textSameContent = addI.length > 0 && delI.length > 0 && (
+        seq(addI) === seq(delI) ||
+        (addI.length !== delI.length && chars(addI) === chars(delI))
+      );
+
       // 文字は同じで位置だけ動いた場合は「移動」として区別する
-      const sa = [...new Set(r.addedText)].sort().join('');
-      const sd = [...new Set(r.deletedText)].sort().join('');
+      const sa = [...new Set(r.addedText)].sort().join('');
+      const sd = [...new Set(r.deletedText)].sort().join('');
       r.movedOnly = r.addedText.length > 0 && sa === sd;
 
-      r.significant = (r.addedText.length + r.deletedText.length) > 0 || r.prims >= minPrims;
+      // 区切り方が違うだけなら、文字の変更としては数えない
+      const realTextChange = (r.addedText.length + r.deletedText.length) > 0 && !r.textSameContent;
+      r.significant = realTextChange || r.prims >= minPrims;
       delete r._gap; delete r._seed;
     }
 
     regions.sort((a, b) => {
-      const score = r => (r.movedOnly ? 0 : (r.addedText.length + r.deletedText.length)) * 1000 + r.prims;
+      const score = r => ((r.movedOnly || r.textSameContent)
+        ? 0 : (r.addedText.length + r.deletedText.length)) * 1000 + r.prims;
       return score(b) - score(a);
     });
     return regions;
@@ -521,7 +643,7 @@ const DiffCore = (() => {
 
   return {
     extractPrims, extractTexts, clipToView, estimateOffset, matchPrims,
-    diffTexts, buildRegions,
+    diffTexts, buildRegions, invert, transformRect, apply, filterTiny,
     params: { MATCH_TOL, CLUSTER_GAP, MIN_PRIMS }
   };
 })();
