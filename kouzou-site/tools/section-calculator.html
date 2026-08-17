@@ -162,6 +162,28 @@
     </article>
 
     <aside class="sidebar">
+      <h2 style="margin:34px 0 12px;font-size:1.3rem;">断面性能の4つの値は何に使うか</h2>
+      <table class="data">
+        <tr><th>記号</th><th>名称</th><th>単位</th><th>主な用途</th></tr>
+        <tr><td>A</td><td>断面積</td><td>mm²・cm²</td><td>軸力の検討（σ＝N/A）、部材重量の算出</td></tr>
+        <tr><td>I</td><td><a href="../articles/danmen-niji-moment.html">断面二次モーメント</a></td><td>mm⁴・cm⁴</td><td><strong>たわみ</strong>の検討（δ＝5wL⁴/384EI）、剛性の評価</td></tr>
+        <tr><td>Z</td><td><a href="../articles/danmen-keisu.html">断面係数</a></td><td>mm³・cm³</td><td><strong>曲げ強度</strong>の検討（σ＝M/Z ≦ fb）</td></tr>
+        <tr><td>i</td><td>断面二次半径</td><td>mm・cm</td><td><a href="../articles/zakutsu.html">座屈</a>の検討（細長比λ＝ℓk/i）</td></tr>
+      </table>
+      <p>実務でよく使うのは<strong>ZとI</strong>です。スパンが短めの梁は曲げ強度（Z）で断面が決まり、スパンが長い梁はたわみ（I）で決まります。どちらで決まるかはスパンと許容たわみ次第なので、両方を確認するのが基本です。</p>
+
+      <h2 style="margin:32px 0 12px;font-size:1.3rem;">なぜ「せい」を大きくするほうが効くのか</h2>
+      <p>長方形断面の断面二次モーメントは I＝bh³/12 です。幅bは1乗、せいhは<strong>3乗</strong>で効きます。つまり——</p>
+      <div class="formula">
+        幅bを2倍にすると　I は 2倍<br>
+        せいhを2倍にすると　I は <strong>8倍</strong>（2³＝8）
+      </div>
+      <p>同じ量の材料を使うなら、横に広げるより<strong>縦に伸ばすほうが圧倒的に有利</strong>だということです。梁が縦長の断面をしているのも、H形鋼がフランジを上下に離した形をしているのも、すべてこの3乗の効果を使うためです。ツールで数値を変えながら試すと、この感覚が身につきます。</p>
+
+      <h2 style="margin:32px 0 12px;font-size:1.3rem;">H形鋼は「向き」で性能が数倍変わります</h2>
+      <p>H形鋼には<a href="../articles/h-jiku.html">強軸と弱軸</a>があります。たとえばH-400×200×8×13では、強軸まわりのIが23,700cm⁴に対し、弱軸まわりは1,740cm⁴——<strong>約14倍の差</strong>です。梁を横に寝かせて使うと、同じ材なのに性能が10分の1以下になってしまいます。</p>
+      <p>本ツールのH形鋼モードは強軸・弱軸の両方を計算します。図面で梁の向きを確認するとき、この差の大きさを頭に入れておくと、施工時の取り違えにも気づけるようになります。</p>
+
       <div class="widget">
         <h4>関連記事</h4>
         <ul>
