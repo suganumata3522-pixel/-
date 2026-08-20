@@ -35,6 +35,8 @@ CATS = [
         (12, "特殊スラブ", "special_slab", "特殊スラブ問題集.xlsx", "片持ち・段差・開口スラブ"),
         (13, "階段設計", "stair", "階段設計問題集.xlsx", "階段の応力・配筋"),
         (14, "擁壁設計", "retaining_wall", "擁壁設計問題集.xlsx", "土圧・安定・断面算定"),
+        (0, "擁壁の設計 No.3", "retaining_wall_design", "擁壁の設計問題集.xlsx",
+         "種類/土圧選別/安定計算/応力/配筋/排水"),
         (15, "ねじり検討", "torsion", "ねじり検討問題集.xlsx", "ねじりモーメント・Bach/Rausch"),
         (16, "たわみ・層間変形角", "deflection", "たわみ層間変形角問題集.xlsx", "変形増大率K・層間変形角"),
     ]),
@@ -84,14 +86,14 @@ def fig_roadmap():
                 fontproperties=jp, fontsize=10, fontweight="bold", color="#1f3a5f")
         names = "・".join(it[1] for it in items)
         ax.text(x + 0.02, y + 0.06, names, transform=ax.transAxes, fontproperties=jp,
-                fontsize=7.3, color="#333", va="center", wrap=True)
+                fontsize=6.4, color="#333", va="center", wrap=True)
         ax.text(x + 0.35, y + 0.145, f"{len(items)}冊", transform=ax.transAxes,
                 fontproperties=jp, fontsize=8, color="#c00000", ha="right")
     ax.text(0.5, 0.99, "上部構造（A〜D）→ 荷重（E）→ 地盤・基礎（F〜H）へと進む",
             transform=ax.transAxes, ha="center", fontproperties=jp, fontsize=10,
             color="#1f4e79", fontweight="bold")
     ax.axis("off")
-    ax.set_title("構造設計 問題集ライブラリ 学習ロードマップ（全34冊）",
+    ax.set_title("構造設計 問題集ライブラリ 学習ロードマップ（全35冊）",
                  fontproperties=jp, fontsize=14, fontweight="bold")
     p = os.path.join(FIG, "roadmap.png"); fig.savefig(p, dpi=130, bbox_inches="tight"); plt.close(fig)
     return p
@@ -144,7 +146,7 @@ def body(ws, row, text, span, h=None):
 ws = wb.active; ws.title = "概要"; setup(ws, [4, 26, 60, 16])
 title_row(ws, 1, "構造設計 問題集ライブラリ 総合目次（RC マンション設計担当・新人向け）", 4)
 body(ws, 2, "本ライブラリは、ゼネコン構造設計部の新入社員が RC マンションの構造設計を体系的に学ぶための"
-            "図解つき問題集（全34冊＋風/地震/VEのMarkdown教材）です。各冊は『目次→図解つき内容→解答』の"
+            "図解つき問題集（全35冊＋風/地震/VEのMarkdown教材）です。各冊は『目次→図解つき内容→解答』の"
             "構成で、数値例はすべて検算済み。規準・告示に依存する値には『確認要』を明記しています。", 4, h=48)
 img = XLImage(roadmap); ratio = 940 / img.width; img.width = 940; img.height = int(img.height * ratio)
 ws.add_image(img, "A4")
@@ -162,6 +164,7 @@ for j, htxt in enumerate(hdrs):
     c = ws.cell(r, 1 + j, htxt); c.font = Font(name="MS PGothic", size=10, bold=True, color="FFFFFF")
     c.fill = PatternFill("solid", fgColor=C_HEAD); c.alignment = center; c.border = border
 r += 1
+seq = 0
 for key, ctitle, color, items in CATS:
     ws.merge_cells(start_row=r, start_column=1, end_row=r, end_column=5)
     c = ws.cell(r, 1, f"{key}. {ctitle}"); c.font = f_cat
@@ -170,7 +173,8 @@ for key, ctitle, color, items in CATS:
     ws.row_dimensions[r].height = 20
     r += 1
     for no, name, folder, fname, obj in items:
-        vals = [no, name, obj, f"docs/{folder}/", fname]
+        seq += 1
+        vals = [seq, name, obj, f"docs/{folder}/", fname]
         for j, v in enumerate(vals):
             c = ws.cell(r, 1 + j, v); c.font = f_body
             c.alignment = center if j == 0 else wrap; c.border = border

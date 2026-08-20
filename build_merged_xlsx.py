@@ -36,6 +36,7 @@ TOPICS = [
     ("C", "特殊スラブ", "special_slab", "特殊スラブ問題集.xlsx"),
     ("C", "階段設計", "stair", "階段設計問題集.xlsx"),
     ("C", "擁壁設計", "retaining_wall", "擁壁設計問題集.xlsx"),
+    ("C", "擁壁の設計 No.3", "retaining_wall_design", "擁壁の設計問題集.xlsx"),
     ("C", "ねじり検討", "torsion", "ねじり検討問題集.xlsx"),
     ("C", "たわみ層間変形角", "deflection", "たわみ層間変形角問題集.xlsx"),
     ("D", "一次二次設計", "seismic_design", "一次二次設計問題集.xlsx"),
@@ -169,7 +170,7 @@ cover.sheet_view.showGridLines = False
 band(cover, 1, "構造設計 問題集 総合版（RC マンション設計担当・新入社員向け）",
      C_TITLE, f_cover, height=44, span=6)
 cover.merge_cells("A2:F2")
-c = cover.cell(2, 1, "全34テーマ・163図解・全問解答つき。分野A〜Hの順に学ぶと、"
+c = cover.cell(2, 1, "全35テーマ・169図解・全問解答つき。分野A〜Hの順に学ぶと、"
                     "上部構造 → 荷重 → 地盤・基礎 と設計の流れを上流から下流までたどれます。"
                     "数値例はすべて検算済み。規準・告示に依存する値には『確認要』を明記しています。")
 c.font = f_body; c.alignment = wrap; cover.row_dimensions[2].height = 34
