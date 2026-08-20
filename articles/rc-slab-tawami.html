@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
+<title>RCスラブのたわみ計算｜計算図表の使い方と算定手順を解説｜構造設計ナビ</title>
+<meta name="description" content="RCスラブのたわみは、実務では計算図表から係数を拾って求めます。その図表の値がどこから来るのかを、スラブを直交する2方向の梁に置き換える交差梁モデルから順を追って導出。荷重分担 wx＝w·λ⁴/(1+λ⁴)、たわみ係数 C＝λ⁴/{32(1+λ⁴)} の意味、スパン比λごとの係数一覧、一方向スラブとの違い、長期たわみの検討手順までを現役の構造設計一級建築士が図解で解説します。">
+<meta property="og:title" content="RCスラブのたわみ計算｜計算図表の使い方と算定手順を解説｜構造設計ナビ">
+<meta property="og:description" content="RCスラブのたわみ係数がスパン比λでどう変わるのかを、交差梁モデルの導出から解説。係数一覧・算定手順・計算例・モデルの限界まで図解でわかります。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kouzou-navi.com/articles/rc-slab-tawami.html">
+<meta property="og:image" content="https://www.kouzou-navi.com/assets/eyecatch-rc-slab-tawami.jpg">
+<meta property="og:site_name" content="構造設計ナビ">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.kouzou-navi.com/assets/eyecatch-rc-slab-tawami.jpg">
+<link rel="canonical" href="https://www.kouzou-navi.com/articles/rc-slab-tawami.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "TechArticle",
+   "headline": "RCスラブのたわみ計算｜計算図表の使い方と算定手順",
+   "description": "RCスラブのたわみ係数がスパン比λでどう変わるのかを、交差梁モデルの導出から解説。係数一覧・算定手順・計算例・モデルの限界まで図解でわかります。",
+   "inLanguage": "ja",
+   "url": "https://www.kouzou-navi.com/articles/rc-slab-tawami.html",
+   "mainEntityOfPage": "https://www.kouzou-navi.com/articles/rc-slab-tawami.html",
+   "datePublished": "2026-08-20",
+   "dateModified": "2026-08-20",
+   "image": "https://www.kouzou-navi.com/assets/eyecatch-rc-slab-tawami.jpg",
+   "author": {
+    "@type": "Person",
+    "name": "ホッタ ナオト",
+    "jobTitle": "構造設計一級建築士",
+    "url": "https://www.kouzou-navi.com/about.html#author"
+   },
+   "publisher": {
+    "@type": "Organization",
+    "name": "構造設計ナビ",
+    "url": "https://www.kouzou-navi.com/",
+    "logo": { "@type": "ImageObject", "url": "https://www.kouzou-navi.com/assets/apple-touch-icon.png" }
+   }
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://www.kouzou-navi.com/" },
+    { "@type": "ListItem", "position": 2, "name": "構造計算の実務", "item": "https://www.kouzou-navi.com/articles.html#jitsumu" },
+    { "@type": "ListItem", "position": 3, "name": "RCスラブのたわみ計算｜計算図表の使い方と算定手順", "item": "https://www.kouzou-navi.com/articles/rc-slab-tawami.html" }
+   ]
+  }
+ ]
+}
+</script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "スラブのたわみは短辺と長辺のどちらで検討しますか？", "acceptedAnswer": {"@type": "Answer", "text": "短辺（Lx）で検討します。交差梁モデルでは中央のたわみは両方向で等しくなりますが、たわみの制限値はスパンに対する比で決まるため、スパンの短い短辺のほうが厳しい判定になります。したがって、たわみの値そのものは共通でも、制限値との比較は短辺スパンに対して行うのが基本です。"}},
+ {"@type": "Question", "name": "スパン比λはどちらを分子にしますか？", "acceptedAnswer": {"@type": "Answer", "text": "長辺÷短辺（λ＝Ly／Lx）で、必ず1以上になります。λ＝1が正方形、λが大きいほど細長いスラブです。文献によっては短辺÷長辺で定義する場合もあるため、図表を引くときは必ず定義を確認してください。1未満の値が出たら定義を取り違えています。"}},
+ {"@type": "Question", "name": "なぜλ≧2で一方向スラブとして扱えるのですか？", "acceptedAnswer": {"@type": "Answer", "text": "短辺方向が負担する荷重の割合が wx／w＝λ⁴／(1+λ⁴) で表され、λ＝2ではすでに16／17＝約94％に達するためです。長辺方向はほとんど荷重を負担しておらず、短辺方向の梁として扱っても誤差が数％にとどまります。ただしλ＝2は実務上の目安であり、法令で定められた厳密な境界ではありません。"}},
+ {"@type": "Question", "name": "交差梁モデルで求めたたわみは、そのまま設計に使えますか？", "acceptedAnswer": {"@type": "Answer", "text": "考え方を理解するためのモデルであり、設計にはRC規準などの計算図表・算定式を用いてください。交差梁モデルはスラブのねじり抵抗を無視しているため、たわみをやや大きめ（安全側）に評価します。とくに正方形に近いスラブでは差が大きくなります。"}},
+ {"@type": "Question", "name": "弾性たわみが制限値を満たしていれば安心ですか？", "acceptedAnswer": {"@type": "Answer", "text": "いいえ。RC造では、クリープと乾燥収縮により時間とともに変形が進みます。弾性計算で求めたたわみに変形増大係数（RC造では16／(1+α) など、実務上は8〜16程度）を掛けた長期たわみで判定する必要があります。弾性たわみが小さくても、長期では10倍以上になることがあります。"}}
+]}
+</script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="../articles.html#kiso">構造力学の基礎</a></li>
+        <li><a href="../articles.html#jitsumu">構造計算の実務</a></li>
+        <li><a href="../tools/index.html">計算ツール</a></li>
+        <li><a href="../downloads.html">無料Excel</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › <a href="../articles.html#jitsumu">構造計算の実務</a> › RCスラブのたわみ計算</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">構造計算の実務</span>
+        <span>公開日：2026年8月20日</span>
+        <span>更新日：2026年8月20日</span>
+      </div>
+      <h1>RCスラブのたわみ計算｜計算図表の使い方と算定手順を解説</h1>
+      <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
+
+      <figure class="article-fig" style="margin:14px 0 22px;">
+        <img src="../assets/eyecatch-goudo-zoudairitsu.jpg" alt="RCスラブのたわみ計算｜計算図表の使い方と算定手順を解説" width="1200" height="630" style="max-width:100%;" fetchpriority="high">
+      </figure>
+
+      <p>実務でRCスラブのたわみを確認するとき、毎回計算式から解くことはほとんどありません。四辺の支持条件に合うモデルを<strong>計算図表</strong>から選び、スパンを入力して係数を拾う——これが普通のやり方です。ただ、図表の背景にある計算の意味を理解していないと、出てきた値が妥当かどうかを判断できません。実はこの図表の係数、そう難しい式から出ているわけではなく、<strong>スラブを直交する2方向の梁に置き換えた単純なモデル</strong>から導けます。この記事では、その導出を式変形を省略せずに追いかけ、スパン比λごとの係数、算定手順、そしてこのモデルの限界までを解説します。</p>
+
+      <div class="point-box">
+        <span class="label">この記事の要点</span>
+        <ul>
+          <li>スラブを<strong>交差する2方向の梁</strong>に置き換えると、「中央のたわみが等しい」「荷重を分け合う」の2条件だけでたわみ式が導ける。</li>
+          <li>短辺方向の荷重分担は <strong>wx＝w·λ⁴／(1＋λ⁴)</strong>。スパン比の<strong>4乗</strong>で決まる。</li>
+          <li>たわみ係数は <strong>C＝λ⁴／{32(1＋λ⁴)}</strong>。λ＝2で0.0294、λ→∞で一方向スラブの0.03125に漸近する。</li>
+          <li>λ≧2で一方向として扱える根拠は、短辺方向がすでに<strong>荷重の94％</strong>を負担していること。</li>
+        </ul>
+      </div>
+
+      <nav class="toc" aria-label="目次">
+        <div class="toc-ttl">目次</div>
+        <ol>
+          <li><a href="#naze">なぜ図表の中身を知る必要があるのか</a></li>
+          <li><a href="#model">スラブを「交差する梁」に置き換える</a></li>
+          <li><a href="#bunpai">荷重はどう分担されるか</a></li>
+          <li><a href="#michibiki">たわみの式を導く</a></li>
+          <li><a href="#keisu">スパン比λごとのたわみ係数</a></li>
+          <li><a href="#ichi-ni">一方向スラブと二方向スラブ</a></li>
+          <li><a href="#tejun">実務での算定手順</a></li>
+          <li><a href="#rei">計算例</a></li>
+          <li><a href="#genkai">このモデルの限界</a></li>
+          <li><a href="#yougo">混同しやすい用語</a></li>
+          <li><a href="#faq">よくある質問</a></li>
+          <li><a href="#matome">まとめ</a></li>
+        </ol>
+      </nav>
+
+      <h2 id="naze">なぜ図表の中身を知る必要があるのか</h2>
+      <p>実務でRCスラブのたわみを確認するとき、毎回計算式から解く人はほとんどいません。四辺の支持条件に合うモデルを図表から選び、スパンと板厚を入れて係数を拾う——それで用は足ります。</p>
+      <p>ただ、図表は<strong>値の妥当性を判断してくれません</strong>。板厚を10mm変えたときにたわみがどれだけ動くのか、スパン比が少し変わっただけで結果が変わるのか、一方向として扱ってよいのか。こうした判断は、係数がどこから来ているかを知らないとできません。この記事では、図表の背後にある考え方を、式変形を省略せずに追いかけます。</p>
+
+      <h2 id="model">スラブを「交差する梁」に置き換える</h2>
+      <p>出発点は、意外なほど単純なモデルです。スラブを<strong>直交する2方向の梁が中央で交差しているもの</strong>と考えます。これを交差梁モデル（格子梁モデル）といいます。</p>
+      <figure class="diagram">
+        <svg viewBox="0 0 740 330" role="img" aria-label="矩形スラブを短辺方向と長辺方向の単位幅の梁に置き換える交差梁モデルの図">
+          <title>交差梁モデル：スラブを直交する2方向の梁に置き換える</title>
+          <rect x="0" y="0" width="740" height="330" fill="#ffffff"/>
+          <text x="175" y="28" text-anchor="middle" font-size="15.5" font-weight="bold" fill="#1a3a5c">4辺固定スラブ（等分布荷重 w）</text>
+          <text x="545" y="28" text-anchor="middle" font-size="15.5" font-weight="bold" fill="#e8843c">単位幅の梁2本に置き換える</text>
+          <g transform="translate(60,52)">
+            <rect x="0" y="0" width="230" height="150" fill="#dce7f1" stroke="#1a3a5c" stroke-width="5"/>
+            <g stroke="#c0392b" stroke-width="2.5">
+              <line x1="45" y1="-26" x2="45" y2="-6"/><polygon points="45,0 39,-12 51,-12" fill="#c0392b"/>
+              <line x1="115" y1="-26" x2="115" y2="-6"/><polygon points="115,0 109,-12 121,-12" fill="#c0392b"/>
+              <line x1="185" y1="-26" x2="185" y2="-6"/><polygon points="185,0 179,-12 191,-12" fill="#c0392b"/>
+            </g>
+            <text x="240" y="-14" font-size="13" fill="#c0392b">荷重 w</text>
+            <line x1="0" y1="172" x2="230" y2="172" stroke="#e8843c" stroke-width="2"/>
+            <line x1="0" y1="165" x2="0" y2="179" stroke="#e8843c" stroke-width="2"/>
+            <line x1="230" y1="165" x2="230" y2="179" stroke="#e8843c" stroke-width="2"/>
+            <text x="115" y="192" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#e8843c">長辺 Ly</text>
+            <line x1="-24" y1="0" x2="-24" y2="150" stroke="#e8843c" stroke-width="2"/>
+            <line x1="-31" y1="0" x2="-17" y2="0" stroke="#e8843c" stroke-width="2"/>
+            <line x1="-31" y1="150" x2="-17" y2="150" stroke="#e8843c" stroke-width="2"/>
+            <text x="-34" y="80" text-anchor="end" font-size="13.5" font-weight="bold" fill="#e8843c">短辺 Lx</text>
+            <text x="115" y="82" text-anchor="middle" font-size="13" fill="#1a3a5c">4辺とも固定</text>
+          </g>
+          <text x="330" y="130" text-anchor="middle" font-size="30" fill="#666">→</text>
+          <g transform="translate(400,52)">
+            <rect x="0" y="58" width="290" height="34" fill="#9fc0dd" stroke="#1a3a5c" stroke-width="2"/>
+            <rect x="128" y="0" width="34" height="150" fill="#e8843c" fill-opacity="0.55" stroke="#e8843c" stroke-width="2"/>
+            <circle cx="145" cy="75" r="7" fill="#c0392b"/>
+            <text x="20" y="80" font-size="13" font-weight="bold" fill="#1a3a5c">wy</text>
+            <text x="145" y="-8" text-anchor="middle" font-size="13" font-weight="bold" fill="#8a4b16">wx</text>
+            <text x="160" y="118" font-size="12.5" fill="#c0392b">中央で δx ＝ δy</text>
+            <text x="145" y="186" text-anchor="middle" font-size="12.5" fill="#333">幅1mの帯として切り出す</text>
+          </g>
+          <rect x="60" y="272" width="620" height="44" rx="6" fill="#f4f7fa" stroke="#9fc0dd"/>
+          <text x="370" y="292" text-anchor="middle" font-size="13.5" fill="#1a3a5c">前提①：中央のたわみは両方向で等しい　δx ＝ δy</text>
+          <text x="370" y="310" text-anchor="middle" font-size="13.5" fill="#1a3a5c">前提②：荷重は2方向に分け合う　wx ＋ wy ＝ w</text>
+        </svg>
+        <figcaption>スラブから幅1mの帯を縦横に切り出し、それぞれ両端固定梁として扱う。2本は中央でつながっているので、そこでのたわみは必ず一致する。</figcaption>
+      </figure>
+      <p>このモデルが成り立つ根拠は、<strong>「同じ点のたわみが2つあるはずがない」</strong>という一点です。x方向の帯とy方向の帯は中央で同じ材料でつながっているので、そこでのたわみは必ず等しくなります。この当たり前の条件が、荷重の分担を決めてくれます。</p>
+
+      <h2 id="bunpai">荷重はどう分担されるか</h2>
+      <p>両端固定梁に等分布荷重が作用したときの中央たわみは、次のとおりです。</p>
+      <div class="formula">
+        δ ＝ w·L⁴ ／ (384·E·I)
+        <span class="note">w：等分布荷重／L：スパン／E：ヤング係数／I：断面二次モーメント</span>
+      </div>
+      <p>これをx方向・y方向それぞれに当てはめ、δx ＝ δy とおきます。両方向とも同じ板厚から切り出した帯なので、EとIは共通です。</p>
+      <div class="formula">
+        wx·Lx⁴ ／ (384EI) ＝ wy·Ly⁴ ／ (384EI)<br>
+        → 　wx·Lx⁴ ＝ wy·Ly⁴　→　wy ＝ wx·Lx⁴／Ly⁴
+      </div>
+      <p>ここに荷重の関係 wx ＋ wy ＝ w を代入します。</p>
+      <div class="formula">
+        wx ＋ wx·Lx⁴／Ly⁴ ＝ w<br>
+        wx·(Ly⁴ ＋ Lx⁴)／Ly⁴ ＝ w<br>
+        <strong>wx ＝ w·Ly⁴ ／ (Lx⁴ ＋ Ly⁴)</strong>
+      </div>
+      <p>スパン比 λ ＝ Ly／Lx（長辺÷短辺）を使うと、Ly ＝ λ·Lx なので式がぐっと簡単になります。</p>
+      <div class="formula">
+        <strong>wx ＝ w · λ⁴ ／ (1 ＋ λ⁴)</strong>　　<strong>wy ＝ w · 1 ／ (1 ＋ λ⁴)</strong>
+        <span class="note">λ＝Ly／Lx（長辺÷短辺、λ≧1）</span>
+      </div>
+      <p>ここが導出の山場です。<strong>荷重の分担は、スパン比の4乗だけで決まります。</strong>λ＝2なら wx ＝ 16w／17。短辺方向がいきなり94％を持っていくことになります。スパンが2倍違うだけで、荷重の分担が16対1になる——4乗の効き方の激しさが実感できるはずです。</p>
+
+      <h2 id="michibiki">たわみの式を導く</h2>
+      <p>あとは wx を梁のたわみ公式に戻すだけです。単位幅（b＝1）で切り出しているので、断面二次モーメントは板厚 t を使って I ＝ 1·t³／12 と書けます。</p>
+      <div class="formula">
+        384·E·I ＝ 384·E·t³／12 ＝ 32·E·t³
+      </div>
+      <p>したがって、</p>
+      <div class="formula">
+        δ ＝ wx·Lx⁴ ／ (32·E·t³) ＝ <strong>[ λ⁴ ／ (1 ＋ λ⁴) ] · w·Lx⁴ ／ (32·E·t³)</strong>
+      </div>
+      <p>これを δ ＝ C · w·Lx⁴／(E·t³) の形にまとめると、たわみ係数Cが得られます。</p>
+      <div class="formula">
+        <strong>C ＝ λ⁴ ／ { 32·(1 ＋ λ⁴) }</strong>
+        <span class="note">δ ＝ C·w·Lx⁴／(E·t³)　※Lxは短辺スパン、tは板厚</span>
+      </div>
+      <div class="point-box">
+        <span class="label">式変形でつまずきやすい点</span>
+        <p>Iを t³／12 に置き換えた時点で、<strong>分母の384は32に変わり、Iという文字は消えます</strong>。ここで「δ＝wL⁴／(32EI)」と書いてしまうと、12で割る操作を二重に効かせたことになり、値が12倍ずれます。Iを代入したあとの分母は <strong>32·E·t³</strong> です。手を動かして導出するときに最も多い間違いなので、注意してください。</p>
+      </div>
+
+      <h2 id="keisu">スパン比λごとのたわみ係数</h2>
+      <p>導いた式に数値を入れると、次の表になります。比較のため、同じ短辺スパンを持つ<strong>一方向スラブ（両端固定梁として扱った場合）</strong>の係数 1／32 ＝ 0.03125 も併記します。</p>
+      <table class="data">
+        <tr><th>λ＝Ly／Lx</th><th>短辺が負担する荷重 wx／w</th><th>たわみ係数 C</th><th>一方向スラブとの比</th></tr>
+        <tr><td>1.0（正方形）</td><td>0.500</td><td>0.015625（＝1／64）</td><td>0.500</td></tr>
+        <tr><td>1.2</td><td>0.675</td><td>0.021083</td><td>0.675</td></tr>
+        <tr><td>1.5</td><td>0.835</td><td>0.026095</td><td>0.835</td></tr>
+        <tr><td>1.75</td><td>0.904</td><td>0.028239</td><td>0.904</td></tr>
+        <tr><td><strong>2.0</strong></td><td><strong>0.941（＝16／17）</strong></td><td><strong>0.029412（＝1／34）</strong></td><td><strong>0.941</strong></td></tr>
+        <tr><td>2.5</td><td>0.975</td><td>0.030470</td><td>0.975</td></tr>
+        <tr><td>3.0</td><td>0.988</td><td>0.030869</td><td>0.988</td></tr>
+        <tr><td>∞（一方向）</td><td>1.000</td><td>0.031250（＝1／32）</td><td>1.000</td></tr>
+      </table>
+      <p>この表には、見逃せない性質が隠れています。<strong>「一方向スラブとの比」の列が、そのまま「短辺が負担する荷重の割合」と一致している</strong>のです。</p>
+      <div class="formula">
+        δ<sub>スラブ</sub> ／ δ<sub>一方向</sub> ＝ wx ／ w ＝ λ⁴ ／ (1 ＋ λ⁴)
+      </div>
+      <p>当然といえば当然です。短辺方向の帯は、全荷重wのうち wx しか受け持っていません。梁のたわみは荷重に比例するので、たわみも同じ割合だけ小さくなる——それだけのことです。<strong>二方向スラブがたわみにくい理由は、材料が増えたからではなく、荷重を長辺方向に肩代わりしてもらっているから</strong>だと理解できます。</p>
+
+      <figure class="diagram">
+        <svg viewBox="0 0 740 340" role="img" aria-label="スパン比λが大きくなるほど短辺方向の荷重分担率が1に近づき、たわみ係数が一方向スラブの値に漸近することを示すグラフ">
+          <title>スパン比λと荷重分担率・たわみ係数の関係</title>
+          <rect x="0" y="0" width="740" height="340" fill="#ffffff"/>
+          <text x="370" y="26" text-anchor="middle" font-size="15.5" font-weight="bold" fill="#1a3a5c">λが2を超えると、短辺方向がほぼ全部の荷重を負担する</text>
+          <line x1="90" y1="270" x2="670" y2="270" stroke="#333" stroke-width="2"/>
+          <line x1="90" y1="270" x2="90" y2="48" stroke="#333" stroke-width="2"/>
+          <text x="380" y="304" text-anchor="middle" font-size="13.5" fill="#333">スパン比 λ ＝ 長辺 ／ 短辺</text>
+          <text x="36" y="170" font-size="13.5" fill="#333" transform="rotate(-90 36 170)">短辺の荷重分担 wx／w</text>
+          <g font-size="12" fill="#666">
+            <text x="90" y="290" text-anchor="middle">1.0</text>
+            <text x="235" y="290" text-anchor="middle">1.5</text>
+            <text x="380" y="290" text-anchor="middle">2.0</text>
+            <text x="525" y="290" text-anchor="middle">2.5</text>
+            <text x="670" y="290" text-anchor="middle">3.0</text>
+            <text x="82" y="274" text-anchor="end">0%</text>
+            <text x="82" y="163" text-anchor="end">50%</text>
+            <text x="82" y="56" text-anchor="end">100%</text>
+          </g>
+          <line x1="90" y1="52" x2="670" y2="52" stroke="#c0392b" stroke-width="2" stroke-dasharray="7 5"/>
+          <text x="676" y="50" font-size="12" fill="#c0392b">一方向スラブ（100%）</text>
+          <path d="M90,161 L119,140.5 L148,122.9 L177,108.5 L206,97 L235,88 L264,80.9 L293,75.3 L322,71 L351,67.5 L380,64.8 L409,62.7 L438,60.9 L467,59.5 L496,58.4 L525,57.4 L554,56.7 L583,56 L612,55.5 L641,55 L670,54.7"
+                fill="none" stroke="#1a3a5c" stroke-width="4"/>
+          <g>
+            <circle cx="90" cy="161" r="6" fill="#e8843c"/>
+            <text x="100" y="182" font-size="12.5" fill="#8a4b16">λ=1.0 → 50%（半分ずつ）</text>
+            <circle cx="235" cy="88" r="6" fill="#e8843c"/>
+            <text x="243" y="109" font-size="12.5" fill="#8a4b16">λ=1.5 → 83.5%</text>
+            <circle cx="380" cy="64.8" r="7" fill="#c0392b"/>
+            <text x="392" y="88" font-size="13" font-weight="bold" fill="#c0392b">λ=2.0 → 94.1%</text>
+          </g>
+          <line x1="380" y1="64.8" x2="380" y2="270" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="5 4"/>
+          <rect x="90" y="312" width="580" height="24" rx="5" fill="#f4f7fa" stroke="#9fc0dd"/>
+          <text x="380" y="329" text-anchor="middle" font-size="12.5" fill="#1a3a5c">λ≧2 で一方向スラブとみなす実務の目安は、この94%という数字が根拠になっている</text>
+        </svg>
+        <figcaption>λ⁴という4乗の効き方のため、荷重分担率は急激に1へ近づく。λ＝2で94%、λ＝3では99%に達し、長辺方向はほとんど働いていない。</figcaption>
+      </figure>
+
+      <h2 id="ichi-ni">一方向スラブと二方向スラブ</h2>
+      <table class="data">
+        <tr><th></th><th>一方向スラブ</th><th>二方向スラブ</th></tr>
+        <tr><td>スパン比</td><td>λ ≧ 2 が実務上の目安</td><td>λ &lt; 2</td></tr>
+        <tr><td>力の流れ</td><td>ほぼ短辺方向のみ</td><td>短辺・長辺の両方向</td></tr>
+        <tr><td>たわみの扱い</td><td>両端固定梁と同様に扱える</td><td>スパン比に応じた係数が必要</td></tr>
+        <tr><td>主筋の配置</td><td>短辺方向が主。長辺方向は配力筋</td><td>両方向とも主筋として配筋</td></tr>
+        <tr><td>たわみ係数</td><td>0.03125（一定）</td><td>0.0156〜0.0294（λで変化）</td></tr>
+      </table>
+      <p>λ＝2という境界は、<strong>法令で定められた厳密な線引きではなく、実務上の目安</strong>です。根拠は先ほどの94％という数字にあります。長辺方向が6％しか負担していないなら、それを無視して短辺方向の梁として扱っても、たわみの誤差は6％程度にとどまる——という判断です。</p>
+      <p>ただし、たわみが一方向として扱えることと、<strong>配筋を一方向でよいこと</strong>は別の話です。長辺方向の荷重分担が小さくても、乾燥収縮によるひび割れの分散や、荷重の局所的な集中に備えて、配力筋は必ず必要です。</p>
+
+      <h2 id="tejun">実務での算定手順</h2>
+      <table class="data">
+        <tr><th>手順</th><th>やること</th><th>確認するもの</th></tr>
+        <tr><td>① 支持条件を決める</td><td>四辺固定・三辺固定＋一辺自由など、周辺の梁と連続性から判断</td><td>伏図、周囲のスラブの有無</td></tr>
+        <tr><td>② スパン比λを求める</td><td>λ＝長辺／短辺。内法か芯々かは採用する図表の定義に合わせる</td><td>スラブの内法寸法</td></tr>
+        <tr><td>③ 荷重wを算定する</td><td>スラブ自重＋仕上げ＋積載荷重。たわみは<strong>長期</strong>で検討</td><td>荷重表、用途ごとの積載荷重</td></tr>
+        <tr><td>④ 係数を拾う</td><td>支持条件とλから、計算図表・算定式で係数を求める</td><td>RC規準等の算定表</td></tr>
+        <tr><td>⑤ 弾性たわみを計算</td><td>δ＝C·w·Lx⁴／(E·t³)。ヤング係数はコンクリート強度から</td><td>Fcに応じたEcの値</td></tr>
+        <tr><td>⑥ 長期たわみに換算</td><td>変形増大係数を掛ける（RC造では実務上8〜16程度）</td><td>採用する規準の規定</td></tr>
+        <tr><td>⑦ 制限値と比較</td><td>δ長期 ／ Lx ≦ 1／250 を確認</td><td><a href="shiyoujou-shishou.html">使用上の支障</a>の規定</td></tr>
+      </table>
+      <p>③で見落としやすいのが<strong>荷重の種類</strong>です。たわみは長期的な変形の検討なので、地震時の短期荷重ではなく、常時作用する固定荷重＋積載荷重で計算します。積載荷重は用途ごとに「床用」「大梁用」「地震用」で値が異なりますが、スラブのたわみでは<strong>床用</strong>の値を使います。</p>
+
+      <h2 id="rei">計算例</h2>
+      <div class="formula">
+        <strong>条件</strong>　短辺 Lx＝4.0m、長辺 Ly＝6.0m（λ＝1.5）、板厚 t＝200mm<br>
+        荷重 w＝7.3kN/m²（自重4.8＋仕上げ0.7＋積載1.8）＝7.3×10⁻³ N/mm²<br>
+        コンクリート Fc24 → Ec ≒ 2.27×10⁴ N/mm²
+      </div>
+      <div class="formula">
+        <strong>① λ＝1.5 の係数</strong>　C ＝ 1.5⁴／{32×(1＋1.5⁴)} ＝ 5.0625／(32×6.0625) ＝ <strong>0.026095</strong><br><br>
+        <strong>② 弾性たわみ</strong>　δ ＝ 0.026095 × 7.3×10⁻³ × 4000⁴ ／ (2.27×10⁴ × 200³)<br>
+        　　　＝ 0.026095 × 7.3×10⁻³ × 2.56×10¹⁴ ／ (1.816×10¹¹) ＝ <strong>0.27mm</strong><br><br>
+        <strong>③ 長期たわみ</strong>（変形増大係数16とした場合）　δ<sub>長期</sub> ＝ 0.27 × 16 ＝ <strong>4.3mm</strong><br><br>
+        <strong>④ 判定</strong>　制限値 ＝ Lx／250 ＝ 4000／250 ＝ 16mm<br>
+        　　　4.3 ／ 16 ＝ <strong>0.27 ≦ 1.0　→　OK</strong>
+      </div>
+      <p>比較のため、同じスラブを<strong>一方向として（両端固定梁として）</strong>計算するとどうなるかを見てみます。係数を0.03125に置き換えるだけです。</p>
+      <div class="formula">
+        δ ＝ 0.03125 × 7.3×10⁻³ × 2.56×10¹⁴ ／ (1.816×10¹¹) ＝ <strong>0.32mm</strong>　（二方向の場合の約1.2倍）
+      </div>
+      <p>λ＝1.5では、二方向として評価することで<strong>たわみを約16％小さく見積もれる</strong>ことがわかります。逆にいえば、二方向スラブを安全側に一方向として計算しても、その程度の差にしかなりません。板厚やスパンの効き方（それぞれ3乗・4乗）に比べれば小さな違いなので、迷ったら一方向で確認しておくという判断も十分に合理的です。</p>
+      <div class="point-box">
+        <span class="label">効き方の大きさを比べる</span>
+        <p>この式で各パラメータがどれだけ効くかを整理しておくと、対策を考えるときに迷いません。<strong>スパンLxは4乗、板厚tは3乗</strong>で効きます。<br>・スパンを1.2倍にすると、たわみは1.2⁴＝<strong>約2.1倍</strong><br>・板厚を1.2倍にすると、たわみは1／1.2³＝<strong>約0.58倍</strong><br>・荷重を1.2倍にすると、たわみは<strong>1.2倍</strong><br>たわみがNGになったとき、まず検討すべきは<strong>板厚を増やすか、小梁を入れてスパンを分割するか</strong>です。荷重を減らす努力より、はるかに効率よく効きます。</p>
+      </div>
+
+      <h2 id="genkai">このモデルの限界</h2>
+      <p>ここまで導いた式は、図表の値がどこから来るのかを理解するためのものです。<strong>実際の設計には、採用する規準の計算図表・算定式を使ってください。</strong>交差梁モデルには、次の割り切りがあります。</p>
+      <table class="data">
+        <tr><th>無視していること</th><th>結果への影響</th></tr>
+        <tr><td><strong>スラブのねじり抵抗</strong></td><td>実際のスラブは、ねじれに抵抗することでも荷重を支えている。これを無視するぶん、たわみを<strong>大きめ（安全側）に評価</strong>する</td></tr>
+        <tr><td>板としての2方向の連続性</td><td>帯を独立した梁として扱うため、板全体の一体性が反映されない</td></tr>
+        <tr><td>ポアソン比の影響</td><td>板の曲げ剛性は本来 D＝Et³／{12(1−ν²)} で表され、ν の分だけ剛性が上がる</td></tr>
+        <tr><td>コンクリートのひび割れ</td><td>ひび割れ後は断面剛性が低下する。弾性計算では考慮されない</td></tr>
+        <tr><td>支持条件の理想化</td><td>「完全固定」は現実には存在せず、周辺梁のねじり剛性によって拘束の程度が変わる</td></tr>
+      </table>
+      <p>とくに1行目の影響は無視できません。ねじり抵抗を無視する交差梁モデルは、<strong>正方形に近いスラブほどたわみを大きめに評価</strong>します。したがって、この式で求めた値が制限を満たしていれば実際も満たしますが、わずかにNGだった場合に、より精密な評価では成立することがあります。</p>
+      <div class="note-box">
+        <span class="label">ご利用にあたって</span>
+        <p>本記事の導出は、計算図表の背後にある考え方を理解するための解説です。実際の設計にあたっては、日本建築学会「鉄筋コンクリート構造計算規準・同解説」をはじめとする採用規準の算定式・計算図表と、建築基準法施行令および関係告示の規定にもとづいて検討してください。変形増大係数の値、たわみの制限値、積載荷重の設定は、採用する規準・建物条件によって異なります。</p>
+      </div>
+
+      <h2 id="yougo">混同しやすい用語</h2>
+      <table class="data">
+        <tr><th>用語</th><th>意味</th><th>混同しやすい点</th></tr>
+        <tr><td><strong>たわみ δ</strong></td><td>荷重によって部材が変形する量（変位量）。単位はmm・m</td><td>「たわみ角θ」は変形の<strong>傾き</strong>を表す角度で、たわみ量そのものとは別物</td></tr>
+        <tr><td>たわみ角 θ</td><td>変形後の部材軸の傾き。単位はラジアン（無単位）</td><td>支点の回転量。連続梁の解法（たわみ角法）で使う</td></tr>
+        <tr><td>スパン比 λ</td><td>長辺÷短辺（λ≧1）</td><td>文献により短辺÷長辺で定義する場合がある。図表を引く前に定義を確認</td></tr>
+        <tr><td>変形増大係数</td><td>弾性たわみを長期たわみに換算する係数</td><td>クリープと乾燥収縮を見込むもの。<a href="tawami.html">鋼材（S造）では1</a>、RC造では大きな値になる</td></tr>
+        <tr><td>板厚 t</td><td>スラブの厚さ。たわみには3乗で効く</td><td>有効せいdとは別。たわみ計算では全断面の t を使う</td></tr>
+      </table>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. スラブのたわみは短辺と長辺のどちらで検討しますか？</h3>
+      <p>短辺（Lx）で検討します。交差梁モデルでは中央のたわみは両方向で等しくなりますが、たわみの制限値はスパンに対する比で決まるため、スパンの短い短辺のほうが厳しい判定になります。したがって、たわみの値そのものは共通でも、制限値との比較は短辺スパンに対して行うのが基本です。</p>
+      <h3>Q2. スパン比λはどちらを分子にしますか？</h3>
+      <p>長辺÷短辺（λ＝Ly／Lx）で、必ず1以上になります。λ＝1が正方形、λが大きいほど細長いスラブです。文献によっては短辺÷長辺で定義する場合もあるため、図表を引くときは必ず定義を確認してください。1未満の値が出たら定義を取り違えています。</p>
+      <h3>Q3. なぜλ≧2で一方向スラブとして扱えるのですか？</h3>
+      <p>短辺方向が負担する荷重の割合が wx／w＝λ⁴／(1+λ⁴) で表され、λ＝2ではすでに16／17＝約94％に達するためです。長辺方向はほとんど荷重を負担しておらず、短辺方向の梁として扱っても誤差が数％にとどまります。ただしλ＝2は実務上の目安であり、法令で定められた厳密な境界ではありません。</p>
+      <h3>Q4. 交差梁モデルで求めたたわみは、そのまま設計に使えますか？</h3>
+      <p>考え方を理解するためのモデルであり、設計にはRC規準などの計算図表・算定式を用いてください。交差梁モデルはスラブのねじり抵抗を無視しているため、たわみをやや大きめ（安全側）に評価します。とくに正方形に近いスラブでは差が大きくなります。</p>
+      <h3>Q5. 弾性たわみが制限値を満たしていれば安心ですか？</h3>
+      <p>いいえ。RC造では、クリープと乾燥収縮により時間とともに変形が進みます。弾性計算で求めたたわみに変形増大係数（RC造では16／(1+α) など、実務上は8〜16程度）を掛けた長期たわみで判定する必要があります。弾性たわみが小さくても、長期では10倍以上になることがあります。</p>
+
+      <h2 id="matome">まとめ</h2>
+      <ul>
+        <li>4辺固定スラブのたわみは、<strong>直交する2方向の梁に置き換える交差梁モデル</strong>から導ける。前提は「中央のたわみが等しい」と「荷重を分け合う」の2つだけ。</li>
+        <li>荷重の分担は <strong>wx ＝ w·λ⁴／(1＋λ⁴)</strong>。スパン比の<strong>4乗</strong>で決まるため、λ＝2でも短辺方向が94％を負担する。</li>
+        <li>たわみ係数は <strong>C ＝ λ⁴／{32(1＋λ⁴)}</strong>。λ＝1で0.0156、λ＝2で0.0294、λ→∞で一方向スラブの0.03125に漸近する。</li>
+        <li>スパンは4乗、板厚は3乗で効く。たわみがNGなら<strong>板厚を増やすか小梁でスパンを割る</strong>のが効率的。</li>
+        <li>交差梁モデルはねじり抵抗を無視するため<strong>安全側</strong>。実設計では採用規準の計算図表・算定式を用いる。</li>
+      </ul>
+
+      <div class="note-box">
+        <span class="label">あわせて読みたい</span>
+        <p>梁のたわみ公式は「<a href="tawami.html">梁のたわみの計算方法</a>」、たわみ制限と変形増大係数は「<a href="shiyoujou-shishou.html">使用上の支障とは？</a>」、剛性の基本は「<a href="danmen-niji-moment.html">断面二次モーメントとは？</a>」、床を面として見る話は「<a href="goushou.html">剛床仮定と床面内せん断力</a>」、スラブが梁の剛性に与える影響は「<a href="goudo-zoudairitsu.html">剛度増大率と協力幅</a>」をどうぞ。</p>
+      </div>
+
+      <div class="article-author">
+        <img src="../assets/profile.png" alt="監修・執筆者 ホッタ ナオト（構造設計一級建築士）" width="76" height="76" loading="lazy">
+        <div class="aa-text">
+          <p class="aa-role">この記事の監修・執筆者</p>
+          <p class="aa-name">ホッタ ナオト</p>
+          <p class="aa-cred">一級建築士・構造設計一級建築士／ゼネコン構造設計部</p>
+          <p class="aa-desc">構造設計・耐震補強・工事監理の実務に10年以上従事。<a href="../about.html#author">プロフィール詳細 ›</a></p>
+        </div>
+      </div>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>構造計算の実務</h4>
+        <ul>
+          <li><a href="tawami.html">梁のたわみの計算方法</a></li>
+          <li><a href="shiyoujou-shishou.html">使用上の支障とたわみ制限</a></li>
+          <li><a href="goushou.html">剛床仮定と床面内せん断力</a></li>
+          <li><a href="kyoyo-oryokudo.html">許容応力度計算とは？</a></li>
+          <li><a href="danmen-niji-moment.html">断面二次モーメントとは？</a></li>
+          <li><a href="../articles.html#jitsumu">構造計算の実務 一覧</a></li>
+        </ul>
+      </div>
+      <div class="tool-banner">
+        <div class="tb-ic">📥</div>
+        <h4>無料Excelダウンロード</h4>
+        <p>剛度増大率・床面内せん断・RC設計ルートなどの検討用Excelを無料配布中</p>
+        <a href="../downloads.html">ダウンロード一覧を見る</a>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <p style="margin-bottom:10px;"><a href="../index.html">ホーム</a>　|　<a href="../articles.html">記事一覧</a>　|　<a href="../downloads.html">無料Excel</a>　|　<a href="../about.html">このサイトについて</a>　|　<a href="../privacy.html">プライバシーポリシー</a>　|　<a href="../otoiawase.html">お問い合わせ</a></p>
+      © 2026 構造設計ナビ All Rights Reserved.
+    </div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
