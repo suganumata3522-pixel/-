@@ -26,9 +26,13 @@ C_INPUT = "FFF2CC"      # 入力欄（黄）
 C_CALC = "F2F2F2"       # 計算用（グレー）
 F_S6 = PatternFill("solid", fgColor="FFD966")   # S値+6
 F_S3 = PatternFill("solid", fgColor="BDD7EE")   # S値+3
-F_STD = PatternFill("solid", fgColor="C6E0B4")  # 標準期
-F_SUM = PatternFill("solid", fgColor="F4B183")  # 夏期
-F_WIN = PatternFill("solid", fgColor="9DC3E6")  # 冬期
+# 色相＝混和剤の適用期、濃淡＝S値補正（濃＝+6／淡＝+3）
+DARK = {"標": "A9D08E", "夏": "F4B183", "冬": "9DC3E6"}
+LIGHT = {"標": "E2EFDA", "夏": "FBE5D6", "冬": "DEEBF7"}
+TERM_CH = {"標準期": "標", "夏期": "夏", "冬期": "冬"}
+F_STD = PatternFill("solid", fgColor=DARK["標"])  # 標準期
+F_SUM = PatternFill("solid", fgColor=DARK["夏"])  # 夏期
+F_WIN = PatternFill("solid", fgColor=DARK["冬"])  # 冬期
 
 THIN = Side(style="thin", color="BFBFBF")
 BOX = Border(left=THIN, right=THIN, top=THIN, bottom=THIN)
@@ -306,60 +310,81 @@ for col in ("F", "G", "H"):
     ws.conditional_formatting.add(r, CellIsRule(operator="equal", formula=['"遅延形"'], fill=F_SUM))
 
 # ===========================================================================
-# シート「年間カレンダー」
+# シート「年間カレンダー」（S値と混和剤を1つのカレンダーに統合）
 # ===========================================================================
 cs = wb.create_sheet("年間カレンダー", 1)
-title(cs, "年間カレンダー（S値補正／混和剤の適用期）",
-      "1日ごとの判定を月×日のマトリクスで表示します。値は「日別データ」から自動参照しています。")
+title(cs, "年間カレンダー（S値補正 × 混和剤の適用期）",
+      "1マスに「数字＝S値補正／文字＝混和剤の適用期」をまとめて表示しています。"
+      "色は 緑＝標準期・橙＝夏期・青＝冬期、濃い色＝S値+6、淡い色＝S値+3。値は「日別データ」から自動参照しています。")
 
+GTOP = 4              # 見出し行
+GHDR = GTOP + 1       # 日付ヘッダー行
+GFIRST = GHDR + 1     # 1月の行
+GLAST = GFIRST + 11   # 12月の行
 
-def grid(top, label, formula_maker, fmt=None):
-    put(cs, f"A{top}", label, bold=True, fill=C_HDR2, align=LEFT)
-    put(cs, f"A{top+1}", "月＼日", bold=True, fill=C_HDR)
-    for d in range(1, 32):
-        put(cs, f"{get_column_letter(1+d)}{top+1}", d, bold=True, fill=C_HDR, size=9)
-    for i, m in enumerate(range(1, 13)):
-        r = top + 2 + i
-        put(cs, f"A{r}", m, bold=True, fill=C_HDR, fmt='0"月"')
-        for d in range(1, 32):
-            col = get_column_letter(1 + d)
-            put(cs, f"{col}{r}", formula_maker(f"$A{r}", f"{col}${top+1}"),
-                size=9, fmt=fmt)
-    return top + 2, top + 13
-
-
-t1 = grid(4, "■ S値補正（+6／+3）",
-          lambda mr, dc: f"=IFERROR(INDEX(日別データ!$E:$E,MATCH({mr}*100+{dc},日別データ!$D:$D,0)),\"\")",
-          fmt='"+"0')
-t2 = grid(20, "■ 混和剤の適用期（標＝標準期・標準形／夏＝夏期・遅延形／冬＝冬期・標準形）",
-          lambda mr, dc: f"=IFERROR(LEFT(INDEX(日別データ!$G:$G,MATCH({mr}*100+{dc},日別データ!$D:$D,0)),1),\"\")")
-
-r1 = f"B{t1[0]}:AF{t1[1]}"
-cs.conditional_formatting.add(r1, CellIsRule(operator="equal", formula=["6"], fill=F_S6))
-cs.conditional_formatting.add(r1, CellIsRule(operator="equal", formula=["3"], fill=F_S3))
-r2 = f"B{t2[0]}:AF{t2[1]}"
-cs.conditional_formatting.add(r2, CellIsRule(operator="equal", formula=['"夏"'], fill=F_SUM))
-cs.conditional_formatting.add(r2, CellIsRule(operator="equal", formula=['"冬"'], fill=F_WIN))
-cs.conditional_formatting.add(r2, CellIsRule(operator="equal", formula=['"標"'], fill=F_STD))
-
-lg = 35
-put(cs, f"A{lg}", "【凡例】", bold=True, size=9, border=False, align=LEFT)
-legend = [("B", "S値+6", F_S6), ("D", "S値+3", F_S3),
-          ("F", "標＝標準期（標準形）", F_STD), ("J", "夏＝夏期（遅延形）", F_SUM),
-          ("N", "冬＝冬期（標準形）", F_WIN)]
-for col, text, fill in legend:
-    c = put(cs, f"{col}{lg}", "")
-    c.fill = fill
-    put(cs, f"{get_column_letter(cs[f'{col}{lg}'].column + 1)}{lg}", text,
-        size=9, border=False, align=LEFT)
-put(cs, f"A{lg+2}",
-    "※ 空欄はその月に存在しない日（例：2/30）です。日数は平年基準のため 2/29 は表示されません。",
-    size=9, color="404040", border=False, align=LEFT)
-
-cs.column_dimensions["A"].width = 7
+put(cs, f"A{GTOP}", "■ 数字＝S値補正（+6／+3）　　文字＝混和剤の適用期（標＝標準期／夏＝夏期／冬＝冬期）",
+    bold=True, fill=C_HDR2, align=LEFT)
+put(cs, f"A{GHDR}", "月＼日", bold=True, fill=C_HDR, size=9)
 for d in range(1, 32):
-    cs.column_dimensions[get_column_letter(1 + d)].width = 3.6
-cs.freeze_panes = "B6"
+    put(cs, f"{get_column_letter(1+d)}{GHDR}", d, bold=True, fill=C_HDR, size=9)
+
+for i, m in enumerate(range(1, 13)):
+    r = GFIRST + i
+    put(cs, f"A{r}", m, bold=True, fill=C_HDR, fmt='0"月"', size=9)
+    for d in range(1, 32):
+        col = get_column_letter(1 + d)
+        k = f"$A{r}*100+{col}${GHDR}"
+        put(cs, f"{col}{r}",
+            f"=IFERROR(INDEX(日別データ!$E$4:$E${LAST_D},MATCH({k},日別データ!$D$4:$D${LAST_D},0))"
+            f"&LEFT(INDEX(日別データ!$G$4:$G${LAST_D},MATCH({k},日別データ!$D$4:$D${LAST_D},0)),1),\"\")",
+            size=9)
+
+# 6通りの組合せをセルの文字で判定して着色（濃＝S値+6／淡＝S値+3）
+for term_ch in ("標", "夏", "冬"):
+    for sv, palette in ((6, DARK), (3, LIGHT)):
+        cs.conditional_formatting.add(
+            f"B{GFIRST}:AF{GLAST}",
+            CellIsRule(operator="equal", formula=[f'"{sv}{term_ch}"'],
+                       fill=PatternFill("solid", fgColor=palette[term_ch])))
+
+# --- 凡例（S値 × 適用期 のマトリクス） ------------------------------------
+LG = GLAST + 2
+put(cs, f"A{LG}", "【凡例】", bold=True, size=9, border=False, align=LEFT)
+
+legend_cols = [("B", "H", "標"), ("I", "O", "夏"), ("P", "V", "冬")]
+legend_head = {"標": "標準期（標準形）", "夏": "夏期（遅延形）", "冬": "冬期（標準形）"}
+
+
+def legend_cell(c1, c2, row, text, fill, bold=False):
+    cs.merge_cells(f"{c1}{row}:{c2}{row}")
+    for c in range(cs[f"{c1}{row}"].column, cs[f"{c2}{row}"].column + 1):
+        style(cs.cell(row=row, column=c), fill=fill, size=9, bold=bold)
+    cs[f"{c1}{row}"] = text
+    style(cs[f"{c1}{row}"], fill=fill, size=9, bold=bold)
+
+
+put(cs, f"A{LG+1}", "", fill=C_HDR2, size=9)
+for c1, c2, ch in legend_cols:
+    legend_cell(c1, c2, LG + 1, legend_head[ch], C_HDR, bold=True)
+for j, (sv, palette) in enumerate(((6, DARK), (3, LIGHT))):
+    r = LG + 2 + j
+    put(cs, f"A{r}", f"S値+{sv}", bold=True, fill=C_HDR, size=9)
+    for c1, c2, ch in legend_cols:
+        legend_cell(c1, c2, r, f"{sv}{ch}", palette[ch])
+
+cal_notes = [
+    "※ 例：「6夏」＝S値+6・夏期（遅延形）、「3標」＝S値+3・標準期（標準形）。",
+    "※ 混和剤の種類はAE減水剤・高性能AE減水剤とも共通で、標準期・冬期＝標準形、夏期＝遅延形です。",
+    "※ 空欄はその月に存在しない日（例：2/30）です。日数は平年基準のため 2/29 は表示していません。",
+    "※ 色や文字が切り替わる日が配合の切替日です。区分ごとの一覧は「年間区分表」シートを参照してください。",
+]
+for i, t in enumerate(cal_notes):
+    put(cs, f"A{LG+5+i}", t, size=9, color="404040", border=False, align=LEFT)
+
+cs.column_dimensions["A"].width = 7.5
+for d in range(1, 32):
+    cs.column_dimensions[get_column_letter(1 + d)].width = 4.3
+cs.freeze_panes = f"B{GFIRST}"
 
 # ===========================================================================
 del wb["Sheet"]
