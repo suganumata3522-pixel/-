@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
+<title>鉄骨梁の剛度増大率の計算｜合成梁の断面二次モーメントとスタッド本数【無料Excel】｜構造設計ナビ</title>
+<meta name="description" content="鉄骨梁の剛度増大率は、スラブと一体化した合成梁として換算断面法で計算します。協力幅baと有効幅B、中立軸xn、合成梁の断面二次モーメントcI、頭付きスタッドの必要本数、完全合成梁と不完全合成梁の判定、そして計算値φをそのまま使わず(1+φ)/2として上限で頭打ちにする実務の運用まで、現役の構造設計一級建築士が計算例つきで解説。計算Excelを無料ダウンロードできます。">
+<meta property="og:title" content="鉄骨梁の剛度増大率の計算｜合成梁の断面二次モーメントとスタッド本数【無料Excel】｜構造設計ナビ">
+<meta property="og:description" content="鉄骨梁の剛度増大率を合成梁として計算する手順を解説。協力幅・中立軸・断面二次モーメント・スタッド本数・(1+φ)/2の運用まで計算例つき。Excel無料配布。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kouzou-navi.com/articles/s-hari-goudo-zoudairitsu.html">
+<meta property="og:image" content="https://www.kouzou-navi.com/assets/eyecatch-s-hari-goudo-zoudairitsu.jpg">
+<meta property="og:site_name" content="構造設計ナビ">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.kouzou-navi.com/assets/eyecatch-s-hari-goudo-zoudairitsu.jpg">
+<link rel="canonical" href="https://www.kouzou-navi.com/articles/s-hari-goudo-zoudairitsu.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "TechArticle",
+   "headline": "鉄骨梁の剛度増大率の計算｜合成梁の断面二次モーメントとスタッド本数",
+   "description": "鉄骨梁の剛度増大率を合成梁として計算する手順を解説。協力幅・中立軸・断面二次モーメント・スタッド本数・(1+φ)/2の運用まで計算例つき。Excel無料配布。",
+   "inLanguage": "ja",
+   "url": "https://www.kouzou-navi.com/articles/s-hari-goudo-zoudairitsu.html",
+   "mainEntityOfPage": "https://www.kouzou-navi.com/articles/s-hari-goudo-zoudairitsu.html",
+   "datePublished": "2026-08-28",
+   "dateModified": "2026-08-28",
+   "image": "https://www.kouzou-navi.com/assets/eyecatch-s-hari-goudo-zoudairitsu.jpg",
+   "author": {
+    "@type": "Person",
+    "name": "ホッタ ナオト",
+    "jobTitle": "構造設計一級建築士",
+    "url": "https://www.kouzou-navi.com/about.html#author"
+   },
+   "publisher": {
+    "@type": "Organization",
+    "name": "構造設計ナビ",
+    "url": "https://www.kouzou-navi.com/",
+    "logo": { "@type": "ImageObject", "url": "https://www.kouzou-navi.com/assets/apple-touch-icon.png" }
+   }
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://www.kouzou-navi.com/" },
+    { "@type": "ListItem", "position": 2, "name": "構造計算の実務", "item": "https://www.kouzou-navi.com/articles.html#jitsumu" },
+    { "@type": "ListItem", "position": 3, "name": "鉄骨梁の剛度増大率の計算｜合成梁の断面二次モーメントとスタッド本数", "item": "https://www.kouzou-navi.com/articles/s-hari-goudo-zoudairitsu.html" }
+   ]
+  }
+ ]
+}
+</script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "鉄骨梁の剛度増大率は計算値をそのまま使ってよいですか？", "acceptedAnswer": {"@type": "Answer", "text": "多くの実務では使いません。計算値φをそのまま採用せず、(1+φ)/2として増加分を半分に見込み、さらに片側スラブ付き1.2・両側スラブ付き1.4といった上限で頭打ちにする運用が広く行われています。理由は、負曲げ域ではスラブが引張となって合成効果が期待できないこと、ひび割れや施工のばらつきで剛性が落ちること、剛性を高く見積もりすぎると応力の分配を誤ることです。ただし上限値は採用する規準や設計方針によって異なるため、社内基準を必ず確認してください。"}},
+ {"@type": "Question", "name": "スタッドがない鉄骨梁でも剛度増大率を考慮できますか？", "acceptedAnswer": {"@type": "Answer", "text": "できません。頭付きスタッドなどのずれ止めがなければ、鋼梁とスラブの境界面が滑って一体の断面として働かないためです。この場合は非合成梁として扱い、剛度増大率は1.0とします。RC造の略算値をそのまま鉄骨梁に当てはめるのも誤りです。"}},
+ {"@type": "Question", "name": "完全合成梁と不完全合成梁はどう違いますか？", "acceptedAnswer": {"@type": "Answer", "text": "スラブと鋼梁の間で伝達すべき水平せん断力Qhを、配置したスタッドで全て伝達できる場合が完全合成梁です。必要本数nrに対して実配置本数nr'が足りない場合は不完全合成梁となり、断面二次モーメントを完全合成梁の値より低減して評価します。本記事のExcelでは eI＝sI＋√(nr'/nr)×(cI−sI) で補間し、nr'が0.5nrを下回る場合はNGとしています。"}},
+ {"@type": "Question", "name": "協力幅baはスパンの0.1倍が上限ですか？", "acceptedAnswer": {"@type": "Answer", "text": "上限ではありません。ba＝(0.5−0.6a/l)·a はaに対して単調増加ではなく、a≒0.417lで最大値ba≒0.104lをとり、その後a＝0.5lで0.1lに戻ります。したがって「baは0.1l以下」と考えると4％ほど過小評価になります。またこの協力幅はスラブが圧縮となる正曲げ断面に対するもので、負曲げ域には適用できません。"}},
+ {"@type": "Question", "name": "デッキプレートを使う場合はどう扱いますか？", "acceptedAnswer": {"@type": "Answer", "text": "デッキのリブ内のコンクリートは無視し、リブ上の平坦部の厚さをスラブ厚tとして扱うのが基本です。本記事のExcelでは、デッキ全せいHdを入力するとsd（圧縮縁から鉄骨重心までの距離）にのみ反映され、断面性能の計算にはリブ上のtだけが使われます。またデッキを貫通してスタッドを溶接する場合、スタッドの耐力にリブ形状に応じた低減が必要になることがあります。"}}
+]}
+</script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="../articles.html#kiso">構造力学の基礎</a></li>
+        <li><a href="../articles.html#jitsumu">構造計算の実務</a></li>
+        <li><a href="../tools/index.html">計算ツール</a></li>
+        <li><a href="../downloads.html">無料Excel</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › <a href="../articles.html#jitsumu">構造計算の実務</a> › 鉄骨梁の剛度増大率の計算</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">構造計算の実務</span>
+        <span>公開日：2026年8月28日</span>
+        <span>更新日：2026年8月28日</span>
+      </div>
+      <h1>鉄骨梁の剛度増大率の計算｜合成梁の断面二次モーメントとスタッド本数【無料Excel】</h1>
+      <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
+
+      <figure class="article-fig" style="margin:14px 0 22px;">
+        <img src="../assets/eyecatch-goudo-zoudairitsu.jpg" alt="鉄骨梁の剛度増大率の計算｜合成梁の断面二次モーメントとスタッド本数【無料Excel】" width="1200" height="630" style="max-width:100%;" fetchpriority="high">
+      </figure>
+
+      <p>鉄骨梁の<strong>剛度増大率</strong>は、RC造のように「片側1.5倍」と略算値で済ませるわけにはいきません。鋼梁とコンクリートスラブという<strong>異なる材料を1つの断面として扱う</strong>必要があり、さらに<strong>頭付きスタッドが十分な本数あるか</strong>という条件も加わるためです。この記事では、協力幅から中立軸、合成梁の断面二次モーメント、必要スタッド本数までを順に追いかけ、最後に<strong>なぜ計算値をそのまま採用しないのか</strong>を解説します。記事末では<strong>計算Excel</strong>を無料配布しています。</p>
+
+      <div class="point-box">
+        <span class="label">この記事の要点</span>
+        <ul>
+          <li>鉄骨梁の剛度増大率は<strong>合成梁</strong>として換算断面法で計算する。φ ＝ eI／sI。</li>
+          <li>手順は協力幅ba → 有効幅B → 中立軸xn → 断面二次モーメントcI。並行して<strong>スタッド本数</strong>で合成度を判定する。</li>
+          <li>実務では計算値をそのまま使わず、<strong>(1＋φ)／2 として増加分を半分に見込み、上限で頭打ち</strong>にする。</li>
+          <li>計算例ではφ＝1.85まで出るが、採用値は<strong>1.2</strong>。その差の理由まで解説する。</li>
+        </ul>
+      </div>
+
+      <nav class="toc" aria-label="目次">
+        <div class="toc-ttl">目次</div>
+        <ol>
+          <li><a href="#gousei">鉄骨梁の剛度増大率は「合成梁」として計算する</a></li>
+          <li><a href="#zentai">計算の全体像</a></li>
+          <li><a href="#kyoryoku">① 協力幅baと有効幅B</a></li>
+          <li><a href="#churitsu">② 中立軸xnを求める（換算断面法）</a></li>
+          <li><a href="#danmen">③ 合成梁の断面二次モーメントcI</a></li>
+          <li><a href="#stud">④〜⑥ スタッド本数と合成度の判定</a></li>
+          <li><a href="#rei">計算例</a></li>
+          <li><a href="#naze">なぜ計算値をそのまま使わないのか</a></li>
+          <li><a href="#excel">計算Excelの無料ダウンロード</a></li>
+          <li><a href="#faq">よくある質問</a></li>
+          <li><a href="#matome">まとめ</a></li>
+        </ol>
+      </nav>
+
+      <h2 id="gousei">鉄骨梁の剛度増大率は「合成梁」として計算する</h2>
+      <p>鉄骨梁の上には床スラブが載ります。<strong>頭付きスタッド</strong>で鋼梁とスラブを一体化すれば、両者は1つの断面として曲げに抵抗します。これが<strong>合成梁</strong>です。鋼梁単独よりも断面が大きくなるぶん剛性が上がり、その倍率が<strong>剛度増大率φ</strong>です。</p>
+      <div class="formula">
+        φ ＝ eI ／ sI
+        <span class="note">sI：鉄骨梁単独の断面二次モーメント／eI：合成梁としての断面二次モーメント</span>
+      </div>
+      <p>RC造ではスラブと梁が一体で打設されるため、協力幅さえ決まれば剛性が求まりました。鉄骨造ではそうはいきません。<strong>コンクリートと鋼という異なる材料を1つの断面として扱う</strong>必要があり、さらに<strong>スタッドが十分な本数あるか</strong>という条件も加わります。この2点が、鉄骨梁の計算をRC造より一段複雑にしています。</p>
+
+      <h2 id="zentai">計算の全体像</h2>
+      <figure class="diagram">
+        <svg viewBox="0 0 740 350" role="img" aria-label="鉄骨梁の剛度増大率を求める5ステップの流れ図">
+          <title>鉄骨梁の剛度増大率の計算フロー</title>
+          <rect x="0" y="0" width="740" height="350" fill="#ffffff"/>
+          <text x="370" y="26" text-anchor="middle" font-size="15.5" font-weight="bold" fill="#1a3a5c">断面性能の計算とスタッドの検討、2つの流れが最後に合流する</text>
+          <g font-size="12.5">
+            <rect x="34" y="46" width="150" height="56" rx="7" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2"/>
+            <text x="109" y="68" text-anchor="middle" font-weight="bold" fill="#1a3a5c">① 協力幅・有効幅</text>
+            <text x="109" y="88" text-anchor="middle" fill="#c0392b">ba → B</text>
+            <rect x="204" y="46" width="150" height="56" rx="7" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2"/>
+            <text x="279" y="68" text-anchor="middle" font-weight="bold" fill="#1a3a5c">② 中立軸</text>
+            <text x="279" y="88" text-anchor="middle" fill="#c0392b">xn</text>
+            <rect x="374" y="46" width="150" height="56" rx="7" fill="#eef3f8" stroke="#1a3a5c" stroke-width="2"/>
+            <text x="449" y="68" text-anchor="middle" font-weight="bold" fill="#1a3a5c">③ 断面二次モーメント</text>
+            <text x="449" y="88" text-anchor="middle" fill="#c0392b">cI</text>
+          </g>
+          <g stroke="#1a3a5c" stroke-width="2" fill="none">
+            <line x1="186" y1="74" x2="200" y2="74"/><polygon points="204,74 194,68 194,80" fill="#1a3a5c"/>
+            <line x1="356" y1="74" x2="370" y2="74"/><polygon points="374,74 364,68 364,80" fill="#1a3a5c"/>
+          </g>
+          <g font-size="12.5">
+            <rect x="34" y="136" width="150" height="56" rx="7" fill="#fdf6f0" stroke="#e8843c" stroke-width="2"/>
+            <text x="109" y="158" text-anchor="middle" font-weight="bold" fill="#e8843c">④ 水平せん断力</text>
+            <text x="109" y="178" text-anchor="middle" fill="#c0392b">Qh</text>
+            <rect x="204" y="136" width="150" height="56" rx="7" fill="#fdf6f0" stroke="#e8843c" stroke-width="2"/>
+            <text x="279" y="158" text-anchor="middle" font-weight="bold" fill="#e8843c">⑤ スタッド本数</text>
+            <text x="279" y="178" text-anchor="middle" fill="#c0392b">nr と nr'</text>
+            <rect x="374" y="136" width="150" height="56" rx="7" fill="#fdf6f0" stroke="#e8843c" stroke-width="2"/>
+            <text x="449" y="158" text-anchor="middle" font-weight="bold" fill="#e8843c">⑥ 合成度の判定</text>
+            <text x="449" y="178" text-anchor="middle" fill="#c0392b">完全／不完全</text>
+          </g>
+          <g stroke="#e8843c" stroke-width="2" fill="none">
+            <line x1="186" y1="164" x2="200" y2="164"/><polygon points="204,164 194,158 194,170" fill="#e8843c"/>
+            <line x1="356" y1="164" x2="370" y2="164"/><polygon points="374,164 364,158 364,170" fill="#e8843c"/>
+          </g>
+          <g stroke="#666" stroke-width="2" fill="none">
+            <line x1="449" y1="104" x2="449" y2="130"/><polygon points="449,136 442,124 456,124" fill="#666"/>
+            <line x1="526" y1="164" x2="560" y2="164"/><polygon points="566,164 554,157 554,171" fill="#666"/>
+          </g>
+          <rect x="566" y="106" width="140" height="116" rx="8" fill="#1a3a5c"/>
+          <text x="636" y="134" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#ffffff">⑦ 剛度増大率</text>
+          <text x="636" y="162" text-anchor="middle" font-size="17" font-weight="bold" fill="#ffffff">φ ＝ eI／sI</text>
+          <text x="636" y="188" text-anchor="middle" font-size="11.5" fill="#cfe0ee">eI は合成度で</text>
+          <text x="636" y="204" text-anchor="middle" font-size="11.5" fill="#cfe0ee">低減した値</text>
+          <line x1="636" y1="226" x2="636" y2="250" stroke="#c0392b" stroke-width="2"/>
+          <polygon points="636,256 629,244 643,244" fill="#c0392b"/>
+          <rect x="200" y="262" width="500" height="72" rx="8" fill="#fdf2f0" stroke="#c0392b" stroke-width="2.5"/>
+          <text x="450" y="286" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">⑧ 採用値は計算値そのままではない</text>
+          <text x="450" y="308" text-anchor="middle" font-size="13" fill="#8c2b21">(1＋φ)／2 として増加分を半分に見込み、</text>
+          <text x="450" y="326" text-anchor="middle" font-size="13" font-weight="bold" fill="#8c2b21">片側1.2・両側1.4 などの上限で頭打ちにする</text>
+        </svg>
+        <figcaption>①〜③で断面性能を、④〜⑥でスタッドの充足度を確かめ、⑦で合流してφを得る。実務ではさらに⑧の低減が入る。</figcaption>
+      </figure>
+
+      <h2 id="kyoryoku">① 協力幅baと有効幅B</h2>
+      <p>まず、スラブのどこまでが梁と一緒に働くかを決めます。この幅を<strong>協力幅ba</strong>といい、梁の上フランジ幅bを足したものが<strong>有効幅B</strong>です。</p>
+      <div class="formula">
+        a &lt; 0.5l のとき　ba ＝ (0.5 − 0.6·a／l)·a<br>
+        a ≧ 0.5l のとき　ba ＝ 0.1·l
+        <span class="note">a：隣接梁の上フランジ端間距離／l：スパン長さ</span>
+      </div>
+      <div class="formula">
+        片側スラブ　B ＝ ba ＋ b　　両側スラブ　B ＝ ba<sub>左</sub> ＋ ba<sub>右</sub> ＋ b
+        <span class="note">b：鉄骨梁の上フランジ幅。左右の梁間隔が等しい場合に限り B ＝ 2ba ＋ b と書ける</span>
+      </div>
+      <p>この式の形は、RC造の<a href="goudo-zoudairitsu.html">T形梁の協力幅</a>と同じです。ただし記号の意味が違います。RC造のbは梁幅（ウェブ幅）でaは梁側面間の内法距離ですが、合成梁ではbは<strong>鉄骨の上フランジ幅</strong>、aは<strong>上フランジ端間の距離</strong>です。</p>
+      <div class="point-box">
+        <span class="label">baは「0.1l が上限」ではない</span>
+        <p>ba ＝ 0.5a − 0.6a²／l をaの関数として見ると、これは<strong>単調増加ではありません</strong>。微分すると 0.5 − 1.2a／l ＝ 0 より <strong>a ≒ 0.417l で最大値 ba ≒ 0.104l</strong> をとり、そこから減少して a ＝ 0.5l でちょうど 0.1l に戻ります。<br>「baはスパンの0.1倍が上限」と覚えていると、最大で4％ほど過小に評価することになります。なお a ＝ 0.5l で両式の値が一致するため、不等号を「&lt;」「≦」どちらで切っても値が飛ぶことはありません。</p>
+      </div>
+      <p>もう一点、重要な適用条件があります。この協力幅は<strong>スラブが圧縮側になる正曲げ断面</strong>に対するものです。連続梁の支点上のような<strong>負曲げ域ではスラブが引張になる</strong>ため、コンクリートの圧縮抵抗は期待できません。また端梁では、baが実際に存在するスラブの張り出し長さを超えないことを確認する必要があります。</p>
+
+      <h2 id="churitsu">② 中立軸xnを求める（換算断面法）</h2>
+      <p>コンクリートと鋼という異なる材料を1つの断面として扱うために、<strong>換算断面法</strong>を使います。ヤング係数比 n ＝ Es／Ec を用いて、コンクリートの幅を B から <strong>B／n</strong> に置き換え、断面全体を鋼に換算してしまう方法です。</p>
+      <figure class="diagram">
+        <svg viewBox="0 0 740 300" role="img" aria-label="換算断面法でコンクリートの幅をB/nに置き換え、中立軸を求める図">
+          <title>換算断面法による中立軸の算定</title>
+          <rect x="0" y="0" width="740" height="300" fill="#ffffff"/>
+          <text x="180" y="26" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a3a5c">実断面</text>
+          <text x="545" y="26" text-anchor="middle" font-size="15" font-weight="bold" fill="#e8843c">換算断面（鋼に換算）</text>
+          <g transform="translate(60,48)">
+            <rect x="0" y="0" width="240" height="42" fill="#e8eef4" stroke="#333" stroke-width="1.6"/>
+            <rect x="106" y="42" width="28" height="120" fill="#1a3a5c"/>
+            <rect x="76" y="42" width="88" height="10" fill="#1a3a5c"/>
+            <rect x="76" y="152" width="88" height="10" fill="#1a3a5c"/>
+            <text x="120" y="-8" text-anchor="middle" font-size="12.5" fill="#333">幅 B</text>
+            <text x="120" y="184" text-anchor="middle" font-size="12" fill="#666">コンクリート＋鋼</text>
+          </g>
+          <text x="330" y="122" text-anchor="middle" font-size="26" fill="#666">→</text>
+          <g transform="translate(440,48)">
+            <rect x="72" y="0" width="96" height="42" fill="#fdf0e4" stroke="#e8843c" stroke-width="1.8"/>
+            <rect x="106" y="42" width="28" height="120" fill="#1a3a5c"/>
+            <rect x="76" y="42" width="88" height="10" fill="#1a3a5c"/>
+            <rect x="76" y="152" width="88" height="10" fill="#1a3a5c"/>
+            <text x="120" y="-8" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#e8843c">幅 B／n</text>
+            <text x="120" y="184" text-anchor="middle" font-size="12" fill="#666">すべて鋼とみなせる</text>
+          </g>
+          <line x1="40" y1="88" x2="700" y2="88" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="9 4 3 4"/>
+          <text x="706" y="92" font-size="11.5" fill="#c0392b" text-anchor="end">中立軸</text>
+          <rect x="60" y="226" width="620" height="60" rx="6" fill="#f4f7fa" stroke="#9fc0dd"/>
+          <text x="370" y="248" text-anchor="middle" font-size="13" fill="#1a3a5c">中立軸まわりの断面一次モーメントがゼロ　→　(B／n)·xn·(xn／2) ＝ sa·(sd − xn)</text>
+          <text x="370" y="272" text-anchor="middle" font-size="13" fill="#1a3a5c">これをxnについて解くと下の式が得られる</text>
+        </svg>
+        <figcaption>コンクリートの幅をB/nに縮めれば、全体を鋼の断面として扱える。あとは中立軸まわりの一次モーメントのつり合いを解くだけ。</figcaption>
+      </figure>
+      <p>ヤング係数比nは、長期と短期で使い分けるのが原則です。長期荷重に対してはコンクリートがクリープするため、実効的なnを大きく（＝コンクリートの寄与を小さく）とります。<strong>nの前提が変われば、cIもφも変わります。</strong>計算書には必ずnの値と、それが長期・短期どちらの前提かを明記してください。</p>
+      <p>ここで pt ＝ sa／(B·sd)、t1 ＝ t／sd と置きます（sa：鉄骨の全断面積、sd：圧縮縁から鉄骨重心までの距離、t：スラブ厚）。中立軸がスラブ内に収まるか、スラブより下に出るかで式が変わります。</p>
+      <div class="formula">
+        <strong>判定</strong>　pt &lt; t1²／{2n(1 − t1)} なら中立軸はスラブ内、それ以外はスラブ外
+      </div>
+      <div class="formula">
+        <strong>中立軸がスラブ内</strong>　xn ＝ n·pt·( √(1 ＋ 2／(n·pt)) − 1 )·sd<br>
+        <strong>中立軸がスラブ外</strong>　xn ＝ (t1² ＋ 2n·pt)／{2(t1 ＋ n·pt)}·sd
+      </div>
+      <div class="point-box">
+        <span class="label">「−1」は根号の外</span>
+        <p>スラブ内の式は、つり合い式 B·xn² ＋ 2n·sa·xn − 2n·sa·sd ＝ 0 を解いて得られる二次方程式の解です。整理すると xn ＝ {√((n·pt)² ＋ 2n·pt) − n·pt}·sd となり、これを変形したものが上の式です。<br><strong>「−1」を根号の中に入れてしまうと √(2／(n·pt)) となり、まったく別の値になります。</strong>これは n·pt が非常に小さいときの近似形にはなっていますが、n·pt＝0.05 で17％、0.2では37％も過大になります。n·pt が大きい領域では xn が sd を超えるという物理的にありえない値まで返します（正しい式では常に xn &lt; sd）。手計算でもプログラムでも間違えやすい箇所です。</p>
+        <p>なお、この式で求めた xn が<strong>本当にスラブ内に収まっているか（xn ≦ t）は必ず確認</strong>してください。逆に解いた n·pt ＝ (xn/sd)²／{2(1 − xn/sd)} を使えば、スラブ内に収まる鉄骨断面積の上限を直接逆算できます。</p>
+      </div>
+
+      <h2 id="danmen">③ 合成梁の断面二次モーメントcI</h2>
+      <p>中立軸が決まれば、あとは換算断面の断面二次モーメントを積み上げるだけです。</p>
+      <div class="formula">
+        <strong>中立軸がスラブ内</strong>　cI ＝ B·xn³／(3n) ＋ sI ＋ sa·(sd − xn)²<br>
+        <strong>中立軸がスラブ外</strong>　cI ＝ (B·t／n)·{t²／12 ＋ (xn − t／2)²} ＋ sI ＋ sa·(sd − xn)²
+      </div>
+      <p>いずれも「コンクリート（換算）の項」＋「鉄骨自身のsI」＋「鉄骨を中立軸まで移動する項（平行軸の定理）」という3つの足し算です。第3項の sa·(sd − xn)² が効くのがポイントで、<strong>鉄骨の重心が中立軸から離れているほど剛性が上がります</strong>。スラブが載ることで中立軸が上に移動し、鉄骨との距離が開く——これが合成梁で剛性が大きく増える理由です。</p>
+
+      <h2 id="stud">④〜⑥ スタッド本数と合成度の判定</h2>
+      <p>ここまでの計算は「鋼梁とスラブが完全に一体である」という前提でした。その前提を成立させるのが<strong>頭付きスタッド</strong>です。スラブと鋼梁の境界で伝達すべき水平せん断力Qhを、スタッドが受け持てるかを確認します。</p>
+      <div class="formula">
+        Qh ＝ MIN(Qh₁, Qh₂)<br>
+        Qh₁ ＝ 0.85·Fc·t·B　（コンクリート側で決まる場合）<br>
+        Qh₂ ＝ sa·sσY　（鉄骨側で決まる場合）
+      </div>
+      <p>スラブが先に潰れるか、鋼梁が先に降伏するか——<strong>どちらか小さいほうが伝達できる上限</strong>です。これをスタッド1本あたりの耐力で割れば必要本数が出ます。</p>
+      <div class="formula">
+        qs ＝ 0.5·sca·√(Fc·Ec)　　nr ＝ Qh ／ qs（切り上げ）
+        <span class="note">sca：スタッド軸部の断面積／Ec：コンクリートのヤング係数</span>
+      </div>
+      <div class="note-box">
+        <span class="label">スタッド耐力の式について</span>
+        <p>0.5·sca·√(Fc·Ec) は、押抜き試験にもとづく<strong>終局側のせん断耐力</strong>を表す形の式です。設計で用いる際は、採用する規準がこの値をどの水準（終局か許容か）として扱っているかを必ず確認してください。<br>また、この式には<strong>スタッド軸部の鋼材強度による頭打ち</strong>があります。φ16（sca≒201mm²）で軸部の引張強さを400N/mm²とすると 201×400 ≒ 80kN。後述の計算例の77kNはこの上限にほぼ達しており、<strong>これ以上コンクリート強度を上げても耐力は伸びません</strong>。Fc27〜30以上では鋼材側が支配します。<br>さらにEcの算定には単位体積重量γの前提が入ります。γ＝24kN/m³ではEc＝24,683N/mm²ですが、γ＝23kN/m³なら約22,670N/mm²となり、qsは4％ほど小さくなります。</p>
+      </div>
+      <p>実際に配置できる本数 nr' と比較して、合成度を判定します。</p>
+      <table class="data">
+        <tr><th>条件</th><th>判定</th><th>断面二次モーメント eI</th></tr>
+        <tr><td>nr' ≧ nr</td><td><strong>完全合成梁</strong></td><td>eI ＝ cI（低減なし）</td></tr>
+        <tr><td>0.5·nr &lt; nr' &lt; nr</td><td><strong>不完全合成梁</strong></td><td>eI ＝ sI ＋ √(nr'／nr)·(cI − sI)</td></tr>
+        <tr><td>nr' ≦ 0.5·nr</td><td><strong>NG</strong></td><td>合成梁として扱わない</td></tr>
+      </table>
+      <p>不完全合成梁の式は、鋼梁単独のsIから完全合成梁のcIまでを<strong>√(nr'/nr)で内挿</strong>する形になっています。スタッドが足りないぶんだけ、剛性の増加分を割り引くという考え方です。</p>
+      <div class="note-box">
+        <span class="label">採用規準で必ず確認したい3点</span>
+        <p>スタッドまわりは、規準や運用によって扱いが変わる部分が多く、数値がそのまま2倍変わることもあります。次の3点は必ず確認してください。</p>
+        <p><strong>① nrは「せん断スパンあたり」か「梁全長あたり」か。</strong>水平せん断力Qhは本来、支点から最大曲げモーメント位置までの<strong>せん断スパン1区間</strong>で伝達すべき量として定義されます。この場合、必要本数もせん断スパンごとに数えます。一方、配置本数を梁全長で数えて比較する運用もあります。どちらの規約かで必要本数は<strong>約2倍変わる</strong>ため、混在させてはいけません。</p>
+        <p><strong>② 不完全合成梁の下限値。</strong>本記事のExcelは nr' ≦ 0.5·nr をNGとしていますが、この0.5という値は普遍的な規定ではありません。たとえばAISCでは0.25を下限としています。採用する規準の規定を確認するか、社内の自主的な安全側の制限として位置づけてください。</p>
+        <p><strong>③ eI＝sI＋√(nr'/nr)·(cI−sI) は剛性を求めるための経験式です。</strong>力学的に導かれた式ではなく実験にもとづく内挿式なので、<strong>曲げ耐力の算定にそのまま按分して使うことはできません</strong>。耐力を求める場合は、スラブの圧縮力を実配置スタッドの耐力 nr'·qs に制限したうえで、つり合いから直接算定します。</p>
+      </div>
+
+      <h2 id="rei">計算例</h2>
+      <p>Excelに入っている例をそのまま追いかけます。スパン14mの大梁に、片側だけスラブが付くケースです。</p>
+      <table class="data">
+        <tr><th>項目</th><th>値</th></tr>
+        <tr><td>スパン l ／ 上フランジ端間距離 a</td><td>14.0m ／ 6.7m（片側スラブ）</td></tr>
+        <tr><td>鉄骨梁</td><td>H-900×300×16×32（SM490A、sσY＝325N/mm²）</td></tr>
+        <tr><td>　sa ／ sI</td><td>328.5cm² ／ 444,000cm⁴</td></tr>
+        <tr><td>スラブ厚 t ／ ヤング係数比 n</td><td>18cm ／ 15</td></tr>
+        <tr><td>コンクリート</td><td>Fc24（Ec＝24,683N/mm²）</td></tr>
+        <tr><td>スタッド</td><td>φ16 ＠300 ダブル配置</td></tr>
+      </table>
+      <div class="formula">
+        <strong>① 協力幅・有効幅</strong>　a／l ＝ 6.7／14 ＝ 0.479 &lt; 0.5<br>
+        　ba ＝ (0.5 − 0.6×0.479)×6.7 ＝ <strong>142.6cm</strong>　→　B ＝ 142.6 ＋ 30 ＝ <strong>172.6cm</strong><br><br>
+        <strong>② 中立軸</strong>　sd ＝ t ＋ sD／2 ＝ 18 ＋ 45 ＝ 63cm<br>
+        　t1 ＝ 18／63 ＝ 0.2857、　pt ＝ 328.5／(172.6×63) ＝ 0.03021<br>
+        　判定：0.03021 ≧ 0.2857²／{2×15×(1−0.2857)} ＝ 0.00381　→　<strong>中立軸はスラブ外</strong><br>
+        　xn ＝ (0.2857² ＋ 2×15×0.03021)／{2×(0.2857 ＋ 15×0.03021)}×63 ＝ <strong>42.12cm</strong><br><br>
+        <strong>③ 断面二次モーメント</strong><br>
+        　cI ＝ (172.6×18／15)×(18²／12 ＋ (42.12−9)²) ＋ 444,000 ＋ 328.5×(63−42.12)²<br>
+        　　 ＝ 232,774 ＋ 444,000 ＋ 143,249 ＝ <strong>820,026cm⁴</strong>
+      </div>
+      <div class="formula">
+        <strong>④ 水平せん断力</strong>　Qh₁ ＝ 0.85×24×180×1,726 ＝ 6,338kN<br>
+        　Qh₂ ＝ 32,850×325 ＝ 10,676kN　→　Qh ＝ <strong>6,338kN</strong>（コンクリート側で決まる）<br><br>
+        <strong>⑤ スタッド本数</strong>　qs ＝ 0.5×201.1×√(24×24,683) ＝ 77.4kN<br>
+        　nr ＝ 6,338／77.4 ＝ 81.9 → <strong>82本</strong>（必要）<br>
+        　nr' ＝ (14,000／300 の整数部 ＋ 1)×2 ＝ 47×2 ＝ <strong>94本</strong>（配置）<br><br>
+        <strong>⑥ 判定</strong>　nr'（94）≧ nr（82）　→　<strong>完全合成梁</strong>　→　eI ＝ cI ＝ 820,026cm⁴
+      </div>
+      <div class="formula">
+        <strong>⑦ 剛度増大率</strong>　φ ＝ 820,026 ／ 444,000 ＝ <strong>1.847</strong><br><br>
+        <strong>⑧ 採用値</strong>　(1 ＋ 1.847)／2 ＝ 1.423　→　片側スラブの上限1.2で頭打ち<br>
+        　　　　　→　<strong>解析モデルへの入力値 ＝ 1.2</strong>
+      </div>
+      <p>計算値は1.85まで出るのに、実際にモデルへ入れるのは1.2。<strong>計算値の増加分0.85のうち、採用されるのは0.2だけ</strong>です。この差の意味を次に説明します。</p>
+
+      <h2 id="naze">なぜ計算値をそのまま使わないのか</h2>
+      <table class="data">
+        <tr><th>理由</th><th>内容</th></tr>
+        <tr><td><strong>負曲げ域では合成効果がない</strong></td><td>連続梁の支点上ではスラブが引張になり、コンクリートは抵抗しない。梁全長にわたって合成効果が期待できるわけではない</td></tr>
+        <tr><td>ひび割れによる剛性低下</td><td>乾燥収縮や活荷重によるひび割れで、スラブの実効剛性は計算値より下がる</td></tr>
+        <tr><td>施工のばらつき</td><td>スタッドの溶接品質、スラブ厚の施工誤差、デッキの納まりなどで一体性の程度が変わる</td></tr>
+        <tr><td>剛性の評価はどちらに振っても安全側とは限らない</td><td>高く見れば応力が集中し変形を過小評価する。逆に低く見れば<a href="sokan-henkei.html">層間変形角</a>には安全側でも、建物の固有周期が伸びてRtが小さくなり、<a href="jishin-santei.html">設計用地震力</a>を過小評価する方向にも働く</td></tr>
+        <tr><td>クリープ</td><td>長期荷重に対してコンクリートはクリープし、実効的なヤング係数比nが大きくなる（＝合成効果が下がる）</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">「実計算値の1/2」の意味</span>
+        <p>本記事のExcelが採る「実計算による値の1/2」というルールは、φそのものを半分にするのではなく、<strong>増加分を半分に見込む</strong>という意味です。式で書けば (1＋φ)／2。φ＝1.847 なら (1＋1.847)／2 ＝ 1.423 で、増加分0.847の半分の0.423が加算されます。<br>そのうえで、片側スラブ付き1.2・両側スラブ付き1.4という上限で頭打ちにします。この数値は、<a href="goudo-zoudairitsu-s-rc.html">S造とRC造の剛度増大率の違い</a>で紹介した実務の目安（片側1.2〜1.4、両側1.4〜1.6）の下限側にあたります。<br><strong>上限値は採用する規準や設計事務所の方針によって異なります。</strong>普遍的に定まった数値ではないため、必ず社内基準や採用規準を確認してください。判断に迷う場合は、剛度増大率を考慮した場合と1.0とした場合の両方で検証しておくのが確実です。</p>
+      </div>
+
+      <h2 id="excel">鉄骨梁 剛度増大率計算Excelの無料ダウンロード</h2>
+      <div class="cta-box">
+        <span class="cta-label">無料ダウンロード</span>
+        <h3>鉄骨梁（合成梁）剛度増大率 計算Excel</h3>
+        <p>本記事の手順をそのまま実装したExcelです。スパン・上フランジ端間距離・スラブ厚・鉄骨サイズ・コンクリート強度・スタッド仕様を入力すると、<strong>協力幅ba、有効幅B、中立軸xn、合成梁の断面二次モーメントcI、必要スタッド本数nr、合成度の判定、剛度増大率φ、そして(1+φ)/2と上限を反映した採用値</strong>までを自動計算します。鉄骨サイズはH形鋼30種類からプルダウンで選択でき、断面性能が自動で入ります。</p>
+        <div class="cta-actions">
+          <a class="cta-btn" href="../assets/s-goudo-zoudairitsu.xlsx" download>📥 鉄骨梁 剛度増大率計算Excelをダウンロード（無料）</a>
+        </div>
+        <p class="cta-note">※ Microsoft Excel（.xlsx）。計算結果は設計者ご自身の責任でご確認のうえご使用ください。</p>
+        <p class="cta-note">📂 <a href="../downloads.html">その他の無料Excel一覧はこちら ›</a></p>
+      </div>
+
+      <div class="note-box">
+        <span class="label">ご利用にあたって</span>
+        <p>本記事とExcelは、鉄骨梁の剛度増大率の考え方を理解するための解説資料です。採用値の上限（片側1.2・両側1.4）や「実計算値の1/2」という運用は、設計方針の一例であり普遍的な規定ではありません。スタッド耐力の式が終局・許容のどちらを表すか、Ecの算定に用いる単位体積重量、デッキプレート貫通溶接時の低減など、実際の設計では採用する規準・指針の規定を必ず確認してください。計算結果は設計者ご自身の責任でご確認のうえご使用ください。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 鉄骨梁の剛度増大率は計算値をそのまま使ってよいですか？</h3>
+      <p>多くの実務では使いません。計算値φをそのまま採用せず、(1+φ)/2として増加分を半分に見込み、さらに片側スラブ付き1.2・両側スラブ付き1.4といった上限で頭打ちにする運用が広く行われています。理由は、負曲げ域ではスラブが引張となって合成効果が期待できないこと、ひび割れや施工のばらつきで剛性が落ちること、剛性を高く見積もりすぎると応力の分配を誤ることです。ただし上限値は採用する規準や設計方針によって異なるため、社内基準を必ず確認してください。</p>
+      <h3>Q2. スタッドがない鉄骨梁でも剛度増大率を考慮できますか？</h3>
+      <p>できません。頭付きスタッドなどのずれ止めがなければ、鋼梁とスラブの境界面が滑って一体の断面として働かないためです。この場合は非合成梁として扱い、剛度増大率は1.0とします。RC造の略算値をそのまま鉄骨梁に当てはめるのも誤りです。</p>
+      <h3>Q3. 完全合成梁と不完全合成梁はどう違いますか？</h3>
+      <p>スラブと鋼梁の間で伝達すべき水平せん断力Qhを、配置したスタッドで全て伝達できる場合が完全合成梁です。必要本数nrに対して実配置本数nr'が足りない場合は不完全合成梁となり、断面二次モーメントを完全合成梁の値より低減して評価します。本記事のExcelでは eI＝sI＋√(nr'/nr)×(cI−sI) で補間し、nr'が0.5nrを下回る場合はNGとしています。</p>
+      <h3>Q4. 協力幅baはスパンの0.1倍が上限ですか？</h3>
+      <p>上限ではありません。ba＝(0.5−0.6a/l)·a はaに対して単調増加ではなく、a≒0.417lで最大値ba≒0.104lをとり、その後a＝0.5lで0.1lに戻ります。したがって「baは0.1l以下」と考えると4％ほど過小評価になります。またこの協力幅はスラブが圧縮となる正曲げ断面に対するもので、負曲げ域には適用できません。</p>
+      <h3>Q5. デッキプレートを使う場合はどう扱いますか？</h3>
+      <p>デッキのリブ内のコンクリートは無視し、リブ上の平坦部の厚さをスラブ厚tとして扱うのが基本です。本記事のExcelでは、デッキ全せいHdを入力するとsd（圧縮縁から鉄骨重心までの距離）にのみ反映され、断面性能の計算にはリブ上のtだけが使われます。またデッキを貫通してスタッドを溶接する場合、スタッドの耐力にリブ形状に応じた低減が必要になることがあります。</p>
+
+      <h2 id="matome">まとめ</h2>
+      <ul>
+        <li>鉄骨梁の剛度増大率は、スラブと一体化した<strong>合成梁</strong>として換算断面法で計算する。φ ＝ eI／sI。</li>
+        <li>手順は<strong>協力幅ba → 有効幅B → 中立軸xn → 断面二次モーメントcI</strong>。並行して<strong>水平せん断力Qh → 必要スタッド本数nr</strong>を求め、合成度を判定する。</li>
+        <li>協力幅 ba ＝ (0.5−0.6a/l)·a は単調増加ではなく、<strong>a≒0.417lで最大0.104l</strong>。「0.1lが上限」ではない。正曲げ断面に限る。</li>
+        <li>中立軸の式は<strong>「−1」が根号の外</strong>。中に入れると n·pt＝0.05 で17％過大になる。</li>
+        <li>実務では計算値をそのまま使わず、<strong>(1＋φ)／2 として増加分を半分に見込み、片側1.2・両側1.4などの上限で頭打ち</strong>にする。上限値は採用規準・設計方針によって異なる。</li>
+      </ul>
+
+      <div class="note-box">
+        <span class="label">あわせて読みたい</span>
+        <p>構造種別ごとの目安は「<a href="goudo-zoudairitsu-s-rc.html">S造とRC造の剛度増大率の違い</a>」、RC造の協力幅と計算方法は「<a href="goudo-zoudairitsu.html">剛度増大率とスラブ付きRC梁の剛性倍率</a>」、剛性の基本は「<a href="danmen-niji-moment.html">断面二次モーメントとは？</a>」、スラブのたわみは「<a href="rc-slab-tawami.html">RCスラブのたわみ計算</a>」をどうぞ。</p>
+      </div>
+
+      <div class="article-author">
+        <img src="../assets/profile.png" alt="監修・執筆者 ホッタ ナオト（構造設計一級建築士）" width="76" height="76" loading="lazy">
+        <div class="aa-text">
+          <p class="aa-role">この記事の監修・執筆者</p>
+          <p class="aa-name">ホッタ ナオト</p>
+          <p class="aa-cred">一級建築士・構造設計一級建築士／ゼネコン構造設計部</p>
+          <p class="aa-desc">構造設計・耐震補強・工事監理の実務に10年以上従事。<a href="../about.html#author">プロフィール詳細 ›</a></p>
+        </div>
+      </div>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>構造計算の実務</h4>
+        <ul>
+          <li><a href="goudo-zoudairitsu-s-rc.html">S造とRC造の剛度増大率の違い</a></li>
+          <li><a href="goudo-zoudairitsu.html">剛度増大率と協力幅の計算方法</a></li>
+          <li><a href="goushou.html">剛床仮定と床面内せん断力</a></li>
+          <li><a href="kyoyo-oryokudo.html">許容応力度計算とは？</a></li>
+          <li><a href="danmen-niji-moment.html">断面二次モーメントとは？</a></li>
+          <li><a href="../articles.html#jitsumu">構造計算の実務 一覧</a></li>
+        </ul>
+      </div>
+      <div class="tool-banner">
+        <div class="tb-ic">📥</div>
+        <h4>無料Excelダウンロード</h4>
+        <p>剛度増大率・床面内せん断・RC設計ルートなどの検討用Excelを無料配布中</p>
+        <a href="../downloads.html">ダウンロード一覧を見る</a>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <p style="margin-bottom:10px;"><a href="../index.html">ホーム</a>　|　<a href="../articles.html">記事一覧</a>　|　<a href="../downloads.html">無料Excel</a>　|　<a href="../about.html">このサイトについて</a>　|　<a href="../privacy.html">プライバシーポリシー</a>　|　<a href="../otoiawase.html">お問い合わせ</a></p>
+      © 2026 構造設計ナビ All Rights Reserved.
+    </div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
