@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
+<title>保有耐力接合とは？ブレース接合部の計算方法を設計例で解説｜構造設計ナビ</title>
+<meta name="description" content="保有耐力接合とは、接合部の破断耐力が母材の降伏耐力を上回るように設計し、接合部の先行破断を防ぐ考え方です。規定式 Aj·σu ≧ α·Ag·F の意味、ブレース接合部で検討する5つの破断形式（母材の有効断面・ボルトのせん断・端空きのせん断・ガセットプレート・溶接部）を、2Ls-90×90×10＋M24（F10T）の設計例で数値を追いながら解説。検討がNGになったとき何を変えれば効くのかまで、現役の構造設計一級建築士が説明します。">
+<meta property="og:title" content="保有耐力接合とは？ブレース接合部の計算方法を設計例で解説｜構造設計ナビ">
+<meta property="og:description" content="保有耐力接合の規定式 Aj·σu ≧ α·Ag·F と、ブレース接合部の5つの破断形式を設計例で解説。NGのとき何を変えると効くのかまで図解。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kouzou-navi.com/articles/hoyuu-tairyoku-setsugou.html">
+<meta property="og:image" content="https://www.kouzou-navi.com/assets/eyecatch-hoyuu-tairyoku-setsugou.jpg">
+<meta property="og:site_name" content="構造設計ナビ">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.kouzou-navi.com/assets/eyecatch-hoyuu-tairyoku-setsugou.jpg">
+<link rel="canonical" href="https://www.kouzou-navi.com/articles/hoyuu-tairyoku-setsugou.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "TechArticle",
+   "headline": "保有耐力接合とは？ブレース接合部の計算方法",
+   "description": "保有耐力接合の規定式 Aj·σu ≧ α·Ag·F と、ブレース接合部の5つの破断形式を設計例で解説。NGのとき何を変えると効くのかまで図解。",
+   "inLanguage": "ja",
+   "url": "https://www.kouzou-navi.com/articles/hoyuu-tairyoku-setsugou.html",
+   "mainEntityOfPage": "https://www.kouzou-navi.com/articles/hoyuu-tairyoku-setsugou.html",
+   "datePublished": "2026-09-04",
+   "dateModified": "2026-09-04",
+   "image": "https://www.kouzou-navi.com/assets/eyecatch-hoyuu-tairyoku-setsugou.jpg",
+   "author": {
+    "@type": "Person",
+    "name": "ホッタ ナオト",
+    "jobTitle": "構造設計一級建築士",
+    "url": "https://www.kouzou-navi.com/about.html#author"
+   },
+   "publisher": {
+    "@type": "Organization",
+    "name": "構造設計ナビ",
+    "url": "https://www.kouzou-navi.com/",
+    "logo": { "@type": "ImageObject", "url": "https://www.kouzou-navi.com/assets/apple-touch-icon.png" }
+   }
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://www.kouzou-navi.com/" },
+    { "@type": "ListItem", "position": 2, "name": "構造計算の実務", "item": "https://www.kouzou-navi.com/articles.html#jitsumu" },
+    { "@type": "ListItem", "position": 3, "name": "保有耐力接合とは？ブレース接合部の計算方法", "item": "https://www.kouzou-navi.com/articles/hoyuu-tairyoku-setsugou.html" }
+   ]
+  }
+ ]
+}
+</script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+ {"@type": "Question", "name": "保有耐力接合はすべての接合部で必要ですか？", "acceptedAnswer": {"@type": "Answer", "text": "引張力を負担する部材の接合部で求められる考え方です。代表はブレース（筋かい）ですが、柱梁接合部や継手についても、部材の塑性変形能力を期待する設計では同様に接合部先行破断を防ぐ検討が必要です。一方、地震時に塑性化を期待しない二次部材の接合部では、通常の許容応力度設計で足りる場合があります。適用範囲は採用する規準・計算ルートによって変わるため確認してください。"}},
+ {"@type": "Question", "name": "ボルトの本数を増やせば保有耐力接合を満たせますか？", "acceptedAnswer": {"@type": "Answer", "text": "満たせる検討と、満たせない検討があります。ボルトを増やすと1本あたりの伝達力が減るため、端空きのせん断破断やボルト自身のせん断破断には効きます。しかし母材のボルト位置における有効断面の破断には効きません。同じ列にボルトを足しても、断面を横切る欠損の量は変わらないためです。この検討がNGなら、断面を大きくする、接合の形式を変える、といった別の手を打つ必要があります。"}},
+ {"@type": "Question", "name": "なぜ安全率α＝1.2を掛けるのですか？", "acceptedAnswer": {"@type": "Answer", "text": "母材が確実に先に降伏するための余裕代です。鋼材の実降伏点は規格下限値Fより高く出ることが普通で、Fちょうどで設計すると実際には接合部が先に壊れる可能性が残ります。この材料強度のばらつきや施工誤差を吸収するために、炭素鋼では1.2、ステンレス鋼では1.5の割増しを行います。"}},
+ {"@type": "Question", "name": "高強度の鋼材を使えば接合部の検討は楽になりますか？", "acceptedAnswer": {"@type": "Answer", "text": "逆に厳しくなります。必要な有効断面比は α·F／σu で表せますが、SN400B（F＝235、σu＝400）では0.705、SN490B（F＝325、σu＝490）では0.796となり、高強度鋼のほうが大きな比率を要求されます。降伏点Fが引張強さσuより速く上がるためです。母材を強くしたぶん、接合部にはそれ以上の余裕が必要になると理解してください。"}},
+ {"@type": "Question", "name": "山形鋼を片方の脚だけでボルト接合してもよいのですか？", "acceptedAnswer": {"@type": "Answer", "text": "実務では広く行われていますが、保有耐力接合の検討では不利に働きます。接合されていない突出脚には力が十分に伝わらない（シアラグ）ため、有効断面を低減して評価する考え方があり、これを適用すると片脚接合の山形鋼は規定を満たしにくくなります。対策としては、両脚を接合する、添え板（ラグアングル）を設ける、断面形式そのものを見直す、といった方法があります。有効断面の取り方は採用規準で必ず確認してください。"}}
+]}
+</script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="../articles.html#kiso">構造力学の基礎</a></li>
+        <li><a href="../articles.html#jitsumu">構造計算の実務</a></li>
+        <li><a href="../tools/index.html">計算ツール</a></li>
+        <li><a href="../downloads.html">無料Excel</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › <a href="../articles.html#jitsumu">構造計算の実務</a> › 保有耐力接合とブレース接合部</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">構造計算の実務</span>
+        <span>公開日：2026年9月4日</span>
+        <span>更新日：2026年9月4日</span>
+      </div>
+      <h1>保有耐力接合とは？ブレース接合部の計算方法を設計例で解説</h1>
+      <p class="byline">監修・執筆：<a href="../about.html#author">ホッタ ナオト</a>（一級建築士・構造設計一級建築士）</p>
+
+      <figure class="article-fig" style="margin:14px 0 22px;">
+        <img src="../assets/eyecatch-goudo-zoudairitsu.jpg" alt="保有耐力接合とは？ブレース接合部の計算方法を設計例で解説" width="1200" height="630" style="max-width:100%;" fetchpriority="high">
+      </figure>
+
+      <p>引張材の断面算定は、許容応力度に対して検定すれば済みます。ところが<strong>引張材の接合部</strong>については、それだけでは足りません。<strong>保有耐力接合</strong>——接合部の破断耐力が母材の耐力を上回るように設計し、接合部の先行破断を防ぐ——という別の考え方にもとづく検討が必要になります。ブレースが地震のエネルギーを十分に吸収するには、<strong>接合部が先に壊れては意味がない</strong>からです。この記事では、規定式の意味から5つの破断形式の検討、そして<strong>検討がNGになったとき何を変えれば効くのか</strong>までを、具体的な設計例の数値を追いながら解説します。</p>
+
+      <div class="point-box">
+        <span class="label">この記事の要点</span>
+        <ul>
+          <li>保有耐力接合とは、<strong>接合部の耐力＞母材の耐力</strong>となるよう設計し、接合部の先行破断を防ぐ考え方。</li>
+          <li>規定式は <strong>A<sub>j</sub>·σ<sub>u</sub> ≧ α·A<sub>g</sub>·F</strong>（α：炭素鋼1.2、ステンレス鋼1.5）。</li>
+          <li>ブレース接合部では<strong>母材・ボルト・端空き・ガセット・溶接</strong>の5つの破断形式を個別に検討する。</li>
+          <li><strong>ボルトを増やしても母材の有効断面は改善しない。</strong>どの手が効くかを破断形式ごとに整理する。</li>
+        </ul>
+      </div>
+
+      <nav class="toc" aria-label="目次">
+        <div class="toc-ttl">目次</div>
+        <ol>
+          <li><a href="#toha">保有耐力接合とは</a></li>
+          <li><a href="#naze">なぜ順番が重要なのか</a></li>
+          <li><a href="#shiki">規定式の意味</a></li>
+          <li><a href="#mode">検討する5つの破断形式</a></li>
+          <li><a href="#jouken">設計例：条件と必要耐力</a></li>
+          <li><a href="#kentou">①〜⑤の検討</a></li>
+          <li><a href="#ng">NGのときは何を変えるか</a></li>
+          <li><a href="#yougo">混同しやすい用語</a></li>
+          <li><a href="#faq">よくある質問</a></li>
+          <li><a href="#matome">まとめ</a></li>
+        </ol>
+      </nav>
+
+      <h2 id="toha">保有耐力接合とは</h2>
+      <p>引張材の断面算定は、許容応力度に対して検定すれば済みます。ところが<strong>その部材の接合部</strong>については、それだけでは不十分です。接合部には、別の考え方にもとづく検討が求められます。それが<strong>保有耐力接合</strong>です。</p>
+      <div class="formula">
+        接合部の破断耐力 ＞ 母材の降伏耐力
+        <span class="note">接合部が母材より先に壊れないように設計する</span>
+      </div>
+      <p>言い換えれば、<strong>壊れる順番を設計者が決めておく</strong>ということです。部材と接合部のどちらが先に壊れるかを成り行きに任せず、必ず母材が先に降伏するように寸法を決めます。</p>
+
+      <h2 id="naze">なぜ順番が重要なのか</h2>
+      <figure class="diagram">
+        <svg viewBox="0 0 740 320" role="img" aria-label="接合部が先に破断する場合と母材が先に降伏する場合の挙動の違いを比較した図">
+          <title>接合部先行破断と母材先行降伏の違い</title>
+          <rect x="0" y="0" width="740" height="320" fill="#ffffff"/>
+          <text x="185" y="26" text-anchor="middle" font-size="15.5" font-weight="bold" fill="#c0392b">接合部が先に壊れる</text>
+          <text x="555" y="26" text-anchor="middle" font-size="15.5" font-weight="bold" fill="#2e7d4f">母材が先に降伏する</text>
+          <g transform="translate(50,48)">
+            <rect x="0" y="40" width="60" height="26" fill="#9fc0dd" stroke="#1a3a5c" stroke-width="1.5"/>
+            <rect x="200" y="40" width="60" height="26" fill="#9fc0dd" stroke="#1a3a5c" stroke-width="1.5"/>
+            <rect x="60" y="44" width="140" height="18" fill="#1a3a5c"/>
+            <path d="M128,36 L136,52 L124,58 L134,76" stroke="#c0392b" stroke-width="4" fill="none"/>
+            <text x="130" y="24" text-anchor="middle" font-size="12.5" fill="#c0392b">接合部で破断</text>
+            <line x1="-14" y1="53" x2="-40" y2="53" stroke="#e8843c" stroke-width="3"/>
+            <polygon points="-46,53 -32,47 -32,59" fill="#e8843c"/>
+            <line x1="274" y1="53" x2="300" y2="53" stroke="#e8843c" stroke-width="3"/>
+            <polygon points="306,53 292,47 292,59" fill="#e8843c"/>
+          </g>
+          <g transform="translate(420,48)">
+            <rect x="0" y="40" width="60" height="26" fill="#9fc0dd" stroke="#1a3a5c" stroke-width="1.5"/>
+            <rect x="200" y="40" width="60" height="26" fill="#9fc0dd" stroke="#1a3a5c" stroke-width="1.5"/>
+            <rect x="60" y="44" width="140" height="18" fill="#2e7d4f"/>
+            <g stroke="#2e7d4f" stroke-width="2.5" fill="none">
+              <path d="M96,38 L104,38 M96,68 L104,68 M116,38 L124,38 M116,68 L124,68 M136,38 L144,38 M136,68 L144,68"/>
+            </g>
+            <text x="130" y="24" text-anchor="middle" font-size="12.5" fill="#2e7d4f">母材が伸びて降伏</text>
+            <line x1="-14" y1="53" x2="-40" y2="53" stroke="#e8843c" stroke-width="3"/>
+            <polygon points="-46,53 -32,47 -32,59" fill="#e8843c"/>
+            <line x1="274" y1="53" x2="300" y2="53" stroke="#e8843c" stroke-width="3"/>
+            <polygon points="306,53 292,47 292,59" fill="#e8843c"/>
+          </g>
+          <rect x="50" y="164" width="270" height="128" rx="8" fill="#fdf2f0" stroke="#c0392b" stroke-width="2"/>
+          <g font-size="13" fill="#8c2b21">
+            <text x="66" y="190">・ボルトのせん断やプレートの破断は</text>
+            <text x="66" y="210">　<tspan font-weight="bold">ほとんど変形せずに壊れる（脆性的）</tspan></text>
+            <text x="66" y="234">・地震のエネルギーを吸収できない</text>
+            <text x="66" y="256">・ブレースが効かなくなり、その階に</text>
+            <text x="66" y="276">　変形が集中して倒壊につながる</text>
+          </g>
+          <rect x="420" y="164" width="270" height="128" rx="8" fill="#eef8f2" stroke="#2e7d4f" stroke-width="2"/>
+          <g font-size="13" fill="#1f5c39">
+            <text x="436" y="190">・鋼材は降伏後も大きく伸びる</text>
+            <text x="436" y="210">　<tspan font-weight="bold">（延性的な壊れ方）</tspan></text>
+            <text x="436" y="234">・伸びながら地震のエネルギーを</text>
+            <text x="436" y="254">　吸収し続けられる</text>
+            <text x="436" y="276">・設計で想定した耐力を発揮できる</text>
+          </g>
+        </svg>
+        <figcaption>鋼材が地震に強いのは「降伏後も伸びてエネルギーを吸収できる」から。その粘りを発揮する前に接合部が壊れては、鋼を使う意味がなくなる。</figcaption>
+      </figure>
+      <p>引張材の代表が<a href="sujikai.html">ブレース（筋かい）</a>です。ブレースは地震による水平力を受け持ち、<strong>降伏して伸びることでエネルギーを吸収</strong>します。ところが接合部が先に破断してしまうと、ブレースは伸びる前に役目を終えてしまいます。<a href="rahmen-brace.html">ブレース構造</a>の耐震性は、この一点にかかっているといってよいほどです。</p>
+
+      <h2 id="shiki">規定式の意味</h2>
+      <p>保有耐力接合の検討は、次の不等式で表されます。</p>
+      <div class="formula">
+        A<sub>j</sub> · σ<sub>u</sub> ≧ α · A<sub>g</sub> · F
+      </div>
+      <table class="data">
+        <tr><th>記号</th><th>意味</th><th>備考</th></tr>
+        <tr><td>A<sub>j</sub></td><td>接合部の破断形式に応じた有効断面積（mm²）</td><td><strong>破断形式ごとに変わる</strong></td></tr>
+        <tr><td>σ<sub>u</sub></td><td>接合部の破断形式に応じた破断応力度（N/mm²）</td><td>引張破断なら引張強さ、せん断破断なら概ねその1/√3</td></tr>
+        <tr><td>A<sub>g</sub></td><td>筋違材の<strong>全断面積</strong>（mm²）</td><td>孔を控除しない、母材そのものの断面積</td></tr>
+        <tr><td>F</td><td>筋違材の基準強度（N/mm²）</td><td>SN400Bなら235</td></tr>
+        <tr><td>α</td><td>安全率</td><td><strong>炭素鋼1.2／ステンレス鋼1.5</strong></td></tr>
+      </table>
+      <p>右辺の <strong>α·A<sub>g</sub>·F</strong> は「母材が全断面で降伏するときの力に、割増しを掛けたもの」です。左辺はそれぞれの破断形式に対する接合部の耐力。<strong>すべての破断形式について、左辺が右辺を上回る</strong>ことを確認します。</p>
+      <div class="point-box">
+        <span class="label">なぜ安全率を掛けるのか</span>
+        <p>鋼材の<strong>実際の降伏点は規格下限値Fより高く出るのが普通</strong>だからです。SN400Bの規格はF＝235ですが、実際のミルシートでは280〜300程度になることも珍しくありません。Fちょうどで接合部を設計すると、実物では母材がまだ降伏しないうちに接合部が壊れる可能性が残ります。<br>この材料強度のばらつきと施工誤差を吸収するのが、炭素鋼で1.2という割増しです。<strong>「壊れる順番を確実にする」ための保険</strong>と理解してください。</p>
+      </div>
+
+      <h2 id="mode">検討する5つの破断形式</h2>
+      <p>ブレース接合部は、いくつもの壊れ方をします。<strong>そのどれ一つとして、母材の降伏より先に起きてはいけません。</strong></p>
+      <figure class="diagram">
+        <svg viewBox="0 0 740 340" role="img" aria-label="ブレース接合部で検討する5つの破断形式を示した図">
+          <title>ブレース接合部の5つの破断形式</title>
+          <rect x="0" y="0" width="740" height="340" fill="#ffffff"/>
+          <text x="370" y="24" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a3a5c">どの壊れ方も、母材の降伏より先に起きてはいけない</text>
+          <rect x="70" y="52" width="200" height="150" fill="#dce7f1" stroke="#1a3a5c" stroke-width="2"/>
+          <text x="120" y="76" font-size="12" fill="#1a3a5c">ガセットPL</text>
+          <rect x="270" y="96" width="330" height="62" fill="#9fc0dd" stroke="#1a3a5c" stroke-width="2"/>
+          <text x="470" y="180" text-anchor="middle" font-size="12" fill="#1a3a5c">筋違材（2Ls）</text>
+          <g fill="#1a3a5c">
+            <circle cx="310" cy="127" r="11"/><circle cx="382" cy="127" r="11"/><circle cx="454" cy="127" r="11"/>
+          </g>
+          <line x1="70" y1="52" x2="70" y2="202" stroke="#1a3a5c" stroke-width="6"/>
+          <g stroke="#c0392b" stroke-width="3" fill="none">
+            <path d="M310,88 L310,60"/><path d="M310,166 L310,194"/>
+          </g>
+          <text x="300" y="52" text-anchor="end" font-size="13" font-weight="bold" fill="#c0392b">①</text>
+          <path d="M382,116 L382,138" stroke="#c0392b" stroke-width="4"/>
+          <text x="396" y="112" font-size="13" font-weight="bold" fill="#c0392b">②</text>
+          <path d="M472,110 L600,110 M472,144 L600,144" stroke="#c0392b" stroke-width="3"/>
+          <text x="612" y="132" font-size="13" font-weight="bold" fill="#c0392b">③</text>
+          <path d="M170,60 L170,196" stroke="#c0392b" stroke-width="3" stroke-dasharray="7 4"/>
+          <text x="180" y="220" font-size="13" font-weight="bold" fill="#c0392b">④</text>
+          <path d="M62,56 L62,198" stroke="#c0392b" stroke-width="5"/>
+          <text x="44" y="132" text-anchor="end" font-size="13" font-weight="bold" fill="#c0392b">⑤</text>
+          <g font-size="12.5" fill="#333">
+            <text x="70" y="248">① 母材（筋違材）のボルト位置における有効断面の引張破断</text>
+            <text x="70" y="270">② 高力ボルトのせん断破断</text>
+            <text x="70" y="292">③ 端空き部分のせん断破断（ボルトが端へ抜ける）</text>
+            <text x="70" y="314">④ ガセットプレートの有効断面の引張破断　　⑤ 溶接部の破断</text>
+          </g>
+        </svg>
+        <figcaption>①は母材、②はボルト、③は端空き、④はガセットプレート、⑤は溶接。それぞれ有効断面積Ajと破断応力度σuが異なる。</figcaption>
+      </figure>
+
+      <h2 id="jouken">設計例：条件と必要耐力</h2>
+      <table class="data">
+        <tr><th>項目</th><th>仕様</th></tr>
+        <tr><td>筋違材</td><td>2Ls-90×90×10（SN400B）　A<sub>g</sub>＝1,700×2＝<strong>3,400mm²</strong></td></tr>
+        <tr><td>ガセットプレート</td><td>SN400B（板厚は検討のなかで決める）</td></tr>
+        <tr><td>高力ボルト</td><td>F10T、M24（孔径26mm）　2面せん断</td></tr>
+        <tr><td>ボルト配置</td><td>3本　ピッチ p＝3d＝72mm　端空き・縁空き＝1.5d＝36mm</td></tr>
+        <tr><td>材料強度</td><td>SN400B：F＝235、引張強さσ<sub>u</sub>＝400　／　F10T：引張強さ1,000</td></tr>
+      </table>
+      <p>ボルトのピッチと端空きは、まず<strong>最小距離を上回るようにボルト径dを基準に仮定</strong>します。ここから必要耐力を求めます。</p>
+      <div class="formula">
+        α · A<sub>g</sub> · F ＝ 1.2 × 3,400 × 235 ＝ <strong>958,800 N ＝ 958.8 kN</strong>
+        <span class="note">すべての破断形式が、この値を上回る必要がある</span>
+      </div>
+
+      <h2 id="kentou">①〜⑤の検討</h2>
+      <h3>① 母材のボルト位置における有効断面の破断</h3>
+      <p>ボルト孔で欠損した断面が引張破断しないかを確認します。ここで<strong>有効断面積A<sub>j</sub>の取り方に注意が必要</strong>です。山形鋼を片方の脚だけで接合する場合、接合されていない突出脚には力が十分に伝わりません（シアラグ）。この影響を有効断面の低減として見込むかどうかで、結果が変わります。</p>
+      <div class="formula">
+        <strong>［孔の欠損のみを控除］</strong><br>
+        A<sub>j</sub> ＝ 3,400 − 2×(26×10) ＝ 2,880mm²　→　2,880×400 ＝ <strong>1,152kN ≧ 958.8kN　OK</strong><br><br>
+        <strong>［突出脚の1/2を無効とする場合］</strong><br>
+        1本あたり：接合脚 900 − 孔 260 ＝ 640、突出脚 800 の1/2 ＝ 400　→　1,040mm²<br>
+        A<sub>j</sub> ＝ 1,040×2 ＝ 2,080mm²　→　2,080×400 ＝ <strong>832kN ＜ 958.8kN　NG</strong>
+      </div>
+      <p>低減を見込むと<strong>NG</strong>になります。必要な有効断面積は 958,800／400 ＝ 2,397mm² なので、317mm²ほど足りません。この場合の対処は後述します。</p>
+
+      <h3>② 高力ボルトのせん断破断</h3>
+      <p>ブレースがガセットプレートを挟む形なので<strong>2面せん断</strong>です。せん断破断応力度はボルトの引張強さの1/√3として扱います。</p>
+      <div class="formula">
+        軸部断面積 ＝ π×24²／4 ＝ 452.4mm²　　τ<sub>u</sub> ＝ 1,000／√3 ＝ 577.4N/mm²<br>
+        A<sub>j</sub> ＝ 3本 × 2面 × 452.4 ＝ 2,714mm²<br>
+        2,714 × 577.4 ＝ <strong>1,567kN ≧ 958.8kN　OK</strong>（検定比0.61）
+      </div>
+      <p>せん断面がねじ部にかかる場合は有効断面積353mm²で評価し、1,223kNとなります。いずれにせよ余裕があります。</p>
+
+      <h3>③ 端空き部分のせん断破断</h3>
+      <p>ボルトが端に向かって板を切り裂く壊れ方です。<strong>この検討はボルト1本が伝える力に対して行います</strong>。せん断破断応力度は母材の引張強さの1/√3で、400／√3 ＝ 230.9N/mm²です。</p>
+      <div class="formula">
+        ボルト1本あたりの伝達力 ＝ 958.8 ／ 3 ＝ 319.6kN<br><br>
+        <strong>筋違材側</strong>（2枚 × 2面 × 端空き36 × 板厚10）＝ 1,440mm²<br>
+        　1,440 × 230.9 ＝ <strong>332.6kN ≧ 319.6kN　OK</strong>（検定比0.96・かなり際どい）<br><br>
+        <strong>ガセット側</strong>（1枚 × 2面 × 36 × 板厚12）＝ 864mm²<br>
+        　864 × 230.9 ＝ <strong>199.5kN ＜ 319.6kN　NG</strong>（検定比1.60）
+      </div>
+      <p>ガセットプレート側がNGです。t＝12mmのままなら端空きを<strong>58mm以上</strong>にする必要があります。なおガセットの端空きは、力の方向に対する最終ボルトからプレート端までの距離で測るため、実際の納まりでは筋違材より大きく取れることが多い箇所です。</p>
+
+      <h3>④ ガセットプレートの有効断面の破断</h3>
+      <p>ガセット側もボルト孔で欠損した断面が破断しないかを確認します。必要純断面積は 958,800／400 ＝ 2,397mm²です。</p>
+      <table class="data">
+        <tr><th>板厚</th><th>必要な純幅</th><th>必要な全幅（孔26mmを足す）</th></tr>
+        <tr><td>t＝12mm</td><td>200mm</td><td><strong>226mm以上</strong></td></tr>
+        <tr><td>t＝16mm</td><td>150mm</td><td><strong>176mm以上</strong></td></tr>
+        <tr><td>t＝19mm</td><td>126mm</td><td><strong>152mm以上</strong></td></tr>
+        <tr><td>t＝22mm</td><td>109mm</td><td><strong>135mm以上</strong></td></tr>
+      </table>
+      <p>板厚を上げるほど必要な幅は小さくなります。③の端空きの問題もあわせて考えると、<strong>この例ではガセットプレートを厚くするのが合理的</strong>だとわかります。</p>
+
+      <h3>⑤ 溶接部の破断</h3>
+      <p>ガセットプレートを柱や梁に取り付ける溶接部です。すみ肉溶接ののど厚は脚長Sの0.7倍として扱います。</p>
+      <div class="formula">
+        必要のど断面積 ＝ 958,800 ／ 230.9 ＝ <strong>4,152mm²</strong>
+      </div>
+      <table class="data">
+        <tr><th>脚長 S</th><th>のど厚 a＝0.7S</th><th>必要な有効溶接長さ（両側すみ肉）</th></tr>
+        <tr><td>6mm</td><td>4.2mm</td><td>494mm／側</td></tr>
+        <tr><td>8mm</td><td>5.6mm</td><td>371mm／側</td></tr>
+        <tr><td>10mm</td><td>7.0mm</td><td><strong>297mm／側</strong></td></tr>
+        <tr><td>12mm</td><td>8.4mm</td><td>247mm／側</td></tr>
+      </table>
+      <p>脚長を上げるほど溶接長は短くて済みますが、板厚に対する脚長の上限や、溶接の品質確保の観点から無制限には上げられません。<strong>ガセットの形状（溶接長を確保できる寸法か）と一体で決める</strong>ことになります。</p>
+
+      <h2 id="ng">NGのときは何を変えるか</h2>
+      <p>ここが実務で最も重要なところです。<strong>「ボルトを増やす」という対処が効く検討と、まったく効かない検討があります。</strong></p>
+      <table class="data">
+        <tr><th>変更点</th><th>① 母材の有効断面</th><th>② ボルトのせん断</th><th>③ 端空き</th><th>④ ガセット断面</th><th>⑤ 溶接</th></tr>
+        <tr><td>ボルト本数を増やす</td><td><strong>効かない</strong></td><td>◎</td><td>◎</td><td>—</td><td>—</td></tr>
+        <tr><td>端空きを大きくする</td><td>—</td><td>—</td><td><strong>◎</strong></td><td>—</td><td>—</td></tr>
+        <tr><td>ガセットを厚くする</td><td>—</td><td>—</td><td>◎</td><td><strong>◎</strong></td><td>—</td></tr>
+        <tr><td>ガセットを幅広くする</td><td>—</td><td>—</td><td>—</td><td><strong>◎</strong></td><td>◎</td></tr>
+        <tr><td>溶接脚長・長さを増やす</td><td>—</td><td>—</td><td>—</td><td>—</td><td><strong>◎</strong></td></tr>
+        <tr><td>接合形式を変える（両脚接合など）</td><td><strong>◎</strong></td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+      </table>
+      <div class="point-box">
+        <span class="label">ボルトを増やしても①は変わらない</span>
+        <p>同じ列にボルトを足しても、<strong>断面を横切る孔の欠損量は1本分のまま</strong>です。したがって母材の有効断面の破断耐力は1mmも増えません。<br>一方、ボルト1本あたりの伝達力は本数に反比例して減るので、③の端空きには直接効きます。実際、この例では3本→5本にすればガセット側の端空きも成立します（319.6kN → 191.8kN、検定比1.60 → 0.96）。<br><strong>①がNGのときに打つ手は別です。</strong>両脚を接合する、添え板（ラグアングル）を設けて突出脚にも力を流す、断面形式そのものを見直す——といった、シアラグを解消する方向の対処が必要になります。参考までに、L-90×90×10で両脚を接合できれば有効断面比は0.612から0.847まで上がり、必要な0.705を満たします。</p>
+      </div>
+      <div class="point-box">
+        <span class="label">高強度鋼にすると、かえって厳しくなる</span>
+        <p>必要な有効断面比は α·F／σ<sub>u</sub> と書けます。この値を鋼種ごとに計算すると——</p>
+        <p>　SN400B：1.2×235／400 ＝ <strong>0.705</strong>　　SN490B：1.2×325／490 ＝ <strong>0.796</strong></p>
+        <p>高強度鋼のほうが<strong>大きな比率を要求されます</strong>。降伏点Fが引張強さσ<sub>u</sub>より速く上がるためです。「母材を強くすれば接合部も楽になる」という直感は成り立ちません。母材を強くしたぶん、接合部にはそれ以上の余裕が必要になります。</p>
+      </div>
+
+      <h2 id="yougo">混同しやすい用語</h2>
+      <table class="data">
+        <tr><th>用語</th><th>内容</th><th>保有耐力接合との違い</th></tr>
+        <tr><td><a href="kyoyo-oryokudo.html">許容応力度設計</a></td><td>部材に生じる応力度が許容応力度以下であることを確認する</td><td>保有耐力接合は<strong>破断耐力</strong>で検討する点が根本的に異なる</td></tr>
+        <tr><td>摩擦接合</td><td>高力ボルトで板を締め付け、生じる摩擦力で応力を伝達する接合方式</td><td>力の伝達<strong>方式</strong>の話。保有耐力接合は設計の<strong>考え方</strong>で、両者は対立概念ではない</td></tr>
+        <tr><td>支圧接合</td><td>ボルト軸部と孔壁の支圧で応力を伝達する方式</td><td>同上。方式が何であれ、保有耐力接合の検討は別途必要</td></tr>
+        <tr><td>保有水平耐力</td><td>建物が水平力に対して保有する終局的な耐力</td><td>建物<strong>全体</strong>の話。保有耐力接合は<strong>接合部</strong>の話で、名前は似ているが対象が違う</td></tr>
+      </table>
+      <table class="data">
+        <tr><th>項目</th><th>内容</th><th>設計のポイント</th></tr>
+        <tr><td>保有耐力接合</td><td>接合部の破断耐力 ＞ 母材の降伏耐力</td><td>破断形式ごとに検討する</td></tr>
+        <tr><td>引張材（ブレース）</td><td>水平力を受け持つ部材</td><td>接合部が先に壊れないよう設計する</td></tr>
+        <tr><td>安全率α</td><td>炭素鋼 1.2</td><td>ステンレス鋼 1.5</td></tr>
+      </table>
+
+      <div class="note-box">
+        <span class="label">ご利用にあたって</span>
+        <p>本記事の数値例は、規定式 A<sub>j</sub>·σ<sub>u</sub> ≧ α·A<sub>g</sub>·F の使い方を理解するための解説です。<strong>各破断形式における有効断面積A<sub>j</sub>と破断応力度σ<sub>u</sub>の具体的な取り方</strong>——とくに①でシアラグによる低減を見込むかどうか、③を1本あたりで評価するか全体で評価するか、σ<sub>u</sub>に規格下限値と実強度のどちらを用いるか——は、採用する規準・指針によって規定が異なります。実際の設計にあたっては、<a href="setsugoubu-shishin.html">鋼構造接合部設計指針</a>をはじめとする採用規準の原文で、式・記号の定義・適用条件を必ず確認してください。ガセットプレートの板厚・幅、溶接の仕様は、この記事では検討の結果として導いた値であり、既定の答えではありません。</p>
+      </div>
+
+      <h2 id="faq">よくある質問</h2>
+      <h3>Q1. 保有耐力接合はすべての接合部で必要ですか？</h3>
+      <p>引張力を負担する部材の接合部で求められる考え方です。代表はブレース（筋かい）ですが、柱梁接合部や継手についても、部材の塑性変形能力を期待する設計では同様に接合部先行破断を防ぐ検討が必要です。一方、地震時に塑性化を期待しない二次部材の接合部では、通常の許容応力度設計で足りる場合があります。適用範囲は採用する規準・計算ルートによって変わるため確認してください。</p>
+      <h3>Q2. ボルトの本数を増やせば保有耐力接合を満たせますか？</h3>
+      <p>満たせる検討と、満たせない検討があります。ボルトを増やすと1本あたりの伝達力が減るため、端空きのせん断破断やボルト自身のせん断破断には効きます。しかし<strong>母材のボルト位置における有効断面の破断には効きません</strong>。同じ列にボルトを足しても、断面を横切る欠損の量は変わらないためです。この検討がNGなら、断面を大きくする、接合の形式を変える、といった別の手を打つ必要があります。</p>
+      <h3>Q3. なぜ安全率α＝1.2を掛けるのですか？</h3>
+      <p>母材が確実に先に降伏するための余裕代です。鋼材の実降伏点は規格下限値Fより高く出ることが普通で、Fちょうどで設計すると実際には接合部が先に壊れる可能性が残ります。この材料強度のばらつきや施工誤差を吸収するために、炭素鋼では1.2、ステンレス鋼では1.5の割増しを行います。</p>
+      <h3>Q4. 高強度の鋼材を使えば接合部の検討は楽になりますか？</h3>
+      <p>逆に厳しくなります。必要な有効断面比は α·F／σu で表せますが、SN400B（F＝235、σu＝400）では0.705、SN490B（F＝325、σu＝490）では0.796となり、高強度鋼のほうが大きな比率を要求されます。降伏点Fが引張強さσuより速く上がるためです。母材を強くしたぶん、接合部にはそれ以上の余裕が必要になると理解してください。</p>
+      <h3>Q5. 山形鋼を片方の脚だけでボルト接合してもよいのですか？</h3>
+      <p>実務では広く行われていますが、保有耐力接合の検討では不利に働きます。接合されていない突出脚には力が十分に伝わらない（シアラグ）ため、有効断面を低減して評価する考え方があり、これを適用すると片脚接合の山形鋼は規定を満たしにくくなります。対策としては、両脚を接合する、添え板（ラグアングル）を設ける、断面形式そのものを見直す、といった方法があります。有効断面の取り方は採用規準で必ず確認してください。</p>
+
+      <h2 id="matome">まとめ</h2>
+      <ul>
+        <li><strong>保有耐力接合</strong>とは、接合部の破断耐力が母材の降伏耐力を上回るように設計し、<strong>壊れる順番を確定させる</strong>考え方。</li>
+        <li>規定式は <strong>A<sub>j</sub>·σ<sub>u</sub> ≧ α·A<sub>g</sub>·F</strong>。安全率αは炭素鋼1.2・ステンレス鋼1.5で、鋼材の実降伏点が規格値より高く出ることへの備え。</li>
+        <li>ブレース接合部では<strong>①母材の有効断面 ②ボルトのせん断 ③端空き ④ガセットプレート ⑤溶接部</strong>の5つを個別に検討し、すべてを満たす寸法を決める。</li>
+        <li><strong>ボルトを増やしても①は改善しない。</strong>効くのは②③。①がNGなら両脚接合や断面形式の見直しなど、シアラグを解消する対処が必要。</li>
+        <li>必要な有効断面比 α·F／σ<sub>u</sub> は<strong>高強度鋼ほど大きくなる</strong>（SN400B 0.705／SN490B 0.796）。母材を強くしても接合部は楽にならない。</li>
+      </ul>
+
+      <div class="note-box">
+        <span class="label">あわせて読みたい</span>
+        <p>接合部の規準は「<a href="setsugoubu-shishin.html">鋼構造接合部設計指針とは？</a>」、ブレースの役割は「<a href="sujikai.html">筋交いとは？</a>」と「<a href="rahmen-brace.html">ラーメン構造とブレース構造の違い</a>」、鋼材の材質は「<a href="kouzouyou-kouzai.html">構造用鋼材とは？</a>」、計算の全体像は「<a href="kyoyo-oryokudo.html">許容応力度計算とは？</a>」をどうぞ。</p>
+      </div>
+
+      <div class="article-author">
+        <img src="../assets/profile.png" alt="監修・執筆者 ホッタ ナオト（構造設計一級建築士）" width="76" height="76" loading="lazy">
+        <div class="aa-text">
+          <p class="aa-role">この記事の監修・執筆者</p>
+          <p class="aa-name">ホッタ ナオト</p>
+          <p class="aa-cred">一級建築士・構造設計一級建築士／ゼネコン構造設計部</p>
+          <p class="aa-desc">構造設計・耐震補強・工事監理の実務に10年以上従事。<a href="../about.html#author">プロフィール詳細 ›</a></p>
+        </div>
+      </div>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>構造計算の実務</h4>
+        <ul>
+          <li><a href="goudo-zoudairitsu.html">剛度増大率と協力幅の計算方法</a></li>
+          <li><a href="goushou.html">剛床仮定と床面内せん断力</a></li>
+          <li><a href="kyoyo-oryokudo.html">許容応力度計算とは？</a></li>
+          <li><a href="danmen-niji-moment.html">断面二次モーメントとは？</a></li>
+          <li><a href="../articles.html#jitsumu">構造計算の実務 一覧</a></li>
+        </ul>
+      </div>
+      <div class="tool-banner">
+        <div class="tb-ic">📥</div>
+        <h4>無料Excelダウンロード</h4>
+        <p>剛度増大率・床面内せん断・RC設計ルートなどの検討用Excelを無料配布中</p>
+        <a href="../downloads.html">ダウンロード一覧を見る</a>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <p style="margin-bottom:10px;"><a href="../index.html">ホーム</a>　|　<a href="../articles.html">記事一覧</a>　|　<a href="../downloads.html">無料Excel</a>　|　<a href="../about.html">このサイトについて</a>　|　<a href="../privacy.html">プライバシーポリシー</a>　|　<a href="../otoiawase.html">お問い合わせ</a></p>
+      © 2026 構造設計ナビ All Rights Reserved.
+    </div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
