@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="cpfmKbcH0I3CJKzolaBFhyAxkHrBuEfA44irTqzoxy0" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3660972292620645" crossorigin="anonymous"></script>
+<title>RC造の温度応力解析｜温度差の設定条件と実務の考え方｜構造設計ナビ</title>
+<meta name="description" content="RC建物の温度応力解析でつまずきやすい「温度差ΔTの設定条件」を整理。基準温度の決め方、屋根・外壁・室内・地下の部位別ΔTの目安、乾燥収縮の温度換算、クリープによる剛性低減、マスコンの温度ひび割れ指数まで実務目線で解説します。">
+<meta property="og:title" content="RC造の温度応力解析｜温度差の設定条件と実務の考え方｜構造設計ナビ">
+<meta property="og:description" content="RC建物の温度応力解析でつまずきやすい「温度差ΔTの設定条件」を整理。基準温度の決め方、部位別ΔTの目安、乾燥収縮の温度換算、剛性低減まで実務目線で解説します。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kouzou-navi.com/articles/ondo-ouryoku.html">
+<meta property="og:image" content="https://www.kouzou-navi.com/assets/ogp.png">
+<meta property="og:site_name" content="構造設計ナビ">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.kouzou-navi.com/articles/ondo-ouryoku.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <span class="logo-mark">構</span>
+      <span>構造設計ナビ<small>STRUCTURAL DESIGN NAVI</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <nav class="global-nav">
+      <ul>
+        <li><a href="../index.html">ホーム</a></li>
+        <li><a href="../articles.html#kiso">構造力学の基礎</a></li>
+        <li><a href="../articles.html#keishiki">構造設計</a></li>
+        <li><a href="../tools/section-calculator.html">計算ツール</a></li>
+        <li><a href="../about.html">このサイトについて</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <nav class="breadcrumb"><a href="../index.html">ホーム</a> › <a href="../articles.html#jitsumu">構造計算の実務</a> › 温度応力解析</nav>
+
+  <div class="page-layout">
+    <article class="article-main">
+      <div class="meta">
+        <span class="tag">構造計算の実務</span>
+        <span>更新日：2026年8月31日</span>
+      </div>
+      <h1>RC造の温度応力解析｜温度差の設定条件と実務の考え方</h1>
+
+      <p>温度応力解析でいちばん迷うのが「<strong>温度差 ΔT をいくつにするか</strong>」です。基準法にも規準にも「ΔT＝○℃」という決まった数値は書かれていないため、設計者が根拠を持って設定するしかありません。</p>
+      <p>ただし、ΔT を決める前にやるべきことがあります。それは<strong>どちらの温度応力を扱うのかを切り分ける</strong>ことです。ここが曖昧なまま数値を探すと、いつまでも条件が定まりません。この記事では、切り分け → 基準温度 → 部位別 ΔT → 乾燥収縮 → 剛性低減 → 拘束条件、という順に実務での設定手順を整理します。</p>
+
+      <h2>まず「どちらの温度応力か」を切り分ける</h2>
+      <p>「RC建物の温度応力解析」という言葉は、まったく性質の違う2つの検討を指します。設定条件も判定基準も別物です。</p>
+
+      <table class="data">
+        <tr><th></th><th>① 供用時の温度応力</th><th>② 施工時（マスコン）の温度応力</th></tr>
+        <tr><td>原因</td><td>外気温の季節変化・日射</td><td>セメント水和熱による温度上昇と、その後の降下</td></tr>
+        <tr><td>対象</td><td>建物全体の骨組（長大な建物、地下・屋外露出部）</td><td>厚い基礎スラブ・地下外壁・耐圧版など</td></tr>
+        <tr><td>時期</td><td>供用期間中（数十年）</td><td>打設〜材齢1か月程度</td></tr>
+        <tr><td>解析</td><td>立体骨組モデルに温度荷重を入力</td><td>3次元FEMによる温度伝導解析＋応力解析</td></tr>
+        <tr><td>ΔTの決め方</td><td>基準温度からの差（±10〜25℃程度）</td><td>打込み温度・断熱温度上昇・外気温から温度履歴を計算</td></tr>
+        <tr><td>判定</td><td>許容応力度・ひび割れ幅</td><td>温度ひび割れ指数 <em>I</em><sub>cr</sub></td></tr>
+        <tr><td>よりどころ</td><td>日本建築学会 RC規準・荷重指針、社内基準</td><td>JASS 5、土木学会 コンクリート標準示方書</td></tr>
+      </table>
+
+      <p>一般に「RC建物の温度応力解析」と言えば①を指します。以下は①を中心に説明し、後半で②のマスコンにも触れます。</p>
+
+      <h2>温度応力は「温度差」ではなく「拘束」で決まる</h2>
+      <p>もっとも重要な原則です。<strong>自由に伸縮できる部材には温度応力は生じません。</strong>伸縮を妨げる拘束があってはじめて、内部に応力が生まれます。</p>
+
+      <div class="diagram">
+        <svg viewBox="0 0 560 230" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="拘束の有無による温度応力の違い">
+          <defs>
+            <marker id="ta" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#e8843c"/></marker>
+          </defs>
+          <text x="18" y="22" font-size="13" fill="#1a3a5c" font-weight="bold">① 自由に伸縮できる → 温度応力は生じない</text>
+          <rect x="130" y="40" width="260" height="28" fill="#cfd9e4" stroke="#1a3a5c" stroke-width="2"/>
+          <rect x="390" y="40" width="32" height="28" fill="none" stroke="#e8843c" stroke-width="1.5" stroke-dasharray="5 4"/>
+          <rect x="98" y="40" width="32" height="28" fill="none" stroke="#e8843c" stroke-width="1.5" stroke-dasharray="5 4"/>
+          <line x1="424" y1="54" x2="468" y2="54" stroke="#e8843c" stroke-width="2" marker-end="url(#ta)"/>
+          <line x1="96" y1="54" x2="52" y2="54" stroke="#e8843c" stroke-width="2" marker-end="url(#ta)"/>
+          <text x="476" y="58" font-size="12" fill="#b35309">伸びる</text>
+          <text x="260" y="90" text-anchor="middle" font-size="13" fill="#6b7785" font-weight="bold">σ = 0</text>
+
+          <text x="18" y="124" font-size="13" fill="#1a3a5c" font-weight="bold">② 両端が拘束される → 温度が下がると引張応力・ひび割れ</text>
+          <g stroke="#1a3a5c" stroke-width="1.6">
+            <line x1="84" y1="140" x2="72" y2="152"/><line x1="84" y1="152" x2="72" y2="164"/><line x1="84" y1="164" x2="72" y2="176"/><line x1="84" y1="176" x2="72" y2="188"/>
+            <line x1="488" y1="140" x2="500" y2="152"/><line x1="488" y1="152" x2="500" y2="164"/><line x1="488" y1="164" x2="500" y2="176"/><line x1="488" y1="176" x2="500" y2="188"/>
+          </g>
+          <rect x="84" y="138" width="12" height="50" fill="#1a3a5c"/>
+          <rect x="476" y="138" width="12" height="50" fill="#1a3a5c"/>
+          <rect x="96" y="144" width="380" height="32" fill="#cfd9e4" stroke="#1a3a5c" stroke-width="2"/>
+          <g stroke="#c0392b" stroke-width="2.5" fill="none">
+            <path d="M185,144 l-5,11 l8,10 l-4,11"/>
+            <path d="M286,144 l6,11 l-7,10 l5,11"/>
+            <path d="M387,144 l-5,11 l8,10 l-4,11"/>
+          </g>
+          <text x="286" y="204" text-anchor="middle" font-size="12" fill="#b35309" font-weight="bold">引張</text>
+          <line x1="250" y1="212" x2="150" y2="212" stroke="#e8843c" stroke-width="2" marker-end="url(#ta)"/>
+          <line x1="322" y1="212" x2="422" y2="212" stroke="#e8843c" stroke-width="2" marker-end="url(#ta)"/>
+        </svg>
+        <p class="cap">図：拘束がなければ応力はゼロ。拘束されているときだけ温度応力が発生する</p>
+      </div>
+
+      <div class="formula">
+        σ = R · E<sub>e</sub> · α · ΔT
+        <span class="note">σ：温度応力（N/mm²）／ R：拘束度（0〜1、完全拘束で1）／ E<sub>e</sub>：有効ヤング係数（N/mm²）／ α：線膨張係数 ≒ 1.0×10⁻⁵（1/℃）／ ΔT：基準温度からの温度差（℃）</span>
+      </div>
+
+      <p>試しに、コンクリートのヤング係数 <em>E</em>c＝2.1×10⁴ N/mm²（Fc24相当）をそのまま使い、ΔT＝20℃、完全拘束（R＝1）としてみます。</p>
+
+      <div class="formula">
+        σ = 1.0 × 2.1×10⁴ × 1.0×10⁻⁵ × 20 = 4.2 N/mm²
+        <span class="note">Fc24のコンクリートの引張強度は 1.8 N/mm² 程度。これだけで大きく超えてしまう</span>
+      </div>
+
+      <p>つまり、拘束された RC 部材は<strong>わずか20℃の温度変化でひび割れる</strong>計算になります。温度応力解析が「応力度の照査」であると同時に「ひび割れの検討」だと言われるのはこのためです。</p>
+
+      <div class="point-box">
+        <span class="label">POINT</span>
+        <p>結果を左右するのは ΔT だけではありません。<strong>拘束度 R と有効ヤング係数 E<sub>e</sub> の見込み方のほうが影響が大きい</strong>のが実情です。ΔT だけ厳しくしても、剛性を弾性値のままにしていれば現実離れした応力しか出ません。</p>
+      </div>
+
+      <p>なお、鉄筋の線膨張係数も約 1.0×10⁻⁵/℃ でコンクリートとほぼ同じです。だからこそ両者は一体で挙動できます（<a href="rc-tetsu-kankei.html">コンクリートと鉄筋の関係</a>）。</p>
+
+      <h2>【供用時】温度差 ΔT の設定 5ステップ</h2>
+
+      <h3>ステップ1　基準温度（無応力温度）を決める</h3>
+      <p>ΔT は絶対的な気温ではなく「<strong>基準温度からの差</strong>」です。基準温度とは、その部材に温度応力が生じていない状態の温度、すなわち<strong>構造体として拘束が形成された時点の温度</strong>を指します。ここを決めずに「ΔT＝±20℃」とだけ書いても、根拠を説明できません。</p>
+
+      <p>実務では次のいずれかを設計方針として明記します。</p>
+      <ul>
+        <li><strong>建設地の年平均気温</strong>（もっとも一般的。施工時期を特定しない標準的な扱い）</li>
+        <li><strong>躯体が閉じた時期の月平均気温</strong>（施工計画が固まっている場合）</li>
+        <li>工区分けがある場合は、各工区の実際の施工時期の平均気温</li>
+      </ul>
+
+      <p>参考として、主要都市のおおよその気温です（気象庁の平年値。<strong>実設計では必ず建設地の値を確認してください</strong>）。</p>
+
+      <table class="data">
+        <tr><th>地点</th><th>年平均気温</th><th>最暖月の平均</th><th>最寒月の平均</th></tr>
+        <tr><td>札幌</td><td>約 9℃</td><td>約 22℃</td><td>約 −3℃</td></tr>
+        <tr><td>仙台</td><td>約 13℃</td><td>約 24℃</td><td>約 2℃</td></tr>
+        <tr><td>東京</td><td>約 16℃</td><td>約 27℃</td><td>約 5℃</td></tr>
+        <tr><td>名古屋</td><td>約 16℃</td><td>約 28℃</td><td>約 5℃</td></tr>
+        <tr><td>大阪</td><td>約 17℃</td><td>約 29℃</td><td>約 6℃</td></tr>
+        <tr><td>福岡</td><td>約 17℃</td><td>約 29℃</td><td>約 7℃</td></tr>
+        <tr><td>那覇</td><td>約 23℃</td><td>約 29℃</td><td>約 17℃</td></tr>
+      </table>
+
+      <p>表からわかるとおり、月平均気温の年較差は沖縄を除けば<strong>おおむね 22〜30℃</strong>です。基準温度を年平均気温にとれば、外気に接する部材の一様な温度差は<strong>±11〜15℃程度</strong>が出発点になります。ここに日射の影響を上乗せしていきます。</p>
+
+      <h3>ステップ2　部位ごとに温度を設定する</h3>
+      <p>同じ建物でも、外気に直接さらされる部分・空調された室内・地中では温度変化がまったく違います。<strong>全部材を一律の ΔT にすると、拘束の実態とかけ離れた結果</strong>になります。</p>
+
+      <table class="data">
+        <tr><th>部位</th><th>夏期 ΔT（上昇側）</th><th>冬期 ΔT（下降側）</th><th>考え方</th></tr>
+        <tr><td>屋根スラブ（露出・断熱なし）</td><td>+25〜35℃</td><td>−15〜20℃</td><td>日射で表面温度が 60〜70℃ に達する</td></tr>
+        <tr><td>屋根スラブ（断熱・保護あり）</td><td>+15〜20℃</td><td>−10〜15℃</td><td>断熱層で日射の影響が緩和される</td></tr>
+        <tr><td>外壁・外気に接する柱梁</td><td>+15〜25℃</td><td>−15〜20℃</td><td>方位と仕上げ色で差が出る</td></tr>
+        <tr><td>パラペット・庇・外部階段</td><td>+25〜35℃</td><td>−15〜20℃</td><td>三方が外気。もっとも過酷</td></tr>
+        <tr><td>室内の柱・梁（空調あり）</td><td>0〜+5℃</td><td>0〜−5℃</td><td>室温はほぼ一定</td></tr>
+        <tr><td>1階床・地中梁・浅い基礎</td><td>+5〜10℃</td><td>−5〜10℃</td><td>地表付近は外気の影響が残る</td></tr>
+        <tr><td>地下階（GL−2m以深）</td><td>0〜±3℃</td><td>0〜±3℃</td><td>年間ほぼ一定とみなせる</td></tr>
+      </table>
+
+      <p><strong>日射の見込み方</strong>は、気温そのものではなく<strong>部材の表面温度</strong>で考えます。</p>
+      <ul>
+        <li>屋上（アスファルト防水など濃色）：気温＋25〜35℃（夏期の表面温度 60〜70℃）</li>
+        <li>外壁の濃色仕上げ：気温＋15〜25℃／白系・淡色：気温＋10〜15℃</li>
+        <li>日射が当たらない北面・庇下：気温＋数℃</li>
+      </ul>
+
+      <p>さらに、屋根スラブや外壁は<strong>断面の表裏で温度が違う</strong>ため、軸方向の伸縮だけでなく「そり（曲げ）」も生じます。断熱がなければ表裏の温度差 10〜20℃ 程度を見込み、部材に温度勾配として与えるのが一般的です。</p>
+
+      <h3>ステップ3　夏期・冬期の2ケースを必ず流す</h3>
+      <p>温度上昇と温度下降では、応力の向きも危険な部位も変わります。片側だけでは検討になりません。</p>
+      <ul>
+        <li><strong>夏期（上昇）</strong>：建物が伸びる → 外周の柱が外側に押し出され、1階柱脚に大きな曲げ・せん断が生じる</li>
+        <li><strong>冬期（下降）</strong>：建物が縮む → 引張が生じてひび割れる。<strong>RC造では通常こちらが厳しい</strong>（コンクリートが引張に弱いため）</li>
+      </ul>
+
+      <h3>ステップ4　乾燥収縮を温度に換算して加算する</h3>
+      <p>RC造の温度応力を検討するとき、<strong>乾燥収縮を無視するのは危険側</strong>です。乾燥収縮は「縮む」という点で温度降下とまったく同じ挙動をするため、温度差に換算して<strong>冬期ケースに加算</strong>するのが実務の定番です。</p>
+
+      <div class="formula">
+        ΔT<sub>sh</sub> = ε<sub>sh</sub>(有効) / α
+        <span class="note">ΔT<sub>sh</sub>：乾燥収縮の等価温度差（℃）／ ε<sub>sh</sub>(有効)：クリープで緩和された後の有効乾燥収縮ひずみ ／ α = 1.0×10⁻⁵（1/℃）</span>
+      </div>
+
+      <p>乾燥収縮ひずみの最終値は 6〜8×10⁻⁴ 程度ですが、収縮はきわめてゆっくり進むためクリープで大幅に緩和されます。有効値を 1/2〜1/3 とみて ε<sub>sh</sub>(有効)＝2〜4×10⁻⁴ とすれば、温度換算で <strong>−20〜−40℃相当</strong>。実務では安全側に<strong>−15〜−25℃程度を冬期の ΔT に加算</strong>する扱いが多く見られます。</p>
+
+      <div class="point-box">
+        <span class="label">POINT</span>
+        <p>たとえば「冬期の温度差 −15℃ ＋ 乾燥収縮相当 −20℃ ＝ 合計 −35℃」のように、<strong>収縮側は温度単独よりかなり厳しい値</strong>になります。膨張側（夏期）には加算しません。RC造ではこの非対称性が特徴です。</p>
+      </div>
+
+      <h3>ステップ5　剛性を低減する（クリープ・ひび割れ）</h3>
+      <p><strong>温度応力解析でもっとも重要かつ間違えやすいのがここです。</strong>温度変化は年単位でゆっくり進むため、コンクリートのクリープによって応力が大きく緩和されます。弾性剛性のまま解析すると、実際の2〜3倍の応力が出てしまい、柱脚がまったく成立しません。</p>
+
+      <div class="formula">
+        E<sub>e</sub> = E<sub>c</sub> / (1 + φ)
+        <span class="note">E<sub>e</sub>：有効（実効）ヤング係数 ／ E<sub>c</sub>：コンクリートのヤング係数 ／ φ：クリープ係数</span>
+      </div>
+
+      <table class="data">
+        <tr><th>温度変化の種類</th><th>クリープ係数 φ の目安</th><th>剛性の扱い</th></tr>
+        <tr><td>季節変化（年周期・ゆっくり）</td><td>2〜3</td><td>E<sub>e</sub> ＝ E<sub>c</sub>/3 〜 E<sub>c</sub>/4</td></tr>
+        <tr><td>乾燥収縮（数年かけて進行）</td><td>2〜3</td><td>同上</td></tr>
+        <tr><td>日射による日変化（速い）</td><td>0〜1</td><td>E<sub>e</sub> ＝ E<sub>c</sub> 〜 E<sub>c</sub>/2</td></tr>
+      </table>
+
+      <p>加えて、<a href="concrete-jakuten.html">ひび割れ</a>によって部材の曲げ剛性は低下します。梁・スラブの曲げ剛性を<strong>全断面剛性の 0.3〜0.5 倍</strong>にするなどの低減を併用するのが一般的です。</p>
+
+      <div class="note-box">
+        <span class="label">あわせて確認</span>
+        <p>温度応力は「変形が強制される」タイプの応力（強制変形）です。したがって<strong>剛性が下がれば応力も下がる</strong>という性質があります。外力の大きさが先に決まっている<a href="jishin-ryoku.html">地震力</a>とは感覚が逆になる点に注意してください。</p>
+      </div>
+
+      <h2>拘束条件（境界条件）のモデル化</h2>
+      <p>ΔT と同じくらい結果を左右するのが拘束条件です。とくに次の4点を押さえてください。</p>
+      <ul>
+        <li><strong>柱脚を完全固定にしない</strong>：実際には基礎も地盤も変形します。杭基礎なら水平地盤バネ、直接基礎ならスウェイ・ロッキングバネを入れると拘束度が現実的になります。完全固定のままだと1階柱脚の応力が過大になります。</li>
+        <li><strong>危険な部位は決まっている</strong>：伸縮の中心（おおむね平面重心）から<strong>もっとも遠い両端部の1階柱・耐震壁</strong>が最大となります。ここを重点的に確認します。</li>
+        <li><strong>地下は動かない</strong>：地下は温度がほぼ一定で、かつ土に囲まれて動けません。地上が伸縮して地下が動かないため、<strong>1階レベルにせん断力が集中</strong>します。</li>
+        <li><strong>耐震壁は拘束の要</strong>：剛性の高い<a href="tairyoku-heki.html">耐震壁</a>は伸縮を強く拘束します。壁の配置が偏っていると温度によるねじれも生じます。</li>
+      </ul>
+
+      <h2>荷重の組み合わせと照査</h2>
+      <ul>
+        <li>温度荷重は<strong>長期荷重と組み合わせ、短期許容応力度で照査</strong>するのが一般的な扱いです（<a href="kajuu.html">荷重の組み合わせ</a>）。設計方針書に明示しておきます。</li>
+        <li><strong>地震時との組み合わせは通常考えません。</strong>大地震ともっとも厳しい温度条件が同時に生じる確率が低いうえ、地震時にはひび割れによって温度応力自体が解放されるためです。</li>
+        <li>応力度の照査だけで終わらせず、<strong>ひび割れ幅の検討とひび割れ制御筋の配置</strong>まで行うのが本来の目的です。地下外壁・屋根スラブでは漏水や鉄筋腐食に直結します。</li>
+      </ul>
+
+      <h2>建築基準法上の位置づけ</h2>
+      <p>建築基準法施行令83条が定める荷重・外力は、固定荷重・積載荷重・積雪荷重・風圧力・地震力の5つで、<strong>温度荷重は明記されていません</strong>。同条2項が土圧・水圧などを「実況に応じて」求めているのと同じく、温度は<strong>設計者の判断で必要に応じて考慮する荷重</strong>という位置づけです。だからこそ、設定値には根拠と方針の説明が求められます。</p>
+
+      <p>実務的には、次のような場合に検討します。</p>
+      <ul>
+        <li>平面が長い建物（伸縮目地を設けずに 50〜60m を超える）</li>
+        <li>屋外に露出する大スパンの屋根・スラブ</li>
+        <li>地下と地上、コアと外周で温度条件が大きく異なる建物</li>
+        <li>ひび割れが機能上致命的な建物（水槽、地下駐車場、冷凍倉庫など）</li>
+        <li>PCa・PC造で、ひび割れを許容できない部材</li>
+      </ul>
+
+      <div class="note-box">
+        <span class="label">あわせて確認</span>
+        <p>温度応力を発生させない最も確実な方法は<strong>伸縮目地（エキスパンションジョイント）</strong>です。RC造では建物長さ<strong>おおむね 50〜60m ごと</strong>に設けるのが目安とされます。目地を設けられる計画なら、解析で追い込むより設計的にずっと有利です。</p>
+      </div>
+
+      <h2>【施工時】マスコンクリートの温度応力解析</h2>
+      <p>「温度応力解析」がセメント水和熱によるマスコンクリートの検討を指すこともあります。厚い基礎スラブや地下外壁が対象で、設定条件はまったく別物です。マスコンとして扱う目安は次のとおりです（土木学会 コンクリート標準示方書）。</p>
+      <ul>
+        <li>広がりのあるスラブ：厚さ <strong>80〜100cm 以上</strong></li>
+        <li>下端が拘束された壁状部材：厚さ <strong>50cm 以上</strong></li>
+      </ul>
+
+      <p>ここで考える温度差は2種類あります。</p>
+      <table class="data">
+        <tr><th>種類</th><th>内容</th><th>生じるひび割れ</th></tr>
+        <tr><td>内部拘束</td><td>部材の中心部と表面の温度差（主に温度上昇時）</td><td>表面の比較的浅いひび割れ</td></tr>
+        <tr><td>外部拘束</td><td>部材全体の平均温度が下がるとき、既設コンクリート・杭・地盤に伸縮を拘束される</td><td>貫通ひび割れ（漏水の原因になる）</td></tr>
+      </table>
+
+      <p>主な入力条件は次のとおりです。</p>
+      <ul>
+        <li><strong>打込み温度</strong>：外気温＋数℃。夏期は 35℃ を超えないよう管理する（JASS 5）</li>
+        <li><strong>断熱温度上昇</strong>：単位セメント量とセメント種類から設定。普通ポルトランドセメントで最終上昇量 40〜60℃ 程度。低熱・中庸熱・高炉セメントB種で低減できる</li>
+        <li><strong>外気温</strong>：打設時期の日平均気温（気象庁の旬平均値など）</li>
+        <li><strong>型枠・養生条件</strong>：存置期間、保温・断熱養生の有無</li>
+        <li><strong>有効ヤング係数</strong>：材齢による強度発現と若材齢のクリープを考慮し、弾性値の 0.4〜0.6 倍程度</li>
+        <li><strong>外部拘束係数 R</strong>：既設コンクリート上で 0.3〜0.6、岩盤上で 0.5〜0.8 程度（部材の L/H 比で変わる）</li>
+      </ul>
+
+      <p>判定は温度ひび割れ指数で行います。</p>
+      <div class="formula">
+        <em>I</em><sub>cr</sub>(t) = <em>f</em><sub>tk</sub>(t) / σ<sub>t</sub>(t)
+        <span class="note"><em>I</em><sub>cr</sub>：温度ひび割れ指数 ／ <em>f</em><sub>tk</sub>(t)：材齢 t におけるコンクリートの引張強度 ／ σ<sub>t</sub>(t)：材齢 t における温度応力の最大値</span>
+      </div>
+
+      <table class="data">
+        <tr><th>目的</th><th>温度ひび割れ指数の目安</th></tr>
+        <tr><td>ひび割れの発生を防止したい</td><td>1.85 以上</td></tr>
+        <tr><td>ひび割れの発生をできるだけ制限したい</td><td>1.2 以上 1.85 未満</td></tr>
+        <tr><td>ひび割れは許容するが、幅を制限したい</td><td>0.7 以上 1.2 未満</td></tr>
+      </table>
+
+      <p>指数が足りない場合の対策は、低発熱セメントへの変更、単位セメント量の低減、プレクーリング・パイプクーリング、打設ブロックの分割と打設間隔の調整、ひび割れ誘発目地、ひび割れ制御筋の増設などです。</p>
+
+      <h2>設定手順のまとめ（供用時）</h2>
+      <ul>
+        <li>① 検討対象を切り分ける（供用時の外気温か、施工時の水和熱か）</li>
+        <li>② 建設地の気象データ（気象庁の平年値）を取得する</li>
+        <li>③ 基準温度＝年平均気温（または躯体完成時期の月平均気温）を決め、設計方針に明記する</li>
+        <li>④ 部位ごとに夏期・冬期の温度を設定し、ΔT＝部位温度 − 基準温度 を求める</li>
+        <li>⑤ 冬期側に乾燥収縮の等価温度（−15〜−25℃程度）を加算する</li>
+        <li>⑥ クリープ・ひび割れを考慮して剛性を低減する（E<sub>e</sub>＝E<sub>c</sub>/3 程度、曲げ剛性 0.3〜0.5 倍）</li>
+        <li>⑦ 柱脚は地盤バネでモデル化し、完全固定を避ける</li>
+        <li>⑧ 「長期＋温度」で夏期・冬期の2ケースを解析し、短期許容応力度とひび割れ幅で照査する</li>
+        <li>⑨ 応力集中部（両端部の1階柱、地下との取り合い、耐震壁まわり）を重点的に確認する</li>
+      </ul>
+
+      <h2>よくある失敗</h2>
+      <ul>
+        <li><strong>弾性剛性のまま解析して応力が出すぎる</strong>（最頻出）。クリープ低減を忘れると柱脚がまったく成立しません。</li>
+        <li><strong>柱脚を完全固定にする</strong>。地盤バネを入れるだけで応力は大きく下がります。</li>
+        <li><strong>乾燥収縮を忘れる</strong>。RC造では温度単独より収縮の寄与が大きいことすらあります。</li>
+        <li><strong>室内も外部も同じ ΔT にする</strong>。空調された室内の柱まで ±20℃ にすると実態と合いません。</li>
+        <li><strong>基準温度を決めずに「ΔT＝±20℃」とだけ書く</strong>。根拠を必ず問われます。</li>
+        <li><strong>地震時と組み合わせる</strong>。過剰であり、一般には行いません。</li>
+      </ul>
+
+      <div class="point-box">
+        <span class="label">POINT</span>
+        <p>温度応力解析は「厳しく設定すれば安全」という性質のものではありません。ΔT・剛性・拘束条件は<strong>セットで整合させる</strong>必要があります。<strong>ΔT だけ大きく、剛性は弾性のまま、柱脚は完全固定</strong>——これがもっともよくある過大評価のパターンです。</p>
+      </div>
+
+      <h2>まとめ</h2>
+      <ul>
+        <li>温度応力は σ ＝ R・E<sub>e</sub>・α・ΔT。α＝1.0×10⁻⁵/℃。応力を決めるのは拘束度と有効剛性。</li>
+        <li>ΔT は「基準温度（年平均気温など）からの差」。基準温度の定義が設定条件の出発点。</li>
+        <li>部位ごとに分けて設定する。外気に接する部材で ±15〜25℃、日射を受ける屋根で +25〜35℃、地下はほぼ 0℃ が目安。</li>
+        <li>冬期側には乾燥収縮の等価温度（−15〜−25℃程度）を加算する。</li>
+        <li>クリープ・ひび割れによる剛性低減（E<sub>e</sub>＝E<sub>c</sub>/3 程度）が必須。忘れると2〜3倍の過大評価になる。</li>
+        <li>施工時（マスコン）の温度応力は別物。温度ひび割れ指数 <em>I</em><sub>cr</sub> で判定する。</li>
+        <li>設定値は必ず根拠とセットで設計方針書に明記する。</li>
+      </ul>
+
+      <div class="note-box">
+        <span class="label">ご注意</span>
+        <p>本記事の数値は実務で一般的に用いられる目安であり、規準・指針に定められた規定値ではありません。実際の設計にあたっては、建設地の気象データ、日本建築学会の各規準・指針、社内基準、および構造計算適合性判定の運用を確認のうえ、設計者の責任において設定してください。</p>
+      </div>
+    </article>
+
+    <aside class="sidebar">
+      <div class="widget">
+        <h4>関連記事</h4>
+        <ul>
+          <li><a href="concrete-jakuten.html">コンクリートの弱点とひび割れ対策</a></li>
+          <li><a href="rc-tetsu-kankei.html">コンクリートと鉄筋の関係</a></li>
+          <li><a href="rc-zou.html">鉄筋コンクリート造（RC造）とは？</a></li>
+          <li><a href="kajuu.html">固定荷重・積載荷重の拾い方</a></li>
+          <li><a href="kyoyo-oryokudo.html">許容応力度計算とは？</a></li>
+        </ul>
+      </div>
+      <div class="tool-banner">
+        <div class="tb-ic">🧮</div>
+        <h4>断面性能 計算ツール</h4>
+        <p>b×hを入れるだけで A・I・Z・i を自動計算</p>
+        <a href="../tools/section-calculator.html">無料で使ってみる</a>
+      </div>
+      <div class="ad-slot">広告スペース（300×250）</div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">© 2026 構造設計ナビ All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
