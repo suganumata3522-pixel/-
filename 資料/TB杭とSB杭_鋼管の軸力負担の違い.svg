@@ -1,0 +1,216 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1180" viewBox="0 0 1600 1180" font-family="'Meiryo UI','Hiragino Sans','Yu Gothic','IPAGothic',sans-serif">
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/>
+    </marker>
+    <marker id="ahR" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#C00000"/>
+    </marker>
+    <marker id="ahB" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1F4E9C"/>
+    </marker>
+    <marker id="ahK" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#222"/>
+    </marker>
+    <pattern id="conc" width="14" height="14" patternUnits="userSpaceOnUse">
+      <rect width="14" height="14" fill="#EFE9DC"/>
+      <circle cx="3" cy="4" r="1" fill="#C9BFA8"/><circle cx="10" cy="10" r="1.2" fill="#C9BFA8"/>
+    </pattern>
+    <pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="8" height="8" fill="#F2F2F2"/><line x1="0" y1="0" x2="0" y2="8" stroke="#A6A6A6" stroke-width="2"/>
+    </pattern>
+    <pattern id="slab" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="10" height="10" fill="#E7E6E6"/><line x1="0" y1="0" x2="0" y2="10" stroke="#CFCFCF" stroke-width="1.5"/>
+    </pattern>
+  </defs>
+
+  <rect width="1600" height="1180" fill="#FFFFFF"/>
+
+  <!-- Title -->
+  <text x="800" y="52" text-anchor="middle" font-size="30" font-weight="bold" fill="#1F3864">杭頭の鋼管は「軸力」を負担するか？</text>
+  <text x="800" y="86" text-anchor="middle" font-size="18" fill="#404040">KCTB 場所打ち鋼管コンクリート杭（TB杭） と SB耐震杭（SB杭） の違い ― SS7での扱い</text>
+
+  <!-- ================= LEFT : TB ================= -->
+  <rect x="30" y="110" width="760" height="56" rx="6" fill="#2F75B5"/>
+  <text x="410" y="147" text-anchor="middle" font-size="22" font-weight="bold" fill="#FFF">KCTB 場所打ち鋼管コンクリート杭（TB杭）</text>
+  <rect x="30" y="172" width="760" height="44" rx="6" fill="#DDEBF7"/>
+  <text x="410" y="201" text-anchor="middle" font-size="19" font-weight="bold" fill="#1F4E79">鋼管の内側に<tspan fill="#C00000">リブあり</tspan> → <tspan fill="#C00000">鋼管も軸力を負担する</tspan></text>
+
+  <!-- slab -->
+  <rect x="70" y="262" width="380" height="70" fill="url(#slab)" stroke="#808080"/>
+  <text x="80" y="282" font-size="13" fill="#404040">基礎スラブ</text>
+  <!-- pile concrete -->
+  <rect x="160" y="312" width="200" height="330" fill="url(#conc)"/>
+  <!-- break line -->
+  <path d="M160,642 q25,-12 50,0 t50,0 t50,0 t50,0" fill="#FFF" stroke="#808080"/>
+  <!-- rebars -->
+  <line x1="188" y1="312" x2="188" y2="636" stroke="#595959" stroke-width="3"/>
+  <line x1="332" y1="312" x2="332" y2="636" stroke="#595959" stroke-width="3"/>
+  <!-- steel pipe walls -->
+  <rect x="150" y="312" width="12" height="250" fill="#1F4E9C"/>
+  <rect x="358" y="312" width="12" height="250" fill="#1F4E9C"/>
+  <!-- ribs -->
+  <g fill="#1F4E9C">
+    <rect x="162" y="335" width="8" height="5"/><rect x="162" y="370" width="8" height="5"/><rect x="162" y="405" width="8" height="5"/>
+    <rect x="162" y="440" width="8" height="5"/><rect x="162" y="475" width="8" height="5"/><rect x="162" y="510" width="8" height="5"/><rect x="162" y="545" width="8" height="5"/>
+    <rect x="350" y="335" width="8" height="5"/><rect x="350" y="370" width="8" height="5"/><rect x="350" y="405" width="8" height="5"/>
+    <rect x="350" y="440" width="8" height="5"/><rect x="350" y="475" width="8" height="5"/><rect x="350" y="510" width="8" height="5"/><rect x="350" y="545" width="8" height="5"/>
+  </g>
+  <!-- region dimension -->
+  <line x1="128" y1="312" x2="128" y2="562" stroke="#1F4E9C" stroke-width="1.2" marker-start="url(#ahB)" marker-end="url(#ahB)"/>
+  <text x="120" y="440" font-size="13" fill="#1F4E9C" text-anchor="end">鋼管</text>
+  <text x="120" y="457" font-size="13" fill="#1F4E9C" text-anchor="end">区間</text>
+  <!-- N arrow -->
+  <line x1="260" y1="222" x2="260" y2="300" stroke="#222" stroke-width="7" marker-end="url(#ahK)"/>
+  <text x="275" y="250" font-size="17" font-weight="bold" fill="#222">N（軸力）</text>
+  <!-- flow in core -->
+  <g stroke="#C00000" stroke-width="3">
+    <line x1="230" y1="340" x2="230" y2="610" marker-end="url(#ahR)"/>
+    <line x1="290" y1="340" x2="290" y2="610" marker-end="url(#ahR)"/>
+  </g>
+  <!-- flow into pipe via ribs -->
+  <g stroke="#C00000" stroke-width="2.2">
+    <line x1="205" y1="372" x2="176" y2="392" marker-end="url(#ahR)"/>
+    <line x1="205" y1="442" x2="176" y2="462" marker-end="url(#ahR)"/>
+    <line x1="315" y1="372" x2="344" y2="392" marker-end="url(#ahR)"/>
+    <line x1="315" y1="442" x2="344" y2="462" marker-end="url(#ahR)"/>
+  </g>
+  <g stroke="#C00000" stroke-width="3.5">
+    <line x1="156" y1="330" x2="156" y2="548" marker-end="url(#ahR)"/>
+    <line x1="364" y1="330" x2="364" y2="548" marker-end="url(#ahR)"/>
+  </g>
+
+  <!-- callouts TB -->
+  <line x1="352" y1="407" x2="470" y2="300" stroke="#595959"/>
+  <circle cx="352" cy="407" r="3" fill="#595959"/>
+  <text x="478" y="290" font-size="17" font-weight="bold" fill="#1F4E9C">① 内側リブ（ずれ止め）</text>
+  <text x="478" y="314" font-size="15" fill="#222">コンクリートと鋼管の間で</text>
+  <text x="478" y="334" font-size="15" fill="#222">力を伝えられる</text>
+
+  <line x1="366" y1="480" x2="470" y2="400" stroke="#595959"/>
+  <text x="478" y="390" font-size="17" font-weight="bold" fill="#C00000">② 鋼管にも軸力が流れる</text>
+  <text x="478" y="414" font-size="15" fill="#222">中のRCの許容範囲を超えた</text>
+  <text x="478" y="434" font-size="15" fill="#222">軸力は、鋼管が負担</text>
+
+  <line x1="300" y1="520" x2="470" y2="495" stroke="#595959"/>
+  <text x="478" y="490" font-size="17" font-weight="bold" fill="#1F4E9C">③ 鋼管コンクリート部</text>
+  <text x="478" y="514" font-size="15" fill="#222">鋼管＋中の鉄筋コンクリートの</text>
+  <text x="478" y="534" font-size="15" fill="#222">累加強度（SRC規準と同様）</text>
+
+  <text x="478" y="600" font-size="14" fill="#595959">下部は鉄筋コンクリート部（7.7.4による）</text>
+
+  <!-- ================= RIGHT : SB ================= -->
+  <rect x="810" y="110" width="760" height="56" rx="6" fill="#C65911"/>
+  <text x="1190" y="147" text-anchor="middle" font-size="22" font-weight="bold" fill="#FFF">SB耐震杭（SB杭）</text>
+  <rect x="810" y="172" width="760" height="44" rx="6" fill="#FCE4D6"/>
+  <text x="1190" y="201" text-anchor="middle" font-size="19" font-weight="bold" fill="#843C0C">リブの規定なし → <tspan fill="#C00000">鋼管は軸力を負担しない</tspan>（曲げ・せん断のみ）</text>
+
+  <rect x="850" y="262" width="380" height="70" fill="url(#slab)" stroke="#808080"/>
+  <text x="860" y="282" font-size="13" fill="#404040">基礎スラブ</text>
+  <rect x="940" y="312" width="200" height="330" fill="url(#conc)"/>
+  <path d="M940,642 q25,-12 50,0 t50,0 t50,0 t50,0" fill="#FFF" stroke="#808080"/>
+  <line x1="968" y1="312" x2="968" y2="636" stroke="#595959" stroke-width="3"/>
+  <line x1="1112" y1="312" x2="1112" y2="636" stroke="#595959" stroke-width="3"/>
+  <!-- smooth pipe -->
+  <rect x="930" y="312" width="12" height="250" fill="#C65911"/>
+  <rect x="1138" y="312" width="12" height="250" fill="#C65911"/>
+  <line x1="908" y1="312" x2="908" y2="562" stroke="#C65911" stroke-width="1.2" marker-start="url(#ah)" marker-end="url(#ah)"/>
+  <text x="900" y="440" font-size="13" fill="#C65911" text-anchor="end">鋼管</text>
+  <text x="900" y="457" font-size="13" fill="#C65911" text-anchor="end">区間</text>
+  <line x1="1040" y1="222" x2="1040" y2="300" stroke="#222" stroke-width="7" marker-end="url(#ahK)"/>
+  <text x="1055" y="250" font-size="17" font-weight="bold" fill="#222">N（軸力）</text>
+  <g stroke="#C00000" stroke-width="3">
+    <line x1="1005" y1="340" x2="1005" y2="610" marker-end="url(#ahR)"/>
+    <line x1="1040" y1="340" x2="1040" y2="610" marker-end="url(#ahR)"/>
+    <line x1="1075" y1="340" x2="1075" y2="610" marker-end="url(#ahR)"/>
+  </g>
+  <!-- X marks on pipe -->
+  <g stroke="#C00000" stroke-width="4" stroke-linecap="round">
+    <line x1="926" y1="420" x2="946" y2="440"/><line x1="946" y1="420" x2="926" y2="440"/>
+    <line x1="1134" y1="420" x2="1154" y2="440"/><line x1="1154" y1="420" x2="1134" y2="440"/>
+  </g>
+
+  <line x1="1150" y1="360" x2="1250" y2="300" stroke="#595959"/>
+  <circle cx="1144" cy="362" r="3" fill="#595959"/>
+  <text x="1258" y="290" font-size="17" font-weight="bold" fill="#C65911">① 鋼管（内面リブの規定なし）</text>
+  <text x="1258" y="314" font-size="15" fill="#222">鋼管は曲げとせん断だけを</text>
+  <text x="1258" y="334" font-size="15" fill="#222">受け持つ</text>
+
+  <line x1="1156" y1="430" x2="1250" y2="400" stroke="#595959"/>
+  <text x="1258" y="390" font-size="17" font-weight="bold" fill="#C00000">② 軸力はRC部だけ</text>
+  <text x="1258" y="414" font-size="15" fill="#222">鋼管に軸力は流れない扱い</text>
+  <text x="1258" y="434" font-size="15" fill="#222">（鋼管の軸力 ＝ 0）</text>
+
+  <line x1="1090" y1="520" x2="1250" y2="495" stroke="#595959"/>
+  <text x="1258" y="490" font-size="17" font-weight="bold" fill="#C65911">③ 鋼管巻き鉄筋コンクリート部</text>
+  <text x="1258" y="514" font-size="15" fill="#222">単純累加：曲げは鋼管＋RC、</text>
+  <text x="1258" y="534" font-size="15" fill="#222">軸力はRCのみ</text>
+
+  <text x="1258" y="600" font-size="14" fill="#595959">下部は鉄筋コンクリート部（7.7.4による）</text>
+
+  <!-- ================= Cross sections + formulas ================= -->
+  <line x1="30" y1="665" x2="1570" y2="665" stroke="#D9D9D9"/>
+  <text x="40" y="692" font-size="16" font-weight="bold" fill="#404040">断面で見ると（色＝軸力を負担する部分）</text>
+
+  <!-- TB section -->
+  <circle cx="200" cy="780" r="74" fill="#1F4E9C"/>
+  <circle cx="200" cy="780" r="64" fill="#F4B6B6"/>
+  <g fill="#595959"><circle cx="200" cy="728" r="4"/><circle cx="200" cy="832" r="4"/><circle cx="148" cy="780" r="4"/><circle cx="252" cy="780" r="4"/>
+    <circle cx="163" cy="743" r="4"/><circle cx="237" cy="743" r="4"/><circle cx="163" cy="817" r="4"/><circle cx="237" cy="817" r="4"/></g>
+  <text x="200" y="786" text-anchor="middle" font-size="16" font-weight="bold" fill="#7F0000">RC</text>
+  <text x="290" y="760" font-size="14" fill="#1F4E9C" font-weight="bold">鋼管：負担する</text>
+  <text x="290" y="782" font-size="14" fill="#7F0000" font-weight="bold">RC：負担する</text>
+
+  <rect x="440" y="700" width="340" height="150" rx="6" fill="#DDEBF7" stroke="#2F75B5"/>
+  <text x="455" y="724" font-size="15" font-weight="bold" fill="#1F4E79">許容軸力・曲げの検定（3ケース）</text>
+  <text x="455" y="752" font-size="14" fill="#222">N＞rNc　　：N ≦ rNc＋<tspan fill="#C00000" font-weight="bold">sN</tspan>、M＝sM</text>
+  <text x="455" y="778" font-size="14" fill="#222">rNc≧N≧rNt：N＝rN、M ≦ sM0＋rM</text>
+  <text x="455" y="804" font-size="14" fill="#222">rNt＞N　　：N ≧ rNt＋<tspan fill="#C00000" font-weight="bold">sN</tspan>、M＝sM</text>
+  <text x="455" y="834" font-size="13" fill="#595959">rNt＝−rf・rA（式7.121〜7.132）</text>
+
+  <!-- SB section -->
+  <circle cx="980" cy="780" r="74" fill="url(#hatch)" stroke="#C65911" stroke-width="2"/>
+  <circle cx="980" cy="780" r="64" fill="#F4B6B6"/>
+  <g fill="#595959"><circle cx="980" cy="728" r="4"/><circle cx="980" cy="832" r="4"/><circle cx="928" cy="780" r="4"/><circle cx="1032" cy="780" r="4"/>
+    <circle cx="943" cy="743" r="4"/><circle cx="1017" cy="743" r="4"/><circle cx="943" cy="817" r="4"/><circle cx="1017" cy="817" r="4"/></g>
+  <text x="980" y="786" text-anchor="middle" font-size="16" font-weight="bold" fill="#7F0000">RC</text>
+  <text x="1070" y="760" font-size="14" fill="#808080" font-weight="bold">鋼管：負担しない</text>
+  <text x="1070" y="782" font-size="14" fill="#7F0000" font-weight="bold">RC：負担する</text>
+
+  <rect x="1220" y="700" width="340" height="150" rx="6" fill="#FCE4D6" stroke="#C65911"/>
+  <text x="1235" y="724" font-size="15" font-weight="bold" fill="#843C0C">許容軸力・曲げの検定（1ケース）</text>
+  <text x="1235" y="752" font-size="14" fill="#222">ND＝rNA（rN0 ≧ ND ≧ rNt）</text>
+  <text x="1235" y="778" font-size="14" fill="#222">MD ≦ sM0＋rMA</text>
+  <text x="1235" y="804" font-size="14" fill="#222">rNt＝<tspan fill="#C00000" font-weight="bold">−0.75</tspan>・rf・rA</text>
+  <text x="1235" y="834" font-size="13" fill="#595959">（式7.135〜7.140）</text>
+
+  <!-- ================= Axial range bars ================= -->
+  <line x1="30" y1="872" x2="1570" y2="872" stroke="#D9D9D9"/>
+  <text x="40" y="900" font-size="16" font-weight="bold" fill="#404040">許容できる軸力の幅（イメージ・縮尺なし）</text>
+  <line x1="800" y1="912" x2="800" y2="1030" stroke="#404040" stroke-dasharray="4 3"/>
+  <text x="800" y="1048" text-anchor="middle" font-size="13" fill="#404040">N＝0</text>
+  <text x="330" y="1048" text-anchor="middle" font-size="14" fill="#404040">← 引張（引抜き）</text>
+  <text x="1270" y="1048" text-anchor="middle" font-size="14" fill="#404040">圧縮 →</text>
+
+  <text x="195" y="952" text-anchor="end" font-size="16" font-weight="bold" fill="#2F75B5">TB杭</text>
+  <rect x="380" y="930" width="160" height="30" fill="#1F4E9C"/>
+  <rect x="540" y="930" width="660" height="30" fill="#F4B6B6"/>
+  <rect x="1200" y="930" width="180" height="30" fill="#1F4E9C"/>
+  <text x="460" y="951" text-anchor="middle" font-size="13" fill="#FFF" font-weight="bold">＋鋼管</text>
+  <text x="870" y="951" text-anchor="middle" font-size="13" fill="#7F0000" font-weight="bold">RC（rNt 〜 rNc）</text>
+  <text x="1290" y="951" text-anchor="middle" font-size="13" fill="#FFF" font-weight="bold">＋鋼管</text>
+
+  <text x="195" y="1004" text-anchor="end" font-size="16" font-weight="bold" fill="#C65911">SB杭</text>
+  <rect x="605" y="982" width="595" height="30" fill="#F4B6B6"/>
+  <text x="900" y="1003" text-anchor="middle" font-size="13" fill="#7F0000" font-weight="bold">RCのみ（rNt 〜 rN0）</text>
+  <text x="596" y="1003" text-anchor="end" font-size="12" fill="#C00000">rNtは0.75倍</text>
+  <text x="1210" y="1003" font-size="12" fill="#C00000">これを超えるとNG（鋼管の余裕なし）</text>
+
+  <!-- ================= Bottom ================= -->
+  <rect x="30" y="1068" width="1540" height="62" rx="6" fill="#F2F2F2"/>
+  <text x="45" y="1093" font-size="15" fill="#222"><tspan font-weight="bold">設計上の影響：</tspan>大きな圧縮・引抜き軸力が作用する杭頭では、TB杭は鋼管の分だけ余裕がある。SB杭はRC部だけで軸力を収める必要があり、引抜きはrNtの0.75倍低減でさらに厳しい。</text>
+  <text x="45" y="1118" font-size="15" fill="#222">曲げ（sM0）とせん断（Qa＝sA/2・sfs）は、どちらの杭も鋼管が負担する。</text>
+
+  <text x="30" y="1152" font-size="12" fill="#595959">出典：SS7マニュアル 7.7.5（TB杭：「鋼管は内側にリブがついたものとします」、式7.121〜7.132）、7.7.6（SB杭：式7.135〜7.140）。赤矢印は軸力の流れのイメージ。</text>
+  <text x="30" y="1170" font-size="12" fill="#595959">※「リブ有無 → 軸力を負担するか」の対応は式の組み立てからの解釈です。SB杭の鋼管にリブが無いとはマニュアルに明記されていません。実際の仕様は各協会の設計・施工指針で確認してください。</text>
+</svg>
