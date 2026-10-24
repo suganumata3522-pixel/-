@@ -1,0 +1,7 @@
+video/.fontcache/
+tools/out/
+tools/gen_err_*.txt
+tools/render.log
+*.wav
+*.video.mp4
+x.mp4

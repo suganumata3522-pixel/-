@@ -1,0 +1,16 @@
+<canvas id="c" width="480" height="560"></canvas>
+<script src="../src/art.js"></script>
+<script>
+const c = document.getElementById('c'), ctx = c.getContext('2d'), s = 80;
+ctx.drawImage(Art.makeSoil(480, 560, s, 6, 7), 0, 0);
+const grid = ['13241','12241','33451','34421','52113','21134','11223'].reverse();
+for (let y = 0; y < grid.length; y++) for (let x = 0; x < 5; x++) {
+  const col = +grid[y][x], cx = 40 + x * s + 40, cy = 560 - (y + 0.5) * s;
+  if (x < 4 && +grid[y][x + 1] === col) Art.drawLink(ctx, cx, cy, cx + s, cy, s, col);
+  if (y + 1 < grid.length && +grid[y + 1][x] === col) Art.drawLink(ctx, cx, cy, cx, cy - s, s, col);
+}
+for (let y = 0; y < grid.length; y++) for (let x = 0; x < 5; x++) {
+  const col = +grid[y][x];
+  Art.drawSprout(ctx, 80 + x * s, 560 - (y + 0.5) * s, s, col, { stage: (x * 7 + y * 3) % 5 === 0 ? 2 : (x + y) % 4 === 0 ? 1 : 0, time: x + y, seed: x * 3 + y });
+}
+</script>

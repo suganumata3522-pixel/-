@@ -1,0 +1,214 @@
+<title>はっぱ連鎖</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="はっぱっこを4ひきつなげて消す、落ちものパズル。理論値19連鎖のボードも遊べます。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&family=Zen+Maru+Gothic:wght@500;700;900&display=swap">
+<style>
+  /* Layout: a lamplit garden plot. The soil field is the hero; the panels beside it read like wooden plant tags. */
+  :root {
+    --loam: #16100b;
+    --tag: #251b13;
+    --bark: #4a3626;
+    --dew: #eef5e4;
+    --dim: #b9c4a8;
+    --moss: #8fd14f;
+    --moss-deep: #2f5d1f;
+    --sun: #ffd43b;
+    --berry: #ff7a63;
+    --display: "Mochiy Pop One", "Zen Maru Gothic", "Hiragino Maru Gothic ProN", sans-serif;
+    --body: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", "Yu Gothic", sans-serif;
+    --leaf-radius: 18px 4px 18px 4px;
+    color-scheme: dark;
+  }
+  [hidden] { display: none !important; }
+  html, body { height: 100%; }
+  body {
+    background:
+      radial-gradient(120% 60% at 50% -10%, rgba(143, 209, 79, .13), transparent 60%),
+      radial-gradient(80% 50% at 50% 110%, rgba(255, 212, 59, .06), transparent 70%),
+      var(--loam);
+    color: var(--dew);
+    font-family: var(--body);
+    font-weight: 500;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    -webkit-tap-highlight-color: transparent;
+  }
+  .app { max-width: 920px; margin: 0 auto; padding-block: 12px 40px; display: flex; flex-direction: column; gap: 12px; }
+
+  .bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .logo { margin: 0; font-family: var(--display); font-weight: 400; font-size: clamp(22px, 5vw, 32px); letter-spacing: .02em; line-height: 1.1; }
+  .logo span { color: var(--moss); }
+  .logo small { display: block; font-family: var(--body); font-size: 12px; font-weight: 700; color: var(--dim); letter-spacing: .08em; margin-top: 2px; }
+
+  button { font: inherit; color: inherit; cursor: pointer; }
+  button:focus-visible { outline: 3px solid var(--sun); outline-offset: 2px; }
+  .chip {
+    border: 2px solid var(--bark); background: var(--tag); color: var(--dew);
+    border-radius: 999px; padding: 6px 14px; font-weight: 700; font-size: 14px;
+  }
+  .chip[aria-pressed="false"] { color: var(--dim); }
+
+  .play { display: grid; grid-template-columns: auto minmax(0, 200px); gap: 16px; justify-content: center; align-items: start; }
+  .board {
+    position: relative;
+    width: min(calc((100dvh - 150px) * 6 / 13.6), 470px);
+    min-width: 220px;
+    aspect-ratio: 6 / 13.6;
+    max-width: 100%;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 0 0 3px var(--bark), 0 0 0 7px #120c08, 0 18px 50px rgba(0, 0, 0, .55);
+  }
+  .board canvas { display: block; width: 100%; height: 100%; }
+
+  .side { display: flex; flex-direction: column; gap: 10px; }
+  .tag {
+    position: relative; background: var(--tag); border: 2px solid var(--bark);
+    border-radius: 10px; padding: 10px 12px 12px;
+  }
+  .tag::before {
+    content: ""; position: absolute; top: 7px; right: 9px; width: 7px; height: 7px; border-radius: 50%;
+    background: var(--loam); box-shadow: inset 0 0 0 2px var(--bark);
+  }
+  .tag h2 { margin: 0 0 4px; font-size: 11px; font-weight: 900; letter-spacing: .14em; color: var(--moss); }
+  .tag output { display: block; font-family: var(--display); font-size: 24px; line-height: 1.2; font-variant-numeric: tabular-nums; color: var(--sun); }
+  .tag small { color: var(--dim); font-size: 12px; font-weight: 700; }
+  .tag small b { color: var(--dew); font-variant-numeric: tabular-nums; }
+  #next { display: block; width: 100%; max-width: 110px; aspect-ratio: 2.4 / 4.4; }
+  .side-buttons { display: flex; flex-direction: column; gap: 8px; }
+
+  .leaf-btn {
+    border: 0; border-radius: var(--leaf-radius); padding: 12px 18px;
+    background: var(--moss); color: #10210a; font-weight: 900; font-size: 16px;
+    box-shadow: inset 0 -4px 0 rgba(0, 0, 0, .2);
+    transition: transform .08s ease;
+  }
+  .leaf-btn:active { transform: translateY(2px); }
+  .leaf-btn.alt { background: var(--sun); color: #2a1a02; }
+  .leaf-btn.ghost { background: transparent; color: var(--dew); box-shadow: inset 0 0 0 2px var(--bark); }
+
+  .overlay {
+    position: absolute; inset: 0; display: grid; place-items: center; padding: 14px;
+    background: linear-gradient(rgba(14, 10, 6, .6), rgba(14, 10, 6, .82));
+  }
+  .panel { display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; max-width: 300px; }
+  .panel h2 { margin: 0; font-family: var(--display); font-weight: 400; font-size: clamp(26px, 7vw, 38px); line-height: 1.15; text-wrap: balance; }
+  .panel h2 span { color: var(--moss); }
+  .panel p { margin: 0; color: var(--dim); font-size: 14px; line-height: 1.6; text-wrap: balance; }
+  .panel .leaf-btn { width: 100%; }
+  .panel .row { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+  .panel dl { display: grid; grid-template-columns: auto auto; gap: 4px 14px; margin: 0; font-size: 14px; }
+  .panel dt { color: var(--dim); text-align: right; }
+  .panel dd { margin: 0; font-family: var(--display); color: var(--sun); text-align: left; font-variant-numeric: tabular-nums; }
+  .keys { font-size: 12px; color: var(--dim); line-height: 1.7; }
+  kbd { font-family: var(--body); font-weight: 900; color: var(--dew); border: 1px solid var(--bark); border-radius: 5px; padding: 0 5px; background: var(--tag); }
+
+  .pad { display: none; grid-template-columns: repeat(5, 1fr); gap: 8px; max-width: 470px; width: 100%; margin: 0 auto; touch-action: none; user-select: none; -webkit-user-select: none; }
+  .pad button {
+    height: 58px; border-radius: 16px; border: 2px solid var(--bark); background: var(--tag);
+    font-size: 24px; font-weight: 900; color: var(--dew); touch-action: none;
+  }
+  .pad button.rot { background: var(--moss-deep); border-color: #3f7a2a; }
+  .pad button.down { background: var(--bark); }
+
+  .howto { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-top: 8px; }
+  .howto article { background: var(--tag); border: 2px solid var(--bark); border-radius: 12px; padding: 14px 16px; min-width: 0; }
+  .howto h3 { margin: 0 0 6px; font-family: var(--display); font-weight: 400; font-size: 17px; color: var(--moss); }
+  .howto p { margin: 0; color: var(--dim); font-size: 14px; line-height: 1.75; }
+  .howto b { color: var(--dew); }
+  .note { color: var(--dim); font-size: 12px; text-align: center; margin: 4px 0 0; }
+
+  @media (pointer: coarse), (max-width: 640px) { .pad { display: grid; } }
+  @media (max-width: 640px) {
+    .app { padding-block: 8px 24px; gap: 8px; }
+    .play { grid-template-columns: minmax(0, 1fr) 92px; gap: 10px; }
+    .board { width: min(100%, calc((100dvh - 190px) * 6 / 13.6)); min-width: 0; justify-self: end; }
+    .tag { padding: 8px 8px 9px; }
+    .tag output { font-size: 17px; }
+    .tag h2 { font-size: 10px; letter-spacing: .08em; }
+    .side-buttons .leaf-btn { padding: 10px 6px; font-size: 13px; }
+    .logo small { display: none; }
+    .keys { display: none; }
+  }
+  @media (pointer: coarse) { .keys { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .leaf-btn { transition: none; } }
+</style>
+
+<div class="app">
+  <header class="bar">
+    <h1 class="logo">はっぱ<span>連鎖</span><small>おなじ色を 4ひき つなげて ポン</small></h1>
+    <button class="chip" id="soundBtn" type="button" aria-pressed="true">音 ON</button>
+  </header>
+
+  <main class="play">
+    <div class="board" id="boardWrap">
+      <canvas id="board" aria-label="プレイフィールド"></canvas>
+      <div class="overlay" id="overlay">
+        <div class="panel" id="menuPanel">
+          <h2>はっぱ<span>連鎖</span></h2>
+          <p>土から生えた はっぱっこを、おなじ色で 4ひき つなげると ポンと消えます。消えたあとに落ちてきた子がまたつながると「れんさ」。</p>
+          <button class="leaf-btn" id="startBtn" type="button">あそぶ</button>
+          <button class="leaf-btn alt" id="challengeBtn" type="button">19れんさを はっかする</button>
+          <div class="row" role="group" aria-label="色の数">
+            <button class="chip" type="button" data-colors="4" id="colors4" aria-pressed="true">4色</button>
+            <button class="chip" type="button" data-colors="5" id="colors5" aria-pressed="false">5色</button>
+          </div>
+          <p class="keys"><kbd>←</kbd><kbd>→</kbd> いどう　<kbd>↑</kbd><kbd>X</kbd> かいてん　<kbd>Z</kbd> ぎゃく<br><kbd>↓</kbd> はやく落とす　<kbd>P</kbd> いちじ停止</p>
+        </div>
+        <div class="panel" id="overPanel" hidden>
+          <h2>おしまい</h2>
+          <dl><dt>スコア</dt><dd id="overScore">0</dd><dt>さいこう れんさ</dt><dd id="overChain">0</dd></dl>
+          <button class="leaf-btn" id="againBtn" type="button">もういちど</button>
+          <button class="leaf-btn alt" id="again19Btn" type="button">19れんさを はっかする</button>
+        </div>
+        <div class="panel" id="pausePanel" hidden>
+          <h2>ひとやすみ</h2>
+          <button class="leaf-btn" id="resumeBtn" type="button">つづける</button>
+          <button class="leaf-btn ghost" id="quitBtn" type="button">メニューへ</button>
+        </div>
+      </div>
+    </div>
+
+    <aside class="side">
+      <section class="tag"><h2>NEXT</h2><canvas id="next" aria-label="次のペア"></canvas></section>
+      <section class="tag"><h2>スコア</h2><output id="score">0</output></section>
+      <section class="tag"><h2>れんさ</h2><output id="chain">0</output><small>さいこう <b id="best">0</b></small></section>
+      <div class="side-buttons">
+        <button class="leaf-btn alt" id="side19" type="button">19れんさ</button>
+        <button class="leaf-btn ghost" id="pauseBtn" type="button">いちじ停止</button>
+      </div>
+    </aside>
+  </main>
+
+  <nav class="pad" id="pad" aria-label="タッチ操作">
+    <button type="button" class="rot" data-act="ccw" aria-label="左に回す">↺</button>
+    <button type="button" data-act="left" aria-label="左へ">◀</button>
+    <button type="button" data-act="down" aria-label="はやく落とす">▼</button>
+    <button type="button" data-act="right" aria-label="右へ">▶</button>
+    <button type="button" class="rot" data-act="cw" aria-label="右に回す">↻</button>
+  </nav>
+
+  <section class="howto">
+    <article>
+      <h3>あそびかた</h3>
+      <p>2ひき組の はっぱっこが上から落ちてきます。<b>同じ色が縦横に4ひき以上</b>つながると消えます。消えたぶん上の子が落ちて、また4ひきそろうと<b>れんさ</b>。れんさが続くほど点数が大きくなります。</p>
+    </article>
+    <article>
+      <h3>どうして19れんさが最大？</h3>
+      <p>フィールドは<b>横6 × 縦13マス = 78マス</b>。1回消えるのに4ひき必要なので 78 ÷ 4 = 19.5、つまり<b>19れんさが理論上の限界</b>です。いちばん上の13段目はつながらず、下が消えて落ちてから参加します。</p>
+    </article>
+    <article>
+      <h3>19れんさボードについて</h3>
+      <p>収録ボードは、消える順番を逆にたどって組み立てる探索プログラムで作り、<b>19回とも4ひきずつ消えて最後に全消し</b>になることをシミュレーションで確認しています。3列目に縦に置けば はっか します。</p>
+    </article>
+  </section>
+  <p class="note">ファンメイドの非公式パズルです。キャラクターは全てコードで描いたオリジナルです。</p>
+</div>
+
+<!--INLINE:src/engine.js-->
+<!--INLINE:boards-->
+<!--INLINE:src/art.js-->
+<!--INLINE:src/sfx.js-->
+<!--INLINE:src/game.js-->
