@@ -112,6 +112,20 @@ function auInit(){
   try{ AU.ac=new AC(); buildGraph(AU,AU.ac,AU.ac.destination); AU.master.gain.value=AU.muted?0:0.9; }catch(e){ AU.ac=null; }
 }
 function setMute(m){ AU.muted=m; if(AU.master) AU.master.gain.value=m?0:0.9; }
+// スマホでは指を離したとき・タップ完了時にしか音を開始できないので、そのたびに鳴らせる状態にする
+const SILENT_WAV='data:audio/wav;base64,UklGRmQGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YUAGAACAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA';
+let SILENT=null;
+function auUnlock(){
+  if(RECORD) return;
+  auInit(); const ac=AU.ac; if(!ac) return;
+  if(ac.state!=='running'){
+    try{ const p=ac.resume(); if(p&&p.catch) p.catch(()=>{}); }catch(e){}
+    try{ const src=ac.createBufferSource(); src.buffer=ac.createBuffer(1,1,22050); src.connect(ac.destination); src.start(0); }catch(e){}
+  }
+  // iPhone のマナーモード中でも鳴らす（対応ブラウザは audioSession、それ以外は無音の audio 要素を流す）
+  try{ if(navigator.audioSession){ if(navigator.audioSession.type!=='playback') navigator.audioSession.type='playback'; return; } }catch(e){}
+  if(!SILENT){ try{ SILENT=new Audio(SILENT_WAV); SILENT.loop=true; SILENT.setAttribute('playsinline',''); const p=SILENT.play(); if(p&&p.catch) p.catch(()=>{ SILENT=null; }); }catch(e){ SILENT=null; } }
+}
 function sfx(n){
   if(AU.silent) return;
   if(RECORD){ AU.log.push({t:REC_T,k:'s',n}); return; }
@@ -1593,10 +1607,15 @@ function tapAt(x,y){
   }
 }
 if(!RECORD){
-  cv.addEventListener('pointerdown',e=>{ e.preventDefault(); auInit(); const r=cv.getBoundingClientRect(); tapAt((e.clientX-r.left)/r.width*W,(e.clientY-r.top)/r.height*H); });
+  for(const ev of ['pointerup','touchend','click']) addEventListener(ev,auUnlock,{passive:true});
+  document.addEventListener('visibilitychange',()=>{
+    if(!AU.ac) return;
+    try{ if(document.hidden){ AU.ac.suspend().catch(()=>{}); if(SILENT) SILENT.pause(); } else { AU.ac.resume().catch(()=>{}); if(SILENT) SILENT.play().catch(()=>{}); } }catch(e){}
+  });
+  cv.addEventListener('pointerdown',e=>{ e.preventDefault(); auUnlock(); const r=cv.getBoundingClientRect(); tapAt((e.clientX-r.left)/r.width*W,(e.clientY-r.top)/r.height*H); });
   const KEYS='12345678', KEYS2='qwerasdf';
   addEventListener('keydown',e=>{
-    auInit(); const k=e.key.toLowerCase();
+    auUnlock(); const k=e.key.toLowerCase();
     if(k==='m'){ setMute(!AU.muted); return; }
     if(G.state==='play'){ let i=KEYS.indexOf(k); if(i<0) i=KEYS2.indexOf(k); if(i>=0) pressItem(i); }
     else if((k===' '||k==='enter')&&(G.state==='title'||(G.state==='result'&&G.st>0.6))){ e.preventDefault(); startCountdown(); }
