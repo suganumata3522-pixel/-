@@ -1,13 +1,14 @@
 // Renders the Shorts video: frames from video/director.js in headless Chromium -> ffmpeg (H.264 + AAC).
-// usage: node video/render.js [boardIndex] [out.mp4] [--preview]
+// usage: node video/render.js [boardIndex] [out.mp4] [--preview | --audio-only]
 const { chromium } = require('playwright');
-const { spawn, execFileSync } = require('child_process');
+const { spawn, spawnSync, execFileSync } = require('child_process');
 const fs = require('fs'), path = require('path'), crypto = require('crypto');
 
 const root = path.join(__dirname, '..');
 const boardIndex = +(process.argv[2] || 0);
 const out = path.resolve(process.argv[3] || path.join(root, 'shorts_19chain.mp4'));
 const preview = process.argv.includes('--preview');
+const audioOnly = process.argv.includes('--audio-only');
 const FPS = 60;
 const fontCache = path.join(root, 'video', '.fontcache');
 fs.mkdirSync(fontCache, { recursive: true });
@@ -59,26 +60,35 @@ fs.mkdirSync(fontCache, { recursive: true });
   }
 
   const wavPath = out.replace(/\.mp4$/, '.wav');
-  const ff = spawn('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'image2pipe', '-framerate', String(FPS), '-c:v', 'mjpeg', '-i', '-',
-    '-c:v', 'libx264', '-preset', 'slow', '-crf', '17', '-pix_fmt', 'yuv420p', '-r', String(FPS), '-movflags', '+faststart', out + '.video.mp4'], { stdio: ['pipe', 'inherit', 'inherit'] });
-  const t0 = Date.now();
+  let videoIn = out + '.video.mp4';
   let frames = 0;
-  for (;;) {
-    const batch = await page.evaluate(([n, dt]) => {
-      const urls = [];
-      for (let i = 0; i < n && !window.Director.state.done; i++) urls.push(window.Director.frame(dt, 0.94));
-      return { urls, done: window.Director.state.done };
-    }, [12, 1 / FPS]);
-    for (const u of batch.urls) {
-      const ok = ff.stdin.write(Buffer.from(u.slice(u.indexOf(',') + 1), 'base64'));
-      if (!ok) await new Promise(r => ff.stdin.once('drain', r));
-      frames++;
+  if (audioOnly) {
+    // keep the existing picture; replay the (deterministic) simulation without drawing to get the sound events
+    fs.copyFileSync(out, videoIn);
+    frames = await page.evaluate(dt => { let n = 0; while (!window.Director.state.done) { window.Director.tick(dt); n++; } return n; }, 1 / FPS);
+    const have = Math.round(+execFileSync('ffprobe', ['-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=nb_frames', '-of', 'csv=p=0', out]).toString());
+    if (have !== frames) throw new Error(`simulation gives ${frames} frames but the video has ${have}`);
+  } else {
+    const ff = spawn('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'image2pipe', '-framerate', String(FPS), '-c:v', 'mjpeg', '-i', '-',
+      '-c:v', 'libx264', '-preset', 'slow', '-crf', '17', '-pix_fmt', 'yuv420p', '-r', String(FPS), '-movflags', '+faststart', videoIn], { stdio: ['pipe', 'inherit', 'inherit'] });
+    const t0 = Date.now();
+    for (;;) {
+      const batch = await page.evaluate(([n, dt]) => {
+        const urls = [];
+        for (let i = 0; i < n && !window.Director.state.done; i++) urls.push(window.Director.frame(dt, 0.94));
+        return { urls, done: window.Director.state.done };
+      }, [12, 1 / FPS]);
+      for (const u of batch.urls) {
+        const ok = ff.stdin.write(Buffer.from(u.slice(u.indexOf(',') + 1), 'base64'));
+        if (!ok) await new Promise(r => ff.stdin.once('drain', r));
+        frames++;
+      }
+      if (frames % 240 < 12) console.log(`frame ${frames} (${(frames / FPS).toFixed(1)}s) ${((Date.now() - t0) / 1000).toFixed(0)}s elapsed`);
+      if (batch.done) break;
     }
-    if (frames % 240 < 12) console.log(`frame ${frames} (${(frames / FPS).toFixed(1)}s) ${((Date.now() - t0) / 1000).toFixed(0)}s elapsed`);
-    if (batch.done) break;
+    ff.stdin.end();
+    await new Promise(r => ff.on('close', r));
   }
-  ff.stdin.end();
-  await new Promise(r => ff.on('close', r));
   const duration = frames / FPS;
   console.log('frames', frames, 'duration', duration.toFixed(2));
   const wav64 = await page.evaluate(d => window.Director.renderAudio(d), duration);
@@ -86,7 +96,17 @@ fs.mkdirSync(fontCache, { recursive: true });
   const stats = await page.evaluate(() => ({ chain: Director.state.chain, score: Director.state.score, events: Director.state.events.length }));
   console.log('sim', JSON.stringify(stats));
   await browser.close();
-  execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', out + '.video.mp4', '-i', wavPath, '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k', '-shortest', '-movflags', '+faststart', out]);
-  fs.unlinkSync(out + '.video.mp4');
+
+  // two-pass loudness normalisation to YouTube's -14 LUFS target
+  const target = 'I=-14:TP=-1.5:LRA=11';
+  const probe = spawnSync('ffmpeg', ['-hide_banner', '-i', wavPath, '-af', `loudnorm=${target}:print_format=json`, '-f', 'null', '-'], { encoding: 'utf8' }).stderr;
+  const m = JSON.parse(probe.slice(probe.lastIndexOf('{'), probe.lastIndexOf('}') + 1));
+  const normPath = wavPath.replace(/\.wav$/, '.norm.wav');
+  execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', wavPath, '-af',
+    `loudnorm=${target}:measured_I=${m.input_i}:measured_TP=${m.input_tp}:measured_LRA=${m.input_lra}:measured_thresh=${m.input_thresh}:offset=${m.target_offset}:linear=true`,
+    '-ar', '44100', normPath]);
+  execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', videoIn, '-i', normPath, '-map', '0:v', '-map', '1:a', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k', '-shortest', '-movflags', '+faststart', out]);
+  fs.unlinkSync(videoIn);
+  fs.unlinkSync(normPath);
   console.log('wrote', out);
 })().catch(e => { console.error(e); process.exit(1); });

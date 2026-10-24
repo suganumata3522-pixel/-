@@ -196,6 +196,7 @@
         st.banner = { text: '19れんさ!!', sub: clear ? 'りろんち & ぜんけし!' : 'りろんち たっせい!', age: 0, hold: 3.2, big: true };
         st.parts.confetti(canvas.width, canvas.height, 140, rand);
         sfx('fanfare');
+        sfx('cheer');
       } else if (clear) {
         st.banner = { text: 'ぜんけし!', sub: '+2100', age: 0, hold: 1.4 };
       }

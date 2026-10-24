@@ -49,6 +49,82 @@
     src.stop(t + dur + 0.02);
   }
 
+  // ---- tiny-creature voice: a source-filter (formant) synth ----
+  // Adult vowel formants (Hz), scaled up as if the speaker were very small.
+  const VOWEL = { a: [800, 1200, 2600], i: [300, 2300, 3000], u: [350, 1250, 2400], e: [450, 1900, 2600], o: [500, 900, 2400] };
+  const SIZE = 1.75;
+  // each word: duration, pitch contour (start, peak, end multipliers), starts with a breathy h?, vowel path [[when 0..1, vowel]]
+  const WORDS = {
+    hoi: { dur: 0.21, glide: [0.94, 1.14, 1.02], h: true, path: [[0, 'o'], [0.45, 'o'], [0.8, 'i']] },
+    hei: { dur: 0.2, glide: [0.96, 1.12, 1.0], h: true, path: [[0, 'e'], [0.45, 'e'], [0.8, 'i']] },
+    ya: { dur: 0.17, glide: [1.0, 1.16, 0.94], h: false, path: [[0, 'i'], [0.28, 'a']] },
+    wa: { dur: 0.18, glide: [0.9, 1.16, 1.0], h: false, path: [[0, 'u'], [0.3, 'a']] },
+    yaa: { dur: 0.42, glide: [1.0, 1.22, 0.9], h: false, path: [[0, 'i'], [0.18, 'a']] },
+    waai: { dur: 0.6, glide: [0.9, 1.25, 0.96], h: false, path: [[0, 'u'], [0.14, 'a'], [0.58, 'a'], [0.88, 'i']] },
+  };
+  const CHAIN_WORDS = ['hoi', 'hei', 'ya', 'hoi', 'wa'];
+  const hash = n => { const x = Math.sin(n * 12.9898) * 43758.5453; return x - Math.floor(x); };
+
+  function cry(ctx, out, t, f0, w, gain, r) {
+    const dur = w.dur * (0.92 + r * 0.16), end = t + dur;
+    const src = ctx.createOscillator();
+    src.type = 'sawtooth';
+    src.frequency.setValueAtTime(f0 * w.glide[0], t);
+    src.frequency.linearRampToValueAtTime(f0 * w.glide[1], t + dur * 0.35);
+    src.frequency.linearRampToValueAtTime(f0 * w.glide[2], end);
+    const lfo = ctx.createOscillator(), depth = ctx.createGain();
+    lfo.frequency.value = 6.5 + r * 2;
+    depth.gain.value = f0 * 0.022;
+    lfo.connect(depth);
+    depth.connect(src.frequency);
+    const soften = ctx.createBiquadFilter();
+    soften.type = 'lowpass';
+    soften.frequency.value = 6500;
+    src.connect(soften);
+
+    const env = ctx.createGain(), on = t + (w.h ? 0.028 : 0);
+    env.gain.setValueAtTime(0.0001, t);
+    env.gain.setValueAtTime(0.0001, on);
+    env.gain.linearRampToValueAtTime(gain, on + 0.016);
+    env.gain.setValueAtTime(gain, end - 0.035);
+    env.gain.linearRampToValueAtTime(0.0001, end);
+    env.connect(out);
+
+    // three formant resonators following the vowel path
+    [1, 0.9, 0.5].forEach((amp, k) => {
+      const bp = ctx.createBiquadFilter(), g = ctx.createGain();
+      bp.type = 'bandpass';
+      bp.Q.value = [4.5, 7, 9][k];
+      w.path.forEach(([when, v], j) => {
+        const F = VOWEL[v][k] * SIZE;
+        if (j === 0) bp.frequency.setValueAtTime(F, t);
+        else bp.frequency.linearRampToValueAtTime(F, t + dur * when);
+      });
+      g.gain.value = amp * 2.2;
+      soften.connect(bp);
+      bp.connect(g);
+      g.connect(env);
+    });
+
+    // breathy onset ("h") and a little air under the whole cry
+    const air = ctx.createBufferSource(), airF = ctx.createBiquadFilter(), airG = ctx.createGain();
+    air.buffer = noise(ctx);
+    air.loop = true;
+    airF.type = 'bandpass';
+    airF.frequency.value = 3200;
+    airF.Q.value = 0.8;
+    airG.gain.setValueAtTime(w.h ? gain * 0.9 : gain * 0.12, t);
+    airG.gain.exponentialRampToValueAtTime(gain * 0.06, t + 0.05);
+    airG.gain.linearRampToValueAtTime(0.0001, end);
+    air.connect(airF);
+    airF.connect(airG);
+    airG.connect(out);
+
+    src.start(t); src.stop(end + 0.02);
+    lfo.start(t); lfo.stop(end + 0.02);
+    air.start(t); air.stop(end + 0.02);
+  }
+
   const Sfx = {
     move(ctx, out, t) { tone(ctx, out, t, { type: 'square', f0: 880, dur: 0.03, gain: 0.04, filter: 2400 }); },
     rotate(ctx, out, t) { tone(ctx, out, t, { type: 'triangle', f0: 620, f1: 980, dur: 0.07, gain: 0.09 }); },
@@ -62,16 +138,26 @@
       tone(ctx, out, t + 0.05, { type: 'sine', f0: 500 * Math.pow(2, up / 24), f1: 1500 * Math.pow(2, up / 24), dur: 0.1, gain: 0.16 });
       hiss(ctx, out, t, { dur: 0.08, gain: 0.08, hp: 2500 });
     },
-    // a little "pi-pi!" call that climbs with the chain number
+    // the sprouts shout on every chain: higher each time, and more of them join in as it grows
     voice(ctx, out, t, chain) {
       const n = Math.min(chain, 19);
-      const base = midi(72 + Math.min(n - 1, 18) * 1);
-      const notes = n >= 15 ? [1, 1.26, 1.5, 2] : n >= 8 ? [1, 1.26, 1.5] : [1, 1.5];
-      notes.forEach((m, i) => {
-        const tt = t + i * 0.07;
-        tone(ctx, out, tt, { type: 'square', f0: base * m * 0.94, f1: base * m, dur: 0.09, gain: 0.07, filter: 3200 });
-        tone(ctx, out, tt, { type: 'sine', f0: base * m * 2, dur: 0.07, gain: 0.04 });
-      });
+      const base = 540 * Math.pow(2, (n - 1) / 22);
+      const word = CHAIN_WORDS[(n - 1) % CHAIN_WORDS.length];
+      const voices = Math.min(6, 1 + Math.floor((n - 1) / 3));
+      for (let v = 0; v < voices; v++) {
+        const r = hash(n * 13 + v * 7);
+        cry(ctx, out, t + (v ? 0.02 + r * 0.06 : 0), v ? base * (0.82 + r * 0.42) : base, v ? WORDS[CHAIN_WORDS[(n + v) % CHAIN_WORDS.length]] : WORDS[word], v ? 0.13 : 0.3, r);
+      }
+      if (n >= 10) cry(ctx, out, t + 0.2, base * 1.12, WORDS.hoi, 0.24, hash(n));
+    },
+    // single "ホイッ!" when the trigger pair lands
+    hoi(ctx, out, t) { cry(ctx, out, t, 600, WORDS.hoi, 0.3, 0.4); },
+    // everybody cheers "ワーイ!"
+    cheer(ctx, out, t) {
+      for (let v = 0; v < 12; v++) {
+        const r = hash(500 + v * 11);
+        cry(ctx, out, t + r * 0.45, 480 + r * 420, v % 3 ? WORDS.waai : WORDS.yaa, v ? 0.12 : 0.24, r);
+      }
     },
     allClear(ctx, out, t) {
       [72, 76, 79, 84, 88, 91, 96].forEach((m, i) => tone(ctx, out, t + i * 0.07, { type: 'triangle', f0: midi(m), dur: 0.35, gain: 0.12 }));

@@ -117,7 +117,7 @@
       }
     } else if (S.phase === 'trigger') {
       const moving = fall(dt);
-      if (!moving && !S.triggered && S.phaseT > 0.8) { S.triggered = true; S.trigAt = S.t; }
+      if (!moving && !S.triggered && S.phaseT > 0.8) { S.triggered = true; S.trigAt = S.t; ev('hoi'); }
       if (S.triggered && S.t > S.trigAt + 0.5) { S.phase = 'chain'; S.phaseT = 0; S.settleT = 0; }
     } else if (S.phase === 'chain') {
       if (S.popping) {
@@ -131,7 +131,7 @@
             S.phase = 'finale'; S.phaseT = 0; S.flowerAt = S.t;
             S.banner = { age: 0 };
             S.parts.confetti(VW, VH, 220, rand);
-            ev('fanfare'); ev('allClear');
+            ev('fanfare'); ev('allClear'); ev('cheer');
             S.endAt = S.t + 3.7;
           }
         }
@@ -499,6 +499,8 @@
       else if (e.type === 'pop') window.Sfx.pop(oc, master, e.t, e.arg);
       else if (e.type === 'fanfare') window.Sfx.fanfare(oc, master, e.t);
       else if (e.type === 'allClear') window.Sfx.allClear(oc, master, e.t + 0.9);
+      else if (e.type === 'hoi') window.Sfx.hoi(oc, master, e.t);
+      else if (e.type === 'cheer') window.Sfx.cheer(oc, master, e.t + 0.15);
     }
     const buf = await oc.startRendering();
     const wav = new Uint8Array(window.Sfx.toWav(buf));
