@@ -36,7 +36,7 @@
 
 - タップ／クリック
 - キーボード：`1`〜`8` または `Q W E R / A S D F` でパン、`Space` でスタート、`M` で消音
-- `index.html?demo=1` で自動プレイのデモ
+- `index.html?demo=1`（公開ページでは URL の末尾に `#demo`）で自動プレイのデモ
 
 ## YouTubeショート用動画
 
