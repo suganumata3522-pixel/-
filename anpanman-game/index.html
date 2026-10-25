@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>スーパーアンパンマン</title>
+<style>
+  @font-face { font-family: 'M PLUS Rounded 1c'; font-weight: 800; src: url(fonts/mplus-rounded-800.woff2) format('woff2'); }
+  @font-face { font-family: 'M PLUS Rounded 1c'; font-weight: 900; src: url(fonts/mplus-rounded-900.woff2) format('woff2'); }
+  /* one-screen 9:16 game, controls listed beside it on wide screens */
+  :root {
+    --bg: #2A1712;
+    --panel: #3A2119;
+    --fg: #FFF3D9;
+    --muted: #E8C9A0;
+    --accent: #F8C630;
+    --font: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', 'Hiragino Sans', sans-serif;
+    color-scheme: dark;
+  }
+  html, body { height: 100%; margin: 0; background: var(--bg); color: var(--fg); overflow: hidden; font-family: var(--font); }
+  #stage {
+    position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; gap: 40px;
+    padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
+  }
+  canvas { display: block; touch-action: none; user-select: none; -webkit-user-select: none; border-radius: 10px; background: #000; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5); }
+  #help { width: 260px; font-weight: 800; line-height: 1.6; background: var(--panel); border-radius: 18px; padding: 22px 24px; }
+  #help h2 { margin: 0 0 10px; font-size: 20px; color: var(--accent); font-weight: 900; }
+  #help dl { display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; margin: 0; font-size: 15px; }
+  #help dt { color: var(--accent); }
+  #help dd { margin: 0; }
+  #help p { margin: 14px 0 0; font-size: 12px; color: var(--muted); font-weight: 800; }
+  kbd { font-family: inherit; }
+  @media (max-width: 900px), (max-aspect-ratio: 1/1) { #help { display: none; } #stage { gap: 0; } }
+</style>
+</head>
+<body>
+<div id="stage">
+  <canvas id="game" width="1080" height="1920" aria-label="スーパーアンパンマン ゲーム画面"></canvas>
+  <aside id="help">
+    <h2>あそびかた</h2>
+    <dl>
+      <dt><kbd>← →</kbd></dt><dd>いどう</dd>
+      <dt><kbd>Z</kbd> / <kbd>Space</kbd></dt><dd>ジャンプ（長押しで高く）</dd>
+      <dt><kbd>X</kbd></dt><dd>アンパンチ</dd>
+      <dt><kbd>Enter</kbd></dt><dd>スタート</dd>
+      <dt><kbd>Tab</kbd></dt><dd>オートプレイ ON/OFF</dd>
+      <dt><kbd>M</kbd></dt><dd>音を消す</dd>
+    </dl>
+    <p>スマホでは画面下のコントローラーをタッチして遊べます。SELECT でオートプレイ。</p>
+    <p>ファンメイドの非公式作品です。原作：やなせたかし「アンパンマン」</p>
+  </aside>
+</div>
+<script src="js/levels.js"></script>
+<script src="js/game.js"></script>
+<script src="js/bot.js"></script>
+<script src="js/art.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
