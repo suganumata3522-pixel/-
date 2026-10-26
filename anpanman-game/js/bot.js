@@ -6,8 +6,10 @@
   const HOLDS = [2, 5, 8, 12, 16, 22, 30, 40];
 
   class Bot {
-    constructor(g) {
-      this.g = g; this.jumpHold = 0; this.pending = 0; this.prevA = false; this.prevB = false;
+    // style 'fly': take off and fly straight to the goal, one flying アンパンチ for the boss
+    // style 'ground': classic run-and-jump play
+    constructor(g, style) {
+      this.g = g; this.style = style || 'fly'; this.jumpHold = 0; this.pending = 0; this.prevA = false; this.prevB = false;
       this.lastX = 0; this.stuckT = 0; this.seen = new Map(); this.count = 0; this.bumped = new Set();
       this.airDir = 1;
     }
@@ -19,6 +21,7 @@
         return this.finish(inp);
       }
       if (g.mode !== 'play') { this.jumpHold = 0; this.pending = 0; return this.finish(inp); }
+      if (this.style === 'fly') return this.finish(this.flyThink(inp));
       const p = g.player;
       if (g.boss) return this.finish(this.bossThink(inp));
 
@@ -219,6 +222,34 @@
       const c = Math.floor((e.x + e.w / 2) / T);
       for (let r = Math.floor((e.y + e.h - 1) / T) + 1; r < AP.ROWS; r++) if (g.solidAt(c, r)) return r * T;
       return AP.ROWS * T + 400;
+    }
+
+    /* ------------------------------------------------------- flying */
+    flyThink(inp) {
+      const g = this.g, p = g.player, b = g.boss, CRUISE = 180;
+      if (!p.flying) {
+        inp.right = true;
+        if (p.onGround && g.modeT > 36) inp.up = true; // take off
+        return inp;
+      }
+      let tx = null, ty = CRUISE;
+      if (b && !b.dead) {
+        if (b.state === 'enter') {
+          tx = b.ax0 + 300;
+          if (b.t > 80) ty = 330 - p.h / 2;
+        } else if (b.state !== 'blasted' && b.state !== 'defeat') {
+          tx = b.x; ty = b.y - p.h / 2;
+          const side = b.x > p.cx ? 1 : -1;
+          const edge = side > 0 ? (b.x - 150) - (p.x + p.w) : p.x - (b.x + 150);
+          if (edge < 80 && p.punchCD === 0 && p.dir === side) inp.b = true;
+        } else { tx = p.cx; ty = p.y; }
+      }
+      if (tx == null) inp.right = true;
+      else { inp.right = tx - p.cx > 12; inp.left = tx - p.cx < -12; }
+      if (p.y > ty + 6) inp.up = true; else if (p.y < ty - 6) inp.down = true;
+      // lift straight up first, then head for the goal
+      if (!b && p.flyT < 45 && p.y > 480) inp.right = false;
+      return inp;
     }
 
     /* ---------------------------------------------------------- boss */

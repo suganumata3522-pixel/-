@@ -8,7 +8,8 @@
 
   AP.Art.init();
   const game = new AP.Game();
-  const bot = new AP.Bot(game);
+  const botStyle = (/[?&]bot=(\w+)/.exec(location.search) || [])[1] || 'fly';
+  const bot = new AP.Bot(game, botStyle);
 
   if (RECORD) { setupRecorder(); return; }
 

@@ -2,7 +2,7 @@
  *  G ground   W castle stone   B brick   ? coin block   U used block
  *  M あたらしい顔 block (げんき100ばい star mode)   N あたらしい顔 block (heal only)
  *  S stair block   [ ] { } pipe   o coin   ~ lava surface   L lava   X invisible wall
- * Rows 0..14, ground surface is row 13. */
+ * Rows 0..14, ground surface is row 13. Row 3 coin lines sit on the flying route. */
 (function (G) {
   'use strict';
   const AP = G.AP = G.AP || {};
@@ -83,6 +83,7 @@
       b.enemy(172).enemy(174);
       b.pipe(180, 2);
       b.stairs(183, 7, 1).column(190, 7);
+      for (const c of [24, 58, 100, 140, 168]) b.coins(c, 3, 8);
       b.flag(199).house(203);
       return b.done({ world: '1-1', name: 'あおぞら草原', music: 'field' });
     },
@@ -115,6 +116,7 @@
       b.enemy(140);
       b.ground(149, 181);
       b.stairs(152, 6, 1).column(158, 6);
+      for (const c of [20, 62, 110, 138]) b.coins(c, 3, 8);
       b.flag(168).house(172);
       return b.done({ world: '1-2', name: 'ゆうやけの森', music: 'forest' });
     },
@@ -141,6 +143,7 @@
       b.row(88, 9, '???');
       b.enemy(92, 'K').enemy(97);
       for (let r = 0; r < 13; r++) { b.set(118, r, 'W'); b.set(119, r, 'W'); b.set(120, r, 'W'); b.set(121, r, 'W'); }
+      for (const c of [16, 46, 76]) b.coins(c, 3, 8);
       b.arenaC = 104;
       return b.done({ world: '1-3', name: 'バイキン城', music: 'castle' });
     },

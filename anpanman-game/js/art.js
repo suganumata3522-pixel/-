@@ -143,6 +143,11 @@
       case 'victory': fF = [9, 0]; fB = [-9, 0]; hF = [18, -108]; hB = [-28, -52]; bob = -Math.abs(Math.sin(f * 0.15)) * 10; break;
       case 'die': fF = [14, -8]; fB = [-14, -8]; hF = [28, -98]; hB = [-28, -98]; mood = 'sad'; break;
       case 'fly': fF = [-14, -4]; fB = [-24, -12]; hF = [30, -104]; hB = [-16, -54]; break;
+      case 'flypunch': {
+        const k = o.punchK || 0;
+        fF = [-14, -4]; fB = [-24, -12]; hF = [22, -108 - 36 * k]; hB = [-16, -54]; gloveR = 9 + 6 * k; mood = 'punch';
+        break;
+      }
       default: bob = Math.sin(f * 0.07) * 1.2;
     }
     ctx.translate(0, bob);
@@ -174,10 +179,14 @@
     ellipse(ctx, 2, -58, 22, 7.5, 0); paint(ctx, C.collar, INK, 2.6);
     const armOver = pose !== 'stand' && pose !== 'run';
     if (!armOver) { limb(ctx, shF[0], shF[1], hF[0], hF[1], 12, C.red); gloveY(ctx, hF[0], hF[1], gloveR); }
-    if (pose === 'fly' && o.rot) { ctx.save(); ctx.translate(3, -84); ctx.rotate(-o.rot * 0.8); Art.head(ctx, 0, 0, mood); ctx.restore(); }
+    if ((pose === 'fly' || pose === 'flypunch') && o.rot) { ctx.save(); ctx.translate(3, -84); ctx.rotate(-o.rot * 0.8); Art.head(ctx, 0, 0, mood); ctx.restore(); }
     else Art.head(ctx, 3, -84, mood);
     if (armOver) {
       limb(ctx, shF[0], shF[1], hF[0], hF[1], 12, C.red); gloveY(ctx, hF[0], hF[1], gloveR);
+      if (pose === 'flypunch' && (o.punchK || 0) > 0.4) {
+        ctx.strokeStyle = '#fff'; ctx.lineWidth = 4; ctx.lineCap = 'round';
+        for (const dx of [-11, 0, 11]) { ctx.beginPath(); ctx.moveTo(hF[0] + dx, hF[1] + 24 + Math.abs(dx)); ctx.lineTo(hF[0] + dx, hF[1] + 46 + Math.abs(dx)); ctx.stroke(); }
+      }
       if (pose === 'punch' && (o.punchK || 0) > 0.4) {
         ctx.strokeStyle = '#fff'; ctx.lineWidth = 4; ctx.lineCap = 'round';
         for (const dy of [-10, 0, 10]) { ctx.beginPath(); ctx.moveTo(hF[0] - 22 - Math.abs(dy), hF[1] + dy); ctx.lineTo(hF[0] - 40 - Math.abs(dy), hF[1] + dy); ctx.stroke(); }
@@ -412,7 +421,7 @@
       paint(ctx, on ? '#FFE14D' : '#6A3B98', INK, 2);
     }
     ellipse(ctx, 0, -12, 154, 11, 0); paint(ctx, '#A981DD', INK, 3.5);
-    const mood = b.state === 'tired' ? 'dizzy' : (b.state === 'hurt' || b.state === 'defeat') ? 'hurt' : 'grin';
+    const mood = b.state === 'tired' ? 'dizzy' : (b.state === 'hurt' || b.state === 'defeat' || b.state === 'blasted') ? 'hurt' : 'grin';
     ctx.save();
     ctx.beginPath(); ctx.ellipse(0, -12, 80, 102, 0, Math.PI, Math.PI * 2); ctx.closePath(); ctx.clip();
     const glass = ctx.createLinearGradient(0, -114, 0, -12); glass.addColorStop(0, '#F2FAFF'); glass.addColorStop(1, '#B4D9F2');
@@ -740,10 +749,10 @@
   }
 
   /* --------------------------------------------------------- effects */
-  function bubble(ctx, s, x, y, size, fill, line, color) {
+  function bubble(ctx, s, x, y, size, fill, line, color, camX) {
     ctx.font = `900 ${size}px ${FONT}`;
     const w = ctx.measureText(s).width + size * 1.1, h = size * 1.7;
-    x = Math.max(w / 2 + 8, Math.min(1080 - w / 2 - 8, x));
+    x = Math.max(camX + w / 2 + 8, Math.min(camX + 1080 - w / 2 - 8, x));
     rr(ctx, x - w / 2, y - h / 2, w, h, h / 2); paint(ctx, fill, line, 4);
     ctx.beginPath(); ctx.moveTo(x - 12, y + h / 2 - 2); ctx.lineTo(x, y + h / 2 + 18); ctx.lineTo(x + 12, y + h / 2 - 2);
     ctx.fillStyle = fill; ctx.fill(); ctx.strokeStyle = line; ctx.lineWidth = 4; ctx.stroke();
@@ -774,6 +783,10 @@
         ctx.fillStyle = e.color || `hsl(${(e.hue + e.t * 15) % 360},100%,65%)`; ctx.globalAlpha = 1 - k * k; ctx.fill(); ctx.globalAlpha = 1; break;
       }
       case 'drop': drop(ctx, e.x, e.y, 6); break;
+      case 'streak': {
+        ctx.strokeStyle = `rgba(255,255,255,${0.75 * (1 - k)})`; ctx.lineWidth = 5; ctx.lineCap = 'round';
+        ctx.beginPath(); ctx.moveTo(e.x, e.y); ctx.lineTo(e.x + Math.sign(e.vx) * e.len, e.y); ctx.stroke(); break;
+      }
       case 'boom': {
         const r = e.r * (0.5 + k * 0.7);
         ctx.globalAlpha = 1 - k * 0.8;
@@ -807,10 +820,10 @@
           text(ctx, e.text, 0, 0, 50, { fill: '#FFE14D', stroke: '#C2261B', lw: 11, outer: INK, outerW: 6 });
         } else if (e.style === 'speech') {
           ctx.translate(0, -Math.min(e.t, 10) * 1.2);
-          bubble(ctx, e.text, e.x, e.y, 32, '#FFFFFF', INK, INK);
+          bubble(ctx, e.text, e.x, e.y, 32, '#FFFFFF', INK, INK, camX);
         } else if (e.style === 'baikin') {
           const sh = Math.sin(e.t * 0.9) * 2;
-          bubble(ctx, e.text, e.x + sh, e.y, 38, '#F3E9FF', '#5E2F8F', '#5E2F8F');
+          bubble(ctx, e.text, e.x + sh, e.y, e.big ? 58 : 38, '#F3E9FF', '#5E2F8F', '#5E2F8F', camX);
         } else if (e.style === 'big') {
           ctx.translate(e.x, e.y); ctx.scale(pop, pop); ctx.rotate(Math.sin(e.t * 0.2) * 0.04);
           text(ctx, e.text, 0, 0, 104, { fill: '#FFE14D', stroke: '#C2261B', lw: 16, outer: '#fff', outerW: 14 });
@@ -833,8 +846,16 @@
     const p = g.player;
     if (!p.visible) return;
     if (p.inv > 0 && (g.frame >> 2) % 2 === 0 && g.mode === 'play') return;
-    const pose = playerPose(g);
     const k = p.punchT > 0 ? Math.sin((20 - p.punchT) / 20 * Math.PI) : 0;
+    if (p.flying && !p.pose) {
+      const rot = 0.25 + Math.min(1, Math.abs(p.vx) / AP.PH.FLY_MAX) * 0.95 + Math.max(-0.25, Math.min(0.25, p.vy * 0.025));
+      Art.anpanman(ctx, p.cx, p.y + p.h, {
+        dir: p.dir, pose: p.punchT > 0 ? 'flypunch' : 'fly', rot, frame: g.frame, genki: p.genki, star: g.star > 0,
+        wind: 1.2, punchK: k, alpha: p.alpha, scale: 1.15,
+      });
+      return;
+    }
+    const pose = playerPose(g);
     Art.anpanman(ctx, p.cx, p.y + p.h, {
       dir: p.dir, pose, phase: p.walkPhase, frame: g.frame, genki: p.genki, star: g.star > 0,
       wind: Math.min(1, Math.abs(p.vx) / 7 + (p.onGround ? 0 : 0.35)), punchK: k, alpha: p.alpha, scale: 1.15,
@@ -862,9 +883,9 @@
       Art.boss(ctx, b, f, g.player.cx);
     }
     drawPlayer(ctx, g);
-    for (const e of g.effects) if (!e.screen) drawEffect(ctx, e, g);
+    for (const e of g.effects) if (!e.screen) drawEffect(ctx, e, g, Math.round(g.camX));
     ctx.restore();
-    if (b && !b.dead && b.state !== 'enter' && b.state !== 'defeat') {
+    if (b && !b.dead && b.state !== 'enter' && b.state !== 'defeat' && b.state !== 'blasted') {
       rr(ctx, 290, 24, 500, 56, 28); paint(ctx, 'rgba(30,18,50,0.75)', '#fff', 3);
       text(ctx, 'バイキンマン', 410, 53, 28, { fill: '#fff', stroke: null, lw: 0 });
       for (let i = 0; i < b.maxHp; i++) { circle(ctx, 560 + i * 62, 52, 20); paint(ctx, i < b.hp ? '#E2342B' : '#4A3A5E', '#fff', 3); }
@@ -934,9 +955,10 @@
     Art.anpanman(ctx, 450, 700, { pose: 'stand', frame: f, scale: 1.3 });
     text(ctx, '× ' + g.lives, 600, 640, 70, { fill: '#fff', lw: 12 });
     if (g.levelIndex === 0) {
-      rr(ctx, 170, 820, 740, 140, 30); paint(ctx, 'rgba(255,255,255,0.08)', 'rgba(255,255,255,0.35)', 3);
-      text(ctx, 'A：ジャンプ　B：アンパンチ', 540, 860, 40, { fill: '#fff', stroke: null, lw: 0 });
-      text(ctx, 'かびるんるんを やっつけろ!', 540, 918, 36, { fill: '#FFE14D', stroke: null, lw: 0 });
+      rr(ctx, 150, 800, 780, 196, 30); paint(ctx, 'rgba(255,255,255,0.08)', 'rgba(255,255,255,0.35)', 3);
+      text(ctx, 'A：ジャンプ　B：アンパンチ', 540, 842, 40, { fill: '#fff', stroke: null, lw: 0 });
+      text(ctx, '↑：そらをとぶ（とんだら 十字キーで いどう）', 540, 898, 32, { fill: '#fff', stroke: null, lw: 0 });
+      text(ctx, 'かびるんるんを やっつけろ!', 540, 954, 36, { fill: '#FFE14D', stroke: null, lw: 0 });
     } else if (L.theme === 'castle') {
       text(ctx, 'バイキンマンが まっているぞ…!', 540, 880, 42, { fill: '#D9B8FF', stroke: null, lw: 0 });
     }
@@ -959,11 +981,13 @@
     if (t > 40) {
       const a = Math.min(1, (t - 40) / 20);
       ctx.save(); ctx.globalAlpha = a;
-      rr(ctx, 210, 376, 660, 230, 30); paint(ctx, 'rgba(255,255,255,0.85)', INK, 4);
-      const rows = [['スコア', String(g.score).padStart(6, '0')], ['コイン', String(g.stats.coins)], ['やっつけた かびるんるん', String(g.stats.kabi)], ['アンパンチ', g.stats.punch + ' かい']];
+      rr(ctx, 210, 370, 660, 262, 30); paint(ctx, 'rgba(255,255,255,0.85)', INK, 4);
+      const sec = Math.round(g.stats.frames / 60);
+      const rows = [['スコア', String(g.score).padStart(6, '0')], ['コイン', String(g.stats.coins)], ['やっつけた かびるんるん', String(g.stats.kabi)],
+        ['アンパンチ', g.stats.punch + ' かい'], ['クリアタイム', Math.floor(sec / 60) + ':' + String(sec % 60).padStart(2, '0')]];
       rows.forEach(([k, v], i) => {
-        text(ctx, k, 250, 418 + i * 50, 32, { fill: INK, stroke: null, lw: 0, align: 'left' });
-        text(ctx, v, 830, 418 + i * 50, 36, { fill: '#C2261B', stroke: null, lw: 0, align: 'right' });
+        text(ctx, k, 250, 406 + i * 48, 31, { fill: INK, stroke: null, lw: 0, align: 'left' });
+        text(ctx, v, 830, 406 + i * 48, 34, { fill: '#C2261B', stroke: null, lw: 0, align: 'right' });
       });
       ctx.restore();
     }
@@ -1053,7 +1077,7 @@
       case 'ending': drawEnding(ctx, g); break;
       default: drawWorld(ctx, g);
     }
-    for (const e of g.effects) if (e.screen) drawEffect(ctx, e, g);
+    for (const e of g.effects) if (e.screen) drawEffect(ctx, e, g, 0);
     if (g.flash) { ctx.fillStyle = `rgba(255,255,255,${g.flash / 12})`; ctx.fillRect(0, 0, V.w, V.h); }
     if (g.mode === 'tally' && g.tallyDone > 80) { ctx.fillStyle = `rgba(0,0,0,${(g.tallyDone - 80) / 20})`; ctx.fillRect(0, 0, V.w, V.h); }
     if (g.mode === 'victory' && g.modeT > 370) { ctx.fillStyle = `rgba(255,255,255,${(g.modeT - 370) / 20})`; ctx.fillRect(0, 0, V.w, V.h); }

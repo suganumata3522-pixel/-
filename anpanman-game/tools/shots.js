@@ -10,7 +10,7 @@ const serve = require('./serve');
   const page = await browser.newPage({ viewport: { width: 600, height: 1000 } });
   page.on('console', (m) => console.log('[page]', m.text()));
   page.on('pageerror', (e) => console.log('[pageerror]', e.message));
-  await page.goto(`http://127.0.0.1:${srv.address().port}/index.html?record=1`);
+  await page.goto(`http://127.0.0.1:${srv.address().port}/index.html?record=1&bot=fly`);
   await page.waitForFunction(() => window.REC && window.REC.ready, null, { timeout: 20000 });
   let cur = 0;
   for (const f of frames.map(Number).sort((a, b) => a - b)) {

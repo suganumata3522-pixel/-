@@ -5,7 +5,7 @@ const ctx = { console, Math, Map, Set, WeakMap, Object, Array, String, Number, J
 ctx.globalThis = ctx; vm.createContext(ctx);
 for (const f of ['levels.js', 'game.js', 'bot.js']) vm.runInContext(fs.readFileSync(path.join(root, 'js', f), 'utf8'), ctx, { filename: f });
 const AP = ctx.AP;
-const g = new AP.Game(), bot = new AP.Bot(g);
+const g = new AP.Game(), bot = new AP.Bot(g, process.argv[3] || 'fly');
 const log = [];
 g.on((type, name, f) => { if (type === 'mode') log.push(`${(f / 60).toFixed(1)}s mode=${name} lvl=${g.levelIndex} x=${g.player ? (g.player.x / AP.T).toFixed(1) : '-'}`); });
 let hurts = 0, lastGenki = true, maxF = +(process.argv[2] || 14000);

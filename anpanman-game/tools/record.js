@@ -1,5 +1,5 @@
 // Renders the bot playthrough frame-by-frame into a 1080x1920 60fps MP4 with audio.
-// Usage: node tools/record.js [out.mp4] [--max-frames N] [--crf 20]
+// Usage: node tools/record.js [out.mp4] [--bot fly|ground] [--max-frames N] [--crf 20]
 const { chromium } = require('playwright');
 const { spawn } = require('child_process');
 const path = require('path'), fs = require('fs');
@@ -10,6 +10,7 @@ const opt = (name, def) => { const i = args.indexOf(name); return i >= 0 ? args[
 const out = path.resolve(args[0] && !args[0].startsWith('--') ? args[0] : path.join(__dirname, '..', 'out', 'anpanman-shorts.mp4'));
 const maxFrames = +opt('--max-frames', 1e9);
 const crf = opt('--crf', '20');
+const botStyle = opt('--bot', 'fly');
 const BATCH = 20;
 
 function run(cmd, argv) {
@@ -26,7 +27,7 @@ function run(cmd, argv) {
   const browser = await chromium.launch();
   const page = await browser.newPage({ viewport: { width: 540, height: 960 } });
   page.on('pageerror', (e) => console.log('[pageerror]', e.message));
-  await page.goto(`http://127.0.0.1:${srv.address().port}/index.html?record=1`);
+  await page.goto(`http://127.0.0.1:${srv.address().port}/index.html?record=1&bot=${botStyle}`);
   await page.waitForFunction(() => window.REC && window.REC.ready, null, { timeout: 30000 });
 
   const ff = spawn('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'image2pipe', '-framerate', '60', '-c:v', 'mjpeg', '-i', '-',

@@ -13,6 +13,7 @@
     WALK: 5.6, RUN: 8.4, ACC: 0.32, ACC_AIR: 0.26, FRIC: 0.3, SKID: 0.65,
     RUN_DELAY: 36, JUMP: 19.5, JUMP_SPEED_BONUS: 0.25, G_HOLD: 0.6, G: 1.7,
     MAXFALL: 17, STOMP: 12, STOMP_HOLD: 17,
+    FLY_MAX: 12, FLY_ACC: 0.5, FLY_V: 8, FLY_TAKEOFF: 9,
   };
 
   AP.rng = function (seed) {
@@ -44,6 +45,7 @@
       this.punchT = 0; this.punchCD = 0; this.walkPhase = 0;
       this.visible = true; this.alpha = 1; this.isPlayer = true;
       this.stompChain = 0; this.landT = 0; this.dead = false; this.pose = null; this.hurtT = 0;
+      this.flying = false; this.flyT = 0;
     }
     get cx() { return this.x + this.w / 2; }
     get bottom() { return this.y + this.h; }
@@ -51,11 +53,24 @@
       if (this.punchT <= 0) return null;
       const t = 20 - this.punchT;
       if (t < 2 || t > 13) return null;
+      if (this.flying) {
+        const reach = 110;
+        return { x: this.dir > 0 ? this.x + this.w - 10 : this.x - reach + 10, y: this.y + 8, w: reach, h: this.h - 16 };
+      }
       const reach = 78;
       return { x: this.dir > 0 ? this.x + this.w - 8 : this.x - reach + 8, y: this.y + 20, w: reach, h: this.h - 30 };
     }
+    startFly() {
+      const g = this.g;
+      this.flying = true; this.flyT = 0; this.onGround = false; this.jumping = false; this.coyote = 0;
+      this.vy = Math.min(this.vy, -PH.FLY_TAKEOFF);
+      g.sfx('fly'); g.dust(this.cx, this.bottom, 3);
+      for (let i = 0; i < 10; i++) g.spark(this.cx, this.bottom - 10, '#FFF3A0');
+    }
     update() {
       const g = this.g, inp = g.inp;
+      if (g.pressed('up') && !this.flying) this.startFly();
+      if (this.flying) { this.flyUpdate(); return; }
       const move = (inp.right ? 1 : 0) - (inp.left ? 1 : 0);
       if (move !== 0) {
         if (move !== this.holdDir) { this.runT = 0; this.holdDir = move; }
@@ -87,12 +102,7 @@
       this.vy += (this.vy < 0 && this.jumping) ? PH.G_HOLD : PH.G;
       if (this.vy > PH.MAXFALL) this.vy = PH.MAXFALL;
 
-      if (g.pressed('b') && this.punchCD === 0) {
-        this.punchT = 20; this.punchCD = 24;
-        g.sfx('punch'); g.onPunch(this);
-      }
-      if (this.punchT > 0) this.punchT--;
-      if (this.punchCD > 0) this.punchCD--;
+      this.punchInput();
 
       const wasGround = this.onGround;
       const res = g.move(this);
@@ -102,13 +112,48 @@
         this.stompChain = 0;
         if (!wasGround) { this.landT = 8; g.dust(this.cx, this.bottom, 2); }
       }
-      if (this.x < g.camX) { this.x = g.camX; if (this.vx < 0) this.vx = 0; }
       if (this.onGround) this.walkPhase += Math.abs(this.vx) * 0.09;
+      if (this.onGround && Math.abs(this.vx) > 4 && move !== 0 && this.vx * move < 0 && g.frame % 4 === 0) g.dust(this.cx, this.bottom, 1);
+      this.finishStep();
+    }
+    /* そらをとぶ: no gravity, the d-pad steers in all four directions, touching the ground lands */
+    flyUpdate() {
+      const g = this.g, inp = g.inp;
+      const mx = (inp.right ? 1 : 0) - (inp.left ? 1 : 0), my = (inp.down ? 1 : 0) - (inp.up ? 1 : 0);
+      this.flyT++;
+      if (mx) {
+        this.dir = mx;
+        this.vx += mx * PH.FLY_ACC * (this.vx * mx < 0 ? 2 : 1);
+        if (Math.abs(this.vx) > PH.FLY_MAX) this.vx = mx * PH.FLY_MAX;
+      } else this.vx *= 0.93;
+      const tvy = my ? my * PH.FLY_V : Math.sin(this.flyT * 0.08) * 0.6;
+      this.vy += (tvy - this.vy) * 0.16;
+      this.punchInput();
+      const res = g.move(this);
+      if (res.hitWall) this.vx = 0;
+      if (res.head) g.hitBlock(res.head.c, res.head.r, this);
+      if (this.y < 12) { this.y = 12; if (this.vy < 0) this.vy = 0; }
+      if (res.landed) { this.flying = false; this.landT = 8; g.dust(this.cx, this.bottom, 2); }
+      if (Math.abs(this.vx) > 7 && g.frame % 2 === 0) {
+        g.effects.push({ type: 'streak', x: this.cx - this.dir * 60, y: this.y + 20 + (g.frame * 37 % 70), vx: -this.dir * 3, vy: 0, t: 0, life: 12, len: 40 + (g.frame * 13 % 40) });
+      }
+      this.finishStep();
+    }
+    punchInput() {
+      const g = this.g;
+      if (g.pressed('b') && this.punchCD === 0) {
+        this.punchT = 20; this.punchCD = 24;
+        g.sfx('punch'); g.onPunch(this);
+      }
+      if (this.punchT > 0) this.punchT--;
+      if (this.punchCD > 0) this.punchCD--;
+    }
+    finishStep() {
+      const g = this.g;
+      if (this.x < g.camX) { this.x = g.camX; if (this.vx < 0) this.vx = 0; }
       if (this.inv > 0) this.inv--;
       if (this.landT > 0) this.landT--;
       if (this.hurtT > 0) this.hurtT--;
-      if (this.onGround && Math.abs(this.vx) > 4 && move !== 0 && this.vx * move < 0 && g.frame % 4 === 0) g.dust(this.cx, this.bottom, 1);
-
       g.collectCoins(this);
       if (this.y > ROWS * T + 60) g.killPlayer();
       else if (g.lavaHit(this)) g.killPlayer();
@@ -311,14 +356,39 @@
             this.x += Math.sin(this.t * 1.7) * 3;
             if (this.t % 10 === 0) { g.boom(this.x - 120 + ((this.t * 37) % 240), this.y - 60 + ((this.t * 53) % 120)); g.sfx('boom'); }
           }
-          if (this.t === 90) { g.textPop('ばいばいきーん!', this.x, this.y - 190, 'baikin', 140); g.sfx('bossfly'); }
+          if (this.t === 90) { g.textPop('バイバイキン〜!', this.x, this.y - 190, 'baikin', 140); g.sfx('byebye'); g.sfx('bossfly'); }
           if (this.t > 90) {
             this.x += 7; this.y -= 10 + (this.t - 90) * 0.15; this.rot += 0.22; this.scale = Math.max(0.15, this.scale * 0.985);
           }
           if (this.y < -260) { this.dead = true; g.twinkle(); }
           break;
+        case 'blasted': {
+          if (this.t === 1) {
+            g.textPop('バイバイキン〜!', this.x, this.y - 200, 'baikin', 95);
+            Object.assign(g.effects[g.effects.length - 1], { follow: this, big: true });
+            g.sfx('byebye'); g.sfx('bossfly');
+          }
+          this.x += this.bvx; this.y += this.bvy; this.bvx *= 0.975; this.bvy *= 0.975;
+          this.rot += 0.28 * this.dir; this.scale = Math.max(0.1, this.scale * 0.965);
+          if (this.t % 3 === 0) g.smoke(this.x, this.y + 20 * this.scale);
+          if (this.scale <= 0.12) {
+            this.dead = true;
+            g.twinkle(clamp(this.x - g.camX, 90, VIEW.w - 90), clamp(this.y, 90, 600));
+          }
+          break;
+        }
       }
       this.updateBombs();
+    }
+    /* a flying アンパンチ sends バイキンマン flying in one hit */
+    blast(dir) {
+      const g = this.g;
+      this.hp = 0; this.glove = null; this.bombs = []; this.dir = dir || 1;
+      this.bvx = this.dir * 7; this.bvy = -10; this.flashT = 0;
+      this.set('blasted');
+      g.freeze = 18; g.shake = 24; g.flash = 5; g.music(null);
+      g.sfx('smash'); g.sfx('bosshit');
+      g.addScore(10000, this.x, this.y - 150);
     }
     updateBombs() {
       const g = this.g;
@@ -367,7 +437,7 @@
       this.mode = 'title'; this.modeT = 0; this.levelIndex = 0; this.level = null;
       this.effects = []; this.enemies = []; this.items = []; this.player = null;
       this.camX = 0; this.star = 0; this.shake = 0; this.flash = 0; this.finished = false;
-      this.curMusic = undefined; this.boss = null; this.titleOut = 0;
+      this.curMusic = undefined; this.boss = null; this.titleOut = 0; this.freeze = 0;
       this.curMusic = 'title';
     }
     resync() { const m = this.curMusic; this.curMusic = undefined; this.music(m); }
@@ -390,7 +460,7 @@
       this.enemies = []; this.items = []; this.effects = []; this.bumps = [];
       this.spawnIdx = 0; this.camX = 0; this.time = L.time; this.timeTick = 0;
       this.star = 0; this.boss = null; this.flagged = false; this.flagY = 3 * T + 12;
-      this.bossDone = false;
+      this.bossDone = false; this.freeze = 0;
       this.player = new Player(this, L.start * T + 11, (GT - 1) * T - 100 + T);
       this.player.y = GT * T - this.player.h;
       this.music(null);
@@ -408,7 +478,7 @@
           if (this.modeT === 8) this.music('ready');
           if (this.modeT >= 140) { this.setMode('play'); this.music(this.level.music); }
           break;
-        case 'play': this.playUpdate(); break;
+        case 'play': if (this.freeze > 0) this.freeze--; else this.playUpdate(); break;
         case 'flag': this.flagUpdate(); break;
         case 'goal': this.goalUpdate(); break;
         case 'tally': this.tallyUpdate(); break;
@@ -456,7 +526,7 @@
       if (L.arenaC != null && !this.boss && p.x > (L.arenaC + 3) * T && this.camX >= L.arenaC * T - 1) {
         this.boss = new Boss(this, L.arenaC); this.music(null); this.sfx('alarm');
       }
-      if (!this.boss || this.boss.state !== 'defeat') {
+      if (!this.boss || (this.boss.state !== 'defeat' && this.boss.state !== 'blasted')) {
         if (++this.timeTick >= 24) { this.timeTick = 0; if (this.time > 0) this.time--; if (this.time === 0) this.killPlayer(); }
       }
     }
@@ -520,6 +590,12 @@
         }
       }
       const b = this.boss;
+      if (b && !b.dead && p.flying && b.state !== 'enter' && b.state !== 'blasted' && b.state !== 'defeat' &&
+        b.bodyBoxes().some((bb) => overlap(box, bb))) {
+        this.boom(p.dir > 0 ? box.x + box.w - 20 : box.x + 20, box.y + box.h / 2, false);
+        b.blast(p.dir);
+        return;
+      }
       if (b && b.vulnerable() && b.bodyBoxes().some((bb) => overlap(box, bb))) {
         if (b.hit('punch')) this.boom(p.dir > 0 ? box.x + box.w : box.x, box.y + box.h / 2, true);
       }
@@ -545,11 +621,11 @@
         }
       }
     }
-    twinkle() {
-      this.effects.push({ type: 'twinkle', x: VIEW.w - 140, y: 120, t: 0, life: 100, screen: true });
+    twinkle(x, y) {
+      this.effects.push({ type: 'twinkle', x: x == null ? VIEW.w - 140 : x, y: y == null ? 120 : y, t: 0, life: 100, screen: true });
       this.sfx('twinkle');
       this.setMode('victory'); this.music('victory');
-      this.player.pose = 'victory';
+      this.player.pose = 'victory'; this.player.flying = false; this.player.punchT = 0;
     }
     victoryUpdate() {
       const p = this.player;
@@ -715,7 +791,7 @@
       const p = this.player, L = this.level;
       this.flagged = true; this.setMode('flag'); this.music(null); this.sfx('flag');
       this.poleX = L.flagC * T + T / 2;
-      p.x = this.poleX - p.w + 10; p.vx = 0; p.vy = 0; p.pose = 'slide'; p.dir = 1;
+      p.x = this.poleX - p.w + 10; p.vx = 0; p.vy = 0; p.pose = 'slide'; p.dir = 1; p.flying = false; p.punchT = 0;
       const baseTop = (GT - 1) * T;
       const h = baseTop - p.bottom;
       const pts = h > 520 ? 5000 : h > 400 ? 2000 : h > 280 ? 800 : h > 140 ? 400 : 100;
@@ -795,6 +871,7 @@
         if (e.vx !== undefined) { e.x += e.vx; e.y += e.vy; if (e.g) e.vy += e.g; }
         if (e.type === 'coin') { e.y += e.vy; e.vy += 1.5; if (e.t === e.life) this.addScore(200, e.x, e.y); }
         if (e.type === 'debris') e.rot += e.vr;
+        if (e.follow && !e.follow.dead) { e.x = e.follow.x; e.y = Math.max(150, e.follow.y - 190 * e.follow.scale - 20); }
       }
       this.effects = this.effects.filter((e) => e.t < e.life);
     }

@@ -279,6 +279,33 @@
       const ns = [1319, 1661, 1976, 2637]; const i = Math.min(3, Math.floor(t / 0.06));
       return tone(st, ns[i], 'pulse', 0.25) * 0.2 * Math.exp(-Math.max(0, t - 0.18) * 5) + tone(st, 3951, 'sine', 0, 'ph2') * 0.06 * Math.exp(-t * 4) * (Math.sin(t * TAU * 14) > 0 ? 1 : 0.3);
     }),
+    fly: () => synth(0.55, (t, st) => {
+      st.lp += (noise() - st.lp) * (0.05 + t * 0.6);
+      return st.lp * 0.7 * Math.sin(Math.PI * Math.min(1, t / 0.55)) + tone(st, 300 * Math.pow(4, t / 0.4), 'pulse', 0.25) * 0.16 * Math.max(0, 1 - t / 0.45);
+    }),
+    smash: () => synth(0.9, (t, st) => {
+      st.lp += (noise() - st.lp) * 0.35;
+      return st.lp * 1.3 * Math.exp(-t * 5) + tone(st, 110 * Math.exp(-t * 3), 'sine', 0) * 0.9 * Math.exp(-t * 4) + tone(st, 520 * Math.exp(-t * 6), 'pulse', 0.5, 'ph2') * 0.25 * Math.exp(-t * 8);
+    }),
+    byebye: () => {
+      // "バ・イ・バ・イ・キ〜ン": five chiptune syllables, the last one wobbling and falling away
+      const syl = [[587, 0.11], [494, 0.11], [587, 0.11], [494, 0.11], [698, 0.95]];
+      const dur = syl.reduce((a, b) => a + b[1] + 0.025, 0) + 0.05;
+      return synth(dur, (t, st) => {
+        let acc = 0;
+        for (let i = 0; i < syl.length; i++) {
+          const [f, d] = syl[i];
+          if (t < acc + d) {
+            const lt = t - acc, last = i === syl.length - 1;
+            const ff = last ? f * Math.pow(0.45, lt / d) * (1 + Math.sin(lt * TAU * 9) * 0.06) : f * (1 + Math.sin(lt * TAU * 20) * 0.03);
+            const env = last ? Math.min(1, lt * 40) * (1 - lt / d) : Math.sin(Math.PI * lt / d);
+            return (tone(st, ff, 'pulse', 0.3) * 0.24 + noise() * 0.03) * env;
+          }
+          acc += d + 0.025;
+        }
+        return 0;
+      });
+    },
     engine: () => synth(0.7, (t, st) => tone(st, 80 + t * 220, 'saw', 0) * 0.16 * Math.min(1, (0.7 - t) * 4)),
   };
 
