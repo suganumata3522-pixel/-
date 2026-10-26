@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ジャムおじさんのホームラン競争</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=M+PLUS+Rounded+1c:wght@800;900&display=swap">
+<style>
+  /* レイアウト: 上にツールバー、残りの高さいっぱいに 9:16 のゲーム画面 */
+  :root {
+    --night: #0a1430;
+    --panel: #142650;
+    --line: #2f4f8f;
+    --text: #eef4ff;
+    --dim: #a9bce0;
+    --gold: #ffd23f;
+    --rec: #ff3b4f;
+    --font: "M PLUS Rounded 1c", "Hiragino Maru Gothic ProN", "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+    color-scheme: dark;
+  }
+  [hidden] { display: none !important; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    background: radial-gradient(120% 80% at 50% 0%, #17306a 0%, var(--night) 60%);
+    background-color: var(--night);
+    color: var(--text);
+    font-family: var(--font);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  .bar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    padding-block: 8px 6px;
+  }
+  .bar button {
+    font: 800 13px/1 var(--font);
+    color: var(--text);
+    background: var(--panel);
+    border: 2px solid var(--line);
+    border-radius: 999px;
+    padding: 7px 10px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    touch-action: manipulation;
+  }
+  .bar button[aria-pressed="true"] { background: #1f4fa8; border-color: #7fd0ff; }
+  .bar button:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+  #btnRec .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--rec); }
+  #btnRec[aria-pressed="true"] { background: #6b1220; border-color: var(--rec); }
+  #recTime { font: 800 14px/1 var(--font); color: var(--rec); font-variant-numeric: tabular-nums; }
+  .stage {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding-block: 0 8px;
+  }
+  #screen {
+    display: block;
+    border-radius: 14px;
+    background: #000;
+    touch-action: none;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    max-width: 100%;
+  }
+  #loading {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    font: 800 18px var(--font);
+    color: var(--dim);
+  }
+  .dlg {
+    position: fixed;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    background: rgba(4, 10, 30, 0.6);
+    z-index: 20;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+  .dlg .box {
+    background: var(--panel);
+    border: 2px solid #7fd0ff;
+    border-radius: 18px;
+    padding: 20px;
+    width: min(360px, 100%);
+    display: grid;
+    gap: 12px;
+    text-align: center;
+  }
+  .dlg h2 { margin: 0; font: 900 20px var(--font); text-wrap: balance; }
+  .dlg p { margin: 0; color: var(--dim); font: 800 13px/1.6 var(--font); }
+  .dlg .row { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+  .dlg button {
+    font: 900 15px var(--font);
+    border-radius: 999px;
+    padding: 10px 18px;
+    border: 2px solid #7fd0ff;
+    background: #1f4fa8;
+    color: var(--text);
+    cursor: pointer;
+  }
+  .dlg button.ghost { background: transparent; border-color: var(--line); }
+  #toast {
+    position: fixed;
+    left: 50%;
+    bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+    transform: translateX(-50%);
+    background: #0e1c3d;
+    border: 2px solid #7fd0ff;
+    color: var(--text);
+    font: 800 14px var(--font);
+    padding: 10px 16px;
+    border-radius: 999px;
+    z-index: 30;
+    max-width: calc(100% - 32px);
+    text-align: center;
+  }
+  @media (prefers-reduced-motion: reduce) { .bar button { transition: none; } }
+</style>
+</head>
+<body>
+<div class="bar" role="toolbar" aria-label="ゲーム設定">
+  <button id="btnPower" type="button" aria-pressed="false" title="強振/ミート打ち(Xキー)"><span class="lbl">ミート</span></button>
+  <button id="btnAuto" type="button" aria-pressed="false" title="CPUが打ちます"><span class="lbl">オート</span></button>
+  <button id="btnVoice" type="button" aria-pressed="true" title="実況の読み上げ"><span class="lbl">実況</span></button>
+  <button id="btnSound" type="button" aria-pressed="true"><span class="lbl">音 ON</span></button>
+  <button id="btnRec" type="button" aria-pressed="false" title="ゲーム画面を縦動画で録画"><span class="dot" aria-hidden="true"></span><span class="lbl">録画</span></button>
+  <span id="recTime" hidden></span>
+</div>
+<div class="stage" id="stage">
+  <canvas id="screen" width="1080" height="1920" aria-label="ゲーム画面"></canvas>
+  <div id="loading">読み込み中…</div>
+</div>
+<div class="dlg" id="saveDlg" hidden>
+  <div class="box" role="dialog" aria-labelledby="saveTitle">
+    <h2 id="saveTitle">録画できました</h2>
+    <p id="saveInfo"></p>
+    <p>YouTubeショートにそのままアップできる縦長動画です。実況の読み上げ音声は録画に入りません。</p>
+    <div class="row">
+      <button id="btnSave" type="button">動画を保存</button>
+      <button id="btnClose" type="button" class="ghost">閉じる</button>
+    </div>
+  </div>
+</div>
+<div id="toast" hidden></div>
+<script src="vendor/three.min.js"></script>
+<script src="js/core.js"></script>
+<script src="js/models.js"></script>
+<script src="js/stadium.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/hud.js"></script>
+<script src="js/game.js"></script>
+</body>
+</html>
