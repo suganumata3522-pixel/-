@@ -10,6 +10,8 @@
   const SEED = parseInt(qs.get('seed'), 10) || (OFFLINE ? 7 : Date.now() % 100000);
   const TOTAL_BALLS = HR.clamp(parseInt(qs.get('balls'), 10) || 10, 1, 30);
   const OFFLINE_FPS = parseInt(qs.get('fps'), 10) || 30;
+  // ai=whiff: オートのジャムおじさんが一球も当てられない(動画用)
+  const AI_MODE = qs.get('ai') === 'whiff' ? 'whiff' : 'normal';
 
   let rng = HR.makeRng(SEED);
   const fxRng = HR.makeRng(SEED + 1); // 画面揺れなど見た目だけの乱数(試合結果に影響させない)
@@ -30,13 +32,13 @@
   const BAT_CAM = { pos: new T.Vector3(0.12, 1.5, 4.7), look: new T.Vector3(0.0, 1.02, -18), fov: 50 };
   const RELEASE_T = 0.95;
 
+  // バタコさんの持ち球: 最速168km/hのストレートと、変化量MAX(7)のスライダー・SFF・シュート。
+  // bx/by は変化量(m)。ボールは目標から変化量ぶんずれた所へ向かい、終盤で曲がって目標に届く。
   const PITCHES = [
-    { name: 'ストレート', kmh: [114, 122], bx: 0, by: 0.04, arc: 0.06, w: 4 },
-    { name: 'カーブ', kmh: [93, 99], bx: 0.3, by: -0.3, arc: 0.45, w: 2 },
-    { name: 'スライダー', kmh: [104, 110], bx: 0.32, by: -0.06, arc: 0.12, w: 2 },
-    { name: 'フォーク', kmh: [106, 112], bx: 0, by: -0.38, arc: 0.1, w: 1.5 },
-    { name: 'シュート', kmh: [108, 114], bx: -0.26, by: -0.08, arc: 0.1, w: 1.2 },
-    { name: 'ニューフェイス', kmh: [78, 84], bx: 0, by: 0, arc: 1.0, w: 0.8 },
+    { name: 'ストレート', kmh: [168, 168], bx: 0, by: 0.03, arc: 0.03, w: 4 },
+    { name: 'スライダー', kmh: [138, 143], bx: 0.62, by: -0.08, arc: 0.08, w: 2.5 },
+    { name: 'SFF', kmh: [144, 149], bx: 0.04, by: -0.58, arc: 0.05, w: 2 },
+    { name: 'シュート', kmh: [143, 148], bx: -0.5, by: -0.14, arc: 0.06, w: 1.6 },
   ];
 
   // ---------------- 描画の準備 ----------------
@@ -129,7 +131,7 @@
     if (!list) return;
     const text = fill(pick(list), vars || {});
     S.caption = { text, t0: S.now };
-    HR.Voice.say(text, !(opts && opts.queue));
+    if (!(opts && opts.quiet)) HR.Voice.say(text, !(opts && opts.queue));
   }
   const sfx = (name, opt) => HR.Audio.play(name, opt);
   const curSize = () => (S.power ? CUR.power : CUR.meet);
@@ -143,6 +145,8 @@
     S.balls = TOTAL_BALLS;
     S.pitchNo = 0;
     S.stats = { hit: 0, hr: 0, longest: 0, score: 0 };
+    S.streak = 0;
+    S.contacts = 0;
     S.finish = null; S.title = null; S.banner = null; S.cutin = null; S.pitchInfo = null;
     HR.HUD.clearParticles();
     stadium.drawScreen('ホームラン競争', 'HR 0本', false);
@@ -154,7 +158,7 @@
   }
 
   function nextPitch() {
-    S.banner = null; S.cutin = null; S.batted = null; S.swing = null; S.pitch = null; S.ai = null; S.pitchInfo = null;
+    S.banner = null; S.cutin = null; S.batted = null; S.swing = null; S.pitch = null; S.ai = null; S.pitchInfo = null; S.batakoSay = null;
     ballM.setDizzy(false);
     if (S.screenDirty) { stadium.drawScreen('ホームラン競争', `HR ${S.stats.hr}本`, false); S.screenDirty = false; }
     for (const s of trail) s.visible = false;
@@ -167,11 +171,12 @@
       say('first');
       sfx('whistle');
     } else if (rng() < 0.6) {
-      say('ready', { n: S.balls });
+      // バタコさんのセリフと重ならないよう、構えの実況は読み上げずテロップだけ
+      say('ready', { n: S.balls }, { quiet: true });
     } else {
       S.caption = null;
     }
-    if (S.auto) S.power = rng() < 0.55;
+    if (S.auto) S.power = rng() < (AI_MODE === 'whiff' ? 0.7 : 0.55);
   }
 
   function finishGame() {
@@ -180,9 +185,11 @@
     const newRecord = st.score > S.best.score;
     S.best = { hit: Math.max(S.best.hit, st.hit), hr: Math.max(S.best.hr, st.hr), longest: Math.max(S.best.longest, st.longest), score: Math.max(S.best.score, st.score) };
     saveBest();
-    S.finish = { t0: S.now + 0.6, stats: Object.assign({}, st), rank: HR.rankFor(st.hr), newRecord };
-    say('finish', { n: st.hr });
+    const perfect = S.contacts === 0;
+    S.finish = { t0: S.now + 0.6, stats: Object.assign({}, st), rank: HR.rankFor(st.hr), newRecord, perfect };
+    say(perfect ? 'finishZero' : 'finish', { n: st.hr });
     sfx('cheer', { level: 0.5, dur: 3.5 });
+    if (perfect) sfx('organ');
     if (st.hr >= 3) { sfx('fanfare'); HR.HUD.confetti(160); }
   }
 
@@ -240,6 +247,8 @@
     const v0 = { x: v * Math.cos(th) * Math.sin(ph), y: v * Math.sin(th), z: -v * Math.cos(th) * Math.cos(ph) };
     const sim = HR.simulateBatted({ x: p0.x, y: p0.y, z: p0.z }, v0, L);
     S.batted = { sim, L, ft: 0, t0: S.now, events: {}, dir: { x: Math.sin(ph), z: -Math.cos(ph) } };
+    S.streak = 0;
+    S.contacts++;
     setPhase('batted');
     const big = L.quality > 0.7 && L.launch > 12;
     sfx('hit', { power: HR.clamp(0.45 + L.quality * 0.7, 0.4, 1) });
@@ -317,7 +326,9 @@
         if (S.pt > (S.pitchNo === 1 ? 1.3 : 0.6)) {
           setPhase('windup');
           if (S.banner && S.banner.kind === 'play') S.banner = null;
-          if (rng() < 0.45) say('windup', { k: S.pitchNo });
+          // 「新しい顔よ!」(振りかぶり)→「それ!」(リリース)
+          S.batakoSay = { t0: S.now, sore: 0 };
+          sfx('voice', { name: 'face' });
         }
         break;
       case 'windup':
@@ -326,6 +337,9 @@
           S.balls--;
           S.pitchInfo = { name: S.pitch.name, kmh: S.pitch.kmh, t0: S.now };
           sfx('throw');
+          sfx('voice', { name: 'sore' });
+          if (OFFLINE) (window.__pitchLog = window.__pitchLog || []).push(`${S.pitch.name}${S.pitch.kmh}`);
+          if (S.batakoSay) S.batakoSay.sore = S.now;
           if (S.auto) planAI();
           setPhase('pitch');
         }
@@ -341,7 +355,9 @@
           const kind = S.swing ? 'whiff' : 'look';
           if (OFFLINE) (window.__log = window.__log || []).push(kind);
           S.banner = { kind, t0: S.now };
-          say(kind);
+          S.streak = (S.streak || 0) + 1;
+          if (kind === 'whiff' && S.streak >= 3 && rng() < 0.5) say('whiffStreak', { k: S.streak });
+          else say(kind === 'whiff' ? HR.WHIFF_KEY[p.name] || 'whiff' : 'look');
           sfx('groan');
         }
         if (S.missed && S.pt > p.T * 1.35 + 1.0) { S.missed = false; nextPitch(); }
@@ -395,6 +411,18 @@
   function planAI() {
     const p = S.pitch;
     const cs = curSize();
+    if (AI_MODE === 'whiff') {
+      // 変化する前のコースを追いかけ、タイミングも判定の外(±0.12秒以上)にずらすので必ず空振りになる
+      const fast = p.name === 'ストレート';
+      const off = fast || rng() < 0.5 ? 0.12 + rng() * 0.07 : -(0.12 + rng() * 0.06);
+      S.ai = {
+        swingAt: p.t0 + p.T - SWING_DELAY + off,
+        aimX: p.tx - p.bx * 0.9 + gauss() * 0.03,
+        aimY: p.ty - p.by * 0.9 - cs.ry * 0.25 + gauss() * 0.03,
+        reactAt: p.t0 + p.T * (0.2 + rng() * 0.1),
+      };
+      return;
+    }
     S.ai = {
       swingAt: p.t0 + p.T - SWING_DELAY + gauss() * 0.022,
       aimX: p.tx + gauss() * 0.035,
@@ -513,6 +541,11 @@
       const intro = S.phase === 'intro';
       applyJam([-0.36, 1.45 + (intro ? 0 : pump * 0.12), 0.12, 100, 82, 0, -0.18, 0.06, 0.04], { jump: intro ? 0 : pump * 0.12 });
       jam.handL.position.set(0.36, intro ? 0.62 : 1.25 + pump * 0.25, 0.14);
+    } else if (S.phase === 'finish' && S.stats.hr === 0) {
+      // がっくり: バットを下げてうなだれる
+      const a = S.now - S.finish.t0;
+      applyJam([-0.3, 0.42, 0.24, 95, -72, 0, -0.18, 0.06, 0.04], { lean: 0.34 + Math.sin(a * 1.5) * 0.02 });
+      jam.handL.position.set(0.3, 0.42, 0.22);
     } else if (S.swing && (S.phase === 'pitch' || S.phase === 'batted')) {
       const st = S.now - S.swing.t0;
       const v = HR.keys(J_SWING, st, true);
@@ -687,6 +720,12 @@
       title: S.phase === 'title' ? S.title : null, flash: S.flash, cursorFlash: S.cursorFlash > 0,
       pitchInfo: batView || S.phase === 'batted' ? S.pitchInfo : null,
     };
+    const bs = S.batakoSay;
+    if (bs && batView && (!bs.sore || S.now - bs.sore < 0.8)) {
+      const r = batako.root.position;
+      const [x, y] = project(r.x, r.y + 2.15, r.z);
+      st.batako = { x, y, age: S.now - bs.t0, sore: bs.sore ? S.now - bs.sore : -1 };
+    }
     if (batView) {
       st.zone = [project(ZONE.x0, ZONE.y1, 0), project(ZONE.x1, ZONE.y1, 0), project(ZONE.x1, ZONE.y0, 0), project(ZONE.x0, ZONE.y0, 0)];
       const cs = curSize(), c = S.cursor;

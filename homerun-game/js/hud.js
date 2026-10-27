@@ -422,14 +422,14 @@
     g.restore();
   }
 
-  function introCard(g, role, name, chips, age, colors) {
+  function introCard(g, role, name, chips, age, colors, extra) {
     const slide = HR.easeOutCubic(age / 0.3);
     const x = HR.lerp(-700, 40, slide), y = 1250;
     g.save();
     g.globalAlpha = HR.clamp(age * 5, 0, 1);
     g.save();
     g.transform(1, 0, -0.12, 1, 0, 0);
-    rr(g, x + 150, y, 820, 230, 24);
+    rr(g, x + 150, y, 820, extra ? 300 : 230, 24);
     g.fillStyle = 'rgba(9,24,60,0.9)';
     g.fill();
     g.lineWidth = 6;
@@ -440,6 +440,35 @@
     txt(g, name, x + 60, y + 150, { font: fitFont(g, name, 760, 900, 92, 50), fill: '#ffffff', strokes: [[16, '#000a2a'], [6, colors[1]]] });
     let cx = x + 64;
     for (const [label, rank] of chips) cx += rankText(g, label, rank, cx, y + 210);
+    if (extra) txt(g, extra, x + 64, y + 270, { font: fitFont(g, extra, 700, 900, 40, 26), fill: '#ffe14d', strokes: [[8, '#000a2a']] });
+    g.restore();
+  }
+
+  // バタコさんのセリフ(投げる瞬間)。ピッチャーの頭上に出る
+  function batakoBubble(g, b) {
+    const pop = HR.easeOutBack(b.age / 0.2);
+    if (pop <= 0) return;
+    const text = b.sore >= 0 ? '新しい顔よ!それ!' : '新しい顔よ!';
+    const bump = b.sore >= 0 ? 1 + 0.12 * Math.max(0, 1 - b.sore / 0.18) : 1;
+    g.save();
+    g.translate(b.x, b.y - 30);
+    g.scale(pop * bump, pop * bump);
+    g.font = UI(900, 50);
+    const w = g.measureText(text).width + 56, h = 92;
+    const bx = HR.clamp(-w / 2, -b.x + 20, W - b.x - w - 20);
+    rr(g, bx, -h - 26, w, h, 40);
+    g.fillStyle = '#ffffff';
+    g.fill();
+    g.lineWidth = 6;
+    g.strokeStyle = '#e8337a';
+    g.stroke();
+    g.beginPath();
+    g.moveTo(-14, -29); g.lineTo(0, 0); g.lineTo(14, -29);
+    g.fillStyle = '#ffffff';
+    g.fill();
+    g.stroke();
+    g.fillRect(-16, -36, 32, 9);
+    txt(g, text, bx + w / 2, -h / 2 - 26 + 17, { font: UI(900, 50), align: 'center', fill: '#e8337a' });
     g.restore();
   }
 
@@ -519,6 +548,10 @@
       const s = 1 + Math.sin(age * 8) * 0.05;
       impactText(g, 'NEW RECORD!', W / 2, y + h + 70, 90, s, -0.05, ['#fffbd0', '#ff7ad1', '#ff2f8e'], [[22, '#4a0030'], [10, '#ffffff']]);
     }
+    if (f.perfect && age > 2.0) {
+      const s = 1 + Math.sin(age * 8) * 0.04;
+      impactText(g, 'バタコさん完全勝利!', W / 2, y + h + 70, 96, s, -0.05, ['#ffffff', '#ff9ad1', '#e8337a'], [[24, '#4a0030'], [12, '#ffffff']]);
+    }
     if (live && age > 2.2 && Math.floor(age * 2) % 2 === 0) {
       txt(g, 'タップでもう一度', W / 2, 1520, { font: UI(900, 56), align: 'center', fill: '#ffffff', strokes: [[14, NAVY]] });
     }
@@ -545,7 +578,8 @@
       if (k) txt(g, k, 100, y0 + i * 80, { font: UI(900, 36), fill: '#ffe14d' });
       txt(g, v, 260, y0 + i * 80, { font: fitFont(g, v, W - 360, 800, 38, 26), fill: '#ffffff' });
     });
-    txt(g, '※ 非公式のファンメイド作品です', W / 2, 1830, { font: UI(800, 30), align: 'center', fill: 'rgba(255,255,255,0.8)', strokes: [[6, 'rgba(4,10,30,0.6)']] });
+    txt(g, '※ 非公式のファンメイド作品です', W / 2, 1810, { font: UI(800, 30), align: 'center', fill: 'rgba(255,255,255,0.8)', strokes: [[6, 'rgba(4,10,30,0.6)']] });
+    txt(g, 'バタコさんの声: HTS Voice "Mei" (名古屋工業大学) CC BY 3.0', W / 2, 1856, { font: UI(800, 24), align: 'center', fill: 'rgba(255,255,255,0.7)', strokes: [[5, 'rgba(4,10,30,0.6)']] });
   }
 
   // ---------------- パーティクル(花火・紙吹雪) ----------------
@@ -596,7 +630,7 @@
   function plates(g) {
     playerPlate(g, 24, 1506, {
       name: 'バタコ', nameColors: ['#ff8a8a', '#e8313f'], badge: '投', badgeColors: ['#ff8ab8', '#e8337a'],
-      stats: [{ speed: '120km/h' }, { label: 'コントロール', rank: 'S' }, { label: 'スタミナ', rank: 'B' }],
+      stats: [{ speed: '168km/h' }, { label: 'コントロール', rank: 'S' }, { label: 'スタミナ', rank: 'B' }],
     });
     playerPlate(g, 24, 1666, {
       name: 'ジャムおじさん', nameColors: ['#7cf08f', '#1fae4a'], badge: '打', badgeColors: ['#c9a0ff', '#8b4ee8'],
@@ -627,6 +661,7 @@
       }
     }
     if (s.caption) caption(g, s.caption, now);
+    if (s.batako) batakoBubble(g, s.batako);
     if (s.showPlates) {
       cached(g, 'tag|' + s.power, 0, 1426, 400, 80, (cg) => swingTag(cg, 24, 1436, s.power));
       cached(g, 'plates', 0, 1480, 700, 380, plates);
@@ -634,7 +669,7 @@
     if (s.intro) {
       const age = now - s.intro.t0;
       if (s.intro.stage === 'title') logo(g, W / 2, 900, age, true);
-      if (s.intro.stage === 'pitcher') introCard(g, 'PITCHER', 'バタコさん', [['コントロール', 'S'], ['スタミナ', 'B']], age, ['#ff8ab8', '#e8337a']);
+      if (s.intro.stage === 'pitcher') introCard(g, 'PITCHER', 'バタコさん', [['コントロール', 'S'], ['スタミナ', 'B']], age, ['#ff8ab8', '#e8337a'], '最速168km/h  スライダー7・SFF7・シュート7');
       if (s.intro.stage === 'batter') introCard(g, 'BATTER', 'ジャムおじさん', [['パワー', 'S'], ['ミート', 'C'], ['走力', 'E']], age, ['#7cf08f', '#1fae4a']);
     }
     if (s.banner) banner(g, s.banner, now);

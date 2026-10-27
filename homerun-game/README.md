@@ -14,6 +14,7 @@
 | 打つ | 指をはなす | クリック / スペース・Enter・Z |
 | 強振 ⇔ ミート打ち | 上の「ミート/強振」ボタン | X キー |
 
+- バタコさんは最速168km/hのストレートと、変化量MAX(7)のスライダー・SFF・シュートを投げます。投げるときに「新しい顔よ!それ!」と言います。
 - 1回の勝負は10球。ホームランは 100点+飛距離、ヒットは10点です。
 - **ミート打ち**はカーソルが大きく当てやすい、**強振**はカーソルが小さいかわりに飛びます。
 - 照準の中心より少し下でボールをとらえると打球が上がり、ホームランになりやすくなります。
@@ -34,6 +35,7 @@ GitHub Pages などに `homerun-game/` フォルダごと置けば、スマホ�
 3. 保存される動画は 1080×1920 の縦動画です。Chrome / Edge / Safari では MP4、Firefox では WebM になります。どちらも YouTube にそのままアップできます。
 
 - ボタンやダイアログは録画に映りません。ゲーム画面と効果音だけが入ります。
+- バタコさんの「新しい顔よ!それ!」は効果音と同じ扱いなので録画に入ります。
 - 「実況」の読み上げ音声(ブラウザの音声合成)は録画に入りません。声も入れたい場合は、スマホの画面収録機能で撮るか、編集アプリでナレーションを足してください。
 - ショートは3分まで投稿できます。1回の勝負はだいたい60〜80秒です。
 
@@ -52,12 +54,14 @@ node tools/record.mjs --seed 5 --out jam-homerun-short.mp4
 | `--seed N` | 試合展開の乱数(同じ値なら毎回同じ試合になります) |
 | `--fps 30` | フレームレート(60 にすると滑らかですが書き出しに倍の時間がかかります) |
 | `--balls 10` | 球数 |
+| `--ai whiff` | ジャムおじさんが一球も当てられない動画にする(変化前のコースを追いかけ、タイミングもずれる) |
 | `--snap 2,5.5 --from 5` | 指定した秒数の静止画だけ保存(見た目の確認用) |
 
 ## 調整できるところ
 
-- URL パラメータ: `index.html?auto=1`(最初からオート)、`?balls=5`(球数)、`?seed=123`(試合展開を固定)
-- `js/game.js` の先頭: 投球の速さ `BALL_SLOW`、打球の再生速度 `FLIGHT_SPEED`、球種 `PITCHES`
+- URL パラメータ: `index.html?auto=1`(最初からオート)、`?balls=5`(球数)、`?seed=123`(試合展開を固定)、`?auto=1&ai=whiff`(オートが全部空振り)
+- `js/game.js` の先頭: 投球の速さ `BALL_SLOW`、打球の再生速度 `FLIGHT_SPEED`、球種・球速・変化量 `PITCHES`
+- バタコさんのセリフを変えるときは `tools/make-voice.py` の `CLIPS` を書き換えて実行します(`pip install pyopenjtalk-plus numpy` が必要)
 - `js/core.js`: 飛距離(`HR.PHYS.k` と `HR.contactToLaunch`)、フェンスの距離 `HR.fenceR`、実況のセリフ `HR.LINES`、称号 `HR.RANKS`
 - `js/models.js` の `makeJam()`: バットを普通の木製にしたいときはバットのテクスチャ部分を書き換えてください
 
@@ -69,11 +73,19 @@ js/core.js        定数・打球の物理・実況のセリフ
 js/models.js      バタコさん・ジャムおじさん・アンパンマンの顔ボール(3Dモデル)
 js/stadium.js     球場(芝・フェンス広告・観客・大型ビジョン)
 js/audio.js       効果音(WebAudio で合成)と実況の読み上げ
+js/voice-data.js  バタコさんのボイス(tools/make-voice.py で生成)
 js/hud.js         スコアボード・選手プレート・照準・ホームラン演出
 js/game.js        ゲーム進行・打撃判定・カメラ・入力・録画
 tools/record.mjs  オートプレイ動画の書き出し
+tools/make-voice.py  バタコさんのボイスを音声合成で作る
 vendor/three.min.js  Three.js r160 (MIT License)
 ```
+
+## クレジット
+
+- バタコさんの声: HTS Voice "Mei" (c) Nagoya Institute of Technology, [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)。pyopenjtalk-plus で合成しています。
+  動画を投稿するときは、概要欄にこのクレジットを書いてください(例: `バタコさんの声: HTS Voice "Mei" (名古屋工業大学) CC BY 3.0`)。
+- 3D描画: [Three.js](https://threejs.org/) (MIT License)
 
 ## 権利について
 

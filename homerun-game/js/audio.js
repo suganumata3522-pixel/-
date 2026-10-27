@@ -146,6 +146,18 @@
     },
     tick(ctx, out, t) { tone(ctx, out, t, 'square', 1320, 0.05, 0.08); },
     pop(ctx, out, t) { tone(ctx, out, t, 'triangle', 660, 0.12, 0.3, 1320); },
+    // バタコさんのボイス(js/voice-data.js の録音済みクリップ)
+    voice(ctx, out, t, o) {
+      const m = voiceCache.get(ctx);
+      const buf = m && m[o.name];
+      if (!buf) return;
+      const src = ctx.createBufferSource();
+      src.buffer = buf;
+      const g = ctx.createGain();
+      g.gain.value = o.vol || 1.1;
+      src.connect(g).connect(out);
+      src.start(t);
+    },
     whistle(ctx, out, t) {
       const o = ctx.createOscillator();
       o.type = 'sine';
@@ -160,6 +172,22 @@
       o.start(t); o.stop(t + 0.62); lfo.start(t); lfo.stop(t + 0.62);
     },
   };
+
+  // ボイスのクリップを各 AudioContext 用にデコードしておく
+  const voiceCache = new WeakMap();
+  async function loadVoices(ctx) {
+    const m = {};
+    voiceCache.set(ctx, m);
+    const data = HR.VOICE_DATA || {};
+    for (const k of Object.keys(data)) {
+      try {
+        const bin = atob(data[k]);
+        const bytes = new Uint8Array(bin.length);
+        for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+        m[k] = await ctx.decodeAudioData(bytes.buffer);
+      } catch (e) { /* デコードできない環境ではボイスなしで続行 */ }
+    }
+  }
 
   // 観客のざわめき(ずっと鳴っている)
   function crowdBed(ctx, out, t, dur) {
@@ -196,6 +224,7 @@
       A.master.connect(A.recDest);
     }
     crowdBed(A.ctx, A.master, A.ctx.currentTime, 60 * 60 * 6);
+    loadVoices(A.ctx);
   };
   A.resume = function () { if (A.ctx && A.ctx.state === 'suspended') A.ctx.resume(); };
   A.setMuted = function (m) {
@@ -217,6 +246,7 @@
     const comp = oc.createDynamicsCompressor();
     m.connect(comp).connect(oc.destination);
     crowdBed(oc, m, 0, duration);
+    await loadVoices(oc);
     for (const e of A.events) if (synth[e.name]) synth[e.name](oc, m, Math.max(0, e.t), e.opt);
     const buf = await oc.startRendering();
     return encodeWav(buf);

@@ -24,6 +24,7 @@ const args = Object.fromEntries(
 const fps = parseInt(args.fps || '30', 10);
 const seed = args.seed || '7';
 const balls = args.balls || '10';
+const ai = args.ai === 'whiff' ? '&ai=whiff' : '';
 const out = path.resolve(args.out || 'homerun-short.mp4');
 const snaps = args.snap ? args.snap.split(',').map(Number) : null;
 const until = args.until ? parseFloat(args.until) : 600;
@@ -65,7 +66,7 @@ async function main() {
     if (fs.existsSync(p)) route.fulfill({ status: 200, contentType: 'font/ttf', body: fs.readFileSync(p), headers: { 'Access-Control-Allow-Origin': '*' } });
     else route.abort();
   });
-  const url = pathToFileURL(path.join(root, 'index.html')).href + `?record=1&seed=${seed}&fps=${fps}&balls=${balls}&aniso=4`;
+  const url = pathToFileURL(path.join(root, 'index.html')).href + `?record=1&seed=${seed}&fps=${fps}&balls=${balls}&aniso=4${ai}`;
   await page.goto(url);
   await page.waitForFunction(() => window.__recReady === true, null, { timeout: 60000 });
 
