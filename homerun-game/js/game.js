@@ -326,9 +326,9 @@
         if (S.pt > (S.pitchNo === 1 ? 1.3 : 0.6)) {
           setPhase('windup');
           if (S.banner && S.banner.kind === 'play') S.banner = null;
-          // 「新しい顔よ!」(振りかぶり)→「それ!」(リリース)
+          // 「アンパンマン!」(振りかぶり)→「それ!」(リリース)
           S.batakoSay = { t0: S.now, sore: 0 };
-          sfx('voice', { name: 'face' });
+          sfx('voice', { name: 'call' });
         }
         break;
       case 'windup':
