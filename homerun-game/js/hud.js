@@ -448,7 +448,7 @@
   function batakoBubble(g, b) {
     const pop = HR.easeOutBack(b.age / 0.2);
     if (pop <= 0) return;
-    const text = b.sore >= 0 ? 'アンパンマン!それ!' : 'アンパンマン!';
+    const text = b.text;
     const bump = b.sore >= 0 ? 1 + 0.12 * Math.max(0, 1 - b.sore / 0.18) : 1;
     g.save();
     g.translate(b.x, b.y - 30);

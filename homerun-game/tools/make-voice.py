@@ -1,4 +1,4 @@
-# バタコさんのボイス(「アンパンマン!」「それっ!」)を合成して js/voice-data.js に書き出す。
+# バタコさんのボイス(「アンパンマン!」「新しい顔よ!」「それっ!」)を合成して js/voice-data.js に書き出す。
 #
 #   pip install pyopenjtalk-plus numpy
 #   python tools/make-voice.py
@@ -12,6 +12,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, '..', 'js', 'voice-data.js')
 CLIPS = {
     'call': ('アンパンマン!', 1.1, 0.0),
+    'face': ('新しい顔よ!', 1.15, 0.0),
     'sore': ('それっ!', 1.1, 2.0),
 }
 RATE = 24000

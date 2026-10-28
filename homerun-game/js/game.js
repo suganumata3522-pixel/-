@@ -30,7 +30,9 @@
   const PITCHER_POS = new T.Vector3(0, 0.25, -18.7);
   const BATTER_POS = new T.Vector3(0.98, 0, 0.1);
   const BAT_CAM = { pos: new T.Vector3(0.12, 1.5, 4.7), look: new T.Vector3(0.0, 1.02, -18), fov: 50 };
-  const RELEASE_T = 0.95;
+  // 振りかぶり(「アンパンマン!」)で一度止まり、「新しい顔よ!」で投げ始めて「それっ!」でリリース
+  const RELEASE_T = 1.6;
+  const FACE_LEAD = 0.94; // 「新しい顔よ!」の長さ+間。リリースのこの秒数前に言い始める
 
   // バタコさんの持ち球: 最速168km/hのストレートと、変化量MAX(7)のスライダー・SFF・シュート。
   // bx/by は変化量(m)。ボールは目標から変化量ぶんずれた所へ向かい、終盤で曲がって目標に届く。
@@ -326,12 +328,15 @@
         if (S.pt > (S.pitchNo === 1 ? 1.3 : 0.6)) {
           setPhase('windup');
           if (S.banner && S.banner.kind === 'play') S.banner = null;
-          // 「アンパンマン!」(振りかぶり)→「それ!」(リリース)
-          S.batakoSay = { t0: S.now, sore: 0 };
+          S.batakoSay = { t0: S.now, text: 'アンパンマン!', sore: 0 };
           sfx('voice', { name: 'call' });
         }
         break;
       case 'windup':
+        if (S.batakoSay && S.batakoSay.text === 'アンパンマン!' && S.pt >= RELEASE_T - FACE_LEAD) {
+          S.batakoSay = { t0: S.now, text: '新しい顔よ!', sore: 0 };
+          sfx('voice', { name: 'face' });
+        }
         if (S.pt >= RELEASE_T) {
           S.pitch = makePitch();
           S.balls--;
@@ -339,7 +344,7 @@
           sfx('throw');
           sfx('voice', { name: 'sore' });
           if (OFFLINE) (window.__pitchLog = window.__pitchLog || []).push(`${S.pitch.name}${S.pitch.kmh}`);
-          if (S.batakoSay) S.batakoSay.sore = S.now;
+          if (S.batakoSay) { S.batakoSay.sore = S.now; S.batakoSay.text = '新しい顔よ!それっ!'; }
           if (S.auto) planAI();
           setPhase('pitch');
         }
@@ -463,11 +468,12 @@
   const B_PITCH = [
     [0.0, B_READY],
     [0.3, [-0.09, 1.66, 0.4, 0.09, 1.66, 0.4, 0.17, 0.06, 0.0, -0.17, 0.06, 0.0, 0, -5, 0]],
-    [0.55, [-0.4, 0.72, -0.12, 0.3, 0.82, 0.22, 0.1, 0.42, 0.16, -0.17, 0.06, 0.0, -38, -10, 0]],
-    [0.8, [-0.46, 1.44, -0.24, 0.4, 0.9, 0.4, 0.18, 0.07, 0.6, -0.17, 0.06, 0.0, -24, 4, 0.22]],
-    [0.95, [-0.22, 1.32, 0.52, 0.32, 0.55, 0.05, 0.18, 0.06, 0.62, -0.17, 0.1, -0.05, 22, 20, 0.34]],
-    [1.15, [0.18, 0.45, 0.42, 0.34, 0.55, -0.1, 0.18, 0.06, 0.62, -0.1, 0.28, 0.3, 36, 26, 0.42]],
-    [1.7, [-0.12, 0.62, 0.3, 0.12, 0.62, 0.3, 0.17, 0.06, 0.32, -0.17, 0.06, 0.32, 0, 0, 0.32]],
+    [0.65, [-0.09, 1.7, 0.38, 0.09, 1.7, 0.38, 0.17, 0.06, 0.0, -0.17, 0.06, 0.0, 0, -7, 0]],
+    [1.2, [-0.4, 0.72, -0.12, 0.3, 0.82, 0.22, 0.1, 0.42, 0.16, -0.17, 0.06, 0.0, -38, -10, 0]],
+    [1.45, [-0.46, 1.44, -0.24, 0.4, 0.9, 0.4, 0.18, 0.07, 0.6, -0.17, 0.06, 0.0, -24, 4, 0.22]],
+    [1.6, [-0.22, 1.32, 0.52, 0.32, 0.55, 0.05, 0.18, 0.06, 0.62, -0.17, 0.1, -0.05, 22, 20, 0.34]],
+    [1.8, [0.18, 0.45, 0.42, 0.34, 0.55, -0.1, 0.18, 0.06, 0.62, -0.1, 0.28, 0.3, 36, 26, 0.42]],
+    [2.35, [-0.12, 0.62, 0.3, 0.12, 0.62, 0.3, 0.17, 0.06, 0.32, -0.17, 0.06, 0.32, 0, 0, 0.32]],
   ];
   function applyBatako(v) {
     const m = batako;
@@ -591,7 +597,7 @@
         batako.handL.getWorldPosition(ballPos);
         ballPos.y += 0.12;
         ballPos.z += 0.1;
-      } else if (S.phase === 'windup' && S.pt > 0.25) {
+      } else if (S.phase === 'windup' && S.pt > RELEASE_T - 0.7) {
         batako.handR.getWorldPosition(ballPos);
         ballPos.z += 0.1;
       } else {
@@ -724,7 +730,7 @@
     if (bs && batView && (!bs.sore || S.now - bs.sore < 0.8)) {
       const r = batako.root.position;
       const [x, y] = project(r.x, r.y + 2.15, r.z);
-      st.batako = { x, y, age: S.now - bs.t0, sore: bs.sore ? S.now - bs.sore : -1 };
+      st.batako = { x, y, text: bs.text, age: S.now - bs.t0, sore: bs.sore ? S.now - bs.sore : -1 };
     }
     if (batView) {
       st.zone = [project(ZONE.x0, ZONE.y1, 0), project(ZONE.x1, ZONE.y1, 0), project(ZONE.x1, ZONE.y0, 0), project(ZONE.x0, ZONE.y0, 0)];
