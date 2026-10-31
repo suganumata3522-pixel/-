@@ -30,9 +30,9 @@
   const PITCHER_POS = new T.Vector3(0, 0.25, -18.7);
   const BATTER_POS = new T.Vector3(0.98, 0, 0.1);
   const BAT_CAM = { pos: new T.Vector3(0.12, 1.5, 4.7), look: new T.Vector3(0.0, 1.02, -18), fov: 50 };
-  // 振りかぶり(「アンパンマン!」)で一度止まり、「新しい顔よ!」で投げ始めて「それっ!」でリリース
+  // 振りかぶり(吹き出し「アンパンマン!」)で一度止まり、「新しい顔よ!」で投げ始めて「それっ!」でリリース
   const RELEASE_T = 1.6;
-  const FACE_LEAD = 0.94; // 「新しい顔よ!」の長さ+間。リリースのこの秒数前に言い始める
+  const FACE_LEAD = 0.94; // 吹き出しを「新しい顔よ!」に切り替える、リリースの何秒前か
 
   // バタコさんの持ち球: 最速168km/hのストレートと、変化量MAX(7)のスライダー・SFF・シュート。
   // bx/by は変化量(m)。ボールは目標から変化量ぶんずれた所へ向かい、終盤で曲がって目標に届く。
@@ -329,22 +329,19 @@
           setPhase('windup');
           if (S.banner && S.banner.kind === 'play') S.banner = null;
           S.batakoSay = { t0: S.now, text: 'アンパンマン!', sore: 0 };
-          sfx('voice', { name: 'call' });
         }
         break;
       case 'windup':
         if (S.batakoSay && S.batakoSay.text === 'アンパンマン!' && S.pt >= RELEASE_T - FACE_LEAD) {
           S.batakoSay = { t0: S.now, text: '新しい顔よ!', sore: 0 };
-          sfx('voice', { name: 'face' });
         }
         if (S.pt >= RELEASE_T) {
           S.pitch = makePitch();
           S.balls--;
           S.pitchInfo = { name: S.pitch.name, kmh: S.pitch.kmh, t0: S.now };
           sfx('throw');
-          sfx('voice', { name: 'sore' });
           if (OFFLINE) (window.__pitchLog = window.__pitchLog || []).push(`${S.pitch.name}${S.pitch.kmh}`);
-          if (S.batakoSay) { S.batakoSay.sore = S.now; S.batakoSay.text = '新しい顔よ!それっ!'; }
+          if (S.batakoSay) { S.batakoSay.sore = S.now; S.batakoSay.text = 'それっ!'; }
           if (S.auto) planAI();
           setPhase('pitch');
         }

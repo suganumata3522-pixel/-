@@ -578,8 +578,7 @@
       if (k) txt(g, k, 100, y0 + i * 80, { font: UI(900, 36), fill: '#ffe14d' });
       txt(g, v, 260, y0 + i * 80, { font: fitFont(g, v, W - 360, 800, 38, 26), fill: '#ffffff' });
     });
-    txt(g, '※ 非公式のファンメイド作品です', W / 2, 1810, { font: UI(800, 30), align: 'center', fill: 'rgba(255,255,255,0.8)', strokes: [[6, 'rgba(4,10,30,0.6)']] });
-    txt(g, 'バタコさんの声: HTS Voice "Mei" (名古屋工業大学) CC BY 3.0', W / 2, 1856, { font: UI(800, 24), align: 'center', fill: 'rgba(255,255,255,0.7)', strokes: [[5, 'rgba(4,10,30,0.6)']] });
+    txt(g, '※ 非公式のファンメイド作品です', W / 2, 1830, { font: UI(800, 30), align: 'center', fill: 'rgba(255,255,255,0.8)', strokes: [[6, 'rgba(4,10,30,0.6)']] });
   }
 
   // ---------------- パーティクル(花火・紙吹雪) ----------------
