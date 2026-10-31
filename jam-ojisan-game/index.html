@@ -715,7 +715,7 @@ function addLadder(st, x, upper, lower, broken = false, noEnemy = false) {
 function buildStage(n) {
   const st = { n, floors: [], ladders: [], descents: [], hammers: [], items: [], bolts: [], beams: [], columns: [], canvas: null, collapsed: false };
   const add = f => { st.floors.push(f); return f; };
-  const hammer = (x, f) => st.hammers.push({ x, y: fy(f, x) - 15, taken: false });
+  const hammer = (x, f) => st.hammers.push({ x, y: fy(f, x) - 22, taken: false });   // jump to grab it
   const item = (type, x, f) => st.items.push({ type, x, y: fy(f, x), got: false });
   if (n === 1) {
     // sloped girders: Baikinman throws from the top right, they zig-zag down
