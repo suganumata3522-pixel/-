@@ -1,0 +1,1890 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#23324d">
+<title>ジャムおじさんのビルだいさくせん</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#23324d; --bg2:#141d2e; --ink:#1f1a17; --cream:#fff8e8;
+    --red:#e8483f; --red-d:#b5312a; --pad:#f4ead7; --pad-d:#cbbd9f;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;overflow:hidden;background:radial-gradient(circle at 50% 30%,#2e4266,var(--bg2));
+    color:var(--cream);font-family:"M PLUS Rounded 1c","Hiragino Maru Gothic ProN","Hiragino Sans","Yu Gothic","Meiryo",sans-serif;font-weight:800;
+    -webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent;touch-action:none;overscroll-behavior:none}
+  #cv{position:absolute;display:block;border-radius:10px;box-shadow:0 8px 30px rgba(0,0,0,.45);background:#bfe6ff;touch-action:none}
+  .ctl{position:absolute;touch-action:none;display:none}
+  body.touch .ctl{display:block}
+  #dpad{border-radius:50%;background:radial-gradient(circle at 40% 35%,#fffaf0,var(--pad) 60%,var(--pad-d));border:3px solid var(--ink);box-shadow:0 5px 0 rgba(0,0,0,.35)}
+  #dpad::before,#dpad::after{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:rgba(31,26,23,.08);border-radius:8px}
+  #dpad::before{width:34%;height:86%}
+  #dpad::after{width:86%;height:34%}
+  #dpad .ar{position:absolute;width:0;height:0;border-style:solid;z-index:1}
+  #dpad .u{left:50%;top:9%;transform:translateX(-50%);border-width:0 14px 18px 14px;border-color:transparent transparent var(--ink) transparent}
+  #dpad .d{left:50%;bottom:9%;transform:translateX(-50%);border-width:18px 14px 0 14px;border-color:var(--ink) transparent transparent transparent}
+  #dpad .l{top:50%;left:9%;transform:translateY(-50%);border-width:14px 18px 14px 0;border-color:transparent var(--ink) transparent transparent}
+  #dpad .r{top:50%;right:9%;transform:translateY(-50%);border-width:14px 0 14px 18px;border-color:transparent transparent transparent var(--ink)}
+  #dpad .u.on{border-bottom-color:var(--red)} #dpad .d.on{border-top-color:var(--red)}
+  #dpad .l.on{border-right-color:var(--red)} #dpad .r.on{border-left-color:var(--red)}
+  #jumpBtn{border-radius:50%;background:radial-gradient(circle at 38% 32%,#ff8a7a,var(--red) 55%,var(--red-d));border:3px solid var(--ink);
+    box-shadow:0 6px 0 rgba(0,0,0,.35);color:#fff;align-items:center;justify-content:center;text-align:center;line-height:1.1;
+    text-shadow:0 2px 0 rgba(0,0,0,.35);letter-spacing:.02em}
+  body.touch #jumpBtn{display:flex}
+  #jumpBtn.on{transform:translateY(4px);box-shadow:0 2px 0 rgba(0,0,0,.35)}
+  #mini{position:absolute;display:flex;gap:10px}
+  #mini button{width:42px;height:42px;border-radius:50%;border:2.5px solid var(--ink);background:var(--pad);color:var(--ink);
+    font:inherit;font-size:15px;padding:0;cursor:pointer;box-shadow:0 3px 0 rgba(0,0,0,.3)}
+  #mini button.off{opacity:.55;text-decoration:line-through}
+  #help{position:absolute;left:0;right:0;text-align:center;font-size:13px;opacity:.85;display:none;padding:0 8px}
+  body:not(.touch) #help{display:block}
+  noscript{display:block;padding:2em;text-align:center}
+</style>
+</head>
+<body>
+<noscript>このゲームを あそぶには JavaScript を ゆうこうに してください。</noscript>
+<canvas id="cv" aria-label="ゲームがめん"></canvas>
+<div id="dpad" class="ctl" aria-label="いどう"><i class="ar u"></i><i class="ar d"></i><i class="ar l"></i><i class="ar r"></i></div>
+<div id="jumpBtn" class="ctl" aria-label="ジャンプ">ジャンプ</div>
+<div id="mini"><button id="pauseBtn" title="ポーズ (P)" aria-label="ポーズ">Ⅱ</button><button id="muteBtn" title="おと (M)" aria-label="おと">♪</button></div>
+<div id="help">← → いどう　↑ ↓ はしご　スペース / Z ジャンプ　P ポーズ　M おと</div>
+<script>
+'use strict';
+// ============================================================
+//  ジャムおじさんのビルだいさくせん  — core / audio
+// ============================================================
+const W = 224, H = 288, TAU = Math.PI * 2;
+const OL = '#1f1a17';          // outline color (thick Anpanman-style lines)
+const LW = 0.8;                // outline width in logical px
+const FONT = '"M PLUS Rounded 1c","Hiragino Maru Gothic ProN","Hiragino Sans","Yu Gothic","Meiryo",sans-serif';
+const COL = {
+  skin: '#eba98a', skinD: '#c97b66', hair: '#c3d5cf', white: '#fbfaf5', shoe: '#7a9a8b',
+  bskin: '#f8d6b8', bcheek: '#f59a95', bhair: '#2f2626', bdress: '#e4473d', bshoe: '#8c3b2c',
+  bk: '#1f2b2e', bkPurple: '#9b80c6', bkNose: '#8a6fb6', bkEye: '#f7dbe9', wing: '#eef3f3',
+  kabi: '#566b42', kabiD: '#3e4f30',
+  girder: '#ee5e44', girderT: '#b53a2a', girderH: '#ff9f86',
+  beam: '#f2a43c', beamT: '#b8701f', beamH: '#ffd08a',
+  ladder: '#ffd84d', bolt: '#dfe4ea', boltD: '#8d96a3', column: '#93a7bb', columnD: '#6c8197',
+};
+const cv = document.getElementById('cv');
+let ctx = cv.getContext('2d');
+let VS = 2, DPR = 1;           // view scale (logical -> css px), device pixel ratio
+
+const clamp = (v, a, b) => v < a ? a : v > b ? b : v;
+const rand = (a, b) => a + Math.random() * (b - a);
+const randi = (a, b) => Math.floor(rand(a, b + 1));
+const chance = p => Math.random() < p;
+const pick = arr => arr[Math.floor(Math.random() * arr.length)];
+const lerp = (a, b, t) => a + (b - a) * t;
+
+// ------------------------------------------------------------
+//  Sound (WebAudio synth, no external files)
+// ------------------------------------------------------------
+const Snd = {
+  ac: null, out: null, bgmBus: null, sfxBus: null, noiseBuf: null, muted: false,
+  init() {
+    if (!this.ac) {
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return;
+      try { this.ac = new AC(); } catch (e) { return; }
+      this.out = this.ac.createGain(); this.out.gain.value = this.muted ? 0 : 0.6; this.out.connect(this.ac.destination);
+      this.bgmBus = this.ac.createGain(); this.bgmBus.gain.value = 0.34; this.bgmBus.connect(this.out);
+      this.sfxBus = this.ac.createGain(); this.sfxBus.gain.value = 0.6; this.sfxBus.connect(this.out);
+      const len = Math.floor(this.ac.sampleRate * 0.5);
+      this.noiseBuf = this.ac.createBuffer(1, len, this.ac.sampleRate);
+      const d = this.noiseBuf.getChannelData(0);
+      for (let i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
+    }
+    if (this.ac.state === 'suspended' && !G.paused) this.ac.resume();
+  },
+  setMuted(m) {
+    this.muted = m;
+    if (this.out) this.out.gain.setTargetAtTime(m ? 0 : 0.6, this.ac.currentTime, 0.02);
+  },
+  tone(f, dur, o = {}) {
+    if (!this.ac) return;
+    const t = this.ac.currentTime + (o.delay || 0);
+    const osc = this.ac.createOscillator(), g = this.ac.createGain();
+    osc.type = o.type || 'square';
+    osc.frequency.setValueAtTime(f, t);
+    if (o.slide) osc.frequency.exponentialRampToValueAtTime(o.slide, t + dur);
+    const v = o.vol == null ? 0.25 : o.vol;
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(v, t + 0.006);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    osc.connect(g); g.connect(this.sfxBus);
+    osc.start(t); osc.stop(t + dur + 0.03);
+  },
+  noise(dur, o = {}) {
+    if (!this.ac) return;
+    const t = this.ac.currentTime + (o.delay || 0);
+    const src = this.ac.createBufferSource(); src.buffer = this.noiseBuf; src.loop = true;
+    const filt = this.ac.createBiquadFilter(); filt.type = o.ftype || 'lowpass';
+    filt.frequency.setValueAtTime(o.freq || 2000, t);
+    if (o.fslide) filt.frequency.exponentialRampToValueAtTime(o.fslide, t + dur);
+    const g = this.ac.createGain(); const v = o.vol == null ? 0.3 : o.vol;
+    g.gain.setValueAtTime(v, t); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    src.connect(filt); filt.connect(g); g.connect(this.sfxBus);
+    src.start(t); src.stop(t + dur + 0.03);
+  },
+  note(bus, f, t, dur, type, vol) {
+    const osc = this.ac.createOscillator(), g = this.ac.createGain();
+    osc.type = type; osc.frequency.value = f;
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(vol, t + 0.008);
+    g.gain.setValueAtTime(vol, t + dur * 0.55);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    osc.connect(g); g.connect(bus);
+    osc.start(t); osc.stop(t + dur + 0.03);
+  },
+};
+
+const SFX = {
+  jump() { Snd.tone(330, 0.16, { slide: 760, vol: 0.17 }); },
+  step(i) { Snd.tone(i ? 190 : 235, 0.035, { type: 'triangle', vol: 0.22 }); },
+  climb(i) { Snd.tone(i ? 520 : 610, 0.03, { type: 'triangle', vol: 0.15 }); },
+  land() { Snd.noise(0.05, { freq: 900, vol: 0.18 }); },
+  over() { Snd.tone(988, 0.07, { vol: 0.15 }); Snd.tone(1319, 0.12, { vol: 0.15, delay: 0.07 }); },
+  smash() { Snd.noise(0.18, { freq: 3000, fslide: 300, vol: 0.35 }); Snd.tone(700, 0.15, { slide: 120, vol: 0.2 }); },
+  swing() { Snd.noise(0.035, { freq: 1500, vol: 0.1 }); },
+  item() { [1047, 1319, 1568, 2093].forEach((f, i) => Snd.tone(f, 0.09, { vol: 0.15, delay: i * 0.06 })); },
+  hammer() { [523, 659, 784, 1047, 784, 1047].forEach((f, i) => Snd.tone(f, 0.08, { vol: 0.15, delay: i * 0.05 })); },
+  bolt() { Snd.tone(420, 0.09, { slide: 1400, vol: 0.2 }); Snd.tone(1760, 0.08, { vol: 0.12, delay: 0.08, type: 'triangle' }); },
+  throw() { Snd.noise(0.22, { freq: 400, fslide: 2400, vol: 0.16, ftype: 'bandpass' }); },
+  drop() { Snd.tone(1400, 0.45, { slide: 300, vol: 0.08, type: 'triangle' }); },
+  laugh() { [620, 540, 660, 520, 470].forEach((f, i) => Snd.tone(f, 0.12, { type: 'sawtooth', vol: 0.08, delay: i * 0.13, slide: f * 0.85 })); },
+  warn() { Snd.tone(880, 0.06, { vol: 0.12 }); },
+  oneup() { [784, 988, 1175, 1568, 1175, 1568].forEach((f, i) => Snd.tone(f, 0.08, { vol: 0.15, delay: i * 0.07 })); },
+  crash() { Snd.noise(1.2, { freq: 700, fslide: 80, vol: 0.5 }); Snd.tone(110, 0.5, { slide: 40, vol: 0.3, type: 'triangle' }); },
+  rumble() { Snd.noise(0.5, { freq: 220, vol: 0.22 }); },
+  poof() { Snd.noise(0.12, { freq: 2500, fslide: 600, vol: 0.14 }); },
+  heart() { [1319, 1568, 2093].forEach((f, i) => Snd.tone(f, 0.12, { type: 'triangle', vol: 0.18, delay: i * 0.09 })); },
+  breakHeart() { Snd.tone(600, 0.35, { slide: 180, vol: 0.14, type: 'sawtooth' }); },
+  tick() { Snd.tone(1760, 0.025, { vol: 0.07 }); },
+  select() { Snd.tone(660, 0.06, { vol: 0.15 }); Snd.tone(990, 0.08, { vol: 0.15, delay: 0.06 }); },
+  whoosh() { Snd.noise(0.35, { freq: 300, fslide: 3000, vol: 0.14, ftype: 'bandpass' }); },
+};
+
+// ------------------------------------------------------------
+//  Music: tiny step sequencer. All melodies are original.
+//  token = one 8th note.  "-" holds the previous note, "." rests, "|" is ignored.
+// ------------------------------------------------------------
+const NOTE = { C: 0, 'C#': 1, D: 2, 'D#': 3, E: 4, F: 5, 'F#': 6, G: 7, 'G#': 8, A: 9, 'A#': 10, B: 11 };
+function nfreq(n) {
+  const m = /^([A-G]#?)(\d)$/.exec(n);
+  const midi = NOTE[m[1]] + (+m[2] + 1) * 12;
+  return 440 * Math.pow(2, (midi - 69) / 12);
+}
+function parseTrack(str) {
+  const out = [];
+  for (const tok of str.trim().split(/\s+/)) {
+    if (tok === '|') continue;
+    if (tok === '-') { if (out.length) out[out.length - 1].len++; }
+    else if (tok === '.') out.push({ f: 0, len: 1 });
+    else out.push({ f: nfreq(tok), len: 1 });
+  }
+  return out;
+}
+const SONGS = {
+  stage1: { bpm: 152, loop: true, tracks: [
+    { type: 'square', vol: 0.15, gate: 0.85, notes: `
+      C5 E5 G5 E5 F5 A5 G5 . | E5 G5 C6 B5 A5 G5 E5 . | F5 F5 A5 F5 E5 E5 G5 E5 | D5 E5 F5 D5 G5 - - . |
+      C5 E5 G5 E5 F5 A5 G5 . | E5 G5 C6 D6 E6 D6 C6 . | A5 C6 B5 A5 G5 F5 E5 D5 | C5 - G4 - C5 - - .` },
+    { type: 'triangle', vol: 0.3, gate: 0.7, notes: `
+      C3 . G3 . C3 . G3 . | C3 . G3 . E3 . G3 . | F2 . C3 . F2 . C3 . | G2 . D3 . G2 . B2 . |
+      C3 . G3 . C3 . G3 . | A2 . E3 . A2 . E3 . | F2 . C3 . G2 . D3 . | C3 . G2 . C3 . . .` }] },
+  stage2: { bpm: 140, loop: true, tracks: [
+    { type: 'square', vol: 0.14, gate: 0.8, notes: `
+      F5 . A5 C6 . A5 F5 . | G5 . A5 A#5 . A5 G5 . | E5 . G5 C6 . G5 E5 . | F5 G5 A5 G5 F5 - . . |
+      D5 . F5 A5 . F5 D5 . | C5 . E5 G5 . A#5 A5 G5 | F5 . A5 G5 . E5 C5 . | F5 - - . C5 - F5 .` },
+    { type: 'triangle', vol: 0.3, gate: 0.7, notes: `
+      F2 . C3 . A2 . C3 . | C3 . G2 . C3 . E3 . | C3 . G2 . E3 . G2 . | F2 . C3 . F2 . A2 . |
+      D3 . A2 . F3 . A2 . | C3 . G2 . A#2 . C3 . | F2 . C3 . C3 . G2 . | F2 . C3 . F2 . . .` }] },
+  stage3: { bpm: 160, loop: true, tracks: [
+    { type: 'square', vol: 0.13, gate: 0.8, notes: `
+      A4 . C5 E5 A5 . G5 E5 | F5 . E5 D5 E5 - . . | A4 . C5 E5 A5 . B5 C6 | B5 . G5 E5 G5 - . . |
+      F5 . A5 F5 E5 . G5 E5 | D5 . F5 D5 C5 . E5 C5 | B4 C5 D5 E5 F5 E5 D5 B4 | A4 - E4 - A4 - . .` },
+    { type: 'triangle', vol: 0.32, gate: 0.6, notes: `
+      A2 A3 A2 A3 A2 A3 A2 A3 | F2 F3 F2 F3 G2 G3 G2 G3 | A2 A3 A2 A3 A2 A3 A2 A3 | E2 E3 E2 E3 E2 E3 G#2 G#3 |
+      F2 F3 F2 F3 C3 C4 C3 C4 | D2 D3 D2 D3 A2 A3 A2 A3 | E2 E3 E2 E3 E2 E3 E2 E3 | A2 A3 A2 A3 A2 . . .` }] },
+  hammer: { bpm: 210, loop: true, tracks: [
+    { type: 'square', vol: 0.12, gate: 0.7, notes: `C5 E5 G5 C6 G5 E5 C5 E5 | D5 F5 A5 D6 A5 F5 D5 F5 | E5 G5 B5 E6 B5 G5 E5 G5 | F5 A5 C6 F6 G5 B5 D6 G6` },
+    { type: 'triangle', vol: 0.3, gate: 0.5, notes: `C3 . C4 . C3 . C4 . | D3 . D4 . D3 . D4 . | E3 . E4 . E3 . E4 . | F3 . F4 . G3 . G4 .` }] },
+  start: { bpm: 180, loop: false, tracks: [
+    { type: 'square', vol: 0.15, gate: 0.9, notes: `G4 C5 E5 G5 - E5 G5 - C6 - - .` },
+    { type: 'triangle', vol: 0.3, gate: 0.8, notes: `C3 . G3 . C3 . G3 . C3 - - .` }] },
+  clear: { bpm: 170, loop: false, tracks: [
+    { type: 'square', vol: 0.15, gate: 0.9, notes: `C5 E5 G5 C6 . G5 C6 . E6 - D6 - C6 - - -` },
+    { type: 'triangle', vol: 0.3, gate: 0.8, notes: `C3 . G3 . E3 . G3 . F3 - G3 - C3 - - -` }] },
+  roundclear: { bpm: 160, loop: false, tracks: [
+    { type: 'square', vol: 0.15, gate: 0.9, notes: `G5 E5 G5 C6 - B5 A5 B5 G5 - - . A5 F5 A5 D6 - C6 B5 C6 E6 - - . G6 - - - E6 - C6 - - - - -` },
+    { type: 'triangle', vol: 0.3, gate: 0.8, notes: `C3 . G3 . C3 . G3 . G2 . D3 . G2 . D3 . F2 . C3 . F2 . C3 . C3 . G3 . E3 . G3 . C3 - - - - -` }] },
+  death: { bpm: 200, loop: false, tracks: [
+    { type: 'square', vol: 0.14, gate: 0.9, notes: `B5 A#5 A5 G#5 G5 F#5 F5 E5 . . C5 . G4 . C4 - -` }] },
+  gameover: { bpm: 110, loop: false, tracks: [
+    { type: 'square', vol: 0.14, gate: 0.9, notes: `E5 . D5 . C5 . B4 . A4 - - - . . . .` },
+    { type: 'triangle', vol: 0.3, gate: 0.9, notes: `A2 - - - G2 - - - F2 - - - E2 - - -` }] },
+};
+for (const k in SONGS) for (const tr of SONGS[k].tracks) tr.ev = parseTrack(tr.notes);
+
+const Music = {
+  cur: null, curName: null, timer: null,
+  play(name) {
+    this.stop();
+    if (!Snd.ac) return;
+    const song = SONGS[name]; if (!song) return;
+    const bus = Snd.ac.createGain(); bus.connect(Snd.bgmBus);
+    const t0 = Snd.ac.currentTime + 0.06;
+    this.curName = name;
+    this.cur = { song, bus, tracks: song.tracks.map(tr => ({ tr, i: 0, t: t0 })) };
+    this.timer = setInterval(() => this.pump(), 30);
+    this.pump();
+  },
+  want(name) { if (this.curName !== name) this.play(name); },
+  stop() {
+    if (this.timer) clearInterval(this.timer);
+    this.timer = null;
+    if (this.cur && Snd.ac) {
+      const bus = this.cur.bus;
+      bus.gain.setTargetAtTime(0, Snd.ac.currentTime, 0.015);
+      setTimeout(() => bus.disconnect(), 400);
+    }
+    this.cur = null; this.curName = null;
+  },
+  pump() {
+    const c = this.cur; if (!c || !Snd.ac) return;
+    const spb = 60 / c.song.bpm / 2;
+    const horizon = Snd.ac.currentTime + 0.2;
+    let busy = false;
+    for (const st of c.tracks) {
+      while (st.t < horizon) {
+        if (st.i >= st.tr.ev.length) { if (c.song.loop) st.i = 0; else break; }
+        const e = st.tr.ev[st.i++], dur = e.len * spb;
+        if (e.f) Snd.note(c.bus, e.f, st.t, dur * (st.tr.gate || 0.9), st.tr.type, st.tr.vol);
+        st.t += dur;
+      }
+      if (c.song.loop || st.i < st.tr.ev.length) busy = true;
+    }
+    // a finished jingle keeps its name so want() doesn't restart it
+    if (!busy) { clearInterval(this.timer); this.timer = null; }
+  },
+};
+
+// ------------------------------------------------------------
+//  Drawing helpers
+// ------------------------------------------------------------
+function rrPath(x, y, w, h, r) {
+  r = Math.max(0, Math.min(r, w / 2, h / 2));
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + w, y, x + w, y + h, r);
+  ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r);
+  ctx.arcTo(x, y, x + w, y, r);
+  ctx.closePath();
+}
+function rrect(x, y, w, h, r, fill, stroke = true) {
+  rrPath(x, y, w, h, r);
+  if (fill) { ctx.fillStyle = fill; ctx.fill(); }
+  if (stroke) ctx.stroke();
+}
+function circ(x, y, r, fill, stroke = true) {
+  ctx.beginPath(); ctx.arc(x, y, Math.max(0.01, r), 0, TAU);
+  if (fill) { ctx.fillStyle = fill; ctx.fill(); }
+  if (stroke) ctx.stroke();
+}
+function ell(x, y, rx, ry, fill, stroke = true, rot = 0) {
+  ctx.beginPath(); ctx.ellipse(x, y, Math.max(0.01, rx), Math.max(0.01, ry), rot, 0, TAU);
+  if (fill) { ctx.fillStyle = fill; ctx.fill(); }
+  if (stroke) ctx.stroke();
+}
+// union of circles with a single outline (stroke wide, then fill over the inner half)
+function blob(cs, fill) {
+  const lw = ctx.lineWidth;
+  ctx.lineWidth = lw * 2;
+  for (const c of cs) { ctx.beginPath(); ctx.arc(c[0], c[1], c[2], 0, TAU); ctx.stroke(); }
+  ctx.lineWidth = lw; ctx.fillStyle = fill;
+  for (const c of cs) { ctx.beginPath(); ctx.arc(c[0], c[1], c[2], 0, TAU); ctx.fill(); }
+}
+function puff(x, y, r, fill) {
+  blob([[x - r * .45, y - r * .35, r * .62], [x + r * .42, y - r * .4, r * .6], [x - r * .5, y + r * .38, r * .6],
+    [x + r * .45, y + r * .38, r * .6], [x, y, r * .62]], fill);
+}
+function limb(x1, y1, x2, y2, w, fill) {
+  const lw = ctx.lineWidth;
+  ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2);
+  ctx.lineWidth = w + lw * 2; ctx.strokeStyle = OL; ctx.stroke();
+  ctx.lineWidth = w; ctx.strokeStyle = fill; ctx.stroke();
+  ctx.lineWidth = lw; ctx.strokeStyle = OL;
+}
+function beginChar(x, y, s, dir) {
+  ctx.save(); ctx.translate(x, y); ctx.scale(dir < 0 ? -s : s, s);
+  ctx.lineWidth = LW / s; ctx.strokeStyle = OL; ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+}
+function endChar() { ctx.restore(); }
+function text(s, x, y, size, color, align = 'center', outline = null, ow = 2) {
+  ctx.font = `800 ${size}px ${FONT}`; ctx.textAlign = align; ctx.textBaseline = 'middle';
+  if (outline) { ctx.lineWidth = ow; ctx.strokeStyle = outline; ctx.lineJoin = 'round'; ctx.strokeText(s, x, y); }
+  ctx.fillStyle = color; ctx.fillText(s, x, y);
+}
+function bubble(x, y, s, size = 6, tailDX = 0) {
+  ctx.font = `800 ${size}px ${FONT}`;
+  const w = ctx.measureText(s).width + size * 1.1, h = size * 1.75, x0 = x;
+  x = clamp(x, w / 2 + 2, W - w / 2 - 2);
+  ctx.lineWidth = 0.7; ctx.strokeStyle = OL; ctx.lineJoin = 'round';
+  rrPath(x - w / 2, y - h / 2, w, h, h / 2); ctx.fillStyle = '#fff'; ctx.fill(); ctx.stroke();
+  if (tailDX !== null) {
+    const tx = clamp(x0 + tailDX, x - w / 2 + 4, x + w / 2 - 4), by = y + h / 2;
+    ctx.beginPath(); ctx.moveTo(tx - 2.4, by - 0.3); ctx.lineTo(tx + (tailDX < 0 ? -2 : 2), by + 4); ctx.lineTo(tx + 2.4, by - 0.3);
+    ctx.fillStyle = '#fff'; ctx.fill(); ctx.stroke();
+    ctx.fillRect(tx - 2, by - 1.1, 4, 1.3);
+  }
+  text(s, x, y + size * 0.05, size, OL);
+}
+function heart(x, y, s, split = 0) {
+  for (const side of split ? [-1, 1] : [0]) {
+    ctx.save();
+    ctx.translate(x + side * split * 6, y + split * split * 8);
+    ctx.rotate(side * split * 0.6);
+    ctx.scale(s / 10, s / 10);
+    ctx.lineWidth = LW * 10 / s; ctx.strokeStyle = OL; ctx.lineJoin = 'round';
+    if (side) { ctx.beginPath(); if (side < 0) ctx.rect(-12, -12, 11.4, 24); else ctx.rect(0.6, -12, 12, 24); ctx.clip(); }
+    ctx.beginPath(); ctx.moveTo(0, 8); ctx.bezierCurveTo(-11, 1, -10, -9, 0, -4); ctx.bezierCurveTo(10, -9, 11, 1, 0, 8); ctx.closePath();
+    ctx.fillStyle = '#ff5d7a'; ctx.fill(); ctx.stroke();
+    ell(-4, -3.2, 1.8, 1.1, 'rgba(255,255,255,.85)', false, -0.5);
+    ctx.restore();
+  }
+}
+function star5(x, y, r, fill) {
+  ctx.beginPath();
+  for (let i = 0; i < 10; i++) {
+    const a = -Math.PI / 2 + i * Math.PI / 5, rr = i % 2 ? r * 0.45 : r;
+    ctx.lineTo(x + Math.cos(a) * rr, y + Math.sin(a) * rr);
+  }
+  ctx.closePath(); ctx.fillStyle = fill; ctx.fill(); ctx.stroke();
+}
+
+// ------------------------------------------------------------
+//  ジャムおじさん
+// ------------------------------------------------------------
+function chefHat(cx, by) {
+  const cs = [[cx - 4.6, by - 10.4, 3.9], [cx + 0.2, by - 12.1, 4.4], [cx + 4.8, by - 10.3, 3.8]];
+  const lw = ctx.lineWidth;
+  ctx.lineWidth = lw * 2;
+  rrPath(cx - 5.6, by - 10, 11.2, 10, 1.5); ctx.stroke();
+  for (const c of cs) { ctx.beginPath(); ctx.arc(c[0], c[1], c[2], 0, TAU); ctx.stroke(); }
+  ctx.lineWidth = lw; ctx.fillStyle = COL.white;
+  rrPath(cx - 5.6, by - 10, 11.2, 10, 1.5); ctx.fill();
+  for (const c of cs) { ctx.beginPath(); ctx.arc(c[0], c[1], c[2], 0, TAU); ctx.fill(); }
+  ctx.beginPath(); ctx.moveTo(cx - 5.6, by - 2.8); ctx.lineTo(cx + 5.6, by - 2.8); ctx.stroke();
+}
+function jamHead(o = {}) {
+  const f = 0.6;
+  puff(-8.3, -3.4, 4.6, COL.hair); puff(8.3, -3.4, 4.6, COL.hair);
+  circ(0, 0, 8.3, COL.skin);
+  ctx.beginPath(); ctx.moveTo(-4.9 + f, 3.4); ctx.quadraticCurveTo(f, 8.6, 4.9 + f, 3.4); ctx.stroke();
+  circ(-4.7 + f, 1.3, 2.7, COL.skinD, false); circ(4.7 + f, 1.3, 2.7, COL.skinD, false);
+  ctx.beginPath(); ctx.arc(-4.7 + f, 1.3, 2.7, Math.PI * 0.55, Math.PI * 1.45); ctx.stroke();
+  ctx.beginPath(); ctx.arc(4.7 + f, 1.3, 2.7, -Math.PI * 0.45, Math.PI * 0.45); ctx.stroke();
+  circ(f, 1.1, 2.9, COL.skinD);
+  blob([[-2.3 + f, 4.5, 1.25], [f, 4.9, 1.3], [2.3 + f, 4.5, 1.25]], COL.hair);
+  if (o.dizzy) {
+    for (const ex of [-2.6, 2.6]) {
+      ctx.beginPath(); ctx.moveTo(ex + f - 1.1, -3.5); ctx.lineTo(ex + f + 1.1, -1.3);
+      ctx.moveTo(ex + f + 1.1, -3.5); ctx.lineTo(ex + f - 1.1, -1.3); ctx.stroke();
+    }
+  } else if (o.happy) {
+    for (const ex of [-2.6, 2.6]) { ctx.beginPath(); ctx.arc(ex + f, -1.6, 1.2, Math.PI * 1.1, Math.PI * 1.9); ctx.stroke(); }
+  } else {
+    ell(-2.6 + f, -2.4, 0.95, 1.35, OL, false); ell(2.6 + f, -2.4, 0.95, 1.35, OL, false);
+  }
+  ctx.fillStyle = '#fff';
+  ctx.fillRect(-5.3 + f, 0.1, 1.1, 1.1); ctx.fillRect(-0.55 + f, -0.1, 1.1, 1.1); ctx.fillRect(4.1 + f, 0.1, 1.1, 1.1);
+  blob([[-5.2, -6.4, 1.6], [-3.4, -6.9, 1.7], [-1.7, -6.5, 1.3]], COL.hair);
+  blob([[5.2, -6.4, 1.6], [3.4, -6.9, 1.7], [1.7, -6.5, 1.3]], COL.hair);
+  chefHat(0, -6.3);
+}
+function drawMallet(px, py, ang) {
+  ctx.save(); ctx.translate(px, py); ctx.rotate(ang);
+  rrect(-1.1, -14, 2.2, 16, 1, '#a8692f');
+  rrect(-6.5, -19.5, 13, 7.6, 2.6, '#e3a35a');
+  ctx.beginPath(); ctx.moveTo(-3.3, -19.3); ctx.lineTo(-3.3, -12.1); ctx.moveTo(3.3, -19.3); ctx.lineTo(3.3, -12.1); ctx.stroke();
+  ctx.restore();
+}
+function jamBack(ph) {
+  const a = Math.sin(ph * TAU) * 1.5;
+  rrect(-4.9, -7 - a, 3.4, 5.6, 1.2, COL.white); rrect(1.5, -7 + a, 3.4, 5.6, 1.2, COL.white);
+  ell(-3.2, -1.6 - a, 2.6, 1.6, COL.shoe); ell(3.2, -1.6 + a, 2.6, 1.6, COL.shoe);
+  rrect(-6.2, -17.6, 12.4, 11.6, 4.5, COL.white);
+  ell(-1.8, -11.3, 1.8, 1.1, COL.white); ell(1.8, -11.3, 1.8, 1.1, COL.white); circ(0, -11.3, 0.8, COL.white);
+  const hl = [-8, -30.5 - a * 1.6], hr = [8, -30.5 + a * 1.6];
+  limb(-5.2, -15.5, hl[0], hl[1], 3.2, COL.white); limb(5.2, -15.5, hr[0], hr[1], 3.2, COL.white);
+  ctx.save(); ctx.translate(0, -25.6);
+  puff(-8.3, -3.4, 4.6, COL.hair); puff(8.3, -3.4, 4.6, COL.hair);
+  circ(0, 0, 8.3, COL.skin);
+  blob([[-5.4, 3.6, 2.7], [-1.9, 4.6, 2.9], [1.9, 4.6, 2.9], [5.4, 3.6, 2.7]], COL.hair);
+  chefHat(0, -6.3);
+  ctx.restore();
+  circ(hl[0], hl[1], 2.2, COL.skin); circ(hr[0], hr[1], 2.2, COL.skin);
+}
+// o: {pose:'stand'|'walk'|'jump'|'cheer'|'climb', ph, ham:'up'|'down', dizzy, happy, rot}
+function drawJam(x, y, dir, o = {}) {
+  const pose = o.pose || 'stand', ph = o.ph || 0;
+  beginChar(x, y, 0.56, dir);
+  if (o.rot) { ctx.translate(0, -16); ctx.rotate(o.rot); ctx.translate(0, 16); }
+  if (pose === 'climb') { jamBack(ph); endChar(); return; }
+  const walk = pose === 'walk', jump = pose === 'jump' || pose === 'cheer';
+  const sw = walk ? Math.sin(ph * TAU) : 0;
+  const bob = walk ? -Math.abs(sw) * 0.9 : 0;
+  const lx = jump ? -4.6 : -3 + sw * 2, rx = jump ? 4.6 : 3 - sw * 2, ly = jump ? -1.2 : 0;
+  const liftL = walk ? Math.max(0, sw) * 1.2 : 0, liftR = walk ? Math.max(0, -sw) * 1.2 : 0;
+  rrect(lx - 1.7, -7 + ly - liftL, 3.4, 5.6, 1.2, COL.white);
+  rrect(rx - 1.7, -7 + ly - liftR, 3.4, 5.6, 1.2, COL.white);
+  ell(lx + 0.7, -1.6 + ly - liftL, 2.9, 1.7, COL.shoe);
+  ell(rx + 0.7, -1.6 + ly - liftR, 2.9, 1.7, COL.shoe);
+  ctx.translate(0, bob);
+  rrect(-6.2, -17.6, 12.4, 11.6, 4.5, COL.white);
+  rrect(-6.7, -12, 13.4, 6.8, 1.6, COL.white);
+  const ham = o.ham;
+  let hl, hr;
+  if (ham === 'up') { hl = [3.5, -21]; hr = [6.5, -20]; }
+  else if (ham === 'down') { hl = [6, -12.5]; hr = [8.5, -11.5]; }
+  else if (jump) { hl = [-8.4, -22]; hr = [8.4, -22]; }
+  else { hl = [-7.4, -10.5 + sw * 1.4]; hr = [7.4, -10.5 - sw * 1.4]; }
+  limb(-5, -15.5, hl[0], hl[1], 3.2, COL.white); circ(hl[0], hl[1], 2.2, COL.skin);
+  if (!ham) { limb(5, -15.5, hr[0], hr[1], 3.2, COL.white); circ(hr[0], hr[1], 2.2, COL.skin); }
+  ctx.save(); ctx.translate(0, -25.6); jamHead(o); ctx.restore();
+  if (ham) {
+    limb(5, -15.5, hr[0], hr[1], 3.2, COL.white);
+    drawMallet(hr[0], hr[1], ham === 'up' ? 0.25 : 1.85);
+    circ(hr[0], hr[1], 2.2, COL.skin);
+  }
+  endChar();
+}
+
+// ------------------------------------------------------------
+//  バタコさん
+// ------------------------------------------------------------
+// o: {t, wave, shout, hop, held}
+function drawBatako(x, y, dir, o = {}) {
+  beginChar(x, y, 0.56, dir);
+  const t = o.t || 0, f = 0.5;
+  if (o.hop) ctx.translate(0, -Math.abs(Math.sin(t * 0.18)) * 5);
+  ell(-2.6, -1.5, 2.4, 1.5, COL.bshoe); ell(2.6, -1.5, 2.4, 1.5, COL.bshoe);
+  limb(-2.4, -6.5, -2.5, -2.4, 1.9, COL.bskin); limb(2.4, -6.5, 2.5, -2.4, 1.9, COL.bskin);
+  const wv = Math.sin(t * 0.3);
+  let hl = [-6.4, -11], hr = [6.4, -11];
+  if (o.wave) { hl = [-8.2, -24 + wv * 2.2]; hr = [8.2, -24 - wv * 2.2]; }
+  if (o.held) { hl = [-6.5, -27]; hr = [6.5, -27]; }
+  limb(-4.2, -17, hl[0], hl[1], 2.8, COL.bdress); limb(4.2, -17, hr[0], hr[1], 2.8, COL.bdress);
+  circ(hl[0], hl[1], 1.75, COL.bskin); circ(hr[0], hr[1], 1.75, COL.bskin);
+  ctx.beginPath(); ctx.moveTo(-4.6, -18.6); ctx.lineTo(4.6, -18.6); ctx.lineTo(7.9, -5.4);
+  ctx.quadraticCurveTo(0, -3.6, -7.9, -5.4); ctx.closePath();
+  ctx.fillStyle = COL.bdress; ctx.fill(); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(-3.6, -14.6); ctx.lineTo(3.6, -14.6); ctx.lineTo(5.1, -6.4);
+  ctx.quadraticCurveTo(0, -5, -5.1, -6.4); ctx.closePath();
+  ctx.fillStyle = COL.white; ctx.fill(); ctx.stroke();
+  rrect(-2.6, -18.2, 5.2, 4.2, 1, COL.white);
+  ctx.save(); ctx.translate(0, -24.6);
+  ell(0, -0.2, 8.1, 7.5, COL.bhair);
+  circ(0, 0.9, 6.6, COL.bskin);
+  ctx.beginPath(); ctx.moveTo(-8.3, -1.2); ctx.arc(0, -1.2, 8.3, Math.PI, 0); ctx.quadraticCurveTo(0, -3.8, -8.3, -1.2); ctx.closePath();
+  ctx.fillStyle = COL.white; ctx.fill(); ctx.stroke();
+  ell(-2.4, -10.2, 2.4, 1.5, COL.white, true, -0.5); ell(2.4, -10.2, 2.4, 1.5, COL.white, true, 0.5); circ(0, -9.6, 1.3, COL.white);
+  ell(-2.2 + f, 1, 0.85, 1.2, OL, false); ell(2.2 + f, 1, 0.85, 1.2, OL, false);
+  circ(-4.1 + f, 3.1, 1.6, COL.bcheek, false); circ(4.1 + f, 3.1, 1.6, COL.bcheek, false);
+  if (o.shout) ell(f, 4.9, 1.3, 1.5, '#c0392b');
+  else { ctx.beginPath(); ctx.moveTo(-1.8 + f, 4.2); ctx.quadraticCurveTo(f, 5.8, 1.8 + f, 4.2); ctx.stroke(); }
+  ctx.restore();
+  endChar();
+}
+
+// ------------------------------------------------------------
+//  バイキンマン
+// ------------------------------------------------------------
+// o: {t, pose:'stand'|'lift'|'throw'|'grab'|'fly'|'laugh'|'ufo', s, rot, angry, dizzy, arm}
+function drawBaikin(x, y, dir, o = {}) {
+  beginChar(x, y, o.s || 0.66, dir);
+  const t = o.t || 0, pose = o.pose || 'stand', f = 0.8;
+  if (o.rot) { ctx.translate(0, -20); ctx.rotate(o.rot); ctx.translate(0, 20); }
+  const fly = pose === 'fly';
+  const flap = Math.sin(t * (fly ? 0.9 : 0.15)) * (fly ? 0.5 : 0.12);
+  for (const s of [-1, 1]) {
+    ctx.save(); ctx.translate(s * 7.5, -16.5); ctx.rotate(s * (0.3 + flap)); ctx.scale(s, 1);
+    blob([[2.6, -0.8, 2.6], [5.2, -2.6, 2.3], [5.6, 0.6, 2.1]], COL.wing);
+    ctx.restore();
+  }
+  ctx.save(); ctx.lineWidth *= 1.6;
+  ctx.beginPath(); ctx.moveTo(-4, -6); ctx.quadraticCurveTo(-10, -6.5, -11.2, -2.6); ctx.stroke();
+  ctx.restore();
+  ctx.beginPath(); ctx.moveTo(-11.2, -0.2); ctx.lineTo(-13.6, -3.8); ctx.lineTo(-9.4, -3.6); ctx.closePath();
+  ctx.fillStyle = COL.bkPurple; ctx.fill(); ctx.stroke();
+  rrect(-4.8, -7.5, 3.4, 5.4, 1, COL.bk); rrect(1.4, -7.5, 3.4, 5.4, 1, COL.bk);
+  ell(-3.8, -2.1, 3.3, 2.2, COL.bkPurple); ell(3.8, -2.1, 3.3, 2.2, COL.bkPurple);
+  let hl = [-7.8, -9.4], hr = [7.8, -9.4];
+  if (pose === 'lift') { hl = [-7, -36]; hr = [7, -36]; }
+  else if (pose === 'throw') { hr = [12, -19]; }
+  else if (pose === 'grab' || fly) { hl = [8, -10]; hr = [11, -12]; }
+  else if (pose === 'laugh') { hl = [-4, -9]; hr = [4, -9]; }
+  else if (pose === 'ufo') { hl = [-9, -15]; hr = [9.5, -22 - (o.arm || 0) * 0.3]; }
+  limb(-5.2, -14, hl[0], hl[1], 2.7, COL.bk); limb(5.2, -14, hr[0], hr[1], 2.7, COL.bk);
+  rrect(-6.2, -16.2, 12.4, 10.8, 4.6, COL.bk);
+  circ(0, -10.6, 1.3, COL.bkPurple);
+  const gloves = () => { circ(hl[0], hl[1], 2.3, COL.bkPurple); circ(hr[0], hr[1], 2.3, COL.bkPurple); };
+  if (pose !== 'lift') gloves();
+  ctx.save(); ctx.lineWidth *= 1.5;
+  ctx.beginPath(); ctx.moveTo(-3.4, -32); ctx.lineTo(-5.8, -40); ctx.moveTo(3.4, -32); ctx.lineTo(5.8, -40); ctx.stroke();
+  ctx.restore();
+  circ(-6, -40.6, 1.9, COL.bk); circ(6, -40.6, 1.9, COL.bk);
+  ctx.save(); ctx.translate(0, -24.4 + (pose === 'laugh' ? Math.sin(t * 0.6) * 0.6 : 0));
+  circ(0, 0, 10, COL.bk);
+  ctx.save(); ctx.beginPath(); ctx.arc(0, 0, 10, 0, TAU); ctx.clip();
+  ell(0, 4.7, 9.6, 5.4, COL.bkPurple);
+  ctx.restore();
+  circ(0, 0, 10, null);
+  const open = pose === 'laugh' ? 1.4 : 0;
+  ctx.beginPath(); ctx.moveTo(-7.4, 3.8); ctx.quadraticCurveTo(0, 0.8, 7.4, 3.8);
+  ctx.quadraticCurveTo(6.6, 9.6 + open, 0, 9.5 + open); ctx.quadraticCurveTo(-6.6, 9.6 + open, -7.4, 3.8); ctx.closePath();
+  ctx.fillStyle = '#fff'; ctx.fill(); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(-6.9, 5.8);
+  for (let i = 1; i <= 8; i++) ctx.lineTo(-6.9 + i * 1.725, i % 2 ? 7.1 + open * 0.5 : 5.6);
+  ctx.stroke();
+  circ(f * 0.5, 2.0, 2.6, COL.bkNose); ctx.fillStyle = '#fff'; ctx.fillRect(f * 0.5 - 0.65, 0.9, 1.3, 1.3);
+  ell(-3.1, -3.1, 2.9, 3.4, COL.bkEye); ell(3.1, -3.1, 2.9, 3.4, COL.bkEye);
+  if (o.dizzy) {
+    for (const ex of [-3.1, 3.1]) {
+      ctx.beginPath();
+      for (let a = 0; a < 10; a += 0.4) ctx.lineTo(ex + Math.cos(a + t * 0.3) * a * 0.22, -3.1 + Math.sin(a + t * 0.3) * a * 0.26);
+      ctx.stroke();
+    }
+  } else {
+    circ(-2.4 + f, -2.7, 1.3, OL, false); circ(3.8 + f, -2.7, 1.3, OL, false);
+  }
+  if (o.angry) {
+    ctx.save(); ctx.lineWidth *= 1.4;
+    ctx.beginPath(); ctx.moveTo(-6, -7.6); ctx.lineTo(-1.2, -5.8); ctx.moveTo(6, -7.6); ctx.lineTo(1.2, -5.8); ctx.stroke();
+    ctx.restore();
+  }
+  ctx.restore();
+  if (pose === 'lift') gloves();
+  endChar();
+}
+
+// ------------------------------------------------------------
+//  かびるんるん (walking / rolled-up ball)
+// ------------------------------------------------------------
+function drawKabi(x, y, dir, o = {}) {
+  beginChar(x, y, 0.5, dir);
+  const t = o.t || 0, f = 0.7, step = Math.sin(t * 0.35);
+  ell(-2.8, -1.4 - Math.max(0, step) * 1.3, 2.3, 1.4, COL.kabiD);
+  ell(2.8, -1.4 - Math.max(0, -step) * 1.3, 2.3, 1.4, COL.kabiD);
+  ctx.save(); ctx.lineWidth *= 1.1;
+  for (let i = 0; i < 8; i++) {
+    const a = -1.2 + i * (2.4 / 7) + Math.sin(t * 0.2 + i * 1.3) * 0.07;
+    const bx = Math.sin(a) * 5, by = -8.3 - Math.cos(a) * 5, tx = Math.sin(a) * 10.4, ty = -8.3 - Math.cos(a) * 9.6;
+    ctx.beginPath(); ctx.moveTo(bx, by); ctx.lineTo(tx, ty); ctx.stroke();
+    circ(tx, ty, 1.45, COL.kabiD);
+  }
+  ctx.restore();
+  limb(-6, -7, -8.6, -5 + step, 2, COL.kabi); limb(6, -7, 8.6, -5 - step, 2, COL.kabi);
+  ell(0, -8.3, 7.4, 6.6, COL.kabi);
+  ell(-2.3 + f, -9.8, 2, 2.4, '#fff'); ell(2.5 + f, -9.8, 2, 2.4, '#fff');
+  circ(-1.8 + f, -9.5, 1.05, OL, false); circ(3 + f, -9.5, 1.05, OL, false);
+  ctx.beginPath(); ctx.moveTo(-3.6 + f, -6.5); ctx.quadraticCurveTo(f, -2.4, 3.6 + f, -6.5); ctx.closePath();
+  ctx.fillStyle = '#fff'; ctx.fill(); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(-1 + f, -6.2); ctx.lineTo(-1 + f, -4.7); ctx.moveTo(1.2 + f, -6.2); ctx.lineTo(1.2 + f, -4.6); ctx.stroke();
+  endChar();
+}
+function drawKabiBall(x, y, ang) {   // y = ground contact point
+  beginChar(x, y - 4.6, 0.5, 1);
+  ctx.rotate(ang);
+  ctx.save(); ctx.lineWidth *= 1.1;
+  for (let i = 0; i < 8; i++) {
+    const a = i * TAU / 8 + 0.2, c = Math.cos(a), s = Math.sin(a);
+    ctx.beginPath(); ctx.moveTo(c * 5.5, s * 5.5); ctx.lineTo(c * 8, s * 8); ctx.stroke();
+    circ(c * 8.2, s * 8.2, 1.3, COL.kabiD);
+  }
+  ctx.restore();
+  circ(0, 0, 6.6, COL.kabi);
+  ell(-2.2, -1.6, 1.7, 2, '#fff'); ell(2.2, -1.6, 1.7, 2, '#fff');
+  circ(-1.9, -1.3, 0.9, OL, false); circ(2.5, -1.3, 0.9, OL, false);
+  ctx.beginPath(); ctx.moveTo(-2.8, 1.4); ctx.quadraticCurveTo(0, 4.6, 2.8, 1.4); ctx.closePath();
+  ctx.fillStyle = '#fff'; ctx.fill(); ctx.stroke();
+  endChar();
+}
+
+// ------------------------------------------------------------
+//  バイキンUFO, items, bolts, hammer
+// ------------------------------------------------------------
+function drawUFO(x, y, o = {}) {
+  const t = o.t || 0;
+  drawBaikin(x, y + 2, o.dir || 1, { pose: o.pose || 'ufo', t, arm: o.arm || 0, s: 0.6, angry: o.angry });
+  beginChar(x, y, 0.75, 1);
+  ell(0, 2.4, 22, 6.6, '#4a3d63');
+  ell(0, 0.4, 24.5, 3.9, COL.bkPurple);
+  ell(0, 7.2, 8, 2.6, '#3a304f');
+  for (let i = 0; i < 6; i++) {
+    const on = (((t >> 3) + i) % 2) === 0;
+    circ(-17.5 + i * 7, 0.6, 1.5, on ? '#ffe066' : '#ff8fb0');
+  }
+  endChar();
+}
+function drawItem(type, x, y) {      // y = floor surface
+  ctx.save(); ctx.lineWidth = 0.7; ctx.strokeStyle = OL; ctx.lineJoin = 'round';
+  if (type === 'anpan') {
+    ell(x, y - 3.6, 4.6, 3.6, '#c8783c'); ell(x - 1.4, y - 5, 2, 1, '#e6a35f', false); circ(x + 0.3, y - 6.3, 0.6, OL, false);
+  } else if (type === 'shokupan') {
+    ctx.beginPath(); ctx.moveTo(x - 3.8, y); ctx.lineTo(x - 3.8, y - 5);
+    ctx.arc(x - 2.2, y - 6, 2.4, Math.PI, Math.PI * 1.75); ctx.arc(x + 2.2, y - 6, 2.4, Math.PI * 1.25, 0);
+    ctx.lineTo(x + 3.8, y); ctx.closePath();
+    ctx.fillStyle = '#d9963f'; ctx.fill(); ctx.stroke();
+    rrect(x - 2.6, y - 6.6, 5.2, 5.8, 1.5, '#fff3d6', false);
+  } else {
+    ell(x, y - 3.2, 5.4, 3.2, '#d98a32');
+    for (const [dx, dy] of [[-2.5, -3.8], [0, -4.8], [2.4, -3.4], [-0.8, -2.2], [1.4, -2]]) circ(x + dx, y + dy, 0.45, '#9c5a1c', false);
+  }
+  ctx.restore();
+}
+function drawHammerItem(x, y, t) {
+  beginChar(x + 2, y + Math.sin(t * 0.08) * 1.2, 0.5, 1);
+  drawMallet(0, 8, -0.5);
+  endChar();
+}
+function drawBolt(x, y, rot = 0, glow = 0) {
+  ctx.save(); ctx.translate(x, y); ctx.rotate(rot); ctx.lineWidth = 0.7; ctx.strokeStyle = OL;
+  if (glow > 0) { ctx.fillStyle = `rgba(255,240,120,${glow})`; ctx.beginPath(); ctx.arc(0, 0, 6, 0, TAU); ctx.fill(); }
+  ctx.beginPath();
+  for (let i = 0; i < 6; i++) { const a = i * TAU / 6 + Math.PI / 6; ctx.lineTo(Math.cos(a) * 3.8, Math.sin(a) * 3.8); }
+  ctx.closePath(); ctx.fillStyle = COL.bolt; ctx.fill(); ctx.stroke();
+  circ(0, 0, 1.5, COL.boltD);
+  ctx.fillStyle = '#fff'; ctx.fillRect(-2.3, -2.5, 1.3, 1);
+  ctx.restore();
+}
+
+// ------------------------------------------------------------
+//  Stage geometry
+// ------------------------------------------------------------
+const STAGE_NAMES = ['こうじちゅうの ビル', 'ゆらゆら クレーン', 'てっこつの ボルト'];
+const STAGE_GOALS = ['バタコさんを たすけだせ！', 'クレーンを わたって すすめ！', 'ボルトを ぜんぶ ぬけ！'];
+
+function fy(f, x) { return f.x2 === f.x1 ? f.y1 : f.y1 + (f.y2 - f.y1) * (x - f.x1) / (f.x2 - f.x1); }
+function floorContains(f, x) {
+  if (x < f.x1 - 0.01 || x > f.x2 + 0.01) return false;
+  for (const g of f.gaps) if (g.active && x > g.a && x < g.b) return false;
+  return true;
+}
+function floorAtSameHeight(x, y, tol = 2.5) {
+  let best = null, bd = tol;
+  for (const f of G.st.floors) {
+    if (!floorContains(f, x)) continue;
+    const d = Math.abs(fy(f, x) - y);
+    if (d <= bd) { bd = d; best = f; }
+  }
+  return best;
+}
+function landFloor(x, y0, y1) {
+  let best = null, by = Infinity;
+  for (const f of G.st.floors) {
+    if (!floorContains(f, x)) continue;
+    const sy = fy(f, x);
+    if (y0 <= sy + 0.6 && y1 >= sy && sy < by) { by = sy; best = f; }
+  }
+  return best;
+}
+function F(x1, y1, x2, y2, rollDir = 0, lv = 0) { return { kind: 'girder', x1, y1, x2, y2, rollDir, lv, gaps: [] }; }
+function beam(st, y, a, b, w, phase, lv) {
+  const bm = { kind: 'beam', x1: a, x2: a + w, y1: y, y2: y, w, mid: (a + b) / 2, amp: (b - a) / 2, phase, lv, gaps: [], rollDir: 0, dx: 0 };
+  st.beams.push(bm); st.floors.push(bm);
+  return bm;
+}
+// full ladder, or a broken one (two short stubs the player can't climb through)
+function addLadder(st, x, upper, lower, broken = false, noEnemy = false) {
+  const top = fy(upper, x), bot = fy(lower, x);
+  st.descents.push({ x, upper, lower, top, bot });
+  if (!broken) st.ladders.push({ x, top, bot, topExit: true, botExit: true, upper, lower, full: !noEnemy });
+  else {
+    st.ladders.push({ x, top: bot - 11, bot, topExit: false, botExit: true, upper: null, lower, full: false });
+    st.ladders.push({ x, top, bot: top + 12, topExit: true, botExit: false, upper, lower: null, full: false });
+  }
+}
+
+function buildStage(n) {
+  const st = { n, floors: [], ladders: [], descents: [], hammers: [], items: [], bolts: [], beams: [], columns: [], canvas: null, collapsed: false };
+  const add = f => { st.floors.push(f); return f; };
+  const hammer = (x, f) => st.hammers.push({ x, y: fy(f, x) - 15, taken: false });
+  const item = (type, x, f) => st.items.push({ type, x, y: fy(f, x), got: false });
+  if (n === 1) {
+    // sloped girders: Baikinman throws from the top right, they zig-zag down
+    const g1 = add(F(0, 276, 224, 279, 1, 0));
+    const g2 = add(F(24, 244, 224, 238, -1, 1));
+    const g3 = add(F(0, 202, 200, 208, 1, 2));
+    const g4 = add(F(24, 172, 224, 166, -1, 3));
+    const g5 = add(F(0, 130, 200, 136, 1, 4));
+    const g6b = add(F(24, 100, 136, 96, -1, 5));
+    const g6a = add(F(136, 96, 224, 96, -1, 5));
+    const top = add(F(72, 60, 128, 60, 0, 6));
+    addLadder(st, 184, g2, g1); addLadder(st, 96, g2, g1, true);
+    addLadder(st, 56, g3, g2); addLadder(st, 148, g3, g2);
+    addLadder(st, 40, g4, g3); addLadder(st, 176, g4, g3); addLadder(st, 112, g4, g3, true);
+    addLadder(st, 72, g5, g4); addLadder(st, 168, g5, g4); addLadder(st, 120, g5, g4, true);
+    addLadder(st, 40, g6b, g5); addLadder(st, 152, g6a, g5); addLadder(st, 92, g6b, g5, true);
+    addLadder(st, 116, top, g6b, false, true);
+    hammer(36, g2); hammer(128, g4);
+    item('anpan', 140, g5);
+    Object.assign(st, { bottom: g1, goal: top, throwFloor: g6a, start: { x: 24, f: g1 }, batako: { x: 92, f: top }, bossPos: { x: 194, f: g6a } });
+  } else if (n === 2) {
+    // flat floors with gaps; crane beams swing across, the UFO drops kabirunrun
+    const f1 = add(F(0, 278, 224, 278, 0, 0));
+    const l2 = add(F(0, 242, 72, 242, 0, 1)), r2 = add(F(128, 242, 224, 242, 0, 1));
+    const f3 = add(F(0, 206, 160, 206, 0, 2));
+    const l4 = add(F(0, 170, 80, 170, 0, 3)), r4 = add(F(136, 170, 224, 170, 0, 3));
+    const f5 = add(F(24, 134, 224, 134, 0, 4));
+    const l6 = add(F(40, 98, 96, 98, 0, 5)), r6 = add(F(152, 98, 224, 98, 0, 5));
+    const top = add(F(16, 62, 80, 62, 0, 6));
+    beam(st, 242, 68, 108, 24, 0, 1); beam(st, 170, 76, 116, 24, 2.1, 3); beam(st, 98, 92, 132, 24, 4.2, 5);
+    addLadder(st, 200, r2, f1); addLadder(st, 40, l2, f1, true);
+    addLadder(st, 24, f3, l2);
+    addLadder(st, 152, r4, f3); addLadder(st, 56, l4, f3, true);
+    addLadder(st, 32, f5, l4);
+    addLadder(st, 196, r6, f5); addLadder(st, 72, l6, f5, true);
+    addLadder(st, 64, top, l6, false, true);
+    hammer(96, f3); hammer(150, f5);
+    item('anpan', 168, r2); item('shokupan', 100, f5); item('curry', 210, r6);
+    Object.assign(st, { bottom: f1, goal: top, start: { x: 24, f: f1 }, batako: { x: 36, f: top } });
+  } else {
+    // steel frame held by bolts
+    const f1 = add(F(0, 278, 224, 278, 0, 0));
+    const fl = [242, 206, 170, 134].map((y, i) => add(F(0, y, 224, y, 0, i + 1)));
+    const f6 = add(F(56, 98, 168, 98, 0, 5));
+    const top = add(F(88, 62, 136, 62, 0, 6));
+    st.columns = [{ x: 40, y: 134 }, { x: 112, y: 98 }, { x: 184, y: 134 }];
+    const bolt = (x, f) => st.bolts.push({ x, y: f.y1, f, out: false });
+    bolt(40, fl[0]); bolt(184, fl[0]);
+    bolt(40, fl[1]); bolt(112, fl[1]); bolt(184, fl[1]);
+    bolt(40, fl[2]); bolt(184, fl[2]);
+    bolt(40, fl[3]); bolt(112, fl[3]); bolt(184, fl[3]);
+    addLadder(st, 76, fl[0], f1); addLadder(st, 148, fl[0], f1);
+    addLadder(st, 22, fl[1], fl[0]); addLadder(st, 202, fl[1], fl[0]);
+    addLadder(st, 76, fl[2], fl[1]); addLadder(st, 148, fl[2], fl[1]);
+    addLadder(st, 22, fl[3], fl[2]); addLadder(st, 202, fl[3], fl[2]);
+    addLadder(st, 76, f6, fl[3]); addLadder(st, 148, f6, fl[3]);
+    hammer(94, fl[1]); hammer(130, fl[3]);
+    item('anpan', 112, fl[0]); item('shokupan', 112, fl[2]); item('curry', 62, f6);
+    Object.assign(st, { bottom: f1, top, f6, boltFloors: fl, start: { x: 30, f: f1 }, batako: { x: 112, f: top }, bossPos: { x: 112, f: f6 } });
+  }
+  return st;
+}
+
+// ------------------------------------------------------------
+//  Structure & background drawing (cached into an offscreen canvas)
+// ------------------------------------------------------------
+function drawGirder(x1, y1, x2, y2, T, kind) {
+  const c = kind === 'beam' ? [COL.beam, COL.beamT, COL.beamH] : [COL.girder, COL.girderT, COL.girderH];
+  ctx.save();
+  ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.lineTo(x2, y2 + T); ctx.lineTo(x1, y1 + T); ctx.closePath();
+  ctx.fillStyle = c[0]; ctx.fill();
+  ctx.save(); ctx.clip();
+  ctx.strokeStyle = c[1]; ctx.lineWidth = 0.75; ctx.lineJoin = 'round'; ctx.beginPath();
+  const n = Math.max(2, Math.round((x2 - x1) / 6));
+  for (let i = 0; i <= n; i++) {
+    const xa = x1 + (x2 - x1) * i / n, ya = y1 + (y2 - y1) * i / n;
+    const yy = i % 2 ? ya + T - 1.5 : ya + 1.5;
+    if (i === 0) ctx.moveTo(xa, yy); else ctx.lineTo(xa, yy);
+  }
+  ctx.stroke();
+  ctx.strokeStyle = c[2]; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(x1, y1 + 0.9); ctx.lineTo(x2, y2 + 0.9); ctx.stroke();
+  ctx.restore();
+  ctx.strokeStyle = OL; ctx.lineWidth = LW; ctx.lineJoin = 'round';
+  ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.lineTo(x2, y2 + T); ctx.lineTo(x1, y1 + T); ctx.closePath(); ctx.stroke();
+  ctx.restore();
+}
+function drawFloor(f) {
+  let x = f.x1;
+  const gaps = f.gaps.filter(g => g.active).sort((a, b) => a.a - b.a);
+  for (const g of gaps) { if (g.a > x) drawGirder(x, fy(f, x), g.a, fy(f, g.a), 6, f.kind); x = g.b; }
+  if (f.x2 > x) drawGirder(x, fy(f, x), f.x2, fy(f, f.x2), 6, f.kind);
+}
+function drawLadder(x, top, bot) {
+  ctx.save(); ctx.lineWidth = 0.65; ctx.strokeStyle = OL;
+  for (let y = bot - 3.6; y > top + 0.8; y -= 4.4) rrect(x - 3.4, y - 0.75, 6.8, 1.5, 0.5, COL.ladder);
+  rrect(x - 4.6, top, 1.9, bot - top, 0.8, COL.ladder);
+  rrect(x + 2.7, top, 1.9, bot - top, 0.8, COL.ladder);
+  ctx.restore();
+}
+function drawColumn(x, top, bot) {
+  ctx.save(); ctx.lineWidth = LW; ctx.strokeStyle = OL;
+  rrect(x - 4.2, top, 8.4, bot - top, 0.5, COL.column);
+  ctx.fillStyle = COL.columnD; ctx.fillRect(x - 1.1, top + 1, 2.2, bot - top - 2);
+  ctx.restore();
+}
+function cloud(x, y, s, col) {
+  ctx.fillStyle = col;
+  for (const [dx, dy, r] of [[-9, 2, 6], [-2, -3, 8], [7, 0, 6.5], [13, 3, 4.5], [-15, 4, 4]]) {
+    ctx.beginPath(); ctx.arc(x + dx * s, y + dy * s, r * s, 0, TAU); ctx.fill();
+  }
+  ctx.fillRect(x - 15 * s, y + 2 * s, 28 * s, 6 * s);
+}
+function drawBakery(x, y) {
+  ctx.save(); ctx.globalAlpha = 0.75; ctx.lineWidth = 0.6; ctx.strokeStyle = 'rgba(31,26,23,0.6)'; ctx.lineJoin = 'round';
+  rrect(x + 5, y - 30, 4, 10, 0.5, '#c8634a');
+  ctx.fillStyle = '#fff';
+  for (const [dx, dy, r] of [[7, -34, 2.2], [9, -38, 2.8], [12, -43, 3.2]]) { ctx.beginPath(); ctx.arc(x + dx, y + dy, r, 0, TAU); ctx.fill(); }
+  rrect(x - 12, y - 16, 24, 16, 1, '#fff3dc');
+  ctx.beginPath(); ctx.moveTo(x - 16, y - 15); ctx.lineTo(x, y - 27); ctx.lineTo(x + 16, y - 15); ctx.closePath();
+  ctx.fillStyle = '#e0614a'; ctx.fill(); ctx.stroke();
+  rrect(x - 3, y - 9, 6, 9, 2.5, '#b06a3a');
+  rrect(x - 10, y - 12, 5, 4.5, 1, '#9fd8f2'); rrect(x + 5, y - 12, 5, 4.5, 1, '#9fd8f2');
+  ctx.restore();
+}
+function drawCraneBG() {
+  ctx.save(); ctx.strokeStyle = 'rgba(214,140,50,0.4)'; ctx.lineWidth = 1;
+  ctx.strokeRect(206, 28, 8, 254);
+  ctx.beginPath();
+  for (let y = 28; y < 282; y += 8) { ctx.moveTo(206, y); ctx.lineTo(214, y + 8); }
+  ctx.moveTo(0, 24); ctx.lineTo(224, 24); ctx.moveTo(0, 29); ctx.lineTo(224, 29);
+  for (let x = 0; x < 224; x += 8) { ctx.moveTo(x, 29); ctx.lineTo(x + 4, 24); ctx.lineTo(x + 8, 29); }
+  ctx.stroke();
+  ctx.restore();
+}
+function drawBackground(n) {
+  const sky = [['#86cff7', '#e4f6ff'], ['#6fc0ee', '#fff1c8'], ['#ff9a73', '#ffe2a6']][n - 1];
+  const g = ctx.createLinearGradient(0, 0, 0, H); g.addColorStop(0, sky[0]); g.addColorStop(1, sky[1]);
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+  if (n === 3) { ctx.fillStyle = 'rgba(255,240,170,0.9)'; ctx.beginPath(); ctx.arc(176, 214, 22, 0, TAU); ctx.fill(); }
+  else if (n === 1) { ctx.fillStyle = 'rgba(255,250,215,0.9)'; ctx.beginPath(); ctx.arc(30, 46, 10, 0, TAU); ctx.fill(); }
+  const cc = n === 3 ? 'rgba(255,236,228,0.75)' : 'rgba(255,255,255,0.88)';
+  for (const [x, y, s] of [[44, 116, 1], [176, 150, 0.85], [104, 196, 1.1], [196, 74, 0.7], [30, 232, 0.8]]) cloud(x, y, s, cc);
+  ctx.fillStyle = n === 3 ? 'rgba(150,80,110,0.26)' : 'rgba(110,160,205,0.26)';
+  for (const [x, w, h] of [[0, 30, 46], [26, 22, 30], [44, 26, 58], [66, 18, 38], [80, 30, 70], [106, 24, 44], [126, 20, 62], [142, 28, 36], [166, 22, 54], [184, 26, 40], [204, 20, 60]])
+    ctx.fillRect(x, 282 - h, w, h);
+  ctx.fillStyle = n === 3 ? '#d99a6c' : '#a6db78';
+  ctx.beginPath(); ctx.moveTo(0, 288); ctx.lineTo(0, 262); ctx.quadraticCurveTo(40, 244, 88, 262);
+  ctx.quadraticCurveTo(130, 246, 170, 260); ctx.quadraticCurveTo(200, 250, 224, 258); ctx.lineTo(224, 288); ctx.closePath(); ctx.fill();
+  if (n === 1) drawBakery(170, 262);
+  if (n === 2) drawCraneBG();
+  ctx.fillStyle = n === 3 ? '#a4683e' : '#b98a5a'; ctx.fillRect(0, 283, W, 5);
+}
+function renderStatic() {
+  const st = G.st; if (!st) return;
+  if (!st.canvas) st.canvas = document.createElement('canvas');
+  const c = st.canvas; c.width = cv.width; c.height = cv.height;
+  const main = ctx; ctx = c.getContext('2d');
+  ctx.setTransform(VS * DPR, 0, 0, VS * DPR, 0, 0);
+  drawBackground(st.n);
+  if (!st.collapsed) {
+    for (const col of st.columns) drawColumn(col.x, col.y, 282);
+    for (const L of st.ladders) drawLadder(L.x, L.top, L.bot);
+  }
+  for (const f of st.floors) if (f.kind !== 'beam') drawFloor(f);
+  ctx = main;
+}
+
+// ------------------------------------------------------------
+//  Game state
+// ------------------------------------------------------------
+const G = {
+  state: 'title', t: 0, stateT: 0, round: 1, stageNo: 1, score: 0, hi: 0, lives: 3, bonus: 5000, bonusT: 0,
+  st: null, player: null, enemies: [], fx: [], debris: [], boss: null, ufo: null, bat: null,
+  shake: 0, extraGiven: false, paused: false, introShort: false, tallyWait: 0,
+};
+try { G.hi = +localStorage.getItem('jamBuildingHi') || 0; } catch (e) { /* storage blocked */ }
+function saveHi() { try { localStorage.setItem('jamBuildingHi', String(G.hi)); } catch (e) { /* storage blocked */ } }
+
+function diff() {
+  const r = Math.min(G.round, 4) - 1;
+  return {
+    rollSpeed: 0.95 + 0.13 * r,
+    throwWait: [[150, 230], [120, 190], [95, 160], [80, 135]][r],
+    ladderP: 0.28 + 0.07 * r,
+    maxWalkers: [2, 3, 3, 4][r],
+    walkSpeed: 0.42 + 0.06 * r,
+    ufoDrop: [[95, 160], [80, 140], [65, 120], [55, 100]][r],
+    maxLem: 4 + r,
+    beamSpeed: TAU / (260 - 25 * r),
+    boltWalkers: Math.min(5, 3 + r),
+    bonusStart: Math.min(8000, 5000 + 1000 * r),
+  };
+}
+
+// ------------------------------------------------------------
+//  Input: keyboard / touch pad / gamepad
+// ------------------------------------------------------------
+const keys = {}, touchIn = {}, padIn = {};
+const input = { left: false, right: false, up: false, down: false, jump: false, jumpPressed: false, confirm: false };
+let jumpQueued = false, confirmQueued = false, prevJump = false, prevPadStart = false;
+const KEYMAP = { ArrowLeft: 'left', KeyA: 'left', ArrowRight: 'right', KeyD: 'right', ArrowUp: 'up', KeyW: 'up',
+  ArrowDown: 'down', KeyS: 'down', Space: 'jump', KeyZ: 'jump', KeyX: 'jump', KeyJ: 'jump' };
+window.addEventListener('keydown', e => {
+  Snd.init();
+  const k = KEYMAP[e.code];
+  if (k) { keys[k] = true; if (k === 'jump' && !e.repeat) jumpQueued = true; e.preventDefault(); }
+  if (e.code === 'Enter' && !e.repeat) { confirmQueued = true; e.preventDefault(); }
+  if ((e.code === 'KeyP' || e.code === 'Escape') && !e.repeat) togglePause();
+  if (e.code === 'KeyM' && !e.repeat) toggleMute();
+});
+window.addEventListener('keyup', e => { const k = KEYMAP[e.code]; if (k) keys[k] = false; });
+window.addEventListener('blur', () => { for (const k in keys) keys[k] = false; });
+
+const dpadEl = document.getElementById('dpad'), jumpEl = document.getElementById('jumpBtn');
+const arrowEls = { up: dpadEl.querySelector('.u'), down: dpadEl.querySelector('.d'), left: dpadEl.querySelector('.l'), right: dpadEl.querySelector('.r') };
+let dpadPointer = null, jumpPointer = null;
+function setDpad(e) {
+  const r = dpadEl.getBoundingClientRect();
+  const dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height / 2);
+  touchIn.left = touchIn.right = touchIn.up = touchIn.down = false;
+  if (Math.hypot(dx, dy) > r.width * 0.12) {
+    // 4-way, slightly favouring horizontal so walking never grabs a ladder by accident
+    if (Math.abs(dx) * 1.15 > Math.abs(dy)) touchIn[dx < 0 ? 'left' : 'right'] = true;
+    else touchIn[dy < 0 ? 'up' : 'down'] = true;
+  }
+  for (const k in arrowEls) arrowEls[k].classList.toggle('on', !!touchIn[k]);
+}
+function clearDpad() { touchIn.left = touchIn.right = touchIn.up = touchIn.down = false; for (const k in arrowEls) arrowEls[k].classList.remove('on'); }
+dpadEl.addEventListener('pointerdown', e => {
+  e.preventDefault(); Snd.init(); dpadPointer = e.pointerId;
+  try { dpadEl.setPointerCapture(e.pointerId); } catch (_) { /* ignore */ }
+  setDpad(e);
+});
+dpadEl.addEventListener('pointermove', e => { if (e.pointerId === dpadPointer) setDpad(e); });
+const dpadEnd = e => { if (e.pointerId === dpadPointer) { dpadPointer = null; clearDpad(); } };
+['pointerup', 'pointercancel', 'lostpointercapture'].forEach(t => dpadEl.addEventListener(t, dpadEnd));
+jumpEl.addEventListener('pointerdown', e => {
+  e.preventDefault(); Snd.init(); jumpPointer = e.pointerId;
+  try { jumpEl.setPointerCapture(e.pointerId); } catch (_) { /* ignore */ }
+  touchIn.jump = true; jumpQueued = true; jumpEl.classList.add('on');
+});
+const jumpEnd = e => { if (e.pointerId === jumpPointer) { jumpPointer = null; touchIn.jump = false; jumpEl.classList.remove('on'); } };
+['pointerup', 'pointercancel', 'lostpointercapture'].forEach(t => jumpEl.addEventListener(t, jumpEnd));
+cv.addEventListener('pointerdown', e => {
+  e.preventDefault(); Snd.init(); confirmQueued = true;
+  if (e.pointerType !== 'mouse') setTouchMode(true);
+});
+document.getElementById('pauseBtn').addEventListener('click', () => { Snd.init(); togglePause(); });
+document.getElementById('muteBtn').addEventListener('click', () => { Snd.init(); toggleMute(); });
+window.addEventListener('contextmenu', e => e.preventDefault());
+['touchend', 'click'].forEach(t => window.addEventListener(t, () => Snd.init(), { passive: true }));
+window.addEventListener('touchstart', () => setTouchMode(true), { passive: true });
+document.addEventListener('visibilitychange', () => { if (document.hidden && G.state === 'play' && !G.paused) togglePause(true); });
+
+function pollPad() {
+  for (const k in padIn) padIn[k] = false;
+  const gps = navigator.getGamepads ? navigator.getGamepads() : [];
+  for (const gp of gps) {
+    if (!gp || !gp.connected) continue;
+    const b = i => !!(gp.buttons[i] && gp.buttons[i].pressed);
+    const ax = gp.axes[0] || 0, ay = gp.axes[1] || 0;
+    padIn.left = b(14) || ax < -0.5; padIn.right = b(15) || ax > 0.5;
+    padIn.up = b(12) || ay < -0.5; padIn.down = b(13) || ay > 0.5;
+    padIn.jump = b(0) || b(1); padIn.start = b(9);
+    break;
+  }
+}
+function pollInput() {
+  pollPad();
+  input.left = !!(keys.left || touchIn.left || padIn.left);
+  input.right = !!(keys.right || touchIn.right || padIn.right);
+  input.up = !!(keys.up || touchIn.up || padIn.up);
+  input.down = !!(keys.down || touchIn.down || padIn.down);
+  if (input.left && input.right) input.left = input.right = false;
+  input.jump = !!(keys.jump || touchIn.jump || padIn.jump);
+  input.jumpPressed = jumpQueued || (input.jump && !prevJump);
+  prevJump = input.jump; jumpQueued = false;
+  const ps = !!padIn.start, padStart = ps && !prevPadStart;
+  prevPadStart = ps;
+  if (padStart && (G.state === 'play' || G.paused)) togglePause();
+  input.confirm = confirmQueued || padStart || input.jumpPressed;
+  confirmQueued = false;
+}
+function togglePause(force) {
+  if (!(G.state === 'play' || G.state === 'intro' || G.paused)) return;
+  G.paused = force !== undefined ? force : !G.paused;
+  if (Snd.ac) { if (G.paused) Snd.ac.suspend(); else Snd.ac.resume(); }
+  document.getElementById('pauseBtn').textContent = G.paused ? '▶' : 'Ⅱ';
+}
+function toggleMute() {
+  Snd.setMuted(!Snd.muted);
+  document.getElementById('muteBtn').classList.toggle('off', Snd.muted);
+}
+
+// ------------------------------------------------------------
+//  Player (ジャムおじさん)
+// ------------------------------------------------------------
+const WALK = 0.85, CLIMB = 0.62, JUMP_V = 1.85, GRAV = 0.1, FALL_KILL = 27, HAMMER_TIME = 560;
+const overlap = (a, b) => a.x1 < b.x2 && a.x2 > b.x1 && a.y1 < b.y2 && a.y2 > b.y1;
+function makePlayer(st) {
+  const f = st.start.f;
+  return { x: st.start.x, y: fy(f, st.start.x), dir: 1, state: 'walk', floor: f, ladder: null, vx: 0, vy: 0, peak: 0,
+    walkT: 0, climbT: 0, hammerT: 0, over: new Set() };
+}
+function pbox(p) { return { x1: p.x - 3.4, x2: p.x + 3.4, y1: p.y - 17, y2: p.y - 1.5 }; }
+function ebox(e) {
+  if (e.type === 'roll' && e.state !== 'wake') return { x1: e.x - 3.6, x2: e.x + 3.6, y1: e.y - 8.4, y2: e.y - 0.8 };
+  return { x1: e.x - 3.3, x2: e.x + 3.3, y1: e.y - 7.8, y2: e.y - 0.5 };
+}
+function hammerUp(p) { return Math.floor(p.hammerT / 9) % 2 === 0; }
+function hammerBox(p) {
+  return hammerUp(p)
+    ? { x1: p.x + p.dir * 5.8 - 6, x2: p.x + p.dir * 5.8 + 6, y1: p.y - 26, y2: p.y - 14 }
+    : { x1: p.x + p.dir * 13 - 6.5, x2: p.x + p.dir * 13 + 6.5, y1: p.y - 10, y2: p.y + 1 };
+}
+function findLadder(p, dir) {
+  for (const L of G.st.ladders) {
+    if (Math.abs(L.x - p.x) > 4) continue;
+    if (dir === 'up' && L.botExit && Math.abs(p.y - L.bot) < 3) return L;
+    if (dir === 'down' && L.topExit && Math.abs(p.y - L.top) < 3) return L;
+  }
+  return null;
+}
+function startClimb(p, L) { p.state = 'climb'; p.ladder = L; p.x = L.x; p.floor = null; p.climbT = 0; }
+function updatePlayer(p) {
+  const mx = (input.right ? 1 : 0) - (input.left ? 1 : 0);
+  if (p.hammerT > 0) { p.hammerT--; if (p.hammerT % 18 === 0) SFX.swing(); }
+  if (p.state === 'walk') {
+    if (p.floor && p.floor.dx) p.x += p.floor.dx;
+    if (!p.hammerT) {
+      if (input.up) { const L = findLadder(p, 'up'); if (L) { startClimb(p, L); return; } }
+      if (input.down) { const L = findLadder(p, 'down'); if (L) { startClimb(p, L); return; } }
+      if (input.jumpPressed) {
+        p.state = 'jump'; p.vy = -JUMP_V; p.vx = mx * WALK; p.peak = p.y; p.over.clear(); p.floor = null;
+        if (mx) p.dir = mx;
+        SFX.jump(); return;
+      }
+    }
+    if (mx) { p.dir = mx; p.x += mx * WALK; if (++p.walkT % 9 === 0) SFX.step((p.walkT / 9) & 1); } else p.walkT = 0;
+    p.x = clamp(p.x, 5, W - 5);
+    let f = p.floor;
+    if (!f || !floorContains(f, p.x)) f = floorAtSameHeight(p.x, p.y);
+    if (!f) { p.state = 'fall'; p.vx = mx * 0.45; p.vy = 0; p.peak = p.y; p.floor = null; return; }
+    p.floor = f; p.y = fy(f, p.x);
+  } else if (p.state === 'jump' || p.state === 'fall') {
+    const py = p.y;
+    p.vy = Math.min(p.vy + GRAV, 3.5); p.x += p.vx; p.y += p.vy;
+    if (p.x < 5 || p.x > W - 5) { p.x = clamp(p.x, 5, W - 5); p.vx = -p.vx * 0.5; }
+    p.peak = Math.min(p.peak, p.y);
+    if (p.state === 'jump') checkJumpOver(p);
+    if (p.vy > 0) {
+      const f = landFloor(p.x, py, p.y);
+      if (f) {
+        p.floor = f; p.y = fy(f, p.x);
+        if (p.y - p.peak > FALL_KILL) { kill('fall'); return; }
+        p.state = 'walk'; p.walkT = 0; awardJumpOver(p);
+      }
+    }
+    if (p.y > H + 30) kill('fall');
+  } else if (p.state === 'climb') {
+    const L = p.ladder; let moved = false;
+    if (input.up) { p.y -= CLIMB; moved = true; } else if (input.down) { p.y += CLIMB; moved = true; }
+    if (moved && ++p.climbT % 10 === 0) SFX.climb((p.climbT / 10) & 1);
+    if (p.y <= L.top) { p.y = L.top; if (L.topExit && input.up) { p.state = 'walk'; p.floor = L.upper; p.y = fy(L.upper, p.x); } }
+    if (p.y >= L.bot) { p.y = L.bot; if (L.botExit && input.down) { p.state = 'walk'; p.floor = L.lower; p.y = fy(L.lower, p.x); } }
+  }
+}
+function checkJumpOver(p) {
+  for (const e of G.enemies) {
+    if (e.dead || p.over.has(e)) continue;
+    if (Math.abs(e.x - p.x) < 6 && p.y < e.y - 7 && e.y - p.y < 34) p.over.add(e);
+  }
+}
+function awardJumpOver(p) {
+  let n = 0;
+  for (const e of p.over) if (!e.dead) n++;
+  if (n) { addScore(n === 1 ? 100 : n === 2 ? 300 : 500, p.x, p.y - 28); SFX.over(); }
+  p.over.clear();
+}
+function addScore(n, x, y) {
+  G.score += n;
+  if (x !== undefined) G.fx.push({ type: 'pop', x, y, text: String(n), t: 0 });
+  if (!G.extraGiven && G.score >= 10000) {
+    G.extraGiven = true; G.lives++; SFX.oneup();
+    const p = G.player;
+    G.fx.push({ type: 'pop', x: p ? p.x : W / 2, y: (p ? p.y : 150) - 36, text: '1UP!', t: 0, big: true });
+  }
+  if (G.score > G.hi) G.hi = G.score;
+}
+function kill(reason) {
+  if (G.state !== 'play') return;
+  const p = G.player;
+  G.state = 'dying'; G.stateT = 0; p.state = 'dead'; p.hammerT = 0; p.reason = reason;
+  Music.stop();
+}
+function smash(e) {
+  e.dead = true;
+  addScore(pick([300, 300, 500, 800]), e.x, e.y - 12);
+  G.fx.push({ type: 'poof', x: e.x, y: e.y - 4, t: 0 });
+  SFX.smash();
+}
+
+// ------------------------------------------------------------
+//  かびるんるん
+// ------------------------------------------------------------
+const countKabi = () => G.enemies.reduce((n, e) => n + (e.dead ? 0 : 1), 0);
+const countWalkers = () => G.enemies.reduce((n, e) => n + (!e.dead && (e.type === 'walk' || e.state === 'wake') ? 1 : 0), 0);
+
+// stage 1: rolled up into a ball, zig-zags down the girders and sometimes drops down ladders
+function updRoll(e) {
+  const d = diff(); e.t++;
+  if (e.state === 'roll') {
+    const px = e.x;
+    e.x += e.dir * e.spd; e.ang += e.dir * e.spd / 2.4;
+    for (const L of G.st.descents) {
+      if (L.upper !== e.floor || L === e.lastL) continue;
+      if ((px - L.x) * (e.x - L.x) <= 0) {
+        e.lastL = L;
+        let pr = d.ladderP; const p = G.player;
+        if (p.y > e.y + 10 && Math.abs(p.x - L.x) < 70) pr += 0.25;
+        if (chance(pr)) { e.state = 'ladder'; e.x = L.x; e.L = L; return; }
+      }
+    }
+    if (!floorContains(e.floor, e.x)) {
+      const nf = floorAtSameHeight(e.x, e.y);
+      if (nf) e.floor = nf;
+      else { e.state = 'fall'; e.vx = e.dir * e.spd * 0.7; e.vy = 0; e.floor = null; return; }
+    }
+    e.y = fy(e.floor, e.x);
+    // at the bottom some of them uncurl and start walking around
+    if (e.floor === G.st.bottom && !e.woke && e.x > 200) {
+      e.woke = true;
+      if (countWalkers() < d.maxWalkers && chance(0.65)) { e.state = 'wake'; e.t = 0; }
+    }
+    if (e.x > W + 12 || e.x < -12) e.dead = true;
+  } else if (e.state === 'ladder') {
+    e.y += 1.15; e.ang += 0.12;
+    if (e.y >= e.L.bot) { e.y = e.L.bot; e.floor = e.L.lower; e.state = 'roll'; e.dir = e.floor.rollDir || e.dir; e.lastL = null; }
+  } else if (e.state === 'fall') {
+    const py = e.y;
+    e.vy = Math.min(e.vy + 0.14, 3.5); e.x += e.vx; e.y += e.vy; e.ang += e.vx * 0.4;
+    if (e.vy > 0) {
+      const f = landFloor(e.x, py, e.y);
+      if (f) {
+        e.y = fy(f, e.x);
+        if (!e.bounced) { e.bounced = true; e.vy = -1.25; e.vx = (f.rollDir || e.dir) * e.spd * 0.55; }
+        else { e.floor = f; e.state = 'roll'; e.dir = f.rollDir || e.dir; e.bounced = false; e.lastL = null; }
+      }
+    }
+    if (e.y > H + 20) e.dead = true;
+  } else if (e.state === 'wake') {
+    if (e.t > 36) { e.type = 'walk'; e.state = 'walk'; e.dir = -1; e.spd = d.walkSpeed; e.t = 0; e.lastL = null; }
+  }
+}
+// stage 1 & 3: walks along floors, turns at edges and gaps, climbs ladders towards Jam
+function updWalker(e) {
+  const p = G.player; e.t++;
+  if (e.state === 'walk') {
+    const ahead = e.x + e.dir * 3.5;
+    const blocked = ahead < 6 || ahead > W - 6 || (!floorContains(e.floor, ahead) && !floorAtSameHeight(ahead, e.y));
+    if (blocked) e.dir = -e.dir; else e.x += e.dir * e.spd;
+    if (!floorContains(e.floor, e.x)) {
+      const nf = floorAtSameHeight(e.x, e.y);
+      if (nf) e.floor = nf; else { e.state = 'fall'; e.vy = 0; e.floor = null; return; }
+    }
+    e.y = fy(e.floor, e.x);
+    if (e.lastL && Math.abs(e.x - e.lastL.x) > 5) e.lastL = null;
+    for (const L of G.st.ladders) {
+      if (!L.full || L === e.lastL || Math.abs(L.x - e.x) > 0.8) continue;
+      e.lastL = L;
+      if (L.lower === e.floor && chance(p.y < e.y - 12 ? 0.6 : 0.15)) { e.state = 'climb'; e.L = L; e.cdir = -1; e.x = L.x; return; }
+      if (L.upper === e.floor && chance(p.y > e.y + 12 ? 0.6 : 0.15)) { e.state = 'climb'; e.L = L; e.cdir = 1; e.x = L.x; return; }
+    }
+    if (e.t % 100 === 0 && Math.abs(p.y - e.y) < 8 && chance(0.6)) e.dir = p.x < e.x ? -1 : 1;
+  } else if (e.state === 'climb') {
+    e.y += e.cdir * 0.42;
+    if (e.cdir < 0 && e.y <= e.L.top) { e.y = e.L.top; e.floor = e.L.upper; e.state = 'walk'; e.dir = p.x < e.x ? -1 : 1; }
+    else if (e.cdir > 0 && e.y >= e.L.bot) { e.y = e.L.bot; e.floor = e.L.lower; e.state = 'walk'; e.dir = p.x < e.x ? -1 : 1; }
+  } else if (e.state === 'arc') {
+    e.vy += 0.12; e.x += e.vx; e.y += e.vy;
+    if (e.vy > 0 && e.y >= e.ty) { e.y = e.ty; e.x = e.tx; e.floor = e.tf; e.state = 'walk'; e.dir = p.x < e.x ? -1 : 1; SFX.land(); }
+  } else if (e.state === 'fall') {
+    const py = e.y;
+    e.vy = Math.min(e.vy + 0.13, 3.2); e.y += e.vy;
+    if (e.vy > 0) { const f = landFloor(e.x, py, e.y); if (f) { e.floor = f; e.y = fy(f, e.x); e.state = 'walk'; } }
+    if (e.y > H + 20) e.dead = true;
+  }
+}
+// stage 2: dropped from the UFO, walks straight on and falls off edges
+function updLem(e) {
+  e.t++;
+  if (e.state === 'walk') {
+    if (e.floor.dx) e.x += e.floor.dx;
+    e.x += e.dir * e.spd;
+    if (e.floor !== G.st.bottom && (e.x < 6 || e.x > W - 6)) { e.x = clamp(e.x, 6, W - 6); e.dir = -e.dir; }
+    if (!floorContains(e.floor, e.x)) {
+      const nf = floorAtSameHeight(e.x, e.y);
+      if (nf) e.floor = nf; else { e.state = 'fall'; e.vx = e.dir * 0.35; e.vy = 0; e.floor = null; return; }
+    }
+    e.y = fy(e.floor, e.x);
+  } else {
+    const py = e.y;
+    e.vy = Math.min(e.vy + 0.13, 3.2); e.x += e.vx; e.y += e.vy;
+    if (e.vy > 0) {
+      const f = landFloor(e.x, py, e.y);
+      if (f) { e.floor = f; e.y = fy(f, e.x); e.state = 'walk'; if (!e.dir) e.dir = G.player.x < e.x ? -1 : 1; }
+    }
+    if (e.y > H + 20) e.dead = true;
+  }
+}
+
+// ------------------------------------------------------------
+//  バイキンマン / バイキンUFO
+// ------------------------------------------------------------
+function makeBoss(st) {
+  if (st.n === 2) return null;
+  const b = st.bossPos;
+  return { x: b.x, y: fy(b.f, b.x), dir: st.n === 1 ? -1 : 1, state: st.n === 1 ? 'idle' : 'walk', t: 0, wait: 70 };
+}
+function updBoss1(b) {
+  const d = diff(); b.t++;
+  if (b.state === 'idle') { if (--b.wait <= 0) { b.state = 'grab'; b.t = 0; } }
+  else if (b.state === 'grab' && b.t > 18) { b.state = 'lift'; b.t = 0; }
+  else if (b.state === 'lift' && b.t > 22) { b.state = 'throw'; b.t = 0; spawnRoll(b); }
+  else if (b.state === 'throw' && b.t > 18) { b.state = 'idle'; b.t = 0; b.wait = randi(d.throwWait[0], d.throwWait[1]); }
+}
+function spawnRoll(b) {
+  const f = G.st.throwFloor, x = b.x - 14;
+  G.enemies.push({ type: 'roll', state: 'roll', x, y: fy(f, x), floor: f, dir: -1, spd: diff().rollSpeed * rand(0.92, 1.08), ang: 0, t: 0 });
+  SFX.throw();
+}
+function updBoss3(b) {
+  const d = diff(); b.t++;
+  if (b.state === 'walk') {
+    b.x += b.dir * 0.35;
+    if (b.x < 72 || b.x > 152) { b.x = clamp(b.x, 72, 152); b.dir *= -1; }
+    if (--b.wait <= 0) { if (countKabi() < d.boltWalkers) { b.state = 'lift'; b.t = 0; } else b.wait = 40; }
+  } else if (b.state === 'lift' && b.t > 24) { b.state = 'throw'; b.t = 0; spawnThrown(b); }
+  else if (b.state === 'throw' && b.t > 18) { b.state = 'walk'; b.t = 0; b.wait = randi(110, 200); }
+}
+function spawnThrown(b) {
+  const st = G.st, p = G.player;
+  for (let i = 0; i < 25; i++) {
+    const f = pick(st.boltFloors), tx = rand(14, W - 14);
+    if (!floorContains(f, tx)) continue;
+    const ty = fy(f, tx);
+    if (Math.abs(ty - p.y) < 20 && Math.abs(tx - p.x) < 64) continue;
+    if (st.ladders.some(L => Math.abs(L.x - tx) < 6) || f.gaps.some(g => tx > g.a - 6 && tx < g.b + 6)) continue;
+    const sx = b.x + 4, sy = b.y - 30, T = 50;
+    G.enemies.push({ type: 'walk', state: 'arc', x: sx, y: sy, vx: (tx - sx) / T, vy: (ty - sy) / T - 0.06 * T, tx, ty, tf: f, dir: 1, spd: diff().walkSpeed, t: 0 });
+    SFX.throw(); return;
+  }
+}
+function makeUFO() { return { x: 160, y: 44, dir: -1, spd: 0.55, pause: 0, dropT: 80, arm: 0, t: 0 }; }
+function updUFO(u) {
+  const d = diff(); u.t++;
+  if (u.pause > 0) u.pause--;
+  else {
+    u.x += u.dir * u.spd;
+    if (u.x < 104 || u.x > 204) { u.x = clamp(u.x, 104, 204); u.dir *= -1; }
+    if (chance(0.005)) u.pause = randi(30, 70);
+  }
+  if (--u.dropT <= 0) {
+    if (countKabi() < d.maxLem) { u.arm = 24; G.enemies.push({ type: 'lem', state: 'fall', x: u.x, y: u.y + 8, vx: 0, vy: 0.4, dir: 0, spd: d.walkSpeed + 0.08, t: 0 }); SFX.drop(); }
+    u.dropT = randi(d.ufoDrop[0], d.ufoDrop[1]);
+  }
+  if (u.arm > 0) u.arm--;
+}
+
+// ------------------------------------------------------------
+//  Pickups, bolts, collisions, effects
+// ------------------------------------------------------------
+function checkPickups() {
+  const p = G.player, pb = pbox(p), st = G.st;
+  for (const h of st.hammers) {
+    if (h.taken || p.state === 'climb') continue;
+    if (overlap(pb, { x1: h.x - 4, x2: h.x + 4, y1: h.y - 5, y2: h.y + 5 })) { h.taken = true; p.hammerT = HAMMER_TIME; SFX.hammer(); }
+  }
+  for (const it of st.items) {
+    if (it.got || !overlap(pb, { x1: it.x - 4.5, x2: it.x + 4.5, y1: it.y - 8, y2: it.y })) continue;
+    it.got = true;
+    addScore({ anpan: 300, shokupan: 500, curry: 800 }[it.type], it.x, it.y - 14);
+    SFX.item();
+  }
+}
+function checkBolts() {
+  const p = G.player, st = G.st;
+  for (const b of st.bolts) {
+    if (b.out || p.state === 'climb') continue;
+    if (Math.abs(p.x - b.x) < 3 && p.y <= b.y + 0.5 && b.y - p.y < 24) {
+      b.out = true;
+      b.f.gaps.push({ a: b.x - 4, b: b.x + 4, active: false });
+      addScore(100, b.x, b.y - 20); SFX.bolt();
+      G.fx.push({ type: 'bolt', x: b.x, y: b.y + 3, vx: rand(-1, 1), vy: -2.6, r: 0, vr: rand(-0.3, 0.3), t: 0 });
+    }
+  }
+  // a pulled bolt only opens its gap once Jam has stepped away from it
+  let changed = false;
+  for (const f of st.boltFloors) for (const g of f.gaps) {
+    if (g.active) continue;
+    const near = (p.floor === f || (p.state !== 'walk' && Math.abs(p.y - f.y1) < 24)) && p.x > g.a - 3 && p.x < g.b + 3;
+    if (!near) { g.active = true; changed = true; }
+  }
+  if (changed) renderStatic();
+}
+function checkCollisions() {
+  const p = G.player;
+  if (p.state === 'dead') return;
+  const pb = pbox(p);
+  if (p.hammerT > 0) {
+    const hb = hammerBox(p);
+    for (const e of G.enemies) if (!e.dead && overlap(hb, ebox(e))) smash(e);
+  }
+  for (const e of G.enemies) {
+    if (e.dead || !overlap(pb, ebox(e))) continue;
+    if (p.hammerT > 0 && (e.x - p.x) * p.dir >= -1) { smash(e); continue; }
+    kill('enemy'); return;
+  }
+  const b = G.boss;
+  if (b && overlap(pb, { x1: b.x - 7, x2: b.x + 7, y1: b.y - 24, y2: b.y })) kill('boss');
+}
+function updFx() {
+  for (const f of G.fx) {
+    f.t++;
+    if (f.type === 'pop') { f.y -= 0.35; if (f.t > 48) f.dead = true; }
+    else if (f.type === 'poof') { if (f.t > 24) f.dead = true; }
+    else if (f.type === 'bolt') { f.vy += 0.15; f.x += f.vx; f.y += f.vy; f.r += f.vr; if (f.y > H + 10) f.dead = true; }
+    else if (f.type === 'spark') { f.x += f.vx; f.y += f.vy; f.vy += 0.06; if (f.t > (f.life || 30)) f.dead = true; }
+    else if (f.type === 'dust') { f.x += f.vx; f.y += f.vy; f.vx *= 0.94; f.vy *= 0.94; if (f.t > 40) f.dead = true; }
+  }
+  G.fx = G.fx.filter(f => !f.dead);
+}
+function poofAll() {
+  for (const e of G.enemies) if (!e.dead) { G.fx.push({ type: 'poof', x: e.x, y: e.y - 4, t: 0 }); e.dead = true; }
+  G.enemies = [];
+  SFX.poof();
+}
+
+// ------------------------------------------------------------
+//  Game flow
+// ------------------------------------------------------------
+function startGame() {
+  G.round = 1; G.stageNo = 1; G.score = 0; G.lives = 3; G.extraGiven = false;
+  beginStage();
+}
+function beginStage() {
+  G.st = buildStage(G.stageNo);
+  renderStatic();
+  resetStage();
+  G.state = 'intro'; G.stateT = 0; G.introShort = false;
+  Music.play('start');
+}
+// (re)start the current stage; pulled bolts and eaten bread stay as they are
+function resetStage() {
+  const st = G.st;
+  G.player = makePlayer(st);
+  G.enemies = []; G.fx = []; G.debris = [];
+  G.bonus = diff().bonusStart; G.bonusT = 0; G.t = 0; G.shake = 0;
+  for (const h of st.hammers) h.taken = false;
+  for (const b of st.beams) { b.x1 = b.mid; b.x2 = b.x1 + b.w; b.dx = 0; }
+  G.boss = makeBoss(st);
+  G.ufo = st.n === 2 ? makeUFO() : null;
+  G.bat = { x: st.batako.x, y: fy(st.batako.f, st.batako.x), dir: 1, held: false };
+}
+function nextStage() {
+  if (G.stageNo < 3) G.stageNo++;
+  else { G.stageNo = 1; G.round++; }
+  saveHi();
+  beginStage();
+}
+function updBeams() {
+  const sp = diff().beamSpeed;
+  for (const b of G.st.beams) {
+    const nx = b.mid + b.amp * Math.sin(b.phase + G.t * sp);
+    b.dx = nx - b.x1; b.x1 = nx; b.x2 = nx + b.w;
+  }
+}
+
+function update() {
+  if (G.paused) { if (input.confirm) togglePause(false); return; }
+  G.stateT++;
+  if (G.shake > 0) G.shake = Math.max(0, G.shake - 0.15);
+  switch (G.state) {
+    case 'title': if (input.confirm) { SFX.select(); startGame(); } break;
+    case 'intro': if (G.stateT > (G.introShort ? 90 : 165)) { G.state = 'play'; G.stateT = 0; } break;
+    case 'play': updPlay(); break;
+    case 'dying': updDying(); break;
+    case 'clear': updClear(); break;
+    case 'collapse': updCollapse(); break;
+    case 'tally': updTally(); break;
+    case 'gameover': if (G.stateT > 100 && input.confirm) { G.state = 'title'; G.stateT = 0; Music.stop(); } break;
+  }
+}
+function updPlay() {
+  const st = G.st, p = G.player;
+  G.t++;
+  updBeams();
+  updatePlayer(p);
+  if (G.state !== 'play') return;
+  if (st.n === 1) updBoss1(G.boss);
+  else if (st.n === 3) updBoss3(G.boss);
+  else updUFO(G.ufo);
+  for (const e of G.enemies) {
+    if (e.dead) continue;
+    if (e.type === 'roll') updRoll(e); else if (e.type === 'walk') updWalker(e); else updLem(e);
+  }
+  G.enemies = G.enemies.filter(e => !e.dead);
+  checkPickups();
+  if (st.n === 3) checkBolts();
+  checkCollisions();
+  updFx();
+  if (G.state !== 'play') return;
+  if (++G.bonusT >= 120) {
+    G.bonusT = 0; G.bonus = Math.max(0, G.bonus - 100);
+    if (G.bonus > 0 && G.bonus <= 1000) SFX.warn();
+    if (G.bonus === 0) { kill('time'); return; }
+  }
+  if (st.n !== 3 && p.state === 'walk' && p.floor === st.goal) startClear();
+  else if (st.n === 3 && st.bolts.every(b => b.out) && st.boltFloors.every(f => f.gaps.every(g => g.active))) startCollapse();
+  if (G.state === 'play') Music.want(p.hammerT > 0 ? 'hammer' : 'stage' + st.n);
+}
+function updDying() {
+  const t = G.stateT;
+  updFx();
+  if (t === 30) Music.play('death');
+  if (t === 60) SFX.laugh();
+  if (t >= 190) {
+    G.lives--;
+    if (G.lives <= 0) { G.state = 'gameover'; G.stateT = 0; Music.play('gameover'); saveHi(); }
+    else { resetStage(); G.state = 'intro'; G.stateT = 0; G.introShort = true; }
+  }
+}
+
+// --- stage 1 & 2 clear: reach Batako-san, then Baikinman snatches her away again ---
+function startClear() {
+  const p = G.player, bat = G.bat;
+  G.state = 'clear'; G.stateT = 0;
+  poofAll();
+  p.hammerT = 0;
+  p.dir = bat.x < p.x ? -1 : 1; bat.dir = -p.dir;
+  Music.play('clear'); SFX.heart();
+  const b = G.boss;
+  if (b) { b.sx = b.x; b.sy = b.y; }
+  if (G.ufo) { G.ufo.sx = G.ufo.x; G.ufo.sy = G.ufo.y; }
+}
+function updClear() {
+  const t = G.stateT, bat = G.bat, b = G.boss, u = G.ufo;
+  updFx();
+  if (b) {   // stage 1: Baikinman flies over, grabs her and flies off
+    if (t >= 100 && t < 140) {
+      const k = (t - 100) / 40;
+      b.state = 'fly'; b.dir = bat.x < b.sx ? -1 : 1;
+      b.x = lerp(b.sx, bat.x + 3, k); b.y = lerp(b.sy, bat.y - 14, k) - Math.sin(k * Math.PI) * 24;
+      if (t === 100) SFX.whoosh();
+    } else if (t >= 140) {
+      if (t === 140) { bat.held = true; SFX.breakHeart(); SFX.laugh(); }
+      b.y -= 1.6; b.x += 0.4;
+    }
+  }
+  if (u) {   // stage 2: the UFO swoops in and its magic hand picks her up
+    if (t >= 100 && t < 140) {
+      const k = (t - 100) / 40;
+      u.x = lerp(u.sx, bat.x, k); u.y = lerp(u.sy, bat.y - 46, k);
+      if (t === 100) SFX.whoosh();
+    } else if (t >= 140 && t < 165) { u.hand = (t - 140) / 25; }
+    else if (t >= 165) {
+      if (t === 165) { bat.held = true; SFX.breakHeart(); SFX.laugh(); }
+      u.y -= 1.6;
+    }
+  }
+  if (bat.held) {
+    if (b) { bat.x = b.x - 2; bat.y = b.y + 14; }
+    if (u) { bat.x = u.x; bat.y = u.y + 34; }
+  }
+  if (t > 250) { G.state = 'tally'; G.stateT = 0; G.tallyWait = 0; }
+}
+
+// --- stage 3: every bolt is out, the frame collapses and Baikinman falls head first ---
+function startCollapse() {
+  const st = G.st, p = G.player;
+  G.state = 'collapse'; G.stateT = 0;
+  poofAll();
+  p.hammerT = 0; p.state = 'walk';
+  Music.stop();
+  G.boss.state = 'stand';
+  p.sx = p.x; p.sy = p.y;
+}
+function updCollapse() {
+  const t = G.stateT, st = G.st, b = G.boss, p = G.player;
+  updFx();
+  for (const d of G.debris) { d.vy += 0.16; d.cy += d.vy; d.rot += d.vr; }
+  G.debris = G.debris.filter(d => d.cy < H + 60);
+  if (t < 60) {
+    if (t % 12 === 0) SFX.rumble();
+    G.shake = 2;
+    if (t === 20) b.angry = true;
+  }
+  if (t === 60) {
+    // floors (except ground and Batako's platform) and columns become falling debris
+    for (const f of st.floors) {
+      if (f === st.bottom || f === st.top) continue;
+      let x = f.x1;
+      const pieces = [];
+      for (const g of f.gaps.filter(g => g.active).sort((a, c) => a.a - c.a)) { if (g.a > x) pieces.push([x, g.a]); x = g.b; }
+      if (f.x2 > x) pieces.push([x, f.x2]);
+      for (const [a, c] of pieces) G.debris.push({ kind: 'girder', w: c - a, cx: (a + c) / 2, cy: f.y1 + 3, vy: rand(-1.2, 0), rot: 0, vr: rand(-0.02, 0.02) });
+    }
+    for (const c of st.columns) G.debris.push({ kind: 'column', w: 282 - c.y, cx: c.x, cy: (c.y + 282) / 2, vy: rand(-0.5, 0), rot: 0, vr: rand(-0.015, 0.015) });
+    st.floors = [st.bottom, st.top]; st.collapsed = true; st.ladders = []; st.items = []; st.hammers = [];
+    renderStatic();
+    SFX.crash(); G.shake = 4;
+    b.state = 'fall'; b.vy = -1.5; b.rot = 0;
+  }
+  if (t > 60 && b.state === 'fall') {
+    b.vy = Math.min(b.vy + 0.13, 4); b.y += b.vy;
+    b.rot = Math.min(Math.PI, b.rot + 0.13);       // まっさかさま
+    if (b.y >= st.bottom.y1 && b.rot >= Math.PI) {
+      b.y = st.bottom.y1; b.state = 'crashed'; b.ct = 0;
+      SFX.crash(); G.shake = 5;
+      for (let i = 0; i < 12; i++) G.fx.push({ type: 'dust', x: b.x + rand(-10, 10), y: b.y - 2, vx: rand(-1.4, 1.4), vy: rand(-1.2, -0.2), t: 0 });
+    }
+  }
+  if (b.state === 'crashed') {
+    b.ct++;
+    if (b.ct === 80) { b.state = 'byebye'; b.vy = -3.2; SFX.whoosh(); }
+  }
+  if (b.state === 'byebye') { b.bt = (b.bt || 0) + 1; b.y += b.vy; b.vy *= 0.995; b.rot += 0.35; b.x += 0.6; }
+  // Jam leaps up beside Batako-san
+  if (t >= 70 && t <= 130) {
+    const k = (t - 70) / 60, tx = G.bat.x - 16, ty = st.top.y1;
+    p.x = lerp(p.sx, tx, k); p.y = lerp(p.sy, ty, k) - Math.sin(k * Math.PI) * 50;
+    p.dir = 1; p.state = k < 1 ? 'jump' : 'walk';
+    if (t === 70) SFX.jump();
+  }
+  if (t === 140) { Music.play('roundclear'); SFX.heart(); }
+  if (t > 420) { G.state = 'tally'; G.stateT = 0; G.tallyWait = 0; }
+}
+function updTally() {
+  updFx();
+  if (G.bonus > 0) {
+    if (G.stateT % 2 === 0) { const d = Math.min(100, G.bonus); G.bonus -= d; addScore(d); SFX.tick(); }
+  } else if (++G.tallyWait > 50) nextStage();
+}
+
+// ------------------------------------------------------------
+//  Rendering
+// ------------------------------------------------------------
+function render() {
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.clearRect(0, 0, cv.width, cv.height);
+  const k = VS * DPR;
+  if (G.state === 'title') { ctx.setTransform(k, 0, 0, k, 0, 0); drawTitle(); return; }
+  const sx = G.shake ? rand(-G.shake, G.shake) : 0, sy = G.shake ? rand(-G.shake, G.shake) : 0;
+  if (sx || sy) ctx.drawImage(G.st.canvas, 0, 0);   // keeps the edges covered while shaking
+  ctx.drawImage(G.st.canvas, sx * k, sy * k);
+  ctx.setTransform(k, 0, 0, k, sx * k, sy * k);
+  drawWorld();
+  ctx.setTransform(k, 0, 0, k, 0, 0);
+  drawHUD();
+  if (G.state === 'intro') drawIntro();
+  else if (G.state === 'tally') drawTally();
+  else if (G.state === 'gameover') drawGameOver();
+  if (G.paused) drawPause();
+}
+function sparkle(x, y) {
+  ctx.fillStyle = '#fffbe0'; ctx.beginPath();
+  ctx.moveTo(x, y - 2.5); ctx.lineTo(x + 0.7, y - 0.7); ctx.lineTo(x + 2.5, y); ctx.lineTo(x + 0.7, y + 0.7);
+  ctx.lineTo(x, y + 2.5); ctx.lineTo(x - 0.7, y + 0.7); ctx.lineTo(x - 2.5, y); ctx.lineTo(x - 0.7, y - 0.7);
+  ctx.closePath(); ctx.fill();
+}
+function drawWorld() {
+  const st = G.st, T = G.t;
+  for (const d of G.debris) {
+    ctx.save(); ctx.translate(d.cx, d.cy); ctx.rotate(d.rot);
+    if (d.kind === 'girder') drawGirder(-d.w / 2, -3, d.w / 2, -3, 6, 'girder'); else drawColumn(0, -d.w / 2, d.w / 2);
+    ctx.restore();
+  }
+  for (const b of st.beams) drawBeamRig(b);
+  const glow = 0.25 + 0.2 * Math.sin(G.stateT * 0.1);
+  for (const b of st.bolts) if (!b.out) drawBolt(b.x, b.y + 3, 0, glow);
+  for (const it of st.items) if (!it.got) { drawItem(it.type, it.x, it.y); if ((T + it.x * 3) % 90 < 14) sparkle(it.x + 4, it.y - 8); }
+  for (const h of st.hammers) if (!h.taken) drawHammerItem(h.x, h.y, T);
+  if (st.n === 1 && G.boss) for (const [dx, dy] of [[0, 0], [9, 0], [4.5, -8]]) drawKabiBall(206 + dx, st.throwFloor.y1 + dy, 0.3 * dx);
+  drawBatakoScene();
+  drawBossScene();
+  for (const e of G.enemies) drawEnemy(e);
+  drawPlayer();
+  drawFx();
+  drawBubbles();
+}
+function drawBeamRig(b) {
+  const cx = (b.x1 + b.x2) / 2, hy = b.y1 - 15;
+  ctx.save();
+  ctx.strokeStyle = '#3b3b48'; ctx.lineWidth = 0.6;
+  ctx.beginPath(); ctx.moveTo(cx, 26); ctx.lineTo(cx, hy); ctx.lineTo(b.x1 + 2, b.y1); ctx.moveTo(cx, hy); ctx.lineTo(b.x2 - 2, b.y1); ctx.stroke();
+  ctx.strokeStyle = OL; ctx.lineWidth = 0.6;
+  rrect(cx - 4, 22, 8, 4.5, 1, COL.beam);
+  circ(cx, hy, 1.5, COL.ladder);
+  ctx.restore();
+  drawGirder(b.x1, b.y1, b.x2, b.y2, 6, 'beam');
+}
+function drawMagicHand(x, y0, y1) {
+  ctx.save(); ctx.lineJoin = 'round';
+  ctx.beginPath(); ctx.moveTo(x, y0);
+  const n = 6;
+  for (let i = 1; i <= n; i++) ctx.lineTo(x + (i === n ? 0 : i % 2 ? 2.4 : -2.4), lerp(y0, y1, i / n));
+  ctx.strokeStyle = OL; ctx.lineWidth = 2.6; ctx.stroke();
+  ctx.strokeStyle = '#8d78b8'; ctx.lineWidth = 1.3; ctx.stroke();
+  ctx.lineWidth = 0.7; ctx.strokeStyle = OL;
+  circ(x, y1, 3, COL.bkPurple);
+  ctx.restore();
+}
+function drawBatakoScene() {
+  const bat = G.bat; if (!bat || bat.y < -40) return;
+  const s = G.state, gt = G.stateT, n = G.st.n;
+  const grabT = G.boss ? 140 : 165;
+  const happy = (s === 'clear' && gt < grabT) || (s === 'collapse' && gt > 130) || (s === 'tally' && n === 3);
+  drawBatako(bat.x, bat.y, bat.dir, { t: G.t + gt, wave: !happy && !bat.held, shout: !happy, hop: happy, held: bat.held });
+  const p = G.player, beat = 1 + Math.sin(gt * 0.25) * 0.08;
+  if (s === 'clear' && gt < grabT + 30) heart((bat.x + p.x) / 2, bat.y - 32, 8 * beat, gt > grabT ? (gt - grabT) / 15 : 0);
+  if ((s === 'collapse' && gt > 140) || (s === 'tally' && n === 3)) heart((bat.x + p.x) / 2, bat.y - 32, 8 * beat);
+}
+function drawBossScene() {
+  const b = G.boss, u = G.ufo, T = G.t + G.stateT;
+  if (u) {
+    if (u.y < -40) return;
+    if (G.state === 'clear' && G.stateT >= 140) drawMagicHand(u.x, u.y + 7, lerp(u.y + 7, G.bat.y - 20, Math.min(1, u.hand || 0)));
+    drawUFO(u.x, u.y, { t: T, arm: u.arm, pose: G.state === 'dying' ? 'laugh' : 'ufo' });
+    return;
+  }
+  if (!b || b.y < -60) return;
+  const poses = { idle: 'stand', walk: 'stand', grab: 'grab', lift: 'lift', throw: 'throw', fly: 'fly', byebye: 'fly' };
+  let pose = poses[b.state] || 'stand';
+  let dir = b.dir;
+  if (G.st.n === 1 && b.state === 'grab') dir = 1;
+  if (pose === 'stand' && (G.state === 'dying' || G.state === 'gameover' || (b.state === 'idle' && G.t % 300 < 50))) pose = 'laugh';
+  let s = 0.66;
+  if (b.state === 'byebye') {
+    s = 0.66 * Math.max(0, 1 - (b.bt || 0) / 70);
+    if (s < 0.1) { if ((b.bt >> 2) % 2 === 0) { ctx.lineWidth = 0.5; ctx.strokeStyle = OL; star5(b.x, b.y, 3, '#fff6a8'); } return; }
+  }
+  drawBaikin(b.x, b.y, dir, { t: T, pose, s, rot: b.rot || 0, angry: !!b.angry, dizzy: b.state === 'crashed' });
+  if (b.state === 'lift') drawKabiBall(b.x, b.y - 26, 0);
+  if (b.state === 'crashed') {
+    ctx.lineWidth = 0.5; ctx.strokeStyle = OL;
+    for (let i = 0; i < 3; i++) { const a = T * 0.15 + i * TAU / 3; star5(b.x + Math.cos(a) * 9, b.y - 3 + Math.sin(a) * 2.5, 2.2, '#ffe14d'); }
+  }
+}
+function drawEnemy(e) {
+  if (e.type === 'roll') {
+    if (e.state !== 'wake') drawKabiBall(e.x, e.y, e.ang);
+    else if (e.t < 18) drawKabiBall(e.x, e.y, Math.sin(e.t * 0.8) * 0.4);
+    else { drawKabi(e.x, e.y, -1, { t: e.t }); text('!', e.x, e.y - 15, 8, '#e8483f', 'center', '#fff', 2); }
+  } else if (e.state === 'arc') drawKabiBall(e.x, e.y, e.t * 0.3);
+  else drawKabi(e.x, e.y, e.dir || 1, { t: e.t });
+}
+function drawPlayer() {
+  const p = G.player; if (!p) return;
+  if (p.state === 'dead') {
+    const t = G.stateT;
+    if (t < 30) drawJam(p.x, p.y, p.dir, { pose: 'jump' });
+    else if (t < 80) drawJam(p.x, p.y, p.dir, { pose: 'stand', rot: (t - 30) * 0.4 });
+    else {
+      const ld = p.x < 30 ? -1 : p.x > W - 30 ? 1 : p.dir;   // which way his head points while lying down
+      ctx.save(); ctx.translate(p.x, p.y - 4.5); ctx.rotate(-Math.PI / 2 * ld);
+      drawJam(0, 0, ld, { pose: 'stand', dizzy: true });
+      ctx.restore();
+      ctx.lineWidth = 0.5; ctx.strokeStyle = OL;
+      for (let i = 0; i < 3; i++) { const a = t * 0.12 + i * TAU / 3; star5(p.x - ld * 14 + Math.cos(a) * 7, p.y - 11 + Math.sin(a) * 2.5, 2, '#ffe14d'); }
+    }
+    return;
+  }
+  let pose = 'stand', ph = 0, ham = null;
+  if (p.state === 'climb') { pose = 'climb'; ph = (p.climbT % 20) / 20; }
+  else if (p.state === 'jump' || p.state === 'fall') pose = 'jump';
+  else if (p.walkT > 0) { pose = 'walk'; ph = (p.walkT % 18) / 18; }
+  if (p.hammerT > 0 && p.state !== 'climb') ham = hammerUp(p) ? 'up' : 'down';
+  const s = G.state, happy = s === 'clear' || s === 'tally' || (s === 'collapse' && G.stateT > 130);
+  if (happy && pose === 'walk') pose = 'stand';
+  const fading = p.hammerT > 0 && p.hammerT < 120 && (p.hammerT >> 3) % 2 === 0;
+  if (fading) ctx.globalAlpha = 0.6;
+  drawJam(p.x, p.y, p.dir, { pose, ph, ham, happy: happy && pose !== 'jump' });
+  ctx.globalAlpha = 1;
+}
+function drawFx() {
+  for (const f of G.fx) {
+    if (f.type === 'pop') text(f.text, f.x, f.y, f.big ? 9 : 6.5, f.big ? '#ff5d7a' : '#fff', 'center', OL, 2);
+    else if (f.type === 'poof') {
+      const k = f.t / 24;
+      ctx.save(); ctx.globalAlpha = 1 - k; ctx.strokeStyle = OL; ctx.lineWidth = 0.5;
+      for (let i = 0; i < 6; i++) { const a = i * TAU / 6; circ(f.x + Math.cos(a) * (2 + k * 9), f.y + Math.sin(a) * (2 + k * 7), 2.6 * (1 - k * 0.6), '#f4f1ea'); }
+      ctx.restore();
+    } else if (f.type === 'bolt') drawBolt(f.x, f.y, f.r);
+    else if (f.type === 'dust') {
+      ctx.save(); ctx.globalAlpha = Math.max(0, 1 - f.t / 40); circ(f.x, f.y, 2 + f.t * 0.12, '#d8c2a0', false); ctx.restore();
+    }
+  }
+}
+function drawBubbles() {
+  const s = G.state, gt = G.stateT, bat = G.bat, b = G.boss, u = G.ufo, p = G.player;
+  if (bat && !bat.held && (s === 'play' || s === 'intro') && G.t % 260 < 110) bubble(bat.x + 4, bat.y - 30, 'たすけてー！', 6, -4);
+  if (s === 'clear') {
+    const grabT = b ? 140 : 165;
+    if (gt >= grabT && gt < grabT + 50) {
+      const bx = b ? b.x : u.x, by = b ? b.y : u.y + 10;
+      bubble(bx + 30, Math.max(30, by - 6), 'まだまだー！', 6, -24);
+    }
+    if (gt >= grabT + 40) bubble(p.x, 30, 'まてー！ バイキンマン！', 6, 0);
+  }
+  if (s === 'dying' && gt > 60 && gt < 185) {
+    if (b) bubble(b.x - 12, b.y - 34, 'は〜ひふ〜へほ〜！', 6, 8);
+    else if (u) bubble(u.x - 12, u.y + 22, 'は〜ひふ〜へほ〜！', 6, null);
+  }
+  if (s === 'collapse') {
+    if (gt > 8 && gt < 60) text('ゴゴゴゴ…', W / 2, 160, 12, '#fff', 'center', OL, 3);
+    if (b.state === 'crashed' && b.ct > 10) bubble(b.x, b.y - 26, 'あいたたた…', 6, 0);
+    if (b.state === 'byebye' && b.bt < 80) bubble(clamp(b.x, 50, 174), clamp(b.y - 22, 60, 240), 'ばいばいきーん！', 7, null);
+  }
+  if ((s === 'collapse' && gt > 150) || (s === 'tally' && G.st.n === 3)) bubble(bat.x + 48, bat.y - 22, 'ありがとう！ ジャムおじさん', 6, -44);
+}
+
+// ------------------------------------------------------------
+//  HUD & overlays
+// ------------------------------------------------------------
+const pad6 = n => String(n).padStart(6, '0');
+function drawHUD() {
+  ctx.fillStyle = 'rgba(28,34,58,0.8)'; ctx.fillRect(0, 0, W, 21);
+  text('SCORE', 4, 6.5, 5.2, '#ffd84d', 'left'); text(pad6(G.score), 4, 15, 7.5, '#fff', 'left');
+  text('HI', 58, 6.5, 5.2, '#ffd84d', 'left'); text(pad6(G.hi), 58, 15, 7.5, '#fff', 'left');
+  text('のこり', 110, 6.5, 5.2, '#ffd84d', 'left');
+  beginChar(114, 17.4, 0.26, 1); jamHead(); endChar();
+  text('×' + G.lives, 119, 15, 7, '#fff', 'left');
+  text('ステージ', 140, 6.5, 5.2, '#ffd84d', 'left'); text(`${G.round}-${G.stageNo}`, 140, 15, 7.5, '#fff', 'left');
+  ctx.lineWidth = 0.7; ctx.strokeStyle = OL;
+  rrect(172, 2.5, 48, 16.5, 3, '#fff8e8');
+  const low = G.bonus <= 1000 && G.state === 'play' && (G.t >> 4) % 2 === 0;
+  text('BONUS', 196, 7.2, 5, '#e8483f'); text(String(G.bonus), 196, 14.6, 7.5, low ? '#e8483f' : OL);
+}
+function drawIntro() {
+  ctx.save(); ctx.globalAlpha = Math.min(1, G.stateT / 10);
+  ctx.fillStyle = 'rgba(20,24,40,0.35)'; ctx.fillRect(0, 21, W, H - 21);
+  ctx.lineWidth = 1; ctx.strokeStyle = OL;
+  if (G.introShort) {
+    rrect(W / 2 - 54, 126, 108, 40, 8, 'rgba(255,248,232,0.96)');
+    text('READY!', W / 2, 139, 11, '#e8483f');
+    text('のこり ×' + G.lives, W / 2, 155, 7, OL);
+  } else {
+    rrect(W / 2 - 86, 106, 172, 82, 10, 'rgba(255,248,232,0.96)');
+    text(`ROUND ${G.round}`, W / 2, 119, 7, '#e8483f');
+    text(`ステージ ${G.stageNo}`, W / 2, 134, 12, OL);
+    text(STAGE_NAMES[G.stageNo - 1], W / 2, 152, 9.5, '#2f6db5');
+    text(STAGE_GOALS[G.stageNo - 1], W / 2, 171, 7, OL);
+  }
+  ctx.restore();
+}
+function drawTally() {
+  ctx.lineWidth = 1; ctx.strokeStyle = OL;
+  rrect(W / 2 - 64, 152, 128, 44, 8, 'rgba(255,248,232,0.96)');
+  text(G.st.n === 3 ? 'ラウンド クリア！' : 'ステージ クリア！', W / 2, 165, 9, '#e8483f');
+  text('ボーナス  ' + G.bonus, W / 2, 183, 8, OL);
+}
+function drawPause() {
+  ctx.fillStyle = 'rgba(20,24,40,0.55)'; ctx.fillRect(0, 0, W, H);
+  text('ポーズ', W / 2, 136, 16, '#fff', 'center', OL, 3);
+  text(isTouch() ? 'タップで さいかい' : 'P キーで さいかい', W / 2, 158, 7, '#fff', 'center', OL, 2);
+}
+function drawGameOver() {
+  ctx.save(); ctx.globalAlpha = Math.min(1, G.stateT / 30);
+  ctx.fillStyle = 'rgba(20,24,40,0.6)'; ctx.fillRect(0, 0, W, H);
+  drawBaikin(W / 2, 168, 1, { pose: 'laugh', t: G.stateT, s: 1.2 });
+  bubble(W / 2 + 10, 98, 'は〜ひふ〜へほ〜！', 7, -10);
+  text('ゲームオーバー', W / 2, 198, 17, '#fff', 'center', OL, 3.5);
+  ctx.restore();
+  if (G.stateT > 100 && (G.stateT >> 5) % 2 === 0) text(isTouch() ? 'タップで タイトルへ' : 'Enter / スペースで タイトルへ', W / 2, 224, 7, '#fff', 'center', OL, 2);
+}
+let titleCanvas = null;
+function renderTitleBG() {
+  titleCanvas = titleCanvas || document.createElement('canvas');
+  titleCanvas.width = cv.width; titleCanvas.height = cv.height;
+  const main = ctx; ctx = titleCanvas.getContext('2d');
+  ctx.setTransform(VS * DPR, 0, 0, VS * DPR, 0, 0);
+  drawBackground(1);
+  drawLadder(148, 142, 222);
+  drawGirder(62, 142, 162, 142, 6, 'girder');
+  drawGirder(0, 222, 224, 222, 6, 'girder');
+  ctx = main;
+}
+function drawTitle() {
+  if (!titleCanvas || titleCanvas.width !== cv.width || titleCanvas.height !== cv.height) renderTitleBG();
+  ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.drawImage(titleCanvas, 0, 0); ctx.restore();
+  const t = G.stateT;
+  text('ジャムおじさんの', W / 2, 40, 12, '#fff', 'center', OL, 3);
+  const gr = ctx.createLinearGradient(0, 58, 0, 80); gr.addColorStop(0, '#ffe066'); gr.addColorStop(1, '#ff7a3d');
+  ctx.font = `800 21px ${FONT}`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.lineJoin = 'round';
+  ctx.lineWidth = 6.5; ctx.strokeStyle = '#fff'; ctx.strokeText('ビルだいさくせん', W / 2, 68);
+  ctx.lineWidth = 3; ctx.strokeStyle = OL; ctx.strokeText('ビルだいさくせん', W / 2, 68);
+  ctx.fillStyle = gr; ctx.fillText('ビルだいさくせん', W / 2, 68);
+  text('〜 バタコさんを たすけだせ！ 〜', W / 2, 92, 7.5, '#fff', 'center', OL, 2.2);
+  drawBatako(112, 142, 1, { t, wave: true, shout: true });
+  bubble(124, 112, 'たすけてー！', 6, -10);
+  drawJam(44, 222, 1, { pose: 'walk', ph: (t % 36) / 36, ham: Math.floor(t / 9) % 2 ? 'down' : 'up' });
+  const kx = 104 + Math.sin(t * 0.02) * 14;
+  drawKabi(kx, 222, Math.cos(t * 0.02) > 0 ? 1 : -1, { t });
+  drawKabiBall(132, 222, t * 0.08);
+  drawBaikin(186, 222, -1, { pose: 'laugh', t });
+  if ((t >> 5) % 2 === 0) text(isTouch() ? '▶ タップして スタート' : '▶ Enter / スペースで スタート', W / 2, 245, 8.5, '#fff', 'center', OL, 2.5);
+  text('HI-SCORE  ' + pad6(G.hi), W / 2, 262, 7, '#ffd84d', 'center', OL, 2);
+  if (!isTouch()) text('← → いどう　↑ ↓ はしご　スペース ジャンプ', W / 2, 276, 5.6, '#fff', 'center', OL, 1.8);
+}
+
+// ------------------------------------------------------------
+//  Layout (canvas + on-screen pad) and main loop
+// ------------------------------------------------------------
+function isTouch() { return document.body.classList.contains('touch'); }
+function setTouchMode(on) { if (isTouch() !== on) { document.body.classList.toggle('touch', on); layout(); } }
+const miniEl = document.getElementById('mini'), helpEl = document.getElementById('help');
+function layout() {
+  const vw = window.innerWidth, vh = window.innerHeight;
+  DPR = Math.min(window.devicePixelRatio || 1, 2);
+  const ds = dpadEl.style, js = jumpEl.style, ms = miniEl.style;
+  let cx, cy, cw, ch;
+  if (!isTouch()) {
+    VS = Math.max(0.8, Math.min((vw - 24) / W, (vh - 64) / H));
+    cw = W * VS; ch = H * VS; cx = (vw - cw) / 2; cy = Math.max(8, (vh - ch - 44) / 2);
+    helpEl.style.top = (cy + ch + 14) + 'px';
+    if (vw - (cx + cw) > 64) { ms.left = (cx + cw + 12) + 'px'; ms.top = cy + 'px'; ms.flexDirection = 'column'; }
+    else { ms.left = (cx + cw - 94) + 'px'; ms.top = (cy + ch + 34) + 'px'; ms.flexDirection = 'row'; }
+  } else if (vh >= vw * 1.15) {
+    const ctrl = clamp(vh * 0.3, 170, 280);
+    VS = Math.min(vw / W, (vh - ctrl - 12) / H);
+    cw = W * VS; ch = H * VS; cx = (vw - cw) / 2; cy = Math.max(6, (vh - ctrl - ch) / 3);
+    const top = cy + ch + 8, area = vh - top - 8;
+    const D = Math.min(area * 0.9, vw * 0.44, 200), J = D * 0.64;
+    ds.width = ds.height = D + 'px'; ds.left = (vw * 0.05) + 'px'; ds.top = (top + (area - D) / 2) + 'px';
+    const jx = vw - vw * 0.06 - J, jy = top + (area - J) / 2 + D * 0.1;
+    js.width = js.height = J + 'px'; js.left = jx + 'px'; js.top = jy + 'px'; js.fontSize = (J * 0.19) + 'px';
+    ms.flexDirection = 'row'; ms.left = (jx + J / 2 - 47) + 'px'; ms.top = Math.max(top + 2, jy - 54) + 'px';
+  } else {
+    VS = Math.min((vw - 2 * clamp(vw * 0.24, 130, 230)) / W, (vh - 12) / H);
+    cw = W * VS; ch = H * VS; cx = (vw - cw) / 2; cy = (vh - ch) / 2;
+    const side = cx, D = Math.min(side * 0.85, vh * 0.42, 200), J = D * 0.68;
+    ds.width = ds.height = D + 'px'; ds.left = ((side - D) / 2) + 'px'; ds.top = (vh - D - vh * 0.1) + 'px';
+    js.width = js.height = J + 'px'; js.left = (cx + cw + (side - J) / 2) + 'px'; js.top = (vh - J - vh * 0.12) + 'px'; js.fontSize = (J * 0.19) + 'px';
+    ms.flexDirection = 'row'; ms.left = (cx + cw + (side - 94) / 2) + 'px'; ms.top = '12px';
+  }
+  cv.style.left = cx + 'px'; cv.style.top = cy + 'px'; cv.style.width = cw + 'px'; cv.style.height = ch + 'px';
+  cv.width = Math.round(cw * DPR); cv.height = Math.round(ch * DPR);
+  renderStatic();
+  titleCanvas = null;
+}
+window.addEventListener('resize', layout);
+window.addEventListener('orientationchange', () => setTimeout(layout, 200));
+
+let lastT = performance.now(), acc = 0;
+const STEP = 1000 / 60;
+function frame(now) {
+  requestAnimationFrame(frame);
+  let dt = now - lastT; lastT = now;
+  if (dt > 250) dt = STEP;
+  acc += dt;
+  let n = 0;
+  while (acc >= STEP && n < 5) { pollInput(); update(); acc -= STEP; n++; }
+  if (n >= 5) acc = 0;
+  render();
+}
+document.body.classList.toggle('touch', matchMedia('(pointer: coarse)').matches);
+layout();
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { titleCanvas = null; });
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
