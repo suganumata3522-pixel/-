@@ -371,16 +371,16 @@ function star5(x, y, r, fill) {
 // ------------------------------------------------------------
 //  ジャムおじさん
 // ------------------------------------------------------------
-function chefHat(cx, by) {
-  const cs = [[cx - 4.6, by - 10.4, 3.9], [cx + 0.2, by - 12.1, 4.4], [cx + 4.8, by - 10.3, 3.8]];
+function chefHat(cx, by, w = 11.2, h = 10) {
+  const cs = [[cx - w * 0.41, by - h - 0.4, w * 0.35], [cx + w * 0.02, by - h - 2.1, w * 0.39], [cx + w * 0.43, by - h - 0.3, w * 0.34]];
   const lw = ctx.lineWidth;
   ctx.lineWidth = lw * 2;
-  rrPath(cx - 5.6, by - 10, 11.2, 10, 1.5); ctx.stroke();
+  rrPath(cx - w / 2, by - h, w, h, 1.5); ctx.stroke();
   for (const c of cs) { ctx.beginPath(); ctx.arc(c[0], c[1], c[2], 0, TAU); ctx.stroke(); }
   ctx.lineWidth = lw; ctx.fillStyle = COL.white;
-  rrPath(cx - 5.6, by - 10, 11.2, 10, 1.5); ctx.fill();
+  rrPath(cx - w / 2, by - h, w, h, 1.5); ctx.fill();
   for (const c of cs) { ctx.beginPath(); ctx.arc(c[0], c[1], c[2], 0, TAU); ctx.fill(); }
-  ctx.beginPath(); ctx.moveTo(cx - 5.6, by - 2.8); ctx.lineTo(cx + 5.6, by - 2.8); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(cx - w / 2, by - 2.8); ctx.lineTo(cx + w / 2, by - 2.8); ctx.stroke();
 }
 function jamHead(o = {}) {
   const f = 0.6;
@@ -469,37 +469,70 @@ function drawJam(x, y, dir, o = {}) {
 // ------------------------------------------------------------
 //  バタコさん
 // ------------------------------------------------------------
+function breadBasket(x, y) {      // (x, y) = where the hand grips the handle
+  ctx.save(); ctx.translate(x, y); ctx.scale(1.18, 1.18); ctx.lineWidth /= 1.18;
+  const lw = ctx.lineWidth;
+  ctx.beginPath(); ctx.moveTo(-3.8, 4.6); ctx.quadraticCurveTo(0, -1.6, 3.8, 4.6);
+  ctx.lineWidth = 1.6 + lw * 2; ctx.stroke(); ctx.lineWidth = 1.6; ctx.strokeStyle = '#f6c5cf'; ctx.stroke();
+  ctx.lineWidth = lw; ctx.strokeStyle = OL;
+  for (const [bx, by, r] of [[-2.3, 1.9, -0.5], [0.4, 1.2, 0.1], [2.7, 2.0, 0.55]]) {
+    ctx.save(); ctx.translate(bx, by); ctx.rotate(r);
+    ell(0, 0, 1.55, 3.6, '#c27a45');
+    ctx.beginPath(); ctx.moveTo(-0.7, -1.3); ctx.lineTo(0.7, -0.5); ctx.moveTo(-0.7, 0.5); ctx.lineTo(0.7, 1.3); ctx.stroke();
+    ctx.restore();
+  }
+  ctx.beginPath(); ctx.moveTo(-5, 4.4); ctx.lineTo(5, 4.4); ctx.lineTo(3.9, 9); ctx.lineTo(-3.9, 9); ctx.closePath();
+  ctx.fillStyle = '#f6c5cf'; ctx.fill();
+  ctx.save(); ctx.clip(); ctx.strokeStyle = '#c98292'; ctx.lineWidth = lw * 0.7; ctx.beginPath();
+  for (let i = -12; i <= 12; i += 2.4) { ctx.moveTo(i, 4); ctx.lineTo(i + 5, 9.5); ctx.moveTo(i + 5, 4); ctx.lineTo(i, 9.5); }
+  ctx.stroke(); ctx.restore();
+  ctx.beginPath(); ctx.moveTo(-5, 4.4); ctx.lineTo(5, 4.4); ctx.lineTo(3.9, 9); ctx.lineTo(-3.9, 9); ctx.closePath(); ctx.stroke();
+  rrect(-5.4, 3.5, 10.8, 1.9, 0.9, '#f6c5cf');
+  ctx.restore();
+}
 // o: {t, wave, shout, hop, held}
 function drawBatako(x, y, dir, o = {}) {
-  beginChar(x, y, 0.56, dir);
-  const t = o.t || 0, f = 0.5;
+  beginChar(x, y, 0.54, dir);
+  const t = o.t || 0, f = 0.6, OV = '#2f8db0', OVD = '#226f8c';
   if (o.hop) ctx.translate(0, -Math.abs(Math.sin(t * 0.18)) * 5);
-  ell(-2.6, -1.5, 2.4, 1.5, COL.bshoe); ell(2.6, -1.5, 2.4, 1.5, COL.bshoe);
-  limb(-2.4, -6.5, -2.5, -2.4, 1.9, COL.bskin); limb(2.4, -6.5, 2.5, -2.4, 1.9, COL.bskin);
+  // legs (overall trousers) + shoes
+  ell(-3.2, -1.7, 3.1, 1.9, COL.shoe); ell(3.4, -1.7, 3.1, 1.9, COL.shoe);
+  rrect(-5.1, -10, 4.4, 8.6, 1.3, OV); rrect(0.7, -10, 4.4, 8.6, 1.3, OV);
+  // shirt, overall body, bib and straps
+  rrect(-6.8, -22.2, 13.6, 9, 3.6, COL.white);
+  rrect(-6.3, -17.4, 12.6, 9.4, 3, OV);
+  rrect(-4.3, -20.6, 8.6, 5.2, 1.3, OV);
+  limb(-3.5, -20, -5.4, -22.3, 1.3, OVD); limb(3.5, -20, 5.4, -22.3, 1.3, OVD);
+  // back arm: waves for help, or is pulled up when she is snatched
   const wv = Math.sin(t * 0.3);
-  let hl = [-6.4, -11], hr = [6.4, -11];
-  if (o.wave) { hl = [-8.2, -24 + wv * 2.2]; hr = [8.2, -24 - wv * 2.2]; }
-  if (o.held) { hl = [-6.5, -27]; hr = [6.5, -27]; }
-  limb(-4.2, -17, hl[0], hl[1], 2.8, COL.bdress); limb(4.2, -17, hr[0], hr[1], 2.8, COL.bdress);
-  circ(hl[0], hl[1], 1.75, COL.bskin); circ(hr[0], hr[1], 1.75, COL.bskin);
-  ctx.beginPath(); ctx.moveTo(-4.6, -18.6); ctx.lineTo(4.6, -18.6); ctx.lineTo(7.9, -5.4);
-  ctx.quadraticCurveTo(0, -3.6, -7.9, -5.4); ctx.closePath();
-  ctx.fillStyle = COL.bdress; ctx.fill(); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(-3.6, -14.6); ctx.lineTo(3.6, -14.6); ctx.lineTo(5.1, -6.4);
-  ctx.quadraticCurveTo(0, -5, -5.1, -6.4); ctx.closePath();
-  ctx.fillStyle = COL.white; ctx.fill(); ctx.stroke();
-  rrect(-2.6, -18.2, 5.2, 4.2, 1, COL.white);
-  ctx.save(); ctx.translate(0, -24.6);
-  ell(0, -0.2, 8.1, 7.5, COL.bhair);
-  circ(0, 0.9, 6.6, COL.bskin);
-  ctx.beginPath(); ctx.moveTo(-8.3, -1.2); ctx.arc(0, -1.2, 8.3, Math.PI, 0); ctx.quadraticCurveTo(0, -3.8, -8.3, -1.2); ctx.closePath();
-  ctx.fillStyle = COL.white; ctx.fill(); ctx.stroke();
-  ell(-2.4, -10.2, 2.4, 1.5, COL.white, true, -0.5); ell(2.4, -10.2, 2.4, 1.5, COL.white, true, 0.5); circ(0, -9.6, 1.3, COL.white);
-  ell(-2.2 + f, 1, 0.85, 1.2, OL, false); ell(2.2 + f, 1, 0.85, 1.2, OL, false);
-  circ(-4.1 + f, 3.1, 1.6, COL.bcheek, false); circ(4.1 + f, 3.1, 1.6, COL.bcheek, false);
-  if (o.shout) ell(f, 4.9, 1.3, 1.5, '#c0392b');
-  else { ctx.beginPath(); ctx.moveTo(-1.8 + f, 4.2); ctx.quadraticCurveTo(f, 5.8, 1.8 + f, 4.2); ctx.stroke(); }
+  let hb = [-7.6, -12];
+  if (o.wave) hb = [-11.2, -29.5 + wv * 2.4];
+  if (o.held) hb = [-6.8, -37];
+  limb(-6.2, -19.6, hb[0], hb[1], 2.4, COL.skin);
+  ell(-6.7, -19.6, 2.5, 2.3, COL.white);
+  circ(hb[0], hb[1], 2.1, COL.skin);
+  // head: black spiky hair on both sides, round face, chef hat
+  for (const s of [-1, 1]) {
+    ctx.beginPath();
+    const pts = [[7.4, -34.4], [12.6, -34.2], [9.4, -32.2], [13.4, -30.6], [9.6, -29.6], [12.4, -26.8], [8.2, -27.4]];
+    pts.forEach(([px, py], i) => (i ? ctx.lineTo(s * px, py) : ctx.moveTo(s * px, py)));
+    ctx.closePath(); ctx.fillStyle = COL.bhair; ctx.fill(); ctx.stroke();
+  }
+  ell(0, -28.5, 8.7, 8, COL.skin);
+  chefHat(0, -34.8, 13, 9);
+  ctx.save(); ctx.lineWidth *= 1.05;
+  for (const ex of [-3, 3]) { ctx.beginPath(); ctx.arc(ex + f, -31.3, 1.5, Math.PI * 1.2, Math.PI * 1.8); ctx.stroke(); }
   ctx.restore();
+  ell(-2.6 + f, -29.3, 0.9, 1.25, OL, false); ell(2.6 + f, -29.3, 0.9, 1.25, OL, false);
+  circ(-5.3 + f, -26, 1.9, '#d98a75', false); circ(5.3 + f, -26, 1.9, '#d98a75', false);
+  circ(f, -27, 1.3, COL.skin);
+  if (o.shout) ell(f, -23.6, 1.5, 1.7, '#c0392b');
+  else { ctx.beginPath(); ctx.moveTo(-3 + f, -24.6); ctx.quadraticCurveTo(f, -22, 3 + f, -24.6); ctx.stroke(); }
+  // front arm holds the bread basket
+  limb(6.2, -19.6, 7.8, -12.2, 2.4, COL.skin);
+  ell(6.7, -19.6, 2.5, 2.3, COL.white);
+  breadBasket(8.2, -12);
+  circ(7.9, -12.2, 2.1, COL.skin);
   endChar();
 }
 
@@ -1468,7 +1501,7 @@ function updClear() {
     if (t >= 100 && t < 140) {
       const k = (t - 100) / 40;
       b.state = 'fly'; b.dir = bat.x < b.sx ? -1 : 1;
-      b.x = lerp(b.sx, bat.x + 3, k); b.y = lerp(b.sy, bat.y - 14, k) - Math.sin(k * Math.PI) * 24;
+      b.x = lerp(b.sx, bat.x + 3, k); b.y = lerp(b.sy, bat.y - 26, k) - Math.sin(k * Math.PI) * 24;
       if (t === 100) SFX.whoosh();
     } else if (t >= 140) {
       if (t === 140) { bat.held = true; SFX.breakHeart(); SFX.laugh(); }
@@ -1478,7 +1511,7 @@ function updClear() {
   if (u) {   // stage 2: the UFO swoops in and its magic hand picks her up
     if (t >= 100 && t < 140) {
       const k = (t - 100) / 40;
-      u.x = lerp(u.sx, bat.x, k); u.y = lerp(u.sy, bat.y - 46, k);
+      u.x = lerp(u.sx, bat.x, k); u.y = lerp(u.sy, bat.y - 42, k);
       if (t === 100) SFX.whoosh();
     } else if (t >= 140 && t < 165) { u.hand = (t - 140) / 25; }
     else if (t >= 165) {
@@ -1487,8 +1520,8 @@ function updClear() {
     }
   }
   if (bat.held) {
-    if (b) { bat.x = b.x - 2; bat.y = b.y + 14; }
-    if (u) { bat.x = u.x; bat.y = u.y + 34; }
+    if (b) { bat.x = b.x - 2; bat.y = b.y + 26; }
+    if (u) { bat.x = u.x; bat.y = u.y + 42; }
   }
   if (t > 250) { G.state = 'tally'; G.stateT = 0; G.tallyWait = 0; }
 }
@@ -1550,6 +1583,7 @@ function updCollapse() {
     p.dir = 1; p.state = k < 1 ? 'jump' : 'walk';
     if (t === 70) SFX.jump();
   }
+  if (t === 130) G.bat.dir = -1;
   if (t === 140) { Music.play('roundclear'); SFX.heart(); }
   if (t > 420) { G.state = 'tally'; G.stateT = 0; G.tallyWait = 0; }
 }
@@ -1575,6 +1609,10 @@ function render() {
   drawWorld();
   ctx.setTransform(k, 0, 0, k, 0, 0);
   drawHUD();
+  if (G.state === 'clear') {   // the snatch happens near the top edge: keep it in front of the HUD
+    ctx.setTransform(k, 0, 0, k, sx * k, sy * k); drawBatakoScene(); drawBossScene(); drawBubbles();
+    ctx.setTransform(k, 0, 0, k, 0, 0);
+  }
   if (G.state === 'intro') drawIntro();
   else if (G.state === 'tally') drawTally();
   else if (G.state === 'gameover') drawGameOver();
@@ -1642,7 +1680,7 @@ function drawBossScene() {
   const b = G.boss, u = G.ufo, T = G.t + G.stateT;
   if (u) {
     if (u.y < -40) return;
-    if (G.state === 'clear' && G.stateT >= 140) drawMagicHand(u.x, u.y + 7, lerp(u.y + 7, G.bat.y - 20, Math.min(1, u.hand || 0)));
+    if (G.state === 'clear' && G.stateT >= 140) drawMagicHand(u.x, u.y + 7, lerp(u.y + 7, G.bat.y - 27, Math.min(1, u.hand || 0)));
     drawUFO(u.x, u.y, { t: T, arm: u.arm, pose: G.state === 'dying' ? 'laugh' : 'ufo' });
     return;
   }
@@ -1716,13 +1754,10 @@ function drawFx() {
 }
 function drawBubbles() {
   const s = G.state, gt = G.stateT, bat = G.bat, b = G.boss, u = G.ufo, p = G.player;
-  if (bat && !bat.held && (s === 'play' || s === 'intro') && G.t % 260 < 110) bubble(bat.x + 4, bat.y - 30, 'たすけてー！', 6, -4);
+  if (bat && !bat.held && (s === 'play' || s === 'intro') && G.t % 260 < 110) bubble(bat.x + 26, bat.y - 25, 'たすけてー！', 6, -18);
   if (s === 'clear') {
     const grabT = b ? 140 : 165;
-    if (gt >= grabT && gt < grabT + 50) {
-      const bx = b ? b.x : u.x, by = b ? b.y : u.y + 10;
-      bubble(bx + 30, Math.max(30, by - 6), 'まだまだー！', 6, -24);
-    }
+    if (b && gt >= grabT && gt < grabT + 50) bubble(b.x - 34, Math.max(32, b.y), 'まだまだー！', 6, 26);
     if (gt >= grabT + 40) bubble(p.x, 30, 'まてー！ バイキンマン！', 6, 0);
   }
   if (s === 'dying' && gt > 60 && gt < 185) {
@@ -1815,7 +1850,7 @@ function drawTitle() {
   ctx.fillStyle = gr; ctx.fillText('ビルだいさくせん', W / 2, 68);
   text('〜 バタコさんを たすけだせ！ 〜', W / 2, 92, 7.5, '#fff', 'center', OL, 2.2);
   drawBatako(112, 142, 1, { t, wave: true, shout: true });
-  bubble(124, 112, 'たすけてー！', 6, -10);
+  bubble(138, 117, 'たすけてー！', 6, -18);
   drawJam(44, 222, 1, { pose: 'walk', ph: (t % 36) / 36, ham: Math.floor(t / 9) % 2 ? 'down' : 'up' });
   const kx = 104 + Math.sin(t * 0.02) * 14;
   drawKabi(kx, 222, Math.cos(t * 0.02) > 0 ? 1 : -1, { t });
