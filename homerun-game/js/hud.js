@@ -462,10 +462,12 @@
     strikeout: { text: '空振り三振!!', px: 150, fills: ['#ffffff', '#ffd0dd', '#ff4d80', '#d4142a'], strokes: [[34, '#3a0016'], [20, '#ffffff'], [8, '#d4142a']], big: true },
     gameset: { text: 'ゲームセット', px: 130, fills: ['#fffbd0', '#ffe14a', '#ff9d00'], strokes: [[30, '#3a1a00'], [16, '#ffffff']] },
     sayonara: { text: '逆転サヨナラ', sub: '満塁ホームラン!!', px: 150, subPx: 112, fills: ['#fffbd0', '#ffe14a', '#ff9d00', '#ff4a00'], strokes: [[34, '#5a0d00'], [20, '#ffffff'], [8, '#e0301e']], big: true },
+    supercatch: { text: 'まさかの', sub: 'スーパーキャッチ!!', px: 104, subPx: 132, fills: ['#ffffff', '#d6f3ff', '#62c8ff', '#1e78ff'], strokes: [[32, '#06204a'], [18, '#ffffff'], [7, '#1e78ff']], big: true },
   };
   const SUNBURST = {
     hr: ['rgba(255,214,60,0.55)', 'rgba(255,150,40,0.25)'],
     strikeout: ['rgba(255,120,170,0.5)', 'rgba(120,80,255,0.25)'],
+    supercatch: ['rgba(120,220,255,0.5)', 'rgba(60,120,255,0.25)'],
   };
 
   function banner(g, b, now) {
@@ -632,7 +634,8 @@
     const age = now - f.t0;
     if (age < 0) return;
     const a = HR.clamp(age * 3, 0, 1);
-    const x = 70, y = 150 + (1 - HR.easeOutCubic(age / 0.5)) * 60, w = W - 140, h = 640;
+    // bottom: 画面の下に出す(上で続くアンパンマンとジャムおじさんの追いかけっこを隠さない)
+    const x = 70, y = (f.bottom ? 1150 : 150) + (1 - HR.easeOutCubic(age / 0.5)) * 60, w = W - 140, h = 640;
     g.save();
     g.globalAlpha = a;
     panelBox(g, x, y, w, h);
@@ -676,27 +679,30 @@
     }
   }
 
-  function bubble(g, x, y, s, age) {
+  function bubble(g, x, y, s, age, flip) {
     const sc = HR.easeOutBack(age / 0.25);
     if (sc <= 0) return;
-    g.save();
-    g.translate(x, y);
-    g.scale(sc, sc);
     g.font = fitFont(g, s, 760, 900, 64, 40);
     const tw = g.measureText(s).width;
     const w = tw + 80, h = 130;
+    x = HR.clamp(x, w / 2 + 16, W - w / 2 - 16); // 長いセリフでも画面からはみ出さない
+    g.save();
+    g.translate(x, y);
+    g.scale(sc, sc);
     rr(g, -w / 2, -h / 2, w, h, 60);
     g.fillStyle = '#ffffff';
     g.fill();
     g.lineWidth = 7;
     g.strokeStyle = '#1b2433';
     g.stroke();
+    // しっぽ(ふつうは右下、flip のときは左下)
+    const fx = flip ? -1 : 1;
     g.beginPath();
-    g.moveTo(60, h / 2 - 6); g.lineTo(130, h / 2 + 70); g.lineTo(120, h / 2 - 6);
+    g.moveTo(60 * fx, h / 2 - 6); g.lineTo(130 * fx, h / 2 + 70); g.lineTo(120 * fx, h / 2 - 6);
     g.fillStyle = '#ffffff';
     g.fill();
     g.stroke();
-    g.fillRect(56, h / 2 - 14, 70, 12);
+    g.fillRect(flip ? -126 : 56, h / 2 - 14, 70, 12);
     txt(g, s, 0, 22, { font: g.font, align: 'center', fill: '#e0301e' });
     g.restore();
   }
@@ -937,7 +943,8 @@
       bubble(g, 470, 600, s.cutin.bubble, age - 0.1);
       if (s.cutin.dist) distPlate(g, W / 2, 1180, s.cutin.dist, HR.clamp(age * 5, 0, 1));
     }
-    if (s.speech) bubble(g, s.speech.x, s.speech.y, s.speech.text, now - s.speech.t0);
+    if (s.speech2) bubble(g, s.speech2.x, s.speech2.y, s.speech2.text, now - s.speech2.t0, s.speech2.flip);
+    if (s.speech) bubble(g, s.speech.x, s.speech.y, s.speech.text, now - s.speech.t0, s.speech.flip);
     if (s.fx) drawFx(g, s.fx, now);
     drawParts(g, s.dt);
     if (s.finish) finishPanel(g, s.finish, now, s.live);

@@ -549,41 +549,108 @@
     return m;
   }
 
+  // ---------------- アンパンマン(9回裏の「好捕」の場面で空から飛んでくる) ----------------
+  // 赤いスーツに黄色のにこちゃんマークとベルト、黄色の手袋とブーツ、茶色のマント
+  function makeAnpanman() {
+    const YELLOW = '#f1b92c';
+    const [bc, bg] = canvas(512, 256);
+    bg.fillStyle = '#e23b2c';
+    bg.fillRect(0, 0, 512, 256);
+    // ベルト
+    bg.fillStyle = YELLOW;
+    bg.fillRect(0, 150, 512, 22);
+    bg.fillStyle = 'rgba(120,60,10,0.35)';
+    bg.fillRect(0, 170, 512, 3);
+    // 胸のにこちゃんマーク(胴は横に引き伸ばされるので縦長の楕円で描くと丸く見える)
+    const cx = 256, cy = 80;
+    bg.beginPath();
+    bg.ellipse(cx, cy, 25, 42, 0, 0, Math.PI * 2);
+    bg.fillStyle = '#ffd23f';
+    bg.fill();
+    bg.lineWidth = 3;
+    bg.strokeStyle = '#b8641c';
+    bg.stroke();
+    bg.fillStyle = '#9a4a12';
+    for (const sx of [-1, 1]) { bg.beginPath(); bg.ellipse(cx + sx * 8, cy - 10, 2.6, 6, 0, 0, Math.PI * 2); bg.fill(); }
+    bg.beginPath();
+    bg.ellipse(cx, cy + 6, 13, 18, 0, 0.15 * Math.PI, 0.85 * Math.PI);
+    bg.lineWidth = 3.5;
+    bg.strokeStyle = '#9a4a12';
+    bg.stroke();
+    const bodyTex = toTex(bc);
+    const m = buildChibi({ skin: YELLOW, bodyTex, headTex: anpanFaceTex(false), headR: 0.47, shoe: YELLOW });
+    anpanBumps(m.head, m.headR);
+    // マント: 首の後ろから下がる布。頂点を毎フレーム動かしてはためかせる
+    const COLS = 6, ROWS = 12;
+    const capeGeo = new T.PlaneGeometry(1, 1, COLS, ROWS);
+    const cape = new T.Mesh(capeGeo, std('#7a3c20', { roughness: 0.8, side: T.DoubleSide }));
+    m.pivot.add(cape);
+    m.cape = cape;
+    const pos = capeGeo.attributes.position;
+    // fly: 0(ぶら下がる)〜1(飛んでいて後ろへ流れる)
+    m.updateCape = (t, fly) => {
+      for (let j = 0; j <= ROWS; j++) {
+        const sv = j / ROWS;
+        for (let i = 0; i <= COLS; i++) {
+          const u = i / COLS - 0.5;
+          const wave = (0.025 + 0.07 * fly) * sv * Math.sin(6 * sv - t * (5 + 9 * fly) + u * 1.6);
+          pos.setXYZ(j * (COLS + 1) + i,
+            u * (0.4 + 0.32 * sv),
+            0.44 - sv * (0.74 + 0.08 * fly),
+            -0.27 - 0.07 * sv - (0.22 * fly + 0.03) * sv * sv - wave);
+        }
+      }
+      pos.needsUpdate = true;
+      capeGeo.computeVertexNormals();
+    };
+    m.updateCape(0, 0);
+    return m;
+  }
+
+  // ---------------- アンパンマンの顔(ボールとアンパンマン本人で共通) ----------------
+  function anpanFaceTex(dizzy) {
+    const f = facePainter('#e9a066');
+    if (!dizzy) {
+      f.curve([-25, 27], [-16, 38], [-7, 28], 7, '#1a1210');
+      f.curve([7, 28], [16, 38], [25, 27], 7, '#1a1210');
+      f.eye(-14, 15, 4.4, 7.4);
+      f.eye(14, 15, 4.4, 7.4);
+    } else {
+      f.curve([-21, 20], [-10, 15], [-21, 10], 6, '#1a1210');
+      f.curve([21, 20], [10, 15], [21, 10], 6, '#1a1210');
+      f.curve([-25, 27], [-16, 33], [-7, 29], 6, '#1a1210');
+      f.curve([7, 29], [16, 33], [25, 27], 6, '#1a1210');
+    }
+    const { g, P, px } = f;
+    g.beginPath();
+    if (!dizzy) {
+      const [x0, y0] = P(-22, -13), [x1] = P(22, -13);
+      g.moveTo(x0, y0);
+      g.lineTo(x1, y0);
+      const [cx, cy] = P(0, -46);
+      g.quadraticCurveTo(cx, cy, x0, y0);
+    } else {
+      const [x, y] = P(0, -26);
+      g.ellipse(x, y, 9 * px, 11 * px, 0, 0, Math.PI * 2);
+    }
+    g.fillStyle = '#8b3a46';
+    g.fill();
+    g.lineWidth = 5;
+    g.strokeStyle = '#1a1210';
+    g.stroke();
+    return toTex(f.c);
+  }
+  // 赤い鼻と両ほっぺ
+  function anpanBumps(parent, R) {
+    bump(parent, -27, -4, R, R * 0.29, '#df6331', 0.75, 0.92);
+    bump(parent, 27, -4, R, R * 0.29, '#df6331', 0.75, 0.92);
+    bump(parent, 0, -2, R, R * 0.29, '#d8432a', 0.95, 0.9);
+  }
+
   // ---------------- アンパンマンの顔ボール ----------------
   function makeBall() {
     const R = HR.PHYS.ballR;
-    const drawFace = (dizzy) => {
-      const f = facePainter('#e9a066');
-      if (!dizzy) {
-        f.curve([-25, 27], [-16, 38], [-7, 28], 7, '#1a1210');
-        f.curve([7, 28], [16, 38], [25, 27], 7, '#1a1210');
-        f.eye(-14, 15, 4.4, 7.4);
-        f.eye(14, 15, 4.4, 7.4);
-      } else {
-        f.curve([-21, 20], [-10, 15], [-21, 10], 6, '#1a1210');
-        f.curve([21, 20], [10, 15], [21, 10], 6, '#1a1210');
-        f.curve([-25, 27], [-16, 33], [-7, 29], 6, '#1a1210');
-        f.curve([7, 29], [16, 33], [25, 27], 6, '#1a1210');
-      }
-      const { g, P, px } = f;
-      g.beginPath();
-      if (!dizzy) {
-        const [x0, y0] = P(-22, -13), [x1] = P(22, -13);
-        g.moveTo(x0, y0);
-        g.lineTo(x1, y0);
-        const [cx, cy] = P(0, -46);
-        g.quadraticCurveTo(cx, cy, x0, y0);
-      } else {
-        const [x, y] = P(0, -26);
-        g.ellipse(x, y, 9 * px, 11 * px, 0, 0, Math.PI * 2);
-      }
-      g.fillStyle = '#8b3a46';
-      g.fill();
-      g.lineWidth = 5;
-      g.strokeStyle = '#1a1210';
-      g.stroke();
-      return toTex(f.c);
-    };
+    const drawFace = anpanFaceTex;
     const texNormal = drawFace(false), texDizzy = drawFace(true);
     const mat = std('#ffffff', { map: texNormal, roughness: 0.55 });
     const root = new T.Group();
@@ -592,9 +659,7 @@
     const s = new T.Mesh(sphereGeo, mat);
     s.scale.setScalar(R);
     spin.add(s);
-    bump(spin, -27, -4, R, R * 0.29, '#df6331', 0.75, 0.92);
-    bump(spin, 27, -4, R, R * 0.29, '#df6331', 0.75, 0.92);
-    bump(spin, 0, -2, R, R * 0.29, '#d8432a', 0.95, 0.9);
+    anpanBumps(spin, R);
     return {
       root, spin, mat,
       setDizzy(on) { mat.map = on ? texDizzy : texNormal; mat.needsUpdate = true; },
@@ -650,5 +715,5 @@
     m.footR.position.set(v[6], v[7], v[8]);
   }
 
-  HR.Models = { makeBatako, makeJam, makeBall, makeRunner, blob, onSphere, poseBatako, poseJam };
+  HR.Models = { makeBatako, makeJam, makeBall, makeRunner, makeAnpanman, blob, onSphere, poseBatako, poseJam };
 })();

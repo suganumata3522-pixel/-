@@ -104,6 +104,7 @@
     border-radius: 18px;
     padding: 20px;
     width: min(360px, 100%);
+    box-sizing: border-box;
     display: grid;
     gap: 12px;
     text-align: center;
@@ -121,6 +122,8 @@
     cursor: pointer;
   }
   .dlg button.ghost { background: transparent; border-color: var(--line); }
+  .dlg .col { display: grid; gap: 8px; }
+  .dlg .col button[aria-current="true"] { background: #2f6fd6; border-color: var(--gold); }
   #toast {
     position: fixed;
     left: 50%;
@@ -145,8 +148,7 @@
   <button id="btnAuto" type="button" aria-pressed="false" title="CPUが打ちます"><span class="lbl">オート</span></button>
   <button id="btnVoice" type="button" aria-pressed="true" title="実況の読み上げ"><span class="lbl">実況</span></button>
   <button id="btnSound" type="button" aria-pressed="true"><span class="lbl">音 ON</span></button>
-  <button id="btnScene" type="button" aria-pressed="false" title="9回裏2アウト満塁、空振り三振でゲームセット"><span class="lbl">9回裏・三振</span></button>
-  <button id="btnScene2" type="button" aria-pressed="false" title="9回裏2アウト満塁、逆転サヨナラ満塁ホームラン"><span class="lbl">9回裏・逆転弾</span></button>
+  <button id="btnScene" type="button" aria-pressed="false" aria-haspopup="dialog" title="9回裏2アウト満塁の名場面を選んで再生"><span class="lbl">9回裏の名場面</span></button>
   <button id="btnRec" type="button" aria-pressed="false" title="ゲーム画面を縦動画で録画"><span class="dot" aria-hidden="true"></span><span class="lbl">録画</span></button>
   <span id="recTime" hidden></span>
 </div>
@@ -162,6 +164,21 @@
     <div class="row">
       <button id="btnSave" type="button">動画を保存</button>
       <button id="btnClose" type="button" class="ghost">閉じる</button>
+    </div>
+  </div>
+</div>
+<div class="dlg" id="sceneDlg" hidden>
+  <div class="box" role="dialog" aria-labelledby="sceneDlgTitle">
+    <h2 id="sceneDlgTitle">9回裏2アウト満塁の名場面</h2>
+    <p>バタコさんが3-2でリード。フルカウントからの結末を選んでください。</p>
+    <div class="col">
+      <button type="button" data-scene="strikeout">空振り三振でゲームセット</button>
+      <button type="button" data-scene="homerun">逆転サヨナラ満塁ホームラン</button>
+      <button type="button" data-scene="catch">アンパンマンがスーパーキャッチ</button>
+    </div>
+    <div class="row">
+      <button id="btnDerby" type="button" class="ghost" hidden>ホームラン競争に戻る</button>
+      <button id="btnSceneClose" type="button" class="ghost">閉じる</button>
     </div>
   </div>
 </div>

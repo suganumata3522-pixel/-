@@ -12,10 +12,11 @@
   const OFFLINE_FPS = parseInt(qs.get('fps'), 10) || 30;
   // ai=whiff: オートのジャムおじさんが一球も当てられない(動画用)
   const AI_MODE = qs.get('ai') === 'whiff' ? 'whiff' : 'normal';
-  // 9回裏2アウト満塁の名場面。sayonara: 空振り三振でゲームセット、gyakuten: 逆転サヨナラ満塁ホームラン
-  // (?scene=sayonara / #sayonara などで開く)
+  // 9回裏2アウト満塁の名場面。sayonara: 空振り三振でゲームセット、gyakuten: 逆転サヨナラ満塁ホームラン、
+  // anpanman: ホームラン性の当たりをアンパンマンが空中でキャッチ(?scene=sayonara / #sayonara などで開く)
   const SCENE_PARAM = qs.get('scene') || location.hash.slice(1);
-  let sceneKind = SCENE_PARAM === 'gyakuten' ? 'homerun' : SCENE_PARAM === 'sayonara' ? 'strikeout' : null;
+  const SCENE_KINDS = { sayonara: 'strikeout', gyakuten: 'homerun', anpanman: 'catch' };
+  let sceneKind = SCENE_KINDS[SCENE_PARAM] || null;
   let sceneMode = !!sceneKind;
 
   let rng = HR.makeRng(SEED);
@@ -54,7 +55,7 @@
   screen.height = H;
   const g = screen.getContext('2d');
 
-  let renderer, scene, camera, batCam, stadium, batako, jam, ballM, runners = [];
+  let renderer, scene, camera, batCam, stadium, batako, jam, ballM, anpan, runners = [];
   let shadows = {}, trail = [], halo;
   let renderScale = 1;
 
@@ -90,10 +91,16 @@
       scene.add(m.root, m.shadow);
       return m;
     });
+    // アンパンマン(好捕の場面だけ空から飛んでくる)
+    anpan = HR.Models.makeAnpanman();
+    anpan.root.visible = false;
+    scene.add(anpan.root);
     shadows.jam = HR.Models.blob(1.2, 1.0, 0.9);
     shadows.batako = HR.Models.blob(1.2, 1.0, 0.9);
     shadows.ball = HR.Models.blob(0.4, 0.4, 0.8);
-    scene.add(shadows.jam, shadows.batako, shadows.ball);
+    shadows.anpan = HR.Models.blob(1.0, 0.9, 0.7);
+    shadows.anpan.visible = false;
+    scene.add(shadows.jam, shadows.batako, shadows.ball, shadows.anpan);
     const dot = (() => {
       const c = document.createElement('canvas');
       c.width = c.height = 64;
@@ -167,6 +174,7 @@
     S.tan = null;
     S.btan = null;
     S.speech = null;
+    S.anp = null; S.cfx = null; S.speech2 = null;
     resetScenery();
     rng = HR.makeRng(SEED + (S.runs || 0) * 7919);
     S.runs = (S.runs || 0) + 1;
@@ -285,6 +293,7 @@
     const v0 = { x: v * Math.cos(th) * Math.sin(ph), y: v * Math.sin(th), z: -v * Math.cos(th) * Math.cos(ph) };
     const sim = HR.simulateBatted({ x: p0.x, y: p0.y, z: p0.z }, v0, L);
     S.batted = { sim, L, ft: 0, t0: S.now, events: {}, dir: { x: Math.sin(ph), z: -Math.cos(ph) } };
+    if (S.mode === 'scene' && S.sc.kind === 'catch' && sim.result === 'hr') setupCatch(S.batted);
     S.streak = 0;
     S.contacts++;
     setPhase('batted');
@@ -359,7 +368,9 @@
   ];
   // 逆転版: フルカウントまで同じで、6球目の168km/hを打ち返す
   const SAYONARA_HR = SAYONARA.slice(0, 5).concat([{ name: 'ストレート', kmh: 168, tx: 0.06, ty: 0.86, act: 'homer', result: 'homer' }]);
-  const sceneScript = () => (S.sc.kind === 'homerun' ? SAYONARA_HR : SAYONARA);
+  // 好捕版: 6球目は逆転版と同じ当たり。フェンスの手前でアンパンマンが空中でキャッチする
+  const SAYONARA_CATCH = SAYONARA.slice(0, 5).concat([{ name: 'ストレート', kmh: 168, tx: 0.06, ty: 0.86, act: 'homer', result: 'catch' }]);
+  const sceneScript = () => (S.sc.kind === 'homerun' ? SAYONARA_HR : S.sc.kind === 'catch' ? SAYONARA_CATCH : SAYONARA);
   const teams = () => [
     { name: 'バタコ', score: S.sc.score[0], color: '#e8337a' },
     { name: 'ジャム', score: S.sc.score[1], color: '#1fae4a', batting: true },
@@ -368,6 +379,26 @@
   const SCENE_END = { batako: 1.9, jam: 3.8, final: 10.6 };
   // 逆転弾のあと: ジャムおじさんの喜び → バタコさんが悔しがる → 試合終了の画面
   const SCENE_END_HR = { batako: 2.3, final: 9.0 };
+  // 好捕の流れ。打球の時間(秒)で、フェンスを越える lead 秒前にキャッチ。approach 秒かけて飛んできて、carry 秒ボールを持って飛び去る
+  const CATCH = { lead: 0.2, approach: 1.7, carry: 1.3, end: 1.25 };
+  // 好捕のあと(sEnd 開始からの秒数): アンパンマンがホームへ降りてくる → ジャムおじさんが怒る → 試合終了の画面
+  const SCENE_END_CATCH = { arrive: 1.5, say: 0.9, jam: 2.7, final: 10.2 };
+  const ANP_HOVER = new T.Vector3(BATTER_POS.x - 0.83, 1.05, BATTER_POS.z - 0.54); // ジャムおじさんの斜め前(カメラ側)に浮かぶ
+  // アンパンマンのポーズ [右手xyz, 左手xyz, 左足xyz, 右足xyz, ひねり(度), 前傾(度)]
+  const ANP_FLY = [-0.4, 1.3, 0.42, 0.36, 0.45, -0.1, 0.08, 0.0, -0.12, -0.08, 0.04, -0.18, 0, 0];
+  const ANP_HOLD = [-0.46, 1.28, 0.28, 0.42, 0.6, 0.05, 0.12, 0.0, 0.02, -0.12, 0.0, 0.02, 0, 6]; // 顔の横でボールを見せる
+  const ANP_DODGE = [-0.42, 1.6, 0.15, 0.44, 1.38, 0.2, 0.14, 0.1, 0.06, -0.14, -0.02, -0.06, 0, -8];
+  const ANP_CATCH = [-0.28, 1.72, 0.3, 0.36, 1.05, 0.25, 0.1, 0.0, -0.1, -0.1, 0.04, -0.14, 0, 0]; // 頭の上で右手キャッチ
+  // 好捕のあとのカメラ: ジャムおじさんの正面寄り → 追いかけっこが入る引きの画(最後の画面は下に結果を出す)
+  const CATCH_CAM = {
+    pos: new T.Vector3(BATTER_POS.x - 4.8, 1.55, BATTER_POS.z + 1.4),
+    look: new T.Vector3(BATTER_POS.x - 0.6, 1.9, BATTER_POS.z - 0.15),
+    wide: new T.Vector3(BATTER_POS.x - 8.4, 1.7, BATTER_POS.z + 2.4),
+    wideLook: new T.Vector3(BATTER_POS.x - 0.9, 0.6, BATTER_POS.z - 0.4),
+  };
+  // カメラから見た左右・奥行きの向き(追いかけっこで左右に逃げる向き)
+  const CATCH_FWD = new T.Vector3().subVectors(CATCH_CAM.look, CATCH_CAM.pos).setY(0).normalize();
+  const CATCH_RIGHT = new T.Vector3(-CATCH_FWD.z, 0, CATCH_FWD.x);
   // バタコさんが悔しがる流れ(始まってからの秒数)
   const B_TANTRUM_T = { anger: 0.9, hatUp: 1.2, release: 1.62, land: 1.72, glove: 2.33, pound: 3.1, cry: 3.4 };
   // [右手xyz, 左手xyz, 左足xyz, 右足xyz, ひねり(度), 前傾(度), しゃがみ(m)]
@@ -411,9 +442,15 @@
     [3.68, [-0.62, 1.05, 0.45, 0.62, 1.05, 0.45, 0.18, 0.06, 0.12, 0.04, 0.24]],
     [4.0, [-0.4, 1.3, 0.22, 0.4, 1.3, 0.22, 0.18, 0.06, 0.0, 0.04, -0.08]],
   ]);
+  // charge(好捕): 帽子を叩きつけたあと、バットを両手で振り上げてアンパンマンに向かっていく
+  const J_TANTRUM_CHARGE = J_TANTRUM.slice(0, 7).concat([
+    [2.5, [-0.12, 1.92, 0.02, 0.1, 1.92, 0.02, 0.18, 0.06, 0.0, 0.04, -0.16]],
+    [3.0, [-0.12, 1.92, 0.02, 0.1, 1.92, 0.02, 0.18, 0.06, 0.0, 0.04, -0.16]],
+  ]);
   const TANTRUM_VARIANT = {
     collapse: { keys: J_TANTRUM, fists: 3.0, down: 4.7 },
     toss: { keys: J_TANTRUM_TOSS, toss: 3.62, fists: 3.95 },
+    charge: { keys: J_TANTRUM_CHARGE, noSnap: true, raise: 2.1, yell: 2.35, rush: 2.95, swings: [3.6, 4.5, 5.4, 6.3, 7.2, 8.1, 9.0, 9.9, 10.8, 11.7] },
   };
   const HAT_GROUND = new T.Vector3(0.58, 0, 0.3); // 帽子を叩きつける場所(ジャムおじさん基準)
 
@@ -422,6 +459,7 @@
     S.sc = { kind: sceneKind || 'strikeout', i: -1, b: 0, s: 0, o: 2, ev: {}, score: [3, 2] };
     S.tan = null;
     S.btan = null;
+    S.anp = null; S.cfx = null; S.speech2 = null;
     S.finish = null; S.title = null; S.banner = null; S.cutin = null; S.pitchInfo = null; S.final = null; S.speech = null;
     S.stats = { hit: 0, hr: 0, longest: 0, score: 0 };
     S.auto = true;
@@ -459,6 +497,8 @@
     batako.glove.visible = show;
     batako.setFace('normal');
     jam.setFace('normal');
+    anpan.root.visible = false;
+    shadows.anpan.visible = false;
     for (const r of runners) {
       r.root.visible = show;
       r.shadow.visible = show;
@@ -513,6 +553,11 @@
   function startSceneEnd() {
     setPhase('sEnd');
     S.missed = false;
+    if (S.sc.kind === 'catch') {
+      S.banner = null;
+      S.cfx = null;
+      return;
+    }
     if (S.sc.kind === 'homerun') {
       // ランナーがホームに還って、ジャムおじさんと大喜び
       [[-1.3, 1.5], [2.7, 1.3], [0.5, 2.6]].forEach(([x, z], i) => {
@@ -547,6 +592,7 @@
 
   function sceneEnd(dt) {
     if (S.sc.kind === 'homerun') { sceneEndHomer(dt); return; }
+    if (S.sc.kind === 'catch') { sceneEndCatch(dt); return; }
     const t = S.pt, ev = S.sc.ev;
     const once = (k, at, fn) => { if (!ev[k] && t >= at) { ev[k] = true; fn(); } };
     const J = SCENE_END.jam;
@@ -587,6 +633,164 @@
         teams: [{ name: 'ジャム', score: S.sc.score[1], color: '#1fae4a' }, { name: 'バタコ', score: S.sc.score[0], color: '#e8337a' }],
       };
     }
+  }
+
+  // ---------------- アンパンマンのスーパーキャッチ(好捕版) ----------------
+  const aP = new T.Vector3(), aT = new T.Vector3(), aT2 = new T.Vector3(), aOff = new T.Vector3(), aUp = new T.Vector3();
+  // 2次ベジェ曲線の位置と接線
+  const bez = (p0, p1, p2, s, out) => out.set(0, 0, 0).addScaledVector(p0, (1 - s) * (1 - s)).addScaledVector(p1, 2 * (1 - s) * s).addScaledVector(p2, s * s);
+  const bezTan = (p0, p1, p2, s, out) => out.subVectors(p1, p0).multiplyScalar(2 * (1 - s)).addScaledVector(aT2.subVectors(p2, p1), 2 * s);
+  const lerpAngle = (a, b, k) => a + Math.atan2(Math.sin(b - a), Math.cos(b - a)) * k;
+  const lerpPose = (a, b, k) => a.map((x, i) => HR.lerp(x, b[i], k));
+
+  // 打った瞬間に、キャッチする位置とアンパンマンの飛ぶ道すじを決める
+  function setupCatch(b) {
+    const sim = b.sim, tc = sim.hrT - CATCH.lead;
+    const pc = HR.samplePath(sim.pts, tc, new T.Vector3());
+    const dir = new T.Vector3(b.dir.x, 0, b.dir.z), side = new T.Vector3(-b.dir.z, 0, b.dir.x);
+    const at = (d, u, sd) => pc.clone().addScaledVector(dir, d).add(new T.Vector3(0, u, 0)).addScaledVector(side, sd);
+    const hv = (x, y, z) => ANP_HOVER.clone().add(new T.Vector3(x, y, z));
+    S.anp = {
+      tc, pc, caught: false, ev: {}, dodgeT: -99,
+      a0: at(6, 14, -9), a1: at(1.5, 3, -3), // 画面の左上(スタンドの上空)から打球めがけて急降下
+      b1: at(-2.5, -0.6, 2.5), b2: at(-10, 3, 4.5), // ボールを持ったまま、右手前へ飛び去る
+      e0: hv(0.5, 6.0, -3.5), e1: hv(0.2, 1.4, -0.8), // ホームへ降りてくる
+    };
+  }
+
+  function updateCatch(b) {
+    const A = S.anp, ft = b.ft;
+    const once = (k, at, fn) => { if (!A.ev[k] && ft >= at) { A.ev[k] = true; fn(); } };
+    once('sky', A.tc - 1.1, () => narrate(HR.SCENE.catchSky));
+    once('catch', A.tc, () => {
+      b.kind = 'catch';
+      A.caught = true;
+      S.sc.o = 3;
+      ballM.setDizzy(false);
+      S.banner = { kind: 'supercatch', t0: S.now, y: 1380, burstR: 460 };
+      narrate(HR.SCENE.catchMade);
+      sfx('mitt');
+      sfx('cheer', { level: 1, dur: 4.5 });
+      S.flash = 0.45;
+      S.shake = 0.04;
+      S.excite = 1;
+      const [x, y] = projCam(A.pc);
+      HR.HUD.burst(x, y);
+      S.cfx = [{ kind: 'text', text: 'パシッ!', w: A.pc.clone().add(new T.Vector3(0, 1.4, 0)), px: 120, t0: S.now, dur: 1.1, rot: -0.1 }];
+      stadium.drawScreen('NICE CATCH!', 'バタコ 3 - 2 ジャム', true);
+    });
+    once('out', A.tc + 0.75, () => {
+      narrate(HR.SCENE.catchOut);
+      sfx('whistle');
+    });
+  }
+
+  function sceneEndCatch(dt) {
+    const t = S.pt, ev = S.sc.ev, E = SCENE_END_CATCH;
+    const once = (k, at, fn) => { if (!ev[k] && t >= at) { ev[k] = true; fn(); } };
+    once('say', E.say, () => {
+      S.speech2 = { text: 'ボクの顔、キャッチ!', t0: S.now, who: 'anpan' };
+      narrate(HR.SCENE.anpanLand, { queue: true });
+    });
+    once('jam', E.jam, () => startTantrum('charge'));
+    if (S.tan) updateTantrum(dt);
+    if (t >= E.final) {
+      setPhase('sFinal');
+      S.banner = null;
+      S.speech = null;
+      S.speech2 = null;
+      S.final = { t0: S.now + 0.3, teams: teams(), line: 'まさかのスーパーキャッチ!', stamp: 'アウト', bottom: true };
+    }
+  }
+
+  // アンパンマンの位置・向き・ポーズ(毎フレーム)
+  function updateAnpan() {
+    const A = S.anp;
+    const on = !!(A && S.mode === 'scene' && (S.phase === 'batted' || S.phase === 'sEnd' || S.phase === 'sFinal'));
+    let vis = on;
+    if (on && S.phase === 'batted') {
+      const ft = S.batted.ft;
+      vis = ft >= A.tc - CATCH.approach;
+      // 打球の飛んでくる向き(カメラの方)。キャッチの直前から顔をこちらへ向けて、頭の上で受け止める
+      const toBall = Math.atan2(-S.batted.dir.x, -S.batted.dir.z);
+      let lean, yaw, pose;
+      if (ft < A.tc) {
+        const s = HR.clamp((ft - (A.tc - CATCH.approach)) / CATCH.approach, 0, 1);
+        bez(A.a0, A.a1, A.pc, s, aP);
+        bezTan(A.a0, A.a1, A.pc, s, aT);
+        const k = HR.smooth((s - 0.55) / 0.4);
+        lean = HR.lerp(62, 18, k);
+        yaw = lerpAngle(Math.atan2(aT.x, aT.z), toBall, k);
+        pose = lerpPose(ANP_FLY, ANP_CATCH, k);
+      } else {
+        const s = HR.clamp((ft - A.tc) / CATCH.carry, 0, 1);
+        bez(A.pc, A.b1, A.b2, s, aP);
+        bezTan(A.pc, A.b1, A.b2, s, aT);
+        lean = HR.lerp(18, 14, s);
+        yaw = lerpAngle(toBall, Math.atan2(aT.x, aT.z), 0.25);
+        pose = lerpPose(ANP_CATCH, ANP_HOLD, HR.smooth(s / 0.5));
+      }
+      HR.Models.poseBatako(anpan, pose);
+      anpan.root.rotation.set(lean * DEG, yaw, 0, 'YXZ');
+      // 右手がちょうど打球の位置に来るように体を置く
+      anpan.root.position.copy(aP).sub(aOff.copy(anpan.handR.position).applyQuaternion(anpan.root.quaternion));
+      anpan.updateCape(S.now, 1);
+    } else if (on) {
+      poseAnpanInfield();
+    }
+    anpan.root.visible = vis;
+    shadows.anpan.visible = vis;
+    if (vis) {
+      const p = anpan.root.position, h = Math.max(0, p.y);
+      shadows.anpan.position.set(p.x, 0.02, p.z);
+      const sc = 0.9 + h * 0.08;
+      shadows.anpan.scale.set(sc, sc * 0.9, 1);
+      shadows.anpan.material.opacity = 0.7 / (1 + h * 0.6);
+    }
+  }
+
+  // ホームへ降りてきて浮かぶ → ジャムおじさんが向かってくると上へ逃げて、くるくる回ってかわす
+  function poseAnpanInfield() {
+    const A = S.anp, E = SCENE_END_CATCH;
+    const t = S.phase === 'sEnd' ? S.pt : E.final + S.pt;
+    // 顔はカメラに向けつつ、少しジャムおじさんの方を向く
+    const jp = jam.root.position;
+    let pose = ANP_HOLD, fly = 0.15, lean = 6;
+    if (t < E.arrive) {
+      const s = HR.easeOutCubic(t / E.arrive);
+      bez(A.e0, A.e1, ANP_HOVER, s, aP);
+      bezTan(A.e0, A.e1, ANP_HOVER, Math.min(s, 0.95), aT);
+      lean = HR.lerp(50, 6, s);
+      fly = HR.lerp(1, 0.15, s);
+      if (s < 0.75) pose = ANP_FLY;
+    } else {
+      aP.copy(ANP_HOVER);
+      aP.y += Math.sin(S.now * 2.4) * 0.06;
+      const tan = S.tan;
+      if (tan && tan.variant === 'charge') {
+        const tr = S.now - tan.t0 - TANTRUM_VARIANT.charge.rush;
+        if (tr > 0) {
+          // 上へ逃げて、ジャムおじさんの前を左右にふわふわ。振られるたびにひょいと浮く
+          aP.y += HR.smooth(tr / 0.7) * 0.3;
+          const sinceDodge = S.now - A.dodgeT;
+          if (sinceDodge >= 0) aP.y += 0.32 * Math.sin(Math.min(1, sinceDodge / 0.45) * Math.PI);
+          // 画面の左上を行ったり来たり(ジャムおじさんはその右下から追いかける)
+          const e = HR.smooth(tr / 1.0);
+          aP.addScaledVector(CATCH_RIGHT, (-0.35 - 0.75 * Math.sin(tr * 1.2)) * e);
+          aP.addScaledVector(CATCH_FWD, 0.1 * e);
+          pose = ANP_DODGE;
+          fly = 0.45;
+        }
+      }
+    }
+    const toCam = Math.atan2(camera.position.x - aP.x, camera.position.z - aP.z);
+    const toJam = Math.atan2(jp.x - aP.x, jp.z - aP.z);
+    let yaw = lerpAngle(toCam, toJam, 0.3);
+    if (t < E.arrive) yaw = lerpAngle(Math.atan2(aT.x, aT.z), yaw, HR.smooth(t / E.arrive));
+    HR.Models.poseBatako(anpan, pose);
+    anpan.root.rotation.set(lean * DEG, yaw, 0, 'YXZ');
+    anpan.root.position.copy(aP);
+    anpan.updateCape(S.now, fly);
   }
 
   // ---------------- バタコさんが悔しがる(逆転弾のあと) ----------------
@@ -701,7 +905,7 @@
 
   // ---------------- ジャムおじさんが悔しがる ----------------
   function startTantrum(variant) {
-    S.tan = { t0: S.now, variant, fx: [], pieces: null, ev: {} };
+    S.tan = { t0: S.now, variant, fx: [], pieces: null, ev: {}, jx: BATTER_POS.x, jz: BATTER_POS.z, yaw: -Math.PI / 2, moving: false };
     jam.setFace('angry');
   }
 
@@ -712,8 +916,8 @@
     once('anger', TANTRUM.anger, () => {
       S.speech = { text: 'ぐぬぬ…!', t0: S.now, who: 'jam' };
       narrate(HR.SCENE.angry);
-      tan.fx.push({ kind: 'anger', w: headTop(jam, 0.42, 0.42), r: 50, t0: S.now, rot: 0.3 });
-      tan.fx.push({ kind: 'anger', w: headTop(jam, -0.4, 0.26), r: 36, t0: S.now + 0.15, rot: -0.4 });
+      tan.fx.push({ kind: 'anger', at: () => headTop(jam, 0.42, 0.42), r: 50, t0: S.now, rot: 0.3 });
+      tan.fx.push({ kind: 'anger', at: () => headTop(jam, -0.4, 0.26), r: 36, t0: S.now + 0.15, rot: -0.4 });
     });
     once('hatUp', TANTRUM.hatUp, () => jam.root.attach(jam.hat));
     once('land', TANTRUM.land, () => {
@@ -723,7 +927,7 @@
       HR.HUD.dust(x, y);
       tan.fx.push({ kind: 'text', text: 'バシッ!', w: jamLocal(HAT_GROUND).add(new T.Vector3(0, 0.55, 0)), px: 120, t0: S.now, dur: 1.0, rot: -0.12 });
     });
-    once('snap', TANTRUM.snap, () => {
+    if (!V.noSnap) once('snap', TANTRUM.snap, () => {
       sfx('snap');
       S.shake = 0.09;
       S.flash = 0.3;
@@ -752,7 +956,7 @@
     }
     once('fists', V.fists, () => {
       S.speech = { text: 'くやしいーっ!!', t0: S.now, who: 'jam' };
-      tan.fx.push({ kind: 'steam', w: headTop(jam, 0, 0.7), t0: S.now });
+      tan.fx.push({ kind: 'steam', at: () => headTop(jam, 0, 0.7), t0: S.now });
     });
     if (V.down) {
       once('down', V.down, () => {
@@ -762,7 +966,52 @@
         sfx('groan');
       });
     }
+    if (V.rush) updateCharge(dt, tan, tt, V, once);
     if (tan.pieces) stepPieces(dt);
+  }
+
+  // バットを振り上げてアンパンマンを追いかける(好捕版)
+  function updateCharge(dt, tan, tt, V, once) {
+    once('yell', V.yell, () => {
+      S.speech = { text: 'こらーっ!!アンパンマーン!!', t0: S.now, who: 'jam', side: 'right' };
+      narrate(HR.SCENE.charge);
+      tan.fx.push({ kind: 'anger', at: () => headTop(jam, 0.46, 0.5), r: 58, t0: S.now, rot: 0.25 });
+      tan.fx.push({ kind: 'steam', at: () => headTop(jam, 0, 0.75), t0: S.now + 0.1 });
+      S.shake = Math.max(S.shake, 0.03);
+    });
+    once('rush', V.rush, () => { S.speech2 = { text: 'わわっ!', t0: S.now + 0.3, who: 'anpan' }; });
+    once('sorry', V.rush + 2.4, () => { S.speech2 = { text: 'ごめんなさーい!', t0: S.now, who: 'anpan' }; });
+    once('wait', V.swings[2], () => { S.speech = { text: 'まてーっ!!', t0: S.now, who: 'jam', side: 'right' }; });
+    V.swings.forEach((ts, i) => once('swing' + i, ts, () => {
+      sfx('swing');
+      S.anp.dodgeT = S.now + 0.08;
+      const tip = jam.bat.localToWorld(new T.Vector3(0, 0.9, 0));
+      tan.fx.push({ kind: 'text', text: 'ブンッ!', w: tip, px: 104, t0: S.now + 0.12, dur: 0.6, rot: i % 2 ? 0.12 : -0.12, fills: ['#ffffff', '#cfe6ff', '#5a8cff'], strokes: [[26, '#0d1446'], [12, '#ffffff']] });
+      if (i === 0) narrate(HR.SCENE.dodge);
+      if (tan.fx.length > 14) tan.fx.splice(0, tan.fx.length - 14);
+    }));
+    // 向き: 帽子を叩きつけるまでは正面、そのあとはアンパンマンの方へ
+    const ap = anpan.root.position;
+    const dx = ap.x - tan.jx, dz = ap.z - tan.jz, d = Math.hypot(dx, dz);
+    if (tt >= V.raise) tan.yaw = lerpAngle(tan.yaw, Math.atan2(dx, dz), Math.min(1, dt * 6));
+    // 画面の左右だけ追いかけて、いつもアンパンマンの右下からバットを振る
+    tan.moving = false;
+    if (tt >= V.rush) {
+      const lat = (x, z) => (x - BATTER_POS.x) * CATCH_RIGHT.x + (z - BATTER_POS.z) * CATCH_RIGHT.z;
+      const dl = lat(ap.x, ap.z) + 0.75 - lat(tan.jx, tan.jz);
+      if (Math.abs(dl) > 0.04) {
+        const step = Math.sign(dl) * Math.min(Math.abs(dl), 2.0 * dt);
+        tan.jx += CATCH_RIGHT.x * step;
+        tan.jz += CATCH_RIGHT.z * step;
+        tan.moving = Math.abs(dl) > 0.1;
+      }
+    }
+  }
+  // 振り下ろしの強さ(0〜1): 各スイングの 0.38 秒間
+  function chargeSwing(V, tt) {
+    let a = 0;
+    for (const ts of V.swings) if (tt >= ts && tt < ts + 0.38) a = Math.max(a, Math.sin((Math.PI * (tt - ts)) / 0.38));
+    return a;
   }
 
   // へし折ったバットの2本: 跳ね上がって回りながら落ち、地面で寝かせる
@@ -795,12 +1044,38 @@
     const angry = tt > TANTRUM.anger && !(V.down && tt >= V.down);
     m.pivot.rotation.set(v[10], 0, angry ? Math.sin(S.now * 45) * 0.035 : 0, 'YXZ');
     m.root.position.set(BATTER_POS.x, V.down ? -0.14 * HR.smooth((tt - V.down) / 0.6) : 0, BATTER_POS.z);
+    if (V.rush) {
+      // 振り上げたバットを、アンパンマンめがけて何度も振り下ろす。走るときは足を交互に出して跳ねる
+      const a = chargeSwing(V, tt), run = tan.moving || tt >= V.rush;
+      if (tt >= 3.0) {
+        m.handR.position.set(-0.11, HR.lerp(1.92, 1.48, a), HR.lerp(0.02, 0.46, a));
+        m.handL.position.set(0.09, HR.lerp(1.92, 1.5, a), HR.lerp(0.02, 0.46, a));
+        m.pivot.rotation.x = HR.lerp(-0.16, 0.22, a);
+      }
+      const hop = run ? Math.abs(Math.sin((tt - V.rush) * 9)) * (tan.moving ? 0.13 : 0.06) : 0;
+      if (run) {
+        const ph = Math.sin((tt - V.rush) * 18);
+        m.footL.position.set(0.18, 0.06 + Math.max(0, ph) * 0.08, ph * 0.13);
+        m.footR.position.set(-0.18, 0.06 + Math.max(0, -ph) * 0.08, -ph * 0.13);
+      }
+      m.root.position.set(tan.jx, hop, tan.jz);
+      m.root.rotation.y = tan.yaw;
+      // バット: 横に持つ → 頭の上へ振り上げる → 振り下ろす
+      if (tt >= TANTRUM.grab) {
+        const u = HR.smooth((tt - TANTRUM.grab) / 0.4);
+        const dir = tmpV2.set(1, 0, 0).lerp(tmpV.set(0.1, 0.8, -0.6).normalize(), u);
+        dir.lerp(tmpV.set(0.08, 0.5, 0.86).normalize(), a).normalize();
+        const gx = (m.handR.position.x + m.handL.position.x) / 2, gy = (m.handR.position.y + m.handL.position.y) / 2, gz = (m.handR.position.z + m.handL.position.z) / 2;
+        m.bat.position.set(HR.lerp(v[0] - 0.18, gx - dir.x * 0.12, u), HR.lerp(v[1], gy - dir.y * 0.12, u), HR.lerp(v[2], gz - dir.z * 0.12, u));
+        m.bat.quaternion.setFromUnitVectors(tmpV.set(0, 1, 0), dir);
+      }
+    }
     // バット: 右手で下げる → 両手で横に持つ → 折れたら2本に
     if (tt < TANTRUM.grab) {
       const dir = tmpV2.set(Math.cos(-72 * DEG) * Math.cos(95 * DEG), Math.sin(-72 * DEG), Math.cos(-72 * DEG) * Math.sin(95 * DEG));
       m.bat.position.set(v[0] - dir.x * 0.07, v[1] - dir.y * 0.07, v[2] - dir.z * 0.07);
       m.bat.quaternion.setFromUnitVectors(tmpV.set(0, 1, 0), dir);
-    } else if (tt < TANTRUM.snap) {
+    } else if (tt < TANTRUM.snap && !V.rush) {
       m.bat.position.set(v[0] - 0.18, v[1], v[2]);
       m.bat.quaternion.setFromUnitVectors(tmpV.set(0, 1, 0), tmpV2.set(1, 0, 0));
     }
@@ -827,7 +1102,10 @@
         const from = m.hatFrom || (m.hatFrom = hat.position.clone());
         hat.position.lerpVectors(from, HAT_GROUND, u * u);
         hat.rotation.set(0, 0.4, HR.lerp(-0.35, 0, u));
-        if (u >= 1) hat.scale.set(1.25, 0.45, 1.25);
+        if (u >= 1) {
+          hat.scale.set(1.25, 0.45, 1.25);
+          if (V.rush) scene.attach(hat); // このあと走り出すので、帽子は地面に置いていく
+        }
       }
     } else m.hatFrom = null;
   }
@@ -908,18 +1186,25 @@
       case 'batted': {
         const b = S.batted, sim = b.sim;
         const age = S.now - b.t0;
-        const rate = age < 0.1 ? 0.15 : HR.lerp(0.6, FLIGHT_SPEED, HR.smooth((age - 0.1) / 0.5));
+        let rate = age < 0.1 ? 0.15 : HR.lerp(0.6, FLIGHT_SPEED, HR.smooth((age - 0.1) / 0.5));
+        const A = S.anp;
+        if (A) {
+          // アンパンマンが飛んでくるところからキャッチの直後まではスローモーション
+          const k = HR.smooth((b.ft - (A.tc - 1.0)) / 0.4) * (1 - HR.smooth((b.ft - (A.tc + 0.35)) / 0.5));
+          rate *= HR.lerp(1, 0.28, k);
+        }
         b.ft += dt * rate;
         if (sim.result === 'hr' && sim.hrT > 1.4 && !b.events.fly && b.ft > sim.hrT * 0.4) { b.events.fly = true; say('flyBig'); }
+        if (A) updateCatch(b);
         if (!b.kind) {
           if (sim.result === 'hr' && b.ft >= sim.hrT) resolveBatted('hr');
           else if (sim.result !== 'hr' && b.ft >= (sim.landT != null ? sim.landT : sim.dur)) resolveBatted(sim.result === 'hit' && sim.fenceT != null ? 'wall' : sim.result);
         }
         if (b.kind === 'hr' && S.now - S.fireworkT > 0.45 && !b.events.fw2) { b.events.fw2 = true; sfx('firework'); for (let i = 0; i < 2; i++) HR.HUD.burst(150 + rng() * 780, 220 + rng() * 520); }
         const linger = S.mode === 'scene' ? 2.6 : 0.9; // 名場面ではファウルの表示を長めに見せる
-        const end = b.kind === 'hr' ? b.ft >= sim.hrT + 1.7 : b.kind && (b.ft >= (sim.landT != null ? sim.landT : sim.dur) + linger || b.ft >= sim.dur + linger - 0.6);
+        const end = b.kind === 'catch' ? b.ft >= A.tc + CATCH.end : b.kind === 'hr' ? b.ft >= sim.hrT + 1.7 : b.kind && (b.ft >= (sim.landT != null ? sim.landT : sim.dur) + linger || b.ft >= sim.dur + linger - 0.6);
         if (end) {
-          if (S.mode === 'scene' && b.kind === 'hr') startSceneEnd();
+          if (S.mode === 'scene' && (b.kind === 'hr' || b.kind === 'catch')) startSceneEnd();
           else if (b.kind === 'hr') startCutin();
           else nextPitch();
         }
@@ -944,6 +1229,7 @@
         sceneEnd(dt);
         break;
       case 'sFinal':
+        if (S.tan && S.sc.kind === 'catch') updateTantrum(dt); // 追いかけっこは結果の画面でも続く
         if (OFFLINE && S.pt > 4.4) S.done = true;
         break;
     }
@@ -952,6 +1238,7 @@
       for (let i = 0; i < 2; i++) HR.HUD.burst(150 + rng() * 780, 220 + rng() * 400);
     }
     stadium.update(S.now, dt, S.excite);
+    updateAnpan();
     poseCharacters(dt);
     placeBall(dt);
     updateCamera(dt);
@@ -1118,6 +1405,11 @@
       if (S.sc.kind === 'homerun') {
         jamCheer(S.now);
         jam.root.rotation.y = S.phase === 'sFinal' ? Math.PI : -Math.PI / 2;
+      } else if (!S.tan && S.sc.kind === 'catch') {
+        // ぼうぜんと立ちつくす(バットを下げてアンパンマンを見上げる)
+        applyJam([-0.3, 0.42, 0.24, 95, -72, 0, -0.18, 0.06, 0.04], { lean: -0.05 });
+        jam.handL.position.set(0.3, 0.44, 0.22);
+        jam.root.rotation.y = -Math.PI / 2;
       } else if (!S.tan) applyJam(J_SWING[J_SWING.length - 1][1]);
       else poseTantrum();
     } else if (S.phase === 'cutin' || (S.phase === 'finish' && S.stats.hr >= 3) || (S.phase === 'intro' && S.intro && S.intro.stage === 'batter')) {
@@ -1159,7 +1451,17 @@
   function placeBall(dt) {
     const b = ballM;
     let visible = true;
-    if (S.phase === 'pitch' && S.pitch) {
+    const held = !!(S.anp && S.anp.caught && (S.phase === 'batted' || S.phase === 'sEnd' || S.phase === 'sFinal'));
+    if (held) {
+      // キャッチしたボール(新しい顔)をアンパンマンが右手で持つ
+      anpan.root.updateMatrixWorld(true);
+      anpan.handR.getWorldPosition(ballPos);
+      ballPos.addScaledVector(aUp.set(0, 1, 0).applyQuaternion(anpan.root.quaternion), 0.2);
+      b.root.position.copy(ballPos);
+      b.root.lookAt(camera.position);
+      b.spin.rotation.set(0, 0, 0);
+      b.root.scale.setScalar(S.phase === 'batted' ? 1.8 : 1.5);
+    } else if (S.phase === 'pitch' && S.pitch) {
       const s = (S.now - S.pitch.t0) / S.pitch.T;
       pitchPos(S.pitch, s, ballPos);
       b.spin.rotation.set(Math.sin(S.now * 5) * 0.25, Math.sin(S.now * 3) * 0.2, -(S.now - S.pitch.t0) * S.pitch.spin);
@@ -1190,7 +1492,7 @@
       }
       b.spin.rotation.set(0, 0, 0);
     } else visible = false;
-    if (S.phase !== 'batted') { b.root.scale.setScalar(1); b.root.rotation.set(0, 0, 0); }
+    if (S.phase !== 'batted' && !held) { b.root.scale.setScalar(1); b.root.rotation.set(0, 0, 0); }
     b.root.visible = visible;
     b.root.position.copy(ballPos);
     shadows.ball.visible = visible;
@@ -1204,12 +1506,13 @@
     }
     // 打球の軌跡
     const flying = S.phase === 'batted' && S.batted;
-    halo.visible = !!flying;
+    halo.visible = !!flying && !held;
     if (flying) {
       halo.position.copy(ballPos);
+      const tEnd = S.anp ? S.anp.tc : Infinity; // キャッチした後は軌跡を伸ばさない
       trail.forEach((s, i) => {
-        const t = S.batted.ft - (i + 1) * 0.008;
-        s.visible = t > 0.05;
+        const t = Math.min(S.batted.ft, tEnd) - (i + 1) * 0.008;
+        s.visible = t > 0.05 && S.batted.ft - (i + 1) * 0.008 < tEnd + 0.25;
         if (s.visible) HR.samplePath(S.batted.sim.pts, t, s.position);
       });
     } else for (const s of trail) s.visible = false;
@@ -1256,8 +1559,8 @@
           // 名場面のファウルは、本塁後方の高い位置からライト線へ切れていく打球を見せる
           cam.pos.copy(BAT_CAM.pos).lerp(tmpV.set(-5, 9, 15), HR.smooth((S.now - b.t0) / 0.6));
           cam.look.lerp(bp, HR.damp(landed ? 3 : 7, dt));
-        } else if (!landed) {
-          // 打球のすぐ後ろから追いかける(アンパンマンの顔が見える距離)
+        } else if (!landed || b.kind === 'catch') {
+          // 打球のすぐ後ろから追いかける(アンパンマンの顔が見える距離)。キャッチした後はアンパンマンを追う
           const age = S.now - b.t0;
           tmpV.set(bp.x - b.dir.x * 7.5, Math.max(1.4, bp.y + 1.6), bp.z - b.dir.z * 7.5);
           const k = HR.smooth(age / 0.75);
@@ -1297,6 +1600,15 @@
       }
       case 'sEnd': {
         const t = S.pt;
+        if (S.sc.kind === 'catch') {
+          // ジャムおじさんの斜め前から。追いかけっこが始まったら引いて、浮かぶアンパンマンまで入れる
+          const tan = S.tan;
+          const tr = tan && tan.variant === 'charge' ? S.now - tan.t0 - TANTRUM_VARIANT.charge.rush : -9;
+          const k = HR.smooth((tr + 0.3) / 1.6);
+          setCam(tmpV.lerpVectors(CATCH_CAM.pos, CATCH_CAM.wide, k), tmpV2.lerpVectors(CATCH_CAM.look, CATCH_CAM.wideLook, k), 50);
+          applyShake();
+          return;
+        }
         if (S.sc.kind === 'homerun') {
           if (t < SCENE_END_HR.batako) {
             const u = HR.easeOutCubic(t / 0.5);
@@ -1318,6 +1630,7 @@
       case 'sFinal':
         // 逆転版はうずくまるバタコさんの背中越しに、ホームで喜ぶジャムおじさんたち
         if (S.sc.kind === 'homerun') setCam(tmpV.set(0.5, 1.45, -21.6), tmpV2.set(0.5, 0.9, 0), 46);
+        else if (S.sc.kind === 'catch') setCam(CATCH_CAM.wide, CATCH_CAM.wideLook, 50);
         else setCam(tmpV.set(0.5, 1.3, 3.4), tmpV2.set(0.3, 1.0, -8), 50);
         return;
       case 'finish': {
@@ -1369,16 +1682,19 @@
     }
     // 結果発表が出たら吹き出しは消すが、怒りマークと湯気は残して悔しさを見せる
     const panelUp = S.phase === 'finish' && S.finish && S.now > S.finish.t0;
-    const fx = [].concat(S.tan ? S.tan.fx : [], S.btan ? S.btan.fx : []);
-    if (fx.length) st.fx = fx.filter((f) => !panelUp || f.kind !== 'text').map((f) => { const [x, y] = projCam(f.w); return Object.assign({}, f, { x, y }); });
-    if (S.speech && !panelUp && S.now >= S.speech.t0 && (S.mode === 'scene' || S.tan)) {
-      const who = S.speech.who === 'batako' ? batako : jam;
+    const fx = [].concat(S.tan ? S.tan.fx : [], S.btan ? S.btan.fx : [], S.cfx || []);
+    if (fx.length) st.fx = fx.filter((f) => !panelUp || f.kind !== 'text').map((f) => { const [x, y] = projCam(f.at ? f.at() : f.w); return Object.assign({}, f, { x, y }); });
+    const speechAt = (sp) => {
+      const who = sp.who === 'batako' ? batako : sp.who === 'anpan' ? anpan : jam;
       const [hx, hy] = projCam(who.head.getWorldPosition(tmpV).add(tmpV2.set(0, 0.5, 0)));
       // 喜ぶバタコさん(引きの画)は実況テロップより下、アップの時は頭の上に出す
-      const wide = S.speech.who === 'batako' && S.speech.style !== 'close';
-      const [dx, dy, top] = wide ? [-270, -170, 760] : [-150, -150, 420];
-      st.speech = { text: S.speech.text, t0: S.speech.t0, x: HR.clamp(hx + dx, 300, W - 300), y: HR.clamp(hy + dy, top, 1500) };
-    }
+      // side: 'right' は頭の右上に出して、しっぽを左下へ向ける(左上のアンパンマンと重ならないように)
+      const wide = sp.who === 'batako' && sp.style !== 'close', right = sp.side === 'right';
+      const [dx, dy, top] = wide ? [-270, -170, 760] : right ? [160, -160, 420] : [-150, -150, 420];
+      return { text: sp.text, t0: sp.t0, x: HR.clamp(hx + dx, 300, W - 300), y: HR.clamp(hy + dy, top, 1500), flip: right };
+    };
+    if (S.speech && !panelUp && S.now >= S.speech.t0 && (S.mode === 'scene' || S.tan)) st.speech = speechAt(S.speech);
+    if (S.speech2 && S.mode === 'scene' && S.now >= S.speech2.t0) st.speech2 = speechAt(S.speech2);
     if (S.phase === 'title' && sceneMode) st.title = { t0: S.title.t0, scene: true };
     const bs = S.batakoSay;
     if (bs && batView && (!bs.sore || S.now - bs.sore < 0.8)) {
@@ -1491,6 +1807,7 @@
     S.power = false;
     S.auto = qs.get('auto') === '1';
     S.sc = null; S.tan = null; S.btan = null; S.final = null; S.speech = null; S.banner = null; S.caption = null; S.intro = null; S.pitch = null; S.swing = null; S.batted = null;
+    S.anp = null; S.cfx = null; S.speech2 = null;
     resetScenery();
     HR.HUD.clearParticles();
     stadium.drawScreen('ホームラン競争', 'HR 0本', false);
@@ -1513,9 +1830,10 @@
     set('btnVoice', HR.Voice.enabled);
     set('btnSound', !HR.Audio.muted, HR.Audio.muted ? '音 OFF' : '音 ON');
     set('btnRec', !!Rec.mr, Rec.mr ? '録画を止める' : '録画');
-    const on1 = sceneMode && sceneKind === 'strikeout', on2 = sceneMode && sceneKind === 'homerun';
-    set('btnScene', on1, on1 ? 'ホームラン競争へ' : '9回裏・三振');
-    set('btnScene2', on2, on2 ? 'ホームラン競争へ' : '9回裏・逆転弾');
+    set('btnScene', sceneMode);
+    for (const b of document.querySelectorAll('#sceneDlg [data-scene]')) b.setAttribute('aria-current', sceneMode && b.dataset.scene === sceneKind ? 'true' : 'false');
+    const back = $('btnDerby');
+    if (back) back.hidden = !sceneMode;
   }
   const Rec = { mr: null, chunks: [], t0: 0, blob: null, ext: 'webm' };
   function recStart() {
@@ -1602,21 +1920,37 @@
     on('btnVoice', () => { HR.Voice.enabled = !HR.Voice.enabled; if (!HR.Voice.enabled && 'speechSynthesis' in window) speechSynthesis.cancel(); syncButtons(); });
     on('btnSound', () => { HR.Audio.init(); HR.Audio.setMuted(!HR.Audio.muted); syncButtons(); });
     on('btnRec', () => { if (Rec.mr) recStop(); else recStart(); });
-    const toggleScene = (kind) => {
-      HR.Audio.init();
-      HR.Audio.resume();
-      if (sceneMode && sceneKind === kind) {
-        sceneMode = false;
-        backToTitle();
-      } else {
-        sceneMode = true;
-        sceneKind = kind;
-        startScene();
-      }
+    // 9回裏の名場面: ボタンで結末を選ぶ画面を開く
+    const sceneDlg = $('sceneDlg');
+    const closeSceneDlg = () => { if (sceneDlg) sceneDlg.hidden = true; };
+    on('btnScene', () => {
+      if (!sceneDlg) return;
       syncButtons();
-    };
-    on('btnScene', () => toggleScene('strikeout'));
-    on('btnScene2', () => toggleScene('homerun'));
+      sceneDlg.hidden = false;
+      const cur = sceneDlg.querySelector('[aria-current="true"]') || sceneDlg.querySelector('[data-scene]');
+      if (cur) cur.focus();
+    });
+    for (const b of document.querySelectorAll('#sceneDlg [data-scene]')) {
+      b.addEventListener('click', (e) => {
+        e.stopPropagation();
+        HR.Audio.init();
+        HR.Audio.resume();
+        sceneMode = true;
+        sceneKind = b.dataset.scene;
+        closeSceneDlg();
+        startScene();
+        syncButtons();
+      });
+    }
+    on('btnDerby', () => {
+      sceneMode = false;
+      closeSceneDlg();
+      backToTitle();
+      syncButtons();
+    });
+    on('btnSceneClose', closeSceneDlg);
+    if (sceneDlg) sceneDlg.addEventListener('click', (e) => { if (e.target === sceneDlg) closeSceneDlg(); });
+    window.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeSceneDlg(); const sd = $('saveDlg'); if (sd) sd.hidden = true; } });
     on('btnSave', saveVideo);
     on('btnClose', () => { $('saveDlg').hidden = true; });
     syncButtons();
