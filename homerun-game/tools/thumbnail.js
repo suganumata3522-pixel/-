@@ -410,7 +410,7 @@
   const designs = {
     // 168km/hをかっ飛ばす!! (ホームラン動画)
     'hr-a'() {
-      background(stadium([0, 3, -26], [0, 26, -150], 64, ['HOME RUN!', 'HR 9本', true]), 8, 'saturate(1.2) brightness(1.06)');
+      background(stadium([0, 3, -26], [0, 26, -150], 64, ['HOME RUN!', 'HR 5本', true]), 8, 'saturate(1.2) brightness(1.06)');
       glow(230, 820, 900, 'rgba(255,240,170,0.6)');
       rays(230, 820, 22, '#ffd23f', 0.2, 0.08);
       const s = stage();
@@ -428,11 +428,11 @@
       telop('カキーン!', tx + 40, ty + 10, { px: 88, impact: true, rot: -0.22, fill: '#ffffff', strokes: [[22, '#1d4fb8']] });
       telop('168km/hを', W / 2, 300, { px: 130, fill: '#ffffff', strokes: [[26, '#0b2f73'], [10, '#4cb2f2']], rot: -0.04 });
       telop('かっ飛ばす!!', W / 2, 520, { px: 250, impact: true, fill: HR_FILL, strokes: HR_STROKES, depth: 16, depthColor: '#3a0700', rot: -0.05 });
-      sticker(890, 1530, 150, [{ text: '9本塁打', px: 66, y: 4 }], 0.2, ['#ff5a5a', '#d4142a']);
+      sticker(890, 1530, 150, [{ text: '5連発', px: 76, y: 4 }], 0.2, ['#ff5a5a', '#d4142a']);
     },
     // フランスパンでホームラン!? (ホームラン動画)
     'hr-b'() {
-      background(stadium([0, 2.2, -8], [0, 14, -150], 60, ['HOME RUN!', 'HR 9本', true]), 7, 'saturate(1.2) brightness(1.05)');
+      background(stadium([0, 2.2, -8], [0, 14, -150], 60, ['HOME RUN!', 'HR 5本', true]), 7, 'saturate(1.2) brightness(1.05)');
       glow(540, 1150, 900, 'rgba(255,236,160,0.55)');
       rays(540, 1150, 20, '#ffffff', 0.16, 0.05);
       confetti(110, 0, H);
@@ -444,9 +444,9 @@
       cutout(snap(s, cam), 12, '#ffffff');
       telop('フランスパンで', W / 2, 300, { px: 128, fill: '#ffffff', strokes: [[26, '#0b2f73'], [10, '#4cb2f2']], rot: -0.04 });
       telop('ホームラン!?', W / 2, 510, { px: 210, impact: true, fill: HR_FILL, strokes: HR_STROKES, depth: 14, depthColor: '#3a0700', rot: -0.05 });
-      sticker(860, 1240, 140, [{ text: '9本塁打', px: 62, y: 4 }], 0.18, ['#ff5a5a', '#d4142a']);
+      sticker(860, 1240, 140, [{ text: '5連発', px: 72, y: 4 }], 0.18, ['#ff5a5a', '#d4142a']);
     },
-    // 全10球 空振り… (空振り動画)
+    // 全5球 空振り… (空振り動画)
     'zero-a'() {
       background(stadium([0, 1.4, 6], [0, 3, -40], 55, ['空振り', 'HR 0本', false]), 8, 'saturate(0.9) brightness(0.92)');
       g.fillStyle = vgrad(0, H, ['rgba(40,30,140,0.45)', 'rgba(20,40,120,0.2)', 'rgba(10,10,60,0.55)']);
@@ -467,7 +467,7 @@
       faceBall(s2, [0, 1.0, 0.5], 1, false, cam2, 0);
       b.root.updateMatrixWorld(true);
       porthole(snap(s2, cam2), 880, 1430, 170, 'バタコさん');
-      telop('全10球', W / 2, 300, { px: 150, fill: '#ffffff', strokes: [[26, '#0d1446'], [10, '#7aa7ff']], rot: -0.04 });
+      telop('全5球', W / 2, 300, { px: 150, fill: '#ffffff', strokes: [[26, '#0d1446'], [10, '#7aa7ff']], rot: -0.04 });
       telop('空振り…', W / 2, 520, { px: 250, impact: true, fill: ZERO_FILL, strokes: ZERO_STROKES, depth: 16, depthColor: '#060a2a', rot: -0.05 });
       sticker(180, 1380, 128, [{ text: '最速', px: 46, y: -40 }, { text: '168km/h', px: 44, y: 22 }], -0.16, ['#ff5a5a', '#d4142a']);
     },
@@ -491,7 +491,7 @@
 
   try {
     if (document.fonts && document.fonts.load) {
-      const txt = '168km/hをかっ飛ばす!!フランスパンでホームラン!?全10球空振り…バタコさん強すぎ新しい顔よ最速本塁打カキーンパン工場スタジアムHOMERUN9';
+      const txt = '168km/hをかっ飛ばす!!フランスパンでホームラン!?全5球空振り…バタコさん強すぎ新しい顔よ最速連発カキーンパン工場スタジアムHOMERUN';
       await Promise.all([
         document.fonts.load(`900 40px "M PLUS Rounded 1c"`, txt),
         document.fonts.load(`40px "Dela Gothic One"`, txt),

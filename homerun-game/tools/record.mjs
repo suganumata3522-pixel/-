@@ -20,7 +20,7 @@ const args = Object.fromEntries(
 );
 const fps = parseInt(args.fps || '30', 10);
 const seed = args.seed || '7';
-const balls = args.balls || '10';
+const balls = args.balls ? `&balls=${args.balls}` : ''; // 指定がなければゲームの既定(5球)
 const ai = (args.ai === 'whiff' ? '&ai=whiff' : '') + (args.scene ? `&scene=${args.scene}` : '');
 const out = path.resolve(args.out || 'homerun-short.mp4');
 const snaps = args.snap ? args.snap.split(',').map(Number) : null;
@@ -29,7 +29,7 @@ const snapDir = path.resolve(args.snapdir || '.');
 
 async function main() {
   const { browser, page } = await openPage();
-  const url = pathToFileURL(path.join(root, 'index.html')).href + `?record=1&seed=${seed}&fps=${fps}&balls=${balls}&aniso=4${ai}`;
+  const url = pathToFileURL(path.join(root, 'index.html')).href + `?record=1&seed=${seed}&fps=${fps}${balls}&aniso=4${ai}`;
   await page.goto(url);
   await page.waitForFunction(() => window.__recReady === true, null, { timeout: 60000 });
 

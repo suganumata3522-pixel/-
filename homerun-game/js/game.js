@@ -8,7 +8,7 @@
   const qs = new URLSearchParams(location.search);
   const OFFLINE = qs.get('record') === '1';
   const SEED = parseInt(qs.get('seed'), 10) || (OFFLINE ? 7 : Date.now() % 100000);
-  const TOTAL_BALLS = HR.clamp(parseInt(qs.get('balls'), 10) || 10, 1, 30);
+  const TOTAL_BALLS = HR.clamp(parseInt(qs.get('balls'), 10) || 5, 1, 30);
   const OFFLINE_FPS = parseInt(qs.get('fps'), 10) || 30;
   // ai=whiff: オートのジャムおじさんが一球も当てられない(動画用)
   const AI_MODE = qs.get('ai') === 'whiff' ? 'whiff' : 'normal';
@@ -160,6 +160,8 @@
   function startGame() {
     if (sceneMode) { startScene(); return; }
     S.mode = 'derby';
+    S.tan = null;
+    S.speech = null;
     resetScenery();
     rng = HR.makeRng(SEED + (S.runs || 0) * 7919);
     S.runs = (S.runs || 0) + 1;
@@ -208,7 +210,9 @@
     S.best = { hit: Math.max(S.best.hit, st.hit), hr: Math.max(S.best.hr, st.hr), longest: Math.max(S.best.longest, st.longest), score: Math.max(S.best.score, st.score) };
     saveBest();
     const perfect = S.contacts === 0;
-    S.finish = { t0: S.now + 0.6, stats: Object.assign({}, st), rank: HR.rankFor(st.hr), newRecord, perfect };
+    // 一球も当たらなかったときは、結果発表の前にジャムおじさんが悔しがる
+    if (perfect) startTantrum('toss');
+    S.finish = { t0: S.now + (perfect ? 6.2 : 0.6), stats: Object.assign({}, st), rank: HR.rankFor(st.hr), newRecord, perfect };
     say(perfect ? 'finishZero' : 'finish', { n: st.hr });
     sfx('cheer', { level: 0.5, dur: 3.5 });
     if (perfect) sfx('organ');
@@ -350,8 +354,10 @@
   const TEAMS = [{ name: 'バタコ', score: 3, color: '#e8337a' }, { name: 'ジャム', score: 2, color: '#1fae4a', batting: true }];
   // 三振のあと: バタコさんの喜び → ジャムおじさん → 試合終了の画面(sEnd 開始からの秒数)
   const SCENE_END = { batako: 1.9, jam: 3.8, final: 10.6 };
-  // ジャムおじさんが悔しがる流れ(ジャムおじさんのカットからの秒数)
-  const TANTRUM = { anger: 0.7, hatUp: 1.3, drop: 1.85, land: 1.95, grab: 2.1, snap: 2.72, fists: 3.0, down: 4.7 };
+  // ジャムおじさんが悔しがる流れ(始まってからの秒数)。帽子を叩きつけてバットをひざでへし折るまでは共通で、
+  // collapse(名場面): 2本は足元に落ち、こぶしを突き上げたあと崩れ落ちる
+  // toss(全球空振り): 折った2本を振りかぶってぶん投げ、こぶしを突き上げたまま
+  const TANTRUM = { anger: 0.7, hatUp: 1.3, release: 1.85, land: 1.95, grab: 2.1, snap: 2.72 };
   // [右手xyz, 左手xyz, 左足xyz, 右足z, 前傾(rad)]
   const J_TANTRUM = [
     [0.0, [-0.3, 0.45, 0.22, 0.3, 0.45, 0.2, 0.18, 0.06, 0.0, 0.04, 0.28]],
@@ -367,11 +373,23 @@
     [4.7, [-0.4, 1.3, 0.22, 0.4, 1.3, 0.22, 0.18, 0.06, 0.0, 0.04, -0.08]],
     [5.3, [-0.26, 0.08, 0.6, 0.26, 0.08, 0.6, 0.18, 0.06, -0.2, -0.2, 0.95]],
   ];
+  const J_TANTRUM_TOSS = J_TANTRUM.slice(0, 9).concat([
+    [2.95, [-0.3, 1.05, 0.3, 0.3, 1.05, 0.3, 0.18, 0.06, 0.0, 0.04, -0.04]],
+    [3.3, [-0.3, 1.05, 0.3, 0.3, 1.05, 0.3, 0.18, 0.06, 0.0, 0.04, -0.04]],
+    [3.5, [-0.5, 1.75, -0.15, 0.5, 1.75, -0.15, 0.18, 0.06, 0.0, 0.04, -0.16]],
+    [3.68, [-0.62, 1.05, 0.45, 0.62, 1.05, 0.45, 0.18, 0.06, 0.12, 0.04, 0.24]],
+    [4.0, [-0.4, 1.3, 0.22, 0.4, 1.3, 0.22, 0.18, 0.06, 0.0, 0.04, -0.08]],
+  ]);
+  const TANTRUM_VARIANT = {
+    collapse: { keys: J_TANTRUM, fists: 3.0, down: 4.7 },
+    toss: { keys: J_TANTRUM_TOSS, toss: 3.62, fists: 3.95 },
+  };
   const HAT_GROUND = new T.Vector3(0.58, 0, 0.3); // 帽子を叩きつける場所(ジャムおじさん基準)
 
   function startScene() {
     S.mode = 'scene';
-    S.sc = { i: -1, b: 0, s: 0, o: 2, fx: [], pieces: null, ev: {} };
+    S.sc = { i: -1, b: 0, s: 0, o: 2, ev: {} };
+    S.tan = null;
     S.finish = null; S.title = null; S.banner = null; S.cutin = null; S.pitchInfo = null; S.final = null; S.speech = null;
     S.stats = { hit: 0, hr: 0, longest: 0, score: 0 };
     S.auto = true;
@@ -445,7 +463,7 @@
   const jamLocal = (v) => jam.root.localToWorld(v.clone());
 
   function sceneEnd(dt) {
-    const t = S.pt, sc = S.sc, ev = sc.ev;
+    const t = S.pt, ev = S.sc.ev;
     const once = (k, at, fn) => { if (!ev[k] && t >= at) { ev[k] = true; fn(); } };
     const J = SCENE_END.jam;
     once('batako', SCENE_END.batako, () => {
@@ -458,49 +476,9 @@
     once('jam', J, () => {
       S.banner = null;
       HR.HUD.clearParticles();
-      S.speech = { text: '……', t0: S.now, who: 'jam' };
+      startTantrum('collapse');
     });
-    once('anger', J + TANTRUM.anger, () => {
-      S.speech = { text: 'ぐぬぬ…!', t0: S.now, who: 'jam' };
-      narrate(HR.SCENE.angry);
-      sc.fx.push({ kind: 'anger', w: headTop(jam, 0.42, 0.42), r: 50, t0: S.now, rot: 0.3 });
-      sc.fx.push({ kind: 'anger', w: headTop(jam, -0.4, 0.26), r: 36, t0: S.now + 0.15, rot: -0.4 });
-    });
-    once('hatUp', J + TANTRUM.hatUp, () => jam.root.attach(jam.hat));
-    once('land', J + TANTRUM.land, () => {
-      sfx('slam');
-      S.shake = 0.06;
-      const [x, y] = projCam(jamLocal(HAT_GROUND));
-      HR.HUD.dust(x, y);
-      sc.fx.push({ kind: 'text', text: 'バシッ!', w: jamLocal(HAT_GROUND).add(new T.Vector3(0, 0.55, 0)), px: 120, t0: S.now, dur: 1.0, rot: -0.12 });
-    });
-    once('snap', J + TANTRUM.snap, () => {
-      sfx('snap');
-      S.shake = 0.09;
-      S.flash = 0.3;
-      jam.bat.visible = false;
-      sc.pieces = [
-        { obj: jam.batPieces[0], x: 0.02, y: 0.52, z: 0.38, vx: -0.55, vy: 2.6, vz: 0.15, a: 0, va: -7 },
-        { obj: jam.batPieces[1], x: 0.02, y: 0.52, z: 0.38, vx: 0.6, vy: 2.8, vz: 0.15, a: 0, va: 7 },
-      ];
-      const brk = jamLocal(new T.Vector3(0.02, 0.52, 0.38));
-      const [x, y] = projCam(brk);
-      HR.HUD.crumbs(x, y);
-      sc.fx.push({ kind: 'text', text: 'バキッ!!', w: brk.add(new T.Vector3(0, 0.75, 0)), px: 150, t0: S.now, dur: 1.4, rot: -0.1, fills: ['#ffffff', '#ffe0a0', '#ff6a00'], strokes: [[32, '#3a1a00'], [16, '#ffffff']] });
-      narrate(HR.SCENE.snap);
-      S.speech = null;
-    });
-    once('fists', J + TANTRUM.fists, () => {
-      S.speech = { text: 'くやしいーっ!!', t0: S.now, who: 'jam' };
-      sc.fx.push({ kind: 'steam', w: headTop(jam, 0, 0.7), t0: S.now });
-    });
-    once('down', J + TANTRUM.down, () => {
-      narrate(HR.SCENE.down);
-      S.speech = null;
-      sc.fx = [];
-      sfx('groan');
-    });
-    if (sc.pieces) stepPieces(dt);
+    if (S.tan) updateTantrum(dt);
     if (t >= SCENE_END.final) {
       setPhase('sFinal');
       S.banner = null;
@@ -508,9 +486,75 @@
     }
   }
 
+  // ---------------- ジャムおじさんが悔しがる ----------------
+  function startTantrum(variant) {
+    S.tan = { t0: S.now, variant, fx: [], pieces: null, ev: {} };
+  }
+
+  function updateTantrum(dt) {
+    const tan = S.tan, tt = S.now - tan.t0, V = TANTRUM_VARIANT[tan.variant];
+    const once = (k, at, fn) => { if (!tan.ev[k] && tt >= at) { tan.ev[k] = true; fn(); } };
+    once('start', 0, () => { S.speech = { text: '……', t0: S.now, who: 'jam' }; });
+    once('anger', TANTRUM.anger, () => {
+      S.speech = { text: 'ぐぬぬ…!', t0: S.now, who: 'jam' };
+      narrate(HR.SCENE.angry);
+      tan.fx.push({ kind: 'anger', w: headTop(jam, 0.42, 0.42), r: 50, t0: S.now, rot: 0.3 });
+      tan.fx.push({ kind: 'anger', w: headTop(jam, -0.4, 0.26), r: 36, t0: S.now + 0.15, rot: -0.4 });
+    });
+    once('hatUp', TANTRUM.hatUp, () => jam.root.attach(jam.hat));
+    once('land', TANTRUM.land, () => {
+      sfx('slam');
+      S.shake = 0.06;
+      const [x, y] = projCam(jamLocal(HAT_GROUND));
+      HR.HUD.dust(x, y);
+      tan.fx.push({ kind: 'text', text: 'バシッ!', w: jamLocal(HAT_GROUND).add(new T.Vector3(0, 0.55, 0)), px: 120, t0: S.now, dur: 1.0, rot: -0.12 });
+    });
+    once('snap', TANTRUM.snap, () => {
+      sfx('snap');
+      S.shake = 0.09;
+      S.flash = 0.3;
+      jam.bat.visible = false;
+      // collapse は足元へ跳ね上がって落ち、toss は両手に1本ずつ持ったまま
+      tan.pieces = [
+        { obj: jam.batPieces[0], x: 0.02, y: 0.52, z: 0.38, vx: -0.55, vy: 2.6, vz: 0.15, a: 0, va: -7, held: tan.variant === 'toss' },
+        { obj: jam.batPieces[1], x: 0.02, y: 0.52, z: 0.38, vx: 0.6, vy: 2.8, vz: 0.15, a: 0, va: 7, held: tan.variant === 'toss' },
+      ];
+      const brk = jamLocal(new T.Vector3(0.02, 0.52, 0.38));
+      const [x, y] = projCam(brk);
+      HR.HUD.crumbs(x, y);
+      tan.fx.push({ kind: 'text', text: 'バキッ!!', w: brk.add(new T.Vector3(0, 0.75, 0)), px: 150, t0: S.now, dur: 1.4, rot: -0.1, fills: ['#ffffff', '#ffe0a0', '#ff6a00'], strokes: [[32, '#3a1a00'], [16, '#ffffff']] });
+      narrate(HR.SCENE.snap);
+      S.speech = null;
+    });
+    if (V.toss) {
+      once('toss', V.toss, () => {
+        const [p0, p1] = tan.pieces;
+        Object.assign(p0, { held: false, vx: -4.2, vy: 5.0, vz: 2.2, va: -15 });
+        Object.assign(p1, { held: false, vx: 4.4, vy: 5.4, vz: 2.2, va: 15 });
+        sfx('swing');
+        tan.fx.push({ kind: 'text', text: 'ブンッ!', w: headTop(jam, -0.36, 0.05), px: 130, t0: S.now, dur: 1.0, rot: 0.08, fills: ['#ffffff', '#cfe6ff', '#5a8cff'], strokes: [[28, '#0d1446'], [14, '#ffffff']] });
+        narrate(HR.SCENE.toss);
+      });
+    }
+    once('fists', V.fists, () => {
+      S.speech = { text: 'くやしいーっ!!', t0: S.now, who: 'jam' };
+      tan.fx.push({ kind: 'steam', w: headTop(jam, 0, 0.7), t0: S.now });
+    });
+    if (V.down) {
+      once('down', V.down, () => {
+        narrate(HR.SCENE.down);
+        S.speech = null;
+        tan.fx = [];
+        sfx('groan');
+      });
+    }
+    if (tan.pieces) stepPieces(dt);
+  }
+
   // へし折ったバットの2本: 跳ね上がって回りながら落ち、地面で寝かせる
   function stepPieces(dt) {
-    for (const p of S.sc.pieces) {
+    for (const p of S.tan.pieces) {
+      if (p.held) continue;
       if (!p.rest) {
         p.vy -= 9.8 * dt;
         p.x += p.vx * dt; p.y += p.vy * dt; p.z += p.vz * dt; p.a += p.va * dt;
@@ -527,15 +571,16 @@
     }
   }
 
-  function poseTantrum(tt) {
-    const m = jam, v = HR.keys(J_TANTRUM, tt, false);
+  function poseTantrum() {
+    const tan = S.tan, tt = S.now - tan.t0, V = TANTRUM_VARIANT[tan.variant];
+    const m = jam, v = HR.keys(V.keys, tt, false);
     m.handR.position.set(v[0], v[1], v[2]);
     m.handL.position.set(v[3], v[4], v[5]);
     m.footL.position.set(v[6], v[7], v[8]);
     m.footR.position.set(-0.18, 0.06, v[9]);
-    const angry = tt > TANTRUM.anger && tt < TANTRUM.down;
+    const angry = tt > TANTRUM.anger && !(V.down && tt >= V.down);
     m.pivot.rotation.set(v[10], 0, angry ? Math.sin(S.now * 45) * 0.035 : 0, 'YXZ');
-    m.root.position.set(BATTER_POS.x, -0.14 * HR.smooth((tt - TANTRUM.down) / 0.6), BATTER_POS.z);
+    m.root.position.set(BATTER_POS.x, V.down ? -0.14 * HR.smooth((tt - V.down) / 0.6) : 0, BATTER_POS.z);
     // バット: 右手で下げる → 両手で横に持つ → 折れたら2本に
     if (tt < TANTRUM.grab) {
       const dir = tmpV2.set(Math.cos(-72 * DEG) * Math.cos(95 * DEG), Math.sin(-72 * DEG), Math.cos(-72 * DEG) * Math.sin(95 * DEG));
@@ -545,14 +590,26 @@
       m.bat.position.set(v[0] - 0.18, v[1], v[2]);
       m.bat.quaternion.setFromUnitVectors(tmpV.set(0, 1, 0), tmpV2.set(1, 0, 0));
     }
+    // 持っている折れた2本: 右手に持ち手側、左手に先端側を持ち、折れ口を上に向けて「へ」の字に
+    if (tan.pieces) {
+      const [p0, p1] = tan.pieces;
+      if (p0.held) Object.assign(p0, { x: v[0] + 0.25, y: v[1] + 0.43, z: v[2], a: Math.PI / 3 });
+      if (p1.held) Object.assign(p1, { x: v[3] - 0.23, y: v[4] + 0.4, z: v[5], a: -Math.PI / 3 });
+      for (const p of tan.pieces) {
+        if (!p.held) continue;
+        p.obj.visible = true;
+        p.obj.position.set(p.x, p.y, p.z);
+        p.obj.rotation.set(0, 0, p.a - Math.PI / 2);
+      }
+    }
     // 帽子: 左手で持ち上げ → 叩きつけてつぶれる
     const hat = m.hat;
     if (hat.parent === m.root) {
-      if (tt < TANTRUM.drop) {
+      if (tt < TANTRUM.release) {
         hat.position.set(v[3] - 0.04, v[4] - 0.28, v[5]);
         hat.rotation.set(0, 0, -0.35);
       } else {
-        const u = HR.clamp((tt - TANTRUM.drop) / (TANTRUM.land - TANTRUM.drop), 0, 1);
+        const u = HR.clamp((tt - TANTRUM.release) / (TANTRUM.land - TANTRUM.release), 0, 1);
         const from = m.hatFrom || (m.hatFrom = hat.position.clone());
         hat.position.lerpVectors(from, HAT_GROUND, u * u);
         hat.rotation.set(0, 0.4, HR.lerp(-0.35, 0, u));
@@ -657,6 +714,7 @@
         if (S.pt > 1.6) nextPitch();
         break;
       case 'finish':
+        if (S.tan) updateTantrum(dt);
         if (OFFLINE && S.now - S.finish.t0 > 5.2) S.done = true;
         break;
       case 'sIntro': {
@@ -833,15 +891,16 @@
       // ピッチャーにバットを向けて構える
       applyJam([-0.16, 1.0, 0.24, 180, 14, -30, -0.18, 0.06, 0.04]);
     } else if (S.phase === 'sEnd' || S.phase === 'sFinal') {
-      const tt = S.phase === 'sFinal' ? 99 : S.pt - SCENE_END.jam;
-      if (tt < 0) applyJam(J_SWING[J_SWING.length - 1][1]);
-      else poseTantrum(tt);
+      if (!S.tan) applyJam(J_SWING[J_SWING.length - 1][1]);
+      else poseTantrum();
     } else if (S.phase === 'cutin' || (S.phase === 'finish' && S.stats.hr >= 3) || (S.phase === 'intro' && S.intro && S.intro.stage === 'batter')) {
       const a = S.now - (S.cutin ? S.cutin.t0 : S.finish ? S.finish.t0 : S.intro.t0);
       const pump = Math.abs(Math.sin(a * 7));
       const intro = S.phase === 'intro';
       applyJam([-0.36, 1.45 + (intro ? 0 : pump * 0.12), 0.12, 100, 82, 0, -0.18, 0.06, 0.04], { jump: intro ? 0 : pump * 0.12 });
       jam.handL.position.set(0.36, intro ? 0.62 : 1.25 + pump * 0.25, 0.14);
+    } else if (S.phase === 'finish' && S.tan) {
+      poseTantrum();
     } else if (S.phase === 'finish' && S.stats.hr === 0) {
       // がっくり: バットを下げてうなだれる
       const a = S.now - S.finish.t0;
@@ -1020,6 +1079,11 @@
         setCam(tmpV.set(0.5, 1.3, 3.4), tmpV2.set(0.3, 1.0, -8), 50);
         return;
       case 'finish': {
+        if (S.tan && S.now < S.finish.t0) {
+          setCam(tmpV.set(BATTER_POS.x - 2.9, 1.0, BATTER_POS.z + 0.5), tmpV2.set(BATTER_POS.x, 0.95, BATTER_POS.z), 46);
+          applyShake();
+          return;
+        }
         const a = S.now * 0.15;
         // 結果パネルの下にジャムおじさんの顔が来るよう、注視点を頭より上にとる
         setCam(tmpV.set(-1.35 + Math.sin(a) * 0.25, 1.2, 0.75 + Math.cos(a) * 0.2), tmpV2.set(BATTER_POS.x, 1.85, BATTER_POS.z), 46);
@@ -1057,16 +1121,18 @@
       const sc = S.sc;
       st.showBoards = S.phase === 'sIntro' || batView || S.phase === 'batted' || (S.phase === 'sEnd' && S.pt < SCENE_END.batako);
       st.situation = { inning: 9, half: '裏', teams: TEAMS, bases: [1, 1, 1], b: sc.b, s: sc.s, o: Math.min(2, sc.o), alert: sc.o >= 3 ? 'ゲームセット' : 'サヨナラのピンチ' };
-      st.fx = sc.fx.map((f) => { const [x, y] = projCam(f.w); return Object.assign({}, f, { x, y }); });
-      if (S.speech) {
-        const who = S.speech.who === 'batako' ? batako : jam;
-        const [hx, hy] = projCam(who.head.getWorldPosition(tmpV).add(tmpV2.set(0, 0.5, 0)));
-        // バタコさんは実況テロップより下、ジャムおじさんは頭の上に出す
-        const [dx, dy, top] = S.speech.who === 'batako' ? [-270, -170, 760] : [-150, -150, 420];
-        st.speech = { text: S.speech.text, t0: S.speech.t0, x: HR.clamp(hx + dx, 300, W - 300), y: HR.clamp(hy + dy, top, 1500) };
-      }
       st.final = S.final;
       if (st.caption && S.phase === 'sFinal') st.caption = null;
+    }
+    // 結果発表が出たら吹き出しは消すが、怒りマークと湯気は残して悔しさを見せる
+    const panelUp = S.phase === 'finish' && S.finish && S.now > S.finish.t0;
+    if (S.tan) st.fx = S.tan.fx.filter((f) => !panelUp || f.kind !== 'text').map((f) => { const [x, y] = projCam(f.w); return Object.assign({}, f, { x, y }); });
+    if (S.speech && !panelUp && (S.mode === 'scene' || S.tan)) {
+      const who = S.speech.who === 'batako' ? batako : jam;
+      const [hx, hy] = projCam(who.head.getWorldPosition(tmpV).add(tmpV2.set(0, 0.5, 0)));
+      // バタコさんは実況テロップより下、ジャムおじさんは頭の上に出す
+      const [dx, dy, top] = S.speech.who === 'batako' ? [-270, -170, 760] : [-150, -150, 420];
+      st.speech = { text: S.speech.text, t0: S.speech.t0, x: HR.clamp(hx + dx, 300, W - 300), y: HR.clamp(hy + dy, top, 1500) };
     }
     if (S.phase === 'title' && sceneMode) st.title = { t0: S.title.t0, scene: true };
     const bs = S.batakoSay;
@@ -1179,7 +1245,7 @@
     S.mode = 'derby';
     S.power = false;
     S.auto = qs.get('auto') === '1';
-    S.sc = null; S.final = null; S.speech = null; S.banner = null; S.caption = null; S.intro = null; S.pitch = null; S.swing = null; S.batted = null;
+    S.sc = null; S.tan = null; S.final = null; S.speech = null; S.banner = null; S.caption = null; S.intro = null; S.pitch = null; S.swing = null; S.batted = null;
     resetScenery();
     HR.HUD.clearParticles();
     stadium.drawScreen('ホームラン競争', 'HR 0本', false);
