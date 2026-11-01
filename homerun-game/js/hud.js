@@ -461,6 +461,7 @@
     fullcount: { text: 'フルカウント!', px: 118, fills: ['#fff1e0', '#ffb46a', '#ff6a00'], strokes: [[26, '#4a1600'], [14, '#ffffff']] },
     strikeout: { text: '空振り三振!!', px: 150, fills: ['#ffffff', '#ffd0dd', '#ff4d80', '#d4142a'], strokes: [[34, '#3a0016'], [20, '#ffffff'], [8, '#d4142a']], big: true },
     gameset: { text: 'ゲームセット', px: 130, fills: ['#fffbd0', '#ffe14a', '#ff9d00'], strokes: [[30, '#3a1a00'], [16, '#ffffff']] },
+    sayonara: { text: '逆転サヨナラ', sub: '満塁ホームラン!!', px: 150, subPx: 112, fills: ['#fffbd0', '#ffe14a', '#ff9d00', '#ff4a00'], strokes: [[34, '#5a0d00'], [20, '#ffffff'], [8, '#e0301e']], big: true },
   };
   const SUNBURST = {
     hr: ['rgba(255,214,60,0.55)', 'rgba(255,150,40,0.25)'],
@@ -473,12 +474,13 @@
     const age = now - b.t0;
     const big = b.kind === 'hr' || def.big;
     const y = b.y || (big ? 840 : 800);
-    if (big) sunburst(g, W / 2, y, 620, age * 0.6, HR.clamp(age * 4, 0, 1) * 0.55, SUNBURST[b.kind] || SUNBURST.hr);
+    if (big) sunburst(g, W / 2, y, b.burstR || 620, age * 0.6, HR.clamp(age * 4, 0, 1) * 0.55, SUNBURST[b.kind] || SUNBURST.hr);
     const sc = big ? HR.lerp(2.4, 1, HR.easeOutBack(age / 0.38)) : HR.lerp(0.4, 1, HR.easeOutBack(age / 0.25));
     const wob = big ? Math.sin(age * 9) * 0.015 * Math.max(0, 1 - age) : 0;
     g.save();
     g.globalAlpha = HR.clamp(age * 8, 0, 1);
     impactText(g, def.text, W / 2, y, def.px, sc + wob, -0.06, def.fills, def.strokes);
+    if (def.sub) impactText(g, def.sub, W / 2, y + def.px * 1.05, def.subPx, sc + wob, -0.06, def.fills, def.strokes);
     g.restore();
     if (b.kind === 'hr' && b.dist && age > 0.45) {
       const a = HR.clamp((age - 0.45) * 5, 0, 1);
@@ -668,7 +670,8 @@
       g.arc(0, 0, 84, 0, Math.PI * 2);
       g.lineWidth = 5;
       g.stroke();
-      txt(g, 'セーブ', 0, 22, { font: IMP(54), align: 'center', fill: '#e8313f' });
+      const stamp = f.stamp || 'セーブ';
+      txt(g, stamp, 0, 2, { font: fitFont(g, stamp, 150, 900, 54, 30, true), align: 'center', base: 'middle', fill: '#e8313f' });
       g.restore();
     }
   }

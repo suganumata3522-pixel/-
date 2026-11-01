@@ -164,46 +164,78 @@
   // ---------------- バタコさん ----------------
   function makeBatako() {
     const SKIN = '#eba98a';
-    const f = facePainter(SKIN);
-    const { g, P, px } = f;
-    // 後ろ髪(黒)
-    g.fillStyle = '#1c1a1a';
-    // 経度180を超える部分はキャンバスの左端に回り込むので2回描く
-    for (const off of [0, -1024]) {
-      g.save();
-      g.translate(off, 0);
-      g.beginPath();
-      g.moveTo(P(78, 0)[0], 0);
-      g.lineTo(P(282, 0)[0], 0);
-      for (let lon = 282; lon >= 78; lon -= 4) {
-        const side = HR.smooth((Math.abs(lon - 180) - 60) / 42);
-        const lat = -14 + 24 * side + Math.sin(lon * 0.4) * 2.5;
-        const [x, y] = P(lon, lat);
-        g.lineTo(x, y);
+    // expr: normal(にっこり) / cry(悔し泣き: つり上がった眉、への字に開いた口、涙)
+    const drawFace = (expr) => {
+      const f = facePainter(SKIN);
+      const { g, P, px } = f;
+      // 後ろ髪(黒)
+      g.fillStyle = '#1c1a1a';
+      // 経度180を超える部分はキャンバスの左端に回り込むので2回描く
+      for (const off of [0, -1024]) {
+        g.save();
+        g.translate(off, 0);
+        g.beginPath();
+        g.moveTo(P(78, 0)[0], 0);
+        g.lineTo(P(282, 0)[0], 0);
+        for (let lon = 282; lon >= 78; lon -= 4) {
+          const side = HR.smooth((Math.abs(lon - 180) - 60) / 42);
+          const lat = -14 + 24 * side + Math.sin(lon * 0.4) * 2.5;
+          const [x, y] = P(lon, lat);
+          g.lineTo(x, y);
+        }
+        g.closePath();
+        g.fill();
+        g.restore();
       }
-      g.closePath();
+      g.fillRect(0, 0, 1024, P(0, 52)[1]);
+      // 顔
+      f.oval(-22, -9, 6.5, 5.5, 'rgba(217,120,108,0.75)');
+      f.oval(22, -9, 6.5, 5.5, 'rgba(217,120,108,0.75)');
+      f.eye(-12, 8, 3.1, 5.2);
+      f.eye(12, 8, 3.1, 5.2);
+      if (expr === 'cry') {
+        f.curve([-18, 19], [-12, 16], [-6, 13], 6, '#1a1210');
+        f.curve([6, 13], [12, 16], [18, 19], 6, '#1a1210');
+        for (const sx of [-1, 1]) {
+          const [tx, ty] = P(sx * 12, 1);
+          g.fillStyle = 'rgba(110,190,255,0.9)';
+          g.beginPath();
+          g.moveTo(tx - 6, ty);
+          g.quadraticCurveTo(tx - 9, ty + 40, tx, ty + 46);
+          g.quadraticCurveTo(tx + 9, ty + 40, tx + 6, ty);
+          g.fill();
+        }
+      } else {
+        f.curve([-17, 17], [-12, 22], [-7, 18], 5, '#1a1210');
+        f.curve([7, 18], [12, 22], [17, 17], 5, '#1a1210');
+      }
+      // 小さな鼻
+      const [nx, ny] = P(0, -2);
+      g.beginPath();
+      g.arc(nx, ny, 2.6 * px, 0, Math.PI * 2);
+      g.fillStyle = '#e39c80';
       g.fill();
-      g.restore();
-    }
-    g.fillRect(0, 0, 1024, P(0, 52)[1]);
-    // 顔
-    f.oval(-22, -9, 6.5, 5.5, 'rgba(217,120,108,0.75)');
-    f.oval(22, -9, 6.5, 5.5, 'rgba(217,120,108,0.75)');
-    f.eye(-12, 8, 3.1, 5.2);
-    f.eye(12, 8, 3.1, 5.2);
-    f.curve([-17, 17], [-12, 22], [-7, 18], 5, '#1a1210');
-    f.curve([7, 18], [12, 22], [17, 17], 5, '#1a1210');
-    // 小さな鼻
-    const [nx, ny] = P(0, -2);
-    g.beginPath();
-    g.arc(nx, ny, 2.6 * px, 0, Math.PI * 2);
-    g.fillStyle = '#e39c80';
-    g.fill();
-    g.lineWidth = 3;
-    g.strokeStyle = '#2a1a14';
-    g.stroke();
-    f.curve([-9, -13], [0, -21], [9, -13], 4.5, '#2a1a14');
-    const headTex = toTex(f.c);
+      g.lineWidth = 3;
+      g.strokeStyle = '#2a1a14';
+      g.stroke();
+      if (expr === 'cry') {
+        const [mx0, my0] = P(-8, -19), [mx1] = P(8, -19), [cx, cy] = P(0, -11);
+        g.beginPath();
+        g.moveTo(mx0, my0);
+        g.quadraticCurveTo(cx, cy - 18, mx1, my0);
+        g.quadraticCurveTo(cx, my0 + 4, mx0, my0);
+        g.fillStyle = '#8b3a46';
+        g.fill();
+        g.lineWidth = 4;
+        g.strokeStyle = '#2a1a14';
+        g.stroke();
+      } else {
+        f.curve([-9, -13], [0, -21], [9, -13], 4.5, '#2a1a14');
+      }
+      return toTex(f.c);
+    };
+    const faces = { normal: drawFace('normal'), cry: drawFace('cry') };
+    const headTex = faces.normal;
 
     // 胴体: 白シャツ+青いオーバーオール
     const [bc, bg] = canvas(512, 256);
@@ -232,11 +264,46 @@
 
     const m = buildChibi({ skin: SKIN, bodyTex, headTex, headR: 0.41, shoe: '#6f8d80' });
     const R = m.headR;
+    m.faces = faces;
+    m.setFace = (k) => {
+      const mat = m.headMesh.material;
+      if (mat.map === faces[k]) return;
+      mat.map = faces[k];
+      mat.needsUpdate = true;
+    };
     // 鼻はテクスチャで描き、ほっぺは平らなチークで十分
     const hat = chefHat(0.3, 0.16);
     hat.position.y = R * 0.62;
     hat.rotation.x = -0.1;
     m.head.add(hat);
+    m.hat = hat;
+    m.hatHome = { y: hat.position.y, rx: hat.rotation.x };
+    // 左手のグローブ(9回裏の場面だけ表示)。手の球は 0.1 倍に縮めてあるので 10 倍して打ち消す
+    const leather = std('#a5652f', { roughness: 0.55 });
+    const glove = new T.Group();
+    const palm = new T.Mesh(sphereGeo, leather);
+    palm.scale.set(0.15, 0.18, 0.08);
+    glove.add(palm);
+    for (let i = 0; i < 4; i++) {
+      const f = new T.Mesh(sphereGeo, leather);
+      f.scale.set(0.04, 0.09, 0.05);
+      f.position.set(-0.08 + i * 0.053, 0.17, 0);
+      glove.add(f);
+    }
+    const thumb = new T.Mesh(sphereGeo, leather);
+    thumb.scale.set(0.045, 0.08, 0.05);
+    thumb.position.set(0.15, 0.03, 0.02);
+    thumb.rotation.z = -0.6;
+    glove.add(thumb);
+    const webbing = new T.Mesh(sphereGeo, std('#6e3d18', { roughness: 0.6 }));
+    webbing.scale.set(0.06, 0.06, 0.03);
+    webbing.position.set(0.11, 0.13, 0.03);
+    glove.add(webbing);
+    glove.scale.setScalar(10);
+    glove.position.set(0.2, 0.4, 0.6);
+    glove.visible = false;
+    m.handL.add(glove);
+    m.glove = glove;
     const hairMat = std('#1c1a1a', { roughness: 0.6 });
     const cone = new T.ConeGeometry(0.07, 0.24, 10);
     const spikes = [[84, 6, -20], [94, -4, -35], [100, 14, -5], [76, 18, 10], [112, 2, -30]];
@@ -257,11 +324,64 @@
   // ---------------- ジャムおじさん ----------------
   function makeJam() {
     const SKIN = '#eaa486';
-    const f = facePainter(SKIN);
-    f.eye(-13, 10, 3.4, 5.6);
-    f.eye(13, 10, 3.4, 5.6);
-    f.curve([-19, -24], [0, -38], [19, -24], 4.5, '#1a1210');
-    const headTex = toTex(f.c);
+    // expr: normal(にっこり) / angry(への字口で歯を食いしばる、目つきが鋭い)
+    const drawJamFace = (expr) => {
+      const f = facePainter(SKIN);
+      const { g, P } = f;
+      f.eye(-13, 10, 3.4, 5.6);
+      f.eye(13, 10, 3.4, 5.6);
+      if (expr === 'angry') {
+        // 目の内側上を肌色で斜めに隠して、つり目にする
+        g.fillStyle = SKIN;
+        for (const sx of [-1, 1]) {
+          const [ax, ay] = P(sx * 6.5, 17.5), [bx, by] = P(sx * 19.5, 18.5), [cx, cy] = P(sx * 6.5, 9.5);
+          g.beginPath();
+          g.moveTo(ax, ay);
+          g.lineTo(bx, by);
+          g.lineTo(cx, cy);
+          g.closePath();
+          g.fill();
+          f.curve([sx * 7, 10.5], [sx * 12, 13.6], [sx * 18.5, 16.8], 5, '#1a1210');
+        }
+        // への字に食いしばった口(白い歯)。ひげの下に収まるように少し下げる
+        const [x0, y0] = P(-14, -35), [x1, y1] = P(14, -35), [qx, qy] = P(0, -21);
+        const [r1, s1] = P(11, -39), [r0] = P(-11, -39), [qx2, qy2] = P(0, -29);
+        const mouth = () => {
+          g.beginPath();
+          g.moveTo(x0, y0);
+          g.quadraticCurveTo(qx, qy, x1, y1);
+          g.lineTo(r1, s1);
+          g.quadraticCurveTo(qx2, qy2, r0, s1);
+          g.closePath();
+        };
+        mouth();
+        g.fillStyle = '#fbfbf5';
+        g.fill();
+        g.save();
+        g.clip();
+        g.strokeStyle = '#1a1210';
+        g.lineWidth = 2.5;
+        for (const lon of [-5, 0, 5]) {
+          const [tx, ty] = P(lon, -22), [ux, uy] = P(lon, -42);
+          g.beginPath();
+          g.moveTo(tx, ty);
+          g.lineTo(ux, uy);
+          g.stroke();
+        }
+        f.curve([-14, -37], [0, -25], [14, -37], 2.5, '#1a1210');
+        g.restore();
+        mouth();
+        g.lineWidth = 4.5;
+        g.lineJoin = 'round';
+        g.strokeStyle = '#1a1210';
+        g.stroke();
+      } else {
+        f.curve([-19, -24], [0, -38], [19, -24], 4.5, '#1a1210');
+      }
+      return toTex(f.c);
+    };
+    const faces = { normal: drawJamFace('normal'), angry: drawJamFace('angry') };
+    const headTex = faces.normal;
 
     const [bc, bg] = canvas(512, 256);
     bg.fillStyle = '#f7f7f3';
@@ -281,6 +401,7 @@
 
     const m = buildChibi({ skin: SKIN, bodyTex, headTex, headR: 0.43, shoe: '#6d8c7f' });
     const R = m.headR;
+    m.faces = faces;
     const rosy = '#c97b65';
     bump(m.head, 0, -4, R, 0.105, rosy, 0.9, 0.86);
     bump(m.head, -24, -9, R, 0.095, rosy, 0.6, 0.88);
@@ -292,14 +413,23 @@
       s.scale.set(0.05, 0.042, 0.03);
       onSphere(m.head, s, i * 6.5, -18 - Math.abs(i) * 0.8, R * 0.96);
     }
-    // まゆげ
+    // まゆげ(怒り顔では内側を下げてハの字を逆にする)
+    const brows = [];
     for (const side of [-1, 1]) {
       for (let i = 0; i < 3; i++) {
         const s = new T.Mesh(smallSphere, hairMat);
         s.scale.setScalar(0.032);
-        onSphere(m.head, s, side * (8 + i * 5.5), 22 + (i === 1 ? 2 : 0), R * 0.98);
+        const lat = 22 + (i === 1 ? 2 : 0);
+        brows.push({ piv: onSphere(m.head, s, side * (8 + i * 5.5), lat, R * 0.98), lat, angry: 17.5 + i * 3.4 });
       }
     }
+    m.setFace = (k) => {
+      const mat = m.headMesh.material;
+      if (mat.map === faces[k]) return;
+      mat.map = faces[k];
+      mat.needsUpdate = true;
+      for (const b of brows) b.piv.rotation.x = -(k === 'angry' ? b.angry : b.lat) * DEG;
+    };
     // 横と後ろのもこもこヘア
     const puff = (lon, lat, k) => {
       const grp = new T.Group();

@@ -12,8 +12,11 @@
   const OFFLINE_FPS = parseInt(qs.get('fps'), 10) || 30;
   // ai=whiff: オートのジャムおじさんが一球も当てられない(動画用)
   const AI_MODE = qs.get('ai') === 'whiff' ? 'whiff' : 'normal';
-  // ?scene=sayonara か #sayonara で「9回裏2アウト満塁」の場面を再生する
-  let sceneMode = qs.get('scene') === 'sayonara' || location.hash === '#sayonara';
+  // 9回裏2アウト満塁の名場面。sayonara: 空振り三振でゲームセット、gyakuten: 逆転サヨナラ満塁ホームラン
+  // (?scene=sayonara / #sayonara などで開く)
+  const SCENE_PARAM = qs.get('scene') || location.hash.slice(1);
+  let sceneKind = SCENE_PARAM === 'gyakuten' ? 'homerun' : SCENE_PARAM === 'sayonara' ? 'strikeout' : null;
+  let sceneMode = !!sceneKind;
 
   let rng = HR.makeRng(SEED);
   const fxRng = HR.makeRng(SEED + 1); // 画面揺れなど見た目だけの乱数(試合結果に影響させない)
@@ -77,8 +80,9 @@
     // 満塁のランナー(1塁・2塁・3塁で次の塁へリード)。名場面のときだけ表示
     runners = [[17.3, -21.5], [-2.1, -36.7], [-17.3, -17.3]].map(([x, z]) => {
       const m = HR.Models.makeRunner('#8a5a2b');
+      m.base = { x, z, rot: Math.atan2(-x, -z) };
       m.root.position.set(x, 0, z);
-      m.root.rotation.y = Math.atan2(-x, -z);
+      m.root.rotation.y = m.base.rot;
       m.root.visible = false;
       m.shadow = HR.Models.blob(1.1, 0.9, 0.8);
       m.shadow.position.set(x, 0.02, z);
@@ -161,6 +165,7 @@
     if (sceneMode) { startScene(); return; }
     S.mode = 'derby';
     S.tan = null;
+    S.btan = null;
     S.speech = null;
     resetScenery();
     rng = HR.makeRng(SEED + (S.runs || 0) * 7919);
@@ -222,7 +227,7 @@
   function makePitch() {
     let type = PITCHES[0], kmh, tx, ty;
     if (S.mode === 'scene') {
-      const e = SAYONARA[S.sc.i];
+      const e = sceneScript()[S.sc.i];
       type = PITCHES.find((p) => p.name === e.name);
       kmh = e.kmh; tx = e.tx; ty = e.ty;
     } else {
@@ -297,6 +302,7 @@
 
   function resolveBatted(kind) {
     const b = S.batted, sim = b.sim;
+    if (S.mode === 'scene' && kind === 'hr') { sceneHomer(b); return; }
     if (S.mode === 'scene') {
       S.sc.s = Math.min(2, S.sc.s + 1);
       S.banner = { kind: 'foul', t0: S.now };
@@ -351,9 +357,34 @@
     { name: 'ストレート', kmh: 168, tx: -0.08, ty: 1.6, act: 'take', result: 'ball' },
     { name: 'SFF', kmh: 148, tx: 0.0, ty: 0.3, act: 'whiff', result: 'strikeout' },
   ];
-  const TEAMS = [{ name: 'バタコ', score: 3, color: '#e8337a' }, { name: 'ジャム', score: 2, color: '#1fae4a', batting: true }];
+  // 逆転版: フルカウントまで同じで、6球目の168km/hを打ち返す
+  const SAYONARA_HR = SAYONARA.slice(0, 5).concat([{ name: 'ストレート', kmh: 168, tx: 0.06, ty: 0.86, act: 'homer', result: 'homer' }]);
+  const sceneScript = () => (S.sc.kind === 'homerun' ? SAYONARA_HR : SAYONARA);
+  const teams = () => [
+    { name: 'バタコ', score: S.sc.score[0], color: '#e8337a' },
+    { name: 'ジャム', score: S.sc.score[1], color: '#1fae4a', batting: true },
+  ];
   // 三振のあと: バタコさんの喜び → ジャムおじさん → 試合終了の画面(sEnd 開始からの秒数)
   const SCENE_END = { batako: 1.9, jam: 3.8, final: 10.6 };
+  // 逆転弾のあと: ジャムおじさんの喜び → バタコさんが悔しがる → 試合終了の画面
+  const SCENE_END_HR = { batako: 2.3, final: 9.0 };
+  // バタコさんが悔しがる流れ(始まってからの秒数)
+  const B_TANTRUM_T = { anger: 0.9, hatUp: 1.2, release: 1.62, land: 1.72, glove: 2.33, pound: 3.1, cry: 3.4 };
+  // [右手xyz, 左手xyz, 左足xyz, 右足xyz, ひねり(度), 前傾(度), しゃがみ(m)]
+  const B_TANTRUM = [
+    [0.0, [-0.28, 1.1, 0.34, 0.28, 1.1, 0.34, 0.17, 0.06, 0, -0.17, 0.06, 0, 0, -6, 0]],
+    [0.9, [-0.28, 1.12, 0.34, 0.28, 1.12, 0.34, 0.17, 0.06, 0, -0.17, 0.06, 0, 0, -6, 0]],
+    [1.2, [-0.18, 1.78, 0.12, 0.3, 0.9, 0.3, 0.17, 0.06, 0, -0.17, 0.06, 0, 0, -4, 0]],
+    [1.5, [-0.32, 2.08, 0.2, 0.3, 0.9, 0.3, 0.17, 0.06, 0, -0.17, 0.06, 0, 0, -8, 0]],
+    [1.66, [-0.36, 0.5, 0.5, 0.3, 0.9, 0.3, 0.17, 0.06, 0, -0.17, 0.06, 0, -10, 18, 0]],
+    [1.95, [-0.3, 0.75, 0.3, 0.32, 0.9, 0.25, 0.17, 0.06, 0, -0.17, 0.06, 0, 0, 4, 0]],
+    [2.2, [-0.3, 0.75, 0.3, 0.55, 1.0, -0.3, 0.17, 0.06, 0, -0.17, 0.06, 0, 28, -6, 0]],
+    [2.4, [-0.3, 0.75, 0.3, 0.62, 1.6, 0.5, 0.17, 0.06, 0, -0.17, 0.06, 0, -22, 10, 0]],
+    [2.7, [-0.28, 1.45, 0.3, 0.28, 1.45, 0.3, 0.17, 0.06, 0, -0.17, 0.06, 0, 0, 0, 0]],
+    [3.05, [-0.4, 1.15, 0.5, 0.4, 1.15, 0.5, 0.17, 0.06, -0.15, -0.17, 0.06, -0.15, 0, 40, -0.17]],
+  ];
+  const B_HAT_GROUND = new T.Vector3(-0.66, 0, 0.02); // バタコさんが帽子を叩きつける場所(バタコさん基準)
+  const POUND_Y = 0.19; // こぶしがマウンドに当たる高さ(しゃがんだ状態のバタコさん基準)
   // ジャムおじさんが悔しがる流れ(始まってからの秒数)。帽子を叩きつけてバットをひざでへし折るまでは共通で、
   // collapse(名場面): 2本は足元に落ち、こぶしを突き上げたあと崩れ落ちる
   // toss(全球空振り): 折った2本を振りかぶってぶん投げ、こぶしを突き上げたまま
@@ -388,8 +419,9 @@
 
   function startScene() {
     S.mode = 'scene';
-    S.sc = { i: -1, b: 0, s: 0, o: 2, ev: {} };
+    S.sc = { kind: sceneKind || 'strikeout', i: -1, b: 0, s: 0, o: 2, ev: {}, score: [3, 2] };
     S.tan = null;
+    S.btan = null;
     S.finish = null; S.title = null; S.banner = null; S.cutin = null; S.pitchInfo = null; S.final = null; S.speech = null;
     S.stats = { hit: 0, hr: 0, longest: 0, score: 0 };
     S.auto = true;
@@ -414,8 +446,26 @@
     jam.hat.scale.set(1, 1, 1);
     jam.bat.visible = true;
     for (const p of jam.batPieces) p.visible = false;
+    jam.root.rotation.y = -Math.PI / 2;
+    if (batako.hat.parent !== batako.head) batako.head.attach(batako.hat);
+    batako.hat.position.set(0, batako.hatHome.y, 0);
+    batako.hat.rotation.set(batako.hatHome.rx, 0, 0);
+    batako.hat.scale.set(1, 1, 1);
+    if (batako.glove.parent !== batako.handL) batako.handL.attach(batako.glove);
+    batako.glove.position.set(0.2, 0.4, 0.6);
+    batako.glove.rotation.set(0, 0, 0);
+    batako.glove.scale.setScalar(10);
     const show = S.mode === 'scene';
-    for (const r of runners) { r.root.visible = show; r.shadow.visible = show; }
+    batako.glove.visible = show;
+    batako.setFace('normal');
+    jam.setFace('normal');
+    for (const r of runners) {
+      r.root.visible = show;
+      r.shadow.visible = show;
+      r.root.position.set(r.base.x, 0, r.base.z);
+      r.root.rotation.y = r.base.rot;
+      r.shadow.position.set(r.base.x, 0.02, r.base.z);
+    }
   }
 
   function scenePitch() {
@@ -428,7 +478,7 @@
 
   // 見送り・空振りの判定
   function sceneCall() {
-    const sc = S.sc, e = SAYONARA[sc.i];
+    const sc = S.sc, e = sceneScript()[sc.i];
     if (e.result === 'strikeout') { startSceneEnd(); return; }
     if (e.result === 'ball') {
       sc.b++;
@@ -442,9 +492,42 @@
     narrate(HR.SCENE.result[sc.i]);
   }
 
+  // 逆転サヨナラ満塁ホームラン(打球がスタンドに入った瞬間)
+  function sceneHomer(b) {
+    b.kind = 'hr';
+    S.sc.score[1] += 4;
+    S.stats.hr++;
+    S.banner = { kind: 'sayonara', t0: S.now };
+    narrate(HR.SCENE.homer);
+    sfx('fanfare');
+    sfx('cheer', { level: 1, dur: 5 });
+    sfx('firework');
+    HR.HUD.confetti(160);
+    for (let i = 0; i < 3; i++) HR.HUD.burst(180 + rng() * 720, 250 + rng() * 500);
+    S.fireworkT = S.now;
+    S.flash = 0.5;
+    S.excite = 1;
+    stadium.drawScreen('SAYONARA!', 'ジャム 6 - 3 バタコ', true);
+  }
+
   function startSceneEnd() {
     setPhase('sEnd');
     S.missed = false;
+    if (S.sc.kind === 'homerun') {
+      // ランナーがホームに還って、ジャムおじさんと大喜び
+      [[-1.3, 1.5], [2.7, 1.3], [0.5, 2.6]].forEach(([x, z], i) => {
+        const r = runners[i];
+        r.root.position.set(x, 0, z);
+        r.root.rotation.y = Math.PI;
+        r.shadow.position.set(x, 0.02, z);
+      });
+      // 「逆転サヨナラ」の文字は顔にかからないよう画面下へ(出たときのアニメはくり返さない)
+      if (S.banner && S.banner.kind === 'sayonara') S.banner = { kind: 'sayonara', t0: Math.min(S.banner.t0, S.now - 0.5), y: 1480, burstR: 380 };
+      narrate(HR.SCENE.jamJoy, { queue: true });
+      S.speech = { text: 'やったぞー!!', t0: S.now + 0.2, who: 'jam' };
+      sfx('cheer', { level: 0.8, dur: 4 });
+      return;
+    }
     S.sc.s = 2;
     S.sc.o = 3;
     S.banner = { kind: 'strikeout', t0: S.now };
@@ -463,6 +546,7 @@
   const jamLocal = (v) => jam.root.localToWorld(v.clone());
 
   function sceneEnd(dt) {
+    if (S.sc.kind === 'homerun') { sceneEndHomer(dt); return; }
     const t = S.pt, ev = S.sc.ev;
     const once = (k, at, fn) => { if (!ev[k] && t >= at) { ev[k] = true; fn(); } };
     const J = SCENE_END.jam;
@@ -482,13 +566,143 @@
     if (t >= SCENE_END.final) {
       setPhase('sFinal');
       S.banner = null;
-      S.final = { t0: S.now + 0.3, teams: TEAMS, line: '最後は空振り三振!' };
+      S.final = { t0: S.now + 0.3, teams: teams(), line: '最後は空振り三振!' };
     }
+  }
+
+  function sceneEndHomer(dt) {
+    const t = S.pt, ev = S.sc.ev;
+    if (!ev.batako && t >= SCENE_END_HR.batako) {
+      ev.batako = true;
+      S.banner = null;
+      HR.HUD.clearParticles();
+      S.btan = { t0: S.now, fx: [], ev: {}, glove: null };
+    }
+    if (S.btan) updateBatakoTantrum(dt);
+    if (t >= SCENE_END_HR.final) {
+      setPhase('sFinal');
+      S.speech = null;
+      S.final = {
+        t0: S.now + 0.3, stamp: 'サヨナラ', line: '逆転サヨナラ満塁ホームラン!',
+        teams: [{ name: 'ジャム', score: S.sc.score[1], color: '#1fae4a' }, { name: 'バタコ', score: S.sc.score[0], color: '#e8337a' }],
+      };
+    }
+  }
+
+  // ---------------- バタコさんが悔しがる(逆転弾のあと) ----------------
+  const batakoTop = (dx, dy) => batako.head.getWorldPosition(new T.Vector3()).add(new T.Vector3(dx, dy, 0));
+  const batakoLocal = (v) => batako.root.localToWorld(v.clone());
+
+  function updateBatakoTantrum(dt) {
+    const bt = S.btan, tt = S.now - bt.t0, T_ = B_TANTRUM_T;
+    const once = (k, at, fn) => { if (!bt.ev[k] && tt >= at) { bt.ev[k] = true; fn(); } };
+    once('start', 0, () => {
+      batako.setFace('cry');
+      S.speech = { text: 'そんな…', t0: S.now, who: 'batako', style: 'close' };
+      narrate(HR.SCENE.batakoShock);
+    });
+    once('anger', T_.anger, () => {
+      S.speech = { text: 'もうっ!!', t0: S.now, who: 'batako', style: 'close' };
+      bt.fx.push({ kind: 'anger', w: batakoTop(0.42, 0.4), r: 50, t0: S.now, rot: 0.3 });
+      bt.fx.push({ kind: 'anger', w: batakoTop(-0.4, 0.25), r: 36, t0: S.now + 0.15, rot: -0.4 });
+    });
+    once('hatUp', T_.hatUp, () => batako.root.attach(batako.hat));
+    once('release', T_.release, () => narrate(HR.SCENE.batakoHat));
+    once('land', T_.land, () => {
+      sfx('slam');
+      S.shake = 0.06;
+      const w = batakoLocal(B_HAT_GROUND);
+      const [x, y] = projCam(w);
+      HR.HUD.dust(x, y);
+      bt.fx.push({ kind: 'text', text: 'バシッ!', w: w.add(new T.Vector3(0, 0.55, 0)), px: 120, t0: S.now, dur: 1.0, rot: -0.12 });
+    });
+    once('glove', T_.glove, () => {
+      scene.attach(batako.glove); // バタコさんはこのあとしゃがむので、球場に置いて飛ばす
+      const g0 = batako.glove.position;
+      bt.glove = { x: g0.x, y: g0.y, z: g0.z, vx: 3.2, vy: 4.0, vz: 3.0 };
+      sfx('swing');
+      bt.fx.push({ kind: 'text', text: 'ポイッ!', w: batakoTop(0.55, 0.15), px: 110, t0: S.now, dur: 0.9, rot: 0.1, fills: ['#ffffff', '#cfe6ff', '#5a8cff'], strokes: [[26, '#0d1446'], [12, '#ffffff']] });
+      narrate(HR.SCENE.batakoGlove);
+    });
+    once('cry', T_.cry, () => {
+      S.speech = { text: 'くやしいーっ!!', t0: S.now, who: 'batako', style: 'close' };
+      bt.fx.push({ kind: 'steam', w: batakoTop(0, 0.6), t0: S.now });
+      narrate(HR.SCENE.batakoPound);
+    });
+    // こぶしがマウンドに当たるたびに土ぼこり(左右交互に0.25秒ごと)
+    if (tt >= T_.pound) {
+      const k = Math.floor((tt - T_.pound) / 0.25);
+      if (k !== bt.lastPound) {
+        bt.lastPound = k;
+        const hand = k % 2 === 0 ? batako.handR : batako.handL;
+        const w = hand.getWorldPosition(new T.Vector3());
+        const [x, y] = projCam(w);
+        HR.HUD.dust(x, y + 20);
+        sfx('slam');
+        S.shake = Math.max(S.shake, 0.03);
+        if (k < 4) bt.fx.push({ kind: 'text', text: 'ドン!', w: w.add(new T.Vector3(k % 2 ? 0.35 : -0.35, 0.45, 0)), px: 96, t0: S.now, dur: 0.6, rot: k % 2 ? 0.12 : -0.12 });
+      }
+    }
+    // 投げ捨てたグローブ
+    const gl = bt.glove;
+    if (gl && !gl.landed) {
+      gl.vy -= 9.8 * dt;
+      gl.x += gl.vx * dt; gl.y += gl.vy * dt; gl.z += gl.vz * dt;
+      batako.glove.rotation.x += dt * 12;
+      batako.glove.rotation.z += dt * 9;
+      if (gl.y <= 0.07 && gl.vy < 0) {
+        // 地面に落ちたら手のひらを上にして転がったまま
+        gl.y = 0.07;
+        gl.landed = true;
+        batako.glove.rotation.set(-Math.PI / 2, 0, batako.glove.rotation.z);
+      }
+      batako.glove.position.set(gl.x, gl.y, gl.z);
+    }
+  }
+
+  function poseBatakoTantrum() {
+    const bt = S.btan, tt = S.now - bt.t0, m = batako;
+    const v = HR.keys(B_TANTRUM, tt, false);
+    if (tt >= B_TANTRUM_T.pound) {
+      // 両こぶしでマウンドを交互に叩く(大きな頭に隠れないよう、顔の左右で)
+      const u = (tt - B_TANTRUM_T.pound) / 0.5;
+      const hr = Math.sin(Math.PI * (u % 1)), hl = Math.sin(Math.PI * ((u + 0.5) % 1));
+      v[0] = -0.46; v[1] = POUND_Y + hr * 0.5; v[2] = 0.6;
+      v[3] = 0.46; v[4] = POUND_Y + hl * 0.5; v[5] = 0.6;
+    }
+    HR.Models.poseBatako(m, v);
+    if (tt > B_TANTRUM_T.anger) m.pivot.rotation.z = Math.sin(S.now * 45) * 0.035;
+    m.root.position.set(PITCHER_POS.x, PITCHER_POS.y + v[14], PITCHER_POS.z);
+    m.root.rotation.y = 0;
+    // 帽子: 右手で持ち上げ → 叩きつけてつぶれる
+    const hat = m.hat;
+    if (hat.parent === m.root) {
+      if (tt < B_TANTRUM_T.release) {
+        hat.position.set(v[0] + 0.04, v[1] - 0.26, v[2]);
+        hat.rotation.set(0, 0, 0.35);
+      } else {
+        const k = HR.clamp((tt - B_TANTRUM_T.release) / (B_TANTRUM_T.land - B_TANTRUM_T.release), 0, 1);
+        const from = m.hatFrom || (m.hatFrom = hat.position.clone());
+        hat.position.lerpVectors(from, B_HAT_GROUND, k * k);
+        hat.rotation.set(0, -0.4, HR.lerp(0.35, 0, k));
+        if (k >= 1) {
+          hat.scale.set(1.25, 0.45, 1.25);
+          hat.position.y -= v[14]; // しゃがんでも帽子は地面に残す
+        }
+      }
+    } else m.hatFrom = null;
+  }
+
+  function jamCheer(a) {
+    const pump = Math.abs(Math.sin(a * 7));
+    applyJam([-0.36, 1.45 + pump * 0.12, 0.12, 100, 82, 0, -0.18, 0.06, 0.04], { jump: pump * 0.12 });
+    jam.handL.position.set(0.36, 1.25 + pump * 0.25, 0.14);
   }
 
   // ---------------- ジャムおじさんが悔しがる ----------------
   function startTantrum(variant) {
     S.tan = { t0: S.now, variant, fx: [], pieces: null, ev: {} };
+    jam.setFace('angry');
   }
 
   function updateTantrum(dt) {
@@ -705,7 +919,8 @@
         const linger = S.mode === 'scene' ? 2.6 : 0.9; // 名場面ではファウルの表示を長めに見せる
         const end = b.kind === 'hr' ? b.ft >= sim.hrT + 1.7 : b.kind && (b.ft >= (sim.landT != null ? sim.landT : sim.dur) + linger || b.ft >= sim.dur + linger - 0.6);
         if (end) {
-          if (b.kind === 'hr') startCutin();
+          if (S.mode === 'scene' && b.kind === 'hr') startSceneEnd();
+          else if (b.kind === 'hr') startCutin();
           else nextPitch();
         }
         break;
@@ -757,8 +972,9 @@
     const cs = curSize();
     if (S.mode === 'scene') {
       // 見送り / 変化前のコースを追って空振り / 引っ張ってファウル(打球は決め打ち)
-      const e = SAYONARA[S.sc.i], ta = p.t0 + p.T;
-      if (e.act === 'take') S.ai = { swingAt: Infinity, aimX: p.tx * 0.6, aimY: 0.85 + (p.ty - 0.85) * 0.5, reactAt: p.t0 + p.T * 0.35 };
+      const e = sceneScript()[S.sc.i], ta = p.t0 + p.T;
+      if (e.act === 'homer') S.ai = { swingAt: ta - SWING_DELAY - 0.02, aimX: p.tx, aimY: p.ty - 0.02, reactAt: p.t0 + p.T * 0.25, forced: { kmh: 184, launch: 29, spray: 16, quality: 0.97 } };
+      else if (e.act === 'take') S.ai = { swingAt: Infinity, aimX: p.tx * 0.6, aimY: 0.85 + (p.ty - 0.85) * 0.5, reactAt: p.t0 + p.T * 0.35 };
       else if (e.act === 'whiff') S.ai = { swingAt: ta - SWING_DELAY + 0.01, aimX: p.tx - p.bx * 0.9, aimY: p.ty - p.by * 0.9, reactAt: p.t0 + p.T * 0.25 };
       else S.ai = { swingAt: ta - SWING_DELAY - 0.055, aimX: p.tx, aimY: p.ty - 0.03, reactAt: p.t0 + p.T * 0.25, forced: { kmh: 158, launch: 24, spray: 56, quality: 0.85 } };
       return;
@@ -860,10 +1076,11 @@
       }
     }
     // 三振を取って大喜び(両手を上げてジャンプ)
-    const cheer = (S.phase === 'sEnd' && S.pt > 0.6) || S.phase === 'sFinal';
+    const cheer = S.mode === 'scene' && S.sc.kind !== 'homerun' && ((S.phase === 'sEnd' && S.pt > 0.6) || S.phase === 'sFinal');
     if (cheer) bv = [-0.5, 1.6, 0.18, 0.5, 1.6, 0.18, 0.17, 0.06, 0.0, -0.17, 0.06, 0.0, 0, -10, 0];
     applyBatako(bv);
     if (cheer) batako.root.position.y += Math.abs(Math.sin(S.now * 6.5)) * 0.22;
+    if (S.btan) poseBatakoTantrum();
     // ボールを追って振り返る
     let yaw = 0;
     if (S.phase === 'batted' && S.batted) {
@@ -873,14 +1090,21 @@
       batako.yaw = HR.lerp(batako.yaw || 0, tYaw, HR.damp(4, 1 / 60));
       yaw = batako.yaw;
     } else batako.yaw = 0;
-    batako.root.rotation.y = yaw;
+    if (!S.btan) batako.root.rotation.y = yaw;
 
     // ランナー(リード → 三振でがっくり)
     if (S.mode === 'scene') {
-      const down = S.phase === 'sEnd' || S.phase === 'sFinal';
+      const over = S.phase === 'sEnd' || S.phase === 'sFinal';
+      const joy = over && S.sc.kind === 'homerun';
       runners.forEach((r, i) => {
         const sway = Math.sin(t * 2.4 + i) * 0.03;
-        HR.Models.poseBatako(r, down
+        if (joy) {
+          const j = Math.abs(Math.sin(t * 6.5 + i * 1.3));
+          HR.Models.poseBatako(r, [-0.32, 1.5, 0.15, 0.32, 1.5, 0.15, 0.17, 0.06, 0.0, -0.17, 0.06, 0.0, 0, -10]);
+          r.root.position.y = j * 0.2;
+          return;
+        }
+        HR.Models.poseBatako(r, over
           ? [-0.25, 0.3, 0.2, 0.25, 0.3, 0.2, 0.18, 0.06, 0.0, -0.18, 0.06, 0.0, 0, 40]
           : [-0.3, 0.5 + sway, 0.2, 0.3, 0.5 - sway, 0.2, 0.22, 0.06, 0.0, -0.22, 0.06, 0.0, 0, 20]);
       });
@@ -891,7 +1115,10 @@
       // ピッチャーにバットを向けて構える
       applyJam([-0.16, 1.0, 0.24, 180, 14, -30, -0.18, 0.06, 0.04]);
     } else if (S.phase === 'sEnd' || S.phase === 'sFinal') {
-      if (!S.tan) applyJam(J_SWING[J_SWING.length - 1][1]);
+      if (S.sc.kind === 'homerun') {
+        jamCheer(S.now);
+        jam.root.rotation.y = S.phase === 'sFinal' ? Math.PI : -Math.PI / 2;
+      } else if (!S.tan) applyJam(J_SWING[J_SWING.length - 1][1]);
       else poseTantrum();
     } else if (S.phase === 'cutin' || (S.phase === 'finish' && S.stats.hr >= 3) || (S.phase === 'intro' && S.intro && S.intro.stage === 'batter')) {
       const a = S.now - (S.cutin ? S.cutin.t0 : S.finish ? S.finish.t0 : S.intro.t0);
@@ -1025,7 +1252,7 @@
         const bp = ballPos;
         // ホームランはフェンスを越えた瞬間にカメラを止め、スタンドへ飛び込む打球を見送る
         const landed = !!b.kind;
-        if (S.mode === 'scene') {
+        if (S.mode === 'scene' && sceneScript()[S.sc.i].act === 'foul') {
           // 名場面のファウルは、本塁後方の高い位置からライト線へ切れていく打球を見せる
           cam.pos.copy(BAT_CAM.pos).lerp(tmpV.set(-5, 9, 15), HR.smooth((S.now - b.t0) / 0.6));
           cam.look.lerp(bp, HR.damp(landed ? 3 : 7, dt));
@@ -1070,13 +1297,28 @@
       }
       case 'sEnd': {
         const t = S.pt;
+        if (S.sc.kind === 'homerun') {
+          if (t < SCENE_END_HR.batako) {
+            const u = HR.easeOutCubic(t / 0.5);
+            setCam(tmpV.set(HR.lerp(-2.4, -1.7, u), 1.15, HR.lerp(1.1, 0.8, u)), tmpV2.set(BATTER_POS.x, 1.3, BATTER_POS.z), 46);
+          } else {
+            // 帽子を叩きつける → グローブを投げる → しゃがんでマウンドを叩くまで、全身が入る正面から少しずつ寄る
+            const tb = t - SCENE_END_HR.batako;
+            const u = HR.smooth(tb / 6), k = HR.smooth((tb - B_TANTRUM_T.pound + 0.4) / 0.8);
+            setCam(tmpV.set(0, HR.lerp(1.55, 1.3, k), HR.lerp(-14.9, -15.25, u)), tmpV2.set(0, HR.lerp(1.45, 1.05, k), PITCHER_POS.z), 48);
+            applyShake();
+          }
+          return;
+        }
         if (t < SCENE_END.batako) { setCam(BAT_CAM.pos, BAT_CAM.look, 50); applyShake(); }
         else if (t < SCENE_END.jam) setCam(tmpV.set(0.15, 1.75, -14.6), tmpV2.set(0, 2.1, PITCHER_POS.z), 50);
         else { setCam(tmpV.set(BATTER_POS.x - 2.9, 1.0, BATTER_POS.z + 0.5), tmpV2.set(BATTER_POS.x, 0.95, BATTER_POS.z), 46); applyShake(); }
         return;
       }
       case 'sFinal':
-        setCam(tmpV.set(0.5, 1.3, 3.4), tmpV2.set(0.3, 1.0, -8), 50);
+        // 逆転版はうずくまるバタコさんの背中越しに、ホームで喜ぶジャムおじさんたち
+        if (S.sc.kind === 'homerun') setCam(tmpV.set(0.5, 1.45, -21.6), tmpV2.set(0.5, 0.9, 0), 46);
+        else setCam(tmpV.set(0.5, 1.3, 3.4), tmpV2.set(0.3, 1.0, -8), 50);
         return;
       case 'finish': {
         if (S.tan && S.now < S.finish.t0) {
@@ -1120,18 +1362,21 @@
     if (S.mode === 'scene' && S.sc) {
       const sc = S.sc;
       st.showBoards = S.phase === 'sIntro' || batView || S.phase === 'batted' || (S.phase === 'sEnd' && S.pt < SCENE_END.batako);
-      st.situation = { inning: 9, half: '裏', teams: TEAMS, bases: [1, 1, 1], b: sc.b, s: sc.s, o: Math.min(2, sc.o), alert: sc.o >= 3 ? 'ゲームセット' : 'サヨナラのピンチ' };
+      const won = sc.score[1] > sc.score[0];
+      st.situation = { inning: 9, half: '裏', teams: teams(), bases: won ? [0, 0, 0] : [1, 1, 1], b: sc.b, s: sc.s, o: Math.min(2, sc.o), alert: won ? 'サヨナラ!' : sc.o >= 3 ? 'ゲームセット' : 'サヨナラのピンチ' };
       st.final = S.final;
       if (st.caption && S.phase === 'sFinal') st.caption = null;
     }
     // 結果発表が出たら吹き出しは消すが、怒りマークと湯気は残して悔しさを見せる
     const panelUp = S.phase === 'finish' && S.finish && S.now > S.finish.t0;
-    if (S.tan) st.fx = S.tan.fx.filter((f) => !panelUp || f.kind !== 'text').map((f) => { const [x, y] = projCam(f.w); return Object.assign({}, f, { x, y }); });
-    if (S.speech && !panelUp && (S.mode === 'scene' || S.tan)) {
+    const fx = [].concat(S.tan ? S.tan.fx : [], S.btan ? S.btan.fx : []);
+    if (fx.length) st.fx = fx.filter((f) => !panelUp || f.kind !== 'text').map((f) => { const [x, y] = projCam(f.w); return Object.assign({}, f, { x, y }); });
+    if (S.speech && !panelUp && S.now >= S.speech.t0 && (S.mode === 'scene' || S.tan)) {
       const who = S.speech.who === 'batako' ? batako : jam;
       const [hx, hy] = projCam(who.head.getWorldPosition(tmpV).add(tmpV2.set(0, 0.5, 0)));
-      // バタコさんは実況テロップより下、ジャムおじさんは頭の上に出す
-      const [dx, dy, top] = S.speech.who === 'batako' ? [-270, -170, 760] : [-150, -150, 420];
+      // 喜ぶバタコさん(引きの画)は実況テロップより下、アップの時は頭の上に出す
+      const wide = S.speech.who === 'batako' && S.speech.style !== 'close';
+      const [dx, dy, top] = wide ? [-270, -170, 760] : [-150, -150, 420];
       st.speech = { text: S.speech.text, t0: S.speech.t0, x: HR.clamp(hx + dx, 300, W - 300), y: HR.clamp(hy + dy, top, 1500) };
     }
     if (S.phase === 'title' && sceneMode) st.title = { t0: S.title.t0, scene: true };
@@ -1245,7 +1490,7 @@
     S.mode = 'derby';
     S.power = false;
     S.auto = qs.get('auto') === '1';
-    S.sc = null; S.tan = null; S.final = null; S.speech = null; S.banner = null; S.caption = null; S.intro = null; S.pitch = null; S.swing = null; S.batted = null;
+    S.sc = null; S.tan = null; S.btan = null; S.final = null; S.speech = null; S.banner = null; S.caption = null; S.intro = null; S.pitch = null; S.swing = null; S.batted = null;
     resetScenery();
     HR.HUD.clearParticles();
     stadium.drawScreen('ホームラン競争', 'HR 0本', false);
@@ -1268,7 +1513,9 @@
     set('btnVoice', HR.Voice.enabled);
     set('btnSound', !HR.Audio.muted, HR.Audio.muted ? '音 OFF' : '音 ON');
     set('btnRec', !!Rec.mr, Rec.mr ? '録画を止める' : '録画');
-    set('btnScene', sceneMode, sceneMode ? 'ホームラン競争へ' : '9回裏の名場面');
+    const on1 = sceneMode && sceneKind === 'strikeout', on2 = sceneMode && sceneKind === 'homerun';
+    set('btnScene', on1, on1 ? 'ホームラン競争へ' : '9回裏・三振');
+    set('btnScene2', on2, on2 ? 'ホームラン競争へ' : '9回裏・逆転弾');
   }
   const Rec = { mr: null, chunks: [], t0: 0, blob: null, ext: 'webm' };
   function recStart() {
@@ -1355,14 +1602,21 @@
     on('btnVoice', () => { HR.Voice.enabled = !HR.Voice.enabled; if (!HR.Voice.enabled && 'speechSynthesis' in window) speechSynthesis.cancel(); syncButtons(); });
     on('btnSound', () => { HR.Audio.init(); HR.Audio.setMuted(!HR.Audio.muted); syncButtons(); });
     on('btnRec', () => { if (Rec.mr) recStop(); else recStart(); });
-    on('btnScene', () => {
+    const toggleScene = (kind) => {
       HR.Audio.init();
       HR.Audio.resume();
-      sceneMode = !sceneMode;
-      if (sceneMode) startScene();
-      else backToTitle();
+      if (sceneMode && sceneKind === kind) {
+        sceneMode = false;
+        backToTitle();
+      } else {
+        sceneMode = true;
+        sceneKind = kind;
+        startScene();
+      }
       syncButtons();
-    });
+    };
+    on('btnScene', () => toggleScene('strikeout'));
+    on('btnScene2', () => toggleScene('homerun'));
     on('btnSave', saveVideo);
     on('btnClose', () => { $('saveDlg').hidden = true; });
     syncButtons();
