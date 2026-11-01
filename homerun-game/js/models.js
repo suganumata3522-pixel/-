@@ -432,5 +432,31 @@
     return m;
   }
 
-  HR.Models = { makeBatako, makeJam, makeBall, blob, onSphere };
+  // ポーズ(手足の位置・胴のひねり)。root の置き場所は呼び出し側が決める。
+  // バタコさん: [右手xyz, 左手xyz, 左足xyz, 右足xyz, ひねり(度), 前傾(度)]
+  function poseBatako(m, v) {
+    m.handR.position.set(v[0], v[1], v[2]);
+    m.handL.position.set(v[3], v[4], v[5]);
+    m.footL.position.set(v[6], v[7], v[8]);
+    m.footR.position.set(v[9], v[10], v[11]);
+    m.pivot.rotation.set(v[13] * DEG, v[12] * DEG, 0, 'YXZ');
+    m.pivot.position.z = 0;
+  }
+
+  // ジャムおじさん(左打ち): [グリップxyz, バット方位ψ(度), 仰角ε(度), ひねり(度), 右足xyz]
+  const UP = new T.Vector3(0, 1, 0);
+  const batDir = new T.Vector3();
+  function poseJam(m, v, opts) {
+    const psi = v[3] * DEG, eps = v[4] * DEG;
+    const dir = batDir.set(Math.cos(eps) * Math.cos(psi), Math.sin(eps), Math.cos(eps) * Math.sin(psi)).normalize();
+    m.handR.position.set(v[0], v[1], v[2]);
+    m.handL.position.set(v[0] + dir.x * 0.14, v[1] + dir.y * 0.14, v[2] + dir.z * 0.14);
+    m.bat.position.set(v[0] - dir.x * 0.07, v[1] - dir.y * 0.07, v[2] - dir.z * 0.07);
+    m.bat.quaternion.setFromUnitVectors(UP, dir);
+    m.pivot.rotation.set((opts && opts.lean) || 0, v[5] * DEG, 0, 'YXZ');
+    m.footL.position.set(0.18, 0.06, 0.0);
+    m.footR.position.set(v[6], v[7], v[8]);
+  }
+
+  HR.Models = { makeBatako, makeJam, makeBall, blob, onSphere, poseBatako, poseJam };
 })();

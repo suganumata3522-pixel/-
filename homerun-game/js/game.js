@@ -473,14 +473,8 @@
     [2.35, [-0.12, 0.62, 0.3, 0.12, 0.62, 0.3, 0.17, 0.06, 0.32, -0.17, 0.06, 0.32, 0, 0, 0.32]],
   ];
   function applyBatako(v) {
-    const m = batako;
-    m.handR.position.set(v[0], v[1], v[2]);
-    m.handL.position.set(v[3], v[4], v[5]);
-    m.footL.position.set(v[6], v[7], v[8]);
-    m.footR.position.set(v[9], v[10], v[11]);
-    m.pivot.rotation.set(v[13] * DEG, v[12] * DEG, 0, 'YXZ');
-    m.pivot.position.z = 0;
-    m.root.position.set(PITCHER_POS.x, PITCHER_POS.y, PITCHER_POS.z + v[14]);
+    HR.Models.poseBatako(batako, v);
+    batako.root.position.set(PITCHER_POS.x, PITCHER_POS.y, PITCHER_POS.z + v[14]);
   }
 
   // ジャムおじさん(左打ち): [グリップxyz, バット方位ψ, 仰角ε, ひねり, 右足xyz]
@@ -493,19 +487,9 @@
     [0.28, [-0.24, 0.92, 0.02, 228, 38, -85, -0.3, 0.06, 0.04]],
     [0.6, [-0.22, 0.95, -0.04, 245, 46, -85, -0.3, 0.06, 0.04]],
   ];
-  const UP = new T.Vector3(0, 1, 0);
   function applyJam(v, opts) {
-    const m = jam;
-    const psi = v[3] * DEG, eps = v[4] * DEG;
-    const dir = tmpV2.set(Math.cos(eps) * Math.cos(psi), Math.sin(eps), Math.cos(eps) * Math.sin(psi)).normalize();
-    m.handR.position.set(v[0], v[1], v[2]);
-    m.handL.position.set(v[0] + dir.x * 0.14, v[1] + dir.y * 0.14, v[2] + dir.z * 0.14);
-    m.bat.position.set(v[0] - dir.x * 0.07, v[1] - dir.y * 0.07, v[2] - dir.z * 0.07);
-    m.bat.quaternion.setFromUnitVectors(UP, dir);
-    m.pivot.rotation.set((opts && opts.lean) || 0, v[5] * DEG, 0, 'YXZ');
-    m.footL.position.set(0.18, 0.06, 0.0);
-    m.footR.position.set(v[6], v[7], v[8]);
-    m.root.position.set(BATTER_POS.x, (opts && opts.jump) || 0, BATTER_POS.z);
+    HR.Models.poseJam(jam, v, opts);
+    jam.root.position.set(BATTER_POS.x, (opts && opts.jump) || 0, BATTER_POS.z);
   }
 
   function poseCharacters() {

@@ -56,6 +56,24 @@ node tools/record.mjs --seed 5 --out jam-homerun-short.mp4
 | `--ai whiff` | ジャムおじさんが一球も当てられない動画にする(変化前のコースを追いかけ、タイミングもずれる) |
 | `--snap 2,5.5 --from 5` | 指定した秒数の静止画だけ保存(見た目の確認用) |
 
+## サムネイルを作る
+
+```bash
+node tools/thumbnail.mjs --out thumbs                  # 4種類すべて
+node tools/thumbnail.mjs --design hr-a,zero-a --out thumbs
+```
+
+ショート用のサムネイル(1080×1920 の JPEG、YouTube の上限 2MB 以内)を書き出します。ゲームと同じ3Dモデルを撮影して、背景のぼかし・白フチ・文字を重ねています。
+
+| デザイン | 内容 |
+| --- | --- |
+| `hr-a` | 168km/hをかっ飛ばす!! (打った瞬間+飛んでいくアンパンマンの顔) |
+| `hr-b` | フランスパンでホームラン!? (バンザイするジャムおじさん) |
+| `zero-a` | 全10球 空振り… (がっくりするジャムおじさん) |
+| `zero-b` | 168km/h バタコさん強すぎ… (新しい顔を持つバタコさん) |
+
+文字や構図は `tools/thumbnail.js` の `designs` で変えられます。
+
 ## 調整できるところ
 
 - URL パラメータ: `index.html?auto=1`(最初からオート)、`?balls=5`(球数)、`?seed=123`(試合展開を固定)、`?auto=1&ai=whiff`(オートが全部空振り)
@@ -75,6 +93,8 @@ js/audio.js       効果音(WebAudio で合成)と実況の読み上げ
 js/hud.js         スコアボード・選手プレート・照準・ホームラン演出
 js/game.js        ゲーム進行・打撃判定・カメラ・入力・録画
 tools/record.mjs  オートプレイ動画の書き出し
+tools/thumbnail.* ショート用サムネイルの書き出し
+tools/browser.mjs 上の2つで使うヘッドレス Chromium の準備
 vendor/three.min.js  Three.js r160 (MIT License)
 ```
 
