@@ -12,6 +12,8 @@
   const OFFLINE_FPS = parseInt(qs.get('fps'), 10) || 30;
   // ai=whiff: オートのジャムおじさんが一球も当てられない(動画用)
   const AI_MODE = qs.get('ai') === 'whiff' ? 'whiff' : 'normal';
+  // ?scene=sayonara か #sayonara で「9回裏2アウト満塁」の場面を再生する
+  let sceneMode = qs.get('scene') === 'sayonara' || location.hash === '#sayonara';
 
   let rng = HR.makeRng(SEED);
   const fxRng = HR.makeRng(SEED + 1); // 画面揺れなど見た目だけの乱数(試合結果に影響させない)
@@ -49,7 +51,7 @@
   screen.height = H;
   const g = screen.getContext('2d');
 
-  let renderer, scene, camera, batCam, stadium, batako, jam, ballM;
+  let renderer, scene, camera, batCam, stadium, batako, jam, ballM, runners = [];
   let shadows = {}, trail = [], halo;
   let renderScale = 1;
 
@@ -72,6 +74,18 @@
     batako.root.position.copy(PITCHER_POS);
     jam.root.position.copy(BATTER_POS);
     jam.root.rotation.y = -Math.PI / 2;
+    // 満塁のランナー(1塁・2塁・3塁で次の塁へリード)。名場面のときだけ表示
+    runners = [[17.3, -21.5], [-2.1, -36.7], [-17.3, -17.3]].map(([x, z]) => {
+      const m = HR.Models.makeRunner('#8a5a2b');
+      m.root.position.set(x, 0, z);
+      m.root.rotation.y = Math.atan2(-x, -z);
+      m.root.visible = false;
+      m.shadow = HR.Models.blob(1.1, 0.9, 0.8);
+      m.shadow.position.set(x, 0.02, z);
+      m.shadow.visible = false;
+      scene.add(m.root, m.shadow);
+      return m;
+    });
     shadows.jam = HR.Models.blob(1.2, 1.0, 0.9);
     shadows.batako = HR.Models.blob(1.2, 1.0, 0.9);
     shadows.ball = HR.Models.blob(0.4, 0.4, 0.8);
@@ -131,7 +145,9 @@
   function say(key, vars, opts) {
     const list = HR.LINES[key];
     if (!list) return;
-    const text = fill(pick(list), vars || {});
+    narrate(fill(pick(list), vars || {}), opts);
+  }
+  function narrate(text, opts) {
     S.caption = { text, t0: S.now };
     if (!(opts && opts.quiet)) HR.Voice.say(text, !(opts && opts.queue));
   }
@@ -142,6 +158,9 @@
   function setPhase(p) { S.phase = p; S.pt = 0; }
 
   function startGame() {
+    if (sceneMode) { startScene(); return; }
+    S.mode = 'derby';
+    resetScenery();
     rng = HR.makeRng(SEED + (S.runs || 0) * 7919);
     S.runs = (S.runs || 0) + 1;
     S.balls = TOTAL_BALLS;
@@ -165,6 +184,7 @@
     if (S.screenDirty) { stadium.drawScreen('ホームラン競争', `HR ${S.stats.hr}本`, false); S.screenDirty = false; }
     for (const s of trail) s.visible = false;
     halo.visible = false;
+    if (S.mode === 'scene') { scenePitch(); return; }
     if (S.balls <= 0) return finishGame();
     S.pitchNo++;
     setPhase('ready');
@@ -196,12 +216,19 @@
   }
 
   function makePitch() {
-    const total = PITCHES.reduce((a, p) => a + p.w, 0);
-    let r = rng() * total, type = PITCHES[0];
-    for (const p of PITCHES) { r -= p.w; if (r <= 0) { type = p; break; } }
-    const kmh = Math.round(rr(type.kmh[0], type.kmh[1]));
-    const tx = HR.clamp(gauss() * 0.17, -0.4, 0.4);
-    const ty = HR.clamp(0.86 + gauss() * 0.19, 0.45, 1.28);
+    let type = PITCHES[0], kmh, tx, ty;
+    if (S.mode === 'scene') {
+      const e = SAYONARA[S.sc.i];
+      type = PITCHES.find((p) => p.name === e.name);
+      kmh = e.kmh; tx = e.tx; ty = e.ty;
+    } else {
+      const total = PITCHES.reduce((a, p) => a + p.w, 0);
+      let r = rng() * total;
+      for (const p of PITCHES) { r -= p.w; if (r <= 0) { type = p; break; } }
+      kmh = Math.round(rr(type.kmh[0], type.kmh[1]));
+      tx = HR.clamp(gauss() * 0.17, -0.4, 0.4);
+      ty = HR.clamp(0.86 + gauss() * 0.19, 0.45, 1.28);
+    }
     batako.handR.getWorldPosition(tmpV);
     const sx = tmpV.x, sy = tmpV.y + 0.02, sz = tmpV.z + 0.12;
     const dist = Math.hypot(tx - sx, ty - sy, sz);
@@ -244,7 +271,7 @@
     const c = S.swing.contact, p = S.pitch;
     const s = (S.now - p.t0) / p.T;
     const p0 = pitchPos(p, Math.min(s, 1.06), new T.Vector3());
-    const L = HR.contactToLaunch(c, S.swing.power, gauss);
+    const L = S.ai && S.ai.forced ? Object.assign({}, S.ai.forced) : HR.contactToLaunch(c, S.swing.power, gauss);
     const v = L.kmh / 3.6, th = L.launch * DEG, ph = L.spray * DEG;
     const v0 = { x: v * Math.cos(th) * Math.sin(ph), y: v * Math.sin(th), z: -v * Math.cos(th) * Math.cos(ph) };
     const sim = HR.simulateBatted({ x: p0.x, y: p0.y, z: p0.z }, v0, L);
@@ -266,6 +293,14 @@
 
   function resolveBatted(kind) {
     const b = S.batted, sim = b.sim;
+    if (S.mode === 'scene') {
+      S.sc.s = Math.min(2, S.sc.s + 1);
+      S.banner = { kind: 'foul', t0: S.now };
+      narrate(HR.SCENE.result[S.sc.i]);
+      sfx('groan');
+      b.kind = 'foul';
+      return;
+    }
     let dist = Math.round(kind === 'hr' ? sim.carry : sim.landDist);
     if (kind === 'hr') {
       S.stats.hr++;
@@ -302,6 +337,237 @@
     if (OFFLINE) (window.__log = window.__log || []).push(kind === 'hr' ? `HR${dist}` : kind);
   }
 
+  // ---------------- 名場面: 9回裏2アウト満塁、一打サヨナラのピンチ ----------------
+  // バタコさん(3-2でリード)がジャムおじさんを空振り三振に仕留める。1球ごとの結果は決め打ち。
+  const SAYONARA = [
+    { name: 'シュート', kmh: 145, tx: -0.66, ty: 0.62, act: 'take', result: 'ball' },
+    { name: 'スライダー', kmh: 141, tx: 0.22, ty: 0.62, act: 'whiff', result: 'strike' },
+    { name: 'SFF', kmh: 147, tx: 0.05, ty: 0.16, act: 'take', result: 'ball' },
+    { name: 'ストレート', kmh: 168, tx: 0.12, ty: 0.98, act: 'foul', result: 'foul' },
+    { name: 'ストレート', kmh: 168, tx: -0.08, ty: 1.6, act: 'take', result: 'ball' },
+    { name: 'SFF', kmh: 148, tx: 0.0, ty: 0.3, act: 'whiff', result: 'strikeout' },
+  ];
+  const TEAMS = [{ name: 'バタコ', score: 3, color: '#e8337a' }, { name: 'ジャム', score: 2, color: '#1fae4a', batting: true }];
+  // 三振のあと: バタコさんの喜び → ジャムおじさん → 試合終了の画面(sEnd 開始からの秒数)
+  const SCENE_END = { batako: 1.9, jam: 3.8, final: 10.6 };
+  // ジャムおじさんが悔しがる流れ(ジャムおじさんのカットからの秒数)
+  const TANTRUM = { anger: 0.7, hatUp: 1.3, drop: 1.85, land: 1.95, grab: 2.1, snap: 2.72, fists: 3.0, down: 4.7 };
+  // [右手xyz, 左手xyz, 左足xyz, 右足z, 前傾(rad)]
+  const J_TANTRUM = [
+    [0.0, [-0.3, 0.45, 0.22, 0.3, 0.45, 0.2, 0.18, 0.06, 0.0, 0.04, 0.28]],
+    [0.7, [-0.3, 0.45, 0.22, 0.3, 0.45, 0.2, 0.18, 0.06, 0.0, 0.04, 0.28]],
+    [1.1, [-0.32, 0.5, 0.22, 0.2, 1.4, 0.2, 0.18, 0.06, 0.0, 0.04, -0.04]],
+    [1.3, [-0.32, 0.5, 0.22, 0.18, 1.86, 0.14, 0.18, 0.06, 0.0, 0.04, -0.06]],
+    [1.7, [-0.32, 0.5, 0.22, 0.34, 2.15, 0.2, 0.18, 0.06, 0.0, 0.04, -0.12]],
+    [1.85, [-0.32, 0.5, 0.22, 0.32, 0.55, 0.55, 0.18, 0.06, 0.0, 0.04, 0.22]],
+    [2.1, [-0.3, 0.55, 0.36, 0.3, 0.55, 0.36, 0.18, 0.06, 0.0, 0.04, 0.1]],
+    [2.6, [-0.3, 1.9, 0.3, 0.3, 1.9, 0.3, 0.06, 0.4, 0.26, 0.04, -0.1]],
+    [2.72, [-0.3, 0.52, 0.38, 0.3, 0.52, 0.38, 0.06, 0.4, 0.26, 0.04, 0.2]],
+    [3.0, [-0.4, 1.3, 0.22, 0.4, 1.3, 0.22, 0.18, 0.06, 0.0, 0.04, -0.08]],
+    [4.7, [-0.4, 1.3, 0.22, 0.4, 1.3, 0.22, 0.18, 0.06, 0.0, 0.04, -0.08]],
+    [5.3, [-0.26, 0.08, 0.6, 0.26, 0.08, 0.6, 0.18, 0.06, -0.2, -0.2, 0.95]],
+  ];
+  const HAT_GROUND = new T.Vector3(0.58, 0, 0.3); // 帽子を叩きつける場所(ジャムおじさん基準)
+
+  function startScene() {
+    S.mode = 'scene';
+    S.sc = { i: -1, b: 0, s: 0, o: 2, fx: [], pieces: null, ev: {} };
+    S.finish = null; S.title = null; S.banner = null; S.cutin = null; S.pitchInfo = null; S.final = null; S.speech = null;
+    S.stats = { hit: 0, hr: 0, longest: 0, score: 0 };
+    S.auto = true;
+    S.power = true;
+    resetScenery();
+    for (const r of runners) { r.root.visible = true; r.shadow.visible = true; }
+    HR.HUD.clearParticles();
+    stadium.drawScreen('9回裏', 'バタコ 3 - 2 ジャム', false);
+    setPhase('sIntro');
+    S.intro = { stage: 'scene', t0: S.now };
+    narrate(HR.SCENE.intro, { queue: true });
+    sfx('organ');
+    sfx('cheer', { level: 0.5, dur: 4 });
+    syncButtons();
+  }
+
+  // 帽子・バット・ランナーを元に戻す
+  function resetScenery() {
+    if (jam.hat.parent !== jam.head) jam.head.attach(jam.hat);
+    jam.hat.position.set(0, jam.hatHome.y, 0);
+    jam.hat.rotation.set(jam.hatHome.rx, 0, 0);
+    jam.hat.scale.set(1, 1, 1);
+    jam.bat.visible = true;
+    for (const p of jam.batPieces) p.visible = false;
+    const show = S.mode === 'scene';
+    for (const r of runners) { r.root.visible = show; r.shadow.visible = show; }
+  }
+
+  function scenePitch() {
+    const sc = S.sc;
+    sc.i++;
+    setPhase('ready');
+    narrate(HR.SCENE.ready[sc.i], { quiet: true });
+    if (sc.i === 5) S.banner = { kind: 'fullcount', t0: S.now };
+  }
+
+  // 見送り・空振りの判定
+  function sceneCall() {
+    const sc = S.sc, e = SAYONARA[sc.i];
+    if (e.result === 'strikeout') { startSceneEnd(); return; }
+    if (e.result === 'ball') {
+      sc.b++;
+      S.banner = { kind: 'ball', t0: S.now };
+      sfx('cheer', { level: 0.3, dur: 1.2 });
+    } else {
+      sc.s++;
+      S.banner = { kind: 'whiff', t0: S.now };
+      sfx('groan');
+    }
+    narrate(HR.SCENE.result[sc.i]);
+  }
+
+  function startSceneEnd() {
+    setPhase('sEnd');
+    S.missed = false;
+    S.sc.s = 2;
+    S.sc.o = 3;
+    S.banner = { kind: 'strikeout', t0: S.now };
+    narrate(HR.SCENE.result[5]);
+    S.flash = 0.5;
+    S.shake = 0.05;
+    sfx('whistle');
+    sfx('groan');
+    sfx('cheer', { level: 0.7, dur: 3 });
+    stadium.drawScreen('GAME SET', 'バタコ 3 - 2 ジャム', true);
+  }
+
+  const headTop = (m, dx, dy) => m.head.getWorldPosition(new T.Vector3()).add(new T.Vector3(0, dy, 0)).add(jamSide(dx));
+  // ジャムおじさんから見て左右(画面の左右)にずらすベクトル
+  const jamSide = (dx) => new T.Vector3(0, 0, dx);
+  const jamLocal = (v) => jam.root.localToWorld(v.clone());
+
+  function sceneEnd(dt) {
+    const t = S.pt, sc = S.sc, ev = sc.ev;
+    const once = (k, at, fn) => { if (!ev[k] && t >= at) { ev[k] = true; fn(); } };
+    const J = SCENE_END.jam;
+    once('batako', SCENE_END.batako, () => {
+      S.banner = { kind: 'gameset', t0: S.now, y: 420 };
+      S.speech = { text: 'やったー!', t0: S.now, who: 'batako' };
+      narrate(HR.SCENE.celebrate, { queue: true });
+      sfx('fanfare');
+      HR.HUD.confetti(90);
+    });
+    once('jam', J, () => {
+      S.banner = null;
+      HR.HUD.clearParticles();
+      S.speech = { text: '……', t0: S.now, who: 'jam' };
+    });
+    once('anger', J + TANTRUM.anger, () => {
+      S.speech = { text: 'ぐぬぬ…!', t0: S.now, who: 'jam' };
+      narrate(HR.SCENE.angry);
+      sc.fx.push({ kind: 'anger', w: headTop(jam, 0.42, 0.42), r: 50, t0: S.now, rot: 0.3 });
+      sc.fx.push({ kind: 'anger', w: headTop(jam, -0.4, 0.26), r: 36, t0: S.now + 0.15, rot: -0.4 });
+    });
+    once('hatUp', J + TANTRUM.hatUp, () => jam.root.attach(jam.hat));
+    once('land', J + TANTRUM.land, () => {
+      sfx('slam');
+      S.shake = 0.06;
+      const [x, y] = projCam(jamLocal(HAT_GROUND));
+      HR.HUD.dust(x, y);
+      sc.fx.push({ kind: 'text', text: 'バシッ!', w: jamLocal(HAT_GROUND).add(new T.Vector3(0, 0.55, 0)), px: 120, t0: S.now, dur: 1.0, rot: -0.12 });
+    });
+    once('snap', J + TANTRUM.snap, () => {
+      sfx('snap');
+      S.shake = 0.09;
+      S.flash = 0.3;
+      jam.bat.visible = false;
+      sc.pieces = [
+        { obj: jam.batPieces[0], x: 0.02, y: 0.52, z: 0.38, vx: -0.55, vy: 2.6, vz: 0.15, a: 0, va: -7 },
+        { obj: jam.batPieces[1], x: 0.02, y: 0.52, z: 0.38, vx: 0.6, vy: 2.8, vz: 0.15, a: 0, va: 7 },
+      ];
+      const brk = jamLocal(new T.Vector3(0.02, 0.52, 0.38));
+      const [x, y] = projCam(brk);
+      HR.HUD.crumbs(x, y);
+      sc.fx.push({ kind: 'text', text: 'バキッ!!', w: brk.add(new T.Vector3(0, 0.75, 0)), px: 150, t0: S.now, dur: 1.4, rot: -0.1, fills: ['#ffffff', '#ffe0a0', '#ff6a00'], strokes: [[32, '#3a1a00'], [16, '#ffffff']] });
+      narrate(HR.SCENE.snap);
+      S.speech = null;
+    });
+    once('fists', J + TANTRUM.fists, () => {
+      S.speech = { text: 'くやしいーっ!!', t0: S.now, who: 'jam' };
+      sc.fx.push({ kind: 'steam', w: headTop(jam, 0, 0.7), t0: S.now });
+    });
+    once('down', J + TANTRUM.down, () => {
+      narrate(HR.SCENE.down);
+      S.speech = null;
+      sc.fx = [];
+      sfx('groan');
+    });
+    if (sc.pieces) stepPieces(dt);
+    if (t >= SCENE_END.final) {
+      setPhase('sFinal');
+      S.banner = null;
+      S.final = { t0: S.now + 0.3, teams: TEAMS, line: '最後は空振り三振!' };
+    }
+  }
+
+  // へし折ったバットの2本: 跳ね上がって回りながら落ち、地面で寝かせる
+  function stepPieces(dt) {
+    for (const p of S.sc.pieces) {
+      if (!p.rest) {
+        p.vy -= 9.8 * dt;
+        p.x += p.vx * dt; p.y += p.vy * dt; p.z += p.vz * dt; p.a += p.va * dt;
+        if (p.y < 0.06 && p.vy < 0) {
+          p.y = 0.06;
+          p.vy = -p.vy * 0.3;
+          p.vx *= 0.5; p.vz *= 0.5; p.va *= 0.4;
+          if (p.vy < 0.6) { p.rest = true; p.a = Math.round(p.a / Math.PI) * Math.PI; }
+        }
+      }
+      p.obj.visible = true;
+      p.obj.position.set(p.x, p.y, p.z);
+      p.obj.rotation.set(0, 0, p.a - Math.PI / 2);
+    }
+  }
+
+  function poseTantrum(tt) {
+    const m = jam, v = HR.keys(J_TANTRUM, tt, false);
+    m.handR.position.set(v[0], v[1], v[2]);
+    m.handL.position.set(v[3], v[4], v[5]);
+    m.footL.position.set(v[6], v[7], v[8]);
+    m.footR.position.set(-0.18, 0.06, v[9]);
+    const angry = tt > TANTRUM.anger && tt < TANTRUM.down;
+    m.pivot.rotation.set(v[10], 0, angry ? Math.sin(S.now * 45) * 0.035 : 0, 'YXZ');
+    m.root.position.set(BATTER_POS.x, -0.14 * HR.smooth((tt - TANTRUM.down) / 0.6), BATTER_POS.z);
+    // バット: 右手で下げる → 両手で横に持つ → 折れたら2本に
+    if (tt < TANTRUM.grab) {
+      const dir = tmpV2.set(Math.cos(-72 * DEG) * Math.cos(95 * DEG), Math.sin(-72 * DEG), Math.cos(-72 * DEG) * Math.sin(95 * DEG));
+      m.bat.position.set(v[0] - dir.x * 0.07, v[1] - dir.y * 0.07, v[2] - dir.z * 0.07);
+      m.bat.quaternion.setFromUnitVectors(tmpV.set(0, 1, 0), dir);
+    } else if (tt < TANTRUM.snap) {
+      m.bat.position.set(v[0] - 0.18, v[1], v[2]);
+      m.bat.quaternion.setFromUnitVectors(tmpV.set(0, 1, 0), tmpV2.set(1, 0, 0));
+    }
+    // 帽子: 左手で持ち上げ → 叩きつけてつぶれる
+    const hat = m.hat;
+    if (hat.parent === m.root) {
+      if (tt < TANTRUM.drop) {
+        hat.position.set(v[3] - 0.04, v[4] - 0.28, v[5]);
+        hat.rotation.set(0, 0, -0.35);
+      } else {
+        const u = HR.clamp((tt - TANTRUM.drop) / (TANTRUM.land - TANTRUM.drop), 0, 1);
+        const from = m.hatFrom || (m.hatFrom = hat.position.clone());
+        hat.position.lerpVectors(from, HAT_GROUND, u * u);
+        hat.rotation.set(0, 0.4, HR.lerp(-0.35, 0, u));
+        if (u >= 1) hat.scale.set(1.25, 0.45, 1.25);
+      }
+    } else m.hatFrom = null;
+  }
+
+  // 現在のカメラでの画面座標
+  const ndcCam = new T.Vector3();
+  function projCam(v) {
+    ndcCam.copy(v).project(camera);
+    return [(ndcCam.x + 1) * 0.5 * W, (1 - ndcCam.y) * 0.5 * H];
+  }
+
   // ---------------- 毎フレームの更新 ----------------
   function update(dt) {
     S.now += dt;
@@ -324,13 +590,15 @@
         if (t > 3.8) { S.intro = null; nextPitch(); }
         break;
       }
-      case 'ready':
-        if (S.pt > (S.pitchNo === 1 ? 1.3 : 0.6)) {
+      case 'ready': {
+        const wait = S.mode === 'scene' ? (S.sc.i === 0 ? 1.4 : 1.1) : S.pitchNo === 1 ? 1.3 : 0.6;
+        if (S.pt > wait) {
           setPhase('windup');
-          if (S.banner && S.banner.kind === 'play') S.banner = null;
+          if (S.banner && (S.banner.kind === 'play' || S.banner.kind === 'fullcount')) S.banner = null;
           S.batakoSay = { t0: S.now, text: 'アンパンマン!', sore: 0 };
         }
         break;
+      }
       case 'windup':
         if (S.batakoSay && S.batakoSay.text === 'アンパンマン!' && S.pt >= RELEASE_T - FACE_LEAD) {
           S.batakoSay = { t0: S.now, text: '新しい顔よ!', sore: 0 };
@@ -354,6 +622,7 @@
         if (s > 1.35 && !S.missed) {
           S.missed = true;
           sfx('mitt');
+          if (S.mode === 'scene') { sceneCall(); break; }
           const kind = S.swing ? 'whiff' : 'look';
           if (OFFLINE) (window.__log = window.__log || []).push(kind);
           S.banner = { kind, t0: S.now };
@@ -362,7 +631,7 @@
           else say(kind === 'whiff' ? HR.WHIFF_KEY[p.name] || 'whiff' : 'look');
           sfx('groan');
         }
-        if (S.missed && S.pt > p.T * 1.35 + 1.0) { S.missed = false; nextPitch(); }
+        if (S.missed && S.pt > p.T * 1.35 + (S.mode === 'scene' ? 1.7 : 1.0)) { S.missed = false; nextPitch(); }
         break;
       }
       case 'batted': {
@@ -376,7 +645,8 @@
           else if (sim.result !== 'hr' && b.ft >= (sim.landT != null ? sim.landT : sim.dur)) resolveBatted(sim.result === 'hit' && sim.fenceT != null ? 'wall' : sim.result);
         }
         if (b.kind === 'hr' && S.now - S.fireworkT > 0.45 && !b.events.fw2) { b.events.fw2 = true; sfx('firework'); for (let i = 0; i < 2; i++) HR.HUD.burst(150 + rng() * 780, 220 + rng() * 520); }
-        const end = b.kind === 'hr' ? b.ft >= sim.hrT + 1.7 : b.kind && (b.ft >= (sim.landT != null ? sim.landT : sim.dur) + 0.9 || b.ft >= sim.dur + 0.3);
+        const linger = S.mode === 'scene' ? 2.6 : 0.9; // 名場面ではファウルの表示を長めに見せる
+        const end = b.kind === 'hr' ? b.ft >= sim.hrT + 1.7 : b.kind && (b.ft >= (sim.landT != null ? sim.landT : sim.dur) + linger || b.ft >= sim.dur + linger - 0.6);
         if (end) {
           if (b.kind === 'hr') startCutin();
           else nextPitch();
@@ -388,6 +658,20 @@
         break;
       case 'finish':
         if (OFFLINE && S.now - S.finish.t0 > 5.2) S.done = true;
+        break;
+      case 'sIntro': {
+        const t = S.pt;
+        if (t > 2.2 && S.intro.stage === 'scene') { S.intro = { stage: 'runner', t0: S.now }; narrate(HR.SCENE.runner, { queue: true }); }
+        if (t > 3.5 && S.intro.stage === 'runner') { S.intro = { stage: 'pitcher', t0: S.now }; narrate(HR.SCENE.pitcher, { queue: true }); sfx('pop'); }
+        if (t > 5.4 && S.intro.stage === 'pitcher') { S.intro = { stage: 'batter', t0: S.now }; narrate(HR.SCENE.batter, { queue: true }); sfx('pop'); }
+        if (t > 7.3) { S.intro = null; nextPitch(); }
+        break;
+      }
+      case 'sEnd':
+        sceneEnd(dt);
+        break;
+      case 'sFinal':
+        if (OFFLINE && S.pt > 4.4) S.done = true;
         break;
     }
     if (S.batted && S.batted.kind === 'hr' && S.phase === 'cutin' && S.pt > 0.3 && !S.batted.events.fw3) {
@@ -413,6 +697,14 @@
   function planAI() {
     const p = S.pitch;
     const cs = curSize();
+    if (S.mode === 'scene') {
+      // 見送り / 変化前のコースを追って空振り / 引っ張ってファウル(打球は決め打ち)
+      const e = SAYONARA[S.sc.i], ta = p.t0 + p.T;
+      if (e.act === 'take') S.ai = { swingAt: Infinity, aimX: p.tx * 0.6, aimY: 0.85 + (p.ty - 0.85) * 0.5, reactAt: p.t0 + p.T * 0.35 };
+      else if (e.act === 'whiff') S.ai = { swingAt: ta - SWING_DELAY + 0.01, aimX: p.tx - p.bx * 0.9, aimY: p.ty - p.by * 0.9, reactAt: p.t0 + p.T * 0.25 };
+      else S.ai = { swingAt: ta - SWING_DELAY - 0.055, aimX: p.tx, aimY: p.ty - 0.03, reactAt: p.t0 + p.T * 0.25, forced: { kmh: 158, launch: 24, spray: 56, quality: 0.85 } };
+      return;
+    }
     if (AI_MODE === 'whiff') {
       // 変化する前のコースを追いかけ、タイミングも判定の外(±0.12秒以上)にずらすので必ず空振りになる
       const fast = p.name === 'ストレート';
@@ -504,12 +796,16 @@
       bv = B_READY.slice();
       bv[1] += Math.sin(t * 2.2) * 0.015;
       bv[4] += Math.sin(t * 2.2) * 0.015;
-      if (S.phase === 'intro' && S.intro && S.intro.stage === 'pitcher') {
+      if ((S.phase === 'intro' || S.phase === 'sIntro') && S.intro && S.intro.stage === 'pitcher') {
         const a = S.now - S.intro.t0;
         bv[0] = -0.42; bv[1] = 1.55 + Math.sin(a * 14) * 0.08; bv[2] = 0.15;
       }
     }
+    // 三振を取って大喜び(両手を上げてジャンプ)
+    const cheer = (S.phase === 'sEnd' && S.pt > 0.6) || S.phase === 'sFinal';
+    if (cheer) bv = [-0.5, 1.6, 0.18, 0.5, 1.6, 0.18, 0.17, 0.06, 0.0, -0.17, 0.06, 0.0, 0, -10, 0];
     applyBatako(bv);
+    if (cheer) batako.root.position.y += Math.abs(Math.sin(S.now * 6.5)) * 0.22;
     // ボールを追って振り返る
     let yaw = 0;
     if (S.phase === 'batted' && S.batted) {
@@ -521,8 +817,26 @@
     } else batako.yaw = 0;
     batako.root.rotation.y = yaw;
 
+    // ランナー(リード → 三振でがっくり)
+    if (S.mode === 'scene') {
+      const down = S.phase === 'sEnd' || S.phase === 'sFinal';
+      runners.forEach((r, i) => {
+        const sway = Math.sin(t * 2.4 + i) * 0.03;
+        HR.Models.poseBatako(r, down
+          ? [-0.25, 0.3, 0.2, 0.25, 0.3, 0.2, 0.18, 0.06, 0.0, -0.18, 0.06, 0.0, 0, 40]
+          : [-0.3, 0.5 + sway, 0.2, 0.3, 0.5 - sway, 0.2, 0.22, 0.06, 0.0, -0.22, 0.06, 0.0, 0, 20]);
+      });
+    }
+
     // ジャムおじさん
-    if (S.phase === 'cutin' || (S.phase === 'finish' && S.stats.hr >= 3) || (S.phase === 'intro' && S.intro && S.intro.stage === 'batter')) {
+    if (S.phase === 'sIntro' && S.intro && S.intro.stage === 'batter') {
+      // ピッチャーにバットを向けて構える
+      applyJam([-0.16, 1.0, 0.24, 180, 14, -30, -0.18, 0.06, 0.04]);
+    } else if (S.phase === 'sEnd' || S.phase === 'sFinal') {
+      const tt = S.phase === 'sFinal' ? 99 : S.pt - SCENE_END.jam;
+      if (tt < 0) applyJam(J_SWING[J_SWING.length - 1][1]);
+      else poseTantrum(tt);
+    } else if (S.phase === 'cutin' || (S.phase === 'finish' && S.stats.hr >= 3) || (S.phase === 'intro' && S.intro && S.intro.stage === 'batter')) {
       const a = S.now - (S.cutin ? S.cutin.t0 : S.finish ? S.finish.t0 : S.intro.t0);
       const pump = Math.abs(Math.sin(a * 7));
       const intro = S.phase === 'intro';
@@ -571,10 +885,10 @@
       b.root.lookAt(camera.position);
       b.spin.rotation.set(Math.sin(age * 9) * 0.35, Math.sin(age * 7) * 0.3, age * 10);
       b.root.scale.setScalar(HR.lerp(1, 1.8, HR.smooth(age / 0.6)));
-    } else if (S.phase === 'ready' || S.phase === 'windup' || S.phase === 'intro' || S.phase === 'title') {
+    } else if (S.phase === 'ready' || S.phase === 'windup' || S.phase === 'intro' || S.phase === 'sIntro' || S.phase === 'title') {
       // バタコさんの手の中
       batako.root.updateMatrixWorld(true);
-      if (S.phase === 'intro' && S.intro && S.intro.stage === 'pitcher') {
+      if ((S.phase === 'intro' || S.phase === 'sIntro') && S.intro && S.intro.stage === 'pitcher') {
         batako.handL.getWorldPosition(ballPos);
         ballPos.y += 0.12;
         ballPos.z += 0.1;
@@ -652,7 +966,11 @@
         const bp = ballPos;
         // ホームランはフェンスを越えた瞬間にカメラを止め、スタンドへ飛び込む打球を見送る
         const landed = !!b.kind;
-        if (!landed) {
+        if (S.mode === 'scene') {
+          // 名場面のファウルは、本塁後方の高い位置からライト線へ切れていく打球を見せる
+          cam.pos.copy(BAT_CAM.pos).lerp(tmpV.set(-5, 9, 15), HR.smooth((S.now - b.t0) / 0.6));
+          cam.look.lerp(bp, HR.damp(landed ? 3 : 7, dt));
+        } else if (!landed) {
           // 打球のすぐ後ろから追いかける(アンパンマンの顔が見える距離)
           const age = S.now - b.t0;
           tmpV.set(bp.x - b.dir.x * 7.5, Math.max(1.4, bp.y + 1.6), bp.z - b.dir.z * 7.5);
@@ -673,6 +991,34 @@
         setCam(tmpV.set(HR.lerp(-2.2, -1.55, u), 1.15, HR.lerp(1.0, 0.75, u)), tmpV2.set(BATTER_POS.x, 1.3, BATTER_POS.z), 44);
         return;
       }
+      case 'sIntro': {
+        const t = S.pt;
+        if (t < 2.2) {
+          const u = HR.smooth(t / 2.2);
+          setCam(tmpV.set(0, HR.lerp(46, 30, u), HR.lerp(32, 18, u)), tmpV2.set(0, 0, -24), 64);
+        } else if (t < 3.5) {
+          // 二塁ランナーの背中越しに、マウンドのバタコさんと打席のジャムおじさん
+          const u = HR.smooth((t - 2.2) / 1.3);
+          setCam(tmpV.set(-3.0, 2.0, HR.lerp(-42.4, -41.6, u)), tmpV2.set(0.2, 0.9, -8), 40);
+        } else if (t < 5.4) {
+          const u = HR.smooth((t - 3.5) / 1.9);
+          setCam(tmpV.set(HR.lerp(1.3, 1.0, u), HR.lerp(1.75, 1.7, u), HR.lerp(-14.2, -14.7, u)), tmpV2.set(0.1, 1.2, PITCHER_POS.z), 42);
+        } else {
+          const u = HR.smooth((t - 5.4) / 1.9);
+          setCam(tmpV.set(HR.lerp(-2.7, -2.35, u), HR.lerp(1.3, 1.35, u), HR.lerp(1.45, 1.2, u)), tmpV2.set(BATTER_POS.x - 0.2, 1.15, BATTER_POS.z), 44);
+        }
+        return;
+      }
+      case 'sEnd': {
+        const t = S.pt;
+        if (t < SCENE_END.batako) { setCam(BAT_CAM.pos, BAT_CAM.look, 50); applyShake(); }
+        else if (t < SCENE_END.jam) setCam(tmpV.set(0.15, 1.75, -14.6), tmpV2.set(0, 2.1, PITCHER_POS.z), 50);
+        else { setCam(tmpV.set(BATTER_POS.x - 2.9, 1.0, BATTER_POS.z + 0.5), tmpV2.set(BATTER_POS.x, 0.95, BATTER_POS.z), 46); applyShake(); }
+        return;
+      }
+      case 'sFinal':
+        setCam(tmpV.set(0.5, 1.3, 3.4), tmpV2.set(0.3, 1.0, -8), 50);
+        return;
       case 'finish': {
         const a = S.now * 0.15;
         // 結果パネルの下にジャムおじさんの顔が来るよう、注視点を頭より上にとる
@@ -707,6 +1053,22 @@
       title: S.phase === 'title' ? S.title : null, flash: S.flash, cursorFlash: S.cursorFlash > 0,
       pitchInfo: batView || S.phase === 'batted' ? S.pitchInfo : null,
     };
+    if (S.mode === 'scene' && S.sc) {
+      const sc = S.sc;
+      st.showBoards = S.phase === 'sIntro' || batView || S.phase === 'batted' || (S.phase === 'sEnd' && S.pt < SCENE_END.batako);
+      st.situation = { inning: 9, half: '裏', teams: TEAMS, bases: [1, 1, 1], b: sc.b, s: sc.s, o: Math.min(2, sc.o), alert: sc.o >= 3 ? 'ゲームセット' : 'サヨナラのピンチ' };
+      st.fx = sc.fx.map((f) => { const [x, y] = projCam(f.w); return Object.assign({}, f, { x, y }); });
+      if (S.speech) {
+        const who = S.speech.who === 'batako' ? batako : jam;
+        const [hx, hy] = projCam(who.head.getWorldPosition(tmpV).add(tmpV2.set(0, 0.5, 0)));
+        // バタコさんは実況テロップより下、ジャムおじさんは頭の上に出す
+        const [dx, dy, top] = S.speech.who === 'batako' ? [-270, -170, 760] : [-150, -150, 420];
+        st.speech = { text: S.speech.text, t0: S.speech.t0, x: HR.clamp(hx + dx, 300, W - 300), y: HR.clamp(hy + dy, top, 1500) };
+      }
+      st.final = S.final;
+      if (st.caption && S.phase === 'sFinal') st.caption = null;
+    }
+    if (S.phase === 'title' && sceneMode) st.title = { t0: S.title.t0, scene: true };
     const bs = S.batakoSay;
     if (bs && batView && (!bs.sore || S.now - bs.sore < 0.8)) {
       const r = batako.root.position;
@@ -751,6 +1113,8 @@
     HR.Audio.resume();
     if (S.phase === 'title') { startGame(); return true; }
     if (S.phase === 'finish' && S.now - S.finish.t0 > 2) { startGame(); return true; }
+    if (S.phase === 'sFinal' && S.pt > 2) { startScene(); return true; }
+    if (S.mode === 'scene') return true;
     if (S.phase === 'cutin' || (S.phase === 'batted' && S.batted && S.batted.kind)) {
       if (S.phase === 'batted' && S.batted.kind === 'hr') startCutin();
       else nextPitch();
@@ -811,6 +1175,17 @@
       if (k) keys.delete(k);
     });
   }
+  function backToTitle() {
+    S.mode = 'derby';
+    S.power = false;
+    S.auto = qs.get('auto') === '1';
+    S.sc = null; S.final = null; S.speech = null; S.banner = null; S.caption = null; S.intro = null; S.pitch = null; S.swing = null; S.batted = null;
+    resetScenery();
+    HR.HUD.clearParticles();
+    stadium.drawScreen('ホームラン競争', 'HR 0本', false);
+    setPhase('title');
+    S.title = { t0: S.now };
+  }
   function togglePower() {
     if (S.auto) return;
     S.power = !S.power;
@@ -827,6 +1202,7 @@
     set('btnVoice', HR.Voice.enabled);
     set('btnSound', !HR.Audio.muted, HR.Audio.muted ? '音 OFF' : '音 ON');
     set('btnRec', !!Rec.mr, Rec.mr ? '録画を止める' : '録画');
+    set('btnScene', sceneMode, sceneMode ? 'ホームラン競争へ' : '9回裏の名場面');
   }
   const Rec = { mr: null, chunks: [], t0: 0, blob: null, ext: 'webm' };
   function recStart() {
@@ -852,7 +1228,7 @@
     Rec.mr = mr;
     Rec.t0 = performance.now();
     Rec.autoStop = false;
-    if (S.phase === 'title' || S.phase === 'finish') startGame();
+    if (S.phase === 'title' || S.phase === 'finish' || S.phase === 'sFinal') startGame();
     syncButtons();
   }
   function recStop() { if (Rec.mr && Rec.mr.state !== 'inactive') Rec.mr.stop(); }
@@ -903,11 +1279,24 @@
   }
   function bindToolbar() {
     const on = (id, fn) => { const b = $(id); if (b) b.addEventListener('click', (e) => { e.stopPropagation(); fn(); b.blur(); }); };
-    on('btnPower', () => { if (S.auto) { toast('オート中は自動で切り替わります'); return; } togglePower(); });
-    on('btnAuto', () => { S.auto = !S.auto; S.ai = null; syncButtons(); });
+    on('btnPower', () => { if (S.auto || S.mode === 'scene') { toast('オート中は自動で切り替わります'); return; } togglePower(); });
+    on('btnAuto', () => {
+      if (S.mode === 'scene') { toast('名場面の再生中は切り替えられません'); return; }
+      S.auto = !S.auto;
+      S.ai = null;
+      syncButtons();
+    });
     on('btnVoice', () => { HR.Voice.enabled = !HR.Voice.enabled; if (!HR.Voice.enabled && 'speechSynthesis' in window) speechSynthesis.cancel(); syncButtons(); });
     on('btnSound', () => { HR.Audio.init(); HR.Audio.setMuted(!HR.Audio.muted); syncButtons(); });
     on('btnRec', () => { if (Rec.mr) recStop(); else recStart(); });
+    on('btnScene', () => {
+      HR.Audio.init();
+      HR.Audio.resume();
+      sceneMode = !sceneMode;
+      if (sceneMode) startScene();
+      else backToTitle();
+      syncButtons();
+    });
     on('btnSave', saveVideo);
     on('btnClose', () => { $('saveDlg').hidden = true; });
     syncButtons();
@@ -920,7 +1309,8 @@
       el.textContent = `● REC ${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
       el.hidden = false;
       // 結果発表を見せきったら自動で止める
-      if (S.phase === 'finish' && S.finish && S.now - S.finish.t0 > 4.5 && !Rec.autoStop) { Rec.autoStop = true; recStop(); }
+      const ended = (S.phase === 'finish' && S.finish && S.now - S.finish.t0 > 4.5) || (S.phase === 'sFinal' && S.pt > 4.2);
+      if (ended && !Rec.autoStop) { Rec.autoStop = true; recStop(); }
     } else el.hidden = true;
   }
 
@@ -968,6 +1358,7 @@
         },
         get done() { return S.done; },
         get time() { return S.now; },
+        get phase() { return S.phase; },
         get stats() { return S.stats; },
         async audio() {
           const wav = await HR.Audio.renderOffline(S.now + 0.3);

@@ -60,7 +60,7 @@
   }
 
   // ---------------- スコアボード ----------------
-  function board(g, x, y, w, h, title, rows) {
+  function panelBox(g, x, y, w, h) {
     g.save();
     g.shadowColor = 'rgba(0,0,0,0.35)';
     g.shadowBlur = 14;
@@ -86,18 +86,102 @@
     g.lineWidth = 4;
     g.strokeStyle = 'rgba(255,255,255,0.95)';
     g.stroke();
+  }
+  function boardTitle(g, x, y, w, title) {
     txt(g, title, x + w / 2, y + 66, {
       font: fitFont(g, title, w - 40, 900, 44, 30), align: 'center',
       fill: vgrad(g, y + 30, y + 66, ['#ffffff', '#9ff0ff', '#4fd6ff']), strokes: [[13, NAVY], [5, '#ffffff']],
     });
     g.fillStyle = 'rgba(255,255,255,0.55)';
     g.fillRect(x + 22, y + 84, w - 44, 3);
+  }
+  function board(g, x, y, w, h, title, rows) {
+    panelBox(g, x, y, w, h);
+    boardTitle(g, x, y, w, title);
     rows.forEach(([label, value, unit], i) => {
       const yy = y + 140 + i * 56;
       txt(g, label, x + 26, yy, { font: UI(900, 40), strokes: [[10, NAVY]] });
       txt(g, String(value), x + w - 74, yy + 2, { font: UI(900, 54), align: 'right', strokes: [[11, NAVY]] });
       txt(g, unit, x + w - 24, yy, { font: UI(900, 36), align: 'right', strokes: [[9, NAVY]] });
     });
+  }
+
+  // 試合の状況: 左にイニングとスコア、右に塁とカウント(B/S/O)
+  function situationBoards(g, sit) {
+    const x1 = 24, x2 = 552, y = 96, w = 504, h = 250;
+    panelBox(g, x1, y, w, h);
+    boardTitle(g, x1, y, w, `${sit.inning}回${sit.half}`);
+    sit.teams.forEach((t, i) => {
+      const yy = y + 140 + i * 66;
+      rr(g, x1 + 26, yy - 38, 26, 44, 6);
+      g.fillStyle = t.color;
+      g.fill();
+      txt(g, t.name, x1 + 66, yy, { font: UI(900, 46), strokes: [[10, NAVY]] });
+      if (t.batting) txt(g, '▶', x1 + 250, yy - 2, { font: UI(900, 34), fill: '#ffe14d', strokes: [[8, NAVY]] });
+      txt(g, String(t.score), x1 + w - 40, yy + 6, { font: UI(900, 70), align: 'right', fill: t.batting ? '#ffffff' : '#ffe14d', strokes: [[13, NAVY]] });
+    });
+    panelBox(g, x2, y, w, h);
+    // 塁(2塁が上、3塁が左、1塁が右)
+    const cx = x2 + 132, cy = y + 128, d = 54;
+    const base = (bx, by, on) => {
+      g.save();
+      g.translate(bx, by);
+      g.rotate(Math.PI / 4);
+      if (on) { g.shadowColor = 'rgba(255,220,60,0.9)'; g.shadowBlur = 18; }
+      g.fillStyle = on ? '#ffd23f' : 'rgba(9,24,60,0.55)';
+      g.fillRect(-21, -21, 42, 42);
+      g.shadowColor = 'transparent';
+      g.lineWidth = 5;
+      g.strokeStyle = '#ffffff';
+      g.strokeRect(-21, -21, 42, 42);
+      g.restore();
+    };
+    base(cx + d, cy, sit.bases[0]);
+    base(cx, cy - d, sit.bases[1]);
+    base(cx - d, cy, sit.bases[2]);
+    g.save();
+    g.translate(cx, cy + d);
+    g.beginPath();
+    g.moveTo(-16, -10); g.lineTo(16, -10); g.lineTo(16, 4); g.lineTo(0, 16); g.lineTo(-16, 4);
+    g.closePath();
+    g.fillStyle = '#ffffff';
+    g.fill();
+    g.restore();
+    // B / S / O ランプ
+    const rows = [['B', sit.b, 3, '#3ad07a'], ['S', sit.s, 2, '#ffd23f'], ['O', sit.o, 2, '#ff4d4d']];
+    rows.forEach(([label, n, max, color], i) => {
+      const yy = y + 66 + i * 62;
+      txt(g, label, x2 + 268, yy + 16, { font: UI(900, 44), strokes: [[10, NAVY]] });
+      for (let k = 0; k < max; k++) {
+        const lx = x2 + 340 + k * 50;
+        g.beginPath();
+        g.arc(lx, yy, 19, 0, Math.PI * 2);
+        if (k < n) { g.shadowColor = color; g.shadowBlur = 16; }
+        g.fillStyle = k < n ? color : 'rgba(9,24,60,0.55)';
+        g.fill();
+        g.shadowColor = 'transparent';
+        g.lineWidth = 4;
+        g.strokeStyle = '#ffffff';
+        g.stroke();
+      }
+    });
+  }
+  function alertPill(g, x, y, text, blink) {
+    g.save();
+    g.font = UI(900, 46);
+    const w = g.measureText(text).width + 64, h = 88;
+    g.globalAlpha = blink ? 0.75 : 1;
+    rr(g, x, y, w, h, 20);
+    g.fillStyle = NAVY;
+    g.fill();
+    rr(g, x + 5, y + 5, w - 10, h - 10, 16);
+    g.fillStyle = vgrad(g, y, y + h, ['#ff8a8a', '#e8313f', '#b3101e']);
+    g.fill();
+    g.lineWidth = 4;
+    g.strokeStyle = '#ffffff';
+    g.stroke();
+    txt(g, text, x + w / 2, y + 60, { font: UI(900, 46), align: 'center', fill: '#ffffff', strokes: [[8, '#5a0010']] });
+    g.restore();
   }
 
   function pill(g, x, y, balls) {
@@ -373,18 +457,25 @@
     whiff: { text: '空振り', px: 120, fills: ['#ffffff', '#cfe3ff', '#7aa7e0'], strokes: [[24, '#0d2244'], [12, '#ffffff']] },
     look: { text: '見逃し', px: 120, fills: ['#ffffff', '#cfe3ff', '#7aa7e0'], strokes: [[24, '#0d2244'], [12, '#ffffff']] },
     play: { text: 'プレイボール!', px: 112, fills: ['#fffbd0', '#ffe14a', '#ffb000'], strokes: [[26, '#5a2a00'], [14, '#ffffff']] },
+    ball: { text: 'ボール', px: 130, fills: ['#f2fff6', '#9cf0bd', '#26b866'], strokes: [[26, '#063a1e'], [14, '#ffffff']] },
+    fullcount: { text: 'フルカウント!', px: 118, fills: ['#fff1e0', '#ffb46a', '#ff6a00'], strokes: [[26, '#4a1600'], [14, '#ffffff']] },
+    strikeout: { text: '空振り三振!!', px: 150, fills: ['#ffffff', '#ffd0dd', '#ff4d80', '#d4142a'], strokes: [[34, '#3a0016'], [20, '#ffffff'], [8, '#d4142a']], big: true },
+    gameset: { text: 'ゲームセット', px: 130, fills: ['#fffbd0', '#ffe14a', '#ff9d00'], strokes: [[30, '#3a1a00'], [16, '#ffffff']] },
+  };
+  const SUNBURST = {
+    hr: ['rgba(255,214,60,0.55)', 'rgba(255,150,40,0.25)'],
+    strikeout: ['rgba(255,120,170,0.5)', 'rgba(120,80,255,0.25)'],
   };
 
   function banner(g, b, now) {
     const def = BANNERS[b.kind];
     if (!def) return;
     const age = now - b.t0;
-    const y = b.kind === 'hr' ? 840 : 800;
-    if (b.kind === 'hr') {
-      sunburst(g, W / 2, y, 620, age * 0.6, HR.clamp(age * 4, 0, 1) * 0.55, ['rgba(255,214,60,0.55)', 'rgba(255,150,40,0.25)']);
-    }
-    const sc = b.kind === 'hr' ? HR.lerp(2.4, 1, HR.easeOutBack(age / 0.38)) : HR.lerp(0.4, 1, HR.easeOutBack(age / 0.25));
-    const wob = b.kind === 'hr' ? Math.sin(age * 9) * 0.015 * Math.max(0, 1 - age) : 0;
+    const big = b.kind === 'hr' || def.big;
+    const y = b.y || (big ? 840 : 800);
+    if (big) sunburst(g, W / 2, y, 620, age * 0.6, HR.clamp(age * 4, 0, 1) * 0.55, SUNBURST[b.kind] || SUNBURST.hr);
+    const sc = big ? HR.lerp(2.4, 1, HR.easeOutBack(age / 0.38)) : HR.lerp(0.4, 1, HR.easeOutBack(age / 0.25));
+    const wob = big ? Math.sin(age * 9) * 0.015 * Math.max(0, 1 - age) : 0;
     g.save();
     g.globalAlpha = HR.clamp(age * 8, 0, 1);
     impactText(g, def.text, W / 2, y, def.px, sc + wob, -0.06, def.fills, def.strokes);
@@ -470,6 +561,116 @@
     g.fillRect(-16, -36, 32, 9);
     txt(g, text, bx + w / 2, -h / 2 - 26 + 17, { font: UI(900, 50), align: 'center', fill: '#e8337a' });
     g.restore();
+  }
+
+  // 9回裏の場面の導入
+  function sceneTitle(g, age) {
+    const sc = HR.lerp(1.8, 1, HR.easeOutBack(age / 0.4));
+    g.save();
+    g.globalAlpha = HR.clamp(age * 6, 0, 1);
+    sunburst(g, W / 2, 900, 600, age * 0.4, 0.4, ['rgba(255,80,80,0.45)', 'rgba(255,200,60,0.2)']);
+    impactText(g, '9回裏', W / 2, 780, 210, sc, -0.05, ['#ffffff', '#ffe0a0', '#ffb000', '#ff6a00'], [[34, '#3a1a00'], [20, '#ffffff'], [8, '#e0301e']]);
+    impactText(g, '2アウト満塁', W / 2, 990, 150, sc, -0.05, ['#ffffff', '#ffd0dd', '#ff4d80', '#d4142a'], [[30, '#3a0016'], [18, '#ffffff'], [7, '#d4142a']]);
+    if (age > 0.5) {
+      g.globalAlpha = HR.clamp((age - 0.5) * 5, 0, 1);
+      alertPill(g, W / 2 - 230, 1120, '一打サヨナラのピンチ!', false);
+    }
+    g.restore();
+  }
+
+  // 怒りマーク(💢)
+  function angerMark(g, x, y, r, rot) {
+    g.save();
+    g.translate(x, y);
+    g.rotate(rot);
+    g.lineCap = 'round';
+    for (const [w, c] of [[r * 0.5, '#ffffff'], [r * 0.28, '#ff2a3a']]) {
+      g.lineWidth = w;
+      g.strokeStyle = c;
+      for (let i = 0; i < 4; i++) {
+        g.save();
+        g.rotate((i * Math.PI) / 2);
+        g.beginPath();
+        g.moveTo(r * 0.22, -r * 0.95);
+        g.quadraticCurveTo(r * 0.28, -r * 0.28, r * 0.95, -r * 0.22);
+        g.stroke();
+        g.restore();
+      }
+    }
+    g.restore();
+  }
+  function drawFx(g, list, now) {
+    for (const f of list) {
+      const age = now - f.t0;
+      if (age < 0) continue;
+      if (f.kind === 'anger') {
+        const p = 1 + Math.sin(age * 18) * 0.12;
+        angerMark(g, f.x, f.y, f.r * p * HR.easeOutBack(age / 0.2), f.rot || 0.2);
+      } else if (f.kind === 'steam') {
+        for (let i = 0; i < 3; i++) {
+          const a = (age * 1.2 + i / 3) % 1;
+          g.save();
+          g.globalAlpha = (1 - a) * 0.85;
+          g.fillStyle = '#ffffff';
+          g.beginPath();
+          g.arc(f.x + Math.sin(a * 6 + i) * 30 + (i - 1) * 60, f.y - a * 220, 26 + a * 40, 0, Math.PI * 2);
+          g.fill();
+          g.restore();
+        }
+      } else if (f.kind === 'text') {
+        const sc = HR.lerp(2.2, 1, HR.easeOutBack(age / 0.22)) * (1 + Math.max(0, 0.3 - age) * 0.3);
+        g.save();
+        g.globalAlpha = HR.clamp((f.dur - age) * 4, 0, 1);
+        impactText(g, f.text, f.x, f.y, f.px || 130, sc, f.rot || -0.08, f.fills || ['#ffffff', '#ffe0a0', '#ff9d00'], f.strokes || [[28, '#3a1a00'], [14, '#ffffff']]);
+        g.restore();
+      }
+    }
+  }
+  function finalCard(g, f, now) {
+    const age = now - f.t0;
+    if (age < 0) return;
+    const a = HR.clamp(age * 3, 0, 1);
+    const x = 70, y = 150 + (1 - HR.easeOutCubic(age / 0.5)) * 60, w = W - 140, h = 640;
+    g.save();
+    g.globalAlpha = a;
+    panelBox(g, x, y, w, h);
+    impactText(g, 'ゲームセット', W / 2, y + 110, 120, 1, 0, ['#fffbd0', '#ffe14a', '#ff9d00'], [[28, '#3a1a00'], [14, '#ffffff']]);
+    f.teams.forEach((t, i) => {
+      const yy = y + 250 + i * 100;
+      rr(g, x + 70, yy - 52, 34, 64, 8);
+      g.fillStyle = t.color;
+      g.fill();
+      txt(g, t.name, x + 130, yy, { font: UI(900, 64), strokes: [[13, NAVY]] });
+      txt(g, String(t.score), x + w - 80, yy + 8, { font: UI(900, 96), align: 'right', fill: i === 0 ? '#ffe14d' : '#ffffff', strokes: [[15, NAVY]] });
+    });
+    if (age > 0.6) {
+      g.globalAlpha = a * HR.clamp((age - 0.6) * 5, 0, 1);
+      rr(g, x + 50, y + 470, w - 100, 120, 24);
+      g.fillStyle = 'rgba(9,24,60,0.85)';
+      g.fill();
+      txt(g, f.line, W / 2, y + 550, { font: fitFont(g, f.line, w - 160, 900, 56, 34), align: 'center', fill: '#ffffff', strokes: [[10, '#000a2a'], [4, '#ff3fa4']] });
+    }
+    g.restore();
+    if (age > 1.1) {
+      const s = HR.easeOutBack((age - 1.1) / 0.3);
+      g.save();
+      g.translate(W - 170, y + 40);
+      g.rotate(0.22);
+      g.scale(s, s);
+      g.beginPath();
+      g.arc(0, 0, 105, 0, Math.PI * 2);
+      g.fillStyle = 'rgba(255,255,255,0.95)';
+      g.fill();
+      g.lineWidth = 12;
+      g.strokeStyle = '#e8313f';
+      g.stroke();
+      g.beginPath();
+      g.arc(0, 0, 84, 0, Math.PI * 2);
+      g.lineWidth = 5;
+      g.stroke();
+      txt(g, 'セーブ', 0, 22, { font: IMP(54), align: 'center', fill: '#e8313f' });
+      g.restore();
+    }
   }
 
   function bubble(g, x, y, s, age) {
@@ -558,9 +759,17 @@
     g.restore();
   }
 
-  function titleScreen(g, age) {
+  function titleScreen(g, age, scene) {
     g.fillStyle = vgrad(g, 0, H, ['rgba(4,10,30,0.55)', 'rgba(4,10,30,0.05)', 'rgba(4,10,30,0.05)', 'rgba(4,10,30,0.7)']);
     g.fillRect(0, 0, W, H);
+    if (scene) {
+      sceneTitle(g, age);
+      if (Math.floor(age * 2) % 2 === 0) {
+        txt(g, 'タップで再生', W / 2, 1400, { font: UI(900, 64), align: 'center', fill: '#ffffff', strokes: [[16, NAVY], [6, '#4cb2f2']] });
+      }
+      txt(g, '※ 非公式のファンメイド作品です', W / 2, 1830, { font: UI(800, 30), align: 'center', fill: 'rgba(255,255,255,0.8)', strokes: [[6, 'rgba(4,10,30,0.6)']] });
+      return;
+    }
     logo(g, W / 2, 520, age, true);
     if (Math.floor(age * 2) % 2 === 0) {
       txt(g, 'タップでスタート', W / 2, 1180, { font: UI(900, 64), align: 'center', fill: '#ffffff', strokes: [[16, NAVY], [6, '#4cb2f2']] });
@@ -597,11 +806,47 @@
       parts.push({ type: 'paper', x: rnd() * W, y: -40 - rnd() * 500, vx: (rnd() - 0.5) * 120, vy: 260 + rnd() * 240, rot: rnd() * 6, vr: (rnd() - 0.5) * 10, life: 4.5, age: 0, w: 18 + rnd() * 14, h: 10 + rnd() * 8, color: cols[Math.floor(rnd() * cols.length)] });
     }
   }
+  // パンくず(へし折ったバット)
+  function crumbs(x, y) {
+    for (let i = 0; i < 46; i++) {
+      const a = -Math.PI * (0.05 + rnd() * 0.9), sp = 260 + rnd() * 560;
+      parts.push({ type: 'crumb', x, y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, life: 1.5, age: 0, r: 5 + rnd() * 10, rot: rnd() * 6, color: rnd() < 0.55 ? '#f4e2bd' : '#c88638' });
+    }
+  }
+  // 土ぼこり(帽子を叩きつけた所)
+  function dust(x, y) {
+    for (let i = 0; i < 12; i++) {
+      const a = -Math.PI * (rnd() * 1.0), sp = 80 + rnd() * 220;
+      parts.push({ type: 'dust', x, y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp * 0.4, life: 0.9, age: 0, r: 20 + rnd() * 26 });
+    }
+  }
   function drawParts(g, dt) {
     for (let i = parts.length - 1; i >= 0; i--) {
       const p = parts[i];
       p.age += dt;
       if (p.age > p.life) { parts.splice(i, 1); continue; }
+      if (p.type === 'crumb') {
+        p.vy += 1700 * dt;
+        p.x += p.vx * dt; p.y += p.vy * dt; p.rot += 8 * dt;
+        g.globalAlpha = HR.clamp((p.life - p.age) * 3, 0, 1);
+        g.save();
+        g.translate(p.x, p.y);
+        g.rotate(p.rot);
+        g.fillStyle = p.color;
+        g.fillRect(-p.r / 2, -p.r / 2, p.r, p.r * 0.8);
+        g.restore();
+        continue;
+      }
+      if (p.type === 'dust') {
+        p.x += p.vx * dt; p.y += p.vy * dt; p.vx *= 1 - 2 * dt; p.vy *= 1 - 2 * dt;
+        const k = p.age / p.life;
+        g.globalAlpha = (1 - k) * 0.6;
+        g.fillStyle = '#d9c3a3';
+        g.beginPath();
+        g.arc(p.x, p.y, p.r * (0.6 + k), 0, Math.PI * 2);
+        g.fill();
+        continue;
+      }
       if (p.type === 'spark') {
         p.vx *= 1 - 1.6 * dt; p.vy = p.vy * (1 - 1.6 * dt) + 260 * dt;
         p.x += p.vx * dt; p.y += p.vy * dt;
@@ -643,9 +888,20 @@
     if (s.zone) drawZone(g, s.zone);
     if (s.cursor) drawCursor(g, s.cursor, s.power, s.cursorFlash);
 
-    if (s.title) { titleScreen(g, now - s.title.t0); drawParts(g, s.dt); return; }
+    if (s.title) { titleScreen(g, now - s.title.t0, s.title.scene); drawParts(g, s.dt); return; }
 
-    if (s.showBoards) {
+    if (s.situation && s.showBoards) {
+      const sit = s.situation;
+      cached(g, `sit|${sit.b}${sit.s}${sit.o}|${sit.teams.map((t) => t.score).join()}|${sit.bases.join()}`, 0, 66, W, 300, (cg) => situationBoards(cg, sit));
+      if (sit.alert) cached(g, 'alert|' + sit.alert, 0, 350, 560, 120, (cg) => alertPill(cg, 24, 362, sit.alert, false));
+      if (s.pitchInfo) {
+        const pi = s.pitchInfo;
+        g.save();
+        g.globalAlpha = HR.clamp((now - pi.t0) * 6, 0, 1);
+        cached(g, `pi|${pi.name}|${pi.kmh}`, 576, 442, 490, 112, (cg) => pitchInfo(cg, 586, 452, pi, 1));
+        g.restore();
+      }
+    } else if (s.showBoards) {
       const rowsOf = (o) => [['ヒット', o.hit, '本'], ['ホームラン', o.hr, '本'], ['最長飛距離', o.longest, 'm'], ['スコア', o.score, '点']];
       const cur = rowsOf(s.stats), best = rowsOf(s.best);
       cached(g, 'b1|' + cur.join(), 0, 66, 540, 404, (cg) => board(cg, 24, 96, 504, 342, 'いまの打者の記録', cur));
@@ -668,6 +924,7 @@
     if (s.intro) {
       const age = now - s.intro.t0;
       if (s.intro.stage === 'title') logo(g, W / 2, 900, age, true);
+      if (s.intro.stage === 'scene') sceneTitle(g, age);
       if (s.intro.stage === 'pitcher') introCard(g, 'PITCHER', 'バタコさん', [['コントロール', 'S'], ['スタミナ', 'B']], age, ['#ff8ab8', '#e8337a'], '最速168km/h  スライダー7・SFF7・シュート7');
       if (s.intro.stage === 'batter') introCard(g, 'BATTER', 'ジャムおじさん', [['パワー', 'S'], ['ミート', 'C'], ['走力', 'E']], age, ['#7cf08f', '#1fae4a']);
     }
@@ -677,13 +934,16 @@
       bubble(g, 470, 600, s.cutin.bubble, age - 0.1);
       if (s.cutin.dist) distPlate(g, W / 2, 1180, s.cutin.dist, HR.clamp(age * 5, 0, 1));
     }
+    if (s.speech) bubble(g, s.speech.x, s.speech.y, s.speech.text, now - s.speech.t0);
+    if (s.fx) drawFx(g, s.fx, now);
     drawParts(g, s.dt);
     if (s.finish) finishPanel(g, s.finish, now, s.live);
+    if (s.final) finalCard(g, s.final, now);
     if (s.flash > 0) {
       g.fillStyle = `rgba(255,255,255,${s.flash})`;
       g.fillRect(0, 0, W, H);
     }
   }
 
-  HR.HUD = { draw, burst, confetti, clearParticles: () => { parts.length = 0; } };
+  HR.HUD = { draw, burst, confetti, crumbs, dust, clearParticles: () => { parts.length = 0; } };
 })();

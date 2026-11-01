@@ -324,11 +324,13 @@
     hat.position.y = R * 0.6;
     hat.rotation.x = -0.06;
     m.head.add(hat);
+    m.hat = hat;
+    m.hatHome = { y: hat.position.y, rx: hat.rotation.x };
 
     // フランスパンのバット
     const prof = [[0.001, 0], [0.034, 0.008], [0.031, 0.035], [0.025, 0.07], [0.026, 0.26], [0.034, 0.45], [0.046, 0.64], [0.052, 0.8], [0.05, 0.9], [0.036, 0.945], [0.001, 0.96]];
     const curve = new T.SplineCurve(prof.map(([r, y]) => new T.Vector2(r, y)));
-    const batGeo = new T.LatheGeometry(curve.getPoints(40), 24);
+    const pts = curve.getPoints(80);
     const [cc, cg] = canvas(256, 512);
     const grd = cg.createLinearGradient(0, 0, 256, 0);
     grd.addColorStop(0, '#b06f2c'); grd.addColorStop(0.25, '#d99a4c'); grd.addColorStop(0.5, '#c88638');
@@ -351,9 +353,69 @@
         cg.restore();
       }
     }
-    const bat = new T.Mesh(batGeo, std('#ffffff', { map: toTex(cc), roughness: 0.75 }));
+    const batMat = std('#ffffff', { map: toTex(cc), roughness: 0.75 });
+    // テクスチャの v を高さで決める(折れた2本と模様がつながるように)
+    const latheGeo = (points, base) => {
+      const geo = new T.LatheGeometry(points, 24);
+      const pos = geo.attributes.position, uv = geo.attributes.uv;
+      for (let i = 0; i < pos.count; i++) uv.setY(i, (pos.getY(i) + base) / 0.96);
+      return geo;
+    };
+    const bat = new T.Mesh(latheGeo(pts, 0), batMat);
     m.bat = bat;
     m.root.add(bat);
+
+    // へし折ったとき用の2本。原点が折れ目で、断面は白いパンの中身。
+    const BREAK = 0.5;
+    const k = pts.findIndex((p) => p.y >= BREAK);
+    const pa = pts[k - 1], pb = pts[k];
+    const cut = new T.Vector2(pa.x + ((pb.x - pa.x) * (BREAK - pa.y)) / (pb.y - pa.y), BREAK);
+    const crumbMat = std('#f4e2bd', { roughness: 0.95 });
+    const piece = (points, capUp) => {
+      const grp = new T.Group();
+      grp.add(new T.Mesh(latheGeo(points.map((p) => new T.Vector2(p.x, p.y - BREAK)), BREAK), batMat));
+      const cap = new T.Mesh(new T.CircleGeometry(cut.x * 1.04, 20), crumbMat);
+      cap.rotation.x = capUp ? -Math.PI / 2 : Math.PI / 2;
+      grp.add(cap);
+      grp.visible = false;
+      m.root.add(grp);
+      return grp;
+    };
+    m.batPieces = [piece(pts.slice(0, k).concat([cut]), true), piece([cut].concat(pts.slice(k)), false)];
+    m.batBreak = BREAK;
+    return m;
+  }
+
+  // ---------------- ランナー(パン工場チームの選手) ----------------
+  function makeRunner(helmetColor) {
+    const SKIN = '#efb38f';
+    const f = facePainter(SKIN);
+    f.eye(-12, 6, 3, 5);
+    f.eye(12, 6, 3, 5);
+    f.curve([-18, 17], [-12, 14], [-6, 13], 5, '#2a1a14');
+    f.curve([6, 13], [12, 14], [18, 17], 5, '#2a1a14');
+    f.curve([-6, -16], [0, -19], [6, -16], 4, '#2a1a14');
+    const headTex = toTex(f.c);
+    const [bc, bg] = canvas(512, 256);
+    bg.fillStyle = '#f7f3e8';
+    bg.fillRect(0, 0, 512, 256);
+    bg.fillStyle = 'rgba(176,111,44,0.35)';
+    for (let x = 0; x < 512; x += 22) bg.fillRect(x, 0, 3, 256);
+    bg.fillStyle = '#7a4a1e';
+    bg.fillRect(0, 150, 512, 16);
+    bg.fillStyle = '#d9822b';
+    bg.beginPath();
+    bg.arc(256, 78, 30, 0, Math.PI * 2);
+    bg.fill();
+    const bodyTex = toTex(bc);
+    const m = buildChibi({ skin: SKIN, bodyTex, headTex, headR: 0.4, shoe: '#2b2b2b' });
+    const helmetMat = std(helmetColor, { roughness: 0.3, metalness: 0.1 });
+    const helmet = new T.Mesh(new T.SphereGeometry(m.headR * 1.07, 32, 16, 0, Math.PI * 2, 0, Math.PI * 0.53), helmetMat);
+    m.head.add(helmet);
+    const brim = new T.Mesh(sphereGeo, helmetMat);
+    brim.scale.set(0.24, 0.03, 0.18);
+    brim.position.set(0, m.headR * 0.08, m.headR * 0.86);
+    m.head.add(brim);
     return m;
   }
 
@@ -433,7 +495,7 @@
   }
 
   // ポーズ(手足の位置・胴のひねり)。root の置き場所は呼び出し側が決める。
-  // バタコさん: [右手xyz, 左手xyz, 左足xyz, 右足xyz, ひねり(度), 前傾(度)]
+  // バタコさん・ランナー: [右手xyz, 左手xyz, 左足xyz, 右足xyz, ひねり(度), 前傾(度)]
   function poseBatako(m, v) {
     m.handR.position.set(v[0], v[1], v[2]);
     m.handL.position.set(v[3], v[4], v[5]);
@@ -458,5 +520,5 @@
     m.footR.position.set(v[6], v[7], v[8]);
   }
 
-  HR.Models = { makeBatako, makeJam, makeBall, blob, onSphere, poseBatako, poseJam };
+  HR.Models = { makeBatako, makeJam, makeBall, makeRunner, blob, onSphere, poseBatako, poseJam };
 })();

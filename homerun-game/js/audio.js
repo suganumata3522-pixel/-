@@ -144,6 +144,25 @@
         for (const mul of [1, 2, 0.5]) tone(ctx, bus, t + st * s, 'sawtooth', NOTE(nn) * mul, d * s * 0.9, mul === 1 ? 0.7 : 0.25);
       }
     },
+    // バットがへし折れる音: バキッ
+    snap(ctx, out, t) {
+      const n = noiseSrc(ctx, t, 0.25);
+      n.connect(filter(ctx, 'highpass', 1200)).connect(env(ctx, t, [[0.002, 1.0], [0.12, 0.0001]])).connect(out);
+      const n2 = noiseSrc(ctx, t + 0.015, 0.3);
+      n2.connect(filter(ctx, 'bandpass', 650, 1.5)).connect(env(ctx, t + 0.015, [[0.004, 0.7], [0.22, 0.0001]])).connect(out);
+      tone(ctx, out, t, 'sine', 150, 0.14, 0.7, 55);
+      for (let i = 0; i < 6; i++) {
+        const tt = t + 0.03 + i * 0.022;
+        const c = noiseSrc(ctx, tt, 0.04);
+        c.connect(filter(ctx, 'highpass', 2600)).connect(env(ctx, tt, [[0.001, 0.35], [0.03, 0.0001]])).connect(out);
+      }
+    },
+    // 帽子を叩きつける音: バシッ
+    slam(ctx, out, t) {
+      const n = noiseSrc(ctx, t, 0.2);
+      n.connect(filter(ctx, 'lowpass', 1400)).connect(env(ctx, t, [[0.003, 0.9], [0.14, 0.0001]])).connect(out);
+      tone(ctx, out, t, 'sine', 95, 0.16, 0.6, 50);
+    },
     tick(ctx, out, t) { tone(ctx, out, t, 'square', 1320, 0.05, 0.08); },
     pop(ctx, out, t) { tone(ctx, out, t, 'triangle', 660, 0.12, 0.3, 1320); },
     whistle(ctx, out, t) {
