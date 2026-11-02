@@ -17,7 +17,7 @@ const args = Object.fromEntries(
   }, [])
 );
 const outDir = path.resolve(args.out || 'thumbs');
-const designs = (args.design || 'hr-a,hr-b,zero-a,zero-b,hit-p,hit-p-plain').split(',');
+const designs = (args.design || 'hr-a,hr-b,zero-a,zero-b,hit-p,hit-p-plain,catch-a,catch-a-plain').split(',');
 
 fs.mkdirSync(outDir, { recursive: true });
 const { browser, page } = await openPage();

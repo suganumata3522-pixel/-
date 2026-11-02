@@ -1406,7 +1406,8 @@
         jamCheer(S.now);
         jam.root.rotation.y = S.phase === 'sFinal' ? Math.PI : -Math.PI / 2;
       } else if (!S.tan && S.sc.kind === 'catch') {
-        // ぼうぜんと立ちつくす(バットを下げてアンパンマンを見上げる)
+        // ぼうぜんと立ちつくす(唖然とした顔で、バットを下げてアンパンマンを見上げる)
+        jam.setFace('shock');
         applyJam([-0.3, 0.42, 0.24, 95, -72, 0, -0.18, 0.06, 0.04], { lean: -0.05 });
         jam.handL.position.set(0.3, 0.44, 0.22);
         jam.root.rotation.y = -Math.PI / 2;

@@ -111,6 +111,8 @@ node tools/thumbnail.mjs --design hr-a,zero-a --out thumbs
 | `zero-b` | 168km/h バタコさん強すぎ… (新しい顔を持つバタコさん) |
 | `hit-p` | ピッチャー側から見た、ジャムおじさんがホームランを打った瞬間(カキーン!!) |
 | `hit-p-plain` | `hit-p` と同じ構図で文字なし |
+| `catch-a` | まさかのキャッチ!? (上半分: ホームランをキャッチするアンパンマン / 下半分: 唖然とするジャムおじさん) |
+| `catch-a-plain` | `catch-a` と同じ構図で文字なし |
 
 文字や構図は `tools/thumbnail.js` の `designs` で変えられます。
 

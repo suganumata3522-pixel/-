@@ -88,7 +88,9 @@
     g.restore();
   }
   // 白フチ+落ち影を付けて重ねる
-  function cutout(img, r, color) {
+  function cutout(img, r, color, dx, dy) {
+    dx = dx || 0;
+    dy = dy || 0;
     const sil = blank();
     const sg = sil.getContext('2d');
     sg.drawImage(img, 0, 0);
@@ -101,11 +103,38 @@
     g.shadowOffsetY = 12;
     for (let i = 0; i < 28; i++) {
       const a = (i / 28) * Math.PI * 2;
-      g.drawImage(sil, Math.cos(a) * r, Math.sin(a) * r);
+      g.drawImage(sil, dx + Math.cos(a) * r, dy + Math.sin(a) * r);
       if (i === 0) g.shadowColor = 'transparent';
     }
     g.restore();
-    g.drawImage(img, 0, 0);
+    g.drawImage(img, dx, dy);
+  }
+  // 多角形で切り抜いて描く(コマ割り)
+  function clipPoly(pts, draw) {
+    g.save();
+    g.beginPath();
+    pts.forEach(([x, y], i) => (i ? g.lineTo(x, y) : g.moveTo(x, y)));
+    g.closePath();
+    g.clip();
+    draw();
+    g.restore();
+  }
+  // 飛んできた向きを表す平行なスピード線
+  function speedLines(ang, n, color, alpha, x0, y0, x1, y1) {
+    g.save();
+    g.globalAlpha = alpha;
+    g.strokeStyle = color;
+    g.lineCap = 'round';
+    const dx = Math.cos(ang), dy = Math.sin(ang);
+    for (let i = 0; i < n; i++) {
+      const x = x0 + rnd() * (x1 - x0), y = y0 + rnd() * (y1 - y0), len = 160 + rnd() * 320;
+      g.lineWidth = 4 + rnd() * 10;
+      g.beginPath();
+      g.moveTo(x, y);
+      g.lineTo(x + dx * len, y + dy * len);
+      g.stroke();
+    }
+    g.restore();
   }
   function rays(cx, cy, n, color, alpha, rot) {
     g.save();
@@ -486,6 +515,76 @@
     }
   }
 
+  // 上半分: ジャムおじさんのホームランをアンパンマンが空中でキャッチ / 下半分: 唖然とするジャムおじさん
+  function catchSplit(text) {
+    const TOP = [[0, 0], [W, 0], [W, 880], [0, 1010]];
+    const BOT = [[0, 1010], [W, 880], [W, H], [0, H]];
+    // ---- 上のコマ: 外野スタンドの上空でスーパーキャッチ
+    clipPoly(TOP, () => {
+      background(stadium([22, 9, -92], [34, 21, -125], 52, ['NICE CATCH!', 'バタコ 3 - 2 ジャム', true]), 6, 'saturate(1.2) brightness(1.06)');
+      glow(560, 470, 760, 'rgba(255,248,200,0.6)');
+      speedLines(Math.PI * 0.82, 26, '#ffffff', 0.55, 520, 60, 1180, 700);
+      const s = stage();
+      const anp = HR.Models.makeAnpanman();
+      HR.Models.poseBatako(anp, [-0.3, 1.74, 0.3, 0.38, 1.02, 0.3, 0.1, 0.0, -0.12, -0.1, 0.04, -0.16, 0, 0]);
+      anp.root.rotation.set(22 * Math.PI / 180, 0.5, 0, 'YXZ');
+      anp.updateCape(1.3, 1);
+      s.add(anp.root);
+      s.updateMatrixWorld(true);
+      const cam = camera([0.45, 1.35, 8.4], [0, 1.15, 0], 40);
+      const hand = anp.handR.getWorldPosition(new T.Vector3());
+      const up = new T.Vector3(0, 1, 0).applyQuaternion(anp.root.quaternion);
+      const bp = hand.clone().addScaledVector(up, 0.24);
+      faceBall(s, bp.toArray(), 1.7, false, cam, 0.15);
+      const [bx, by] = project(cam, bp.toArray());
+      const DX = 80, DY = -440; // コマの中央より上、「まさかの」の文字と重ならないよう少し右へ
+      star(bx + DX, by + DY, 120, 56, 12, 'rgba(255,242,120,0.95)', '#ff8a00', 0.2);
+      cutout(snap(s, cam), 10, '#ffffff', DX, DY);
+      if (text) telop('パシッ!', Math.min(bx + DX + 190, W - 160), by + DY + 10, { px: 92, impact: true, rot: 0.12, fill: '#ffffff', strokes: [[22, '#1d4fb8']] });
+    });
+    // ---- 下のコマ: 唖然とするジャムおじさん(青ざめた背景にガーンの線)
+    clipPoly(BOT, () => {
+      background(stadium([0.06, 0.9, -6.1], [0.6, 1.4, 0.1], 44, ['', '', false]), 8, 'saturate(0.85) brightness(0.9)');
+      g.fillStyle = vgrad(880, H, ['rgba(40,30,140,0.5)', 'rgba(20,40,120,0.3)', 'rgba(10,10,60,0.55)']);
+      g.fillRect(0, 880, W, H - 880);
+      focusLines(540, 1430, 560, 120, '#ffffff', 0.22);
+      const s = stage();
+      const jam = HR.Models.makeJam();
+      jam.setFace('shock');
+      HR.Models.poseJam(jam, [-0.44, 0.98, 0.26, 95, -72, 0, -0.18, 0.06, 0.04]);
+      jam.handL.position.set(0.44, 0.98, 0.26);
+      jam.bat.visible = false;
+      jam.hat.position.y += 0.12; // びっくりして帽子が浮く
+      jam.hat.rotation.z = 0.16;
+      s.add(jam.root);
+      const cam = camera([0.35, 1.28, 4.1], [0, 1.3, 0], 42);
+      const DY = 470;
+      const [hx, hy] = project(cam, [0, 1.13, 0.3]);
+      gloom(hx - 330, hy + DY - 420, 660, 420);
+      cutout(snap(s, cam), 10, '#ffffff', 0, DY);
+      for (const [dx, dy, r] of [[300, -110, 34], [340, -10, 24], [-320, -80, 28]]) drop(hx + dx, hy + DY + dy, r);
+      if (text) bubble(W - 230, Math.max(1090, hy + DY - 330), 'えっ…!?', 62, '#1d4fb8', [-90, -70, 80]);
+    });
+    // ---- コマの境目(白い帯+黒いフチ)
+    g.save();
+    g.lineCap = 'butt';
+    g.beginPath();
+    g.moveTo(-20, 1013);
+    g.lineTo(W + 20, 877);
+    g.lineWidth = 30;
+    g.strokeStyle = '#1b2433';
+    g.stroke();
+    g.lineWidth = 18;
+    g.strokeStyle = '#ffffff';
+    g.stroke();
+    g.restore();
+    if (text) {
+      ribbon('9回裏 逆転サヨナラ満塁弾…', 40, ['#e8337a', '#ffffff']);
+      telop('まさかの', 250, 870, { px: 110, fill: '#ffffff', strokes: [[24, '#0b2f73'], [10, '#4cb2f2']], rot: -0.13 });
+      telop('キャッチ!?', W / 2 + 40, 1040, { px: 210, impact: true, fill: HR_FILL, strokes: HR_STROKES, depth: 14, depthColor: '#3a0700', rot: -0.13, maxW: 980 });
+    }
+  }
+
   const designs = {
     // 168km/hをかっ飛ばす!! (ホームラン動画)
     'hr-a'() {
@@ -553,6 +652,9 @@
     // ピッチャー側から見た、打った瞬間(文字あり / 文字なし)
     'hit-p'() { hitFromMound(true); },
     'hit-p-plain'() { hitFromMound(false); },
+    // アンパンマンがキャッチ(上)と、唖然とするジャムおじさん(下)。文字あり / 文字なし
+    'catch-a'() { catchSplit(true); },
+    'catch-a-plain'() { catchSplit(false); },
     // 168km/h バタコさん強すぎ… (空振り動画)
     'zero-b'() {
       background(stadium([0, 1.6, 4.5], [0, 2.4, -40], 50, ['空振り', 'HR 0本', false]), 8, 'saturate(1.05)');
@@ -573,7 +675,7 @@
 
   try {
     if (document.fonts && document.fonts.load) {
-      const txt = '168km/hをかっ飛ばす!!フランスパンでホームラン!?全5球空振り…バタコさん強すぎ新しい顔よ最速連発カキーンパン工場スタジアムHOMERUN!';
+      const txt = '168km/hをかっ飛ばす!!フランスパンでホームラン!?全5球空振り…バタコさん強すぎ新しい顔よ最速連発カキーンパン工場スタジアムHOMERUN!まさかのキャッチえっ9回裏逆転サヨナラ満塁弾パシッNICECATCHバタコ3-2ジャム';
       await Promise.all([
         document.fonts.load(`900 40px "M PLUS Rounded 1c"`, txt),
         document.fonts.load(`40px "Dela Gothic One"`, txt),

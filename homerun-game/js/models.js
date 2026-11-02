@@ -324,13 +324,45 @@
   // ---------------- ジャムおじさん ----------------
   function makeJam() {
     const SKIN = '#eaa486';
-    // expr: normal(にっこり) / angry(への字口で歯を食いしばる、目つきが鋭い)
+    // expr: normal(にっこり) / angry(への字口で歯を食いしばる、目つきが鋭い) / shock(唖然: 白目に小さな黒目、口をぽかんと開ける)
     const drawJamFace = (expr) => {
       const f = facePainter(SKIN);
-      const { g, P } = f;
-      f.eye(-13, 10, 3.4, 5.6);
-      f.eye(13, 10, 3.4, 5.6);
-      if (expr === 'angry') {
+      const { g, P, px } = f;
+      if (expr !== 'shock') {
+        f.eye(-13, 10, 3.4, 5.6);
+        f.eye(13, 10, 3.4, 5.6);
+      }
+      if (expr === 'shock') {
+        for (const sx of [-1, 1]) {
+          const [ex, ey] = P(sx * 13, 11);
+          g.beginPath();
+          g.ellipse(ex, ey, 6 * px, 8.5 * px, 0, 0, Math.PI * 2);
+          g.fillStyle = '#ffffff';
+          g.fill();
+          g.lineWidth = 4;
+          g.strokeStyle = '#1a1210';
+          g.stroke();
+          f.oval(sx * 13, 10.5, 1.4, 1.9, '#1a1210');
+        }
+        // ひげの下で、口がぽかんと開いたまま
+        const [mx, my] = P(0, -33);
+        g.beginPath();
+        g.ellipse(mx, my, 7 * px, 9.5 * px, 0, 0, Math.PI * 2);
+        g.fillStyle = '#6e2228';
+        g.fill();
+        g.save();
+        g.clip();
+        g.beginPath();
+        g.ellipse(mx, my + 6 * px, 5 * px, 3.6 * px, 0, 0, Math.PI * 2);
+        g.fillStyle = '#d9606a';
+        g.fill();
+        g.restore();
+        g.beginPath();
+        g.ellipse(mx, my, 7 * px, 9.5 * px, 0, 0, Math.PI * 2);
+        g.lineWidth = 4.5;
+        g.strokeStyle = '#1a1210';
+        g.stroke();
+      } else if (expr === 'angry') {
         // 目の内側上を肌色で斜めに隠して、つり目にする
         g.fillStyle = SKIN;
         for (const sx of [-1, 1]) {
@@ -380,7 +412,7 @@
       }
       return toTex(f.c);
     };
-    const faces = { normal: drawJamFace('normal'), angry: drawJamFace('angry') };
+    const faces = { normal: drawJamFace('normal'), angry: drawJamFace('angry'), shock: drawJamFace('shock') };
     const headTex = faces.normal;
 
     const [bc, bg] = canvas(512, 256);
@@ -420,7 +452,7 @@
         const s = new T.Mesh(smallSphere, hairMat);
         s.scale.setScalar(0.032);
         const lat = 22 + (i === 1 ? 2 : 0);
-        brows.push({ piv: onSphere(m.head, s, side * (8 + i * 5.5), lat, R * 0.98), lat, angry: 17.5 + i * 3.4 });
+        brows.push({ piv: onSphere(m.head, s, side * (8 + i * 5.5), lat, R * 0.98), lat, angry: 17.5 + i * 3.4, shock: lat + 6 - i * 0.8 });
       }
     }
     m.setFace = (k) => {
@@ -428,7 +460,7 @@
       if (mat.map === faces[k]) return;
       mat.map = faces[k];
       mat.needsUpdate = true;
-      for (const b of brows) b.piv.rotation.x = -(k === 'angry' ? b.angry : b.lat) * DEG;
+      for (const b of brows) b.piv.rotation.x = -(k === 'angry' ? b.angry : k === 'shock' ? b.shock : b.lat) * DEG;
     };
     // 横と後ろのもこもこヘア
     const puff = (lon, lat, k) => {
