@@ -97,7 +97,7 @@ node tools/record.mjs --seed 5 --out jam-homerun-short.mp4
 ## サムネイルを作る
 
 ```bash
-node tools/thumbnail.mjs --out thumbs                  # 4種類すべて
+node tools/thumbnail.mjs --out thumbs                  # すべて
 node tools/thumbnail.mjs --design hr-a,zero-a --out thumbs
 ```
 
@@ -109,6 +109,8 @@ node tools/thumbnail.mjs --design hr-a,zero-a --out thumbs
 | `hr-b` | フランスパンでホームラン!? (バンザイするジャムおじさん) |
 | `zero-a` | 全5球 空振り… (がっくりするジャムおじさん) |
 | `zero-b` | 168km/h バタコさん強すぎ… (新しい顔を持つバタコさん) |
+| `hit-p` | ピッチャー側から見た、ジャムおじさんがホームランを打った瞬間(カキーン!!) |
+| `hit-p-plain` | `hit-p` と同じ構図で文字なし |
 
 文字や構図は `tools/thumbnail.js` の `designs` で変えられます。
 

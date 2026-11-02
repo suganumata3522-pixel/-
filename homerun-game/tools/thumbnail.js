@@ -55,6 +55,19 @@
     s.add(new T.AmbientLight('#ffffff', 0.3));
     return s;
   }
+  // ピッチャー側(-z)から撮るときの舞台: 正面のライトをマウンド側に置く
+  function stageFromMound() {
+    const s = new T.Scene();
+    s.add(new T.HemisphereLight('#e8f3ff', '#7a9a5a', 1.4));
+    const key = new T.DirectionalLight('#fff4de', 2.6);
+    key.position.set(-2, 5, -6);
+    s.add(key);
+    const rim = new T.DirectionalLight('#ffffff', 2.0);
+    rim.position.set(3, 4, 6);
+    s.add(rim);
+    s.add(new T.AmbientLight('#ffffff', 0.3));
+    return s;
+  }
   function stadium(pos, look, fov, screen) {
     const s = new T.Scene();
     const st = HR.Stadium.build(s);
@@ -146,6 +159,24 @@
     g.lineTo(x1 - nx * w, y1 - ny * w);
     g.closePath();
     g.fill();
+  }
+  // フランスパンのバットから飛び散るパンくず
+  function crumbs(cx, cy, n, spread) {
+    for (let i = 0; i < n; i++) {
+      const a = -Math.PI * (0.05 + rnd() * 1.1), d = spread * (0.25 + rnd() * 0.75);
+      g.save();
+      g.translate(cx + Math.cos(a) * d, cy + Math.sin(a) * d * 0.8);
+      g.rotate(rnd() * Math.PI);
+      const r = 7 + rnd() * 13;
+      g.beginPath();
+      g.ellipse(0, 0, r, r * (0.6 + rnd() * 0.3), 0, 0, Math.PI * 2);
+      g.fillStyle = rnd() < 0.55 ? '#f4e2bd' : '#c88638';
+      g.fill();
+      g.lineWidth = 3;
+      g.strokeStyle = 'rgba(90,50,10,0.5)';
+      g.stroke();
+      g.restore();
+    }
   }
   function star(cx, cy, r1, r2, n, fill, stroke, rot) {
     g.save();
@@ -407,6 +438,54 @@
   const ZERO_FILL = ['#ffffff', '#cfe6ff', '#7aa7ff', '#5a4cff'];
   const ZERO_STROKES = [[40, '#0d1446'], [22, '#ffffff'], [9, '#3b4cd6']];
 
+  // ピッチャー側から見た、ジャムおじさんがホームランを打った瞬間(text=false で文字なし)
+  function hitFromMound(text) {
+    const cam = camera([0.06, 0.76, -6.1], [0.6, 1.02, 0.1], 32);
+    // 背景: マウンドの方から本塁の後ろのスタンドを見上げる(大きくぼかす)
+    background(stadium([0.25, 1.0, -6.5], [0.6, 2.6, 10], 46, ['HOME RUN!', '', true]), 9, 'saturate(1.15) brightness(1.04)');
+    // ジャムおじさん(左打ち): 気合いの顔で、バットの芯でアンパンマンの顔をとらえる
+    const s = stageFromMound();
+    const jam = HR.Models.makeJam();
+    jam.setFace('angry');
+    const pose = [0.04, 0.8, 0.3, 100, 3, -46, -0.3, 0.06, 0.04];
+    HR.Models.poseJam(jam, pose, { lean: 0.06 });
+    jam.head.rotation.y = -0.35; // 顔をこちら(ボール)へ向ける
+    jam.root.position.set(0.98, 0, 0.1);
+    jam.root.rotation.y = -Math.PI / 2;
+    s.add(jam.root);
+    s.updateMatrixWorld(true);
+    // バットの芯(先の方)の少し上でとらえる。バットが見えるようにボールはやや上・手前に
+    const sweet = jam.bat.localToWorld(new T.Vector3(0, 0.8, 0));
+    const ballP = sweet.clone().add(new T.Vector3(0, 0.12, -0.14));
+    const BS = 1.55;
+    const ball = faceBall(s, [ballP.x, ballP.y, ballP.z], BS, true, cam, -0.3);
+    ball.root.scale.set(BS * 0.82, BS * 1.08, BS); // バットに当たってつぶれる
+    const [ix, iy] = project(cam, [ballP.x, ballP.y, ballP.z]);
+    glow(ix, iy, 950, 'rgba(255,244,190,0.72)');
+    rays(ix, iy, 24, '#ffe56a', 0.2, 0.1);
+    focusLines(ix, iy, 330, 110, '#ffffff', 0.32);
+    // 足もとの影(地面はぼかしてあるので、浮いて見えないように)
+    const [fx, fy] = project(cam, [0.98, 0, 0.1]);
+    g.save();
+    g.fillStyle = 'rgba(40,20,0,0.28)';
+    g.filter = 'blur(10px)';
+    g.beginPath();
+    g.ellipse(fx, fy + 6, 230, 46, 0, 0, Math.PI * 2);
+    g.fill();
+    g.restore();
+    cutout(snap(s, cam), 9, '#ffffff');
+    star(ix, iy, 150, 72, 12, 'rgba(255,242,120,0.92)', '#ff8a00', 0.25);
+    crumbs(ix, iy, 30, 330);
+    // ボールは星とパンくずの上にもう一度重ねる
+    const sb = stageFromMound();
+    const ball2 = faceBall(sb, [ballP.x, ballP.y, ballP.z], BS, true, cam, -0.3);
+    ball2.root.scale.copy(ball.root.scale);
+    g.drawImage(snap(sb, cam), 0, 0);
+    if (text) {
+      telop('カキーン!!', Math.min(ix - 60, W - 330), iy - 330, { px: 150, impact: true, rot: -0.14, fill: HR_FILL, strokes: HR_STROKES, depth: 10, depthColor: '#3a0700', maxW: 600 });
+    }
+  }
+
   const designs = {
     // 168km/hをかっ飛ばす!! (ホームラン動画)
     'hr-a'() {
@@ -471,6 +550,9 @@
       telop('空振り…', W / 2, 520, { px: 250, impact: true, fill: ZERO_FILL, strokes: ZERO_STROKES, depth: 16, depthColor: '#060a2a', rot: -0.05 });
       sticker(180, 1380, 128, [{ text: '最速', px: 46, y: -40 }, { text: '168km/h', px: 44, y: 22 }], -0.16, ['#ff5a5a', '#d4142a']);
     },
+    // ピッチャー側から見た、打った瞬間(文字あり / 文字なし)
+    'hit-p'() { hitFromMound(true); },
+    'hit-p-plain'() { hitFromMound(false); },
     // 168km/h バタコさん強すぎ… (空振り動画)
     'zero-b'() {
       background(stadium([0, 1.6, 4.5], [0, 2.4, -40], 50, ['空振り', 'HR 0本', false]), 8, 'saturate(1.05)');
@@ -491,7 +573,7 @@
 
   try {
     if (document.fonts && document.fonts.load) {
-      const txt = '168km/hをかっ飛ばす!!フランスパンでホームラン!?全5球空振り…バタコさん強すぎ新しい顔よ最速連発カキーンパン工場スタジアムHOMERUN';
+      const txt = '168km/hをかっ飛ばす!!フランスパンでホームラン!?全5球空振り…バタコさん強すぎ新しい顔よ最速連発カキーンパン工場スタジアムHOMERUN!';
       await Promise.all([
         document.fonts.load(`900 40px "M PLUS Rounded 1c"`, txt),
         document.fonts.load(`40px "Dela Gothic One"`, txt),
