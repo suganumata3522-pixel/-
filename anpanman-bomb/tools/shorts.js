@@ -360,8 +360,8 @@ const S = {
     D.drawFaceBomb(ctx, 0, 10, 560, { t: 0.5, age: 0.3, noShadow: true });
     ctx.restore();
     D.drawAnpanman(ctx, 250, 1480, 330, { dir: 2, expr: 'happy', anim: 0.4, moving: false });
-    ctx.save(); ctx.translate(800, 1440); ctx.rotate(0.12);
-    D.drawBoss(ctx, 0, 0, 250, { state: 'fight', anim: 0.2, inv: 0 }, { x: -1, y: 0 });
+    ctx.save(); ctx.translate(800, 1400); ctx.rotate(0.1);
+    D.drawBoss(ctx, 0, 0, 200, { state: 'fight', anim: 0.2, inv: 0 }, { x: -1, y: 0 });
     ctx.restore();
     D.otext(ctx, 'ドッカーン!!', W / 2, 1720, { size: 150, fill: '#ffe03d', stroke: '#c62828', lw: 36, shadow: 'rgba(60,10,0,.6)' });
     return this.cv.toDataURL('image/png');
