@@ -46,7 +46,7 @@ fs.mkdirSync(fontCache, { recursive: true });
 
   if (preview) {
     // a few stills for checking the layout
-    const marks = [0.05, 1.0, 3.75, 25];
+    const marks = [0.05, 3.0, 4.2, 23.5];
     let t = 0;
     for (const m of marks) {
       const n = Math.round((m - t) * FPS);

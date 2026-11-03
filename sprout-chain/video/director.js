@@ -179,30 +179,21 @@
   }
 
   function drawHeader() {
-    // pill + line: 理論値 | 6×13マスの最大れんさ
-    ctx.font = `48px ${FD}`;
-    const line = '6×13マスの最大れんさ', lw1 = ctx.measureText(line).width, pw = 150, gap = 18;
-    const x1 = VW / 2 - (pw + gap + lw1) / 2;
-    ctx.fillStyle = '#8fd14f';
-    roundRect(x1, 56, pw, 60, 30);
-    ctx.fill();
-    ctx.font = `36px ${FD}`;
-    ctx.textAlign = 'center';
-    ctx.fillStyle = '#10210a';
-    ctx.fillText('理論値', x1 + pw / 2, 99);
-    outlined(line, x1 + pw + gap, 103, 48, '#eef5e4', '#120c08', 12, FD, 'left');
-    const n = S.phase === 'build' || S.phase === 'trigger' ? 19 : S.chain;
+    // the big counter only appears once the chain is running
+    const n = S.chain;
     const label = n + '連鎖';
     const k = S.counterPop;
     const final = S.phase === 'finale';
-    ctx.save();
-    ctx.translate(VW / 2, 228);
-    const sc = 1 + k * 0.12 + (final ? Math.sin(S.t * 6) * 0.025 : 0);
-    ctx.scale(sc, sc);
-    const fill = S.phase === 'chain' && n < 19 ? (n >= 15 ? '#ffb02e' : '#ffffff') : '#ffd43b';
-    if (final) { ctx.shadowColor = 'rgba(255,212,59,.8)'; ctx.shadowBlur = 40; }
-    outlined(label + (final ? '!!' : ''), 0, 58, 168, fill, '#2a1608', 26, FD);
-    ctx.restore();
+    if (n > 0) {
+      ctx.save();
+      ctx.translate(VW / 2, 228);
+      const sc = 1 + k * 0.12 + (final ? Math.sin(S.t * 6) * 0.025 : 0);
+      ctx.scale(sc, sc);
+      const fill = S.phase === 'chain' && n < 19 ? (n >= 15 ? '#ffb02e' : '#ffffff') : '#ffd43b';
+      if (final) { ctx.shadowColor = 'rgba(255,212,59,.8)'; ctx.shadowBlur = 40; }
+      outlined(label + (final ? '!!' : ''), 0, 58, 168, fill, '#2a1608', 26, FD);
+      ctx.restore();
+    }
     // remaining sprouts and score, aligned to the field edges
     const left = S.cols.reduce((a, c) => a + c.filter(p => S.t >= p.wait && p.y < 13.2).length, 0);
     ctx.save();
@@ -450,11 +441,7 @@
     ctx.scale(sc, sc);
     ctx.shadowColor = 'rgba(255,212,59,.7)';
     ctx.shadowBlur = 30;
-    outlined('理論値たっせい!', 0, 0, 104, '#ffd43b', '#2a1608', 22, FD);
-    ctx.shadowBlur = 0;
-    const k2 = Math.min(1, Math.max(0, (age - 0.35) / 0.25));
-    ctx.globalAlpha = k2;
-    outlined('全消し!', 0, 115, 80, '#ffffff', '#2a1608', 16, FD);
+    outlined('全消し!', 0, 42, 120, '#ffd43b', '#2a1608', 24, FD);
     ctx.restore();
   }
 
