@@ -2,7 +2,7 @@
 // Runs inside a page that already loaded Engine, Art, Sfx and BOARDS. Deterministic: tick(1/fps) then draw().
 (function () {
   const E = window.Engine, A = window.Art;
-  const VW = 1080, VH = 1920, CELL = 96, FX = 270, FY = 372, FW = CELL * 6, FH = CELL * 13;
+  const VW = 1080, VH = 1920, CELL = 114, FX = 200, FY = 316, FW = CELL * 6, FH = CELL * 13;
   const FD = '"Mochiy Pop One", "Zen Maru Gothic", sans-serif';
   const FB = '"Zen Maru Gothic", "Mochiy Pop One", sans-serif';
   const G = 62; // gravity, rows/s^2
@@ -186,7 +186,7 @@
     const final = S.phase === 'finale';
     if (n > 0) {
       ctx.save();
-      ctx.translate(VW / 2, 228);
+      ctx.translate(VW / 2, 150);
       const sc = 1 + k * 0.12 + (final ? Math.sin(S.t * 6) * 0.025 : 0);
       ctx.scale(sc, sc);
       const fill = S.phase === 'chain' && n < 19 ? (n >= 15 ? '#ffb02e' : '#ffffff') : '#ffd43b';
@@ -200,29 +200,29 @@
     ctx.font = `900 30px ${FB}`;
     ctx.textAlign = 'left';
     ctx.fillStyle = '#b9c4a8';
-    ctx.fillText('のこり', FX, 352);
+    ctx.fillText('のこり', FX, 290);
     ctx.fillStyle = left === 0 ? '#8fd14f' : '#eef5e4';
     ctx.font = `38px ${FD}`;
-    ctx.fillText(String(left), FX + 98, 354);
+    ctx.fillText(String(left), FX + 98, 292);
     const lw = ctx.measureText(String(left)).width;
     ctx.font = `900 30px ${FB}`;
     ctx.fillStyle = '#b9c4a8';
-    ctx.fillText('ひき', FX + 104 + lw, 352);
+    ctx.fillText('ひき', FX + 104 + lw, 290);
     ctx.textAlign = 'right';
     ctx.font = `38px ${FD}`;
     ctx.fillStyle = '#ffd43b';
     const sc2 = Math.round(S.shownScore).toLocaleString('en-US');
-    ctx.fillText(sc2, FX + FW, 354);
+    ctx.fillText(sc2, FX + FW, 292);
     const w = ctx.measureText(sc2).width;
     ctx.font = `900 30px ${FB}`;
     ctx.fillStyle = '#b9c4a8';
-    ctx.fillText('スコア', FX + FW - w - 12, 352);
+    ctx.fillText('スコア', FX + FW - w - 12, 290);
     ctx.restore();
   }
 
   // left-hand gauge: a stem that grows one leaf per chain and blooms at 19
   function drawGauge() {
-    const x0 = 140, yTop = FY + 40, yBot = FY + FH - 20;
+    const x0 = 100, yTop = FY + 40, yBot = FY + FH - 20;
     const step = (yBot - yTop) / 19;
     const grown = S.chain;
     ctx.save();
@@ -366,10 +366,10 @@
     ctx.font = `900 26px ${FB}`;
     ctx.textAlign = 'left';
     ctx.fillStyle = 'rgba(238,245,228,.55)';
-    ctx.fillText('← 13段目', FX + FW + 22, FY + CELL * 0.5 + 9);
+    ctx.fillText('← 13段目', FX + FW + 18, FY + CELL * 0.5 + 9);
     ctx.font = `900 20px ${FB}`;
     ctx.fillStyle = 'rgba(238,245,228,.38)';
-    ctx.fillText('(つながらない)', FX + FW + 22, FY + CELL * 0.5 + 38);
+    ctx.fillText('(つながらない)', FX + FW + 18, FY + CELL * 0.5 + 38);
     ctx.restore();
 
     // trigger callout on the field
@@ -435,8 +435,9 @@
     const ease = 1 - Math.pow(1 - k, 3);
     ctx.save();
     ctx.fillStyle = `rgba(14,10,6,${0.55 * ease})`;
-    ctx.fillRect(0, 820, VW, 330);
-    ctx.translate(VW / 2, 975);
+    const cy = FY + FH * 0.47;
+    ctx.fillRect(0, cy - 165, VW, 330);
+    ctx.translate(VW / 2, cy);
     const sc = (0.5 + 0.5 * ease) * (1 + Math.sin(age * 5) * 0.03);
     ctx.scale(sc, sc);
     ctx.shadowColor = 'rgba(255,212,59,.7)';
