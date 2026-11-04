@@ -153,7 +153,7 @@
         return { imgs, done: game.finished, frame: game.frame, mode: game.mode, level: game.levelIndex };
       },
       skip(n) { for (let i = 0; i < n && !game.finished; i++) game.step(bot.think()); game.render(ctx); return { frame: game.frame, mode: game.mode }; },
-      prepareWav() { wavBytes = AP.Sound.wav(AP.Sound.mix(events, game.frame + 30)); return wavBytes.length; },
+      prepareWav(opts) { wavBytes = AP.Sound.wav(AP.Sound.mix(events, game.frame + 30, opts)); return wavBytes.length; },
       wavChunk(i, size) { return b64(wavBytes.subarray(i, i + size)); },
       stats() { return { frame: game.frame, score: game.score, stats: game.stats, events: events.length }; },
     };

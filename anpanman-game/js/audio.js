@@ -314,8 +314,11 @@
   Sound.sfx = (name) => cacheS[name] || (cacheS[name] = SFX[name] ? SFX[name]() : new Float32Array(1));
   Sound.names = { music: Object.keys(TRACKS), sfx: Object.keys(SFX) };
 
-  /* Mix a recorded event list (game frames at 60 fps) into one mono track. */
-  Sound.mix = function (events, totalFrames) {
+  /* Mix a recorded event list (game frames at 60 fps) into one mono track.
+   * opts.bgm === false drops the looping background music but keeps every sound
+   * effect and the one-shot jingles (stage start, stage clear, victory). */
+  Sound.mix = function (events, totalFrames, opts) {
+    const bgm = !(opts && opts.bgm === false);
     const len = Math.ceil(totalFrames / 60 * SR) + SR;
     const out = new Float32Array(len);
     let cur = null;
@@ -333,7 +336,7 @@
     };
     for (const ev of events) {
       const s = Math.max(0, Math.round((ev.frame - 1) / 60 * SR));
-      if (ev.type === 'music') { stop(s); if (ev.name) cur = { name: ev.name, start: s }; }
+      if (ev.type === 'music') { stop(s); if (ev.name && (bgm || !TRACKS[ev.name].loop)) cur = { name: ev.name, start: s }; }
       else if (ev.type === 'sfx') {
         const d = Sound.sfx(ev.name);
         for (let i = 0; i < d.length && s + i < len; i++) out[s + i] += d[i] * SFX_VOL;

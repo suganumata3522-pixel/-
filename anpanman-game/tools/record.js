@@ -1,5 +1,6 @@
 // Renders the bot playthrough frame-by-frame into a 1080x1920 60fps MP4 with audio.
-// Usage: node tools/record.js [out.mp4] [--bot fly|ground] [--max-frames N] [--crf 20]
+// Usage: node tools/record.js [out.mp4] [--bot fly|ground] [--no-bgm] [--max-frames N] [--crf 20]
+// --no-bgm keeps sound effects and jingles but drops the looping background music.
 const { chromium } = require('playwright');
 const { spawn } = require('child_process');
 const path = require('path'), fs = require('fs');
@@ -11,6 +12,7 @@ const out = path.resolve(args[0] && !args[0].startsWith('--') ? args[0] : path.j
 const maxFrames = +opt('--max-frames', 1e9);
 const crf = opt('--crf', '20');
 const botStyle = opt('--bot', 'fly');
+const noBgm = args.includes('--no-bgm');
 const BATCH = 20;
 
 function run(cmd, argv) {
@@ -45,7 +47,7 @@ function run(cmd, argv) {
   }
   ff.stdin.end(); await ffDone;
 
-  const size = await page.evaluate(() => window.REC.prepareWav());
+  const size = await page.evaluate((o) => window.REC.prepareWav(o), { bgm: !noBgm });
   const fd = fs.openSync(tmpWav, 'w');
   for (let i = 0; i < size; i += 1 << 21) {
     const b64 = await page.evaluate(([a, n]) => window.REC.wavChunk(a, n), [i, 1 << 21]);
@@ -55,7 +57,7 @@ function run(cmd, argv) {
   console.log('stats', JSON.stringify(await page.evaluate(() => window.REC.stats())));
   await browser.close(); srv.close();
 
-  await run('ffmpeg', ['-y', '-loglevel', 'error', '-i', tmpVideo, '-i', tmpWav, '-c:v', 'copy', '-af', 'loudnorm=I=-15:TP=-1.5:LRA=11', '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', '-shortest', '-movflags', '+faststart', out]);
+  await run('ffmpeg', ['-y', '-loglevel', 'error', '-i', tmpVideo, '-i', tmpWav, '-c:v', 'copy', '-af', noBgm ? 'volume=2.5dB,alimiter=limit=0.84:level=false' : 'loudnorm=I=-15:TP=-1.5:LRA=11', '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', '-shortest', '-movflags', '+faststart', out]);
   fs.unlinkSync(tmpVideo); fs.unlinkSync(tmpWav);
   console.log('wrote', out, (fs.statSync(out).size / 1e6).toFixed(1) + ' MB', frames, 'frames');
 })().catch((e) => { console.error(e); process.exit(1); });
