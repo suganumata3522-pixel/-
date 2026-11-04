@@ -1620,7 +1620,7 @@ class Renderer {
 }
 
 // =====================================================================
-//  サウンド（すべてWebAudioで合成：BGMはオリジナル曲）
+//  サウンド（すべてWebAudioで合成。BGMは PLAY_BGM を true にすると流れる）
 // =====================================================================
 function noteNum(n) {
   const m = /^([A-G])([#b]?)(-?\d)$/.exec(n);
@@ -1788,6 +1788,7 @@ class Music {
     }
   }
 }
+const PLAY_BGM = false;   // BGMなし（効果音だけ）。BGMを流すときは true にする
 const SFX_OF = { bomb: 'bomb', explode: 'explode', item: 'item', enemy_die: 'enemy', hit: 'hit', new_face: 'newface', genki: 'genki', go: 'go', boss_hit: 'bosshit', boss_defeat: 'bossdefeat', boss_laugh: 'laugh' };
 class SoundManager {
   constructor() { this.ctx = null; this.syn = null; this.mus = null; this.muted = false; }
@@ -1804,7 +1805,7 @@ class SoundManager {
     } catch (e) { /* 音が出せない環境 */ }
   }
   sfx(name) { if (this.syn) this.syn.sfx(name, this.ctx.currentTime + 0.01); }
-  music(name) { if (this.mus) this.mus.play(name, this.ctx.currentTime + 0.05); }
+  music(name) { if (this.mus && PLAY_BGM) this.mus.play(name, this.ctx.currentTime + 0.05); }
   stopMusic() { if (this.mus) this.mus.stop(); }
   setMuted(m) { this.muted = m; if (this.syn) this.syn.master.gain.setValueAtTime(m ? 0 : 0.9, this.ctx.currentTime); }
   onGameEvent(g, ev) {

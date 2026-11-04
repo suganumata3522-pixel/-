@@ -14,6 +14,7 @@
 | ポーズ / 音のオン・オフ | P / M | ⏸ / 🔊 ボタン |
 
 ゲームパッドにも対応しています。タイトルの「デモを見る」でオートプレイが見られます。
+音は効果音だけです（BGMなし）。`index.html` の `PLAY_BGM` を `true` にするとBGMが鳴ります。
 
 - 敵を全部たおすとステージクリア。全4ステージで、最後はバイキンマン（UFO）とのボス戦です。
 - やられても「新しい顔」がとんできて復活！ 顔（残機）がなくなるとゲームオーバー。
@@ -25,11 +26,11 @@
 
 ## YouTube ショート動画
 
-- `shorts/dokkan_anpanbomb_short.mp4` … 1080×1920・60fps・約47秒（BGM・効果音入り）
+- `shorts/dokkan_anpanbomb_short.mp4` … 1080×1920・60fps・約47秒（効果音のみ・BGMなし）
 - `shorts/thumbnail.png` … サムネイル用の画像
 
 動画はゲーム本体をそのまま使い、AIのオートプレイを録画して作っています。
-BGM・効果音はすべてプログラムで合成したオリジナルです。
+効果音はすべてプログラムで合成したオリジナルです。BGMは入れていないので、YouTubeの編集画面で好きな曲を重ねられます。
 
 ### 動画を作り直す
 
@@ -39,6 +40,7 @@ Node.js・Playwright（Chromium）・ffmpeg が必要です。
 node tools/make-shorts.js                # 良い展開のプレイを自動で選んで出力
 node tools/make-shorts.js --seed 33      # 同じプレイを再現（今回の動画は seed 33）
 node tools/make-shorts.js --peek 1,12,40 # 指定した秒の画面だけ PNG で確認
+node tools/make-shorts.js --seed 33 --bgm  # BGMも入れて書き出す
 ```
 
 フォント（Mochiy Pop One / M PLUS Rounded 1c）は初回に `tools/fonts/` へ自動でダウンロードされます。

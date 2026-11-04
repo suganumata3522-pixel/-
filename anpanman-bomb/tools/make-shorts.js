@@ -3,6 +3,7 @@
 //   node tools/make-shorts.js                 … シードを自動で選んで shorts/ に mp4 とサムネを出力
 //   node tools/make-shorts.js --seed 123      … シードを指定
 //   node tools/make-shorts.js --peek 1,5,20   … 指定秒のフレームを PNG で出すだけ（確認用）
+//   node tools/make-shorts.js --bgm           … BGM も入れる（ふだんは効果音だけ）
 // 必要なもの: Node.js, Playwright(Chromium), ffmpeg
 'use strict';
 const { chromium } = require('playwright');
@@ -18,6 +19,7 @@ const FONTS = {
 };
 const args = process.argv.slice(2);
 const arg = (name, def) => { const i = args.indexOf('--' + name); return i >= 0 ? args[i + 1] : def; };
+const withBgm = args.includes('--bgm');
 
 function download(url, dest) {
   return new Promise((res, rej) => {
@@ -47,6 +49,15 @@ function serve() {
       });
     });
     srv.listen(0, '127.0.0.1', () => res(srv));
+  });
+}
+// 音声の積分ラウドネス(LUFS)を測る
+function measureLufs(file) {
+  return new Promise((res, rej) => {
+    const p = spawn('ffmpeg', ['-hide_banner', '-i', file, '-af', 'ebur128=framelog=quiet', '-f', 'null', '-']);
+    let err = '';
+    p.stderr.on('data', d => { err += d; });
+    p.on('close', () => { const m = /I:\s+(-?[\d.]+) LUFS/.exec(err.slice(err.lastIndexOf('Summary'))); if (m) res(parseFloat(m[1])); else rej(new Error('loudness measure failed')); });
   });
 }
 function run(cmd, argv) {
@@ -82,7 +93,7 @@ const dataUrlToBuf = d => Buffer.from(d.slice(d.indexOf(',') + 1), 'base64');
     for (const b of best.slice(0, 4)) console.log(b.seed, await page.evaluate(s => window.Shorts.timeline(s), b.seed));
     seed = best[0].seed;
   }
-  const info = await page.evaluate(s => window.Shorts.setup(s), seed);
+  const info = await page.evaluate(([s, b]) => window.Shorts.setup(s, { bgm: b }), [seed, withBgm]);
   console.log('seed', seed, info);
 
   const peek = arg('peek');
@@ -112,8 +123,11 @@ const dataUrlToBuf = d => Buffer.from(d.slice(d.indexOf(',') + 1), 'base64');
   fs.writeFileSync(wav, Buffer.from(await page.evaluate(() => window.Shorts.renderAudio()), 'base64'));
   fs.writeFileSync(path.join(OUT, 'thumbnail.png'), dataUrlToBuf(await page.evaluate(() => window.Shorts.cover())));
   await browser.close(); srv.close();
+  // 音量は一定のゲインで -14 LUFS 付近にそろえ、リミッターでピークをおさえる（効果音だけでも音量がゆれない）
+  const lufs = await measureLufs(wav), gain = Math.max(-20, Math.min(15, -14 - lufs));
+  console.log('audio loudness', lufs.toFixed(1), 'LUFS -> gain', gain.toFixed(1), 'dB');
   await run('ffmpeg', ['-y', '-loglevel', 'error', '-i', videoOnly, '-i', wav, '-c:v', 'copy',
-    '-af', 'loudnorm=I=-14:TP=-1.5:LRA=11,alimiter=limit=0.84:level=false', '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', '-shortest', '-movflags', '+faststart', final]);
+    '-af', 'volume=' + gain.toFixed(2) + 'dB,alimiter=limit=0.84:level=false', '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', '-shortest', '-movflags', '+faststart', final]);
   fs.unlinkSync(videoOnly); fs.unlinkSync(wav);
   console.log('done:', final, '(' + ((Date.now() - t0) / 1000).toFixed(0) + 's)');
 })().catch(e => { console.error(e); process.exit(1); });

@@ -248,7 +248,8 @@ const S = {
     res.sort((a, b) => b.score - a.score);
     return res.slice(0, 8);
   },
-  setup(seed) {
+  setup(seed, opts) {
+    this.bgm = !!(opts && opts.bgm);     // BGMを入れるか（ふだんは効果音だけ）
     const sim = simulate(seed);
     this.totalFrames = Math.round((sim.endT + ENDING) * FPS);
     this.game = new Game(Object.assign({ seed }, GAME_OPT));
@@ -328,12 +329,12 @@ const S = {
     syn.sfx('hook', 0.03);
     for (const ev of this.audioEv) {
       const t = ev.t + 0.017;
-      if (ev.type === 'stage_start') { if (playing) { mus.schedule(t); mus.stop(t); } mus.play(ev.bgm, t); playing = true; }
+      if (ev.type === 'stage_start') { if (!this.bgm) continue; if (playing) { mus.schedule(t); mus.stop(t); } mus.play(ev.bgm, t); playing = true; }
       else if (ev.type === 'stage_clear') { if (playing) { mus.schedule(t); mus.stop(t); } playing = false; syn.sfx(ev.last ? 'allclear' : 'clear', t); }
       else if (SFX_OF[ev.type]) syn.sfx(SFX_OF[ev.type], t);
     }
     if (playing) { mus.schedule(dur - 0.3); mus.stop(dur - 0.3); }
-    if (this.dir.endT != null) {            // エンドカード中もBGMを流してフェードアウト
+    if (this.bgm && this.dir.endT != null) {   // エンドカード中もBGMを流してフェードアウト
       const ts = this.dir.endT + 2.0, te = dur - 0.15;
       if (te > ts + 0.6) {
         mus.play('main', ts); mus.schedule(te);
