@@ -284,6 +284,7 @@
       switch (this.state) {
         case 'enter':
           this.y += (hoverY - this.y) * 0.04;
+          if (this.t === 8 && g.hime) g.textPop('たすけて〜! アンパンマ〜ン!', g.hime.x - 60, GT * T - 300, 'speech', 120);
           if (this.t === 40) { g.textPop('ハーヒフーヘーホー!', this.x, hoverY - 175, 'baikin', 110); g.sfx('laugh'); }
           if (this.t >= 150) { g.music('boss'); this.set('hover'); }
           break;
@@ -451,7 +452,7 @@
     startGame() {
       this.score = 0; this.coins = 0; this.lives = 3;
       this.stats = { kabi: 0, punch: 0, coins: 0, frames: 0 };
-      this.loadLevel(0); this.setMode('intro');
+      this.loadLevel(0); this.setMode('story');
     }
     loadLevel(i) {
       this.levelIndex = i;
@@ -461,6 +462,8 @@
       this.spawnIdx = 0; this.camX = 0; this.time = L.time; this.timeTick = 0;
       this.star = 0; this.boss = null; this.flagged = false; this.flagY = 3 * T + 12;
       this.bossDone = false; this.freeze = 0;
+      // ジャムおじさん姫, held in a cage at the back of the boss room
+      this.hime = L.princessC != null ? { x: L.princessC * T + T / 2, lift: 0, freed: false, mood: 'cry', hop: 0, met: 0 } : null;
       this.player = new Player(this, L.start * T + 11, (GT - 1) * T - 100 + T);
       this.player.y = GT * T - this.player.h;
       this.music(null);
@@ -474,6 +477,7 @@
           if (!this.titleOut && this.modeT > 40 && (this.pressed('start') || this.pressed('a'))) { this.titleOut = 1; this.sfx('start'); this.music(null); }
           if (this.titleOut && ++this.titleOut > 50) { this.titleOut = 0; this.startGame(); }
           break;
+        case 'story': this.storyUpdate(); break;
         case 'intro':
           if (this.modeT === 8) this.music('ready');
           if (this.modeT >= 140) { this.setMode('play'); this.music(this.level.music); }
@@ -492,7 +496,7 @@
           if (this.modeT >= 240) { this.setMode('title'); this.music('title'); }
           break;
       }
-      if (this.mode !== 'title' && this.mode !== 'intro' && this.mode !== 'ending') this.stats.frames++;
+      if (this.mode !== 'title' && this.mode !== 'story' && this.mode !== 'intro' && this.mode !== 'ending') this.stats.frames++;
       this.updateEffects();
       if (this.shake > 0) this.shake--;
       if (this.flash > 0) this.flash--;
@@ -627,11 +631,48 @@
       this.setMode('victory'); this.music('victory');
       this.player.pose = 'victory'; this.player.flying = false; this.player.punchT = 0;
     }
+    /* opening: バイキンマン swoops down and carries ジャムおじさん姫 off in a cage */
+    storyUpdate() {
+      const t = this.modeT;
+      if (t === 46) this.sfx('alarm');
+      if (t === 80) this.sfx('laugh');
+      if (t === 116) this.sfx('drop');
+      if (t === 132) { this.sfx('thud'); this.shake = 10; }
+      if (t === 182) this.sfx('bossfly');
+      if (t === 214) this.sfx('hurt');
+      if ((t > 30 && this.pressed('start')) || t >= 300) this.setMode('intro');
+    }
+    /* after バイキンマン is gone: the cage lifts, アンパンマン walks over, ジャムおじさん姫 says thanks */
     victoryUpdate() {
-      const p = this.player;
-      p.vx = 0; p.vy += PH.G; this.move(p);
-      if (this.modeT % 30 === 0 && this.modeT < 330) this.firework(this.camX + 150 + (this.modeT * 131) % 780, 150 + (this.modeT * 71) % 280);
-      if (this.modeT >= 390) { this.setMode('ending'); this.music('ending'); this.effects = []; }
+      const p = this.player, h = this.hime, t = this.modeT;
+      p.vy = Math.min(p.vy + PH.G, PH.MAXFALL);
+      p.vx = 0;
+      if (h) {
+        if (t === 40) {
+          h.freed = true; this.sfx('unlock');
+          this.effects.push({ type: 'lock', x: h.x, y: GT * T - 112, vx: 2.5, vy: -9, t: 0, life: 70, g: 0.8, rot: 0 });
+        }
+        if (t > 40) h.lift = Math.min(1, (t - 40) / 50);
+        if (t === 70) h.mood = 'happy';
+        const target = h.x - 132;
+        if (t > 60 && !h.met && p.onGround) {
+          if (Math.abs(p.cx - target) > 6) {
+            const d = Math.sign(target - p.cx);
+            p.pose = null; p.dir = d; p.vx = d * 4.5; p.walkPhase += 4.5 * 0.09;
+          } else { h.met = t; p.dir = 1; p.pose = 'victory'; }
+        }
+        if (h.met) {
+          const k = t - h.met;
+          if (k === 8) { this.textPop('ありがとう アンパンマン!', h.x - 40, GT * T - 312, 'speech', 170); this.sfx('thanks'); }
+          if (k > 0 && k < 220 && k % 8 === 0) {
+            this.effects.push({ type: 'heart', x: h.x - 66 + ((k * 37) % 90) - 45, y: GT * T - 150, vx: ((k * 13) % 7 - 3) * 0.25, vy: -1.8, t: 0, life: 52 });
+          }
+          h.hop = k < 150 ? Math.abs(Math.sin(k * 0.16)) * 16 : 0;
+        }
+      }
+      this.move(p);
+      if (t % 30 === 0 && t < 400) this.firework(this.camX + 150 + (t * 131) % 780, 150 + (t * 71) % 280);
+      if (t >= 450) { this.setMode('ending'); this.music('ending'); this.effects = []; }
     }
 
     updateCamera() {

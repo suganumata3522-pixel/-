@@ -306,6 +306,11 @@
         return 0;
       });
     },
+    unlock: () => synth(0.5, (t, st) => {
+      const clank = t < 0.06 ? noise() * 0.5 * (1 - t / 0.06) : 0;
+      return clank + tone(st, t < 0.08 ? 1568 : 2093, 'pulse', 0.25) * 0.2 * Math.exp(-t * 7) + tone(st, 784, 'tri', 0, 'ph2') * 0.25 * Math.exp(-t * 9);
+    }),
+    thanks: () => arpeggio(['C6', 'E6', 'G6', 'C7', 'G6', 'C7', 'E7'], 0.07, 'pulse', 0.125, 0.22, 6),
     engine: () => synth(0.7, (t, st) => tone(st, 80 + t * 220, 'saw', 0) * 0.16 * Math.min(1, (0.7 - t) * 4)),
   };
 

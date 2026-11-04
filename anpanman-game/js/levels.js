@@ -145,7 +145,7 @@
       for (let r = 0; r < 13; r++) { b.set(118, r, 'W'); b.set(119, r, 'W'); b.set(120, r, 'W'); b.set(121, r, 'W'); }
       for (const c of [16, 46, 76]) b.coins(c, 3, 8);
       b.arenaC = 104;
-      return b.done({ world: '1-3', name: 'バイキン城', music: 'castle' });
+      return b.done({ world: '1-3', name: 'バイキン城', music: 'castle', princessC: 116 });
     },
   ];
 

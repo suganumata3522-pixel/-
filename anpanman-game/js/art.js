@@ -454,6 +454,104 @@
     ctx.restore();
   };
 
+  /* ------------------------------------------------ ジャムおじさん姫 */
+  // ジャムおじさん's face (white bushy brows and mustache, round nose) in a princess outfit.
+  // mood: normal | cry | happy.  arms: clasp | bars | wave | up | hold
+  Art.jamHime = function (ctx, x, y, o) {
+    const f = o.frame || 0, mood = o.mood || 'normal', arms = o.arms || 'clasp';
+    ctx.save(); ctx.translate(x, y - (o.hop || 0));
+    if (o.scale) ctx.scale(o.scale, o.scale);
+    if (o.rot) { ctx.translate(0, -80); ctx.rotate(o.rot); ctx.translate(0, 80); }
+    const sway = Math.sin(f * 0.12) * (o.flutter ? 6 : 1.5);
+    // long blonde hair behind
+    ctx.beginPath(); ctx.moveTo(-26, -150);
+    ctx.bezierCurveTo(-52, -126, -50, -86, -40, -66 + sway * 0.3); ctx.quadraticCurveTo(0, -58, 40, -66 - sway * 0.3);
+    ctx.bezierCurveTo(50, -86, 52, -126, 26, -150); ctx.closePath();
+    paint(ctx, '#FFD95E', '#B9861A', 3);
+    // gown
+    ctx.beginPath(); ctx.moveTo(-17, -74);
+    ctx.bezierCurveTo(-30, -50, -52 - sway, -22, -56 - sway, -3); ctx.lineTo(56 + sway, -3);
+    ctx.bezierCurveTo(52 + sway, -22, 30, -50, 17, -74); ctx.closePath();
+    paint(ctx, '#F9B6D2', INK, 3);
+    ctx.fillStyle = '#FFFFFF';
+    for (let i = 0; i < 8; i++) { ctx.beginPath(); ctx.arc(-49 - sway + i * (14 + sway * 0.28), -3, 7, 0, Math.PI); ctx.fill(); }
+    ctx.beginPath(); ctx.moveTo(-17, -74); ctx.quadraticCurveTo(-48, -54, -42, -32); ctx.quadraticCurveTo(-20, -40, 0, -56);
+    ctx.quadraticCurveTo(20, -40, 42, -32); ctx.quadraticCurveTo(48, -54, 17, -74); ctx.closePath();
+    paint(ctx, '#EC6FA6', INK, 3);
+    rr(ctx, -17, -102, 34, 32, 9); paint(ctx, '#F38FBC', INK, 3);
+    ellipse(ctx, 0, -101, 15, 5, 0); paint(ctx, '#FFFFFF', INK, 2);
+    circle(ctx, 0, -88, 5.5); paint(ctx, '#3FA9F5', INK, 2);
+    // arms in long white gloves
+    const shL = [-19, -95], shR = [19, -95];
+    let hL = [-12, -78], hR = [12, -78];
+    if (arms === 'bars') { hL = [-34, -118]; hR = [34, -118]; }
+    else if (arms === 'wave') { hL = [-34 + Math.sin(f * 0.3) * 7, -140]; hR = [24, -70]; }
+    else if (arms === 'up') { hL = [-30, -136 + Math.sin(f * 0.5) * 4]; hR = [30, -136 - Math.sin(f * 0.5) * 4]; }
+    else if (arms === 'hold') { hL = [-30, -86]; hR = [26, -152]; }
+    for (const [sh, hd] of [[shL, hL], [shR, hR]]) { limb(ctx, sh[0], sh[1], hd[0], hd[1], 8, '#FFFFFF'); circle(ctx, hd[0], hd[1], 6.5); paint(ctx, '#FFFFFF', INK, 2.5); }
+    for (const sx of [-1, 1]) { circle(ctx, sx * 20, -97, 10); paint(ctx, '#F9B6D2', INK, 3); }
+    // head
+    const hy = -126;
+    circle(ctx, 0, hy, 25); paint(ctx, '#F7D3B5', INK, 3.2);
+    ctx.beginPath(); ctx.moveTo(-25, hy - 4); ctx.quadraticCurveTo(-22, hy - 30, 0, hy - 27); ctx.quadraticCurveTo(22, hy - 30, 25, hy - 4);
+    ctx.quadraticCurveTo(14, hy - 18, 0, hy - 17); ctx.quadraticCurveTo(-14, hy - 18, -25, hy - 4); ctx.closePath();
+    paint(ctx, '#FFD95E', '#B9861A', 2.5);
+    // crown
+    ctx.beginPath(); ctx.moveTo(-15, hy - 24); ctx.lineTo(-17, hy - 44); ctx.lineTo(-8, hy - 34); ctx.lineTo(0, hy - 48); ctx.lineTo(8, hy - 34); ctx.lineTo(17, hy - 44); ctx.lineTo(15, hy - 24); ctx.closePath();
+    paint(ctx, C.gold, C.goldDark, 2.5);
+    circle(ctx, 0, hy - 31, 3.5); ctx.fillStyle = '#E5331D'; ctx.fill();
+    circle(ctx, -10, hy - 28, 2.5); ctx.fillStyle = '#3FA9F5'; ctx.fill(); circle(ctx, 10, hy - 28, 2.5); ctx.fill();
+    for (const sx of [-1, 1]) { circle(ctx, sx * 25, hy + 9, 3.8); paint(ctx, '#3FA9F5', INK, 1.5); }
+    // face
+    ctx.fillStyle = 'rgba(255,120,140,0.45)'; circle(ctx, -15, hy + 6, 4.5); ctx.fill(); circle(ctx, 15, hy + 6, 4.5); ctx.fill();
+    ctx.strokeStyle = '#1A0F0A'; ctx.lineWidth = 2.6; ctx.lineCap = 'round';
+    for (const ex of [-8, 8]) {
+      if (mood === 'happy') { ctx.beginPath(); ctx.arc(ex, hy - 1, 4, Math.PI * 1.1, Math.PI * 1.9); ctx.stroke(); }
+      else if (mood === 'cry') {
+        ctx.beginPath(); ctx.moveTo(ex - 4, hy - 4); ctx.lineTo(ex + 4, hy - 2); ctx.stroke();
+        drop(ctx, ex + (ex < 0 ? -3 : 3), hy + 6 + (f * 0.8 % 14), 3.2);
+      } else { circle(ctx, ex, hy - 2, 2.6); ctx.fillStyle = '#1A0F0A'; ctx.fill(); }
+    }
+    for (const sx of [-1, 1]) { ellipse(ctx, sx * 9, hy - 10, 7, 3.6, sx * 0.15); paint(ctx, '#FFFFFF', '#8E8E9C', 1.8); }
+    if (mood === 'happy') { ctx.beginPath(); ctx.arc(0, hy + 13, 6, 0, Math.PI); ctx.closePath(); paint(ctx, C.mouth, INK, 2); }
+    else if (mood === 'cry') { ellipse(ctx, 0, hy + 16, 4, 5, 0); paint(ctx, C.mouth, INK, 2); }
+    for (const sx of [-1, 1]) { ellipse(ctx, sx * 8, hy + 9, 10, 5.5, sx * 0.25); paint(ctx, '#FFFFFF', '#8E8E9C', 1.8); }
+    circle(ctx, 0, hy + 3, 7); paint(ctx, '#F3A58E', INK, 2.2);
+    ellipse(ctx, -2, hy + 0.5, 2.4, 1.6, 0); ctx.fillStyle = 'rgba(255,255,255,0.8)'; ctx.fill();
+    ctx.restore();
+  };
+  // iron cage standing on bottomY (its floor); the chain runs up to chainFrom
+  Art.cage = function (ctx, cx, bottomY, o) {
+    const w = 156, h = 236, top = bottomY - h;
+    const chainFrom = o.chainFrom == null ? -40 : o.chainFrom;
+    ctx.strokeStyle = '#6E6880'; ctx.lineWidth = 4;
+    for (let y = top - 34; y > chainFrom; y -= 18) {
+      ellipse(ctx, cx, y, (y / 18) % 2 < 1 ? 5 : 3, 9, 0); ctx.stroke();
+    }
+    circle(ctx, cx, top - 26, 10); paint(ctx, null, '#3D3650', 5);
+    ctx.beginPath(); ctx.moveTo(cx - w / 2, top + 26); ctx.quadraticCurveTo(cx, top - 44, cx + w / 2, top + 26); ctx.closePath();
+    paint(ctx, '#4A4458', INK, 4);
+    for (let i = 0; i <= 6; i++) {
+      const bx = cx - w / 2 + 6 + i * (w - 12) / 6;
+      ctx.beginPath(); ctx.moveTo(bx, top + 22); ctx.lineTo(bx, bottomY - 8);
+      ctx.strokeStyle = INK; ctx.lineWidth = 8; ctx.stroke(); ctx.strokeStyle = '#9C96B8'; ctx.lineWidth = 4; ctx.stroke();
+    }
+    for (const yy of [top + 22, top + h * 0.74]) { rr(ctx, cx - w / 2, yy - 6, w, 12, 5); paint(ctx, '#5A5470', INK, 3); }
+    rr(ctx, cx - w / 2 - 8, bottomY - 16, w + 16, 16, 6); paint(ctx, '#4A4458', INK, 3.5);
+    if (o.locked) {
+      const ly = bottomY - 40;
+      ctx.beginPath(); ctx.arc(cx, ly - 10, 10, Math.PI, 0); ctx.strokeStyle = INK; ctx.lineWidth = 7; ctx.stroke();
+      ctx.strokeStyle = '#D8D2E8'; ctx.lineWidth = 3.5; ctx.stroke();
+      rr(ctx, cx - 16, ly - 10, 32, 26, 6); paint(ctx, C.gold, C.goldDark, 3);
+      circle(ctx, cx, ly + 1, 3.2); ctx.fillStyle = C.goldDark; ctx.fill();
+    }
+  };
+  function heart(ctx, x, y, s) {
+    ctx.beginPath(); ctx.moveTo(x, y + s * 0.9);
+    ctx.bezierCurveTo(x - s * 1.5, y - s * 0.1, x - s * 0.6, y - s * 1.3, x, y - s * 0.45);
+    ctx.bezierCurveTo(x + s * 0.6, y - s * 1.3, x + s * 1.5, y - s * 0.1, x, y + s * 0.9);
+  }
+
   /* --------------------------------------------------------- tiles */
   const cache = {};
   function mk(w, h) {
@@ -723,8 +821,9 @@
     paint(ctx, '#E2342B', INK, 3.5);
     smiley(ctx, x - 44, fy + 40, 17);
   }
-  function house(ctx, g, f) {
-    const x0 = g.level.houseC * T, gy = AP.GT * T;
+  function house(ctx, g, f) { houseAt(ctx, g.level.houseC * T, f); }
+  function houseAt(ctx, x0, f) {
+    const gy = AP.GT * T;
     for (let i = 0; i < 4; i++) {
       const t = (f * 0.6 + i * 40) % 160;
       circle(ctx, x0 + 230 + Math.sin(t * 0.05 + i) * 10 + t * 0.15, gy - 360 - t, 14 + t * 0.12);
@@ -804,6 +903,17 @@
         if (e.t < 8) { circle(ctx, e.x, e.y, 30 - e.t * 3); ctx.fillStyle = 'rgba(255,255,230,0.9)'; ctx.fill(); }
         ctx.globalAlpha = 1; break;
       }
+      case 'heart': {
+        ctx.globalAlpha = k > 0.7 ? (1 - k) / 0.3 : 1;
+        heart(ctx, e.x + Math.sin(e.t * 0.15) * 6, e.y, 13 + k * 5); paint(ctx, '#FF6FA8', '#B8246A', 3);
+        ctx.globalAlpha = 1; break;
+      }
+      case 'lock': {
+        ctx.save(); ctx.translate(e.x, e.y); ctx.rotate(e.t * 0.25);
+        ctx.beginPath(); ctx.arc(0, -10, 10, Math.PI, 0); ctx.strokeStyle = INK; ctx.lineWidth = 6; ctx.stroke();
+        rr(ctx, -16, -10, 32, 26, 6); paint(ctx, C.gold, C.goldDark, 3);
+        ctx.restore(); break;
+      }
       case 'twinkle': {
         const s = e.t < 10 ? e.t / 10 : 1 - Math.max(0, (e.t - 70) / 30);
         ctx.save(); ctx.translate(e.x, e.y); ctx.rotate(e.t * 0.06); ctx.scale(s, s);
@@ -871,6 +981,12 @@
     if (L.houseC != null) house(ctx, g, f);
     if (L.flagC != null) flagpole(ctx, g, f);
     drawTiles(ctx, g, f);
+    const h = g.hime;
+    if (h && h.x > g.camX - 300 && h.x < g.camX + 1400) {
+      const arms = !h.freed ? (g.boss && !g.boss.dead && g.boss.state !== 'enter' ? 'bars' : 'up') : h.met ? 'wave' : 'clasp';
+      Art.jamHime(ctx, h.x, AP.GT * T, { mood: h.mood, arms, frame: f, hop: h.hop });
+      Art.cage(ctx, h.x, AP.GT * T - h.lift * 560, { locked: !h.freed, frame: f });
+    }
     for (const it of g.items) Art.newFace(ctx, it, f);
     for (const e of g.enemies) Art.kabi(ctx, e, f);
     const b = g.boss;
@@ -891,10 +1007,16 @@
       for (let i = 0; i < b.maxHp; i++) { circle(ctx, 560 + i * 62, 52, 20); paint(ctx, i < b.hp ? '#E2342B' : '#4A3A5E', '#fff', 3); }
     }
     if (g.mode === 'victory') {
-      const t = g.modeT, s = t < 12 ? t / 12 : 1;
-      ctx.save(); ctx.translate(540, 330); ctx.scale(s, s);
-      text(ctx, 'バイキンマンを', 0, -60, 64, { fill: '#fff', lw: 12 });
-      text(ctx, 'やっつけた!', 0, 40, 104, { fill: '#FFE14D', stroke: '#C2261B', lw: 16, outer: '#fff', outerW: 14 });
+      const t = g.modeT, rescued = g.hime && g.hime.met && t >= g.hime.met + 20;
+      const t0 = rescued ? t - g.hime.met - 20 : t, s = t0 < 12 ? t0 / 12 : 1;
+      ctx.save(); ctx.translate(540, 300); ctx.scale(s, s);
+      if (rescued) {
+        text(ctx, 'ジャムおじさん姫を', 0, -60, 62, { fill: '#fff', stroke: '#C2267A', lw: 12 });
+        text(ctx, 'たすけた!', 0, 40, 110, { fill: '#FFE14D', stroke: '#C2261B', lw: 16, outer: '#fff', outerW: 14 });
+      } else {
+        text(ctx, 'バイキンマンを', 0, -60, 64, { fill: '#fff', lw: 12 });
+        text(ctx, 'やっつけた!', 0, 40, 104, { fill: '#FFE14D', stroke: '#C2261B', lw: 16, outer: '#fff', outerW: 14 });
+      }
       ctx.restore();
     }
     if (g.mode === 'tally' || g.mode === 'goal') {
@@ -929,8 +1051,8 @@
     text(ctx, 'スーパー', 0, -78, 72, { fill: '#FFE14D', stroke: '#C2261B', lw: 14, outer: '#fff', outerW: 10 });
     const lg = ctx.createLinearGradient(0, -20, 0, 90); lg.addColorStop(0, '#FF6A4D'); lg.addColorStop(1, '#D8231A');
     text(ctx, 'アンパンマン', 0, 36, 140, { fill: lg, stroke: '#5A1A10', lw: 22, outer: '#fff', outerW: 18 });
-    rr(ctx, -300, 118, 600, 70, 35); paint(ctx, '#5E9F86', INK, 5);
-    text(ctx, 'かびるんるん だいさくせん', 0, 154, 40, { fill: '#fff', stroke: INK, lw: 8 });
+    rr(ctx, -340, 118, 680, 70, 35); paint(ctx, '#EC6FA6', INK, 5);
+    text(ctx, 'ジャムおじさん姫を たすけだせ!', 0, 154, 38, { fill: '#fff', stroke: INK, lw: 8 });
     ctx.restore();
     if (g.titleOut ? (f >> 2) % 2 === 0 : (f >> 5) % 2 === 0 || t < 30) {
       text(ctx, 'PRESS START', 540, 520, 54, { fill: '#fff', stroke: '#C2261B', lw: 11 });
@@ -938,6 +1060,50 @@
     rr(ctx, 120, 1004, 840, 52, 26); ctx.fillStyle = 'rgba(43,26,18,0.55)'; ctx.fill();
     text(ctx, 'ファンメイド非公式作品 ／ 原作：やなせたかし「アンパンマン」', 540, 1031, 26, { fill: '#fff', stroke: null, lw: 0, weight: 800 });
     if (g.titleOut) { ctx.fillStyle = `rgba(255,255,255,${Math.min(1, g.titleOut / 45)})`; ctx.fillRect(0, 0, 1080, 1080); }
+  }
+  /* opening: ジャムおじさん姫 is caged and carried off by バイキンUFO */
+  function drawStory(ctx, g) {
+    const t = g.modeT, f = g.frame, GY = AP.GT * T, hx = 650;
+    const ease = (k) => k * k * (3 - 2 * k);
+    background(ctx, 'field', 0, f);
+    groundStrip(ctx, 'field', 0);
+    let sx = 0, sy = 0;
+    if (g.shake) { sx = Math.sin(f * 1.7) * g.shake * 0.8; sy = Math.cos(f * 2.3) * g.shake * 0.6; }
+    ctx.save(); ctx.translate(sx, sy);
+    houseAt(ctx, 30, f);
+    let ux = 1500, uy = -260, us = 1;
+    if (t >= 50 && t < 115) { const k = ease((t - 50) / 65); ux = 1500 + (hx - 1500) * k; uy = -260 + 560 * k; }
+    else if (t >= 115 && t < 180) { ux = hx; uy = 300 + Math.sin(t * 0.12) * 5; }
+    else if (t >= 180) { const k = t - 180; ux = hx + k * 2.2 + k * k * 0.07; uy = 300 - k * 2.6 - k * k * 0.03; us = Math.max(0.2, 1 - k * 0.0065); }
+    const caged = t >= 132;
+    const himeMood = t < 62 ? 'happy' : 'cry';
+    if (!caged) Art.jamHime(ctx, hx, GY, { mood: himeMood, arms: t < 62 ? 'clasp' : 'up', frame: f, hop: t < 62 ? Math.abs(Math.sin(t * 0.1)) * 6 : 0 });
+    if (t >= 50) {
+      ctx.save(); ctx.translate(ux, uy); ctx.scale(us, us);
+      if (t >= 112) {
+        const k = Math.min(1, (t - 112) / 20);
+        const bottom = 318 + 318 * k * k;
+        if (caged) Art.jamHime(ctx, 0, 636, { mood: 'cry', arms: 'bars', frame: f });
+        Art.cage(ctx, 0, bottom, { locked: true, chainFrom: 84, frame: f });
+      }
+      Art.boss(ctx, { x: 0, y: 0, rot: 0, scale: 1, state: 'hover', flashT: 0, glove: null }, f, -1e4);
+      ctx.restore();
+    }
+    ctx.restore();
+    if (t >= 6 && t < 58) bubble(ctx, '♪ パンが やけたよ〜', hx + 40, GY - 230, 32, '#FFFFFF', INK, INK, 0);
+    if (t >= 72 && t < 140) bubble(ctx, 'ハーヒフーヘーホー!', ux, uy - 175, 38, '#F3E9FF', '#5E2F8F', '#5E2F8F', 0);
+    if (t >= 88 && t < 132) bubble(ctx, 'きゃ〜!', hx + 80, GY - 230, 34, '#FFFFFF', INK, INK, 0);
+    if (t >= 140 && t < 210) bubble(ctx, 'たすけて〜! アンパンマ〜ン!', Math.min(ux, 760), Math.max(140, uy + (636 - 270) * us), 32, '#FFFFFF', INK, INK, 0);
+    if (t >= 205) {
+      const s = Math.min(1, (t - 205) / 12);
+      ctx.save(); ctx.translate(540, 300); ctx.scale(s, s);
+      text(ctx, 'たいへん!', 0, -90, 60, { fill: '#fff', stroke: '#C2261B', lw: 12 });
+      text(ctx, 'ジャムおじさん姫が', 0, 0, 66, { fill: '#fff', stroke: '#C2267A', lw: 13 });
+      text(ctx, 'さらわれた!', 0, 96, 104, { fill: '#FFE14D', stroke: '#C2261B', lw: 16, outer: '#fff', outerW: 14 });
+      ctx.restore();
+    }
+    if (t < 12) { ctx.fillStyle = `rgba(255,255,255,${1 - t / 12})`; ctx.fillRect(0, 0, 1080, 1080); }
+    if (t > 285) { ctx.fillStyle = `rgba(0,0,0,${(t - 285) / 15})`; ctx.fillRect(0, 0, 1080, 1080); }
   }
   function drawIntro(ctx, g) {
     const f = g.frame;
@@ -960,7 +1126,7 @@
       text(ctx, '↑：そらをとぶ（とんだら 十字キーで いどう）', 540, 898, 32, { fill: '#fff', stroke: null, lw: 0 });
       text(ctx, 'かびるんるんを やっつけろ!', 540, 954, 36, { fill: '#FFE14D', stroke: null, lw: 0 });
     } else if (L.theme === 'castle') {
-      text(ctx, 'バイキンマンが まっているぞ…!', 540, 880, 42, { fill: '#D9B8FF', stroke: null, lw: 0 });
+      text(ctx, 'ジャムおじさん姫を たすけだせ!', 540, 880, 42, { fill: '#FFB8D9', stroke: null, lw: 0 });
     }
     if (g.modeT < 12) { ctx.fillStyle = `rgba(0,0,0,${1 - g.modeT / 12})`; ctx.fillRect(0, 0, 1080, 1080); }
   }
@@ -972,6 +1138,7 @@
     layer(f * 3, 0.5, 480, (i, x) => cloud(ctx, x + hash(i, 9) * 160, 560 + hash(i, 10) * 300, 0.9 + hash(i, 11) * 0.4, '#fff', '#F2C6A0', i % 2 === 0));
     const ax = -200 + ((t * 5) % 1500), ay = 850 + Math.sin(t * 0.05) * 30;
     if (f % 2 === 0) g.effects.push({ type: 'spark', x: ax - 140, y: ay - 60 + Math.sin(f) * 20, vx: -3, vy: 0.5, t: 0, life: 30, color: null, hue: f * 7, screen: true });
+    Art.jamHime(ctx, ax - 96, ay + 112, { scale: 1.35, rot: -0.62, mood: 'happy', arms: 'hold', frame: f, flutter: true });
     Art.anpanman(ctx, ax, ay, { pose: 'fly', rot: 1.25, wind: 1.3, frame: f, scale: 1.9 });
     const s = t < 16 ? t / 16 : 1 + Math.sin(t * 0.08) * 0.03;
     ctx.save(); ctx.translate(540, 190); ctx.scale(s, s);
@@ -1073,6 +1240,7 @@
     ctx.save(); ctx.beginPath(); ctx.rect(V.x, V.y, V.w, V.h); ctx.clip(); ctx.translate(V.x, V.y);
     switch (g.mode) {
       case 'title': drawTitle(ctx, g); break;
+      case 'story': drawStory(ctx, g); break;
       case 'intro': case 'gameover': drawIntro(ctx, g); break;
       case 'ending': drawEnding(ctx, g); break;
       default: drawWorld(ctx, g);
