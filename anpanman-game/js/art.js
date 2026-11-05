@@ -1248,7 +1248,7 @@
     for (const e of g.effects) if (e.screen) drawEffect(ctx, e, g, 0);
     if (g.flash) { ctx.fillStyle = `rgba(255,255,255,${g.flash / 12})`; ctx.fillRect(0, 0, V.w, V.h); }
     if (g.mode === 'tally' && g.tallyDone > 80) { ctx.fillStyle = `rgba(0,0,0,${(g.tallyDone - 80) / 20})`; ctx.fillRect(0, 0, V.w, V.h); }
-    if (g.mode === 'victory' && g.modeT > 370) { ctx.fillStyle = `rgba(255,255,255,${(g.modeT - 370) / 20})`; ctx.fillRect(0, 0, V.w, V.h); }
+    if (g.mode === 'victory' && g.modeT > 370 && !g.stageOnly) { ctx.fillStyle = `rgba(255,255,255,${(g.modeT - 370) / 20})`; ctx.fillRect(0, 0, V.w, V.h); }
     if (g.mode === 'ending' && g.modeT < 20) { ctx.fillStyle = `rgba(255,255,255,${1 - g.modeT / 20})`; ctx.fillRect(0, 0, V.w, V.h); }
     if (g.autoLabel) {
       rr(ctx, 24, 1000, 230, 54, 27); ctx.fillStyle = 'rgba(43,26,18,0.6)'; ctx.fill();
