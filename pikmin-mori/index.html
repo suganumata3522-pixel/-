@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>あつまれ ピクミンの森</title>
+<style>
+  @font-face { font-family: 'M PLUS Rounded 1c'; font-weight: 800; src: url(fonts/mplus-rounded-800.woff2) format('woff2'); }
+  @font-face { font-family: 'M PLUS Rounded 1c'; font-weight: 900; src: url(fonts/mplus-rounded-900.woff2) format('woff2'); }
+  /* one-screen 9:16 game, controls listed beside it on wide screens */
+  :root {
+    --bg: #2F4A3A;
+    --panel: #FFF6DE;
+    --ink: #5B4632;
+    --muted: #8A7250;
+    --accent: #7CC85E;
+    --font: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', 'Hiragino Sans', sans-serif;
+    color-scheme: dark;
+  }
+  html, body { height: 100%; margin: 0; background: var(--bg); color: var(--ink); overflow: hidden; font-family: var(--font); }
+  #stage {
+    position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; gap: 40px;
+    padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
+  }
+  canvas { display: block; touch-action: none; user-select: none; -webkit-user-select: none; border-radius: 14px; background: #46B7E2; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.45); }
+  #help { width: 270px; font-weight: 800; line-height: 1.6; background: var(--panel); border-radius: 22px; padding: 22px 24px; border: 3px solid #C9B48A; }
+  #help h2 { margin: 0 0 10px; font-size: 20px; color: #4E9A3A; font-weight: 900; }
+  #help dl { display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; margin: 0; font-size: 15px; }
+  #help dt { color: #4E9A3A; }
+  #help dd { margin: 0; }
+  #help p { margin: 14px 0 0; font-size: 12.5px; color: var(--muted); font-weight: 800; }
+  kbd { font-family: inherit; }
+  @media (max-width: 900px), (max-aspect-ratio: 1/1) { #help { display: none; } #stage { gap: 0; } }
+</style>
+</head>
+<body>
+<div id="stage">
+  <canvas id="game" width="1080" height="1920" aria-label="あつまれ ピクミンの森 ゲーム画面"></canvas>
+  <aside id="help">
+    <h2>あそびかた</h2>
+    <dl>
+      <dt>タップ</dt><dd>地面：オリマーが移動<br>芽：ピクミンを引っこ抜く<br>木・岩・草・果物：ピクミンを投げる（長押しで連続）</dd>
+      <dt><kbd>WASD</kbd> / 矢印</dt><dd>オリマーが移動</dd>
+      <dt><kbd>Space</kbd></dt><dd>近くの仕事にピクミンを投げる</dd>
+      <dt><kbd>Z</kbd></dt><dd>近くの芽を引っこ抜く</dd>
+      <dt><kbd>X</kbd></dt><dd>ふえ（ピクミンをよびもどす）</dd>
+      <dt><kbd>C</kbd></dt><dd>ズーム切りかえ</dd>
+      <dt><kbd>Tab</kbd></dt><dd>オートプレイ ON/OFF</dd>
+      <dt><kbd>M</kbd></dt><dd>音を消す</dd>
+    </dl>
+    <p>資材があつまると、目標の建物の工事が自動ではじまります。工事現場にピクミンを投げて建てましょう。島評価 ★5 で花火大会！</p>
+  </aside>
+</div>
+<script src="js/world.js"></script>
+<script src="js/game.js"></script>
+<script src="js/bot.js"></script>
+<script src="js/art.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
