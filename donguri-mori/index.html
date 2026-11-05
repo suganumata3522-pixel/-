@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#2f5d3a">
+<meta name="description" content="どんぐりっこを集めて、運んで、森をにぎやかにするオリジナルゲーム。見所を縦型ショート動画にしてYouTubeに投稿できます。">
+<title>どんぐりっこの森</title>
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="stage">
+  <canvas id="game" width="720" height="1280" aria-label="ゲーム画面"></canvas>
+
+  <div id="hud" hidden>
+    <div class="hud-top">
+      <div class="pill" id="hud-coin" title="もりコイン"><img src="assets/icon.svg" alt=""><b>0</b></div>
+      <div class="pill" id="hud-kids" title="ついてきている数 / ぜんぶの数"><span class="kid-ico"></span><b>0</b><small>/0</small></div>
+      <div class="pill" id="hud-clock"><span class="ico">☀</span><b>6:00</b></div>
+    </div>
+    <div id="rec-badge" hidden><i></i><span>00:00</span></div>
+    <div class="side">
+      <button class="sbtn rec" id="btn-rec" title="録画 (R)"><span class="rec-dot"></span><em>録画</em></button>
+      <button class="sbtn" id="btn-clip" title="いまの見所をクリップ (H)"><span class="ico">✨</span><em>見所</em></button>
+      <button class="sbtn" id="btn-studio" title="ショート動画をつくる"><span class="ico">🎬</span><em>ショート</em><span class="badge" id="clip-count" hidden>0</span></button>
+      <button class="sbtn" id="btn-shop" title="おみせ"><span class="ico">🏡</span><em>おみせ</em></button>
+      <button class="sbtn" id="btn-settings" title="せってい"><span class="ico">⚙</span><em>せってい</em></button>
+    </div>
+    <button id="btn-whistle" title="おいで！ (スペース)">おいで！</button>
+    <div id="joy" hidden><div id="joy-knob"></div></div>
+    <div id="hint" hidden></div>
+    <div id="flash"></div>
+  </div>
+
+  <div id="title" class="screen">
+    <div class="title-card">
+      <img class="logo-ico" src="assets/icon.svg" alt="">
+      <h1>どんぐりっこの森</h1>
+      <p class="tag">あつめて、はこんで、森をにぎやかに。</p>
+      <button class="btn primary big" id="btn-start">はじめる</button>
+      <button class="btn" id="btn-continue" hidden>つづきから</button>
+      <button class="btn ghost" id="btn-howto">あそびかた</button>
+      <p class="small">見所は自動でクリップされて、<br>YouTubeショート用の縦型動画にできます。</p>
+    </div>
+  </div>
+  <div id="toast" aria-live="polite"></div>
+</div>
+
+<!-- あそびかた -->
+<div class="modal" id="m-howto" hidden>
+  <div class="sheet">
+    <header><h2>あそびかた</h2><button class="x" data-close aria-label="とじる">✕</button></header>
+    <ol class="howto">
+      <li><b>あるく</b> スマホは画面をスワイプ、PCは <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> / 矢印キー。</li>
+      <li><b>なかまにする</b> 地面からのぞいている「どんぐりっこの芽」に近づくと、とびだしてついてくるよ。</li>
+      <li><b>なげる</b> 画面をタップ(クリック)した場所に、どんぐりっこを投げる。長おしで連続なげ。</li>
+      <li><b>はこぶ</b> 森のおとしものに投げると、みんなでおうち(切り株)へ運ぶよ。数字は「力 / 必要な力」。運ぶと、もりコインと新しい芽がもらえる。</li>
+      <li><b>おいで！</b> ボタン(<kbd>スペース</kbd>)で、近くのどんぐりっこと芽をまとめて呼ぶ。</li>
+      <li><b>きたの森</b> 橋の前の丸太は、10ぴきくらいでどかせる。その先には大物や「金のりんご」が…！</li>
+      <li><b>かざる</b> おみせでかざりを買うと、いまいる場所の前に置けるよ。</li>
+    </ol>
+    <h3>ショート動画にする</h3>
+    <ol class="howto">
+      <li>大物を運んだ・ながれぼし・にじ…などの<b>見所は自動でクリップ</b>されます(直前の数秒もさかのぼって保存)。</li>
+      <li>「✨見所」ボタン(<kbd>H</kbd>)で、いまの場面を手動でクリップ。「●録画」(<kbd>R</kbd>)で好きなだけ録画(最大60秒)。</li>
+      <li>「🎬ショート」でクリップをえらんで<b>縦型9:16の動画</b>に。スマホは「共有」からYouTubeアプリへ、PCは保存してYouTubeにアップロード。</li>
+    </ol>
+    <p class="note">クリップはこのページを閉じると消えます。気に入ったものは保存してね。</p>
+  </div>
+</div>
+
+<!-- おみせ -->
+<div class="modal" id="m-shop" hidden>
+  <div class="sheet">
+    <header><h2>🏡 おみせ</h2><button class="x" data-close aria-label="とじる">✕</button></header>
+    <p class="lead">もりコイン <b id="shop-coins">0</b> ・ にぎわい <b id="shop-nigiwai">0</b></p>
+    <ul id="shop-list" class="shop"></ul>
+    <button class="btn ghost" id="shop-remove">近くのかざりをしまう(半額もどる)</button>
+  </div>
+</div>
+
+<!-- せってい -->
+<div class="modal" id="m-settings" hidden>
+  <div class="sheet">
+    <header><h2>⚙ せってい</h2><button class="x" data-close aria-label="とじる">✕</button></header>
+    <label class="field row"><span>見所の自動クリップ</span><input type="checkbox" id="set-autohl"></label>
+    <p class="note">ONにすると、見所が起きたとき直前の数秒をさかのぼって保存します。動きが重いときはOFFにしてね。</p>
+    <label class="field"><span>BGMの音量</span><input type="range" id="set-music" min="0" max="1" step="0.05"></label>
+    <label class="field"><span>効果音の音量</span><input type="range" id="set-sfx" min="0" max="1" step="0.05"></label>
+    <label class="field"><span>手動録画の最大の長さ</span>
+      <select id="set-maxrec"><option value="30">30秒</option><option value="60">60秒(おすすめ)</option><option value="180">3分(ショートの上限)</option></select>
+    </label>
+    <label class="field"><span>録画の画質</span>
+      <select id="set-quality"><option value="low">かるい</option><option value="std">ふつう</option><option value="high">きれい</option></select>
+    </label>
+    <p class="note" id="set-recinfo"></p>
+    <h3>YouTubeに直接アップロード(上級者向け)</h3>
+    <label class="field"><span>Google OAuth クライアントID</span><input type="text" id="set-ytid" placeholder="xxxxxxxx.apps.googleusercontent.com" autocomplete="off" spellcheck="false"></label>
+    <p class="note">空のままでもOK。動画を保存して、YouTubeアプリやYouTube Studioから投稿できます。直接アップロードの準備方法は <code>README.md</code> を見てね。</p>
+    <hr>
+    <button class="btn danger" id="set-reset">データをリセット</button>
+  </div>
+</div>
+
+<!-- ショート動画スタジオ -->
+<div class="modal" id="m-studio" hidden>
+  <div class="sheet wide">
+    <header><h2>🎬 ショート動画スタジオ</h2><button class="x" data-close aria-label="とじる">✕</button></header>
+    <section id="st-pick">
+      <p class="lead">見所クリップをえらんで、縦型(9:16)のショート動画をつくろう。</p>
+      <div id="st-empty" class="empty">まだクリップがありません。<br>大物を運んだり、「✨見所」「●録画」ボタンを使うとここにたまります。</div>
+      <ul id="st-clips" class="clips"></ul>
+      <label class="field"><span>動画のタイトル(オープニングに表示)</span><input type="text" id="st-title" maxlength="20"></label>
+      <div class="row-chk">
+        <label class="chk"><input type="checkbox" id="st-intro" checked> オープニング</label>
+        <label class="chk"><input type="checkbox" id="st-outro" checked> エンディング</label>
+      </div>
+      <p class="est" id="st-est"></p>
+      <button class="btn primary big" id="st-make">ショート動画をつくる</button>
+    </section>
+    <section id="st-making" hidden>
+      <p class="lead" id="st-making-msg"></p>
+      <div class="progress"><i id="st-prog"></i></div>
+      <div class="vframe"><canvas id="st-canvas" width="720" height="1280"></canvas></div>
+      <button class="btn" id="st-cancel">中止する</button>
+    </section>
+    <section id="st-done" hidden>
+      <div class="vframe"><video id="st-video" controls playsinline></video></div>
+      <p class="meta" id="st-meta"></p>
+      <div class="share-btns">
+        <button class="btn primary" id="st-share">📱 共有(YouTubeアプリへ)</button>
+        <button class="btn primary" id="st-save">💾 動画を保存</button>
+        <button class="btn" id="st-ytopen">▶ YouTubeをひらいて投稿</button>
+      </div>
+      <div class="guide">
+        <p id="st-hint-mobile" hidden><b>スマホ:</b>「共有」→ YouTube をえらぶとショートとして投稿できます。表示されないときは「動画を保存」してから、YouTubeアプリの「＋」→「ショート」→ 左下のアルバムから選んでね。</p>
+        <p><b>PC:</b>「動画を保存」→「YouTubeをひらいて投稿」。縦長で3分以内の動画は自動でショートになります。ボタンを押すとタイトルと説明もコピーされるので、貼りつけるだけ。</p>
+      </div>
+      <label class="field"><span>タイトル</span><input type="text" id="yt-title" maxlength="100"></label>
+      <label class="field"><span>説明</span><textarea id="yt-desc" rows="4"></textarea></label>
+      <button class="btn ghost" id="st-copy">タイトルと説明をコピー</button>
+      <details class="yt">
+        <summary>⬆ YouTubeに直接アップロード(上級者向け)</summary>
+        <div id="yt-need-id">
+          <p class="note">Google Cloud で作った OAuth クライアントIDを「せってい」に入れると、ここから直接アップロードできます(手順は README.md)。</p>
+          <button class="btn" id="yt-gosettings">せっていをひらく</button>
+        </div>
+        <div id="yt-form" hidden>
+          <label class="field"><span>公開設定</span>
+            <select id="yt-privacy"><option value="private">非公開</option><option value="unlisted">限定公開</option><option value="public">公開</option></select>
+          </label>
+          <p class="note">審査前のGoogle Cloudプロジェクトからのアップロードは、YouTubeの決まりで「非公開」に固定されます。公開したいときは保存した動画をアプリやStudioから投稿してね。</p>
+          <button class="btn primary" id="yt-upload">Googleでログインしてアップロード</button>
+        </div>
+        <div class="progress" id="yt-progwrap" hidden><i id="yt-prog"></i></div>
+        <p id="yt-result" class="result"></p>
+      </details>
+      <button class="btn ghost" id="st-back">← クリップ選択にもどる</button>
+    </section>
+  </div>
+</div>
+
+<!-- クリップのプレビュー -->
+<div class="modal" id="m-preview" hidden>
+  <div class="preview">
+    <video id="pv-video" controls playsinline></video>
+    <button class="btn" id="pv-close">とじる</button>
+  </div>
+</div>
+
+<script src="js/util.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/sprites.js"></script>
+<script src="js/world.js"></script>
+<script src="js/game.js"></script>
+<script src="js/render.js"></script>
+<script src="js/recorder.js"></script>
+<script src="js/youtube.js"></script>
+<script src="js/studio.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
