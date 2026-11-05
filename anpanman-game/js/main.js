@@ -11,7 +11,7 @@
   const botStyle = (/[?&]bot=(\w+)/.exec(location.search) || [])[1] || 'fly';
   const bot = new AP.Bot(game, botStyle);
   const stage = +((/[?&]stage=(\d)/.exec(location.search) || [])[1] || 0);
-  if (stage) game.startAt(stage - 1);
+  if (stage) game.startAt(stage - 1, /[?&]story\b/.test(location.search));
 
   if (RECORD) { setupRecorder(); return; }
 

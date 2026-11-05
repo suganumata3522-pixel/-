@@ -454,11 +454,12 @@
       this.stats = { kabi: 0, punch: 0, coins: 0, frames: 0 };
       this.loadLevel(0); this.setMode('story');
     }
-    // start straight at one stage (for stage-only videos); the run ends after that stage's clear
-    startAt(i) {
+    // start straight at one stage (for stage-only videos); the run ends after that stage's clear.
+    // withStory plays the kidnapping opening first, then that stage's WORLD card.
+    startAt(i, withStory) {
       this.score = 0; this.coins = 0; this.lives = 3;
       this.stats = { kabi: 0, punch: 0, coins: 0, frames: 0 };
-      this.stageOnly = true; this.loadLevel(i); this.setMode('intro');
+      this.stageOnly = true; this.loadLevel(i); this.setMode(withStory ? 'story' : 'intro');
     }
     loadLevel(i) {
       this.levelIndex = i;

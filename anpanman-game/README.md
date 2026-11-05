@@ -49,7 +49,7 @@ node tools/record.js out/anpanman-shorts.mp4 --bot ground --crf 18
 ```
 
 - 出力：1080×1920 / 60fps / H.264 + AAC（YouTube ショートの上限 3 分以内）
-- `--stage 3` をつけると、そのステージだけ（WORLD の紹介画面からクリアまで）の動画になります。例：`node tools/record.js out/castle.mp4 --bot ground --stage 3 --no-bgm`
+- `--stage 3` をつけると、そのステージだけ（WORLD の紹介画面からクリアまで）の動画になります。例：`node tools/record.js out/castle.mp4 --bot ground --stage 3 --no-bgm`（`--story` を足すと、最初にジャムおじさん姫がさらわれるオープニングが入ります）
 - `--no-bgm` をつけると BGM（くり返し流れる曲）だけを消した動画になります。コイン・敵・パンチなどの効果音と、ステージ開始・クリア・勝利のジングルは残ります
 - `node tools/sim.js 14000 fly`（または `ground`）で描画なしの通しプレイを数秒で確認できます
 - ブラウザで遊ぶときのオートプレイは `fly`。`index.html?bot=ground` で地上版になります
