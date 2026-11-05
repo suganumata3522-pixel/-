@@ -567,8 +567,8 @@
     g.restore();
   }
 
-  // 9回裏の場面の導入
-  function sceneTitle(g, age) {
+  // 9回裏の場面の導入(full: フルカウントから始まる版)
+  function sceneTitle(g, age, full) {
     const sc = HR.lerp(1.8, 1, HR.easeOutBack(age / 0.4));
     g.save();
     g.globalAlpha = HR.clamp(age * 6, 0, 1);
@@ -577,7 +577,9 @@
     impactText(g, '2アウト満塁', W / 2, 990, 150, sc, -0.05, ['#ffffff', '#ffd0dd', '#ff4d80', '#d4142a'], [[30, '#3a0016'], [18, '#ffffff'], [7, '#d4142a']]);
     if (age > 0.5) {
       g.globalAlpha = HR.clamp((age - 0.5) * 5, 0, 1);
-      alertPill(g, W / 2 - 230, 1120, '一打サヨナラのピンチ!', false);
+      const pill = full ? 'フルカウント・一打サヨナラ!' : '一打サヨナラのピンチ!';
+      g.font = UI(900, 46);
+      alertPill(g, W / 2 - (g.measureText(pill).width + 64) / 2, 1120, pill, false);
     }
     g.restore();
   }
@@ -768,11 +770,11 @@
     g.restore();
   }
 
-  function titleScreen(g, age, scene) {
+  function titleScreen(g, age, scene, full) {
     g.fillStyle = vgrad(g, 0, H, ['rgba(4,10,30,0.55)', 'rgba(4,10,30,0.05)', 'rgba(4,10,30,0.05)', 'rgba(4,10,30,0.7)']);
     g.fillRect(0, 0, W, H);
     if (scene) {
-      sceneTitle(g, age);
+      sceneTitle(g, age, full);
       if (Math.floor(age * 2) % 2 === 0) {
         txt(g, 'タップで再生', W / 2, 1400, { font: UI(900, 64), align: 'center', fill: '#ffffff', strokes: [[16, NAVY], [6, '#4cb2f2']] });
       }
@@ -897,7 +899,7 @@
     if (s.zone) drawZone(g, s.zone);
     if (s.cursor) drawCursor(g, s.cursor, s.power, s.cursorFlash);
 
-    if (s.title) { titleScreen(g, now - s.title.t0, s.title.scene); drawParts(g, s.dt); return; }
+    if (s.title) { titleScreen(g, now - s.title.t0, s.title.scene, s.title.full); drawParts(g, s.dt); return; }
 
     if (s.situation && s.showBoards) {
       const sit = s.situation;
@@ -933,7 +935,7 @@
     if (s.intro) {
       const age = now - s.intro.t0;
       if (s.intro.stage === 'title') logo(g, W / 2, 900, age, true);
-      if (s.intro.stage === 'scene') sceneTitle(g, age);
+      if (s.intro.stage === 'scene') sceneTitle(g, age, s.intro.full);
       if (s.intro.stage === 'pitcher') introCard(g, 'PITCHER', 'バタコさん', [['コントロール', 'S'], ['スタミナ', 'B']], age, ['#ff8ab8', '#e8337a'], '最速168km/h  スライダー7・SFF7・シュート7');
       if (s.intro.stage === 'batter') introCard(g, 'BATTER', 'ジャムおじさん', [['パワー', 'S'], ['ミート', 'C'], ['走力', 'E']], age, ['#7cf08f', '#1fae4a']);
     }

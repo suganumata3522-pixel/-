@@ -371,6 +371,8 @@
   // 好捕版: 6球目は逆転版と同じ当たり。フェンスの手前でアンパンマンが空中でキャッチする
   const SAYONARA_CATCH = SAYONARA.slice(0, 5).concat([{ name: 'ストレート', kmh: 168, tx: 0.06, ty: 0.86, act: 'homer', result: 'catch' }]);
   const sceneScript = () => (S.sc.kind === 'homerun' ? SAYONARA_HR : S.sc.kind === 'catch' ? SAYONARA_CATCH : SAYONARA);
+  // 逆転弾・好捕版は、フルカウント(5球目まで終わったところ)から始めて6球目だけを見せる
+  const fromFullCount = (kind) => kind === 'homerun' || kind === 'catch';
   const teams = () => [
     { name: 'バタコ', score: S.sc.score[0], color: '#e8337a' },
     { name: 'ジャム', score: S.sc.score[1], color: '#1fae4a', batting: true },
@@ -456,7 +458,8 @@
 
   function startScene() {
     S.mode = 'scene';
-    S.sc = { kind: sceneKind || 'strikeout', i: -1, b: 0, s: 0, o: 2, ev: {}, score: [3, 2] };
+    const kind = sceneKind || 'strikeout', full = fromFullCount(kind);
+    S.sc = { kind, i: full ? 4 : -1, b: full ? 3 : 0, s: full ? 2 : 0, o: 2, ev: {}, score: [3, 2] };
     S.tan = null;
     S.btan = null;
     S.anp = null; S.cfx = null; S.speech2 = null;
@@ -469,8 +472,8 @@
     HR.HUD.clearParticles();
     stadium.drawScreen('9回裏', 'バタコ 3 - 2 ジャム', false);
     setPhase('sIntro');
-    S.intro = { stage: 'scene', t0: S.now };
-    narrate(HR.SCENE.intro, { queue: true });
+    S.intro = { stage: 'scene', t0: S.now, full };
+    narrate(full ? HR.SCENE.introFull : HR.SCENE.intro, { queue: true });
     sfx('organ');
     sfx('cheer', { level: 0.5, dur: 4 });
     syncButtons();
@@ -1696,7 +1699,7 @@
     };
     if (S.speech && !panelUp && S.now >= S.speech.t0 && (S.mode === 'scene' || S.tan)) st.speech = speechAt(S.speech);
     if (S.speech2 && S.mode === 'scene' && S.now >= S.speech2.t0) st.speech2 = speechAt(S.speech2);
-    if (S.phase === 'title' && sceneMode) st.title = { t0: S.title.t0, scene: true };
+    if (S.phase === 'title' && sceneMode) st.title = { t0: S.title.t0, scene: true, full: fromFullCount(sceneKind) };
     const bs = S.batakoSay;
     if (bs && batView && (!bs.sore || S.now - bs.sore < 0.8)) {
       const r = batako.root.position;
