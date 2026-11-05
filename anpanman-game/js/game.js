@@ -891,6 +891,8 @@
     /* -------------------------------------------------------- effects */
     textPop(text, x, y, style, life) {
       const screen = style === 'big';
+      // バイキンマン says one thing at a time: a new line replaces the old bubble
+      if (style === 'baikin') this.effects = this.effects.filter((e) => !(e.type === 'text' && e.style === 'baikin'));
       this.effects.push({ type: 'text', text, x, y, style, t: 0, life: life || 60, screen });
     }
     spark(x, y, color) {
