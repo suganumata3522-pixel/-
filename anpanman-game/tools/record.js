@@ -1,5 +1,6 @@
 // Renders the bot playthrough frame-by-frame into a 1080x1920 60fps MP4 with audio.
-// Usage: node tools/record.js [out.mp4] [--bot fly|ground] [--no-bgm] [--max-frames N] [--crf 20]
+// Usage: node tools/record.js [out.mp4] [--bot fly|ground] [--stage 1-3] [--no-bgm] [--max-frames N] [--crf 20]
+// --stage N records only that stage (from its WORLD card to its clear).
 // --no-bgm keeps sound effects and jingles but drops the looping background music.
 const { chromium } = require('playwright');
 const { spawn } = require('child_process');
@@ -12,6 +13,7 @@ const out = path.resolve(args[0] && !args[0].startsWith('--') ? args[0] : path.j
 const maxFrames = +opt('--max-frames', 1e9);
 const crf = opt('--crf', '20');
 const botStyle = opt('--bot', 'fly');
+const stage = opt('--stage', '');
 const noBgm = args.includes('--no-bgm');
 const BATCH = 20;
 
@@ -29,7 +31,7 @@ function run(cmd, argv) {
   const browser = await chromium.launch();
   const page = await browser.newPage({ viewport: { width: 540, height: 960 } });
   page.on('pageerror', (e) => console.log('[pageerror]', e.message));
-  await page.goto(`http://127.0.0.1:${srv.address().port}/index.html?record=1&bot=${botStyle}`);
+  await page.goto(`http://127.0.0.1:${srv.address().port}/index.html?record=1&bot=${botStyle}${stage ? '&stage=' + stage : ''}`);
   await page.waitForFunction(() => window.REC && window.REC.ready, null, { timeout: 30000 });
 
   const ff = spawn('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'image2pipe', '-framerate', '60', '-c:v', 'mjpeg', '-i', '-',

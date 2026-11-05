@@ -454,6 +454,12 @@
       this.stats = { kabi: 0, punch: 0, coins: 0, frames: 0 };
       this.loadLevel(0); this.setMode('story');
     }
+    // start straight at one stage (for stage-only videos); the run ends after that stage's clear
+    startAt(i) {
+      this.score = 0; this.coins = 0; this.lives = 3;
+      this.stats = { kabi: 0, punch: 0, coins: 0, frames: 0 };
+      this.stageOnly = true; this.loadLevel(i); this.setMode('intro');
+    }
     loadLevel(i) {
       this.levelIndex = i;
       const L = this.level = AP.buildLevel(i);
@@ -672,7 +678,10 @@
       }
       this.move(p);
       if (t % 30 === 0 && t < 400) this.firework(this.camX + 150 + (t * 131) % 780, 150 + (t * 71) % 280);
-      if (t >= 450) { this.setMode('ending'); this.music('ending'); this.effects = []; }
+      if (t >= 450) {
+        if (this.stageOnly) { this.finished = true; return; }
+        this.setMode('ending'); this.music('ending'); this.effects = [];
+      }
     }
 
     updateCamera() {
@@ -872,6 +881,7 @@
         this.firework(hx - 160 + this.tallyDone * 5, 2 * T + (this.tallyDone % 3) * 40);
         this.score += 500;
       }
+      if (this.tallyDone >= 100 && this.stageOnly) { this.finished = true; return; }
       if (this.tallyDone >= 100) {
         this.loadLevel(this.levelIndex + 1); this.setMode('intro');
       }

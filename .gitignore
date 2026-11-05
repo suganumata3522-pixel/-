@@ -4,3 +4,4 @@ sedori.db
 *.db
 .venv/
 sedori/static/processed/
+pikmin-mori/out/
