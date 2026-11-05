@@ -43,6 +43,25 @@
     return true;
   };
 
+  // 大きな建物を置けるか(すべての障害物を調べる)
+  W.isFreeArea = function (x, y, r) {
+    if (!W.isFree(x, y, r)) return false;
+    for (const o of W.obstacles) {
+      if (o.kind === 'circle' && U.dist(x, y, o.x, o.y) < o.r + r + 8) return false;
+      if (o.kind === 'ellipse') {
+        const nx = (x - o.x) / (o.rx + r + 8), ny = (y - o.y) / (o.ry + r + 8);
+        if (nx * nx + ny * ny < 1) return false;
+      }
+    }
+    return true;
+  };
+  W.addObstacle = addObstacle;
+  // 建物など、あとから置いた障害物をすべて取りのぞく(新しくはじめるとき用)
+  W.clearDynamic = function () {
+    W.obstacles = W.obstacles.filter((o) => !o.dynamic);
+    for (const [k, list] of W.grid) W.grid.set(k, list.filter((o) => !o.dynamic));
+  };
+
   // 円(半径r)を障害物から押し出す
   W.resolve = function (e, r) {
     e.x = U.clamp(e.x, r + 30, C.WW - r - 30);
@@ -156,10 +175,15 @@
       if (y > C.ST - 110 && y < C.SB + 120) return true;
       if (W.inWater(x, y, r + 40)) return true;
       if (U.dist(x, y, 1000, 420) < 220) return true; // 金のりんごの広場
+      if (x > C.TOWN.x0 - r && x < C.TOWN.x1 + r && y > C.TOWN.y0 - r && y < C.TOWN.y1 + r * 0.3) return true; // 町の広場
       for (const t of W.trees) if (U.dist(x, y, t.x, t.y) < t.gap + r) return true;
       for (const t of W.rocks) if (U.dist(x, y, t.x, t.y) < 70 + r) return true;
       return false;
     };
+    // 町の近くの石切り場(石が手に入りやすいように先に置く)
+    for (const [x, y, v] of [[1430, 2640, 1], [1500, 2730, 0], [1395, 2760, 2], [590, 2990, 1], [680, 3070, 0]]) {
+      W.rocks.push({ x, y, v, r: [22, 30, 18][v] });
+    }
     // 森のふち(外周に木を並べる)
     for (let x = 60; x < C.WW; x += 120) {
       for (const y of [70, C.WH - 40]) {
@@ -186,7 +210,7 @@
       W.trees.push({ x, y, v, gap: 150 });
     }
     tries = 0;
-    while (W.rocks.length < 18 && tries++ < 3000) {
+    while (W.rocks.length < 23 && tries++ < 3000) {
       const x = 160 + rnd() * (C.WW - 320), y = 180 + rnd() * (C.WH - 360);
       if (blocked(x, y, 40)) continue;
       const v = Math.floor(rnd() * 3);
@@ -243,6 +267,14 @@
     g.beginPath(); g.ellipse(C.HOUSE.x, C.HOUSE.y + 60, 230, 150, 0, 0, 7); g.fill();
     g.fillStyle = 'rgba(255,240,200,0.25)';
     g.beginPath(); g.ellipse(C.HOUSE.x, C.HOUSE.y + 60, 190, 115, 0, 0, 7); g.fill();
+    // 町の広場(建物を建てる場所)
+    const tw = C.TOWN;
+    const tg = g.createRadialGradient((tw.x0 + tw.x1) / 2, (tw.y0 + tw.y1) / 2, 50, (tw.x0 + tw.x1) / 2, (tw.y0 + tw.y1) / 2, (tw.x1 - tw.x0) * 0.6);
+    tg.addColorStop(0, 'rgba(190,225,130,0.55)'); tg.addColorStop(1, 'rgba(190,225,130,0)');
+    g.fillStyle = tg; g.fillRect(tw.x0 - 200, tw.y0 - 200, tw.x1 - tw.x0 + 400, tw.y1 - tw.y0 + 400);
+    // 道ばたの石だたみ
+    g.fillStyle = 'rgba(230,214,170,0.9)';
+    for (let y = tw.y0 + 30; y < tw.y1; y += 34) for (const sx of [-74, 74]) { g.beginPath(); g.ellipse(1000 + sx + rnd() * 6, y, 12, 7, 0, 0, 7); g.fill(); }
     // 金のりんごの広場
     g.fillStyle = 'rgba(200,220,120,0.35)';
     g.beginPath(); g.ellipse(1000, 420, 170, 110, 0, 0, 7); g.fill();

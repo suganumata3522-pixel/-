@@ -96,6 +96,7 @@ window.DF = window.DF || {};
     DAY_LEN: 240,                 // 1日の長さ(秒)
     THROW_RANGE: 360,
     WHISTLE_R: 240,
+    TOWN: { x0: 500, x1: 1500, y0: 2170, y1: 2790 }, // 町の広場(木が生えていない、建物向きの場所)
   };
 
   // どんぐりっこの種類
@@ -117,7 +118,38 @@ window.DF = window.DF || {};
     melon: { name: 'すいか', w: 10, v: 110, seeds: 8, r: 34, region: 'N', wt: 1, seedType: 'green', big: true },
     goldapple: { name: '金のりんご', w: 20, v: 400, seeds: 12, r: 40, region: 'X', seedType: 'gold', big: true, legend: true, glow: true },
     star: { name: 'ほしのかけら', w: 3, v: 120, seeds: 4, r: 19, region: 'X', seedType: 'gold', glow: true, shiny: true },
+    // 町づくりの資材(木や岩をどんぐりっこが働いて手に入れる)
+    wood: { name: '木材', w: 1, v: 1, seeds: 0, r: 17, region: 'X', mat: 'wood' },
+    stone: { name: '石', w: 3, v: 1, seeds: 0, r: 15, region: 'X', mat: 'stone' },
   };
+
+  // 町の建物。資材とコインを使って建て、どんぐりっこを投げて工事する。
+  // work = 工事に必要な「力×秒」(どんぐりっこ10ぴきなら work/10 秒)
+  DF.BUILDINGS = {
+    house: { name: 'いえ', desc: '住人がひっこしてくる', wood: 3, stone: 1, coins: 0, work: 60, r: 56, max: 8, pts: 10, resident: true },
+    bakery: { name: 'パン屋', desc: '毎朝もりコインがとどく', wood: 8, stone: 4, coins: 80, work: 110, r: 62, max: 1, pts: 20, income: 40 },
+    cafe: { name: 'カフェ', desc: '住人のいこいの場・毎朝コイン', wood: 10, stone: 6, coins: 150, work: 140, r: 62, max: 1, pts: 25, income: 60 },
+    windmill: { name: '風車小屋', desc: 'くるくる回る町のシンボル', wood: 14, stone: 8, coins: 200, work: 180, r: 52, max: 1, pts: 35 },
+    library: { name: '図書館', desc: '町の評価が大きく上がる', wood: 14, stone: 14, coins: 250, work: 220, r: 76, max: 1, pts: 45 },
+    clocktower: { name: '時計台', desc: '町のまんなかに。評価アップ', wood: 12, stone: 20, coins: 400, work: 260, r: 46, max: 1, pts: 60 },
+  };
+  // 家を建てるたびに、この順でひっこしてくる(オリジナルの住人)
+  DF.RESIDENTS = [
+    { name: 'ココ', species: 'rabbit', fur: '#f6dce4', cloth: '#7ec4cf', roof: '#e07a8f' },
+    { name: 'ムギ', species: 'bear', fur: '#c8a27a', cloth: '#e07a5f', roof: '#b5651d' },
+    { name: 'ミント', species: 'cat', fur: '#f4f1ea', cloth: '#81b29a', roof: '#5aa469' },
+    { name: 'ポテ', species: 'dog', fur: '#e9c46a', cloth: '#577590', roof: '#4d6fa8' },
+    { name: 'クルミ', species: 'squirrel', fur: '#d08c60', cloth: '#f4a261', roof: '#d9822b' },
+    { name: 'モコ', species: 'sheep', fur: '#fdfcf7', cloth: '#b5838d', roof: '#9b6a8e' },
+    { name: 'コン', species: 'fox', fur: '#f4a259', cloth: '#3d5a80', roof: '#c0392b' },
+    { name: 'ペタ', species: 'penguin', fur: '#3b4252', cloth: '#ffd166', roof: '#2a9d8f' },
+  ];
+  DF.TALK = [
+    'いい町になってきたね！', 'どんぐりっこって はたらきものだね', '隊長、きょうもおつかれさま！',
+    '夜は ほしがきれいなんだよ', '雨あがりは にじが出るかも', 'あたらしい建物、たのしみだなあ',
+    'この町、だいすき！', 'ふんふーん♪', 'おなかすいたなあ…', 'きたの森には なにがあるのかな',
+  ];
+  DF.RANKS = [0, 25, 70, 140, 240]; // 町の評価 ★1〜★5 に必要なポイント
 
   // かざり(おみせで買える)
   DF.DECOS = {

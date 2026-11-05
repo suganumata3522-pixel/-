@@ -316,7 +316,7 @@
     ctx.restore();
     if (t > 0.3) {
       ctx.globalAlpha = Math.min(1, (t - 0.3) / 0.3);
-      outlinedText(ctx, 'きょうの見所', C.VW / 2, 590, 48, '#ffe066', '#5a3b1e');
+      outlinedText(ctx, `${DF.Town.name}の見所`, C.VW / 2, 590, 48, '#ffe066', '#5a3b1e', 620);
       const d = new Date();
       outlinedText(ctx, `${d.getMonth() + 1}月${d.getDate()}日 ・ ${DF.Game.day}日目の森`, C.VW / 2, 660, 30, '#fff', 'rgba(60,35,15,0.6)');
       ctx.globalAlpha = 1;
@@ -331,12 +331,13 @@
     ctx.save(); ctx.translate(C.VW / 2, 330); ctx.scale(k, k);
     outlinedText(ctx, 'またあそびにきてね！', 0, 0, 64, '#fff8e7', '#5a3b1e', 640);
     ctx.restore();
-    const rows = [['もりコイン', G.stats.coinsEarned], ['どんぐりっこ', G.kids.length + 'ひき'], ['はこんだ数', G.stats.total + 'こ']];
+    const T = DF.Town;
+    const rows = [['町の評価', T.stars(T.rankOf(T.points()))], ['住人', T.residents.length + '人'], ['建物', T.built().length + 'けん'], ['どんぐりっこ', G.kids.length + 'ひき']];
     rows.forEach(([a, b], i) => {
       const a2 = Math.min(1, Math.max(0, (t - 0.3 - i * 0.18) / 0.3));
       if (a2 <= 0) return;
       ctx.globalAlpha = a2;
-      const y = 470 + i * 96;
+      const y = 450 + i * 92;
       ctx.fillStyle = 'rgba(255,248,231,0.92)';
       U.roundRect(ctx, 130, y - 38, 460, 76, 38); ctx.fill();
       ctx.font = `700 32px ${U.FONT}`; ctx.fillStyle = '#8a5a2b'; ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
@@ -345,8 +346,8 @@
       ctx.fillText(String(b), 550, y);
       ctx.globalAlpha = 1;
     });
-    kidsParade(ctx, t, 900, 7);
-    outlinedText(ctx, 'どんぐりっこの森', C.VW / 2, 1010, 36, '#fff', 'rgba(60,35,15,0.6)');
+    kidsParade(ctx, t, 940, 7);
+    outlinedText(ctx, T.name, C.VW / 2, 1040, 36, '#fff', 'rgba(60,35,15,0.6)', 600);
   }
 
   function drawClipFrame(ctx, v, clip, t, len, idx, n, title) {

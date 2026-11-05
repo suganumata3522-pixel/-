@@ -13,6 +13,6 @@ HTML / CSS / JavaScript のみの静的サイトで、GitHub Pages で公開し�
 
 ## どんぐりっこの森(ゲーム)
 
-どんぐりっこを集めて運び、森をにぎやかにするオリジナルゲームです。見所を自動でクリップし、YouTubeショート用の縦型動画にできます。
+隊長になって どんぐりっこをはたらかせ、森に町をつくるオリジナルゲームです。見所を自動でクリップし、YouTubeショート用の縦型動画にできます。
 ファイルは [`donguri-mori/`](donguri-mori/) フォルダにあり、`donguri-mori/index.html` をブラウザで開くだけで遊べます。
 詳しくは [`donguri-mori/README.md`](donguri-mori/README.md) を参照してください。

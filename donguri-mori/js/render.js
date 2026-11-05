@@ -54,6 +54,9 @@
     push(G.player.y, 'player', G.player);
     if (!W.gateOpen || (G.gate.anim >= 0 && G.gate.anim < 1.6)) push(C.GATE.y1 - 4, 'gate', null);
     for (const fl of W.flowersN) if (vis(fl.x, fl.y)) push(fl.y - 1, 'gflower', fl);
+    const T = DF.Town;
+    for (const b of T.buildings) if (vis(b.x, b.y)) push(T.base(b), 'building', b);
+    for (const r of T.residents) if (r.state !== 'inside' && vis(r.x, r.y)) push(r.y, 'resident', r);
     drawList.sort((a, b) => a.y - b.y);
 
     const p = G.player;
@@ -72,6 +75,8 @@
           S.drawPlayer(ctx, p, t); break;
         case 'gate': drawGate(ctx, G); break;
         case 'gflower': drawGlowFlower(ctx, d.ref, t); break;
+        case 'building': drawBuilding(ctx, d.ref, t, G); break;
+        case 'resident': S.drawResident(ctx, d.ref, t); break;
         default: break;
       }
     }
@@ -105,6 +110,46 @@
       ctx.fillStyle = 'rgba(0,0,0,0.35)'; U.roundRect(ctx, bx - 3, by - 3, 146, 20, 10); ctx.fill();
       ctx.fillStyle = '#fff'; U.roundRect(ctx, bx, by, 140, 14, 7); ctx.fill();
       ctx.fillStyle = '#f29b38'; U.roundRect(ctx, bx, by, 140 * Math.min(1, G.gate.progress), 14, 7); ctx.fill();
+    }
+    // しごとの進み具合(木・岩)
+    for (const j of G.jobs) {
+      if ((j.kind !== 'tree' && j.kind !== 'rock') || !j.workers.length || !vis(j.x, j.y)) continue;
+      const rx = j.x + (j.kind === 'tree' ? 40 : 0), ry = j.y - (j.kind === 'tree' ? 26 : j.ref.r + 34);
+      ctx.fillStyle = 'rgba(255,255,255,0.9)'; ctx.beginPath(); ctx.arc(rx, ry, 14, 0, 7); ctx.fill();
+      ctx.strokeStyle = j.kind === 'tree' ? '#4c9a3a' : '#6c757d'; ctx.lineWidth = 5; ctx.lineCap = 'round';
+      ctx.beginPath(); ctx.arc(rx, ry, 9, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * Math.min(1, j.progress)); ctx.stroke();
+    }
+    // 工事の進み具合
+    for (const b of T.buildings) {
+      if (b.done || !b.job || !vis(b.x, b.y)) continue;
+      const spr = buildSprite(b);
+      const bx = b.x - 70, by = T.base(b) - spr.h - 28;
+      ctx.fillStyle = 'rgba(0,0,0,0.35)'; U.roundRect(ctx, bx - 3, by - 3, 146, 22, 11); ctx.fill();
+      ctx.fillStyle = '#fff'; U.roundRect(ctx, bx, by, 140, 16, 8); ctx.fill();
+      ctx.fillStyle = '#4c9a3a'; U.roundRect(ctx, bx, by, Math.max(16, 140 * Math.min(1, b.job.progress)), 16, 8); ctx.fill();
+      ctx.font = `800 18px ${U.FONT}`; ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+      ctx.lineWidth = 5; ctx.strokeStyle = 'rgba(60,35,15,0.7)';
+      const lbl = `${b.def.name} こうじ ${Math.floor(b.job.progress * 100)}%`;
+      ctx.strokeText(lbl, b.x, by - 4); ctx.fillStyle = '#fff'; ctx.fillText(lbl, b.x, by - 4);
+    }
+    // 住人のふきだし・おねがいマーク
+    for (const r of T.residents) {
+      if (r.state === 'inside' || !vis(r.x, r.y)) continue;
+      const hy = r.y - 92;
+      if (r.talk) drawBubble(ctx, r.x, hy, DF.RESIDENTS[r.idx].name, r.talk.text, Math.min(1, r.talk.t * 3));
+      else if (r.req && !r.req.seen) {
+        const bob = Math.sin(t * 5 + r.id) * 4;
+        ctx.fillStyle = '#f29b38'; ctx.beginPath(); ctx.arc(r.x, hy + bob, 15, 0, 7); ctx.fill();
+        ctx.strokeStyle = '#fff'; ctx.lineWidth = 3; ctx.stroke();
+        ctx.fillStyle = '#fff'; ctx.font = `800 22px ${U.FONT}`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.fillText('！', r.x, hy + bob + 1);
+      } else if (r.req) {
+        ctx.fillStyle = 'rgba(255,255,255,0.92)'; U.roundRect(ctx, r.x - 34, hy - 16, 68, 32, 16); ctx.fill();
+        S.draw(ctx, S.item[r.req.item], r.x - 16, hy, { scale: 14 / DF.ITEMS[r.req.item].r * 0.75 });
+        ctx.fillStyle = '#5a3b1e'; ctx.font = `800 17px ${U.FONT}`; ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+        ctx.fillText(`${r.req.got}/${r.req.count}`, r.x - 2, hy + 1);
+      }
+      if (r.happy > 0 && Math.random() < 0.05) G.burst(r.x, r.y - 60, 1, 'spark', { colors: ['#ff8fab'], z: 10, min: 5, max: 20, vzMin: 30, vzMax: 60, g: 0 });
     }
     // 「おいで！」の輪
     for (const r of G.rings) {
@@ -175,7 +220,8 @@
     if (behind) ctx.globalAlpha = 0.55;
     ctx.save();
     ctx.translate(tr.x, tr.y);
-    ctx.rotate(Math.sin(t * 0.9 + tr.sway) * 0.012);
+    const chop = tr.job && tr.job.workers.length ? Math.sin(t * 38) * 0.018 : 0;
+    ctx.rotate(Math.sin(t * 0.9 + tr.sway) * 0.012 + chop);
     ctx.drawImage(spr.c, -spr.ax, -spr.ay, spr.w, spr.h);
     ctx.restore();
     ctx.globalAlpha = 1;
@@ -308,6 +354,85 @@
     ctx.globalAlpha = 1;
   }
 
+  function buildSprite(b) {
+    return b.type === 'house' ? S.houseByRoof[DF.RESIDENTS[b.residentIdx || 0].roof] : S.building[b.type];
+  }
+  R.buildSprite = buildSprite;
+
+  function drawBuilding(ctx, b, t, G) {
+    const def = b.def, spr = buildSprite(b), T = DF.Town;
+    const bx = b.x, by = T.base(b);
+    ctx.fillStyle = 'rgba(20,40,20,0.22)';
+    ctx.beginPath(); ctx.ellipse(bx + 8, by + 2, def.r * 1.05, def.r * 0.32, 0, 0, 7); ctx.fill();
+    if (!b.done) {
+      const prog = b.job ? Math.min(1, b.job.progress) : 0;
+      ctx.fillStyle = '#b08a5a';
+      ctx.beginPath(); ctx.ellipse(bx, by - 4, def.r * 0.95, def.r * 0.36, 0, 0, 7); ctx.fill();
+      ctx.fillStyle = '#c9a66b';
+      ctx.beginPath(); ctx.ellipse(bx, by - 6, def.r * 0.8, def.r * 0.28, 0, 0, 7); ctx.fill();
+      const ph = Math.max(6, spr.h * prog);
+      ctx.save();
+      ctx.beginPath(); ctx.rect(bx - spr.w / 2 - 4, by - ph, spr.w + 8, ph + 12); ctx.clip();
+      ctx.globalAlpha = 0.92;
+      ctx.drawImage(spr.c, bx - spr.ax, by - spr.ay, spr.w, spr.h);
+      ctx.restore();
+      ctx.globalAlpha = 1;
+      // 足場
+      const top = by - Math.max(50, ph + 16), hw = spr.w * 0.44;
+      ctx.strokeStyle = '#a0683f'; ctx.lineWidth = 4; ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(bx - hw, by); ctx.lineTo(bx - hw, top); ctx.moveTo(bx + hw, by); ctx.lineTo(bx + hw, top);
+      for (let y = by - 26; y > top; y -= 30) { ctx.moveTo(bx - hw, y); ctx.lineTo(bx + hw, y); }
+      ctx.stroke();
+      ctx.strokeStyle = 'rgba(160,104,63,0.6)'; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(bx - hw, by - 26); ctx.lineTo(bx + hw, top); ctx.stroke();
+      // 看板
+      ctx.fillStyle = '#7a5236'; ctx.fillRect(bx + hw + 8, by - 34, 4, 34);
+      ctx.fillStyle = '#ffd43b'; U.roundRect(ctx, bx + hw - 14, by - 52, 52, 22, 5); ctx.fill();
+      ctx.fillStyle = '#5a3b1e'; ctx.font = `800 12px ${U.FONT}`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText('こうじ中', bx + hw + 12, by - 40.5);
+      return;
+    }
+    const age = G.time - (b.doneT == null ? -10 : b.doneT);
+    const sc = age < 0.6 ? U.easeOutBack(age / 0.6) : 1;
+    S.draw(ctx, spr, bx, by, { scale: sc });
+    if (sc < 1) return;
+    if (b.type === 'windmill') S.drawBlades(ctx, bx, by - 128, t);
+    if (b.type === 'clocktower') S.drawClockHands(ctx, bx, by - 140, G.hour());
+    if (b.type === 'bakery' && Math.random() < 0.04) G.burst(bx + 40, by - 120, 1, 'dust', { colors: ['rgba(255,255,255,0.8)'], z: 0, min: 2, max: 10, vzMin: 30, vzMax: 50, g: -10, lifeMin: 1.5, lifeMax: 2.4, sMin: 5, sMax: 9 });
+  }
+
+  function wrapText(ctx, text, maxW) {
+    const lines = [];
+    let cur = '';
+    for (const ch of text) {
+      if (ctx.measureText(cur + ch).width > maxW && cur) { lines.push(cur); cur = ch; }
+      else cur += ch;
+    }
+    if (cur) lines.push(cur);
+    return lines.slice(0, 3);
+  }
+  function drawBubble(ctx, x, y, name, text, a) {
+    ctx.save();
+    ctx.globalAlpha = a;
+    ctx.font = `700 21px ${U.FONT}`;
+    const lines = wrapText(ctx, text, 250);
+    const w = Math.max(...lines.map((l) => ctx.measureText(l).width), 90) + 30;
+    const h = lines.length * 28 + 22;
+    const bx = U.clamp(x - w / 2, DF.Game.cam.x + 8, DF.Game.cam.x + C.VW - w - 8), by = y - h - 8;
+    ctx.fillStyle = 'rgba(60,35,15,0.25)'; U.roundRect(ctx, bx + 3, by + 5, w, h, 18); ctx.fill();
+    ctx.fillStyle = '#fffdf5'; U.roundRect(ctx, bx, by, w, h, 18); ctx.fill();
+    ctx.beginPath(); ctx.moveTo(x - 10, by + h - 1); ctx.lineTo(x, by + h + 12); ctx.lineTo(x + 10, by + h - 1); ctx.closePath(); ctx.fill();
+    ctx.fillStyle = '#5a3b1e'; ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+    lines.forEach((l, i) => ctx.fillText(l, bx + 15, by + 25 + i * 28));
+    // 名前札
+    ctx.font = `800 16px ${U.FONT}`;
+    const nw = ctx.measureText(name).width + 18;
+    ctx.fillStyle = '#e07a8f'; U.roundRect(ctx, bx + 10, by - 13, nw, 24, 12); ctx.fill();
+    ctx.fillStyle = '#fff'; ctx.fillText(name, bx + 19, by - 0.5);
+    ctx.restore();
+  }
+
   function drawGlowFlower(ctx, f, t) {
     const pulse = (Math.sin(t * 2 + f.ph) + 1) / 2;
     ctx.fillStyle = `rgba(150,230,255,${0.5 + pulse * 0.4})`;
@@ -375,6 +500,7 @@
       lights.push([C.HOUSE.x, C.HOUSE.y - 20, 220, 0.6]);
       for (const d of G.decos) { const def = DF.DECOS[d.type]; if (def.light) lights.push([d.x, d.y - 30, def.light, 0.95]); }
       for (const k of G.kids) if (k.type === 'gold') lights.push([k.x, k.y - 15 - k.z, 46, 0.7]);
+      for (const b of DF.Town.buildings) if (b.done) lights.push([b.x, DF.Town.base(b) - 40, b.def.r * 2.1, 0.85]);
       for (const it of G.items) if (it.def.glow || it.def.shiny) lights.push([it.x, it.y - (it.z || 0), it.def.r * 3.2, 0.9]);
       for (const f of G.fireflies) lights.push([f.x, f.y - f.z, 34, 0.8]);
       for (const f of W.flowersN) lights.push([f.x, f.y - 8, 40, 0.7]);
@@ -390,6 +516,7 @@
       // あたたかい光
       ctx.globalCompositeOperation = 'lighter';
       const warmL = [[C.HOUSE.x - 62, C.HOUSE.y - 75, 90], [C.HOUSE.x + 62, C.HOUSE.y - 80, 90]];
+      for (const b of DF.Town.buildings) if (b.done) warmL.push([b.x, DF.Town.base(b) - 40, b.def.r * 1.4]);
       for (const d of G.decos) { const def = DF.DECOS[d.type]; if (def.light) warmL.push([d.x, d.y - 30, def.light * 0.6]); }
       for (const [lx, ly, lr] of warmL) {
         const x = lx - cx, y = ly - cy;

@@ -55,7 +55,7 @@
     m.hidden = false;
     openModals++;
     G.paused = true;
-    if (id === 'm-shop') renderShop();
+    if (id === 'm-town') renderTown();
     if (id === 'm-settings') renderSettings();
   };
   UI.closeModal = function (id) {
@@ -189,8 +189,8 @@
       btn.textContent = `${d.price} コイン`;
       btn.disabled = G.coins < d.price;
       btn.addEventListener('click', () => {
-        if (G.buyDeco(k)) UI.closeModal('m-shop');
-        else renderShop();
+        if (G.buyDeco(k)) UI.closeModal('m-town');
+        else renderTown();
       });
       li.append(img, info, btn);
       ul.appendChild(li);
@@ -198,8 +198,96 @@
   }
   $('shop-remove').addEventListener('click', () => {
     const r = G.removeNearestDeco();
-    if (r) { UI.toast(`${r.name}をしまった(+${r.back}コイン)`); A.play('coin'); renderShop(); }
+    if (r) { UI.toast(`${r.name}をしまった(+${r.back}コイン)`); A.play('coin'); renderTown(); }
     else UI.toast('近くにかざりがないよ');
+  });
+
+  // ---------- まちづくり ----------
+  const Town = DF.Town;
+  let townTab = 'build';
+  function spriteThumb(spr, size) {
+    const c = document.createElement('canvas');
+    const k = Math.min(size / spr.w, size / spr.h);
+    c.width = Math.round(spr.w * k * 2); c.height = Math.round(spr.h * k * 2);
+    c.getContext('2d').drawImage(spr.c, 0, 0, c.width, c.height);
+    c.className = 'deco-img';
+    return c;
+  }
+  function renderTown() {
+    $('town-name').value = Town.name;
+    const pts = Town.points();
+    const rk = Town.rankOf(pts);
+    $('town-stars').textContent = Town.stars(rk);
+    const next = DF.RANKS[rk];
+    $('town-pts').textContent = next != null ? `評価 ${pts}pt(つぎの★まで あと${next - pts})` : `評価 ${pts}pt(さいこう！)`;
+    $('town-wood').textContent = G.mats.wood;
+    $('town-stone').textContent = G.mats.stone;
+    document.querySelectorAll('#m-town .tab').forEach((b) => b.classList.toggle('on', b.dataset.tab === townTab));
+    document.querySelectorAll('#m-town [data-pane]').forEach((p) => (p.hidden = p.dataset.pane !== townTab));
+    renderShop();
+    // 建物
+    const ul = $('build-list');
+    ul.innerHTML = '';
+    for (const k in DF.BUILDINGS) {
+      const d = DF.BUILDINGS[k];
+      const li = document.createElement('li');
+      const spr = k === 'house' ? DF.Sprites.houseByRoof[DF.RESIDENTS[Math.min(Town.count('house'), DF.RESIDENTS.length - 1)].roof] : DF.Sprites.building[k];
+      const info = document.createElement('div');
+      info.className = 'info';
+      info.innerHTML = '<b></b><small class="desc"></small><small class="cost"></small>';
+      info.querySelector('b').textContent = d.name + (d.max > 1 ? `(${Town.count(k)}/${d.max})` : '');
+      info.querySelector('.desc').textContent = d.desc;
+      const cost = [];
+      if (d.wood) cost.push(`<span class="${G.mats.wood < d.wood ? 'lack' : ''}">木材${d.wood}</span>`);
+      if (d.stone) cost.push(`<span class="${G.mats.stone < d.stone ? 'lack' : ''}">石${d.stone}</span>`);
+      if (d.coins) cost.push(`<span class="${G.coins < d.coins ? 'lack' : ''}">コイン${d.coins}</span>`);
+      info.querySelector('.cost').innerHTML = cost.join(' ・ ');
+      const chk = Town.canBuild(k);
+      const btn = document.createElement('button');
+      btn.className = 'btn primary';
+      btn.textContent = chk.ok ? 'たてる' : chk.reason;
+      btn.disabled = !chk.ok;
+      btn.addEventListener('click', () => {
+        const r = Town.startBuild(k);
+        if (r.ok) { UI.closeModal('m-town'); UI.toast(`${d.name}の工事がはじまった！ どんぐりっこを投げよう`); }
+        else { UI.toast(r.reason); renderTown(); }
+      });
+      li.append(spriteThumb(spr, 52), info, btn);
+      ul.appendChild(li);
+    }
+    // 住人
+    const pl = $('people-list');
+    pl.innerHTML = '';
+    if (!Town.residents.length) {
+      const li = document.createElement('li');
+      li.className = 'empty';
+      li.textContent = 'まだ住人はいません。「いえ」を建てると ひっこしてくるよ。';
+      pl.appendChild(li);
+    }
+    for (const r of Town.residents) {
+      const d = DF.RESIDENTS[r.idx];
+      const li = document.createElement('li');
+      const face = document.createElement('canvas');
+      face.width = 104; face.height = 104; face.className = 'deco-img';
+      const fc = face.getContext('2d');
+      fc.scale(1.4, 1.4);
+      DF.Sprites.drawResident(fc, { idx: r.idx, x: 37, y: 72, dir: 'front', face: 1, moving: false, id: r.id, happy: 1 }, 0);
+      const info = document.createElement('div');
+      info.className = 'info';
+      info.innerHTML = '<b></b><small></small>';
+      info.querySelector('b').textContent = `${d.name}(${Town.speciesName(r)})`;
+      info.querySelector('small').textContent = r.req
+        ? (r.req.seen ? `おねがい: ${DF.ITEMS[r.req.item].name} ${r.req.got}/${r.req.count}(ごほうび ${r.req.reward}コイン)` : 'なにか おねがいがあるみたい。会いにいこう！')
+        : 'いまは おねがいなし';
+      li.append(face, info);
+      pl.appendChild(li);
+    }
+  }
+  document.querySelectorAll('#m-town .tab').forEach((b) => b.addEventListener('click', () => { townTab = b.dataset.tab; A.play('ui'); renderTown(); }));
+  $('town-name').addEventListener('change', (e) => {
+    const v = e.target.value.trim().slice(0, 10);
+    Town.name = v || 'どんぐりタウン';
+    G.save();
   });
 
   // ---------- せってい ----------
@@ -245,6 +333,7 @@
     if (k === ' ' || k === 'shift') { e.preventDefault(); if (!e.repeat) G.whistle(); }
     if (k === 'r' && !e.repeat) toggleRec();
     if (k === 'h' && !e.repeat) clipNow();
+    if (k === 'b' && !e.repeat) { A.play('ui'); UI.openModal('m-town'); }
     if (k.startsWith('arrow')) e.preventDefault();
   });
   window.addEventListener('keyup', (e) => keys.delete(e.key.toLowerCase()));
@@ -337,7 +426,7 @@
   tapBtn('btn-rec', toggleRec);
   tapBtn('btn-clip', clipNow);
   tapBtn('btn-studio', () => openStudio());
-  tapBtn('btn-shop', () => { A.play('ui'); UI.openModal('m-shop'); });
+  tapBtn('btn-town', () => { A.play('ui'); UI.openModal('m-town'); });
   tapBtn('btn-settings', () => { A.play('ui'); stopBuffer(); UI.openModal('m-settings'); });
   $('btn-howto').addEventListener('click', () => UI.openModal('m-howto'));
 
@@ -353,6 +442,8 @@
     const h = G.hour();
     setText('hud-clock-v', `${Math.floor(h)}:${String(Math.floor((h % 1) * 6) * 10).padStart(2, '0')}`);
     setText('hud-clock-i', G.weather.raining ? '☂' : G.isNight() ? '☾' : '☀');
+    setText('hud-wood', String(G.mats.wood));
+    setText('hud-stone', String(G.mats.stone));
   }
   // HUDのテキスト要素にIDをふる
   $('hud-coin').querySelector('b').id = 'hud-coin-v';

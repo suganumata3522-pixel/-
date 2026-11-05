@@ -110,6 +110,7 @@
   }
 
   const N = (semi) => 523.25 * Math.pow(2, semi / 12); // C5 基準
+  const U2 = (i) => N([7, 4, 9, 5][i % 4]); // 住人のおしゃべり音
 
   const lastPlay = {};
   A.play = function (name, opt = {}) {
@@ -178,6 +179,35 @@
         tone(N(12), now, 0.1, { type: 'square', vol: 0.06, lp: 3000 });
         tone(N(16), now + 0.08, 0.1, { type: 'square', vol: 0.06, lp: 3000 });
         tone(N(19), now + 0.16, 0.25, { type: 'triangle', vol: 0.1 });
+        break;
+      case 'chop':
+        tone(420 * p, now, 0.07, { to: 260 * p, type: 'triangle', vol: 0.16 });
+        noiseBurst(now, 0.05, { freq: 1800, ftype: 'bandpass', q: 2, vol: 0.12 });
+        break;
+      case 'mine':
+        tone(1300 * p, now, 0.06, { type: 'square', vol: 0.05, lp: 4000 });
+        noiseBurst(now, 0.08, { freq: 3500, ftype: 'highpass', vol: 0.1 });
+        break;
+      case 'hammer':
+        tone(700 * p, now, 0.05, { type: 'square', vol: 0.06, lp: 2500 });
+        tone(350 * p, now + 0.02, 0.08, { type: 'triangle', vol: 0.1 });
+        break;
+      case 'logdrop':
+        tone(180, now, 0.18, { to: 90, type: 'triangle', vol: 0.2 });
+        noiseBurst(now, 0.2, { freq: 600, vol: 0.12 });
+        break;
+      case 'rockbreak':
+        noiseBurst(now, 0.3, { freq: 900, vol: 0.25 });
+        tone(140, now, 0.2, { to: 70, type: 'sine', vol: 0.16 });
+        break;
+      case 'build': {
+        const seq = [[0, 0], [4, 0.12], [7, 0.24], [12, 0.36], [16, 0.5], [19, 0.5], [24, 0.62]];
+        seq.forEach(([s, t]) => tone(N(s), now + t, 0.5, { type: 'triangle', vol: 0.12 }));
+        seq.forEach(([s, t]) => tone(N(s - 12), now + t, 0.4, { type: 'square', vol: 0.04, lp: 1800 }));
+        break;
+      }
+      case 'talk':
+        for (let i = 0; i < 4; i++) tone(U2(i) * p, now + i * 0.06, 0.05, { type: 'square', vol: 0.035, lp: 2000 });
         break;
       case 'ui':
         tone(N(5), now, 0.06, { type: 'triangle', vol: 0.08 });

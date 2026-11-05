@@ -6,6 +6,7 @@
     kids: [], items: [], sprouts: [], decos: [], particles: [], floaters: [], banners: [], rings: [],
     fireflies: [], shooting: [], drops: [],
     coins: 0, clock: 0.12, day: 1, time: 0, paused: false,
+    mats: { wood: 0, stone: 0 }, jobs: [],
     stats: { delivered: {}, total: 0, born: 0, maxKids: 0, goldBorn: 0, coinsEarned: 0 },
     flags: {},
     input: { mx: 0, my: 0 },
@@ -72,6 +73,7 @@
     G.player = { x: C.START.x, y: C.START.y, fx: 0, fy: 1, face: 1, dir: 'front', moving: false, walkT: 0, throwT: 0, vx: 0, vy: 0 };
     G.cam.x = G.player.x - C.VW / 2; G.cam.y = G.player.y - C.VH * 0.56;
     W.gateOpen = false; G.gate = { progress: 0, anim: -1 };
+    G.mats = { wood: 0, stone: 0 };
     if (save) {
       G.coins = save.coins || 0;
       G.clock = save.clock != null ? save.clock : 0.12;
@@ -80,6 +82,7 @@
       G.flags = save.flags || {};
       W.gateOpen = !!save.gate;
       if (W.gateOpen) G.gate.progress = 1;
+      if (save.mats) G.mats = { wood: save.mats.wood || 0, stone: save.mats.stone || 0 };
       for (const d of save.decos || []) if (DF.DECOS[d.t]) G.decos.push({ type: d.t, x: d.x, y: d.y, ph: Math.random() * 6 });
       const counts = save.kids || {};
       for (const t in counts) for (let i = 0; i < counts[t] && G.kids.length < C.MAX_KIDS; i++) {
@@ -106,6 +109,8 @@
     for (let i = 0; i < 13; i++) { const it = spawnItem('N'); if (it) it.spawnT = 1; }
     newItem('goldapple', 1000, 420).spawnT = 1;
     G.weather = { rain: 0, raining: false, rainLeft: 0, rainAt: G.day === 1 ? 0.36 : U.rand(0.15, 0.5), rainbow: 0, didRain: false };
+    makeJobs();
+    G.emit('reset', save || null);
   };
 
   G.save = function () {
@@ -113,7 +118,7 @@
     for (const k of G.kids) kids[k.type] = (kids[k.type] || 0) + 1;
     U.store.set('save', {
       v: 1, coins: G.coins, clock: G.clock, day: G.day, stats: G.stats, flags: G.flags,
-      gate: W.gateOpen, kids, decos: G.decos.map((d) => ({ t: d.type, x: Math.round(d.x), y: Math.round(d.y) })),
+      gate: W.gateOpen, kids, mats: G.mats, town: DF.Town ? DF.Town.serialize() : null, decos: G.decos.map((d) => ({ t: d.type, x: Math.round(d.x), y: Math.round(d.y) })),
     });
   };
   G.hasSave = () => !!U.store.get('save', null);
@@ -196,6 +201,11 @@
   };
 
   function detach(k) {
+    if (k.job) {
+      const i = k.job.workers.indexOf(k);
+      if (i >= 0) k.job.workers.splice(i, 1);
+      k.job = null;
+    }
     if (k.item) {
       const i = k.item.carriers.indexOf(k);
       if (i >= 0) k.item.carriers.splice(i, 1);
@@ -313,10 +323,14 @@
       if (d < it.def.r + 26 && d < bd) { bd = d; best = it; }
     }
     if (best) { attach(k, best); return; }
-    if (!W.gateOpen) {
-      const Gt = C.GATE;
-      if (k.x > Gt.x0 - 30 && k.x < Gt.x1 + 30 && k.y > Gt.y0 - 30 && k.y < Gt.y1 + 60) { k.state = 'goto'; k.target = 'gate'; return; }
+    // 木・岩・工事現場・丸太に投げたら、そこで働く
+    let job = null, jd = Infinity;
+    for (const j of G.jobs) {
+      if (!j.active() || j.workers.length >= j.max) continue;
+      const d = j.hit(k.x, k.y);
+      if (d < jd) { jd = d; job = j; }
     }
+    if (job) { k.state = 'goto'; k.target = job; k.stuckT = 0; return; }
     k.seekT = 0;
   }
 
@@ -328,13 +342,119 @@
       if (d < bd && W.side(it.y) === W.side(k.y)) { bd = d; best = it; }
     }
     if (best) { k.state = 'goto'; k.target = best; return; }
-    if (!W.gateOpen && U.dist(k.x, k.y, (C.GATE.x0 + C.GATE.x1) / 2, C.GATE.y1) < 200) { k.state = 'goto'; k.target = 'gate'; }
+    // 近くにしごと(工事・木・岩)があれば、自分から手伝いにいく
+    let job = null, jd = 170;
+    for (const j of G.jobs) {
+      if (!j.active() || j.workers.length >= j.max) continue;
+      const d = U.dist(k.x, k.y, j.x, j.y) - (j.kind === 'site' ? 120 : 0);
+      if (d < jd && W.side(j.y) === W.side(k.y)) { jd = d; job = j; }
+    }
+    if (job) { k.state = 'goto'; k.target = job; k.stuckT = 0; }
   }
 
-  function gateSlot(k) {
-    const n = 12, Gt = C.GATE;
-    const i = k.id % 24;
-    return { x: Gt.x0 + 16 + (i % n) * ((Gt.x1 - Gt.x0 - 32) / (n - 1)), y: Gt.y1 + 11 + Math.floor(i / n) * 13 };
+  // ---------- しごと(木・岩・丸太・工事現場) ----------
+  function attachJob(k, j) {
+    if (!j.active() || j.workers.length >= j.max) return false;
+    j.workers.push(k);
+    k.state = 'work'; k.job = j; k.target = null;
+    A.play('attach', { pitch: 0.9 + j.workers.length * 0.03 });
+    return true;
+  }
+  function releaseJob(j, after) {
+    for (const k of j.workers) { k.job = null; k.state = after || 'idle'; k.hop = 0.3; k.seekT = 0.2 + Math.random() * 0.3; }
+    j.workers = [];
+  }
+  G.addJob = (j) => { j.workers = j.workers || []; j.progress = j.progress || 0; G.jobs.push(j); return j; };
+  G.removeJob = (j) => { releaseJob(j, 'return'); const i = G.jobs.indexOf(j); if (i >= 0) G.jobs.splice(i, 1); };
+
+  function dropMat(type, x, y) {
+    const r = DF.ITEMS[type].r;
+    let spot = null;
+    for (let i = 0; i < 20 && !spot; i++) {
+      const a = U.rand(0.2, Math.PI - 0.2), d = U.rand(34, 70);
+      const px = x + Math.cos(a) * d, py = y + Math.sin(a) * d * 0.8 + 10;
+      if (W.isFree(px, py, r + 4) && W.side(py) === W.side(y)) spot = { x: px, y: py };
+    }
+    if (!spot) spot = freeSpotNear(x, y + 40, 20, 90, r + 4);
+    const it = newItem(type, spot.x, spot.y);
+    it.spawnT = 0.2;
+    G.burst(spot.x, spot.y, 8, type === 'wood' ? 'confetti' : 'dust', { colors: type === 'wood' ? ['#5aa845', '#86c66a', '#3f8a40'] : ['#b3b8c0', '#868b94'], z: type === 'wood' ? 60 : 10, min: 30, max: 120 });
+    A.play(type === 'wood' ? 'logdrop' : 'rockbreak');
+    return it;
+  }
+
+  function makeJobs() {
+    G.jobs = [];
+    for (const t of W.trees) {
+      const job = {
+        kind: 'tree', ref: t, x: t.x, y: t.y, need: 9, max: 6, cd: 0, after: 'idle',
+        active() { return this.cd <= 0; },
+        hit(x, y) { return Math.abs(x - t.x) < 60 && y < t.y + 26 && y > t.y - 175 ? U.dist(x, y, t.x, t.y - 55) : Infinity; },
+        slot(i) { const a = Math.PI * (0.12 + 0.76 * (((i % 6) + 0.5) / 6)); return { x: t.x + Math.cos(a) * 31, y: t.y + Math.sin(a) * 16 + 5 }; },
+        done() { this.cd = 40; dropMat('wood', t.x, t.y); },
+      };
+      t.job = job; G.addJob(job);
+    }
+    for (const r of W.rocks) {
+      const job = {
+        kind: 'rock', ref: r, x: r.x, y: r.y, need: 15, max: 8, cd: 0, after: 'idle',
+        active() { return this.cd <= 0; },
+        hit(x, y) { const d = U.dist(x, y, r.x, r.y); return d < r.r + 30 ? d : Infinity; },
+        slot(i) { const a = (i / 8) * Math.PI * 2 + 0.3; return { x: r.x + Math.cos(a) * (r.r + 11), y: r.y + Math.sin(a) * (r.r + 11) * 0.8 }; },
+        done() { this.cd = 50; dropMat('stone', r.x, r.y); },
+      };
+      r.job = job; G.addJob(job);
+    }
+    const Gt = C.GATE;
+    G.gateJob = G.addJob({
+      kind: 'gate', x: (Gt.x0 + Gt.x1) / 2, y: Gt.y1, need: 80, max: 24, after: 'return', decay: 0.02, progress: W.gateOpen ? 1 : 0,
+      active() { return !W.gateOpen; },
+      hit(x, y) { return x > Gt.x0 - 30 && x < Gt.x1 + 30 && y > Gt.y0 - 30 && y < Gt.y1 + 60 ? 1 : Infinity; },
+      slot(i) { const n = 12; i %= 24; return { x: Gt.x0 + 16 + (i % n) * ((Gt.x1 - Gt.x0 - 32) / (n - 1)), y: Gt.y1 + 11 + Math.floor(i / n) * 13 }; },
+      done() { openGate(); },
+    });
+  }
+
+  function openGate() {
+    W.gateOpen = true; G.gate.anim = 0;
+    A.play('gate');
+    G.cam.shake = 14;
+    for (const k of G.kids) if (k.state === 'goto' && k.target === G.gateJob) { k.state = 'return'; k.target = null; k.hop = 0.4; }
+    G.highlight('みちがひらけた！', 'きたの深い森へ いけるよ', { level: 3 });
+    G.save();
+  }
+
+  function updateJobs(dt) {
+    for (const j of G.jobs) {
+      if (j.cd > 0) j.cd -= dt;
+      if (!j.workers.length) {
+        j.power = 0;
+        if (j.decay && j.progress > 0 && j.active()) j.progress = Math.max(0, j.progress - dt * j.decay);
+        continue;
+      }
+      if (!j.active()) { releaseJob(j, 'return'); continue; }
+      let p = 0;
+      for (const k of j.workers) p += k.def.power;
+      j.power = p;
+      j.progress += (p * dt) / j.need;
+      j.fxT = (j.fxT || 0) - dt;
+      if (j.fxT <= 0 && onScreen(j.x, j.y)) {
+        j.fxT = j.kind === 'tree' ? 0.3 : j.kind === 'rock' ? 0.36 : 0.45;
+        A.play(j.kind === 'tree' ? 'chop' : j.kind === 'rock' ? 'mine' : j.kind === 'site' ? 'hammer' : 'push', { pitch: U.rand(0.9, 1.1) });
+        if (j.kind === 'tree') G.burst(j.x + U.rand(-30, 30), j.y - 90, 2, 'confetti', { colors: ['#5aa845', '#86c66a'], z: 40, min: 10, max: 50, vzMin: 0, vzMax: 40 });
+        else if (j.kind === 'rock') G.burst(j.x, j.y - 6, 3, 'dust', { colors: ['#b3b8c0', '#fff'], min: 30, max: 90 });
+        else G.burst(j.x + U.rand(-30, 30), j.y, 2, 'dust', { colors: ['#c9a66b'], min: 10, max: 40, vzMax: 50 });
+        if (j.kind === 'gate') G.cam.shake = Math.max(G.cam.shake, 0.6);
+      }
+      if (j.progress >= 1) {
+        j.progress = j.kind === 'gate' || j.kind === 'site' ? 1 : 0;
+        releaseJob(j, j.after);
+        j.done();
+      }
+    }
+    G.gate.progress = G.gateJob.progress;
+    G.gate.power = G.gateJob.power;
+    if (W.gateOpen && G.gate.anim >= 0 && G.gate.anim < 1.6) G.gate.anim += dt;
   }
 
   function updateKid(k, dt, fi) {
@@ -377,11 +497,13 @@
         break;
       }
       case 'goto': {
-        if (k.target === 'gate') {
-          if (W.gateOpen) { k.state = 'idle'; break; }
-          const s = gateSlot(k);
-          const d = seek(k, s.x, s.y, sp, dt, 6);
-          if (d < 8) { k.state = 'work'; A.play('attach'); }
+        if (k.target && k.target.workers) {
+          const j = k.target;
+          if (!j.active() || j.workers.length >= j.max || G.jobs.indexOf(j) < 0) { k.state = 'idle'; k.target = null; break; }
+          const s = j.slot(j.workers.length);
+          const d = seek(k, s.x, s.y, sp, dt, 5);
+          if (d < 40) k.stuckT = (k.stuckT || 0) + dt;
+          if (d < 12 || k.stuckT > 1.2) { if (!attachJob(k, j)) k.state = 'idle'; }
           break;
         }
         const it = k.target;
@@ -404,10 +526,13 @@
         break;
       }
       case 'work': {
-        if (W.gateOpen) { k.state = 'return'; break; }
-        const s = gateSlot(k);
+        const j = k.job;
+        if (!j) { k.state = 'idle'; break; }
+        const s = j.slot(Math.max(0, j.workers.indexOf(k)));
         k.x = U.smooth(k.x, s.x, 10, dt); k.y = U.smooth(k.y, s.y + Math.sin(G.time * 8 + k.id) * 1.5, 10, dt);
-        k.moving = true; k.walkT += dt * 0.7; k.dir = 'back';
+        k.moving = true; k.walkT += dt * 0.7;
+        if (j.kind === 'gate') k.dir = 'back';
+        else faceKid(k, j.x - k.x, (j.y - 4) - k.y);
         break;
       }
       case 'return': {
@@ -490,7 +615,11 @@
     G.coins += def.v; G.stats.coinsEarned += def.v; G.stats.total++;
     const first = !G.stats.delivered[it.type];
     G.stats.delivered[it.type] = (G.stats.delivered[it.type] || 0) + 1;
-    G.float(C.HOUSE.x, C.HOUSE.y - 170, `+${def.v}`, '#ffe066', 34);
+    if (def.mat) {
+      G.mats[def.mat]++;
+      G.float(C.HOUSE.x, C.HOUSE.y - 170, `${def.name} +1`, def.mat === 'wood' ? '#ffd8a8' : '#e9ecef', 30);
+    } else G.float(C.HOUSE.x, C.HOUSE.y - 170, `+${def.v}`, '#ffe066', 34);
+    G.emit('deliver', { type: it.type, def });
     A.play('coin');
     G.burst(C.HOUSE.x, C.HOUSE.y, 16, 'spark', { z: 130, colors: ['#fff6c2', '#ffd84a', '#fff'], min: 40, max: 180 });
     G.cam.shake = Math.max(G.cam.shake, def.big ? 10 : 2);
@@ -516,6 +645,7 @@
       G.highlight(`はじめての${def.name}！`, `+${def.v} もりコイン`);
     }
     hint('deliver', '運ぶと芽がふえるよ！「おいで！」ボタン(スペースキー)で、近くの芽や どんぐりっこをまとめて呼べるよ');
+    if (G.stats.total >= 3) hint('town', '木や岩に どんぐりっこを投げると、木材や石がとれるよ。「🏘まち」で、おうちの北の広場に家を建てて、住人をよぼう！');
   }
 
   function updateSprouts(dt) {
@@ -534,33 +664,6 @@
       }
     }
     if (G.sprouts.length > 80 || G.sprouts.some((s) => s.state === 'gone')) G.sprouts = G.sprouts.filter((s) => s.state !== 'gone');
-  }
-
-  function updateGate(dt) {
-    if (W.gateOpen) {
-      if (G.gate.anim >= 0 && G.gate.anim < 1.6) G.gate.anim += dt;
-      return;
-    }
-    let power = 0;
-    for (const k of G.kids) if (k.state === 'work') power += k.def.power;
-    G.gate.power = power;
-    if (power > 0) {
-      G.gate.progress += (power * dt) / 80;
-      G.gate.pushT = (G.gate.pushT || 0) - dt;
-      if (G.gate.pushT <= 0) { G.gate.pushT = 0.5; A.play('push'); }
-      if (Math.random() < dt * 6) G.burst(U.rand(C.GATE.x0, C.GATE.x1), C.GATE.y1, 1, 'dust', { colors: ['#c9a66b'], min: 10, max: 40, vzMax: 50 });
-      G.cam.shake = Math.max(G.cam.shake, 0.6);
-    } else {
-      G.gate.progress = Math.max(0, G.gate.progress - dt * 0.02);
-    }
-    if (G.gate.progress >= 1) {
-      W.gateOpen = true; G.gate.anim = 0;
-      A.play('gate');
-      G.cam.shake = 14;
-      for (const k of G.kids) if (k.state === 'work' || (k.state === 'goto' && k.target === 'gate')) { k.state = 'return'; k.target = null; k.hop = 0.4; }
-      G.highlight('みちがひらけた！', 'きたの深い森へ いけるよ', { level: 3 });
-      G.save();
-    }
   }
 
   function spawner(dt) {
@@ -607,7 +710,7 @@
       G.weather.rainAt = Math.random() < 0.45 ? U.rand(0.12, 0.48) : 2;
     }
     const night = G.isNight();
-    if (wasNight && !night) G.highlight('あさがきた！', `${G.day}日目の森`, { dur: 2.4, color: '#ff9f43' });
+    if (wasNight && !night) { G.highlight('あさがきた！', `${G.day}日目の森`, { dur: 2.4, color: '#ff9f43' }); G.emit('morning'); }
     if (!wasNight && night) G.emit('toast', '夜になったよ。ながれぼしが見えるかも…');
     A.setNight(night);
     // 雨
@@ -758,7 +861,8 @@
     for (const k of G.kids) if (k.state !== 'air' && k.state !== 'carry' && k.state !== 'work') W.resolve(k, 8);
     for (const it of G.items.slice()) updateItem(it, dt);
     updateSprouts(dt);
-    updateGate(dt);
+    updateJobs(dt);
+    G.emit('update', dt);
     spawner(dt);
     updateSky(dt);
     updateShooting(dt);
@@ -770,7 +874,9 @@
   };
 
   // デバッグ・テスト用
-  G._debug = { newItem, newKid, shootingStar, spawnItem };
+  G._debug = { newItem, newKid, shootingStar, spawnItem, dropMat };
+  G.hint = hint;
+  G.freeSpotNear = freeSpotNear;
 
   DF.Game = G;
 })(window.DF);
