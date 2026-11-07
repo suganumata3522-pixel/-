@@ -8,3 +8,7 @@ HTML / CSS / JavaScript のみの静的サイトで、GitHub Pages で公開し�
 
 詳しい構成・編集・記事追加・運営の手順は
 [`kouzou-site/運営マニュアル.md`](kouzou-site/運営マニュアル.md) を参照してください。
+
+## その他
+
+- [`tanepoko-rush/`](tanepoko-rush/) … ブラウザで遊べるミニゲーム「タネポコ・ラッシュ」（サイト本体とは独立。`kouzou-site/` の公開対象には含まれません）
