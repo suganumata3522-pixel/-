@@ -73,7 +73,10 @@ class Director {
   onEvent(ev, vt) {
     switch (ev.type) {
       case 'bomb':
-        if (!this.seen.bomb && vt > 3.2) { this.seen.bomb = 1; this.say([L('顔ボムをセット！', 104)], { pri: 2 }, vt); }
+        if (!this.seen.bomb && vt > 3.2) { this.seen.bomb = vt; this.say([L('自分の顔を', 84), L('ポイッ！', 128, '#ffe03d')], { pri: 3, dur: 1.4, min: 1.2, wobble: true }, vt); }
+        break;
+      case 'refill':
+        if (!this.seen.refill && this.seen.bomb && vt - this.seen.bomb > 1.2) { this.seen.refill = 1; this.say([L('ジャムおじさんが', 80), L('新しい顔をつけてくれる！', 92, '#fff59d', '#e65100')], { pri: 6, dur: 2.3, min: 2.0 }, vt); }
         break;
       case 'explode': {
         this.booms = this.booms.filter(t => vt - t < 0.35); this.booms.push(vt);
@@ -87,7 +90,7 @@ class Director {
         else this.say([L('アンパーンチ!!', 128, '#ffe03d')], { pri: 4, wobble: true }, vt);
         break;
       case 'hit': this.say([L('あ〜っ!!', 130, '#fff', '#5e35b1')], { pri: 7, dur: 1.1, min: 0.9 }, vt); break;
-      case 'new_face': this.say([L('新しい顔よ〜！', 116, '#fff', '#d81b60')], { pri: 8, dur: 1.1, min: 0.9 }, vt); break;
+      case 'new_face': this.say([L('新しい顔だよ〜！', 112, '#fff', '#d81b60')], { pri: 8, dur: 1.1, min: 0.9 }, vt); break;
       case 'genki': this.say([L('元気100倍!!', 132, '#ffe03d', '#d84315')], { pri: 8, dur: 1.6, wobble: true }, vt); break;
       case 'stage_clear':
         if (!ev.last) this.say([L('ステージクリア！', 116, '#fff', '#ef6c00')], { pri: 9, dur: 1.8 }, vt);
@@ -360,7 +363,8 @@ const S = {
     ctx.fillStyle = '#fff8d6'; D.circle(ctx, 0, 32, 236); ctx.fill();
     D.drawFaceBomb(ctx, 0, 10, 560, { t: 0.5, age: 0.3, noShadow: true });
     ctx.restore();
-    D.drawAnpanman(ctx, 250, 1480, 330, { dir: 2, expr: 'happy', anim: 0.4, moving: false });
+    D.drawJam(ctx, 118, 1420, 270, { dir: 4, expr: 'happy', anim: 0.4, moving: false, cheer: true });
+    D.drawAnpanman(ctx, 300, 1490, 320, { dir: 2, expr: 'happy', anim: 0.4, moving: false });
     ctx.save(); ctx.translate(800, 1400); ctx.rotate(0.1);
     D.drawBoss(ctx, 0, 0, 200, { state: 'fight', anim: 0.2, inv: 0 }, { x: -1, y: 0 });
     ctx.restore();

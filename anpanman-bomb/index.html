@@ -100,6 +100,7 @@ const FLOOR = 0, HARD = 1, SOFT = 2;
 const DX = [0, 0, 0, -1, 1], DY = [0, -1, 1, 0, 0], OPP = [0, 2, 1, 4, 3];
 const BIT = [0, 4, 8, 1, 2];                 // 上=4 下=8 左=1 右=2 (中心=16)
 const FUSE = 2.4, FLAME_DUR = 0.55, CHAIN_DELAY = 0.08, BREAK_TIME = 0.45, DT = 1 / 60;
+const FOLLOW_DIST = 1.0, REFILL_TIME = 0.45;   // ジャムおじさんがついてくる距離 / 新しい顔をつけるまでの時間
 const IT_BOMB = 1, IT_FIRE = 2, IT_SPEED = 3, IT_LIFE = 4;
 const ITEM_LABEL = ['', '顔ボム+1', 'パンチ力UP', 'スピードUP', '顔+1'];
 const FONT_POP = '"Mochiy Pop One","M PLUS Rounded 1c","Hiragino Maru Gothic ProN","Yu Gothic","Meiryo",sans-serif';
@@ -240,7 +241,11 @@ class Game {
     }
     shuffle(softCells, rng);
     st.items.forEach((it, i) => { if (i < softCells.length) this.hidden[softCells[i]] = it; });
-    this.pl = { x: px, y: py, dir: 2, moving: false, anim: 0, state: 'alive', stateT: 0, inv: 0, active: 0 };
+    this.pl = { x: px, y: py, dir: 2, moving: false, anim: 0, state: 'alive', stateT: 0, inv: 0, active: 0, hasFace: true, hadFace: true, refillT: -1 };
+    let jx = px, jy = py;   // ジャムおじさんはとなりの空きマスからスタート
+    for (const [ddx, ddy] of [[0, 1], [-1, 0], [1, 0], [0, -1]]) { if (this.grid[(py + ddy) * COLS + px + ddx] === FLOOR) { jx = px + ddx; jy = py + ddy; break; } }
+    this.jam = { x: jx, y: jy, dir: 2, anim: 0, moving: false, hop: 0, lag: FOLLOW_DIST };
+    this.trail = [{ x: jx, y: jy }, { x: px, y: py }];
     for (const s of spawns) this.spawnEnemy(s.ch === 'K' ? 'kabi' : s.ch === 'R' ? 'robo' : 'boss', s.c, s.r);
     this.phase = 'intro'; this.phaseT = this.introTime; this.stageTime = 0;
     this.emit('stage_start', { stage: this.stagePos, no: this.stageNo, name: st.name, boss: !!st.boss });
@@ -295,9 +300,10 @@ class Game {
 
   placeBomb() {
     const pl = this.pl, c = Math.round(pl.x), r = Math.round(pl.y);
-    if (pl.active >= this.player.bombs || this.bombAt(c, r) || this.grid[r * COLS + c] !== FLOOR) return false;
-    this.bombs.push({ id: this.nextId++, c, r, t: FUSE, age: 0, range: this.player.range, pass: true, chained: false });
+    if (!pl.hasFace || pl.active >= this.player.bombs || this.bombAt(c, r) || this.grid[r * COLS + c] !== FLOOR) return false;
+    this.bombs.push({ id: this.nextId++, c, r, t: FUSE, age: 0, range: this.player.range, pass: true, chained: false, ox: pl.x - c, oy: pl.y - r });
     pl.active++;
+    pl.hasFace = false; pl.refillT = -1;   // 自分の顔をはずして爆弾にする
     this.emit('bomb', { c, r });
     return true;
   }
@@ -346,6 +352,8 @@ class Game {
     this.stageTime += dt;
     if (this.phase === 'play') this.updatePlayer(dt);
     else { pl.anim += dt; pl.moving = false; if (pl.inv > 0) pl.inv -= dt; }
+    this.updateJam(dt);
+    this.updateFace(dt);
 
     for (const b of this.bombs) { b.t -= dt; b.age += dt; }
     for (let guard = 0; guard < 64; guard++) {
@@ -398,14 +406,14 @@ class Game {
     if (pl.state === 'hit') {
       pl.stateT -= dt;
       if (pl.stateT <= 0) {
-        if (this.player.lives > 0) { pl.state = 'newface'; pl.stateT = 1.0; this.emit('new_face', { x: pl.x, y: pl.y }); }
+        if (this.player.lives > 0) { pl.state = 'newface'; pl.stateT = 1.0; this.emit('new_face', { x: pl.x, y: pl.y, hadFace: pl.hadFace }); }
         else { pl.state = 'gone'; this.phase = 'over'; this.emit('game_over'); }
       }
       return;
     }
     if (pl.state === 'newface') {
       pl.stateT -= dt;
-      if (pl.stateT <= 0) { pl.state = 'alive'; pl.inv = 2.2; this.emit('genki', { x: pl.x, y: pl.y }); }
+      if (pl.stateT <= 0) { pl.state = 'alive'; pl.inv = 2.2; pl.hasFace = true; pl.refillT = -1; this.emit('genki', { x: pl.x, y: pl.y }); }
       return;
     }
     if (pl.state !== 'alive') return;
@@ -423,8 +431,72 @@ class Game {
     for (const b of this.bombs) if (b.pass && (Math.abs(pl.x - b.c) >= 0.98 || Math.abs(pl.y - b.r) >= 0.98)) b.pass = false;
   }
 
+  // ジャムおじさん：アンパンマンの通った道を、うしろから1マスぶんついていく
+  // （爆発しそうな場所は避けて、アンパンマンのすぐうしろにつめる）
+  trailPoint(lag) {
+    const tr = this.trail;
+    let rem = lag, cx = this.pl.x, cy = this.pl.y;
+    for (let i = tr.length - 1; i >= 0; i--) {
+      const seg = Math.abs(tr[i].x - cx) + Math.abs(tr[i].y - cy);
+      if (seg >= rem) { const f = seg > 0 ? rem / seg : 0; return { x: cx + (tr[i].x - cx) * f, y: cy + (tr[i].y - cy) * f }; }
+      rem -= seg; cx = tr[i].x; cy = tr[i].y;
+    }
+    return { x: cx, y: cy };
+  }
+  inBlast(c, r) {   // もうすぐ爆発する／燃えているマス
+    if (this.flameT[r * COLS + c] > 0) return true;
+    for (const b of this.bombs) {
+      if (b.t > 0.8) continue;
+      if (b.c === c && b.r === r) return true;
+      const sameRow = b.r === r, sameCol = b.c === c;
+      if (!sameRow && !sameCol) continue;
+      const d = sameRow ? c - b.c : r - b.r;
+      if (Math.abs(d) > b.range) continue;
+      let open = true;
+      for (let i = 1; i < Math.abs(d); i++) {
+        const cc = sameRow ? b.c + Math.sign(d) * i : c, rr = sameRow ? r : b.r + Math.sign(d) * i;
+        if (this.grid[rr * COLS + cc] !== FLOOR) { open = false; break; }
+      }
+      if (open) return true;
+    }
+    return false;
+  }
+  updateJam(dt) {
+    const pl = this.pl, jam = this.jam, tr = this.trail, last = tr[tr.length - 1];
+    if (Math.abs(pl.x - last.x) + Math.abs(pl.y - last.y) > 0.04) {
+      tr.push({ x: pl.x, y: pl.y });
+      let len = 0;
+      for (let i = tr.length - 1; i > 0; i--) {
+        len += Math.abs(tr[i].x - tr[i - 1].x) + Math.abs(tr[i].y - tr[i - 1].y);
+        if (len > 3) { tr.splice(0, i - 1); break; }
+      }
+    }
+    let want = 0.3;
+    for (const lag of [FOLLOW_DIST, 0.75, 0.5, 0.3]) { const q = this.trailPoint(lag), qc = Math.round(q.x), qr = Math.round(q.y); if (!this.inBlast(qc, qr) && !this.bombAt(qc, qr)) { want = lag; break; } }
+    jam.lag += clamp(want - jam.lag, -4 * dt, 4 * dt);
+    const t = this.trailPoint(jam.lag), dx = t.x - jam.x, dy = t.y - jam.y;
+    jam.moving = Math.abs(dx) + Math.abs(dy) > 0.002;
+    if (jam.moving) { jam.dir = Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? 4 : 3) : (dy > 0 ? 2 : 1); jam.anim += dt; }
+    else { const ex = pl.x - jam.x, ey = pl.y - jam.y; if (Math.abs(ex) + Math.abs(ey) > 0.05) jam.dir = Math.abs(ex) > Math.abs(ey) ? (ex > 0 ? 4 : 3) : (ey > 0 ? 2 : 1); }
+    jam.x = t.x; jam.y = t.y;
+    jam.hop = 0;   // 顔ボムの上はぴょんととびこえる
+    for (const b of this.bombs) { const d = Math.abs(jam.x - b.c) + Math.abs(jam.y - b.r); if (d < 0.8) jam.hop = Math.max(jam.hop, 0.42 * Math.cos(d / 0.8 * Math.PI / 2)); }
+  }
+  // 顔がないときは、ジャムおじさんが新しい顔を投げてつけてくれる（場に出ている顔ボムが上限より少ないとき）
+  updateFace(dt) {
+    const pl = this.pl;
+    if (pl.state !== 'alive' || pl.hasFace) return;
+    if (pl.refillT >= 0) {
+      pl.refillT += dt;
+      if (pl.refillT >= REFILL_TIME) { pl.refillT = -1; pl.hasFace = true; this.emit('refill', { x: pl.x, y: pl.y }); }
+    } else if (pl.active < this.player.bombs || this.phase === 'clear') {
+      pl.refillT = 0; this.emit('toss', { x: this.jam.x, y: this.jam.y });
+    }
+  }
+
   hitPlayer(cause) {
     const pl = this.pl;
+    pl.hadFace = pl.hasFace; pl.refillT = -1;
     pl.state = 'hit'; pl.stateT = 1.1; pl.moving = false;
     this.player.lives--;
     this.emit('hit', { cause, x: pl.x, y: pl.y, lives: this.player.lives });
@@ -696,7 +768,7 @@ class Bot {
     const bv = this.bombValue(g, D, c, r);
     // 1) 危ない！逃げる（余裕があれば連鎖ボムを置いてから）
     if (D.ds[k] !== Infinity) {
-      if (D.ds[k] > 0.9 && bv.total >= 1 && pl.active < g.player.bombs && !g.bombAt(c, r) && this.cool <= 0) {
+      if (D.ds[k] > 0.9 && bv.total >= 1 && pl.hasFace && pl.active < g.player.bombs && !g.bombAt(c, r) && this.cool <= 0) {
         const D2 = this.danger(g, { c, r, t: FUSE, range: g.player.range });
         const p2 = this.escape(g, D2, k, avoid);
         if (p2 && p2.length <= 6) { out.bomb = true; this.cool = 0.3; this.goal = -1; return this.steer(g, p2, out); }
@@ -707,7 +779,7 @@ class Bot {
     // 2) ここにボムを置く？
     const th = this.threat(g);
     const want = bv.total >= 2 || (bv.total >= 1 && this.goal === k) || bv.enemy > 0;
-    if (want && pl.active < g.player.bombs && !g.bombAt(c, r) && this.cool <= 0 && !(this.ban.get(k) > this.t)) {
+    if (want && pl.hasFace && pl.active < g.player.bombs && !g.bombAt(c, r) && this.cool <= 0 && !(this.ban.get(k) > this.t)) {
       const D2 = this.danger(g, { c, r, t: FUSE, range: g.player.range });
       const p = this.escape(g, D2, k, avoid);
       if (p && p.length <= 7) { out.bomb = true; this.cool = 0.3; this.goal = -1; return this.steer(g, p, out); }
@@ -875,9 +947,12 @@ function drawAnpanFace(ctx, x, y, R, o) {
 function drawFaceBomb(ctx, x, y, T, b) {
   const p = clamp(1 - b.t / FUSE, 0, 1), R = T * 0.37;
   const sc = 1 + Math.sin(b.age * (6 + p * 18)) * (0.035 + p * 0.05);
-  let pop = 1;
-  if (b.age < 0.18) pop = 0.5 + 0.5 * easeOutBack(b.age / 0.18);
+  const pop = b.age < 0.2 ? 0.8 + 0.2 * easeOutBack(b.age / 0.2) : 1;
   if (!b.noShadow) { ellipse(ctx, x, y + T * 0.34, R * 0.95, R * 0.28); ctx.fillStyle = 'rgba(0,0,0,.22)'; ctx.fill(); }
+  if (b.age < 0.16) {   // 頭からはずれて床に落ちる（影は床のまま）
+    const q = b.age / 0.16, e = 1 - q;
+    x += (b.ox || 0) * T * e; y += (b.oy || 0) * T * e - 0.27 * T * e - Math.sin(q * Math.PI) * 0.12 * T;
+  }
   const cy = y + T * 0.04;
   const L = 0.35 + 0.65 * (1 - p);
   const sy = (2 - sc) * pop;
@@ -988,6 +1063,87 @@ function drawAnpanman(ctx, x, y, T, o) {
       circle(ctx, 0, -0.2 * u, 0.29 * u); ctx.fillStyle = g; ctx.fill(); ctx.lineWidth = Math.max(1, 0.29 * u * 0.07); ctx.stroke();
     } else drawAnpanFace(ctx, 0, -0.2 * u, 0.29 * u, { look: side, expr: o.expr });
   }
+  ctx.restore();
+}
+
+// ---- ジャムおじさん ----
+function cloudPath(ctx, list, e) {   // 円をつなげた「もじゃもじゃ」の形（e だけ太らせる）
+  ctx.beginPath();
+  for (const [cx, cy, r] of list) { ctx.moveTo(cx + r + e, cy); ctx.arc(cx, cy, r + e, 0, Math.PI * 2); }
+}
+function cloudFill(ctx, list, col, lw) { cloudPath(ctx, list, lw); ctx.fillStyle = INK; ctx.fill(); cloudPath(ctx, list, 0); ctx.fillStyle = col; ctx.fill(); }
+const JAM_HAIR = '#c4d7d1';
+function drawJamFace(ctx, R, fx, expr) {
+  const lw = Math.max(1, R * 0.06);
+  ctx.strokeStyle = INK; ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+  for (const s of [-1, 1]) {                                   // ほっぺ
+    const cx = s * R * 0.5 + fx * 0.85, cy = R * 0.14, r = R * 0.25;
+    circle(ctx, cx, cy, r); ctx.fillStyle = '#c97b65'; ctx.fill(); ctx.lineWidth = lw * 0.75; ctx.stroke();
+    ctx.fillStyle = '#fff'; ctx.fillRect(cx - r * 0.13, cy - r * 0.2, r * 0.27, r * 0.27);
+  }
+  ctx.lineWidth = lw * 0.85; ctx.beginPath(); ctx.arc(fx, R * 0.16, R * 0.46, Math.PI * 0.2, Math.PI * 0.8); ctx.stroke();   // くち
+  const mus = [];                                              // くちひげ
+  for (let i = 0; i < 5; i++) mus.push([fx + (-0.27 + i * 0.135) * R, R * 0.44 - Math.abs(i - 2) * 0.035 * R, R * 0.09]);
+  mus.push([fx - 0.14 * R, R * 0.36, R * 0.1], [fx + 0.14 * R, R * 0.36, R * 0.1], [fx, R * 0.36, R * 0.1]);
+  cloudFill(ctx, mus, JAM_HAIR, lw * 0.8);
+  const nx = fx * 1.1, ny = R * 0.1, nr = R * 0.26;            // はな
+  circle(ctx, nx, ny, nr); ctx.fillStyle = '#c47460'; ctx.fill(); ctx.lineWidth = lw * 0.8; ctx.stroke();
+  ctx.fillStyle = '#fff'; ctx.fillRect(nx - nr * 0.13, ny - nr * 0.42, nr * 0.27, nr * 0.25);
+  for (const s of [-1, 1]) {                                   // め
+    const ex = s * R * 0.25 + fx, ey = -R * 0.25;
+    ctx.fillStyle = INK; ctx.strokeStyle = INK;
+    if (expr === 'happy') { ctx.lineWidth = R * 0.07; ctx.beginPath(); ctx.arc(ex, ey + R * 0.05, R * 0.075, Math.PI * 1.1, Math.PI * 1.9); ctx.stroke(); }
+    else { ellipse(ctx, ex, ey, R * 0.07, R * 0.11); ctx.fill(); }
+    cloudFill(ctx, [[ex - s * R * 0.06, -R * 0.52, R * 0.08], [ex + s * R * 0.06, -R * 0.55, R * 0.085], [ex + s * R * 0.16, -R * 0.5, R * 0.06]], JAM_HAIR, lw * 0.7);   // まゆげ
+  }
+}
+function drawJam(ctx, x, y, T, o) {
+  const u = T, dir = o.dir || 2, side = dir === 3 ? -1 : dir === 4 ? 1 : 0, back = dir === 1;
+  const walk = o.moving ? Math.sin(o.anim * 11) : 0, jump = o.jump || 0;
+  const bob = (o.moving ? -Math.abs(Math.sin(o.anim * 11)) * 0.035 * u : 0) - jump * u;
+  const lw = Math.max(1, u * 0.022);
+  const SKIN = '#eaa98b', WHITE = '#f8f7f3', SHOE = '#7c978c';
+  ctx.save();
+  ellipse(ctx, x, y + 0.43 * u, 0.24 * u * (1 - jump * 0.8), 0.07 * u); ctx.fillStyle = 'rgba(0,0,0,.22)'; ctx.fill();
+  ctx.translate(x, y + bob);
+  if (o.alpha != null) ctx.globalAlpha = o.alpha;
+  ctx.lineJoin = 'round'; ctx.lineCap = 'round'; ctx.strokeStyle = INK; ctx.lineWidth = lw;
+  const fs = col => { ctx.fillStyle = col; ctx.fill(); ctx.stroke(); };
+  for (const s of [-1, 1]) {                                   // ズボン・くつ
+    const lift = (s < 0 ? walk > 0.2 : walk < -0.2) ? -0.03 * u : 0;
+    ctx.beginPath(); ctx.rect(s * 0.07 * u - 0.042 * u, 0.29 * u + lift, 0.084 * u, 0.08 * u); fs(WHITE);
+    ellipse(ctx, s * 0.075 * u + side * 0.02 * u, 0.39 * u + lift, 0.075 * u, 0.042 * u); fs(SHOE);
+  }
+  ctx.beginPath();                                             // コック服
+  ctx.moveTo(-0.14 * u, 0.07 * u); ctx.lineTo(0.14 * u, 0.07 * u); ctx.quadraticCurveTo(0.2 * u, 0.08 * u, 0.2 * u, 0.15 * u);
+  ctx.lineTo(0.18 * u, 0.32 * u); ctx.lineTo(-0.18 * u, 0.32 * u); ctx.lineTo(-0.2 * u, 0.15 * u); ctx.quadraticCurveTo(-0.2 * u, 0.08 * u, -0.14 * u, 0.07 * u);
+  ctx.closePath(); fs(WHITE);
+  if (!back) { ctx.beginPath(); ctx.moveTo(-0.19 * u, 0.205 * u); ctx.quadraticCurveTo(0, 0.218 * u, 0.19 * u, 0.205 * u); ctx.lineWidth = lw * 0.8; ctx.stroke(); ctx.lineWidth = lw; }
+  const toss = o.toss || 0;                                    // 顔を投げる側の手を上げる
+  for (const s of [-1, 1]) {
+    if (side !== 0 && s !== side && toss !== s) continue;
+    const up = toss === s || o.cheer;
+    const hx = up ? s * 0.28 * u : side ? side * (0.1 + walk * 0.05) * u : s * 0.225 * u;
+    const hy = up ? -0.12 * u : 0.22 * u + s * walk * 0.025 * u;
+    limb(ctx, s * (side ? 0.04 : 0.16) * u, 0.11 * u, hx, hy, 0.07 * u, WHITE, lw);
+    circle(ctx, hx, hy + (up ? -0.03 * u : 0.02 * u), 0.055 * u); fs(SKIN);
+  }
+  const R = 0.25 * u;
+  ctx.save(); ctx.translate(0, -0.14 * u);
+  const g = ctx.createRadialGradient(-R * 0.35, -R * 0.4, R * 0.1, 0, 0, R * 1.05);   // かお
+  g.addColorStop(0, '#f6c4a9'); g.addColorStop(1, '#de9a7d');
+  circle(ctx, 0, 0, R); ctx.fillStyle = g; ctx.fill();
+  if (!back) { ctx.save(); circle(ctx, 0, 0, R); ctx.clip(); drawJamFace(ctx, R, side * R * 0.2, o.expr); ctx.restore(); }
+  circle(ctx, 0, 0, R); ctx.lineWidth = lw; ctx.strokeStyle = INK; ctx.stroke();
+  ctx.beginPath();                                             // コック帽
+  ctx.moveTo(-0.58 * R, -0.74 * R); ctx.quadraticCurveTo(0, -0.62 * R, 0.58 * R, -0.74 * R);
+  ctx.lineTo(0.6 * R, -1.5 * R); ctx.lineTo(-0.6 * R, -1.5 * R); ctx.closePath();
+  ctx.fillStyle = WHITE; ctx.fill(); ctx.lineWidth = lw; ctx.stroke();
+  cloudFill(ctx, [[-0.42 * R, -1.62 * R, 0.34 * R], [0, -1.76 * R, 0.42 * R], [0.42 * R, -1.62 * R, 0.34 * R]], WHITE, lw);
+  for (const s of [-1, 1]) {                                   // よこの髪
+    cloudFill(ctx, [[s * 0.86 * R, -0.36 * R, 0.23 * R], [s * 0.72 * R, -0.55 * R, 0.17 * R], [s * 1.0 * R, -0.52 * R, 0.16 * R], [s * 0.97 * R, -0.18 * R, 0.15 * R], [s * 0.72 * R, -0.2 * R, 0.14 * R]], JAM_HAIR, lw);
+  }
+  ctx.restore();
   ctx.restore();
 }
 
@@ -1391,9 +1547,10 @@ class Renderer {
       case 'poof': this.burst('smoke', ev.x, ev.y, 7, { speed: 1.4, life: 0.6, size: 0.2, color: 'rgba(205,185,245,.9)' }); break;
       case 'hit': this.burst('star', ev.x, ev.y - 0.3, 8, { speed: 2.5, life: 0.7, size: 0.13, color: ['#ffe14d', '#fff'] }); this.shake = Math.min(0.35, this.shake + 0.12); break;
       case 'new_face':
-        this.parts.push({ type: 'oldface', x: ev.x, y: ev.y - 0.17, vx: 2.4, vy: -5.5, g: 13, life: 0, max: 1.1, size: 0.3, rot: 0, vr: 9, color: '' });
+        if (ev.hadFace) this.parts.push({ type: 'oldface', x: ev.x, y: ev.y - 0.17, vx: 2.4, vy: -5.5, g: 13, life: 0, max: 1.1, size: 0.3, rot: 0, vr: 9, color: '' });
         this.faceFly = { t: 0, dur: 0.95 };
-        this.addPop('新しい顔よ〜!', ev.x, ev.y - 1.2, { size: 0.4, fill: '#fff', stroke: '#d81b60', dur: 1.3, rise: 0.4 }); break;
+        this.addPop('新しい顔だよ〜!', ev.x, ev.y - 1.2, { size: 0.4, fill: '#fff', stroke: '#d81b60', dur: 1.3, rise: 0.4 }); break;
+      case 'refill': this.burst('twinkle', ev.x, ev.y - 0.25, 7, { speed: 1.8, life: 0.5, size: 0.13, color: ['#fff', '#fff59d'] }); break;
       case 'genki':
         this.faceFly = null;
         this.addPop('元気100倍!', ev.x, ev.y - 0.9, { size: 0.5, fill: '#ffeb3b', stroke: '#d84315', dur: 1.3 });
@@ -1473,15 +1630,13 @@ class Renderer {
     for (let k = 0; k < N; k++) if (g.items[k]) drawItemTile(ctx, g.items[k], (k % COLS + 0.5) * T, (((k / COLS) | 0) + 0.5) * T, T, this.time + k * 0.7);
     for (const b of g.bombs) drawFaceBomb(ctx, (b.c + 0.5) * T, (b.r + 0.5) * T, T, b);
     this.drawFlames(ctx, g, T);
-    const ents = g.enemies.filter(e => (!e.dead || e.deadT < 0.7) && e.kind !== 'boss').sort((a, b) => a.y - b.y);
-    let plDone = false;
-    for (const e of ents) {
-      if (!plDone && e.y > g.pl.y) { this.drawPlayer(ctx, g, T); plDone = true; }
-      this.drawEnemy(ctx, g, e, T);
-    }
-    if (!plDone) this.drawPlayer(ctx, g, T);
+    const ents = g.enemies.filter(e => (!e.dead || e.deadT < 0.7) && e.kind !== 'boss').map(e => ({ y: e.y, f: () => this.drawEnemy(ctx, g, e, T) }));
+    ents.push({ y: g.pl.y, f: () => this.drawPlayer(ctx, g, T) });
+    if (g.jam) ents.push({ y: g.jam.y - 0.01, f: () => this.drawJamEntity(ctx, g, T) });
+    ents.sort((a, b) => a.y - b.y).forEach(d => d.f());
     for (const e of g.enemies) if (e.kind === 'boss' && !e.dead) this.drawEnemy(ctx, g, e, T);
     this.drawParts(ctx, T);
+    this.drawRefill(ctx, g, T);
     this.drawFaceFly(ctx, g, T);
     this.drawPops(ctx, T);
     if (this.flash > 0) { ctx.fillStyle = 'rgba(255,255,255,' + (this.flash * 0.8).toFixed(3) + ')'; ctx.fillRect(0, 0, COLS * T, ROWS * T); }
@@ -1516,6 +1671,7 @@ class Renderer {
     if (g.phase === 'clear' || g.phase === 'won') { o.dir = 2; o.expr = 'happy'; o.moving = false; o.jump = Math.abs(Math.sin(this.time * 7)) * 0.16; }
     if (pl.state === 'hit' || pl.state === 'gone') { o.expr = 'sad'; o.dir = 2; o.moving = false; o.rot = pl.state === 'hit' ? Math.sin(pl.stateT * 30) * 0.12 : 0.2; }
     if (pl.state === 'newface') { o.headless = true; o.dir = 2; o.moving = false; }
+    if ((pl.state === 'alive' && !pl.hasFace) || ((pl.state === 'hit' || pl.state === 'gone') && !pl.hadFace)) o.headless = true;
     if (pl.inv > 0 && pl.state === 'alive' && Math.floor(pl.inv * 12) % 2 === 0) o.alpha = 0.4;
     drawAnpanman(ctx, x, y, T, o);
     if (pl.state === 'hit' || pl.state === 'gone') {
@@ -1561,10 +1717,44 @@ class Renderer {
     }
     ctx.globalAlpha = 1;
   }
+  jamHand(g) {   // ジャムおじさんの、顔を投げる手の位置（マス単位）
+    const s = g.pl.x >= g.jam.x ? 1 : -1;
+    return { s, x: g.jam.x + s * 0.28, y: g.jam.y - 0.32 };
+  }
+  isTossing(g) { return (g.pl.state === 'alive' && g.pl.refillT >= 0) || (g.pl.state === 'newface' && this.faceFly); }
+  drawJamEntity(ctx, g, T) {
+    const jam = g.jam, pl = g.pl;
+    const x = (jam.x + 0.5) * T, y = (jam.y + 0.5) * T;
+    const o = { dir: jam.dir, moving: jam.moving, anim: jam.anim, expr: 'smile', jump: jam.hop || 0 };
+    if (g.phase === 'intro') { o.dir = 2; o.moving = false; }
+    if (g.phase === 'clear' || g.phase === 'won') { o.dir = 2; o.expr = 'happy'; o.moving = false; o.cheer = true; o.jump = Math.abs(Math.sin(this.time * 7 + 1.2)) * 0.12; }
+    if (this.isTossing(g)) {
+      const dx = pl.x - jam.x;
+      o.toss = dx >= 0 ? 1 : -1; o.moving = false;
+      o.dir = Math.abs(dx) > 0.3 ? (dx > 0 ? 4 : 3) : 2;
+    }
+    drawJam(ctx, x, y, T, o);
+  }
+  flyFace(ctx, g, T, p, arc, R0) {   // ジャムおじさんの手からアンパンマンの頭へ、顔が飛んでいく
+    const h = this.jamHand(g);
+    const sx = (h.x + 0.5) * T, sy = (h.y + 0.5) * T, tx = (g.pl.x + 0.5) * T, ty = (g.pl.y + 0.5 - 0.2) * T;
+    for (let i = 1; i <= 3; i++) {
+      const pp = Math.max(0, p - i * 0.06), xx = sx + (tx - sx) * pp, yy = sy + (ty - sy) * pp - Math.sin(pp * Math.PI) * arc * T;
+      ctx.globalAlpha = 0.45 - i * 0.12; starPath(ctx, xx, yy, T * 0.1, T * 0.035, 4, i); ctx.fillStyle = '#fff59d'; ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    const x = sx + (tx - sx) * p, y = sy + (ty - sy) * p - Math.sin(p * Math.PI) * arc * T;
+    drawAnpanFace(ctx, x, y, T * R0 * (0.85 + 0.15 * p), { rot: (1 - p) * -h.s * 6, expr: 'happy' });
+  }
+  drawRefill(ctx, g, T) {
+    if (g.pl.state !== 'alive' || g.pl.refillT < 0) return;
+    this.flyFace(ctx, g, T, clamp(g.pl.refillT / REFILL_TIME, 0, 1), 0.7, 0.29);
+  }
   drawFaceFly(ctx, g, T) {
     const f = this.faceFly;
     if (!f || g.pl.state !== 'newface') return;
     const p = clamp(f.t / f.dur, 0, 1);
+    if (g.jam) { this.flyFace(ctx, g, T, p, 1.5, 0.3); return; }
     const tx = (g.pl.x + 0.5) * T, ty = (g.pl.y + 0.5 - 0.17) * T, sx = -0.8 * T, sy = -1.2 * T;
     const x = sx + (tx - sx) * p, y = sy + (ty - sy) * p - Math.sin(p * Math.PI) * 2.6 * T;
     for (let i = 1; i <= 4; i++) {
@@ -1753,6 +1943,8 @@ class Synth {
       case 'hook': [60, 64, 67, 72, 76, 79, 84].forEach((m, i) => this.osc(t + i * 0.035, 'pulse', F(m + 12), null, 0.12, 0.16)); this.noise(t + 0.25, 0.6, 0.3, 9000, 3000, 'highpass'); this.osc(t + 0.25, 'triangle', F(48), null, 0.5, 0.35); break;
       case 'pop': this.osc(t, 'sine', 520, 1150, 0.08, 0.18); break;
       case 'select': this.osc(t, 'pulse', 880, 1320, 0.06, 0.16); break;
+      case 'toss': this.noise(t, 0.16, 0.16, 800, 3200, 'bandpass'); this.osc(t, 'triangle', 480, 900, 0.12, 0.1); break;
+      case 'refill': this.osc(t, 'pulse', F(84), null, 0.07, 0.15); this.osc(t + 0.06, 'pulse', F(91), null, 0.12, 0.15); this.osc(t + 0.06, 'triangle', F(79), null, 0.12, 0.16); this.osc(t + 0.1, 'sine', 2637, 3136, 0.18, 0.04); break;
     }
   }
 }
@@ -1789,7 +1981,7 @@ class Music {
   }
 }
 const PLAY_BGM = false;   // BGMなし（効果音だけ）。BGMを流すときは true にする
-const SFX_OF = { bomb: 'bomb', explode: 'explode', item: 'item', enemy_die: 'enemy', hit: 'hit', new_face: 'newface', genki: 'genki', go: 'go', boss_hit: 'bosshit', boss_defeat: 'bossdefeat', boss_laugh: 'laugh' };
+const SFX_OF = { toss: 'toss', refill: 'refill', bomb: 'bomb', explode: 'explode', item: 'item', enemy_die: 'enemy', hit: 'hit', new_face: 'newface', genki: 'genki', go: 'go', boss_hit: 'bosshit', boss_defeat: 'bossdefeat', boss_laugh: 'laugh' };
 class SoundManager {
   constructor() { this.ctx = null; this.syn = null; this.mus = null; this.muted = false; }
   unlock() {
@@ -2005,7 +2197,7 @@ function boot() {
 
 window.AnpanBomb = { COLS, ROWS, N, DT, FUSE, FLAME_DUR, HUD_ROWS, STAGES, THEMES, FONT_POP, FONT_UI, DX, DY,
   Game, Bot, Renderer, Synth, Music, SoundManager, TRACKS, SFX_OF, mulberry32, clamp, easeOutBack,
-  draw: { rrect, circle, ellipse, starPath, heartPath, otext, drawAnpanFace, drawFaceBomb, drawMiniBomb, drawAnpanman, drawKabi, drawRobo, drawBaikin, drawBoss, drawPinkGlove, drawGlove, drawCapeIcon, drawItemTile } };
+  draw: { rrect, circle, ellipse, starPath, heartPath, otext, drawAnpanFace, drawFaceBomb, drawMiniBomb, drawAnpanman, drawJam, drawKabi, drawRobo, drawBaikin, drawBoss, drawPinkGlove, drawGlove, drawCapeIcon, drawItemTile } };
 
 if (!/[?&]noboot/.test(location.search)) {
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
