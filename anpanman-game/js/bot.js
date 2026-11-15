@@ -335,5 +335,25 @@
     }
   }
 
-  AP.Bot = Bot;
+  /* Replays a recorded input list (one entry per play frame). The list for the
+   * EX stage is found offline by tools/tas.js, which searches with the real physics. */
+  class TasBot {
+    constructor(g, data) {
+      this.g = g; this.seq = [];
+      for (const run of (data || '').split(',')) {
+        if (!run) continue;
+        const v = run.charCodeAt(0) - 65, n = parseInt(run.slice(1) || '1', 36);
+        for (let i = 0; i < n; i++) this.seq.push(v);
+      }
+    }
+    think() {
+      const g = this.g, inp = AP.blankInput();
+      if (g.mode === 'play') {
+        const v = this.seq[g.playT] || 0;
+        inp.left = !!(v & 1); inp.right = !!(v & 2); inp.a = !!(v & 4); inp.b = !!(v & 8);
+      }
+      return inp;
+    }
+  }
+  AP.Bot = Bot; AP.TasBot = TasBot;
 })(typeof window !== 'undefined' ? window : globalThis);

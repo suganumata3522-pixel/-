@@ -2,11 +2,12 @@
  *  G ground   W castle stone   B brick   ? coin block   U used block
  *  M あたらしい顔 block (げんき100ばい star mode)   N あたらしい顔 block (heal only)
  *  S stair block   [ ] { } pipe   o coin   ~ lava surface   L lava   X invisible wall
+ *  ^ floor spikes   v ceiling spikes   (spikes hurt on touch and are not solid)
  * Rows 0..14, ground surface is row 13. Row 3 coin lines sit on the flying route. */
 (function (G) {
   'use strict';
   const AP = G.AP = G.AP || {};
-  const ROWS = 15, GT = 13;
+  const ROWS = 15, GT = 13, T = 72;
 
   class Builder {
     constructor(cols, theme) {
@@ -14,6 +15,7 @@
       this.tiles = [];
       for (let r = 0; r < ROWS; r++) this.tiles.push(new Array(cols).fill('.'));
       this.spawns = []; this.flagC = null; this.houseC = null; this.arenaC = null; this.start = 3;
+      this.hazards = [];
     }
     set(c, r, ch) { if (c >= 0 && c < this.cols && r >= 0 && r < ROWS) this.tiles[r][c] = ch; return this; }
     ground(c0, c1, ch) { for (let c = c0; c <= c1; c++) for (let r = GT; r < ROWS; r++) this.set(c, r, ch || 'G'); return this; }
@@ -33,6 +35,19 @@
     coins(c, r, n) { for (let i = 0; i < n; i++) this.set(c + i, r, 'o'); return this; }
     lava(c0, c1) { for (let c = c0; c <= c1; c++) { this.set(c, GT, '~'); this.set(c, GT + 1, 'L'); } return this; }
     ceiling(c0, c1) { for (let c = c0; c <= c1; c++) { this.set(c, 0, 'W'); this.set(c, 1, 'W'); } return this; }
+    // rotating chain of fireballs around a stone block; speed in radians per frame
+    firebar(c, r, len, speed, phase, twin) {
+      this.set(c, r, 'S');
+      this.hazards.push({ type: 'bar', x: (c + 0.5) * T, y: (r + 0.5) * T, len, speed, phase, twin: !!twin });
+      return this;
+    }
+    // magma ball that jumps out of the lava every `period` frames
+    podo(c, period, phase, height) {
+      this.hazards.push({ type: 'podo', x: (c + 0.5) * T, period, phase, h: height, air: Math.round(period * 0.55) });
+      return this;
+    }
+    // かびるんるん floating in place, bobbing up and down
+    hover(c, r, amp, phase) { this.spawns.push({ c, r, type: 'h', amp, phase }); return this; }
     flag(c) { this.flagC = c; this.set(c, GT - 1, 'S'); return this; }
     house(c) { this.houseC = c; return this; }
     done(meta) {
@@ -146,6 +161,51 @@
       for (const c of [16, 46, 76]) b.coins(c, 3, 8);
       b.arenaC = 104;
       return b.done({ world: '1-3', name: 'バイキン城', music: 'castle', princessC: 116 });
+    },
+    // ---------------------------------------------------------------- EX
+    // じごくの バイキン城: six precision trials back to back. Flying is disabled here.
+    function () {
+      const b = new Builder(196, 'castle');
+      b.ceiling(0, 195);
+      b.ground(0, 9, 'W');
+      b.enemy(7);
+      // 1. 溶岩の飛び石: nine one-tile pillars of uneven height, a magma ball in every gap
+      b.lava(10, 47);
+      [2, 4, 1, 3, 5, 2, 4, 1, 3].forEach((h, i) => b.column(12 + i * 4, h, 'W'));
+      for (let i = 0; i < 9; i++) b.podo(14 + i * 4, 100, (i * 37) % 100, 430);
+      // 2. ファイアバー回廊: a low corridor with three long fire bars, the middle one double-armed
+      b.ground(48, 74, 'W');
+      for (let c = 51; c <= 72; c++) for (let r = 0; r <= 8; r++) b.set(c, r, 'W');
+      b.firebar(55, 10, 7, 0.034, 0).firebar(62, 10, 7, -0.03, 2.2, true).firebar(69, 10, 7, 0.05, 4.1);
+      // 3. ストンプ渡り: 21 tiles of lava, crossed only by bouncing off floating かびるんるん,
+      //    with a fire bar turning in the middle of the route
+      b.lava(75, 95);
+      [[77, 10], [81, 9], [85, 10], [89, 9], [93, 10]].forEach(([c, r], i) => b.hover(c, r, 22, i * 1.7));
+      b.firebar(87, 6, 5, 0.03, 1.0);
+      // 4. マグマだま地帯: one-tile pillars with a magma ball in every gap
+      b.ground(96, 99, 'W');
+      b.lava(100, 118);
+      for (const c of [103, 107, 111, 115]) b.column(c, 2, 'W');
+      for (let i = 0; i < 5; i++) b.podo(101 + i * 4, 100, (i * 29) % 100, 440);
+      // 5. トゲトンネル: spikes on the ceiling, pairs of floor spikes one tile apart
+      b.ground(119, 156, 'W');
+      for (let c = 123; c <= 144; c++) { for (let r = 0; r <= 7; r++) b.set(c, r, 'W'); b.set(c, 8, 'v'); }
+      for (const c of [126, 128, 131, 133, 136, 138, 141]) b.set(c, GT - 1, '^');
+      b.enemy(146);
+      // 6. ラストジャンプ: a running jump onto a high pillar, then a drop onto a low one
+      b.lava(157, 170);
+      b.column(162, 3, 'W');
+      b.column(167, 1, 'W');
+      b.ground(171, 195, 'W');
+      b.enemy(174);
+      b.flag(178).house(183);
+      return b.done({
+        world: 'EX', name: 'じごくの バイキン城', music: 'boss', ex: true, noFly: true, time: 400, hazards: b.hazards,
+        sections: [
+          { c: 10, name: '溶岩の飛び石' }, { c: 50, name: 'ファイアバー回廊' }, { c: 74, name: 'ストンプ渡り' },
+          { c: 98, name: 'マグマだま地帯' }, { c: 121, name: 'トゲトンネル' }, { c: 152, name: 'ラストジャンプ' },
+        ],
+      });
     },
   ];
 

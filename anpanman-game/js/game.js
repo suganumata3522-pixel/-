@@ -32,6 +32,14 @@
   const overlap = AP.overlap = (a, b) =>
     a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
   const clamp = (v, a, b) => (v < a ? a : v > b ? b : v);
+  const rectGap = (b, r) => {
+    const nx = clamp(b.x, r.x, r.x + r.w), ny = clamp(b.y, r.y, r.y + r.h);
+    return Math.hypot(nx - b.x, ny - b.y);
+  };
+  const circleHitsRect = (b, r) => {
+    const nx = clamp(b.x, r.x, r.x + r.w), ny = clamp(b.y, r.y, r.y + r.h);
+    return (nx - b.x) * (nx - b.x) + (ny - b.y) * (ny - b.y) < b.r * b.r;
+  };
 
   AP.blankInput = () => ({ left: false, right: false, up: false, down: false, a: false, b: false, start: false, select: false });
 
@@ -69,7 +77,7 @@
     }
     update() {
       const g = this.g, inp = g.inp;
-      if (g.pressed('up') && !this.flying) this.startFly();
+      if (g.pressed('up') && !this.flying && !g.level.noFly) this.startFly();
       if (this.flying) { this.flyUpdate(); return; }
       const move = (inp.right ? 1 : 0) - (inp.left ? 1 : 0);
       if (move !== 0) {
@@ -157,6 +165,7 @@
       g.collectCoins(this);
       if (this.y > ROWS * T + 60) g.killPlayer();
       else if (g.lavaHit(this)) g.killPlayer();
+      else if (g.spikeHit(this)) g.hurtPlayer();
     }
   }
 
@@ -176,6 +185,11 @@
       if (this.noHurt > 0) this.noHurt--;
       switch (this.state) {
         case 'walk': {
+          if (this.kind === 'hover') {
+            const ny = this.baseY + Math.sin(this.t * 0.05 + this.ph) * this.amp;
+            this.vy = ny - this.y; this.y = ny; this.phase += 0.3;
+            break;
+          }
           this.vy = Math.min(this.vy + 0.9, 15);
           const res = g.move(this);
           if (res.hitWall) this.vx = -res.hitWall * 1.5;
@@ -209,6 +223,7 @@
     }
     stomp() {
       const g = this.g; this.t = 0;
+      if (this.kind === 'hover') { this.state = 'flip'; this.vx = 0; this.vy = 2; g.stats.kabi++; return; }
       if (this.kind === 'winged') { this.kind = 'green'; this.vy = 0; return; }
       if (this.kind === 'purple') {
         if (this.state === 'kicked') { this.state = 'shell'; this.vx = 0; return; }
@@ -469,6 +484,7 @@
       this.spawnIdx = 0; this.camX = 0; this.time = L.time; this.timeTick = 0;
       this.star = 0; this.boss = null; this.flagged = false; this.flagY = 3 * T + 12;
       this.bossDone = false; this.freeze = 0;
+      this.hazards = L.hazards || []; this.playT = 0; this.secSeen = {}; this.clearT = 0; this.noMiss = true;
       // ジャムおじさん姫, held in a cage at the back of the boss room
       this.hime = L.princessC != null ? { x: L.princessC * T + T / 2, lift: 0, freed: false, mood: 'cry', hop: 0, met: 0 } : null;
       this.player = new Player(this, L.start * T + 11, (GT - 1) * T - 100 + T);
@@ -478,6 +494,11 @@
 
     step(inp) {
       this.prev = this.inp; this.inp = inp || AP.blankInput();
+      if (this.level && this.level.ex && this.mode === 'play') {
+        const v = this.inp;
+        (this.inputLog = this.inputLog || []).push((v.left ? 1 : 0) | (v.right ? 2 : 0) | (v.a ? 4 : 0) | (v.b ? 8 : 0));
+        if (this.inputLog.length > 96) this.inputLog.shift();
+      }
       this.frame++; this.modeT++;
       switch (this.mode) {
         case 'title':
@@ -487,8 +508,22 @@
         case 'story': this.storyUpdate(); break;
         case 'intro':
           if (this.modeT === 8) this.music('ready');
-          if (this.modeT >= 140) { this.setMode('play'); this.music(this.level.music); }
+          if (this.modeT >= 140) {
+            if (this.level.ex) { this.setMode('preview'); this.music(null); }
+            else { this.setMode('play'); this.music(this.level.music); }
+          }
           break;
+        case 'preview': {
+          // a quick fly-over of the whole course before the run
+          const maxCam = this.cols * T - VIEW.w, k = Math.min(1, this.modeT / 280), e = k * k * (3 - 2 * k);
+          this.camX = e * maxCam;
+          if (this.modeT === 2) this.sfx('charge');
+          if (this.modeT >= 320) {
+            this.camX = 0; this.setMode('play'); this.music(this.level.music); this.sfx('start');
+            this.textPop('スタート!', VIEW.w / 2, 420, 'big', 70);
+          }
+          break;
+        }
         case 'play': if (this.freeze > 0) this.freeze--; else this.playUpdate(); break;
         case 'flag': this.flagUpdate(); break;
         case 'goal': this.goalUpdate(); break;
@@ -503,7 +538,7 @@
           if (this.modeT >= 240) { this.setMode('title'); this.music('title'); }
           break;
       }
-      if (this.mode !== 'title' && this.mode !== 'story' && this.mode !== 'intro' && this.mode !== 'ending') this.stats.frames++;
+      if (this.mode !== 'title' && this.mode !== 'story' && this.mode !== 'intro' && this.mode !== 'preview' && this.mode !== 'ending') this.stats.frames++;
       this.updateEffects();
       if (this.shake > 0) this.shake--;
       if (this.flash > 0) this.flash--;
@@ -512,9 +547,31 @@
     /* ------------------------------------------------------------ play */
     playUpdate() {
       const p = this.player, L = this.level;
+      this.playT++;
       this.spawnEnemies();
       p.update();
       if (this.mode !== 'play') return;
+      if (this.hazards.length && this.star === 0 && p.inv === 0) {
+        let near = 1e9;
+        for (const h of this.hazards) {
+          const balls = this.hazardBalls(h, this.playT);
+          if (balls.some((b) => circleHitsRect(b, p))) { this.hurtPlayer(); break; }
+          for (const b of balls) near = Math.min(near, rectGap(b, p) - b.r);
+        }
+        // a close call is worth a cheer (cosmetic only)
+        if (this.mode === 'play' && p.genki && near < 10 && this.playT - (this.nearT || -999) > 70) {
+          this.nearT = this.playT;
+          this.textPop('ギリギリ!', p.cx, p.y - 40, 'punch', 40);
+        }
+      }
+      if (L.sections) {
+        L.sections.forEach((s, i) => {
+          if (!this.secSeen[i] && p.x > s.c * T) {
+            this.secSeen[i] = true; this.sfx('start');
+            this.effects.push({ type: 'section', text: s.name, n: i + 1, t: 0, life: 120, screen: true });
+          }
+        });
+      }
       if (this.star > 0) {
         this.star--;
         if (this.star === 0) this.music(this.boss && !this.boss.dead ? 'boss' : L.music);
@@ -541,12 +598,37 @@
         if (++this.timeTick >= 24) { this.timeTick = 0; if (this.time > 0) this.time--; if (this.time === 0) this.killPlayer(); }
       }
     }
+    // positions of the fireballs / magma ball of one hazard at play frame t
+    hazardBalls(h, t) {
+      if (h.type === 'bar') {
+        const a = h.phase + h.speed * t, out = [];
+        for (let i = 0; i < h.len; i++) out.push({ x: h.x + Math.cos(a) * i * 24, y: h.y + Math.sin(a) * i * 24, r: 12, a });
+        if (h.twin) for (let i = 1; i < h.len; i++) out.push({ x: h.x - Math.cos(a) * i * 24, y: h.y - Math.sin(a) * i * 24, r: 12, a });
+        return out;
+      }
+      const k = (t + h.phase) % h.period;
+      if (k >= h.air) return [];
+      const u = k / h.air;
+      return [{ x: h.x, y: GT * T + 24 - h.h * Math.sin(Math.PI * u), r: 21, u }];
+    }
+    spikeHit(p) {
+      const c0 = Math.floor(p.x / T), c1 = Math.floor((p.x + p.w - 1) / T);
+      const r0 = Math.floor(p.y / T), r1 = Math.floor((p.y + p.h - 1) / T);
+      for (let r = r0; r <= r1; r++) for (let c = c0; c <= c1; c++) {
+        const ch = this.tileAt(c, r);
+        if (ch === '^' && overlap(p, { x: c * T + 8, y: r * T + 32, w: T - 16, h: T - 32 })) return true;
+        if (ch === 'v' && overlap(p, { x: c * T + 8, y: r * T, w: T - 16, h: 46 })) return true;
+      }
+      return false;
+    }
     spawnEnemies() {
       const S = this.level.spawns;
       while (this.spawnIdx < S.length && S[this.spawnIdx].c * T < this.camX + VIEW.w + T * 1.5) {
         const s = S[this.spawnIdx++];
-        const kind = s.type === 'K' ? 'purple' : s.type === 'f' ? 'winged' : 'green';
-        this.enemies.push(new Kabi(this, s.c, s.r, kind));
+        const kind = s.type === 'K' ? 'purple' : s.type === 'f' ? 'winged' : s.type === 'h' ? 'hover' : 'green';
+        const k = new Kabi(this, s.c, s.r, kind);
+        if (kind === 'hover') { k.baseY = k.y; k.amp = s.amp; k.ph = s.phase; k.vx = 0; }
+        this.enemies.push(k);
       }
     }
     enemyTurns() {
@@ -814,6 +896,7 @@
     hurtPlayer() {
       const p = this.player;
       if (p.inv > 0 || p.dead || this.star > 0) return;
+      this.noMiss = false;
       if (p.genki) {
         p.genki = false; p.inv = 130; p.hurtT = 40; this.sfx('hurt');
         this.textPop('顔がぬれて ちからが出ない〜', p.cx, p.y - 50, 'speech', 90);
@@ -840,7 +923,7 @@
     /* ---------------------------------------------------- level clear */
     grabFlag() {
       const p = this.player, L = this.level;
-      this.flagged = true; this.setMode('flag'); this.music(null); this.sfx('flag');
+      this.flagged = true; this.clearT = this.playT; this.setMode('flag'); this.music(null); this.sfx('flag');
       this.poleX = L.flagC * T + T / 2;
       p.x = this.poleX - p.w + 10; p.vx = 0; p.vy = 0; p.pose = 'slide'; p.dir = 1; p.flying = false; p.punchT = 0;
       const baseTop = (GT - 1) * T;

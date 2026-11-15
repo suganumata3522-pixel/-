@@ -238,7 +238,7 @@
       ctx.strokeStyle = INK; ctx.lineWidth = 3; ctx.lineCap = 'round'; ctx.stroke();
       ellipse(ctx, x2, y2, 6.5, 4.5, Math.atan2(y2 - y1, x2 - x1)); paint(ctx, col.tip, INK, 2.2);
     }
-    if (e.kind === 'winged') {
+    if (e.kind === 'winged' || e.kind === 'hover') {
       const fl = Math.sin(f * 0.55) * 0.55;
       for (const s of [-1, 1]) {
         ctx.save(); ctx.translate(s * 24, -36); ctx.rotate(s * (-0.3 + fl)); ctx.scale(s, 1);
@@ -692,6 +692,7 @@
             break;
           }
           case 'L': ctx.fillStyle = '#C93A0C'; ctx.fillRect(x, y, T, T); break;
+          case '^': case 'v': spikes(ctx, x, y, ch === 'v'); break;
         }
       }
     }
@@ -821,7 +822,69 @@
     paint(ctx, '#E2342B', INK, 3.5);
     smiley(ctx, x - 44, fy + 40, 17);
   }
-  function house(ctx, g, f) { houseAt(ctx, g.level.houseC * T, f); }
+  function house(ctx, g, f) {
+    if (g.level.theme === 'castle') gate(ctx, g.level.houseC * T, f);
+    else houseAt(ctx, g.level.houseC * T, f);
+  }
+  // castle exit: a stone arch with daylight beyond and a ゴール sign
+  function gate(ctx, x0, f) {
+    const gy = AP.GT * T, w = 288, h = 380;
+    rr(ctx, x0, gy - h, w, h, 6); paint(ctx, '#6F6690', '#3A3150', 5);
+    ctx.strokeStyle = '#4B4366'; ctx.lineWidth = 3;
+    for (let r = 1; r < 10; r++) { ctx.beginPath(); ctx.moveTo(x0, gy - h + r * 38); ctx.lineTo(x0 + w, gy - h + r * 38); ctx.stroke(); }
+    for (const tx of [x0 - 10, x0 + w - 50]) {
+      rr(ctx, tx, gy - h - 60, 60, h + 60, 4); paint(ctx, '#7A709C', '#3A3150', 5);
+      for (let k = 0; k < 3; k++) { ctx.fillStyle = '#7A709C'; ctx.fillRect(tx + k * 22, gy - h - 84, 16, 26); ctx.strokeStyle = '#3A3150'; ctx.lineWidth = 3; ctx.strokeRect(tx + k * 22, gy - h - 84, 16, 26); }
+      ctx.beginPath(); ctx.moveTo(tx + 30, gy - h - 84); ctx.lineTo(tx + 30, gy - h - 150); ctx.strokeStyle = '#3A3150'; ctx.lineWidth = 4; ctx.stroke();
+      const wv = Math.sin(f * 0.15 + tx) * 6;
+      ctx.beginPath(); ctx.moveTo(tx + 30, gy - h - 150); ctx.quadraticCurveTo(tx + 60, gy - h - 140 + wv, tx + 84, gy - h - 132); ctx.lineTo(tx + 30, gy - h - 118); ctx.closePath(); paint(ctx, '#E2342B', INK, 3);
+    }
+    ctx.beginPath(); ctx.moveTo(x0 + 70, gy); ctx.lineTo(x0 + 70, gy - 190); ctx.arc(x0 + 144, gy - 190, 74, Math.PI, 0); ctx.lineTo(x0 + 218, gy); ctx.closePath();
+    const lg = ctx.createLinearGradient(0, gy - 264, 0, gy); lg.addColorStop(0, '#FFF6CF'); lg.addColorStop(1, '#BFE8FF');
+    paint(ctx, lg, '#3A3150', 5);
+    rr(ctx, x0 + 64, gy - h + 18, 160, 54, 14); paint(ctx, C.gold, C.goldDark, 4);
+    text(ctx, 'ゴール', x0 + 144, gy - h + 46, 36, { fill: '#fff', stroke: C.goldDark, lw: 7 });
+  }
+  function spikes(ctx, x, y, down) {
+    ctx.fillStyle = '#5A5470';
+    if (down) ctx.fillRect(x, y, T, 8); else ctx.fillRect(x, y + T - 8, T, 8);
+    for (let k = 0; k < 3; k++) {
+      const bx = x + k * 24;
+      ctx.beginPath();
+      if (down) { ctx.moveTo(bx + 1, y + 6); ctx.lineTo(bx + 12, y + 48); ctx.lineTo(bx + 23, y + 6); }
+      else { ctx.moveTo(bx + 1, y + T - 6); ctx.lineTo(bx + 12, y + T - 44); ctx.lineTo(bx + 23, y + T - 6); }
+      ctx.closePath(); paint(ctx, '#D6D8E2', '#3A3150', 2.5);
+      ctx.beginPath();
+      if (down) { ctx.moveTo(bx + 8, y + 10); ctx.lineTo(bx + 12, y + 36); } else { ctx.moveTo(bx + 8, y + T - 10); ctx.lineTo(bx + 12, y + T - 34); }
+      ctx.strokeStyle = 'rgba(255,255,255,0.8)'; ctx.lineWidth = 2; ctx.stroke();
+    }
+  }
+  function fireball(ctx, x, y, r, f) {
+    const gl = ctx.createRadialGradient(x, y, 0, x, y, r * 2.4);
+    gl.addColorStop(0, 'rgba(255,170,60,0.45)'); gl.addColorStop(1, 'rgba(255,120,40,0)');
+    ctx.fillStyle = gl; ctx.fillRect(x - r * 2.4, y - r * 2.4, r * 4.8, r * 4.8);
+    const g2 = ctx.createRadialGradient(x - r * 0.3, y - r * 0.3, 1, x, y, r);
+    g2.addColorStop(0, '#FFF8C8'); g2.addColorStop(0.45, '#FFC23A'); g2.addColorStop(1, '#E8481F');
+    circle(ctx, x, y, r + Math.sin(f * 0.6 + x) * 1.2); paint(ctx, g2, '#9A2A10', 2);
+  }
+  function drawHazards(ctx, g, f) {
+    const t = g.mode === 'play' ? g.playT : g.frame;
+    for (const h of g.hazards) {
+      const balls = g.hazardBalls(h, t);
+      if (h.type === 'bar') { for (let i = balls.length - 1; i >= 0; i--) if (i !== 0) fireball(ctx, balls[i].x, balls[i].y, balls[i].r, f + i); continue; }
+      if (!balls.length) continue;
+      const b = balls[0], up = b.u < 0.5;
+      ctx.save(); ctx.translate(b.x, b.y);
+      for (let k = 1; k <= 3; k++) { circle(ctx, Math.sin(f * 0.7 + k) * 3, (up ? 1 : -1) * (b.r + k * 9), b.r * (0.6 - k * 0.14)); ctx.fillStyle = `rgba(255,${150 + k * 25},40,${0.8 - k * 0.2})`; ctx.fill(); }
+      fireball(ctx, 0, 0, b.r, f);
+      for (const sx of [-1, 1]) {
+        ellipse(ctx, sx * 7, -3, 5, 6, 0); ctx.fillStyle = '#fff'; ctx.fill();
+        circle(ctx, sx * 7, -2, 2.6); ctx.fillStyle = '#2B1010'; ctx.fill();
+        ctx.beginPath(); ctx.moveTo(sx * 13, -12); ctx.lineTo(sx * 3, -8); ctx.strokeStyle = '#5A1408'; ctx.lineWidth = 3; ctx.lineCap = 'round'; ctx.stroke();
+      }
+      ctx.restore();
+    }
+  }
   function houseAt(ctx, x0, f) {
     const gy = AP.GT * T;
     for (let i = 0; i < 4; i++) {
@@ -914,6 +977,15 @@
         rr(ctx, -16, -10, 32, 26, 6); paint(ctx, C.gold, C.goldDark, 3);
         ctx.restore(); break;
       }
+      case 'section': {
+        const inT = Math.min(1, e.t / 12), out = e.life - e.t < 14 ? (e.life - e.t) / 14 : 1;
+        ctx.save(); ctx.globalAlpha = out; ctx.translate(-600 * (1 - inT) * (1 - inT), 0);
+        rr(ctx, 110, 128, 860, 110, 22); paint(ctx, 'rgba(40,10,20,0.85)', '#FF8A6A', 4);
+        rr(ctx, 130, 148, 170, 70, 16); paint(ctx, '#E2342B', '#fff', 3);
+        text(ctx, '関門 ' + e.n, 215, 184, 34, { fill: '#fff', stroke: null, lw: 0 });
+        text(ctx, e.text, 620, 184, 54, { fill: '#FFE14D', stroke: INK, lw: 9 });
+        ctx.restore(); break;
+      }
       case 'twinkle': {
         const s = e.t < 10 ? e.t / 10 : 1 - Math.max(0, (e.t - 70) / 30);
         ctx.save(); ctx.translate(e.x, e.y); ctx.rotate(e.t * 0.06); ctx.scale(s, s);
@@ -981,6 +1053,7 @@
     if (L.houseC != null) house(ctx, g, f);
     if (L.flagC != null) flagpole(ctx, g, f);
     drawTiles(ctx, g, f);
+    if (g.hazards && g.hazards.length) drawHazards(ctx, g, f);
     const h = g.hime;
     if (h && h.x > g.camX - 300 && h.x < g.camX + 1400) {
       const arms = !h.freed ? (g.boss && !g.boss.dead && g.boss.state !== 'enter' ? 'bars' : 'up') : h.met ? 'wave' : 'clasp';
@@ -1019,11 +1092,28 @@
       }
       ctx.restore();
     }
-    if (g.mode === 'tally' || g.mode === 'goal') {
+    if ((g.mode === 'tally' || g.mode === 'goal') && L.ex) {
+      const t = g.mode === 'goal' ? g.modeT : g.modeT + 230, s = Math.min(1, t / 12);
+      ctx.save(); ctx.translate(540, 300); ctx.scale(s, s);
+      text(ctx, g.noMiss ? 'ノーミス クリア!!' : 'クリア!!', 0, -40, 96, { fill: '#FFE14D', stroke: '#C2261B', lw: 16, outer: '#fff', outerW: 14 });
+      if (t > 20) text(ctx, 'クリアタイム ' + fmtTime(g.clearT), 0, 70, 56, { fill: '#fff', stroke: INK, lw: 11 });
+      ctx.restore();
+    } else if (g.mode === 'tally' || g.mode === 'goal') {
       const t = g.modeT, s = Math.min(1, t / 12);
       ctx.save(); ctx.translate(540, 300); ctx.scale(s, s);
       text(ctx, 'ステージクリア!', 0, 0, 92, { fill: '#FFE14D', stroke: '#C2261B', lw: 15, outer: '#fff', outerW: 14 });
       ctx.restore();
+    }
+    if (L.ex && g.mode === 'play') {
+      rr(ctx, 24, 24, g.noMiss ? 210 : 0, 58, 29);
+      if (g.noMiss) { paint(ctx, 'rgba(46,140,70,0.88)', '#fff', 3); text(ctx, 'ノーミス中', 129, 54, 30, { fill: '#fff', stroke: null, lw: 0 }); }
+    }
+    if (g.mode === 'preview') {
+      rr(ctx, 190, 26, 700, 76, 38); paint(ctx, 'rgba(40,10,20,0.78)', '#FFB0B0', 3);
+      text(ctx, 'コースを かくにん…  ▶▶', 540, 65, 40, { fill: '#fff', stroke: null, lw: 0 });
+      const k = Math.min(1, g.modeT / 280);
+      rr(ctx, 190, 112, 700, 14, 7); ctx.fillStyle = 'rgba(0,0,0,0.4)'; ctx.fill();
+      rr(ctx, 190, 112, 700 * k, 14, 7); ctx.fillStyle = '#FF6A4D'; ctx.fill();
     }
   }
 
@@ -1105,6 +1195,39 @@
     if (t < 12) { ctx.fillStyle = `rgba(255,255,255,${1 - t / 12})`; ctx.fillRect(0, 0, 1080, 1080); }
     if (t > 285) { ctx.fillStyle = `rgba(0,0,0,${(t - 285) / 15})`; ctx.fillRect(0, 0, 1080, 1080); }
   }
+  function fmtTime(fr) {
+    const cs = Math.floor(fr / 60 * 100), m = Math.floor(cs / 6000), sec = Math.floor(cs / 100) % 60;
+    return m + ':' + String(sec).padStart(2, '0') + '.' + String(cs % 100).padStart(2, '0');
+  }
+  Art.fmtTime = fmtTime;
+  function exIntro(ctx, g, s) {
+    const f = g.frame, t = g.modeT;
+    const bg = ctx.createLinearGradient(0, 0, 0, 1080); bg.addColorStop(0, '#1A0610'); bg.addColorStop(1, '#5A1020');
+    ctx.fillStyle = bg; ctx.fillRect(0, 0, 1080, 1080);
+    for (let i = 0; i < 24; i++) {
+      const x = (i * 47) % 1080, h = 80 + 60 * Math.sin(f * 0.15 + i * 1.3);
+      ctx.beginPath(); ctx.moveTo(x - 40, 1080); ctx.quadraticCurveTo(x, 1080 - h * 2, x + 40, 1080); ctx.closePath();
+      ctx.fillStyle = `rgba(255,${90 + (i % 3) * 40},30,0.55)`; ctx.fill();
+    }
+    ctx.save(); ctx.translate(540, 300); ctx.scale(s, s);
+    ctx.save(); ctx.rotate(-0.08);
+    rr(ctx, -300, -110, 600, 170, 24); paint(ctx, 'rgba(226,52,43,0.15)', '#FF3B30', 10);
+    text(ctx, '鬼ムズ', 0, -24, 150, { fill: '#FF3B30', stroke: '#fff', lw: 10 });
+    ctx.restore();
+    text(ctx, 'WORLD EX', 0, 140, 64, { fill: '#fff', stroke: '#C2261B', lw: 11 });
+    text(ctx, g.level.name, 0, 230, 72, { fill: '#FFE14D', stroke: INK, lw: 12 });
+    ctx.restore();
+    text(ctx, 'むずかしさ', 540, 640, 36, { fill: '#FFB0B0', stroke: null, lw: 0 });
+    for (let i = 0; i < 10; i++) {
+      const on = t > 30 + i * 6, k = on ? Math.min(1, (t - 30 - i * 6) / 6) : 0;
+      ctx.save(); ctx.translate(180 + i * 80, 710); ctx.scale(0.4 + 0.6 * k, 0.4 + 0.6 * k);
+      ctx.beginPath(); for (let j = 0; j < 10; j++) { const a = -Math.PI / 2 + j * Math.PI / 5, r = j % 2 ? 13 : 30; ctx.lineTo(Math.cos(a) * r, Math.sin(a) * r); }
+      ctx.closePath(); paint(ctx, on ? '#FF3B30' : '#5A2A34', '#fff', 3); ctx.restore();
+    }
+    rr(ctx, 120, 800, 840, 150, 30); paint(ctx, 'rgba(0,0,0,0.35)', 'rgba(255,255,255,0.4)', 3);
+    text(ctx, 'そらは とべない!', 540, 845, 44, { fill: '#fff', stroke: null, lw: 0 });
+    text(ctx, 'ノーミスで クリアせよ!', 540, 905, 44, { fill: '#FFE14D', stroke: null, lw: 0 });
+  }
   function drawIntro(ctx, g) {
     const f = g.frame;
     ctx.fillStyle = '#1B1530'; ctx.fillRect(0, 0, 1080, 1080);
@@ -1114,6 +1237,7 @@
     }
     if (g.mode === 'gameover') { text(ctx, 'GAME OVER', 540, 520, 110, { fill: '#fff', stroke: '#C2261B', lw: 14 }); return; }
     const L = g.level, s = Math.min(1, g.modeT / 14);
+    if (L.ex) { exIntro(ctx, g, s); return; }
     ctx.save(); ctx.translate(540, 360); ctx.scale(s, s);
     text(ctx, 'WORLD ' + L.world, 0, 0, 96, { fill: '#fff', stroke: '#C2261B', lw: 14 });
     text(ctx, L.name, 0, 110, 64, { fill: '#FFE14D', stroke: INK, lw: 12 });
@@ -1181,12 +1305,26 @@
     text(ctx, 'WORLD', 680, 150, 28, lab);
     text(ctx, g.level && show ? g.level.world : '1-1', 680, 198, 46, val);
     text(ctx, 'TIME', 920, 150, 28, lab);
-    text(ctx, g.level && show && g.mode !== 'intro' ? String(g.time).padStart(3, '0') : '', 920, 198, 46, val);
+    if (g.level && g.level.ex) text(ctx, show && g.mode !== 'intro' && g.mode !== 'preview' ? fmtTime(g.mode === 'play' ? g.playT : g.clearT) : '', 920, 198, 40, val);
+    else text(ctx, g.level && show && g.mode !== 'intro' ? String(g.time).padStart(3, '0') : '', 920, 198, 46, val);
   }
   Art.padLayout = {
     dpad: { x: 255, y: 1610 }, A: { x: 875, y: 1555, r: 82 }, B: { x: 670, y: 1665, r: 82 },
     select: { x: 330, y: 1846, w: 120, h: 36 }, start: { x: 480, y: 1846, w: 120, h: 36 },
   };
+  // speedrun-style input log: the last 96 frames, newest on the right
+  function inputStrip(ctx, log) {
+    const x0 = 330, y0 = 1392, w = 420, lane = 22;
+    rr(ctx, x0 - 70, y0 - 18, w + 90, lane * 4 + 30, 14); paint(ctx, 'rgba(43,26,18,0.85)', null);
+    const labels = ['←', '→', 'A', 'B'], cols = ['#7CC8FF', '#7CC8FF', '#FF6A5A', '#FFC83A'];
+    labels.forEach((l, i) => text(ctx, l, x0 - 36, y0 + i * lane + lane / 2 - 4, 18, { fill: '#fff', stroke: null, lw: 0 }));
+    const n = log.length, cw = w / 96;
+    for (let i = 0; i < n; i++) {
+      const v = log[i], x = x0 + (96 - n + i) * cw;
+      for (let k = 0; k < 4; k++) if (v & (1 << k)) { ctx.fillStyle = cols[k]; ctx.fillRect(x, y0 + k * lane - 4, cw + 0.6, lane - 8); }
+    }
+    ctx.fillStyle = 'rgba(255,255,255,0.8)'; ctx.fillRect(x0 + w, y0 - 8, 3, lane * 4);
+  }
   function pad(ctx, inp) {
     const Lp = Art.padLayout, y0 = 1330;
     ctx.fillStyle = '#FFF3D9'; ctx.fillRect(0, y0, 1080, 590);
@@ -1257,6 +1395,7 @@
     ctx.restore();
     ctx.fillStyle = INK; ctx.fillRect(0, V.y + V.h, 1080, 4);
     pad(ctx, g.inp);
+    if (g.level && g.level.ex && g.inputLog) inputStrip(ctx, g.inputLog);
     ctx.restore();
   };
 })(typeof window !== 'undefined' ? window : globalThis);
