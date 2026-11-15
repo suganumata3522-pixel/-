@@ -1,6 +1,7 @@
 // Renders the bot playthrough frame-by-frame into a 1080x1920 60fps MP4 with audio.
-// Usage: node tools/record.js [out.mp4] [--bot fly|ground] [--stage 1-3] [--no-bgm] [--max-frames N] [--crf 20]
+// Usage: node tools/record.js [out.mp4] [--bot fly|ground|tas] [--stage 1-4] [--no-bgm] [--max-frames N] [--crf 20]
 // --stage N records only that stage (from its WORLD card to its clear); add --story to open with the kidnapping scene.
+// --bot tas replays the no-miss input list in js/tas-ex.js (made by tools/tas.js) and is meant for --stage 4 (EX).
 // --no-bgm keeps sound effects and jingles but drops the looping background music.
 const { chromium } = require('playwright');
 const { spawn } = require('child_process');

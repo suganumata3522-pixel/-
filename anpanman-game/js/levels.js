@@ -181,7 +181,7 @@
       //    with a fire bar turning in the middle of the route
       b.lava(75, 95);
       [[77, 10], [81, 9], [85, 10], [89, 9], [93, 10]].forEach(([c, r], i) => b.hover(c, r, 22, i * 1.7));
-      b.firebar(87, 6, 5, 0.03, 1.0);
+      b.firebar(87, 4, 5, 0.03, 1.0);
       // 4. マグマだま地帯: one-tile pillars with a magma ball in every gap
       b.ground(96, 99, 'W');
       b.lava(100, 118);
