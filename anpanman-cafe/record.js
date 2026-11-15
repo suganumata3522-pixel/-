@@ -1,11 +1,14 @@
 // YouTubeショート用の操作動画（1080x1920 / 60fps / 音声つき）を書き出す
-// 使い方: node record.js [出力ファイル]
+// 使い方: node record.js [shorts|okawari] [出力ファイル]
 const { chromium } = require('playwright');
 const { spawn, execFileSync } = require('child_process');
 const fs = require('fs'), path = require('path');
-const { SEED, FPS, BOT_PROFILE } = require('./record-config');
+const CONFIGS = require('./record-config');
 
-const OUT = path.resolve(process.argv[2] || path.join(__dirname, 'video', 'anpanman-cafe-shorts.mp4'));
+const NAME = process.argv[2] || 'shorts';
+if (!CONFIGS[NAME]) { console.error('設定がありません: ' + NAME + '（' + Object.keys(CONFIGS).join(' / ') + '）'); process.exit(1); }
+const { SEED, FPS, BOT_PROFILE, QUERY, OUT: OUT_NAME } = CONFIGS[NAME];
+const OUT = path.resolve(process.argv[3] || path.join(__dirname, 'video', OUT_NAME));
 const TMP = path.join(path.dirname(OUT), '.tmp');
 
 (async () => {
@@ -14,7 +17,7 @@ const TMP = path.join(path.dirname(OUT), '.tmp');
   const browser = await chromium.launch();
   const page = await browser.newPage({ viewport: { width: 1080, height: 1920 } });
   page.on('pageerror', e => { console.error('page error:', e); process.exitCode = 1; });
-  await page.goto('file://' + path.join(__dirname, 'index.html') + '?record=1&seed=' + SEED);
+  await page.goto('file://' + path.join(__dirname, 'index.html') + '?record=1&seed=' + SEED + (QUERY ? '&' + QUERY : ''));
   await page.waitForFunction(() => window.REC && window.REC.ready, null, { timeout: 30000 });
   await page.evaluate(([s, p]) => REC.setup(s, p), [SEED, BOT_PROFILE]);
 
