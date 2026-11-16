@@ -3,3 +3,4 @@ tools/out/
 *.wav
 *.video.mp4
 x.mp4
+tools/render.log
