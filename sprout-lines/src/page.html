@@ -1,0 +1,212 @@
+<title>はっぱライン</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="4ひき組のはっぱっこを落として、横一列そろえて収穫する落ちものパズル。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&family=Zen+Maru+Gothic:wght@500;700;900&display=swap">
+<style>
+  /* Layout: a lamplit garden plot. The soil field is the hero; the panels beside it read like wooden plant tags. Full rows of sprouts get harvested. */
+  :root {
+    --loam: #16100b;
+    --tag: #251b13;
+    --bark: #4a3626;
+    --dew: #eef5e4;
+    --dim: #b9c4a8;
+    --moss: #8fd14f;
+    --moss-deep: #2f5d1f;
+    --sun: #ffd43b;
+    --berry: #ff7a63;
+    --display: "Mochiy Pop One", "Zen Maru Gothic", "Hiragino Maru Gothic ProN", sans-serif;
+    --body: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", "Yu Gothic", sans-serif;
+    --leaf-radius: 18px 4px 18px 4px;
+    color-scheme: dark;
+  }
+  [hidden] { display: none !important; }
+  html, body { height: 100%; }
+  body {
+    background:
+      radial-gradient(120% 60% at 50% -10%, rgba(143, 209, 79, .13), transparent 60%),
+      radial-gradient(80% 50% at 50% 110%, rgba(255, 212, 59, .06), transparent 70%),
+      var(--loam);
+    color: var(--dew);
+    font-family: var(--body);
+    font-weight: 500;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    -webkit-tap-highlight-color: transparent;
+  }
+  .app { max-width: 920px; margin: 0 auto; padding-block: 12px 40px; display: flex; flex-direction: column; gap: 12px; }
+
+  .bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .logo { margin: 0; font-family: var(--display); font-weight: 400; font-size: clamp(22px, 5vw, 32px); letter-spacing: .02em; line-height: 1.1; }
+  .logo span { color: var(--moss); }
+  .logo small { display: block; font-family: var(--body); font-size: 12px; font-weight: 700; color: var(--dim); letter-spacing: .08em; margin-top: 2px; }
+
+  button { font: inherit; color: inherit; cursor: pointer; }
+  button:focus-visible { outline: 3px solid var(--sun); outline-offset: 2px; }
+  .chip {
+    border: 2px solid var(--bark); background: var(--tag); color: var(--dew);
+    border-radius: 999px; padding: 6px 14px; font-weight: 700; font-size: 14px;
+  }
+  .chip[aria-pressed="false"] { color: var(--dim); }
+
+  .play { display: grid; grid-template-columns: auto minmax(0, 200px); gap: 16px; justify-content: center; align-items: start; }
+  .board {
+    position: relative;
+    width: min(calc((100dvh - 150px) * 8 / 20.3), 420px);
+    min-width: 220px;
+    aspect-ratio: 8 / 20.3;
+    max-width: 100%;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 0 0 3px var(--bark), 0 0 0 7px #120c08, 0 18px 50px rgba(0, 0, 0, .55);
+  }
+  .board canvas { display: block; width: 100%; height: 100%; }
+
+  .side { display: flex; flex-direction: column; gap: 10px; }
+  .tag {
+    position: relative; background: var(--tag); border: 2px solid var(--bark);
+    border-radius: 10px; padding: 10px 12px 12px;
+  }
+  .tag::before {
+    content: ""; position: absolute; top: 7px; right: 9px; width: 7px; height: 7px; border-radius: 50%;
+    background: var(--loam); box-shadow: inset 0 0 0 2px var(--bark);
+  }
+  .tag h2 { margin: 0 0 4px; font-size: 11px; font-weight: 900; letter-spacing: .14em; color: var(--moss); }
+  .tag output { display: block; font-family: var(--display); font-size: 24px; line-height: 1.2; font-variant-numeric: tabular-nums; color: var(--sun); }
+  .tag small { color: var(--dim); font-size: 12px; font-weight: 700; }
+  .tag small b { color: var(--dew); font-variant-numeric: tabular-nums; }
+  #next { display: block; width: 100%; max-width: 110px; aspect-ratio: 4.4 / 9; }
+  .side-buttons { display: flex; flex-direction: column; gap: 8px; }
+
+  .leaf-btn {
+    border: 0; border-radius: var(--leaf-radius); padding: 12px 18px;
+    background: var(--moss); color: #10210a; font-weight: 900; font-size: 16px;
+    box-shadow: inset 0 -4px 0 rgba(0, 0, 0, .2);
+    transition: transform .08s ease;
+  }
+  .leaf-btn:active { transform: translateY(2px); }
+  .leaf-btn.alt { background: var(--sun); color: #2a1a02; }
+  .leaf-btn.ghost { background: transparent; color: var(--dew); box-shadow: inset 0 0 0 2px var(--bark); }
+
+  .overlay {
+    position: absolute; inset: 0; display: grid; place-items: center; padding: 14px;
+    background: linear-gradient(rgba(14, 10, 6, .6), rgba(14, 10, 6, .82));
+  }
+  .panel { display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; max-width: 300px; }
+  .panel h2 { margin: 0; font-family: var(--display); font-weight: 400; font-size: clamp(26px, 7vw, 38px); line-height: 1.15; text-wrap: balance; }
+  .panel h2 span { color: var(--moss); }
+  .panel p { margin: 0; color: var(--dim); font-size: 14px; line-height: 1.6; text-wrap: balance; }
+  .panel .leaf-btn { width: 100%; }
+  .panel .row { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+  .panel dl { display: grid; grid-template-columns: auto auto; gap: 4px 14px; margin: 0; font-size: 14px; }
+  .panel dt { color: var(--dim); text-align: right; }
+  .panel dd { margin: 0; font-family: var(--display); color: var(--sun); text-align: left; font-variant-numeric: tabular-nums; }
+  .keys { font-size: 12px; color: var(--dim); line-height: 1.7; }
+  kbd { font-family: var(--body); font-weight: 900; color: var(--dew); border: 1px solid var(--bark); border-radius: 5px; padding: 0 5px; background: var(--tag); }
+
+  .pad { display: none; grid-template-columns: repeat(6, 1fr); gap: 8px; max-width: 470px; width: 100%; margin: 0 auto; touch-action: none; user-select: none; -webkit-user-select: none; }
+  .pad button {
+    height: 58px; border-radius: 16px; border: 2px solid var(--bark); background: var(--tag);
+    font-size: 24px; font-weight: 900; color: var(--dew); touch-action: none;
+  }
+  .pad button.rot { background: var(--moss-deep); border-color: #3f7a2a; }
+  .pad button.down { background: var(--bark); }
+  .pad button.drop { background: #6b4a12; border-color: #8a6420; font-size: 14px; white-space: nowrap; padding: 0; }
+
+  .howto { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-top: 8px; }
+  .howto article { background: var(--tag); border: 2px solid var(--bark); border-radius: 12px; padding: 14px 16px; min-width: 0; }
+  .howto h3 { margin: 0 0 6px; font-family: var(--display); font-weight: 400; font-size: 17px; color: var(--moss); }
+  .howto p { margin: 0; color: var(--dim); font-size: 14px; line-height: 1.75; }
+  .howto b { color: var(--dew); }
+  .note { color: var(--dim); font-size: 12px; text-align: center; margin: 4px 0 0; }
+
+  @media (pointer: coarse), (max-width: 640px) { .pad { display: grid; } }
+  @media (max-width: 640px) {
+    .app { padding-block: 8px 24px; gap: 8px; }
+    .play { grid-template-columns: minmax(0, 1fr) 92px; gap: 10px; }
+    .board { width: min(100%, calc((100dvh - 190px) * 8 / 20.3)); min-width: 0; justify-self: end; }
+    .tag { padding: 8px 8px 9px; }
+    .tag output { font-size: 17px; }
+    .tag h2 { font-size: 10px; letter-spacing: .08em; }
+    .side-buttons .leaf-btn { padding: 10px 6px; font-size: 13px; }
+    .logo small { display: none; }
+    .keys { display: none; }
+  }
+  @media (pointer: coarse) { .keys { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .leaf-btn { transition: none; } }
+</style>
+
+<div class="app">
+  <header class="bar">
+    <h1 class="logo">はっぱ<span>ライン</span><small>横一列そろえて 収穫しよう</small></h1>
+    <button class="chip" id="soundBtn" type="button" aria-pressed="true">音 ON</button>
+  </header>
+
+  <main class="play">
+    <div class="board" id="boardWrap">
+      <canvas id="board" aria-label="プレイフィールド"></canvas>
+      <div class="overlay" id="overlay">
+        <div class="panel" id="menuPanel">
+          <h2>はっぱ<span>ライン</span></h2>
+          <p>4ひき組で落ちてくる はっぱっこを並べて、横一列ぜんぶ埋まると その段が収穫されて消えます。一度に消せるのは最大4段。</p>
+          <button class="leaf-btn" id="startBtn" type="button">あそぶ</button>
+          <button class="leaf-btn alt" id="challengeBtn" type="button">4段消しチャレンジ</button>
+          <p class="keys"><kbd>←</kbd><kbd>→</kbd> いどう　<kbd>↑</kbd><kbd>X</kbd> かいてん　<kbd>Z</kbd> ぎゃく<br><kbd>↓</kbd> はやく　<kbd>Space</kbd> 一気に落とす　<kbd>P</kbd> 停止</p>
+        </div>
+        <div class="panel" id="overPanel" hidden>
+          <h2>おしまい</h2>
+          <dl><dt>スコア</dt><dd id="overScore">0</dd><dt>消した段</dt><dd id="overLines">0</dd></dl>
+          <button class="leaf-btn" id="againBtn" type="button">もういちど</button>
+          <button class="leaf-btn alt" id="againChallengeBtn" type="button">4段消しチャレンジ</button>
+        </div>
+        <div class="panel" id="pausePanel" hidden>
+          <h2>ひとやすみ</h2>
+          <button class="leaf-btn" id="resumeBtn" type="button">つづける</button>
+          <button class="leaf-btn ghost" id="quitBtn" type="button">メニューへ</button>
+        </div>
+      </div>
+    </div>
+
+    <aside class="side">
+      <section class="tag"><h2>NEXT</h2><canvas id="next" aria-label="次の組"></canvas></section>
+      <section class="tag"><h2>スコア</h2><output id="score">0</output><small>ベスト <b id="best">0</b></small></section>
+      <section class="tag"><h2>消した段</h2><output id="lines">0</output><small>レベル <b id="level">1</b></small></section>
+      <div class="side-buttons">
+        <button class="leaf-btn alt" id="sideChallenge" type="button">4段消し</button>
+        <button class="leaf-btn ghost" id="pauseBtn" type="button">いちじ停止</button>
+      </div>
+    </aside>
+  </main>
+
+  <nav class="pad" id="pad" aria-label="タッチ操作">
+    <button type="button" class="rot" data-act="ccw" aria-label="左に回す">↺</button>
+    <button type="button" data-act="left" aria-label="左へ">◀</button>
+    <button type="button" data-act="down" aria-label="はやく落とす">▼</button>
+    <button type="button" data-act="right" aria-label="右へ">▶</button>
+    <button type="button" class="rot" data-act="cw" aria-label="右に回す">↻</button>
+    <button type="button" class="drop" data-act="drop" aria-label="一気に落とす">落とす</button>
+  </nav>
+
+  <section class="howto">
+    <article>
+      <h3>あそびかた</h3>
+      <p>はっぱっこは<b>4ひき組</b>で落ちてきます。回したり動かしたりして並べ、<b>横一列が全部うまる</b>とその段が収穫されて消えます。続けて消すと「れんぞく」でボーナス。</p>
+    </article>
+    <article>
+      <h3>4段消しってなに？</h3>
+      <p>4ひき組の中で<b>4段の高さがあるのは たて棒だけ</b>。だから一度に消せるのは最大4段です。右はしを1列あけて積み、たて棒を落とすと4段まとめて消せます。</p>
+    </article>
+    <article>
+      <h3>4段消しチャレンジ</h3>
+      <p>16段まで積んだ畑に、たて棒が4本続けて来ます。全部右はしに落とせば<b>4段消し×4回で全消し</b>。この畑は1組ずつ落として作れる並びになっています。</p>
+    </article>
+  </section>
+  <p class="note">ファンメイドの非公式パズルです。キャラクターは全てコードで描いたオリジナルです。</p>
+</div>
+
+<!--INLINE:../sprout-chain/src/art.js-->
+<!--INLINE:../sprout-chain/src/sfx.js-->
+<!--INLINE:src/lines.js-->
+<!--INLINE:stack-->
+<!--INLINE:src/game.js-->

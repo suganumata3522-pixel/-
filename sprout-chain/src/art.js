@@ -7,6 +7,8 @@
     3: { body: '#2e86ea', hi: '#86c6ff', lo: '#1949a8', line: '#0b2860', name: 'あお' },
     4: { body: '#8e4fd8', hi: '#cda3ff', lo: '#55249a', line: '#2f1259', name: 'むらさき' },
     5: { body: '#f1efe8', hi: '#ffffff', lo: '#bdb7a8', line: '#635d52', name: 'しろ' },
+    6: { body: '#4cbf4f', hi: '#a6f08a', lo: '#23802f', line: '#103d14', name: 'みどり' },
+    7: { body: '#ff8a2a', hi: '#ffc28a', lo: '#c4520c', line: '#5c2504', name: 'オレンジ' },
   };
   const STEM = '#2b5b20';
 
@@ -249,6 +251,34 @@
         ctx.lineWidth = 0.028;
         ctx.beginPath();
         ctx.arc(0, 0.12, 0.04, 0.2 * Math.PI, 0.8 * Math.PI);
+        ctx.stroke();
+      } else if (c === 6) {
+        // green ones: freckles and a small grin
+        ctx.fillStyle = 'rgba(16,61,20,.55)';
+        for (const [fx, fy] of [[-0.27, 0.1], [-0.22, 0.14], [-0.3, 0.15], [0.27, 0.1], [0.22, 0.14], [0.3, 0.15]]) {
+          ctx.beginPath();
+          ctx.arc(fx, fy, 0.014, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.strokeStyle = p.line;
+        ctx.lineWidth = 0.03;
+        ctx.beginPath();
+        ctx.arc(0, 0.09, 0.07, 0.2 * Math.PI, 0.8 * Math.PI);
+        ctx.stroke();
+      } else if (c === 7) {
+        // orange ones: rosy cheeks and a little w-shaped mouth
+        ctx.fillStyle = 'rgba(255,90,90,.5)';
+        for (const k of [-1, 1]) {
+          ctx.beginPath();
+          ctx.ellipse(k * 0.27, 0.11, 0.055, 0.032, 0, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.strokeStyle = p.line;
+        ctx.lineWidth = 0.026;
+        ctx.beginPath();
+        ctx.moveTo(-0.06, 0.13);
+        ctx.quadraticCurveTo(-0.03, 0.18, 0, 0.13);
+        ctx.quadraticCurveTo(0.03, 0.18, 0.06, 0.13);
         ctx.stroke();
       }
     }
