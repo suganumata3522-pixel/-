@@ -1,14 +1,17 @@
 // Finds an input sequence that clears a stage without taking a single hit, by
 // beam search over short input segments using the real game code (no shortcuts:
 // every candidate is stepped through Game.step). Writes js/tas-ex.js for TasBot.
-// Usage: node tools/tas.js [stage=4] [--width 400] [--out js/tas-ex.js]
+// Usage: node tools/tas.js [stage=4] [--width 400] [--per-cell 8] [--seg 3] [--out js/tas-<key>.js]
+//   --prefix file.js --until C   replay a stored input list until the player passes column C, then search from there
+//   --save-front file.js         on failure, store the inputs of the furthest run (usable as a --prefix)
+//   --stall N                    give up when the front has not moved for N segments
 const vm = require('vm'), fs = require('fs'), path = require('path');
 const root = path.join(__dirname, '..');
 const args = process.argv.slice(2);
 const opt = (name, def) => { const i = args.indexOf(name); return i >= 0 ? args[i + 1] : def; };
 const stage = +(args[0] && !args[0].startsWith('--') ? args[0] : 4);
 const WIDTH = +opt('--width', 400), PER_CELL = +opt('--per-cell', 8), CELL = 40, SEG = +opt('--seg', 3);
-const out = path.resolve(root, opt('--out', 'js/tas-ex.js'));
+const STALL = +opt('--stall', 1e9);
 
 const ctx = { console, Math, Map, Set, Object, Array, String, Number, JSON };
 ctx.globalThis = ctx; vm.createContext(ctx);
@@ -34,12 +37,13 @@ function deep(v, memo) {
   return o;
 }
 
-// per-segment inputs: h = -1/0/1, a = jump held, b = punch
+// per-segment inputs: h = -1/0/1, a = jump held (2 = only on the first frame: the shortest hop), b = punch
 const ACTIONS = [];
 for (const h of [1, 0, -1]) for (const a of [0, 1]) ACTIONS.push({ h, a, b: 0 });
-ACTIONS.push({ h: 1, a: 0, b: 1 }, { h: -1, a: 0, b: 1 });
-const code = (A) => (A.h < 0 ? 1 : 0) | (A.h > 0 ? 2 : 0) | (A.a ? 4 : 0) | (A.b ? 8 : 0);
-const toInput = (A) => Object.assign(AP.blankInput(), { left: A.h < 0, right: A.h > 0, a: !!A.a, b: !!A.b });
+ACTIONS.push({ h: 1, a: 0, b: 1 }, { h: -1, a: 0, b: 1 }, { h: 1, a: 2, b: 0 }, { h: 0, a: 2, b: 0 });
+const aOn = (A, k) => A.a === 1 || (A.a === 2 && k === 0);
+const code = (A, k) => (A.h < 0 ? 1 : 0) | (A.h > 0 ? 2 : 0) | (aOn(A, k) ? 4 : 0) | (A.b ? 8 : 0);
+const toInput = (A, k) => Object.assign(AP.blankInput(), { left: A.h < 0, right: A.h > 0, a: aOn(A, k), b: !!A.b });
 // small penalties keep the run looking like a person's: fewer direction changes, presses and backsteps
 function stepCost(prev, A) {
   let c = 0;
@@ -54,9 +58,27 @@ const failed = (g) => g.mode === 'dying' || g.mode === 'gameover' || g.player.de
 const g0 = new AP.Game();
 g0.startAt(stage - 1);
 while (g0.mode !== 'play') g0.step(AP.blankInput());
-console.log(`stage ${g0.level.world} ${g0.level.name}: ${g0.cols} cols, width ${WIDTH}`);
+const key = opt('--key', g0.level.tasKey || 'ex');
+const out = path.resolve(root, opt('--out', `js/tas-${key}.js`));
+console.log(`stage ${g0.level.world} ${g0.level.name}: ${g0.cols} cols, width ${WIDTH}, key ${key}`);
+
+// optional fixed opening: replay stored inputs up to a column, then search onwards
+const decode = (s) => AP.TasBot.decode(s);
+const readList = (f) => { const t = fs.readFileSync(path.resolve(f), 'utf8'); const m = /'([A-P0-9a-z,]*)'/.exec(t); return m ? m[1] : t.trim(); };
+const prefix = [];
+if (opt('--prefix', 0)) {
+  const seq = decode(readList(opt('--prefix'))), until = +opt('--until', 1e9) * 72;
+  for (const v of seq) {
+    if (g0.player.x >= until) break;
+    g0.step(Object.assign(AP.blankInput(), { left: !!(v & 1), right: !!(v & 2), a: !!(v & 4), b: !!(v & 8) }));
+    prefix.push(v);
+    if (failed(g0) || g0.mode !== 'play') { console.log('prefix ended the run at frame', prefix.length); process.exit(1); }
+  }
+  console.log(`prefix: ${prefix.length} frames, start at x=${(g0.player.x / 72).toFixed(2)} playT=${g0.playT}`);
+}
 
 let beam = [{ g: g0, parent: null, A: null, cost: 0 }];
+let frontNode = beam[0], lastGain = 0;
 let best = null, depth = 0, maxX = 0;
 const t0 = Date.now();
 while (beam.length && !best && depth < 3000) {
@@ -64,10 +86,10 @@ while (beam.length && !best && depth < 3000) {
   const kids = [];
   for (const n of beam) {
     for (const A of ACTIONS) {
-      const c = cloneGame(n.g), inp = toInput(A);
+      const c = cloneGame(n.g);
       let ok = true, done = false;
       for (let k = 0; k < SEG; k++) {
-        c.step(inp);
+        c.step(toInput(A, k));
         if (failed(c)) { ok = false; break; }
         if (c.mode !== 'play') { done = true; break; }
       }
@@ -87,7 +109,7 @@ while (beam.length && !best && depth < 3000) {
     n.score = p.x - 4 * n.cost;
     const alive = n.g.enemies.reduce((s, e) => s + (e.alive() ? 1 : 0), 0);
     const key = [Math.round(p.x / 4), Math.round(p.y / 4), Math.round(p.vx * 2), Math.round(p.vy), p.onGround ? 1 : 0,
-      p.runT > 36 ? 1 : 0, p.jumping ? 1 : 0, p.punchCD > 0 ? 1 : 0, alive].join(',');
+      p.runT > 36 ? 1 : 0, p.jumping ? 1 : 0, p.punchCD > 0 ? 1 : 0, alive, n.g.chaseT0].join(',');
     const o = byKey.get(key);
     if (!o || o.score < n.score) byKey.set(key, n);
   }
@@ -103,7 +125,8 @@ while (beam.length && !best && depth < 3000) {
   }
   for (const n of beam) n.g = null; // parents only need their action from now on
   beam = next;
-  if (beam.length) maxX = Math.max(maxX, beam[0].g.player.x);
+  for (const n of beam) if (n.g.player.x > maxX) { maxX = n.g.player.x; frontNode = n; lastGain = depth; }
+  if (depth - lastGain > STALL) { console.log(`stalled for ${STALL} segments`); break; }
   if (opt('--hist', 0) && depth % 25 === 0 && depth <= 450) {
     const h = {};
     for (const n of beam) { const c = Math.floor(n.g.player.x / 72); h[c] = (h[c] || 0) + 1; }
@@ -126,21 +149,32 @@ while (beam.length && !best && depth < 3000) {
   }
   if (depth % 50 === 0) console.log(`depth ${depth} (${(depth * SEG / 60).toFixed(1)}s) beam ${beam.length} front x=${(maxX / 72).toFixed(1)} tiles  ${((Date.now() - t0) / 1000).toFixed(0)}s`);
 }
-if (!best) { console.log(`NO SOLUTION. furthest x = ${(maxX / 72).toFixed(1)} tiles at depth ${depth}`); process.exit(1); }
-
-const acts = [];
-for (let n = best; n.parent; n = n.parent) acts.push(n.A);
-acts.reverse();
-const frames = [];
-for (const A of acts) for (let k = 0; k < SEG; k++) frames.push(code(A));
+function framesOf(node) {
+  const acts = [];
+  for (let n = node; n.parent; n = n.parent) acts.push(n.A);
+  acts.reverse();
+  const frames = prefix.slice();
+  for (const A of acts) for (let k = 0; k < SEG; k++) frames.push(code(A, k));
+  return frames;
+}
 // run-length encode: <char A..P><count base36>,...
-let enc = '', i = 0;
-while (i < frames.length) { let j = i; while (j < frames.length && frames[j] === frames[i]) j++; enc += String.fromCharCode(65 + frames[i]) + (j - i).toString(36) + ','; i = j; }
-fs.writeFileSync(out, `/* Input list for the EX stage, found by tools/tas.js (${frames.length} frames). */\n(function (G) {\n  const AP = G.AP = G.AP || {};\n  AP.TAS = AP.TAS || {};\n  AP.TAS.ex = '${enc}';\n})(typeof window !== 'undefined' ? window : globalThis);\n`);
+function encode(frames) {
+  let enc = '', i = 0;
+  while (i < frames.length) { let j = i; while (j < frames.length && frames[j] === frames[i]) j++; enc += String.fromCharCode(65 + frames[i]) + (j - i).toString(36) + ','; i = j; }
+  return enc;
+}
+const writeList = (file, frames, note) => fs.writeFileSync(file, `/* Input list for stage ${g0.level.world}, ${note} (${frames.length} frames). */\n(function (G) {\n  const AP = G.AP = G.AP || {};\n  AP.TAS = AP.TAS || {};\n  AP.TAS.${key} = '${encode(frames)}';\n})(typeof window !== 'undefined' ? window : globalThis);\n`);
+if (!best) {
+  console.log(`NO SOLUTION. furthest x = ${(maxX / 72).toFixed(1)} tiles at depth ${depth}`);
+  if (opt('--save-front', 0)) { const fr = framesOf(frontNode); writeList(path.resolve(opt('--save-front')), fr, 'furthest partial run'); console.log('saved furthest run:', fr.length, 'frames'); }
+  process.exit(1);
+}
+const frames = framesOf(best), enc = encode(frames);
+writeList(out, frames, 'found by tools/tas.js');
 console.log(`SOLVED at depth ${depth}: ${frames.length} frames (${(frames.length / 60).toFixed(2)}s)  search ${((Date.now() - t0) / 1000).toFixed(0)}s -> ${path.relative(root, out)}`);
 
 // replay check on a fresh game, exactly as the video will run it
 const g = new AP.Game(); g.startAt(stage - 1);
 const bot = new AP.TasBot(g, enc);
-while (!g.finished && g.frame < 20000) g.step(bot.think());
-console.log(`replay: finished=${g.finished} noMiss=${g.noMiss} clear=${(g.clearT / 60).toFixed(2)}s kabi=${g.stats.kabi} punches=${g.stats.punch}`);
+while (!g.finished && g.frame < 30000) g.step(bot.think());
+console.log(`replay: finished=${g.finished} noMiss=${g.noMiss} clear=${(g.clearT / 60).toFixed(2)}s kabi=${g.stats.kabi} punches=${g.stats.punch} close calls=${g.nearN} min gap=${g.minGap.toFixed(2)}px`);

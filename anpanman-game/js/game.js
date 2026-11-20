@@ -26,7 +26,7 @@
     };
   };
 
-  const SOLID = { G: 1, B: 1, '?': 1, M: 1, N: 1, U: 1, S: 1, '[': 1, ']': 1, '{': 1, '}': 1, W: 1, X: 1 };
+  const SOLID = { G: 1, B: 1, '?': 1, M: 1, N: 1, U: 1, S: 1, '[': 1, ']': 1, '{': 1, '}': 1, W: 1, X: 1, C: 1 };
   AP.isSolidCh = (ch) => SOLID[ch] === 1;
 
   const overlap = AP.overlap = (a, b) =>
@@ -186,6 +186,13 @@
       switch (this.state) {
         case 'walk': {
           if (this.kind === 'hover') {
+            if (this.ampX != null) {
+              // circling flier: position follows the play clock, so it is the same in every run
+              const a = g.playT * this.spd + this.ph;
+              const nx = this.baseX + Math.cos(a) * this.ampX, ny = this.baseY + Math.sin(a) * this.amp;
+              this.vx = nx - this.x; this.vy = ny - this.y; this.x = nx; this.y = ny; this.phase += 0.3;
+              break;
+            }
             const ny = this.baseY + Math.sin(this.t * 0.05 + this.ph) * this.amp;
             this.vy = ny - this.y; this.y = ny; this.phase += 0.3;
             break;
@@ -485,6 +492,7 @@
       this.star = 0; this.boss = null; this.flagged = false; this.flagY = 3 * T + 12;
       this.bossDone = false; this.freeze = 0;
       this.hazards = L.hazards || []; this.playT = 0; this.secSeen = {}; this.clearT = 0; this.noMiss = true;
+      this.chaseT0 = null; this.nearN = 0; this.minGap = 1e9; this.nearT = -999;
       // ジャムおじさん姫, held in a cage at the back of the boss room
       this.hime = L.princessC != null ? { x: L.princessC * T + T / 2, lift: 0, freed: false, mood: 'cry', hop: 0, met: 0 } : null;
       this.player = new Player(this, L.start * T + 11, (GT - 1) * T - 100 + T);
@@ -551,18 +559,45 @@
       this.spawnEnemies();
       p.update();
       if (this.mode !== 'play') return;
+      const ch = L.chase;
+      if (ch && this.chaseT0 == null && p.x > ch.triggerC * T) {
+        this.chaseT0 = this.playT; this.sfx('alarm'); this.shake = 20;
+        this.textPop('にげろ!!', VIEW.w / 2, 340, 'big', 90);
+      }
       if (this.hazards.length && this.star === 0 && p.inv === 0) {
-        let near = 1e9;
+        let near = 1e9, hit = false, wallGap = 1e9;
         for (const h of this.hazards) {
+          if (h.x0 != null && (p.x > h.x1 + 400 || p.x + p.w < h.x0 - 400)) continue;
+          if (h.type === 'crush' || h.type === 'chase') {
+            const r = this.hazardRect(h, this.playT);
+            if (!r) continue;
+            if (overlap(r, p)) { hit = true; break; }
+            const gap = Math.max(r.x - (p.x + p.w), p.x - (r.x + r.w), 0) + Math.max(r.y - (p.y + p.h), p.y - (r.y + r.h), 0);
+            if (h.type === 'chase') wallGap = gap; else near = Math.min(near, gap);
+            continue;
+          }
           const balls = this.hazardBalls(h, this.playT);
-          if (balls.some((b) => circleHitsRect(b, p))) { this.hurtPlayer(); break; }
+          if (balls.some((b) => circleHitsRect(b, p))) { hit = true; break; }
           for (const b of balls) near = Math.min(near, rectGap(b, p) - b.r);
         }
-        // a close call is worth a cheer (cosmetic only)
-        if (this.mode === 'play' && p.genki && near < 10 && this.playT - (this.nearT || -999) > 70) {
-          this.nearT = this.playT;
-          this.textPop('ギリギリ!', p.cx, p.y - 40, 'punch', 40);
+        if (hit) { if (ch && this.chaseT0 != null && p.x < this.chaseX() + 40) this.killPlayer(); else this.hurtPlayer(); }
+        else if (this.mode === 'play' && p.genki) {
+          if (near < this.minGap) this.minGap = near;
+          // a close call is worth a cheer (cosmetic only)
+          // the chasing wall counts as a close call within one tile
+          if ((near < 10 || wallGap < 72) && this.playT - this.nearT > 70) {
+            this.nearT = this.playT; this.nearN++;
+            this.textPop('ギリギリ!', p.cx, p.y - 40, 'punch', 40);
+          }
         }
+      }
+      if (this.mode !== 'play') return;
+      for (const h of this.hazards) {
+        if (h.type !== 'cannon' && h.type !== 'crush') continue;
+        if (h.x1 < this.camX - 100 || h.x0 > this.camX + VIEW.w + 100) continue;
+        const k = ((this.playT + h.phase) % h.period + h.period) % h.period;
+        if (h.type === 'cannon' && k === 0) { this.sfx('pop'); this.smoke(h.x + h.dir * 40, h.y); }
+        if (h.type === 'crush' && k === h.wait + h.fall) { this.sfx('thud'); this.shake = Math.max(this.shake, 6); this.dust(h.x + h.w / 2, GT * T, 3); }
       }
       if (L.sections) {
         L.sections.forEach((s, i) => {
@@ -604,12 +639,61 @@
         const a = h.phase + h.speed * t, out = [];
         for (let i = 0; i < h.len; i++) out.push({ x: h.x + Math.cos(a) * i * 24, y: h.y + Math.sin(a) * i * 24, r: 12, a });
         if (h.twin) for (let i = 1; i < h.len; i++) out.push({ x: h.x - Math.cos(a) * i * 24, y: h.y - Math.sin(a) * i * 24, r: 12, a });
+        if (h.cross) {
+          for (let i = 1; i < h.len; i++) {
+            out.push({ x: h.x - Math.sin(a) * i * 24, y: h.y + Math.cos(a) * i * 24, r: 12, a });
+            out.push({ x: h.x + Math.sin(a) * i * 24, y: h.y - Math.cos(a) * i * 24, r: 12, a });
+          }
+        }
         return out;
       }
+      if (h.type === 'cannon') {
+        // one iron ball every `period` frames, flying until it reaches the first wall
+        const out = [], life = h.range / h.speed;
+        const k = ((t + h.phase) % h.period + h.period) % h.period;
+        for (let age = k; age <= life; age += h.period) out.push({ x: h.x + h.dir * (h.mouth + age * h.speed), y: h.y, r: 17, age });
+        return out;
+      }
+      if (h.type !== 'podo') return [];
       const k = (t + h.phase) % h.period;
       if (k >= h.air) return [];
       const u = k / h.air;
       return [{ x: h.x, y: GT * T + 24 - h.h * Math.sin(Math.PI * u), r: 21, u }];
+    }
+    // a spiked press: waits up, slams down, rests, then grinds back up
+    crushY(h, t) {
+      const k = ((t + h.phase) % h.period + h.period) % h.period;
+      const d0 = h.wait, d1 = d0 + h.fall, d2 = d1 + h.rest;
+      if (k < d0) return 0;
+      if (k < d1) { const u = (k - d0) / h.fall; return u * u; }
+      if (k < d2) return 1;
+      return 1 - (k - d2) / (h.period - d2);
+    }
+    chaseX() {
+      const c = this.level.chase;
+      if (!c || this.chaseT0 == null) return -1e9;
+      return Math.min(c.endX, c.x0 + c.speed * (this.playT - this.chaseT0));
+    }
+    // solid danger zones (rectangles) of the press and the chasing wall
+    hazardRect(h, t) {
+      if (h.type === 'crush') {
+        const bottom = h.up + (h.down - h.up) * this.crushY(h, t);
+        return { x: h.x + 6, y: h.top, w: h.w - 12, h: bottom - h.top };
+      }
+      if (h.type === 'chase') {
+        if (this.chaseT0 == null) return null;
+        const x = this.chaseX();
+        return { x: x - 4000, y: 0, w: 4000, h: ROWS * T };
+      }
+      return null;
+    }
+    // vanishing platform: on for `on` frames of every `period`
+    blinkOn(b, t) { return ((t + b.phase) % b.period + b.period) % b.period < b.on; }
+    platAt(c, r) {
+      const B = this.level.blinks;
+      if (!B || this.tileAt(c, r) !== 'Q') return false;
+      const b = B[c * 100 + r];
+      return !!b && this.blinkOn(b, this.playT);
     }
     spikeHit(p) {
       const c0 = Math.floor(p.x / T), c1 = Math.floor((p.x + p.w - 1) / T);
@@ -618,6 +702,7 @@
         const ch = this.tileAt(c, r);
         if (ch === '^' && overlap(p, { x: c * T + 8, y: r * T + 32, w: T - 16, h: T - 32 })) return true;
         if (ch === 'v' && overlap(p, { x: c * T + 8, y: r * T, w: T - 16, h: 46 })) return true;
+        if (ch === 'w' && overlap(p, { x: c * T + 8, y: r * T, w: T - 16, h: 20 })) return true;
       }
       return false;
     }
@@ -627,7 +712,10 @@
         const s = S[this.spawnIdx++];
         const kind = s.type === 'K' ? 'purple' : s.type === 'f' ? 'winged' : s.type === 'h' ? 'hover' : 'green';
         const k = new Kabi(this, s.c, s.r, kind);
-        if (kind === 'hover') { k.baseY = k.y; k.amp = s.amp; k.ph = s.phase; k.vx = 0; }
+        if (kind === 'hover') {
+          k.baseY = k.y; k.amp = s.amp; k.ph = s.phase; k.vx = 0;
+          if (s.ampX != null) { k.baseX = k.x; k.ampX = s.ampX; k.spd = s.spd || 0.05; k.update(); k.t = 0; }
+        }
         this.enemies.push(k);
       }
     }
@@ -800,7 +888,7 @@
       if (e.vy > 0) {
         const r = Math.floor((e.y + e.h) / T);
         for (let c = left; c <= right; c++) {
-          if (this.solidAt(c, r) && e.y + e.h - e.vy <= r * T + 1) { e.y = r * T - e.h; e.vy = 0; landed = true; break; }
+          if ((this.solidAt(c, r) || this.platAt(c, r)) && e.y + e.h - e.vy <= r * T + 1) { e.y = r * T - e.h; e.vy = 0; landed = true; break; }
         }
       } else if (e.vy < 0) {
         const r = Math.floor(e.y / T);
@@ -883,7 +971,7 @@
     /* ------------------------------------------------- player events */
     onPunch(p) {
       this.stats.punch++;
-      this.textPop('アンパーンチ!', p.cx + p.dir * 70, p.y - 26, 'punch', 34);
+      this.textPop(this.level && this.level.cast === 'kon' ? 'コンパーンチ!' : 'アンパーンチ!', p.cx + p.dir * 70, p.y - 26, 'punch', 34);
     }
     powerUp(star) {
       const p = this.player;
@@ -899,7 +987,7 @@
       this.noMiss = false;
       if (p.genki) {
         p.genki = false; p.inv = 130; p.hurtT = 40; this.sfx('hurt');
-        this.textPop('顔がぬれて ちからが出ない〜', p.cx, p.y - 50, 'speech', 90);
+        this.textPop(this.level.cast === 'kon' ? 'いたたっ!' : '顔がぬれて ちからが出ない〜', p.cx, p.y - 50, 'speech', 90);
         for (let i = 0; i < 6; i++) this.effects.push({ type: 'drop', x: p.cx + (i - 2.5) * 12, y: p.y + 10, vx: (i - 2.5) * 1.2, vy: -8 - (i % 3) * 2, t: 0, life: 40, g: 0.9 });
       } else this.killPlayer();
     }

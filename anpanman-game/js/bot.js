@@ -337,18 +337,23 @@
 
   /* Replays a recorded input list (one entry per play frame). The list for the
    * EX stage is found offline by tools/tas.js, which searches with the real physics. */
+  // Replays a frame-by-frame input list. Without `data` it uses AP.TAS[level.tasKey] of the stage being played.
   class TasBot {
-    constructor(g, data) {
-      this.g = g; this.seq = [];
+    constructor(g, data) { this.g = g; this.data = data; this.seq = null; this.key = null; }
+    static decode(data) {
+      const seq = [];
       for (const run of (data || '').split(',')) {
         if (!run) continue;
         const v = run.charCodeAt(0) - 65, n = parseInt(run.slice(1) || '1', 36);
-        for (let i = 0; i < n; i++) this.seq.push(v);
+        for (let i = 0; i < n; i++) seq.push(v);
       }
+      return seq;
     }
     think() {
       const g = this.g, inp = AP.blankInput();
       if (g.mode === 'play') {
+        const key = g.level.tasKey || 'ex';
+        if (!this.seq || this.key !== key) { this.key = key; this.seq = TasBot.decode(this.data != null ? this.data : (AP.TAS || {})[key]); }
         const v = this.seq[g.playT] || 0;
         inp.left = !!(v & 1); inp.right = !!(v & 2); inp.a = !!(v & 4); inp.b = !!(v & 8);
       }

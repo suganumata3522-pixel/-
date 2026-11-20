@@ -1,7 +1,7 @@
 // Renders the bot playthrough frame-by-frame into a 1080x1920 60fps MP4 with audio.
-// Usage: node tools/record.js [out.mp4] [--bot fly|ground|tas] [--stage 1-4] [--no-bgm] [--max-frames N] [--crf 20]
+// Usage: node tools/record.js [out.mp4] [--bot fly|ground|tas] [--stage 1-5] [--no-bgm] [--max-frames N] [--crf 20]
 // --stage N records only that stage (from its WORLD card to its clear); add --story to open with the kidnapping scene.
-// --bot tas replays the no-miss input list in js/tas-ex.js (made by tools/tas.js) and is meant for --stage 4 (EX).
+// --bot tas replays the stage's no-miss input list (js/tas-ex.js, js/tas-ex2.js, made by tools/tas.js); use it with --stage 4 or 5.
 // --no-bgm keeps sound effects and jingles but drops the looping background music.
 const { chromium } = require('playwright');
 const { spawn } = require('child_process');
@@ -61,7 +61,7 @@ function run(cmd, argv) {
   console.log('stats', JSON.stringify(await page.evaluate(() => window.REC.stats())));
   await browser.close(); srv.close();
 
-  await run('ffmpeg', ['-y', '-loglevel', 'error', '-i', tmpVideo, '-i', tmpWav, '-c:v', 'copy', '-af', noBgm ? 'volume=2.5dB,alimiter=limit=0.84:level=false' : 'loudnorm=I=-15:TP=-1.5:LRA=11', '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', '-shortest', '-movflags', '+faststart', out]);
+  await run('ffmpeg', ['-y', '-loglevel', 'error', '-i', tmpVideo, '-i', tmpWav, '-c:v', 'copy', '-af', noBgm ? 'volume=2.5dB,alimiter=limit=0.78:level=false' : 'loudnorm=I=-15:TP=-1.5:LRA=11', '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', '-shortest', '-movflags', '+faststart', out]);
   fs.unlinkSync(tmpVideo); fs.unlinkSync(tmpWav);
   console.log('wrote', out, (fs.statSync(out).size / 1e6).toFixed(1) + ' MB', frames, 'frames');
 })().catch((e) => { console.error(e); process.exit(1); });
